@@ -31,7 +31,7 @@ class CityController extends Controller {
                 'expression' => 'app()->controller->isValidAccess(1,"u")'
             ),
             array('allow', // d
-                'actions' => array( 'delete'),
+                'actions' => array('delete'),
                 'expression' => 'app()->controller->isValidAccess(1,"d")'
             )
         );
@@ -103,8 +103,7 @@ class CityController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -112,7 +111,8 @@ class CityController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-       
+//        $session = new CHttpSession;
+//        $session->open();
         $criteria = new CDbCriteria();
 
         $model = new City('search');
@@ -134,7 +134,7 @@ class CityController extends Controller {
             if (!empty($model->province_id))
                 $criteria->addCondition('province_id = "' . $model->province_id . '"');
         }
-        //$session['City_records'] = City::model()->findAll($criteria);
+//        $session['City_records'] = City::model()->findAll($criteria);
 
 
         $this->render('index', array(
@@ -179,7 +179,6 @@ class CityController extends Controller {
         }
     }
 
-   
     public function actionDynaCities() {
         $t_data = City::model()->findAll('province_id=:province_id', array(':province_id' => (int) $_POST['province_id']));
         $data = CHtml::listData($t_data, 'id', 'name');
@@ -197,7 +196,7 @@ class CityController extends Controller {
                 'bootstrap.widgets.TbSelect2', array(
             'name' => $prefix . 'city_' . $name,
             'value' => '',
-            'data' => CHtml::listData(City::model()->findAll(array('condition' => 'province_id="' . $province . '"')), 'id', 'name'),            
+            'data' => CHtml::listData(City::model()->findAll(array('condition' => 'province_id="' . $province . '"')), 'id', 'name'),
             'options' => array(
                 'width' => '40%'
             )), true);
