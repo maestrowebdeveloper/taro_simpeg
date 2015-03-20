@@ -145,8 +145,8 @@ class TicketCategoryController extends Controller
 	 */
 	public function actionIndex()
 	{
-            $session=new CHttpSession;
-            $session->open();		
+//            $session=new CHttpSession;
+//            $session->open();		
             $criteria = new CDbCriteria();            
 
                 $model=new TicketCategory('search');
@@ -183,7 +183,7 @@ class TicketCategoryController extends Controller
                      
                     			
 		}
-                 $session['TicketCategory_records']=TicketCategory::model()->findAll($criteria); 
+//                 $session['TicketCategory_records']=TicketCategory::model()->findAll($criteria); 
        
 
                 $this->render('index',array(

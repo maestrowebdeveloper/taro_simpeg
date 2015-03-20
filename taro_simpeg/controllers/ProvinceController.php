@@ -112,8 +112,8 @@ class ProvinceController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        $session = new CHttpSession;
-        $session->open();
+        //$session = new CHttpSession;
+        //$session->open();
         $criteria = new CDbCriteria();
 
         $model = new Province('search');
@@ -131,7 +131,7 @@ class ProvinceController extends Controller {
             if (!empty($model->name))
                 $criteria->addCondition('name = "' . $model->name . '"');
         }
-        $session['Province_records'] = Province::model()->findAll($criteria);
+        //$session['Province_records'] = Province::model()->findAll($criteria);
 
 
         $this->render('index', array(

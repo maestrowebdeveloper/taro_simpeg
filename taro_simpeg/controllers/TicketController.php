@@ -102,8 +102,8 @@ class TicketController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        $session = new CHttpSession;
-        $session->open();
+//        $session = new CHttpSession;
+//        $session->open();
         $criteria = new CDbCriteria();
 
         $model = new Ticket('search');
@@ -141,7 +141,7 @@ class TicketController extends Controller {
             if (!empty($model->modified))
                 $criteria->addCondition('modified = "' . $model->modified . '"');
         }
-        $session['Ticket_records'] = Ticket::model()->findAll($criteria);
+//        $session['Ticket_records'] = Ticket::model()->findAll($criteria);
 
 
         $this->render('index', array(
