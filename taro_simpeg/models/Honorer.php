@@ -74,7 +74,7 @@ class Honorer extends CActiveRecord
 			'hp' => 'Hp',
 			'golongan_darah' => 'Golongan Darah',
 			'bpjs' => 'Bpjs',
-			'npwp' => 'Npwp',
+			'npwp' => 'No. NPWP',
 			'foto' => 'Foto',
 			'unit_kerja_id' => 'Unit Kerja',
 			'tmt_kontrak' => 'Tmt Kontrak',
