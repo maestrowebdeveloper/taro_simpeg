@@ -197,7 +197,7 @@
                     <!-- End Build page -->
                 </div><!-- End contentwrapper -->
                 <div id="footer" class="span12">
-                    <?php echo app()->name . ' ' . param('appVersion') ?>  ©  2015 All Rights Reserved. Designed and Developed by : <a href="http://www.landa.co.id" target="_blank">Landa Systems</a>
+                    <?php echo app()->name . ' ' . param('appVersion') ?>  ©  2015 All Rights Reserved. 
                 </div>
             </div>
             <!-- End #content -->
