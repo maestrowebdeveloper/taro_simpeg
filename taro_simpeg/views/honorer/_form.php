@@ -30,6 +30,11 @@
         <ul class="nav nav-tabs" id="myTab">
             <li class="active"><a href="#profil">Profil Pegawai</a></li>
             <li ><a href="#jabatan">Unit Kerja & Jabatan</a></li>
+            <?php
+            if ($model->isNewRecord != TRUE) {
+                echo '<li ><a href="#nilaiSkp">Nilai SKP</a></li>';
+            }
+            ?>
         </ul>
 
         <div class="tab-content">
@@ -103,7 +108,7 @@
             </div>
             <div class="tab-pane" id="jabatan">
                 <?php
-                echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span4 angka', 'style' => 'max-width:500px;width:300px', 'maxlength' => 18));
+                echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span4', 'style' => 'max-width:500px;width:300px', 'maxlength' => 18));
                 echo $form->datepickerRow(
                         $model, 'tanggal_register', array(
                     'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
@@ -163,38 +168,81 @@
                 <?php } ?>
 
             </div>
+            <div class="tab-pane" id="nilaiSkp">
+                <?php
+                if ($model->isNewRecord == true) {
+                    $edit = '';
+                    $nilai = array();
+                } else {
+                    if (isset($_GET['v'])) {
+                        $edit = '';
+                    } else {
+                        $edit = 1;
+                    }
+                    $nilai = NilaiHonorer::model()->findAll(array('condition' => 'pegawai_id=' . $model->id));
+                }
+                echo $this->renderPartial('_tableNilai', array('nilai' => $nilai, 'edit' => $edit));
+                ?>
+            </div>
         </div>
-
-
-
-
-
-
-        <?php if (!isset($_GET['v'])) { ?>        <div class="form-actions">
-            <?php
-            $this->widget('bootstrap.widgets.TbButton', array(
-                'buttonType' => 'submit',
-                'type' => 'primary',
-                'icon' => 'ok white',
-                'label' => $model->isNewRecord ? 'Tambah' : 'Simpan',
-            ));
-            ?>
-            <?php
-            $this->widget('bootstrap.widgets.TbButton', array(
-                'buttonType' => 'reset',
-                'icon' => 'remove',
-                'label' => 'Reset',
-            ));
-            ?>
+        <?php if (!isset($_GET['v'])) { ?>        
+            <div class="form-actions">
+                <?php
+                $this->widget('bootstrap.widgets.TbButton', array(
+                    'buttonType' => 'submit',
+                    'type' => 'primary',
+                    'icon' => 'ok white',
+                    'label' => $model->isNewRecord ? 'Tambah' : 'Simpan',
+                ));
+                ?>
+                <?php
+                $this->widget('bootstrap.widgets.TbButton', array(
+                    'buttonType' => 'reset',
+                    'icon' => 'remove',
+                    'label' => 'Reset',
+                ));
+                ?>
             </div>
         <?php } ?>    </fieldset>
 
     <?php $this->endWidget(); ?>
 
 </div>
+<?php
+$this->beginWidget(
+        'bootstrap.widgets.TbModal', array('id' => 'modalForm')
+);
+?>
+<div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3 style="text-align:center">FORM NILAI SKP</h3>
+</div>
+<div class="modal-body form-horizontal">
 
+</div>
+
+<?php $this->endWidget(); ?>
 <style>
-
+    .form-horizontal{
+        margin-bottom: 0px;
+    }
+    .form-actions{
+        margin-bottom: 0px;
+    }
+    .form-row  .control-label{
+        margin-right: 30px;
+    }
+    .form-row .controls input{
+        margin-bottom: 0px;
+    }
+    .modal {
+        height: auto; 
+        width: 90%; 
+        margin : -2% 0 0 -45%; 
+    }
+    .modal-body{
+        max-height: 500px;
+    }
     .form-row  .control-label{
         margin-right: 30px;
     }
