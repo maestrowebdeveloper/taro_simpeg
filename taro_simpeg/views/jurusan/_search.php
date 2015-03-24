@@ -5,9 +5,9 @@
 ));  ?>
 
 
-        <?php echo $form->textFieldRow($model,'id',array('class'=>'span5')); ?>
+        <?php // echo $form->textFieldRow($model,'id',array('class'=>'span5')); ?>
 
-        <?php echo $form->textFieldRow($model,'id_universitas',array('class'=>'span5')); ?>
+        <?php // echo $form->textFieldRow($model,'id_universitas',array('class'=>'span5')); ?>
 
         <?php echo $form->textFieldRow($model,'Name',array('class'=>'span5','maxlength'=>255)); ?>
 

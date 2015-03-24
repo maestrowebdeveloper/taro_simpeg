@@ -53,7 +53,7 @@ class Jurusan extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'id_universitas' => 'Id Universitas',
-			'Name' => 'Name',
+			'Name' => 'Jurusan',
 		);
 	}
 
