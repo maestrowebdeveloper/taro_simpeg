@@ -71,7 +71,7 @@ class PermohonanIjinBelajar extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'nomor_register' => 'Nomor Register',
+			'nomor_register' => 'Nomor Usul',
 			'tanggal' => 'Tanggal',
 			'pegawai_id' => 'Pegawai',
 			'nip' => 'Nip',

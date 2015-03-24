@@ -2,18 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/var/www/isma/taro_simpeg/taro_simpeg/views/eselon/update.php</file>
-            <file>file:/var/www/isma/taro_simpeg/taro_simpeg/controllers/ProvinceController.php</file>
-            <file>file:/var/www/isma/taro_simpeg/taro_simpeg/controllers/CityController.php</file>
-            <file>file:/var/www/isma/taro_simpeg/common/models/Auth.php</file>
-            <file>file:/var/www/isma/taro_simpeg/taro_simpeg/www/simpeg.sampang/index.php</file>
-            <file>file:/var/www/isma/taro_simpeg/common/config/simpeg.sampang.php</file>
-            <file>file:/var/www/isma/taro_simpeg/taro_simpeg/controllers/TicketCategoryController.php</file>
-            <file>file:/var/www/isma/taro_simpeg/taro_simpeg/controllers/TicketController.php</file>
-            <file>file:/var/www/isma/taro_simpeg/taro_simpeg/controllers/EselonController.php</file>
-            <file>file:/var/www/isma/taro_simpeg/taro_simpeg/controllers/UnitKerjaController.php</file>
-            <file>file:/var/www/isma/taro_simpeg/taro_simpeg/views/eselon/create.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
