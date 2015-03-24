@@ -57,7 +57,7 @@
                         <fieldset>
                             <legend>Biodata Pegawai</legend>
                         </fieldset>
-                        <div class="span9"> 
+                        <div class="span9" style="margin-left: 0px;"> 
                             <div class="control-group "><label class="control-label required" for="Pegawai_nip">Nip <span class="required">*</span></label>
                                 <div class="controls">
                                     <input class="span4 angka nip" style="max-width:500px;width:200px" maxlength="18"value="<?php echo $model->nip; ?>" name="Pegawai[nip]" id="Pegawai_nip" type="text">
