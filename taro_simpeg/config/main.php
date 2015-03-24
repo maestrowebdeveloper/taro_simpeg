@@ -54,17 +54,6 @@ return array(
             'enableProfiling' => true,
             'enableParamLogging' => true
         ),
-        'db2' => array(
-            'connectionString' => 'mysql:host=localhost;dbname=taro_config',
-            'emulatePrepare' => true,
-            'username' => $dbUser,
-            'password' => $dbPwd,
-            'tablePrefix' => 'intern_',
-            'charset' => 'utf8',
-            'enableProfiling' => true,
-            'enableParamLogging' => true,
-            'class' => 'CDbConnection'          // DO NOT FORGET THIS!
-        ),
         'landa' => array(
             'class' => 'LandaCore',
         ),

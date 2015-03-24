@@ -10,9 +10,9 @@
  */
 class City extends CActiveRecord {
 
-    public function getDbConnection() {
-        return Yii::app()->db2;
-    }
+//    public function getDbConnection() {
+//        return Yii::app()->db2;
+//    }
 
     /**
      * Returns the static model of the specified AR class.
