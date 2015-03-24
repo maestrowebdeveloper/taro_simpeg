@@ -128,7 +128,7 @@
                             echo $form->datepickerRow(
                                     $model, 'tanggal_lahir', array(
                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                                'prepend' => '<i class="icon-calendar"></i>'
+                                'prepend' => '<i class="icon-calendar"></i>',
                                     )
                             );
                             echo $form->radioButtonListRow($model, 'agama', Pegawai::model()->ArrAgama());
@@ -223,7 +223,11 @@
                                 </div>
                             </div>
 
-                            <?php echo $form->radioButtonListRow($model, 'tipe_jabatan', Pegawai::model()->arrTipeJabatan()); ?>
+                            <?php
+                            echo $form->radioButtonListRow($model, 'tipe_jabatan', Pegawai::model()->arrTipeJabatan(), array(
+                                'onclick' => 'pensiun()'
+                            ));
+                            ?>
 
                             <?php
                             $struktural = ($model->tipe_jabatan == "struktural") ? "" : "none";
@@ -279,6 +283,7 @@
                                 </div>
                                 <div class="control-group "><label class="control-label" for="eselon">Eselon</label>
                                     <div class="controls">
+                                        <input type="hidden" name="masa_kerja" id="id_eselon" value="<?php echo isset($model->JabatanStruktural->Eselon->masa_kerja) ? $model->JabatanStruktural->Eselon->id : 0; ?>">
                                         <?php
                                         echo CHtml::textField('eselon', isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-', array('id' => 'eselon', 'class' => 'span5', 'readonly' => true));
                                         ?>
@@ -661,5 +666,20 @@ $this->beginWidget(
         });
 
     }
-    ;
+
+    function pensiun() {
+        var lahir = new Date($("#Pegawai_tanggal_lahir").val());
+        var tipe = $('input[name="Pegawai[tipe_jabatan]"]:checked').val();
+        var masa_kerja = 0;
+        if (tipe == 'struktural') {
+            masa_kerja = $("#masa_kerja").val();
+        } else if (tipe == 'fungsional_umum') {
+            masa_kerja = 58;
+        } else if (tipe == 'fungsional_tertentu') {
+            masa_kerja = 60;
+        }
+        var kalkulasi = new Date(new Date(lahir).setYear(lahir.getFullYear() + masa_kerja));
+        var pensiun = kalkulasi.getFullYear() + '-' + kalkulasi.getMonth() + '-' + kalkulasi.getDate();
+        $("#Pegawai_tmt_pensiun").val(pensiun)
+    }
 </script>

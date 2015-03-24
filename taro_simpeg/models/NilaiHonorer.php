@@ -39,7 +39,7 @@ class NilaiHonorer extends CActiveRecord {
             array('nilai_hasil_kerja, nilai_orientasi_pelayanan, nilai_integritas, nilai_disiplin, nilai_kerja_sama, nilai_kreativitas', 'length', 'max' => 5),
             array('no_register', 'length', 'max' => 30),
             array('tanggal, created_user_id, created, modified, id', 'safe'),
-            array('tanggal, tahun, nilai_hasil_kerja, nilai_orientasi_pelayanan, nilai_integritas, nilai_disiplin, nilai_kerja_sama, nilai_kreativitas' => 'required'),
+            array('tanggal, tahun, nilai_hasil_kerja, nilai_orientasi_pelayanan, nilai_integritas, nilai_disiplin, nilai_kerja_sama, nilai_kreativitas' , 'required'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, pegawai_id, tanggal, tahun, nilai_hasil_kerja, nilai_orientasi_pelayanan, nilai_integritas, nilai_disiplin, nilai_kerja_sama, nilai_kreativitas, created_user_id, created, modified, no_register', 'safe', 'on' => 'search'),
