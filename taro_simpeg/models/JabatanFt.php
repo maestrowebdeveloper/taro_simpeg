@@ -17,120 +17,119 @@
  * @property integer $created_user_id
  * @property string $modified
  */
-class JabatanFt extends CActiveRecord
-{
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return '{{jabatan_ft}}';
-	}
+class JabatanFt extends CActiveRecord {
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('nama', 'required'),
-			array(' keterangan, status, level, lft, rgt, root, parent_id, created, created_user_id', 'safe'),
-			array('status, level, lft, rgt, root, parent_id, created_user_id', 'numerical', 'integerOnly'=>true),
-			array('nama', 'length', 'max'=>255),
-			array('modified', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, nama, keterangan, status, level, lft, rgt, root, parent_id, created, created_user_id, modified', 'safe', 'on'=>'search'),
-		);
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName() {
+        return '{{jabatan_ft}}';
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules() {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('nama', 'required'),
+            array(' keterangan, status, level, lft, rgt, root, parent_id, created, created_user_id', 'safe'),
+            array('status, level, lft, rgt, root, parent_id, created_user_id', 'numerical', 'integerOnly' => true),
+            array('nama', 'length', 'max' => 255),
+            array('modified', 'safe'),
+            // The following rule is used by search().
+            // @todo Please remove those attributes that should not be searched.
+            array('id, nama, keterangan, status, level, lft, rgt, root, parent_id, created, created_user_id, modified', 'safe', 'on' => 'search'),
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'nama' => 'Jabatan',
-			'keterangan' => 'Keterangan',
-			'status' => 'Status',
-			'level' => 'Level',
-			'lft' => 'Lft',
-			'rgt' => 'Rgt',
-			'root' => 'Root',
-			'parent_id' => 'Parent',
-			'created' => 'Created',
-			'created_user_id' => 'Created User',
-			'modified' => 'Modified',
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations() {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels() {
+        return array(
+            'id' => 'ID',
+            'nama' => 'Jabatan',
+            'keterangan' => 'Keterangan',
+            'status' => 'Status',
+            'level' => 'Level',
+            'lft' => 'Lft',
+            'rgt' => 'Rgt',
+            'root' => 'Root',
+            'parent_id' => 'Parent',
+            'type' => 'Type Jabatan',
+            'created' => 'Created',
+            'created_user_id' => 'Created User',
+            'modified' => 'Modified',
+        );
+    }
 
-		$criteria=new CDbCriteria;
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     *
+     * Typical usecase:
+     * - Initialize the model fields with values from filter form.
+     * - Execute this method to get CActiveDataProvider instance which will filter
+     * models according to data in model fields.
+     * - Pass data provider to CGridView, CListView or any similar widget.
+     *
+     * @return CActiveDataProvider the data provider that can return the models
+     * based on the search/filter conditions.
+     */
+    public function search() {
+        // @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('nama',$this->nama,true);
-		$criteria->compare('keterangan',$this->keterangan,true);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('level',$this->level);
-		$criteria->compare('lft',$this->lft);
-		$criteria->compare('rgt',$this->rgt);
-		$criteria->compare('root',$this->root);
-		$criteria->compare('parent_id',$this->parent_id);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('created_user_id',$this->created_user_id);
-		$criteria->compare('modified',$this->modified,true);
+        $criteria = new CDbCriteria;
 
-		$data =  new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-                        'sort' => array ('defaultOrder' => 'root,lft',),
-		));
+        $criteria->compare('id', $this->id);
+        $criteria->compare('nama', $this->nama, true);
+        $criteria->compare('keterangan', $this->keterangan, true);
+        $criteria->compare('status', $this->status);
+        $criteria->compare('level', $this->level);
+        $criteria->compare('lft', $this->lft);
+        $criteria->compare('rgt', $this->rgt);
+        $criteria->compare('root', $this->root);
+        $criteria->compare('parent_id', $this->parent_id);
+        $criteria->compare('created', $this->created, true);
+        $criteria->compare('created_user_id', $this->created_user_id);
+        $criteria->compare('modified', $this->modified, true);
 
-		app()->session['JabatanFt_records'] = $this->findAll($criteria); 
+        $data = new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'sort' => array('defaultOrder' => 'root,lft',),
+        ));
 
-		return $data;
-	}
+        app()->session['JabatanFt_records'] = $this->findAll($criteria);
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return JabatanFt the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+        return $data;
+    }
 
-	public function behaviors() {
+    /**
+     * Returns the static model of the specified AR class.
+     * Please note that you should have this exact method in all your CActiveRecord descendants!
+     * @param string $className active record class name.
+     * @return JabatanFt the static model class
+     */
+    public static function model($className = __CLASS__) {
+        return parent::model($className);
+    }
+
+    public function getType() {
+        return array('guru' => 'Guru', 'kesehatan' => 'Kesehatan', 'umum' => 'Umum');
+    }
+
+    public function behaviors() {
         return array(
             'nestedSetBehavior' => array(
                 'class' => 'common.extensions.NestedSetBehavior.NestedSetBehavior',
@@ -141,14 +140,15 @@ class JabatanFt extends CActiveRecord
             ),
         );
     }
-    
+
     public function getNestedName() {
         return ($this->level == 1) ? $this->nama : str_repeat("|— ", $this->level - 1) . $this->nama;
     }
-    
+
     protected function beforeValidate() {
         if (empty($this->created_user_id))
             $this->created_user_id = Yii::app()->user->id;
         return parent::beforeValidate();
     }
+
 }
