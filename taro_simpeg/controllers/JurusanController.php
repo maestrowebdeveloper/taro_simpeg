@@ -1,6 +1,6 @@
 <?php
 
-class UniversitasController extends Controller
+class JurusanController extends Controller
 {
         public $breadcrumbs;
 	/**
@@ -45,9 +45,12 @@ class UniversitasController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+                cs()->registerScript('read', '
+                    $("form input, form textarea, form select").each(function(){
+                    $(this).prop("disabled", true);
+                });');
+		$_GET['v'] = true;
+                $this->actionUpdate($id);
 	}
 
 	/**
@@ -56,14 +59,14 @@ class UniversitasController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Universitas;
+		$model=new Jurusan;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Universitas']))
+		if(isset($_POST['Jurusan']))
 		{
-			$model->attributes=$_POST['Universitas'];
+			$model->attributes=$_POST['Jurusan'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -85,9 +88,9 @@ class UniversitasController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Universitas']))
+		if(isset($_POST['Jurusan']))
 		{
-			$model->attributes=$_POST['Universitas'];
+			$model->attributes=$_POST['Jurusan'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -121,29 +124,26 @@ class UniversitasController extends Controller
 	 * Lists all models.
 	 */
 	public function actionIndex()
-	{
-            $session=new CHttpSession;
-            $session->open();		
-            $criteria = new CDbCriteria();            
+	{        
 
-                $model=new Universitas('search');
+                $model=new Jurusan('search');
                 $model->unsetAttributes();  // clear any default values
 
-                if(isset($_GET['Universitas']))
+                if(isset($_GET['Jurusan']))
 		{
-                        $model->attributes=$_GET['Universitas'];
-			
+                        $model->attributes=$_GET['Jurusan'];
 			
                    	
                        if (!empty($model->id)) $criteria->addCondition('id = "'.$model->id.'"');
                      
                     	
-                       if (!empty($model->name)) $criteria->addCondition('name = "'.$model->name.'"');
+                       if (!empty($model->id_universitas)) $criteria->addCondition('id_universitas = "'.$model->id_universitas.'"');
                      
-                    			
-		}
-                 $session['Universitas_records']=Universitas::model()->findAll($criteria); 
-       
+                    	
+                       if (!empty($model->Name)) $criteria->addCondition('Name = "'.$model->Name.'"');
+                     
+                    	
+		}       
 
                 $this->render('index',array(
 			'model'=>$model,
@@ -158,7 +158,7 @@ class UniversitasController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Universitas::model()->findByPk($id);
+		$model=Jurusan::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -170,74 +170,10 @@ class UniversitasController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='universitas-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='jurusan-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
-	}
-        public function actionGenerateExcel()
-	{
-            $session=new CHttpSession;
-            $session->open();		
-            
-             if(isset($session['Universitas_records']))
-               {
-                $model=$session['Universitas_records'];
-               }
-               else
-                 $model = Universitas::model()->findAll();
-
-		
-		Yii::app()->request->sendFile(date('YmdHis').'.xls',
-			$this->renderPartial('excelReport', array(
-				'model'=>$model
-			), true)
-		);
-	}
-        public function actionGeneratePdf() 
-	{
-           
-           $session=new CHttpSession;
-           $session->open();
-		Yii::import('application.modules.admin.extensions.giiplus.bootstrap.*');
-		require_once(Yii::getPathOfAlias('common').'/extensions/tcpdf/tcpdf.php');
-		require_once(Yii::getPathOfAlias('common').'/extensions/tcpdf/config/lang/eng.php');
-
-             if(isset($session['Universitas_records']))
-               {
-                $model=$session['Universitas_records'];
-               }
-               else
-                 $model = Universitas::model()->findAll();
-
-
-
-		$html = $this->renderPartial('expenseGridtoReport', array(
-			'model'=>$model
-		), true);
-		
-		//die($html);
-		
-		$pdf = new TCPDF();
-		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetAuthor(Yii::app()->name);
-		$pdf->SetTitle('Laporan Universitas');
-		$pdf->SetSubject('Laporan Universitas Report');
-		//$pdf->SetKeywords('example, text, report');
-		$pdf->SetHeaderData('', 0, "Report", '');
-		//$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "Laporan" Universitas, "");
-		$pdf->SetHeaderData("", "", "Laporan Universitas", "");
-		$pdf->setHeaderFont(Array('helvetica', '', 8));
-		$pdf->setFooterFont(Array('helvetica', '', 6));
-		$pdf->SetMargins(15, 18, 15);
-		$pdf->SetHeaderMargin(5);
-		$pdf->SetFooterMargin(10);
-		$pdf->SetAutoPageBreak(TRUE, 0);
-		$pdf->SetFont('dejavusans', '', 7);
-		$pdf->AddPage();
-		$pdf->writeHTML($html, true, false, true, false, '');
-		$pdf->LastPage();
-		$pdf->Output("Universitas_002.pdf", "I");
 	}
 }

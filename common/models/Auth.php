@@ -127,15 +127,15 @@ class Auth extends CActiveRecord {
                     array('visible' => landa()->checkAccess('penghargaan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Penghargaan', 'url' => url('/penghargaan'), 'auth_id' => 'penghargaan'),
                     array('visible' => landa()->checkAccess('pelatihan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Pelatihan', 'url' => url('/pelatihan'), 'auth_id' => 'pelatihan'),
                     array('visible' => landa()->checkAccess('hukuman', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Hukuman', 'url' => url('/hukuman'), 'auth_id' => 'hukuman'),
-                    array('visible' => landa()->checkAccess('pendidikan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Pendidikan', 'url' => url('/pendidikan'), 'auth_id' => 'pendidikan'),
+                    array('visible' => landa()->checkAccess('pendidikan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Pendidikan', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
                     array('visible' => landa()->checkAccess('jurusan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Jurusan', 'url' => url('/jurusan'), 'auth_id' => 'jurusan'),
-                    array('visible' => landa()->checkAccess('kampus', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Kampus/Universitas', 'url' => url('/kampus'), 'auth_id' => 'kampus'),
+                    array('visible' => landa()->checkAccess('universitas', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Kampus/Universitas', 'url' => url('/universitas'), 'auth_id' => 'universitas'))),
                 )),
             array('visible' => landa()->checkAccess('pegawai', 'r'), 'label' => '<span class="icon16  icomoon-icon-user-3 "></span>Data Pegawai', 'url' => url('/pegawai'), 'auth_id' => 'pegawai'),
             array('visible' => landa()->checkAccess('honorer', 'r'), 'label' => '<span class="icon16  wpzoom-user-2"></span>Data Honorer', 'url' => url('/honorer'), 'auth_id' => 'honorer'),
             array('visible' => landa()->checkAccess('suratMasuk', 'r'), 'label' => '<span class="icon16  eco-mail "></span>Arsip Surat', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
                     array('visible' => landa()->checkAccess('suratMasuk', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Surat Masuk', 'url' => url('/suratMasuk'), 'auth_id' => 'suratMasuk'),
-                    array('visible' => landa()->checkAccess('suratKeluar', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Surat Keluar', 'url' => url('/suratKeluar'), 'auth_id' => 'suratKeluar'),
+                    array('visible' => landa()->checkAccess('suratKeluar', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Surat Keluar', 'url' => url('/suratKeluar'), 'auth_id' => 'suratKeluar')
                 )),
             array('visible' => landa()->checkAccess('permohonanIjinBelajar', 'r'), 'label' => '<span class="icon16  eco-contract "></span>Permohonan', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
                     array('visible' => landa()->checkAccess('permohonanIjinBelajar', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Ijin Belajar', 'url' => url('/permohonanIjinBelajar'), 'auth_id' => 'permohonanIjinBelajar'),

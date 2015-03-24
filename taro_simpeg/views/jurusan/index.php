@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Universitases');
+$this->setPageTitle('Jurusans');
 $this->breadcrumbs=array(
-	'Universitases',
+	'Jurusans',
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -10,7 +10,7 @@ $('.search-button').click(function(){
     return false;
 });
 $('.search-form form').submit(function(){
-    $.fn.yiiGridView.update('universitas-grid', {
+    $.fn.yiiGridView.update('jurusan-grid', {
         data: $(this).serialize()
     });
     return false;
@@ -29,10 +29,8 @@ $this->widget('bootstrap.widgets.TbMenu', array(
 	'type'=>'pills',
 	'items'=>array(
 		array('label'=>'Tambah', 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
-                array('label'=>'History', 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('index'),'active'=>true, 'linkOptions'=>array()),
+                array('label'=>'List Data', 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('index'),'active'=>true, 'linkOptions'=>array()),
 		array('label'=>'Pencarian', 'icon'=>'icon-search', 'url'=>'#', 'linkOptions'=>array('class'=>'search-button')),
-		array('label'=>'Export ke PDF', 'icon'=>'icon-download', 'url'=>Yii::app()->controller->createUrl('GeneratePdf'), 'linkOptions'=>array('target'=>'_blank'), 'visible'=>true),
-		array('label'=>'Export ke Excel', 'icon'=>'icon-download', 'url'=>Yii::app()->controller->createUrl('GenerateExcel'), 'linkOptions'=>array('target'=>'_blank'), 'visible'=>true),
 	),
 ));
 $this->endWidget();
@@ -48,13 +46,14 @@ $this->endWidget();
 
 
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
-	'id'=>'universitas-grid',
+	'id'=>'jurusan-grid',
 	'dataProvider'=>$model->search(),
         'type'=>'striped bordered condensed',
         'template'=>'{summary}{pager}{items}{pager}',
 	'columns'=>array(
 		'id',
-		'name',
+		'id_universitas',
+		'Name',
        array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
 			'template' => '{view} {update} {delete}',

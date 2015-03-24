@@ -1,20 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "{{universitas}}".
+ * This is the model class for table "{{jurusan}}".
  *
- * The followings are the available columns in table '{{universitas}}':
+ * The followings are the available columns in table '{{jurusan}}':
  * @property integer $id
- * @property string $name
+ * @property integer $id_universitas
+ * @property string $Name
  */
-class Universitas extends CActiveRecord
+class Jurusan extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{universitas}}';
+		return '{{jurusan}}';
 	}
 
 	/**
@@ -25,11 +26,11 @@ class Universitas extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('name', 'length', 'max'=>100),
+			array('id_universitas', 'numerical', 'integerOnly'=>true),
+			array('Name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on'=>'search'),
+			array('id, id_universitas, Name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,7 +52,8 @@ class Universitas extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'id_universitas' => 'Id Universitas',
+			'Name' => 'Name',
 		);
 	}
 
@@ -74,7 +76,8 @@ class Universitas extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('id_universitas',$this->id_universitas);
+		$criteria->compare('Name',$this->Name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -86,7 +89,7 @@ class Universitas extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Universitas the static model class
+	 * @return Jurusan the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
