@@ -54,7 +54,10 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="pegawai">
                     <div class="form-row row-fluid">
-                        <div class="span9"> 
+                        <fieldset>
+                            <legend>Biodata Pegawai</legend>
+                        </fieldset>
+                        <div class="span9" style="margin-left: 0px;"> 
                             <div class="control-group "><label class="control-label required" for="Pegawai_nip">Nip <span class="required">*</span></label>
                                 <div class="controls">
                                     <input class="span4 angka nip" style="max-width:500px;width:200px" maxlength="18"value="<?php echo $model->nip; ?>" name="Pegawai[nip]" id="Pegawai_nip" type="text">
@@ -86,7 +89,7 @@
                                 echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'style' => 'width:50%', 'class' => 'span9'));
                                 echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
                                 echo $form->textFieldRow($model, 'hp', array('class' => 'span5 angka', 'style' => 'max-width:500px;width:200px', 'maxlength' => 25, 'prepend' => '+62'));
-                                 echo $form->textFieldRow($model, 'email', array('class' => 'span5',  'maxlength' => 50));
+                                echo $form->textFieldRow($model, 'email', array('class' => 'span5', 'maxlength' => 50));
                                 echo $form->radioButtonListRow($model, 'golongan_darah', Pegawai::model()->ArrGolonganDarah());
                             }
                             ?>
@@ -130,10 +133,19 @@
                             );
                             echo $form->radioButtonListRow($model, 'agama', Pegawai::model()->ArrAgama());
                             echo $form->radioButtonListRow($model, 'status_pernikahan', Pegawai::model()->arrStatusPernikahan());
+                            ?>
+                            <fieldset>
+                                <legend>Status Kepegawaian</legend>
+                            </fieldset>
+                            <?php
                             echo $form->textFieldRow($model, 'npwp', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->textFieldRow($model, 'no_taspen', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->textFieldRow($model, 'bpjs', array('class' => 'span5', 'maxlength' => 50));
-
+                            ?>
+                            <fieldset>
+                                <legend>Pangkat & Jabatan</legend>
+                            </fieldset>
+                            <?php
                             $data = array('0' => '- Kedudukan -') + CHtml::listData(Kedudukan::model()->findAll(), 'id', 'nama');
                             echo $form->select2Row($model, 'kedudukan_id', array(
                                 'asDropDownList' => true,
@@ -154,7 +166,8 @@
                                 ))
                             );
                             ?>
-                            <div class="control-group "><label class="control-label" for="Pegawai_tmt_cpns">Tmt CPNS</label>
+                            <div class="control-group ">
+                                <label class="control-label" for="Pegawai_tmt_cpns">Tmt CPNS</label>
                                 <div class="controls">
                                     <div class="input-prepend" style="margin-right: 40px;">
                                         <span class="add-on"><i class="icon-calendar"></i></span>
@@ -182,7 +195,6 @@
                                     )
                             );
                             ?>
-
                             <div class="control-group "><label class="control-label" for="Pegawai_golongan_id">Pangkat/Golru</label>
                                 <div class="controls">
                                     <?php
@@ -367,7 +379,7 @@
                             </div>
 
 
-                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));        ?>
+                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));         ?>
 
                             <?php if (isset($_GET['v'])) { ?>
                                 <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
