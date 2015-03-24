@@ -34,20 +34,21 @@
                 }
                 ?>
 
-
+        <?php echo "<?php if (!isset(\$_GET['v'])) { ?>" ?>
         <div class="form-actions">
             <?php echo "<?php \$this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'type'=>'primary',
                         'icon'=>'ok white',  
 			'label'=>\$model->isNewRecord ? 'Tambah' : 'Simpan',
-		)); ?>\n"; ?>
-            <?php echo "<?php \$this->widget('bootstrap.widgets.TbButton', array(
+		)); ?>\n";
+                echo "<?php \$this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'reset',
                         'icon'=>'remove',  
 			'label'=>'Reset',
 		)); ?>\n"; ?>
         </div>
+        <?php echo "<?php } ?>" ?>
     </fieldset>
 
     <?php echo "<?php \$this->endWidget(); ?>\n"; ?>

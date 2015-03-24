@@ -52,9 +52,12 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+                cs()->registerScript('read', '
+                    $("form input, form textarea, form select").each(function(){
+                    $(this).prop("disabled", true);
+                });');
+		$_GET['v'] = true;
+                $this->actionUpdate($id);
 	}
 
 	/**
@@ -128,10 +131,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	 * Lists all models.
 	 */
 	public function actionIndex()
-	{
-            $session=new CHttpSession;
-            $session->open();		
-            $criteria = new CDbCriteria();            
+	{        
 
                 $model=new <?php echo $this->modelClass; ?>('search');
                 $model->unsetAttributes();  // clear any default values
@@ -139,7 +139,6 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
                 if(isset($_GET['<?php echo $this->modelClass; ?>']))
 		{
                         $model->attributes=$_GET['<?php echo $this->modelClass; ?>'];
-			
 			
                    <?php
                     foreach($this->tableSchema->columns as $column)
@@ -150,11 +149,8 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
                      
                     <?php 
                       } 
-                    ?>
-			
-		}
-                 $session['<?php echo $this->modelClass; ?>_records']=<?php echo $this->modelClass; ?>::model()->findAll($criteria); 
-       
+                    ?>	
+		}       
 
                 $this->render('index',array(
 			'model'=>$model,
@@ -186,69 +182,5 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
-	}
-        public function actionGenerateExcel()
-	{
-            $session=new CHttpSession;
-            $session->open();		
-            
-             if(isset($session['<?php echo $this->modelClass; ?>_records']))
-               {
-                $model=$session['<?php echo $this->modelClass; ?>_records'];
-               }
-               else
-                 $model = <?php echo $this->modelClass; ?>::model()->findAll();
-
-		
-		Yii::app()->request->sendFile(date('YmdHis').'.xls',
-			$this->renderPartial('excelReport', array(
-				'model'=>$model
-			), true)
-		);
-	}
-        public function actionGeneratePdf() 
-	{
-           
-           $session=new CHttpSession;
-           $session->open();
-		Yii::import('application.modules.admin.extensions.giiplus.bootstrap.*');
-		require_once(Yii::getPathOfAlias('common').'/extensions/tcpdf/tcpdf.php');
-		require_once(Yii::getPathOfAlias('common').'/extensions/tcpdf/config/lang/eng.php');
-
-             if(isset($session['<?php echo $this->modelClass; ?>_records']))
-               {
-                $model=$session['<?php echo $this->modelClass; ?>_records'];
-               }
-               else
-                 $model = <?php echo $this->modelClass; ?>::model()->findAll();
-
-
-
-		$html = $this->renderPartial('expenseGridtoReport', array(
-			'model'=>$model
-		), true);
-		
-		//die($html);
-		
-		$pdf = new TCPDF();
-		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetAuthor(Yii::app()->name);
-		$pdf->SetTitle('Laporan <?php echo $this->modelClass; ?>');
-		$pdf->SetSubject('Laporan <?php echo $this->modelClass; ?> Report');
-		//$pdf->SetKeywords('example, text, report');
-		$pdf->SetHeaderData('', 0, "Report", '');
-		//$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "Laporan" <?php echo $this->modelClass; ?>, "");
-		$pdf->SetHeaderData("", "", "Laporan <?php echo $this->modelClass; ?>", "");
-		$pdf->setHeaderFont(Array('helvetica', '', 8));
-		$pdf->setFooterFont(Array('helvetica', '', 6));
-		$pdf->SetMargins(15, 18, 15);
-		$pdf->SetHeaderMargin(5);
-		$pdf->SetFooterMargin(10);
-		$pdf->SetAutoPageBreak(TRUE, 0);
-		$pdf->SetFont('dejavusans', '', 7);
-		$pdf->AddPage();
-		$pdf->writeHTML($html, true, false, true, false, '');
-		$pdf->LastPage();
-		$pdf->Output("<?php echo $this->modelClass; ?>_002.pdf", "I");
 	}
 }
