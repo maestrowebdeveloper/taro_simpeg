@@ -1,27 +1,31 @@
 <?php
 
 /**
- * This is the model class for table "{{riwayat_pelatihan}}".
+ * This is the model class for table "{{nilai_honorer}}".
  *
- * The followings are the available columns in table '{{riwayat_pelatihan}}':
+ * The followings are the available columns in table '{{nilai_honorer}}':
  * @property integer $id
  * @property integer $pegawai_id
- * @property integer $pelatihan_id
- * @property string $nomor_register
  * @property string $tanggal
- * @property string $lokasi
- * @property string $penyelenggara
+ * @property integer $tahun
+ * @property string $nilai_hasil_kerja
+ * @property string $nilai_orientasi_pelayanan
+ * @property string $nilai_integritas
+ * @property string $nilai_disiplin
+ * @property string $nilai_kerja_sama
+ * @property string $nilai_kreativitas
+ * @property string $created_user_id
  * @property string $created
- * @property integer $created_user_id
  * @property string $modified
+ * @property string $no_register
  */
-class RiwayatPelatihan extends CActiveRecord {
+class NilaiHonorer extends CActiveRecord {
 
     /**
      * @return string the associated database table name
      */
     public function tableName() {
-        return '{{riwayat_pelatihan}}';
+        return '{{nilai_honorer}}';
     }
 
     /**
@@ -31,14 +35,14 @@ class RiwayatPelatihan extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('pegawai_id, pelatihan_id, nomor_sttpl', 'required'),
-            array('nomor_register, tanggal, lokasi, penyelenggara, created, created_user_id, modified', 'safe'),
-            array('pegawai_id, pelatihan_id, created_user_id', 'numerical', 'integerOnly' => true),
-            array('nomor_register', 'length', 'max' => 225),
-            array('lokasi, penyelenggara', 'length', 'max' => 100),
+            array('pegawai_id, tahun', 'numerical', 'integerOnly' => true),
+            array('nilai_hasil_kerja, nilai_orientasi_pelayanan, nilai_integritas, nilai_disiplin, nilai_kerja_sama, nilai_kreativitas', 'length', 'max' => 5),
+            array('no_register', 'length', 'max' => 30),
+            array('tanggal, created_user_id, created, modified, id', 'safe'),
+            array('tanggal, tahun, nilai_hasil_kerja, nilai_orientasi_pelayanan, nilai_integritas, nilai_disiplin, nilai_kerja_sama, nilai_kreativitas' , 'required'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, pegawai_id, pelatihan_id, nomor_register, tanggal, lokasi, penyelenggara, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, pegawai_id, tanggal, tahun, nilai_hasil_kerja, nilai_orientasi_pelayanan, nilai_integritas, nilai_disiplin, nilai_kerja_sama, nilai_kreativitas, created_user_id, created, modified, no_register', 'safe', 'on' => 'search'),
         );
     }
 
@@ -49,8 +53,6 @@ class RiwayatPelatihan extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'Pegawai' => array(self::BELONGS_TO, 'Pegawai', 'pegawai_id'),
-            'Pelatihan' => array(self::BELONGS_TO, 'Pelatihan', 'pelatihan_id'),
         );
     }
 
@@ -61,15 +63,18 @@ class RiwayatPelatihan extends CActiveRecord {
         return array(
             'id' => 'ID',
             'pegawai_id' => 'Pegawai',
-            'pelatihan_id' => 'Pelatihan',
-            'nomor_register' => 'Nomor Register',
-            'nomor_sttpl' => 'Nomor STTPL',
-            'tanggal' => 'Tanggal',
-            'lokasi' => 'Lokasi',
-            'penyelenggara' => 'Penyelenggara',
-            'created' => 'Created',
+            'tanggal' => 'Tanggal Input',
+            'tahun' => 'Tahun',
+            'nilai_hasil_kerja' => 'Nilai Hasil Kerja',
+            'nilai_orientasi_pelayanan' => 'Nilai Orientasi Pelayanan',
+            'nilai_integritas' => 'Nilai Integritas',
+            'nilai_disiplin' => 'Nilai Disiplin',
+            'nilai_kerja_sama' => 'Nilai Kerja Sama',
+            'nilai_kreativitas' => 'Nilai Kreativitas',
             'created_user_id' => 'Created User',
+            'created' => 'Created',
             'modified' => 'Modified',
+            'no_register' => 'No Register',
         );
     }
 
@@ -92,18 +97,22 @@ class RiwayatPelatihan extends CActiveRecord {
 
         $criteria->compare('id', $this->id);
         $criteria->compare('pegawai_id', $this->pegawai_id);
-        $criteria->compare('pelatihan_id', $this->pelatihan_id);
-        $criteria->compare('nomor_register', $this->nomor_register, true);
         $criteria->compare('tanggal', $this->tanggal, true);
-        $criteria->compare('lokasi', $this->lokasi, true);
-        $criteria->compare('penyelenggara', $this->penyelenggara, true);
+        $criteria->compare('tahun', $this->tahun);
+        $criteria->compare('nilai_hasil_kerja', $this->nilai_hasil_kerja, true);
+        $criteria->compare('nilai_orientasi_pelayanan', $this->nilai_orientasi_pelayanan, true);
+        $criteria->compare('nilai_integritas', $this->nilai_integritas, true);
+        $criteria->compare('nilai_disiplin', $this->nilai_disiplin, true);
+        $criteria->compare('nilai_kerja_sama', $this->nilai_kerja_sama, true);
+        $criteria->compare('nilai_kreativitas', $this->nilai_kreativitas, true);
+        $criteria->compare('created_user_id', $this->created_user_id, true);
         $criteria->compare('created', $this->created, true);
-        $criteria->compare('created_user_id', $this->created_user_id);
         $criteria->compare('modified', $this->modified, true);
+        $criteria->compare('no_register', $this->no_register, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'tanggal DESC')
+            'sort' => array('defaultOrder' => 'id DESC')
         ));
     }
 
@@ -111,24 +120,10 @@ class RiwayatPelatihan extends CActiveRecord {
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return RiwayatPelatihan the static model class
+     * @return NilaiHonorer the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
-    }
-
-    protected function beforeValidate() {
-        if (empty($this->created_user_id))
-            $this->created_user_id = Yii::app()->user->id;
-        return parent::beforeValidate();
-    }
-
-    public function getPegawai() {
-        return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
-    }
-
-    public function getPelatihan() {
-        return (!empty($this->Pelatihan->nama)) ? $this->Pelatihan->nama : '-';
     }
 
 }

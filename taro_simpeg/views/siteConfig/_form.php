@@ -27,15 +27,6 @@
             <li><a href="#perpanjangan_honorer">Format Surat Perpanangan Honorer</a></li>
             <li><a href="#permohonan_mutasi">Format Surat Mutasi</a></li>
             <li><a href="#permohonan_pensiun">Format Surat Pensiun</a></li>           
-            <!-- <li><a href="#format">Code Formatting</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Format Invoice <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a style="padding: 3px" href="#invoice_sell">Sell</a></li> -->
-                   <!--  <li><a style="padding: 3px" href="#report_checkedout">Retur Sell</a></li>      -->               
-                <!-- </ul>
-            </li> 
-            <li><a href="#setting">Settings</a></li> -->
         </ul>
 
         <div class="tab-content">
@@ -74,67 +65,6 @@
 
             </div>
 
-            <div class="tab-pane" id="format">
-                <?php // echo $form->textFieldRow($model, 'format_reservation', array('class' => 'span5', 'maxlength' => 255)); ?>
-                <?php // echo $form->textFieldRow($model, 'format_registration', array('class' => 'span5', 'maxlength' => 255)); ?>
-                <?php //echo $form->textFieldRow($model, 'format_bill', array('class' => 'span5', 'maxlength' => 255)); ?>
-                <?php //echo $form->textFieldRow($model, 'format_bill_charge', array('class' => 'span5', 'maxlength' => 255)); ?>
-                <?php //echo $form->textFieldRow($model, 'format_deposite', array('class' => 'span5', 'maxlength' => 255)); ?>
-                <?php echo $form->textFieldRow($model, 'format_sell', array('class' => 'span5', 'maxlength' => 255)); ?>
-                <?php echo $form->textFieldRow($model, 'format_buy', array('class' => 'span5', 'maxlength' => 255)); ?>
-                <?php echo $form->textFieldRow($model, 'format_other_transaction', array('class' => 'span5', 'maxlength' => 255)); ?>
-                <?php
-//                echo $form->datepickerRow(
-//                        $model, 'date_system', array(
-//                    'options' => array('language' => 'es'),
-//                    'prepend' => '<i class="icon-calendar"></i>'
-//                        )
-//                );
-                ?>
-
-                <div class="well">
-                    <ul>
-                        <li>Isikan formating code, agar sistem dapat melakukan generate kode untuk module - module yang sudah tersedia</li>
-                        <li><b>{ai|<em>3</em>}</b> / <b>{ai|<em>4</em>}</b>  / <b>{ai|<em>5</em>}</b> / <b>{ai|<em>6</em>}</b> : berikan format berikut untuk generate Auto Increase Numbering, contoh {ai|5} untuk 5 digit angka, {ai|3} untuk 3 digit angka</li>
-                        <li><b>{dd}</b>/<b>{mm}</b>/<b>{yy}</b> : berikan format berikut untuk melakukan generate tanggal, bulan, dan tahun </li>
-                        <li>Contoh Formating : <b>BILL/{dd}/{mm}{yy}/{ai|5}</b>, Hasil Generate : <b>BILL/14/0713/00001</b></li>
-                        <li><b>Date System</b>: Set date for reporting.</li>
-                        <li><b>Roles Guest</b>: Chose user or guest for permision login in web admin.</li>
-                    </ul>
-                </div> 
-
-            </div>
-          
-            <div class="tab-pane" id="invoice_sell">
-                <center><h4>DESIGN FORMAT INVOICE SELL TRANSACTION</h4></center>
-                <hr>
-                <?php
-                echo $form->ckEditorRow(
-                        $model, 'report_sell', array(
-                    'options' => array(
-                        'fullpage' => 'js:true',
-                        'filebrowserBrowseUrl' => $this->createUrl("fileManager/indexBlank"),
-                        'resize_maxWidth' => '1007',
-                        'resize_minWidth' => '320'
-                    ), 'label' => false,
-                        )
-                );
-                //echo $form->textAreaRow($model, 'report_sell', array('class' => 'span8', 'rows' => 8)); 
-                ?> 
-                <div class="well">
-                    Gunakan format berikut untuk men-generate sebuah field.
-                    <hr>
-                    <ul>                      
-                        <li><b>{invoice}</b>  : Mengembalikan nomer invoice transaksi</li>                        
-                        <li><b>{date}</b> : Mengembalikan tanggal transaksi</li>                             
-                        <li><b>{desc}</b> : Mengembalikan keterangan / deskripsi</li>                                                                   
-                        <li><b>{cashier}</b> : Mengembalikan nama kasir yang bertugas</li>
-                        <li><b>{total}</b> : Mengembalikan total transaksi yang dilakukan</li>
-                        <li><b>{detail}</b> : Mengembalikan data detail transaksi</li>
-
-                    </ul>
-                </div>
-            </div>
           
             <div class="tab-pane" id="setting">               
                  <div class="control-group "><label class="control-label" for="">Persentase Price Sell</label>
