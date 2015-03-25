@@ -389,6 +389,40 @@ class PegawaiController extends Controller {
         }
     }
 
+
+    public function actionUpload() {
+
+        $id = $_GET['id'];        
+        Yii::import("common.extensions.EAjaxUpload.qqFileUploader");
+        $folder = 'images/file/' . $id.'/'; // folder for uploaded files             
+        if (!file_exists($folder))          
+            mkdir($folder, '777');        
+        $allowedExtensions = array("jpg", "jpeg", "gif", "png", "gif","doc","docx","xls","xlsx","ppt","pptx","pdf","zip", "rar"); //array("jpg","jpeg","gif","exe","mov" and etc...
+        $sizeLimit = 7 * 1024 * 1024;    
+        $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+        $result = $uploader->handleUpload($folder);
+        $return = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+
+        $model = new File;
+        $model->pegawai_id = $_GET['id'];
+        $model->nama = ($result['filename']);                
+        $model->save();                
+        echo $return; // it's array
+    }
+
+    public function actionDeleteFile(){
+
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
+        $model = File::model()->findByPk($id);   
+        if (!empty($model)){ 
+            $file = 'images/file/' . $model->pegawai_id.'/'.$model->nama;            
+                if (file_exists($file))
+                    unlink($file);
+            $model->delete(); 
+            echo $id;       
+        }
+    }
+
     public function actionRemovephoto($id) {
         Pegawai::model()->updateByPk($id, array('foto' => NULL));
     }

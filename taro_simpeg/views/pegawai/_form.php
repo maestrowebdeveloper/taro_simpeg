@@ -415,7 +415,7 @@
                     $hukuman = RiwayatHukuman::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_pemberian DESC'));
                     $pelatihan = RiwayatPelatihan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal DESC'));
                     $penghargaan = RiwayatPenghargaan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_pemberian DESC'));
-                    $file = '';
+                    $file = File::model()->findAll(array('condition'=>'pegawai_id='.$model->id));
 
                     if (!isset($_GET['v']))
                         $edit = true;
@@ -447,7 +447,11 @@
                         <?php echo $this->renderPartial('_tableHukuman', array('hukuman' => $hukuman, 'edit' => $edit)); ?>                
                     </div>
                     <div class="tab-pane" id="file">
-                        <?php echo $this->renderPartial('_tableFile', array('file' => $file, 'edit' => $edit)) ?>
+
+                        <?php 
+                            if (!isset($_GET['v']))                        
+                            echo $this->renderPartial('_formUploadFile', array('model'=>$model,'file' => $file, 'edit' => $edit)) ;
+                            echo $this->renderPartial('_tableFile', array('model'=>$model,'file' => $file, 'edit' => $edit)) ?>
                     </div>
                     <?php
                 }
