@@ -59,13 +59,16 @@ class HonorerController extends Controller {
 
     public function actionSaveNilai() {
         if (isset($_POST['NilaiHonorer'])) {
-            $cek = NilaiHonorer::model()->find(array('condition' => 'pegawai_id=' . $_POST['NilaiHonorer']['pegawai_id'] . ' and tahun=' . $_POST['NilaiHonorer']['tahun']));
-            if (empty($cek)) {
-                if (empty($_POST['NilaiHonorer']['id']))
-                    $model = new NilaiHonorer;
-                else
-                    $model = NilaiHonorer::model()->findByPk($_POST['NilaiHonorer']['id']);
-
+            if (empty($_POST['NilaiHonorer']['id'])) {
+                $model = new NilaiHonorer;
+                $new = 1;
+                $cek = NilaiHonorer::model()->find(array('condition' => 'pegawai_id=' . $_POST['NilaiHonorer']['pegawai_id'] . ' and tahun=' . $_POST['NilaiHonorer']['tahun']));
+            } else {
+                $cek = NilaiHonorer::model()->find(array('condition' => 'pegawai_id=' . $_POST['NilaiHonorer']['pegawai_id'] . ' and tahun=' . $_POST['NilaiHonorer']['tahun'] . ' and id!=' . $_POST['NilaiHonorer']['id']));
+                $model = NilaiHonorer::model()->findByPk($_POST['NilaiHonorer']['id']);
+                $new = 0;
+            }
+            if ((empty($cek) and $new == 0) or $new == 1) {
                 $model->attributes = $_POST['NilaiHonorer'];
                 if ($model->save()) {
                     $nilai = NilaiHonorer::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tahun DESC'));
