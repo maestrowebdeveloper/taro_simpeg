@@ -55,6 +55,9 @@
                 'width' => '40%',
             ))
         );
+        
+        echo $form->radioButtonListRow($model, 'jenjang_pendidikan_asal', Pegawai::model()->ArrJenjangPendidikan());
+       
 
         echo $form->radioButtonListRow($model, 'jenjang_pendidikan', Pegawai::model()->ArrJenjangPendidikan());
         ?>
