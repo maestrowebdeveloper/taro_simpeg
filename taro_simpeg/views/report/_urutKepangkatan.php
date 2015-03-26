@@ -14,7 +14,7 @@ $data = Pegawai::model()->with('Golongan')->findAll();
 </div>
 <div class="report" id="report" style="width: 100%">
 <h3 style="text-align:center">LAPORAN PEGAWAI BERDASARKAN URUTAN KEPANGKATAN PEGAWAI</h3><br>
-<h6  style="text-align:center">Tangga : <?php echo date('d F Y');?></h6>
+<h6  style="text-align:center">Tanggal : <?php echo date('d F Y');?></h6>
 <hr>
 <table class="table table-bordered">
 	<thead>
