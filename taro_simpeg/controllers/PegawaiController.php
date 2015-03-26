@@ -486,11 +486,13 @@ class PegawaiController extends Controller {
     }
 
     public function actionStatusJabatan() {
+        $data['masa_kerja'] = 0;
         $data['eselon'] = '';
         $tipe = (!empty($_POST['Pegawai']['tipe_jabatan'])) ? $_POST['Pegawai']['tipe_jabatan'] : '';
         if ($tipe == "struktural") {
             $model = JabatanStruktural::model()->findByPk($_POST['Pegawai']['jabatan_struktural_id']);
-            $data['eselon'] = $model->Eselon->nama;
+            $data['eselon'] =  isset($model->Eselon->nama) ? $model->Eselon->nama : '-';
+            $data['masa_kerja'] = isset($model->Eselon->masa_kerja) ? $model->Eselon->masa_kerja : 0;
         } elseif ($tipe == "fungsional_umum") {
             $model = JabatanFu::model()->findByPk($_POST['Pegawai']['jabatan_fu_id']);
         } elseif ($tipe == "fungsional_tertentu") {
