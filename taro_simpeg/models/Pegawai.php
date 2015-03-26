@@ -95,7 +95,7 @@ class Pegawai extends CActiveRecord {
             'tmt_pensiun' => 'Tmt Pensiun',
             'created' => 'Created',
             'created_user_id' => 'Created User',
-            'modified' => 'Modified',
+            'modified' => 'Upload File Excel',
         );
     }
 
@@ -208,11 +208,12 @@ class Pegawai extends CActiveRecord {
     }
 
     public function listPegawai() {
-        if (!app()->session['listPegawai']) {
+/*        if (!app()->session['listPegawai']) {
             $result = array();
             $users = $this->findAll(array('index' => 'id'));
             app()->session['listPegawai'] = $users;
-        }
+        }*/
+        $users = $this->findAll(array('index' => 'id'));
         return app()->session['listPegawai'];
     }
 

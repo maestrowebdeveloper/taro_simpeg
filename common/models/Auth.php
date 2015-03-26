@@ -154,6 +154,7 @@ class Auth extends CActiveRecord {
             array('visible' => landa()->checkAccess('infoUlangTahun', 'r'), 'label' => '<span class="icon16  eco-cog "></span>Tools', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
                     array('visible' => landa()->checkAccess('infoUlangTahun', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Info Ulang Tahun', 'url' => url('/pegawai/ulangTahun'), 'auth_id' => 'infoUlangTahun'),
                     array('visible' => landa()->checkAccess('checkError', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Cek Kelengkapan Data', 'url' => url('/pegawai/checkError'), 'auth_id' => 'checkError'),
+                    array('visible' => landa()->checkAccess('importData', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Import Data Pegawai', 'url' => url('/pegawai/importData'), 'auth_id' => 'importData'),
                 )),
             array('visible' => landa()->checkAccess('laporanUrutanKepangkatan', 'r'), 'label' => '<span class="icon16  cut-icon-printer-2 "></span>Laporan Pegawai', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
                     array('visible' => landa()->checkAccess('laporanUrutanKepangkatan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Urutan Kepangkatan', 'url' => url('/report/urutKepangkatan/'), 'auth_id' => 'laporanUrutanKepangkatan'),

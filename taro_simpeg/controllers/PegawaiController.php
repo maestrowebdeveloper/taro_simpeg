@@ -470,6 +470,14 @@ class PegawaiController extends Controller {
         ));
     }
 
+    public function actionImportData() {    
+        $model = new Pegawai('search');
+        $model->unsetAttributes();  // clear any default values  
+        $this->render('importDataPegawai', array(    
+            'model' => $model,        
+        ));
+    }
+
     public function actionCheckErrorExcel() {
         $session = new CHttpSession;
         $session->open();

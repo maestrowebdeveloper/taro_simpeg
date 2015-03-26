@@ -211,6 +211,10 @@ class Honorer extends CActiveRecord
         return (!empty($this->Kota->name))?$this->Kota->name:'-';
     }
 
+    public function getNamaKota() {        
+        return (!empty($this->Kota->name))?$this->Kota->name:'-';
+    }
+
     public function getJabatan() {        
         return (!empty($this->JabatanHonorer->nama))?$this->JabatanHonorer->nama:'-';
     }
