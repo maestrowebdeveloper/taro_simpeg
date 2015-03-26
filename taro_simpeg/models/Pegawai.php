@@ -365,7 +365,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function arrTipeJabatan() {
-        $yes = array('struktural' => 'Struktural', 'fungsional_umum' => 'Fungsional Umum', 'fungsional_tertentu' => 'Fungsional Tertentu');
+        $yes = array('struktural' => 'Eselon', 'fungsional_umum' => 'Fungsional Umum', 'fungsional_tertentu' => 'Fungsional Tertentu');
         return $yes;
     }
 

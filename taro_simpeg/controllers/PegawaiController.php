@@ -389,37 +389,36 @@ class PegawaiController extends Controller {
         }
     }
 
-
     public function actionUpload() {
 
-        $id = $_GET['id'];        
+        $id = $_GET['id'];
         Yii::import("common.extensions.EAjaxUpload.qqFileUploader");
-        $folder = 'images/file/' . $id.'/'; // folder for uploaded files             
-        if (!file_exists($folder))          
-            mkdir($folder, '777');        
-        $allowedExtensions = array("jpg", "jpeg", "gif", "png", "gif","doc","docx","xls","xlsx","ppt","pptx","pdf","zip", "rar"); //array("jpg","jpeg","gif","exe","mov" and etc...
-        $sizeLimit = 7 * 1024 * 1024;    
+        $folder = 'images/file/' . $id . '/'; // folder for uploaded files             
+        if (!file_exists($folder))
+            mkdir($folder, '777');
+        $allowedExtensions = array("jpg", "jpeg", "gif", "png", "gif", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "pdf", "zip", "rar"); //array("jpg","jpeg","gif","exe","mov" and etc...
+        $sizeLimit = 7 * 1024 * 1024;
         $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
         $result = $uploader->handleUpload($folder);
         $return = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
 
         $model = new File;
         $model->pegawai_id = $_GET['id'];
-        $model->nama = ($result['filename']);                
-        $model->save();                
+        $model->nama = ($result['filename']);
+        $model->save();
         echo $return; // it's array
     }
 
-    public function actionDeleteFile(){
+    public function actionDeleteFile() {
 
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
-        $model = File::model()->findByPk($id);   
-        if (!empty($model)){ 
-            $file = 'images/file/' . $model->pegawai_id.'/'.$model->nama;            
-                if (file_exists($file))
-                    unlink($file);
-            $model->delete(); 
-            echo $id;       
+        $model = File::model()->findByPk($id);
+        if (!empty($model)) {
+            $file = 'images/file/' . $model->pegawai_id . '/' . $model->nama;
+            if (file_exists($file))
+                unlink($file);
+            $model->delete();
+            echo $id;
         }
     }
 
@@ -488,12 +487,31 @@ class PegawaiController extends Controller {
         $tipe = (!empty($_POST['Pegawai']['tipe_jabatan'])) ? $_POST['Pegawai']['tipe_jabatan'] : '';
         if ($tipe == "struktural") {
             $model = JabatanStruktural::model()->findByPk($_POST['Pegawai']['jabatan_struktural_id']);
-            $data['eselon'] =  isset($model->Eselon->nama) and !empty($model->Eselon->nama) ? $model->Eselon->nama : '-';
+            $data['eselon'] = isset($model->Eselon->nama) ? $model->Eselon->nama : '-';
             $data['masa_kerja'] = isset($model->Eselon->masa_kerja) ? $model->Eselon->masa_kerja : 0;
         } elseif ($tipe == "fungsional_umum") {
             $model = JabatanFu::model()->findByPk($_POST['Pegawai']['jabatan_fu_id']);
         } elseif ($tipe == "fungsional_tertentu") {
             $model = JabatanFt::model()->findByPk($_POST['Pegawai']['jabatan_ft_id']);
+        }
+        if (!empty($model)) {
+            $data['status'] = $model->status;
+            echo json_encode($data);
+        }
+    }
+
+    public function actionRiwayatStatusJabatan() {
+        $data['masa_kerja'] = 0;
+        $data['eselon'] = '';
+        $tipe = (!empty($_POST['RiwayatJabatan']['tipe_jabatan'])) ? $_POST['RiwayatJabatan']['tipe_jabatan'] : '';
+        if ($tipe == "struktural") {
+            $model = JabatanStruktural::model()->findByPk($_POST['RiwayatJabatan']['jabatan_struktural_id']);
+            $data['eselon'] = isset($model->Eselon->nama) ? $model->Eselon->nama : '-';
+            $data['masa_kerja'] = isset($model->Eselon->masa_kerja) ? $model->Eselon->masa_kerja : 0;
+        } elseif ($tipe == "fungsional_umum") {
+            $model = JabatanFu::model()->findByPk($_POST['RiwayatJabatan']['jabatan_fu_id']);
+        } elseif ($tipe == "fungsional_tertentu") {
+            $model = JabatanFt::model()->findByPk($_POST['RiwayatJabatan']['jabatan_ft_id']);
         }
         if (!empty($model)) {
             $data['status'] = $model->status;
@@ -538,6 +556,12 @@ class PegawaiController extends Controller {
         if (isset($_POST['Pegawai'])) {
 
             $model->attributes = $_POST['Pegawai'];
+            $model->tmt_cpns = $_POST['Pegawai']['tmt_cpns'];
+            $model->tmt_jabatan_struktural = $_POST['Pegawai']['tmt_jabatan_struktural'];
+            $model->tmt_jabatan_fu = $_POST['Pegawai']['tmt_jabatan_fu'];
+            $model->tmt_jabatan_ft = $_POST['Pegawai']['tmt_jabatan_ft'];
+            $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon'];
+            $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
             $model->kota = $_POST['kota'];
             $model->tempat_lahir = $_POST['tempat_lahir'];
 
@@ -617,6 +641,11 @@ class PegawaiController extends Controller {
 
 
             $model->attributes = $_POST['Pegawai'];
+             $model->tmt_jabatan_struktural = $_POST['Pegawai']['tmt_jabatan_struktural'];
+            $model->tmt_jabatan_fu = $_POST['Pegawai']['tmt_jabatan_fu'];
+            $model->tmt_jabatan_ft = $_POST['Pegawai']['tmt_jabatan_ft'];
+            $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon'];
+            $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
             $model->kota = $_POST['kota'];
             $model->tempat_lahir = $_POST['tempat_lahir'];
 

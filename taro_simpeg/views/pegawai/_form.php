@@ -85,7 +85,7 @@
                             echo $form->radioButtonListRow($model, 'jenis_kelamin', Pegawai::model()->ArrJenisKelamin());
                             $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'tempat_lahir', 'cityValue' => $model->tempat_lahir, 'disabled' => false, 'width' => '40%', 'label' => 'Tempat Lahir'));
                             echo $form->datepickerRow(
-                                    $model, 'tanggal_lahir', array(
+                                    $model, 'tanggal_lahir', array('value' => str_replace("0000-00-00", "", $model->tanggal_lahir),
                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                 'prepend' => '<i class="icon-calendar"></i>',
                                     )
@@ -174,6 +174,7 @@
                                         $this->widget(
                                                 'bootstrap.widgets.TbDatePicker', array(
                                             'name' => 'Pegawai[tmt_cpns]',
+                                            'value' => str_replace("0000-00-00", "", $model->tmt_cpns),
                                             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                             'htmlOptions' => array('class' => ''),
                                                 )
@@ -188,7 +189,7 @@
                             </div>
                             <?php
                             echo $form->datepickerRow(
-                                    $model, 'tmt_pns', array(
+                                    $model, 'tmt_pns', array('value' => str_replace("0000-00-00", "", $model->tmt_pns),
                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                 'prepend' => '<i class="icon-calendar"></i>',
                                     )
@@ -269,7 +270,8 @@
                                         )));
                                         echo '&nbsp;&nbsp;';
                                         ?>
-                                        <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
+                                        <div class="input-prepend">
+                                            <span class="add-on"><i class="icon-calendar"></i></span>
                                             <?php
                                             $this->widget(
                                                     'bootstrap.widgets.TbDatePicker', array(
@@ -287,7 +289,20 @@
                                         <input type="hidden" name="masa_kerja" id="masa_kerja" value="<?php echo isset($model->JabatanStruktural->Eselon->masa_kerja) and ! empty($model->JabatanStruktural->Eselon->masa_kerja) ? $model->JabatanStruktural->Eselon->id : 0; ?>">
                                         <?php
                                         echo CHtml::textField('eselon', isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-', array('id' => 'eselon', 'class' => 'span5', 'readonly' => true));
+                                        echo '&nbsp;&nbsp;';
                                         ?>
+                                        <div class="input-prepend">
+                                            <span class="add-on"><i class="icon-calendar"></i></span>
+                                            <?php
+                                            $this->widget(
+                                                    'bootstrap.widgets.TbDatePicker', array(
+                                                'name' => 'Pegawai[tmt_eselon]',
+                                                'value' => str_replace("0000-00-00", "", $model->tmt_eselon),
+                                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -328,7 +343,7 @@
                                             $this->widget(
                                                     'bootstrap.widgets.TbDatePicker', array(
                                                 'name' => 'Pegawai[tmt_jabatan_fu]',
-                                                'value' => $model->tmt_jabatan_fu,
+                                                'value' => str_replace("0000-00-00", "", $model->tmt_jabatan_fu),
                                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                                     )
                                             );
@@ -374,7 +389,7 @@
                                             $this->widget(
                                                     'bootstrap.widgets.TbDatePicker', array(
                                                 'name' => 'Pegawai[tmt_jabatan_ft]',
-                                                'value' => $model->tmt_jabatan_ft,
+                                                'value' => str_replace("0000-00-00", "", $model->tmt_jabatan_ft),
                                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                                     )
                                             );
@@ -382,10 +397,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="control-group "><label class="control-label" for="jabatan_fungsional_tertentu">Jabatan Fungsional</label>
+                                    <div class="controls">
+                                        <?php
+                                        echo CHtml::textField('jabatan_fungsional_tertentu', isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span5', 'readonly' => true));
+                                        ?>   
+                                    </div>
+                                </div>
                             </div>
 
 
-                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));          ?>
+                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));            ?>
 
                             <?php if (isset($_GET['v'])) { ?>
                                 <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
