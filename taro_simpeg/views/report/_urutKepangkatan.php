@@ -1,10 +1,10 @@
 <?php
-$criteria = '';
-if (!empty($model->unit_kerja_id))
-    $criteria .= ' and unit_kerja_id='.$model->unit_kerja_id;
+//$criteria = '';
+//if (!empty($model->unit_kerja_id))
+//    $criteria .= 'unit_kerja_id='.$model->unit_kerja_id;
 
-$data = Pegawai::model()->with('Golongan')->findAll(array('condition' => 'Golongan.tingkat BETWEEN ' . $model->jabatan_fu_id . ' AND ' . $model->jabatan_ft_id . ' '.$criteria));	
-app()->session['Pegawai_records'] = $data; 
+$data = Pegawai::model()->with('Golongan')->findAll();	
+//app()->session['Pegawai_records'] = $data; 
 ?>
 
 <div style="text-align: right">

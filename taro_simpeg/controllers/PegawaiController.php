@@ -604,7 +604,7 @@ class PegawaiController extends Controller {
             if ($model->tipe_jabatan == "struktural") {
                 $jabatan = JabatanStruktural::model()->findByPk($model->jabatan_struktural_id);
             } elseif ($model->tipe_jabatan == "fungsional_umum") {
-                $jabatan = JabatanFu::model()->findByPk($model->jabatan_fu_id);
+                $jabatan = JabatanFu::actioninmodel()->findByPk($model->jabatan_fu_id);
             } elseif ($model->tipe_jabatan == "fungsional_tertentu") {
                 $jabatan = JabatanFt::model()->findByPk($model->jabatan_ft_id);
             }
@@ -792,12 +792,12 @@ class PegawaiController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
-
-        if (isset($session['Pegawai_records'])) {
-            $model = $session['Pegawai_records'];
-        } else
+//        $session = new CHttpSession;
+//        $session->open();
+//
+//        if (isset($session['Pegawai_records'])) {
+//            $model = $session['Pegawai_records'];
+//        } else
             $model = Pegawai::model()->findAll();
 
 
