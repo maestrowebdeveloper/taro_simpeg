@@ -91,10 +91,13 @@ class PegawaiController extends Controller {
         $model = Pegawai::model()->findByPk($id);
         $return['id'] = $id;
         $return['nama'] = $model->namaGelar;
+        $return['jenis_kelamin'] = $model->jenis_kelamin;
         $return['jabatan'] = $model->jabatan;
         $return['tipe_jabatan'] = $model->tipe;
         $return['unit_kerja'] = $model->unitKerja;
         $return['masa_kerja'] = $model->masaKerja;
+        $return['tempat_lahir'] = $model->tempat_lahir;
+        $return['tanggal_lahir'] = $model->tanggal_lahir;
         echo json_encode($return);
     }
 
@@ -160,15 +163,15 @@ class PegawaiController extends Controller {
             else
                 $model = RiwayatJabatan::model()->findByPk($_POST['RiwayatJabatan']['id']);
 
-            $model->attributes = $_POST['RiwayatJabatan'];
-            $model->tipe_jabatan = $_POST['RiwayatJabatan']['tipe_jabatan'];
-            $model->jabatan_struktural_id = $_POST['RiwayatJabatan']['jabatan_struktural_id'];
-            $model->jabatan_fu_id = $_POST['RiwayatJabatan']['jabatan_fu_id'];
-            $model->jabatan_ft_id = $_POST['RiwayatJabatan']['jabatan_ft_id'];
+            $model->attributes = (isset($_POST['RiwayatJabatan']))?$_POST['RiwayatJabatan']:'';
+            $model->tipe_jabatan = (isset($_POST['RiwayatJabatan']['tipe_jabatan']))?$_POST['RiwayatJabatan']['tipe_jabatan']:'';
+            $model->jabatan_struktural_id = (isset($_POST['RiwayatJabatan']['jabatan_struktural_id']))?$_POST['RiwayatJabatan']['jabatan_struktural_id']:'';
+            $model->jabatan_fu_id = (isset($_POST['RiwayatJabatan']['jabatan_fu_id']))?$_POST['RiwayatJabatan']['jabatan_fu_id']:'';
+            $model->jabatan_ft_id = (isset($_POST['RiwayatJabatan']['jabatan_ft_id']))?$_POST['RiwayatJabatan']['jabatan_ft_id']:'';
             if ($model->save()) {
                 $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tmt_mulai DESC'));
                 echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $model->pegawai_id));
-            }
+            }            
         }
     }
 
