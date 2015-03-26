@@ -284,7 +284,7 @@
                                 </div>
                                 <div class="control-group "><label class="control-label" for="eselon">Eselon</label>
                                     <div class="controls">
-                                        <input type="hidden" name="masa_kerja" id="masa_kerja" value="<?php echo isset($model->JabatanStruktural->Eselon->masa_kerja) and !empty($model->JabatanStruktural->Eselon->masa_kerja) ? $model->JabatanStruktural->Eselon->id : 0; ?>">
+                                        <input type="hidden" name="masa_kerja" id="masa_kerja" value="<?php echo isset($model->JabatanStruktural->Eselon->masa_kerja) and ! empty($model->JabatanStruktural->Eselon->masa_kerja) ? $model->JabatanStruktural->Eselon->id : 0; ?>">
                                         <?php
                                         echo CHtml::textField('eselon', isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-', array('id' => 'eselon', 'class' => 'span5', 'readonly' => true));
                                         ?>
@@ -481,9 +481,9 @@
                 ));
                 ?>
                 </div>
-        <?php } ?>    </fieldset>
+            <?php } ?>    </fieldset>
 
-<?php $this->endWidget(); ?>
+        <?php $this->endWidget(); ?>
 
     </div>
 </div>
@@ -524,7 +524,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tablePangkat', array('pangkat' => $pangkat)); ?>
+                    <?php echo $this->renderPartial('_tablePangkat', array('pangkat' => $pangkat)); ?>
                 </td>
             </tr>
             <tr>
@@ -532,7 +532,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tableJabatan', array('jabatan' => $jabatan)); ?> 
+                    <?php echo $this->renderPartial('_tableJabatan', array('jabatan' => $jabatan)); ?> 
                 </td>
             </tr>
             <tr>
@@ -540,7 +540,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tableGaji', array('gaji' => $gaji)); ?>
+                    <?php echo $this->renderPartial('_tableGaji', array('gaji' => $gaji)); ?>
                 </td>
             </tr>
             <tr>
@@ -548,7 +548,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tableKeluarga', array('keluarga' => $keluarga)); ?>
+                    <?php echo $this->renderPartial('_tableKeluarga', array('keluarga' => $keluarga)); ?>
                 </td>
             </tr>
             <tr>
@@ -556,7 +556,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tablePendidikan', array('pendidikan' => $pendidikan)); ?>
+                    <?php echo $this->renderPartial('_tablePendidikan', array('pendidikan' => $pendidikan)); ?>
                 </td>
             </tr>
             <tr>
@@ -564,7 +564,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tablePenghargaan', array('penghargaan' => $penghargaan)); ?> 
+                    <?php echo $this->renderPartial('_tablePenghargaan', array('penghargaan' => $penghargaan)); ?> 
                 </td>
             </tr>
             <tr>
@@ -572,7 +572,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tablePelatihan', array('pelatihan' => $pelatihan)); ?>
+                    <?php echo $this->renderPartial('_tablePelatihan', array('pelatihan' => $pelatihan)); ?>
                 </td>
             </tr>    
             <tr>
@@ -580,7 +580,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tableHukuman', array('hukuman' => $hukuman)); ?>
+                    <?php echo $this->renderPartial('_tableHukuman', array('hukuman' => $hukuman)); ?>
                 </td>
             </tr>
 
