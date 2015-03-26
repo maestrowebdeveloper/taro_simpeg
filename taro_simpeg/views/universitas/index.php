@@ -65,6 +65,7 @@ $this->endWidget();
         )
     ));
     ?>
+
 <button type="submit" name="delete" value="dd" style="margin-left: 10px;display:<?php echo $display;?>" class="btn btn-danger pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Delete Checked</button>    
  <br>
  <br>
@@ -85,7 +86,7 @@ $this->endWidget();
                     'value' => '$data->id',
                 ),
             ),
-		'id',
+	
 		'name',
        array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
@@ -113,5 +114,5 @@ $this->endWidget();
             'htmlOptions'=>array('style'=>'width: 125px'),
            )
 	),
-));$this->endWidget(); ?>
+)); $this->endWidget(); ?>
 

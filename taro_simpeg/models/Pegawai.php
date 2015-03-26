@@ -19,7 +19,7 @@ class Pegawai extends CActiveRecord {
             array('nip, nama, tanggal_lahir, jenis_kelamin,  kedudukan_id, unit_kerja_id', 'required'),
             array('gelar_depan, gelar_belakang, tempat_lahir,pendidikan_terakhir, tahun_pendidikan,agama, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, id', 'safe'),
             array('tempat_lahir, kedudukan_id, kota, unit_kerja_id, golongan_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, gaji, created_user_id, id', 'numerical', 'integerOnly' => true),
-            array('nip, gelar_depan, gelar_belakang, bpjs, npwp', 'length', 'max' => 50),
+            array('nip, gelar_depan, gelar_belakang, bpjs, kpe, npwp', 'length', 'max' => 50),
             array('nama', 'length', 'max' => 100),
             array('jenis_kelamin', 'length', 'max' => 11),
             array('agama, pendidikan_terakhir', 'length', 'max' => 9),
@@ -77,6 +77,7 @@ class Pegawai extends CActiveRecord {
             'golongan_darah' => 'Golongan Darah',
             'bpjs' => 'BPJS',
             'npwp' => 'No. NPWP',
+            'kpe' => 'KPE',
             'no_taspen' => 'No. TASPEN',
             'foto' => 'Foto',
             'unit_kerja_id' => 'Unit Kerja',
@@ -169,6 +170,7 @@ class Pegawai extends CActiveRecord {
         $criteria->compare('golongan_darah', $this->golongan_darah, true);
         $criteria->compare('bpjs', $this->bpjs, true);
         $criteria->compare('npwp', $this->npwp, true);
+        $criteria->compare('kpe', $this->kpe, true);
         $criteria->compare('foto', $this->foto, true);
         $criteria->compare('unit_kerja_id', $this->unit_kerja_id);
         $criteria->compare('tmt_cpns', $this->tmt_cpns, true);
@@ -499,7 +501,15 @@ class Pegawai extends CActiveRecord {
                         ' . $this->npwp . '
                     </div>
                 </div>
-
+ <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>KPE</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->kpe . '
+                    </div>
+                </div>
                 <div class="row-fluid">
                     <div class="span3" style="text-align:left">
                         <b>BPJS</b>

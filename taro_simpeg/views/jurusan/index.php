@@ -63,9 +63,11 @@ $this->endWidget();
         )
     ));
     ?>
+
 <button type="submit" name="delete" value="dd" style="margin-left: 10px;display:<?php echo $display;?>" class="btn btn-danger pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Delete Checked</button>    
  <br>
  <br>
+
 
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'jurusan-grid',
@@ -73,7 +75,7 @@ $this->endWidget();
         'type'=>'striped bordered condensed',
         'template'=>'{items}{pager}{summary}',
 	'columns'=>array(
-            array(
+		 array(
                 'class' => 'CCheckBoxColumn',
                 'selectableRows' => 2,
 	            'htmlOptions' => array('style' => 'text-align:center;display:'.$display),
@@ -83,8 +85,8 @@ $this->endWidget();
                     'value' => '$data->id',
                 ),
             ),
-		'id',
-		'id_universitas',
+               // 'id',
+		//'id_universitas',
 		'Name',
        array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
@@ -112,7 +114,5 @@ $this->endWidget();
             'htmlOptions'=>array('style'=>'width: 125px'),
            )
 	),
-));
-$this->endWidget();
-?>
+));$this->endWidget(); ?>
 
