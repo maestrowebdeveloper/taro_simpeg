@@ -27,10 +27,11 @@ if(!empty($edit)){
             $action = $action = (!empty($edit))?'<td style="width: 85px;text-align:center">
                         <a class="btn btn-small update editKeluarga" pegawai="'.$value->pegawai_id.'" id="'.$value->id.'" title="Edit" rel="tooltip" ><i class="icon-pencil"></i></a> 
                         <a class="btn btn-small delete deleteKeluarga" title="Hapus" pegawai="'.$value->pegawai_id.'" id="'.$value->id.'" rel="tooltip" ><i class="icon-trash"></i></a>
-                        </td>':'';    
+                        </td>':'';  
+            $nama = ($value->keluarga_pegawai_id!=0)?'<a href="'.url("pegawai/".$value->keluarga_pegawai_id).'">' .$value->nama.'</a>':$value->nama;  
             echo '
                 <tr>                
-                <td>'.$value->nama.'</td>
+                <td>'.$nama.'</td>
                 <td>'.$value->ttl.'</td>
                 <td>'.$value->pendidikan_terakhir.'</td>
                 <td>'.$value->pekerjaan.'</td>
@@ -64,10 +65,11 @@ if(!empty($edit)){
             $action = $action = (!empty($edit))?'<td style="width: 85px;text-align:center">
                         <a class="btn btn-small update editKeluarga" pegawai="'.$value->pegawai_id.'" id="'.$value->id.'" title="Edit" rel="tooltip" ><i class="icon-pencil"></i></a> 
                         <a class="btn btn-small delete deleteKeluarga" title="Hapus" pegawai="'.$value->pegawai_id.'" id="'.$value->id.'" rel="tooltip" ><i class="icon-trash"></i></a>
-                        </td>':'';    
+                        </td>':''; 
+            $nama = ($value->keluarga_pegawai_id!=0)?'<a href="'.url("pegawai/".$value->keluarga_pegawai_id).'">' .$value->nama.'</a>':$value->nama;     
             echo '
                 <tr>                
-                <td>'.$value->nama.'</td>
+                <td>'.$nama.'</td>
                 <td>'.$value->ttl.'</td>
                 <td>'.$value->jenis_kelamin.'</td>
                 <td>'.$value->anak_ke.'</td>

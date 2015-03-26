@@ -36,8 +36,8 @@ class RiwayatJabatan extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nomor_register, pegawai_id, tipe_jabatan,  tmt_mulai', 'required'),
-			array('jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id,tmt_selesai, nama_jabatan, created, created_user_id', 'safe'),
+			array('pegawai_id, tipe_jabatan,  tmt_mulai', 'required'),
+			array('nomor_register,jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id,tmt_selesai, nama_jabatan, created, created_user_id', 'safe'),
 			array('pegawai_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('nomor_register, nama_jabatan', 'length', 'max'=>225),
 			array('tipe_jabatan', 'length', 'max'=>19),

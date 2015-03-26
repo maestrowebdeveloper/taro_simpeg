@@ -172,8 +172,8 @@
 
                 <?php //echo $form->dropDownListRow($model, 'city_id', CHtml::listData(City::model()->findAll('province_id=:province_id', array(':province_id' => (int) $model->City->province_id)), 'id', 'name'), array('class' => 'span3')); ?>
 
-
-                <?php $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'city_id', 'provinceValue' =>  $model->City->province_id, 'cityValue' => $model->city_id, 'disabled' => false,)); ?>                  
+                
+                <?php $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'city_id', 'cityValue' => $model->city_id, 'disabled' => false,'width'=>'80%','label'=>'Kota'));            ?>
                 <?php echo $form->textAreaRow($model, 'address', array('class' => 'span5', 'maxlength' => 255)); ?>
 
                 <?php //echo $form->textFieldRow($model, 'phone', array('class' => 'span5', 'maxlength' => 20));        ?>

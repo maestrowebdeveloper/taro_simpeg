@@ -152,7 +152,7 @@ class JabatanFtController extends Controller
             		$a->deleteNode();	            		
             }	            
         }
-
+        		$criteria = new CDbCriteria();
                 $model=new JabatanFt('search');
                 $model->unsetAttributes();  // clear any default values
 

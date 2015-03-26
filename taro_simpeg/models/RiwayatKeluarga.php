@@ -38,7 +38,7 @@ class RiwayatKeluarga extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('pegawai_id, hubungan, nama', 'required'),
-			array('jenis_kelamin,anak_ke,status_anak, tempat_lahir, tanggal_lahir, pendidikan_terakhir, pekerjaan, nomor_karsu, tanggal_pernikahan, status, created, created_user_id, modified', 'safe'),
+			array('jenis_kelamin,keluarga_pegawai_id,anak_ke,status_anak, tempat_lahir, tanggal_lahir, pendidikan_terakhir, pekerjaan, nomor_karsu, tanggal_pernikahan, status, created, created_user_id, modified', 'safe'),
 			array('pegawai_id, tempat_lahir, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('hubungan', 'length', 'max'=>11),
 			array('nama, pekerjaan, nomor_karsu', 'length', 'max'=>225),
@@ -70,6 +70,7 @@ class RiwayatKeluarga extends CActiveRecord
 		return array(
 			'id' => 'NIP',
 			'pegawai_id' => 'Pegawai',
+			'keluarga_pegawai_id'=>'Pegawai',
 			'hubungan' => 'Hubungan',
 			'anak_ke' => 'Anak Ke',
 			'status_anak' => 'Status',
