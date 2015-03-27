@@ -397,9 +397,9 @@ class PegawaiController extends Controller {
 
         $id = $_GET['id'];        
         Yii::import("common.extensions.EAjaxUpload.qqFileUploader");
-        $folder = 'images/file/' . $id.'/'; // folder for uploaded files             
+        $folder = 'images/file/' . $id.'/'; // folder for uploaded files                     
         if (!file_exists($folder))          
-            mkdir($folder, '777');        
+            mkdir($folder, '777');    
         $allowedExtensions = array("jpg", "jpeg", "gif", "png", "gif","doc","docx","xls","xlsx","ppt","pptx","pdf","zip", "rar"); //array("jpg","jpeg","gif","exe","mov" and etc...
         $sizeLimit = 7 * 1024 * 1024;    
         $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
