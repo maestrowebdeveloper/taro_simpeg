@@ -365,17 +365,11 @@
                                             'value' => $model->jabatan_ft_id,
                                             'events' => array('change' => 'js: function() {
                                                     $.ajax({
-                                                       url : "' . url('pegawai/statusJabatan') . '",
+                                                       url : "' . url('pegawai/fungsionalTertentu') . '",
                                                        type : "POST",
                                                        data : $("#pegawai-form").serialize(),
                                                        success : function(data){                                                                                                               
-                                                        if(data==1){
-                                                            if($("#Pegawai_jabatan_ft_id").val()!="' . $model->jabatan_ft_id . '"){
-                                                                alert("Jabatan Telah Diemban Orang Lain");
-                                                                $("#s2id_Pegawai_jabatan_ft_id").select2("val", "' . $model->jabatan_ft_id . '") ;  
-                                                            }                                                                                                                       
-                                                        }
-                                                        
+                                                            $("#jabatan_fungsional_tertentu").val(data);
                                                     }
                                                 });
                                             }'),
@@ -400,7 +394,8 @@
                                 <div class="control-group "><label class="control-label" for="jabatan_fungsional_tertentu">Jabatan Fungsional</label>
                                     <div class="controls">
                                         <?php
-                                        echo CHtml::textField('jabatan_fungsional_tertentu', isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span5', 'readonly' => true));
+                                        $jabatanFung = JabatanFungsional::model()->find(array('condition'=>'jabatan_ft_id='.$model->jabatan_ft_id));
+                                        echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span5', 'readonly' => true));
                                         ?>   
                                     </div>
                                 </div>

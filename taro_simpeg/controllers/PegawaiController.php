@@ -59,7 +59,9 @@ class PegawaiController extends Controller {
       $("#s2id_Pegawai_jabatan_ft_id").select2("val", "0") ;           
       $("#s2id_Pegawai_jabatan_fu_id").select2("val", "0") ; 
       $("#Pegawai_tmt_jabatan_fu").val("");            
-      $("#Pegawai_tmt_jabatan_ft").val("");            
+      $("#Pegawai_tmt_jabatan_ft").val("");           
+      $("#eselon").val("-");
+      $("#masa_kerja").val("0");
     });
 
     $("#Pegawai_tipe_jabatan_1").click(function(event) { 
@@ -69,7 +71,9 @@ class PegawaiController extends Controller {
       $("#s2id_Pegawai_jabatan_ft_id").select2("val", "0") ;           
       $("#s2id_Pegawai_jabatan_struktural_id").select2("val", "0") ;  
       $("#Pegawai_tmt_jabatan_ft").val("");            
-      $("#Pegawai_tmt_jabatan_struktural").val("");                      
+      $("#Pegawai_tmt_jabatan_struktural").val("");
+      $("#eselon").val("-");
+      $("#masa_kerja").val("0");
     });
 
     $("#Pegawai_tipe_jabatan_2").click(function(event) { 
@@ -80,6 +84,8 @@ class PegawaiController extends Controller {
       $("#s2id_Pegawai_jabatan_fu_id").select2("val", "0") ;  
       $("#Pegawai_tmt_jabatan_fu").val("");            
       $("#Pegawai_tmt_jabatan_struktural").val("");                    
+      $("#eselon").val("-");
+      $("#masa_kerja").val("0");
     });
    
 
@@ -500,6 +506,16 @@ class PegawaiController extends Controller {
         }
     }
 
+    public function actionFungsionalTertentu() {
+        $data = JabatanFungsional::model()->with('DetailJf')->find(array('condition' => 't.jabatan_ft_id = ' . $_POST['Pegawai']['jabatan_ft_id'] . ' and DetailJf.golongan_id = ' . $_POST['Pegawai']['golongan_id']));
+        $tmp = isset($data->nama) ? $data->nama : '-';
+        echo $tmp;
+//        $data = JabatanFungsional::model()->with('DetailJf')->find();
+//        echo $data->nama;
+//        $jabatan = JabatanFt::model()->find(array('condition' => 'jabatan_ft_id=' . $_POST['Pegawai']['jabatan_ft_id']));
+//        echo $_POST['Pegawai']['golongan_id']. ;
+    }
+
     public function actionRiwayatStatusJabatan() {
         $data['masa_kerja'] = 0;
         $data['eselon'] = '';
@@ -641,7 +657,7 @@ class PegawaiController extends Controller {
 
 
             $model->attributes = $_POST['Pegawai'];
-             $model->tmt_jabatan_struktural = $_POST['Pegawai']['tmt_jabatan_struktural'];
+            $model->tmt_jabatan_struktural = $_POST['Pegawai']['tmt_jabatan_struktural'];
             $model->tmt_jabatan_fu = $_POST['Pegawai']['tmt_jabatan_fu'];
             $model->tmt_jabatan_ft = $_POST['Pegawai']['tmt_jabatan_ft'];
             $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon'];
