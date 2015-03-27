@@ -1304,3 +1304,1250 @@ Stack trace:
 REQUEST_URI=/simpeg/taro_simpeg/www/simpeg.sampang/report/
 HTTP_REFERER=http://localhost/simpeg/taro_simpeg/www/simpeg.sampang/report/penerimaHukuman.html
 ---
+2015/03/24 21:59:54 [error] [exception.CException] exception 'CException' with message 'CAssetManager.basePath "D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\assets" is invalid. Please make sure the directory exists and is writable by the Web server process.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CAssetManager.php:138
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CAssetManager.php(123): CAssetManager->setBasePath('D:\xampp\htdocs...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CAssetManager.php(217): CAssetManager->getBasePath()
+#2 D:\xampp\htdocs\taro_simpeg\common\extensions\bootstrap\components\Bootstrap.php(641): CAssetManager->publish('D:\xampp\htdocs...', false, -1, false)
+#3 D:\xampp\htdocs\taro_simpeg\common\extensions\bootstrap\components\packages.php(12): Bootstrap->getAssetsUrl()
+#4 D:\xampp\htdocs\taro_simpeg\common\extensions\bootstrap\components\Bootstrap.php(156): require('D:\xampp\htdocs...')
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CModule.php(387): Bootstrap->init()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CModule.php(523): CModule->getComponent('bootstrap')
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(163): CModule->preloadComponents()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\YiiBase.php(125): CApplication->__construct(Array)
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\YiiBase.php(98): YiiBase::createApplication('CWebApplication', Array)
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): YiiBase::createWebApplication(Array)
+#11 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/
+---
+2015/03/24 22:00:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:483
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(270): CController->missingAction('images')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('images')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('site/images/fav...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/site/images/favicon.ico
+---
+2015/03/24 22:00:34 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\CDbConnection.php:382
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\CDbConnection.php(330): CDbConnection->open()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CModule.php(387): CDbConnection->init()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(450): CModule->getComponent('db')
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(634): CApplication->getDb()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(667): CActiveRecord->getDbConnection()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1455): CActiveRecord->getCommandBuilder()
+#7 D:\xampp\htdocs\taro_simpeg\common\components\UserIdentity.php(39): CActiveRecord->find(Array)
+#8 D:\xampp\htdocs\taro_simpeg\common\models\LoginForm.php(51): UserIdentity->authenticate()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\validators\CInlineValidator.php(42): LoginForm->authenticate('password', Array)
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\validators\CValidator.php(213): CInlineValidator->validateAttribute(Object(LoginForm), 'password')
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CModel.php(159): CValidator->validate(Object(LoginForm), NULL)
+#12 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\SiteController.php(87): CModel->validate()
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#14 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#15 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#17 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#18 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#19 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#20 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#21 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('login')
+#23 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#24 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#25 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#26 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/site/login.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/site/login.html
+---
+2015/03/24 22:00:52 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taro_simpeg.acca_pegawai' doesn't exist. The SQL statement executed was: SELECT COUNT(`id`) as total FROM `acca_pegawai` WHERE date_format(tanggal_lahir,"%m/%d") = "03/24".
+2015/03/24 22:00:52 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taro_simpeg.acca_pegawai' doesn't exist. The SQL statement executed was: SELECT COUNT(`id`) as total FROM `acca_pegawai` WHERE date_format(tanggal_lahir,"%m/%d") = "03/24"' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\CDbCommand.php:543
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1558): CDbCommand->queryRow()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\site\index.php(14): CActiveRecord->findBySql('SELECT COUNT(`i...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', NULL, true)
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', NULL, true)
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(782): CController->renderPartial('index', NULL, true)
+#7 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\SiteController.php(39): CController->render('index')
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('')
+#18 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('')
+#19 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#20 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/site/login.html
+---
+2015/03/24 22:03:27 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taro_simpeg_sampang_new.acca_city' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `acca_city`.
+2015/03/24 22:03:27 [error] [exception.CDbException] exception 'CDbException' with message 'The table "{{city}}" for active record class "City" cannot be found in the database.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php:2362
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(City))
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(658): CActiveRecord->getMetaData()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveFinder.php(383): CActiveRecord->getTableSchema()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveFinder.php(278): CJoinElement->__construct(Object(CActiveFinder), Object(CBelongsToRelation), Object(CJoinElement), 1)
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), 'City')
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(909): CActiveFinder->__construct(Object(SiteConfig), 'City')
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(280): CActiveRecord->getActiveFinder('City')
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(143): CActiveRecord->getRelated('City')
+#8 D:\xampp\htdocs\taro_simpeg\taro_simpeg\models\SiteConfig.php(114): CActiveRecord->__get('City')
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CComponent.php(111): SiteConfig->getFullAddress()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(145): CComponent->__get('fullAddress')
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\site\index.php(98): CActiveRecord->__get('fullAddress')
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', NULL, true)
+#14 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', NULL, true)
+#15 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(782): CController->renderPartial('index', NULL, true)
+#16 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\SiteController.php(39): CController->render('index')
+#17 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#18 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#19 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#20 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#21 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#25 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('')
+#27 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('')
+#28 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#29 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#30 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/site/login.html
+---
+2015/03/24 22:19:34 [error] [php] Undefined variable: model (D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_tableFile.php:35)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): PegawaiController->renderFile()
+#1 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_form.php(450): PegawaiController->renderPartial()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): PegawaiController->renderInternal()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): PegawaiController->renderFile()
+#5 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\update.php(43): PegawaiController->renderPartial()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): PegawaiController->renderInternal()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): PegawaiController->renderFile()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(782): PegawaiController->renderPartial()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php(633): PegawaiController->render()
+#11 unknown(0): PegawaiController->actionUpdate()
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#14 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#15 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#17 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#18 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#19 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#20 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#21 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#22 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#23 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#24 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#25 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/3.html
+2015/03/24 22:40:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:483
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(270): CController->missingAction('images')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('images')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('site/images/fav...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/site/images/favicon.ico
+---
+2015/03/24 22:40:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:483
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(270): CController->missingAction('images')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('images')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('site/images/fav...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/site/images/favicon.ico
+---
+2015/03/24 22:51:17 [error] [php] Undefined variable: pelatihan (D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_tableFile.php:64)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): PegawaiController->renderFile()
+#1 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_form.php(450): PegawaiController->renderPartial()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): PegawaiController->renderInternal()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): PegawaiController->renderFile()
+#5 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\update.php(43): PegawaiController->renderPartial()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): PegawaiController->renderInternal()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): PegawaiController->renderFile()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(782): PegawaiController->renderPartial()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php(633): PegawaiController->render()
+#11 unknown(0): PegawaiController->actionUpdate()
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#14 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#15 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#17 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#18 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#19 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#20 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#21 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#22 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#23 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#24 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#25 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/4.html
+2015/03/24 23:06:54 [error] [exception.CException] exception 'CException' with message 'EAjaxUpload: param "sizeLimit" cannot be empty.' in D:\xampp\htdocs\taro_simpeg\common\extensions\EAjaxUpload\EAjaxUpload.php:72
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(173): EAjaxUpload->run()
+#1 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_tableFile.php(14): CBaseController->widget('common.extensio...', Array)
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#5 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_form.php(450): CController->renderPartial('_tableFile', Array)
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#9 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\update.php(43): CController->renderPartial('_form', Array)
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(782): CController->renderPartial('update', Array, true)
+#14 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php(633): CController->render('update', Array)
+#15 [internal function]: PegawaiController->actionUpdate('4')
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(PegawaiController), Array)
+#17 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(PegawaiController), Object(ReflectionMethod), Array)
+#18 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#19 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#20 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#21 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#25 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('update')
+#27 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/update')
+#28 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#29 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#30 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/4.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/4.html
+---
+2015/03/24 23:22:30 [error] [php] Undefined index: filename (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:408)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/4.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=490316629.jpg
+2015/03/24 23:23:03 [error] [php] Undefined index: filename (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:408)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/4.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=490316629.jpg
+2015/03/24 23:23:17 [error] [php] Undefined index: filename (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:408)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/4.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=business-and-networking-concep-2000-800-2.jpg
+2015/03/24 23:28:19 [error] [php] Undefined index: filename (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:407)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/4.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=490316629.jpg
+2015/03/24 23:28:39 [error] [php] mkdir(): File exists (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:398)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/4.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=harga.docx
+2015/03/24 23:29:25 [error] [php] mkdir(): File exists (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:398)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/4.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=kartu+nama+kang+sutres.docx
+2015/03/24 23:29:49 [error] [php] mkdir(): File exists (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:398)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/4.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=DAFTAR+HARGA.docx
+2015/03/24 23:30:14 [error] [php] mkdir(): File exists (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:398)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/4.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=harga.docx
+2015/03/24 23:32:36 [error] [exception.CException] exception 'CException' with message 'Property "File.name" is not defined.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CComponent.php:173
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(161): CComponent->__set('name', 'aaa')
+#1 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php(399): CActiveRecord->__set('name', 'aaa')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(49): PegawaiController->actionUpload()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('upload')
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/upload')
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#14 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#15 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/4.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=harga.docx
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/4.html
+---
+2015/03/24 23:34:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/view".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('upload/view')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/upload/1
+---
+2015/03/24 23:34:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/images/favicon.ico".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('upload/images/f...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/upload/images/favicon.ico
+---
+2015/03/24 23:34:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/images/favicon.ico".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('upload/images/f...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/upload/images/favicon.ico
+---
+2015/03/24 23:35:05 [error] [exception.CException] exception 'CException' with message 'Property "File.name" is not defined.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CComponent.php:173
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(161): CComponent->__set('name', 'aaa')
+#1 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php(399): CActiveRecord->__set('name', 'aaa')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(49): PegawaiController->actionUpload()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('upload')
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/upload')
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#14 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#15 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/1
+---
+2015/03/24 23:35:20 [error] [php] Undefined variable: return (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:403)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/1
+2015/03/24 23:36:15 [error] [php] mkdir(): File exists (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:398)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/4.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=harga.docx
+2015/03/24 23:39:47 [error] [php] mkdir(): File exists (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:398)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/5.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=kartu+nama+kang+sutres.docx
+2015/03/24 23:40:32 [error] [php] mkdir(): File exists (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:398)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/5.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=kartu+nama+kang+sutres.docx
+2015/03/24 23:41:15 [error] [php] mkdir(): File exists (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:398)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/5.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=kartu+nama+kang+sutres.docx
+2015/03/24 23:43:12 [error] [php] mkdir(): File exists (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:398)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/5.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=kartu+nama+kang+sutres.docx
+2015/03/24 23:44:32 [error] [php] mkdir(): File exists (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:398)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/5.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=DAFTAR+HARGA.docx
+2015/03/24 23:44:44 [error] [php] mkdir(): File exists (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:398)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/5.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=harga.docx
+2015/03/24 23:45:10 [error] [php] mkdir(): File exists (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:398)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/5.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=kartu+nama+kang+sutres.docx
+2015/03/24 23:51:44 [error] [php] Undefined index: filename (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:411)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/5.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=harga.docx
+2015/03/24 23:52:10 [error] [php] mkdir(): File exists (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:400)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/5.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=DAFTAR+HARGA.docx
+2015/03/24 23:54:34 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:336
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('update')
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/update/...')
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#12 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/kartu%20nama%20kang%20sutres.docx
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/5.html
+---
+2015/03/24 23:54:35 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:336
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('update')
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/update/...')
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#12 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/images/favicon.ico
+---
+2015/03/24 23:54:35 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:336
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('update')
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/update/...')
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#12 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/images/favicon.ico
+---
+2015/03/24 23:55:08 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:336
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('update')
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/update/...')
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#12 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/kartu%20nama%20kang%20sutres.docx
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/5.html
+---
+2015/03/24 23:55:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "file".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:483
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(270): CController->missingAction('file')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('file')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/file/5/...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/file/5/kartu%20nama%20kang%20sutres.docx
+---
+2015/03/24 23:55:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "file".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:483
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(270): CController->missingAction('file')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('file')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/file/5/...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/file/5/images/favicon.ico
+---
+2015/03/24 23:55:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "file".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:483
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(270): CController->missingAction('file')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('file')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/file/5/...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/file/5/images/favicon.ico
+---
+2015/03/24 23:57:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/file/5/kartu nama kang sutres.docx".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/file/5/k...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/file/5/kartu%20nama%20kang%20sutres.docx.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/5.html
+---
+2015/03/24 23:57:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/file/5/images/favicon.ico".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/file/5/i...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/file/5/images/favicon.ico
+---
+2015/03/24 23:57:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/file/5/images/favicon.ico".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/file/5/i...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/file/5/images/favicon.ico
+---
+2015/03/25 00:30:38 [error] [php] Undefined index: filename (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:408)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/4.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=belakang.png
+2015/03/25 00:30:59 [error] [php] Undefined index: filename (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:408)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/upload/4.html?PHPSESSID=ta4v46nlq0pcjh2ktu3acgcuk0&YII_CSRF_TOKEN=e5b615f497920072fdd13ff287ad11764ae7ac58&qqfile=belakang.png
+2015/03/26 21:06:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:483
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(270): CController->missingAction('images')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('images')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('site/images/fav...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/site/images/favicon.ico
+---
+2015/03/26 21:06:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:483
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(270): CController->missingAction('images')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('images')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('site/images/fav...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/site/images/favicon.ico
+---
+2015/03/26 21:11:05 [warning] [application] Failed to set unsafe attribute "id" of "RiwayatJabatan".
+2015/03/26 21:11:11 [warning] [application] Failed to set unsafe attribute "id" of "RiwayatJabatan".
+2015/03/26 21:13:56 [warning] [application] Failed to set unsafe attribute "id" of "RiwayatJabatan".
+2015/03/26 21:14:32 [warning] [application] Failed to set unsafe attribute "id" of "RiwayatJabatan".
+2015/03/26 21:16:57 [warning] [application] Failed to set unsafe attribute "id" of "RiwayatJabatan".
+2015/03/26 21:22:12 [warning] [application] Failed to set unsafe attribute "id" of "RiwayatJabatan".
+2015/03/26 21:23:09 [warning] [application] Failed to set unsafe attribute "id" of "RiwayatJabatan".
+2015/03/26 21:29:45 [error] [php] Undefined variable: criteria (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\JabatanFtController.php:188)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): JabatanFtController->runAction()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): JabatanFtController->filterAccessControl()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): JabatanFtController->runActionWithFilters()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): JabatanFtController->run()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/jabatanFt.html?JabatanFt%5Bparent_id%5D=122&JabatanFt%5Bnama%5D=&JabatanFt%5Bketerangan%5D=&ajax=jabatan-ft-grid
+2015/03/26 21:36:13 [error] [php] Undefined variable: criteria (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\JabatanFtController.php:188)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): JabatanFtController->runAction()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): JabatanFtController->filterAccessControl()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): JabatanFtController->runActionWithFilters()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): JabatanFtController->run()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/jabatanFt.html?JabatanFt%5Bparent_id%5D=122&JabatanFt%5Bnama%5D=&JabatanFt%5Bketerangan%5D=&ajax=jabatan-ft-grid
+2015/03/26 22:35:32 [error] [exception.CException] exception 'CException' with message 'Property "RiwayatPelatihan.nomor_sttpl" is not defined.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CComponent.php:130
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(145): CComponent->__get('nomor_sttpl')
+#1 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_tablePelatihan.php(33): CActiveRecord->__get('nomor_sttpl')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#5 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_form.php(448): CController->renderPartial('_tablePelatihan', Array)
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#9 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\update.php(43): CController->renderPartial('_form', Array)
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(782): CController->renderPartial('update', Array, true)
+#14 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php(670): CController->render('update', Array)
+#15 [internal function]: PegawaiController->actionUpdate('3')
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(PegawaiController), Array)
+#17 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(PegawaiController), Object(ReflectionMethod), Array)
+#18 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#19 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#20 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#21 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#25 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('update')
+#27 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/update')
+#28 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#29 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#30 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/3.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/index.html
+---
+2015/03/26 22:46:19 [warning] [application] Failed to set unsafe attribute "id" of "RiwayatKeluarga".
+2015/03/26 22:52:10 [error] [exception.CException] exception 'CException' with message 'Property "RiwayatPelatihan.nomor_sttpl" is not defined.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CComponent.php:130
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(145): CComponent->__get('nomor_sttpl')
+#1 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_tablePelatihan.php(33): CActiveRecord->__get('nomor_sttpl')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#5 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_form.php(448): CController->renderPartial('_tablePelatihan', Array)
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#9 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\update.php(43): CController->renderPartial('_form', Array)
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(782): CController->renderPartial('update', Array, true)
+#14 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php(670): CController->render('update', Array)
+#15 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php(524): PegawaiController->actionUpdate('3')
+#16 [internal function]: PegawaiController->actionView('3')
+#17 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(PegawaiController), Array)
+#18 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(PegawaiController), Object(ReflectionMethod), Array)
+#19 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#20 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#21 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#22 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#23 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#24 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#25 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#26 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#27 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('view')
+#28 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/view')
+#29 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#30 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#31 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/3.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/5.html
+---
+2015/03/26 22:52:37 [error] [exception.CException] exception 'CException' with message 'Property "RiwayatPelatihan.nomor_sttpl" is not defined.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CComponent.php:130
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(145): CComponent->__get('nomor_sttpl')
+#1 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_tablePelatihan.php(33): CActiveRecord->__get('nomor_sttpl')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#5 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_form.php(448): CController->renderPartial('_tablePelatihan', Array)
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#9 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\update.php(43): CController->renderPartial('_form', Array)
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(782): CController->renderPartial('update', Array, true)
+#14 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php(670): CController->render('update', Array)
+#15 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php(524): PegawaiController->actionUpdate('3')
+#16 [internal function]: PegawaiController->actionView('3')
+#17 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(PegawaiController), Array)
+#18 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(PegawaiController), Object(ReflectionMethod), Array)
+#19 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#20 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#21 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#22 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#23 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#24 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#25 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#26 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#27 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('view')
+#28 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/view')
+#29 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#30 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#31 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/3.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/index.html
+---
+2015/03/26 22:53:11 [error] [exception.CException] exception 'CException' with message 'Property "RiwayatPelatihan.nomor_sttpl" is not defined.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CComponent.php:130
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(145): CComponent->__get('nomor_sttpl')
+#1 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_tablePelatihan.php(33): CActiveRecord->__get('nomor_sttpl')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#5 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_form.php(448): CController->renderPartial('_tablePelatihan', Array)
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#9 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\update.php(43): CController->renderPartial('_form', Array)
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(782): CController->renderPartial('update', Array, true)
+#14 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php(670): CController->render('update', Array)
+#15 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php(524): PegawaiController->actionUpdate('3')
+#16 [internal function]: PegawaiController->actionView('3')
+#17 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(PegawaiController), Array)
+#18 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(PegawaiController), Object(ReflectionMethod), Array)
+#19 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#20 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#21 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#22 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#23 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#24 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#25 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#26 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#27 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('view')
+#28 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/view')
+#29 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#30 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#31 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/3.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/5.html
+---
+2015/03/26 22:56:47 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taro_simpeg_sampang_new.acca_nilai_honorer' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `acca_nilai_honorer`.
+2015/03/26 22:56:47 [error] [exception.CDbException] exception 'CDbException' with message 'The table "{{nilai_honorer}}" for active record class "NilaiHonorer" cannot be found in the database.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php:2362
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(NilaiHonorer))
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(658): CActiveRecord->getMetaData()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1350): CActiveRecord->getTableSchema()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PermohonanPerpanjanganHonorerController.php(48): CActiveRecord->findAll(Array)
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(49): PermohonanPerpanjanganHonorerController->actionGetNilai()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('getNilai')
+#15 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('permohonanPerpa...')
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#17 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#18 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/getNilai.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/create.html
+---
+2015/03/26 23:04:28 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taro_simpeg_sampang_new.acca_nilai_honorer' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `acca_nilai_honorer`.
+2015/03/26 23:04:28 [error] [exception.CDbException] exception 'CDbException' with message 'The table "{{nilai_honorer}}" for active record class "NilaiHonorer" cannot be found in the database.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php:2362
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(NilaiHonorer))
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(658): CActiveRecord->getMetaData()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1350): CActiveRecord->getTableSchema()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\permohonanPerpanjanganHonorer\_form.php(115): CActiveRecord->findAll(Array)
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#8 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\permohonanPerpanjanganHonorer\update.php(42): CController->renderPartial('_form', Array)
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(782): CController->renderPartial('update', Array, true)
+#13 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PermohonanPerpanjanganHonorerController.php(147): CController->render('update', Array)
+#14 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PermohonanPerpanjanganHonorerController.php(98): PermohonanPerpanjanganHonorerController->actionUpdate('1')
+#15 [internal function]: PermohonanPerpanjanganHonorerController->actionView('1')
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(PermohonanPerpanjanganHonorerController), Array)
+#17 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(PermohonanPerpanjanganHonorerController), Object(ReflectionMethod), Array)
+#18 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#19 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#20 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#21 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#25 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('view')
+#27 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('permohonanPerpa...')
+#28 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#29 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#30 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/1.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/index.html
+---
+2015/03/26 23:10:11 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taro_simpeg_sampang_new.acca_nilai_honorer' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `acca_nilai_honorer`.
+2015/03/26 23:10:11 [error] [exception.CDbException] exception 'CDbException' with message 'The table "{{nilai_honorer}}" for active record class "NilaiHonorer" cannot be found in the database.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php:2362
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(NilaiHonorer))
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(658): CActiveRecord->getMetaData()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1350): CActiveRecord->getTableSchema()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\permohonanPerpanjanganHonorer\_form.php(115): CActiveRecord->findAll(Array)
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#8 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\permohonanPerpanjanganHonorer\update.php(42): CController->renderPartial('_form', Array)
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(782): CController->renderPartial('update', Array, true)
+#13 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PermohonanPerpanjanganHonorerController.php(147): CController->render('update', Array)
+#14 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PermohonanPerpanjanganHonorerController.php(98): PermohonanPerpanjanganHonorerController->actionUpdate('1')
+#15 [internal function]: PermohonanPerpanjanganHonorerController->actionView('1')
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(PermohonanPerpanjanganHonorerController), Array)
+#17 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(PermohonanPerpanjanganHonorerController), Object(ReflectionMethod), Array)
+#18 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#19 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#20 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#21 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#25 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('view')
+#27 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('permohonanPerpa...')
+#28 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#29 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#30 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/1.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/index.html
+---
+2015/03/26 23:20:05 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taro_simpeg_sampang_new.acca_nilai_honorer' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `acca_nilai_honorer`.
+2015/03/26 23:20:05 [error] [exception.CDbException] exception 'CDbException' with message 'The table "{{nilai_honorer}}" for active record class "NilaiHonorer" cannot be found in the database.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php:2362
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(NilaiHonorer))
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(658): CActiveRecord->getMetaData()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1350): CActiveRecord->getTableSchema()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PermohonanPerpanjanganHonorerController.php(48): CActiveRecord->findAll(Array)
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(49): PermohonanPerpanjanganHonorerController->actionGetNilai()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('getNilai')
+#15 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('permohonanPerpa...')
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#17 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#18 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/getNilai.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/create.html
+---
+2015/03/26 23:24:01 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taro_simpeg_sampang_new.acca_nilai_honorer' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `acca_nilai_honorer`.
+2015/03/26 23:24:01 [error] [exception.CDbException] exception 'CDbException' with message 'The table "{{nilai_honorer}}" for active record class "NilaiHonorer" cannot be found in the database.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php:2362
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(NilaiHonorer))
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(658): CActiveRecord->getMetaData()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1350): CActiveRecord->getTableSchema()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PermohonanPerpanjanganHonorerController.php(48): CActiveRecord->findAll(Array)
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(49): PermohonanPerpanjanganHonorerController->actionGetNilai()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('getNilai')
+#15 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('permohonanPerpa...')
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#17 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#18 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/getNilai.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/create.html
+---
+2015/03/26 23:24:03 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taro_simpeg_sampang_new.acca_nilai_honorer' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `acca_nilai_honorer`.
+2015/03/26 23:24:03 [error] [exception.CDbException] exception 'CDbException' with message 'The table "{{nilai_honorer}}" for active record class "NilaiHonorer" cannot be found in the database.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php:2362
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(NilaiHonorer))
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(658): CActiveRecord->getMetaData()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1350): CActiveRecord->getTableSchema()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PermohonanPerpanjanganHonorerController.php(48): CActiveRecord->findAll(Array)
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(49): PermohonanPerpanjanganHonorerController->actionGetNilai()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('getNilai')
+#15 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('permohonanPerpa...')
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#17 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#18 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/getNilai.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/create.html
+---
+2015/03/26 23:33:07 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taro_simpeg_sampang_new.acca_nilai_honorer' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `acca_nilai_honorer`.
+2015/03/26 23:33:07 [error] [exception.CDbException] exception 'CDbException' with message 'The table "{{nilai_honorer}}" for active record class "NilaiHonorer" cannot be found in the database.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php:2362
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(NilaiHonorer))
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(658): CActiveRecord->getMetaData()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1350): CActiveRecord->getTableSchema()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PermohonanPerpanjanganHonorerController.php(48): CActiveRecord->findAll(Array)
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(49): PermohonanPerpanjanganHonorerController->actionGetNilai()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('getNilai')
+#15 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('permohonanPerpa...')
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#17 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#18 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/getNilai.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/create.html
+---
+2015/03/26 23:33:09 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taro_simpeg_sampang_new.acca_nilai_honorer' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `acca_nilai_honorer`.
+2015/03/26 23:33:09 [error] [exception.CDbException] exception 'CDbException' with message 'The table "{{nilai_honorer}}" for active record class "NilaiHonorer" cannot be found in the database.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php:2362
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(NilaiHonorer))
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(658): CActiveRecord->getMetaData()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1350): CActiveRecord->getTableSchema()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PermohonanPerpanjanganHonorerController.php(48): CActiveRecord->findAll(Array)
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(49): PermohonanPerpanjanganHonorerController->actionGetNilai()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('getNilai')
+#15 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('permohonanPerpa...')
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#17 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#18 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/getNilai.html
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/create.html
+---
+2015/03/26 23:43:05 [error] [php] Trying to get property of non-object (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\HonorerController.php:95)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): HonorerController->runAction()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): HonorerController->filterAccessControl()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): HonorerController->runActionWithFilters()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): HonorerController->run()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/honorer/getNilaiSkp.html
+2015/03/27 00:20:33 [error] [php] Trying to get property of non-object (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PermohonanPerpanjanganHonorerController.php:93)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PermohonanPerpanjanganHonorerController->runAction()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PermohonanPerpanjanganHonorerController->filterAccessControl()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PermohonanPerpanjanganHonorerController->runActionWithFilters()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PermohonanPerpanjanganHonorerController->run()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/getNilai.html
+2015/03/27 00:30:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/pegawai/1-150x150-foto".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/pegawai/...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/pegawai/1-150x150-foto
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/index.html
+---
+2015/03/27 00:30:30 [error] [php] Undefined variable: id (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:731)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/index.html
+2015/03/27 00:30:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:483
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(270): CController->missingAction('images')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('images')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/images/...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/images/favicon.ico
+---
+2015/03/27 00:30:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:483
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(270): CController->missingAction('images')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('images')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/images/...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/images/favicon.ico
+---
+2015/03/27 00:31:03 [error] [php] Undefined variable: id (D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php:731)
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): PegawaiController->runAction()
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): PegawaiController->filterAccessControl()
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): PegawaiController->runActionWithFilters()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): PegawaiController->run()
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CWebApplication->run()
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/index.html

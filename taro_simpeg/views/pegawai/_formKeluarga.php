@@ -18,8 +18,28 @@
         echo $form->hiddenField($model, 'id');                   
         echo $form->hiddenField($model, 'pegawai_id');  
 
-        echo $form->radioButtonListRow($model, 'hubungan', Pegawai::model()->ArrHubungan());          
-        echo $form->textFieldRow($model,'nama',array('class'=>'span3','maxlength'=>100)); 
+        echo $form->radioButtonListRow($model, 'hubungan', Pegawai::model()->ArrHubungan());   
+
+        ?>
+        <div class="control-group ">
+            <label class="control-label required" for="RiwayatKeluarga_nama">Nama <span class="required">*</span></label>
+            <div class="controls">
+                <input class="span3" maxlength="100" value="<?php echo $model->nama;?>" name="RiwayatKeluarga[nama]" id="RiwayatKeluarga_nama" type="text">
+                <a class="btn btn-info btn-cari">Cari Dari Daftar Pegawai</a>
+            </div>
+        </div>
+        <div class="cari" style="display:none">
+            <?php
+            $data= array('0' => '- Pegawai -') + CHtml::listData(Pegawai::model()->listPegawai(), 'id', 'nipNama'); 
+            echo $form->select2Row($model, 'keluarga_pegawai_id', array(
+                'asDropDownList' => true,                    
+                'data' => $data,                 
+                )
+            );
+            ?>
+        </div>
+        <?php       
+        //echo $form->textFieldRow($model,'nama',array('class'=>'span3','maxlength'=>100)); 
         echo $form->radioButtonListRow($model, 'jenis_kelamin', Pegawai::model()->ArrJenisKelamin()); 
         $display = ($model->hubungan=='anak' || empty($model->hubungan))?'none':'';
         $anak = ($model->hubungan=='anak')?'':'none';
@@ -81,7 +101,21 @@
 jQuery(function($) {
     jQuery('#RiwayatKeluarga_tanggal_pernikahan').datepicker({'language':'id','format':'yyyy-mm-dd','weekStart':0});    
     jQuery('#RiwayatKeluarga_tanggal_lahir').datepicker({'language':'id','format':'yyyy-mm-dd','weekStart':0});    
-    jQuery('#RiwayatKeluarga_tempat_lahir').select2({'width':'40%'});         
+    jQuery('#RiwayatKeluarga_tempat_lahir').select2({'width':'40%'});   
+    jQuery('#RiwayatKeluarga_keluarga_pegawai_id').select2({'allowClear':false,'width':'30%'}).on('change',  function() {
+                        $.ajax({
+                           url : "<?php echo url('pegawai/getDetail')?>",
+                           type : "POST",
+                           data :  { id:  $(this).val()},
+                           success : function(data){                                                                                                                                           
+                            obj = JSON.parse(data);
+                            $("#RiwayatKeluarga_nama").val(obj.nama) ;                                                  
+                                                                             
+                            $("#RiwayatKeluarga_tanggal_lahir").val(obj.tanggal_lahir);
+                            $("#s2id_RiwayatKeluarga_tempat_lahir").select2("val", obj.tempat_lahir) ;                                                  
+                        }
+                    });
+                });     
 });
 
 $("#RiwayatKeluarga_hubungan_0,#RiwayatKeluarga_hubungan_1").click(function(event) {   
@@ -93,6 +127,10 @@ $("#RiwayatKeluarga_hubungan_2").click(function(event) {
   $(".suami_istri").hide();  
   $(".anak").show();  
 
+});
+
+$('.btn-cari').click(function() {
+   $('.cari').toggle();
 });
 
 

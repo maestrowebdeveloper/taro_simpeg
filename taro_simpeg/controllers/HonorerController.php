@@ -59,13 +59,16 @@ class HonorerController extends Controller {
 
     public function actionSaveNilai() {
         if (isset($_POST['NilaiHonorer'])) {
-            $cek = NilaiHonorer::model()->find(array('condition' => 'pegawai_id=' . $_POST['NilaiHonorer']['pegawai_id'] . ' and tahun=' . $_POST['NilaiHonorer']['tahun']));
-            if (empty($cek)) {
-                if (empty($_POST['NilaiHonorer']['id']))
-                    $model = new NilaiHonorer;
-                else
-                    $model = NilaiHonorer::model()->findByPk($_POST['NilaiHonorer']['id']);
-
+            if (empty($_POST['NilaiHonorer']['id'])) {
+                $model = new NilaiHonorer;
+                $new = 1;
+                $cek = NilaiHonorer::model()->find(array('condition' => 'pegawai_id=' . $_POST['NilaiHonorer']['pegawai_id'] . ' and tahun=' . $_POST['NilaiHonorer']['tahun']));
+            } else {
+                $cek = NilaiHonorer::model()->find(array('condition' => 'pegawai_id=' . $_POST['NilaiHonorer']['pegawai_id'] . ' and tahun=' . $_POST['NilaiHonorer']['tahun'] . ' and id!=' . $_POST['NilaiHonorer']['id']));
+                $model = NilaiHonorer::model()->findByPk($_POST['NilaiHonorer']['id']);
+                $new = 0;
+            }
+            if ((empty($cek) and $new == 0) or $new == 1) {
                 $model->attributes = $_POST['NilaiHonorer'];
                 if ($model->save()) {
                     $nilai = NilaiHonorer::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tahun DESC'));
@@ -86,6 +89,23 @@ class HonorerController extends Controller {
         } else {
             echo $this->renderPartial('/honorer/_formNilai', array('model' => new NilaiHonorer, 'pegawai_id' => $pegawai));
         }
+    }
+
+    public function actionGetDetail() {
+        $id = $_POST["id"];
+        $model = Honorer::model()->findByPk($id);
+        $return['id'] = $id;
+        $return['nama'] = $model->nama;
+        $return['jenis_kelamin'] = $model->jenis_kelamin;        
+        $return['unit_kerja'] = $model->unitKerja;
+        $return['masa_kerja'] = $model->masaKerja;
+        $return['tempat_lahir'] = $model->tempat_lahir;
+        $return['tanggal_lahir'] = $model->tanggal_lahir;
+        $return['kota'] = $model->kota;
+        $return['nama_kota'] = $model->namaKota;
+        $return['alamat'] = $model->alamat;
+        $return['pendidikan_terakhir'] = $model->pendidikan_terakhir;
+        echo json_encode($return);
     }
 
     public function actionRemovephoto($id) {

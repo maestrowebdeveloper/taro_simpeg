@@ -91,10 +91,13 @@ class PegawaiController extends Controller {
         $model = Pegawai::model()->findByPk($id);
         $return['id'] = $id;
         $return['nama'] = $model->namaGelar;
+        $return['jenis_kelamin'] = $model->jenis_kelamin;
         $return['jabatan'] = $model->jabatan;
         $return['tipe_jabatan'] = $model->tipe;
         $return['unit_kerja'] = $model->unitKerja;
         $return['masa_kerja'] = $model->masaKerja;
+        $return['tempat_lahir'] = $model->tempat_lahir;
+        $return['tanggal_lahir'] = $model->tanggal_lahir;
         echo json_encode($return);
     }
 
@@ -160,15 +163,15 @@ class PegawaiController extends Controller {
             else
                 $model = RiwayatJabatan::model()->findByPk($_POST['RiwayatJabatan']['id']);
 
-            $model->attributes = $_POST['RiwayatJabatan'];
-            $model->tipe_jabatan = $_POST['RiwayatJabatan']['tipe_jabatan'];
-            $model->jabatan_struktural_id = $_POST['RiwayatJabatan']['jabatan_struktural_id'];
-            $model->jabatan_fu_id = $_POST['RiwayatJabatan']['jabatan_fu_id'];
-            $model->jabatan_ft_id = $_POST['RiwayatJabatan']['jabatan_ft_id'];
+            $model->attributes = (isset($_POST['RiwayatJabatan']))?$_POST['RiwayatJabatan']:'';
+            $model->tipe_jabatan = (isset($_POST['RiwayatJabatan']['tipe_jabatan']))?$_POST['RiwayatJabatan']['tipe_jabatan']:'';
+            $model->jabatan_struktural_id = (isset($_POST['RiwayatJabatan']['jabatan_struktural_id']))?$_POST['RiwayatJabatan']['jabatan_struktural_id']:'';
+            $model->jabatan_fu_id = (isset($_POST['RiwayatJabatan']['jabatan_fu_id']))?$_POST['RiwayatJabatan']['jabatan_fu_id']:'';
+            $model->jabatan_ft_id = (isset($_POST['RiwayatJabatan']['jabatan_ft_id']))?$_POST['RiwayatJabatan']['jabatan_ft_id']:'';
             if ($model->save()) {
                 $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tmt_mulai DESC'));
                 echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $model->pegawai_id));
-            }
+            }            
         }
     }
 
@@ -389,6 +392,40 @@ class PegawaiController extends Controller {
         }
     }
 
+
+    public function actionUpload() {
+
+        $id = $_GET['id'];        
+        Yii::import("common.extensions.EAjaxUpload.qqFileUploader");
+        $folder = 'images/file/' . $id.'/'; // folder for uploaded files             
+        if (!file_exists($folder))          
+            mkdir($folder, '777');        
+        $allowedExtensions = array("jpg", "jpeg", "gif", "png", "gif","doc","docx","xls","xlsx","ppt","pptx","pdf","zip", "rar"); //array("jpg","jpeg","gif","exe","mov" and etc...
+        $sizeLimit = 7 * 1024 * 1024;    
+        $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+        $result = $uploader->handleUpload($folder);
+        $return = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+
+        $model = new File;
+        $model->pegawai_id = $_GET['id'];
+        $model->nama = ($result['filename']);                
+        $model->save();                
+        echo $return; // it's array
+    }
+
+    public function actionDeleteFile(){
+
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
+        $model = File::model()->findByPk($id);   
+        if (!empty($model)){ 
+            $file = 'images/file/' . $model->pegawai_id.'/'.$model->nama;            
+                if (file_exists($file))
+                    unlink($file);
+            $model->delete(); 
+            echo $id;       
+        }
+    }
+
     public function actionRemovephoto($id) {
         Pegawai::model()->updateByPk($id, array('foto' => NULL));
     }
@@ -433,6 +470,14 @@ class PegawaiController extends Controller {
         ));
     }
 
+    public function actionImportData() {    
+        $model = new Pegawai('search');
+        $model->unsetAttributes();  // clear any default values  
+        $this->render('importDataPegawai', array(    
+            'model' => $model,        
+        ));
+    }
+
     public function actionCheckErrorExcel() {
         $session = new CHttpSession;
         $session->open();
@@ -449,11 +494,13 @@ class PegawaiController extends Controller {
     }
 
     public function actionStatusJabatan() {
+        $data['masa_kerja'] = 0;
         $data['eselon'] = '';
         $tipe = (!empty($_POST['Pegawai']['tipe_jabatan'])) ? $_POST['Pegawai']['tipe_jabatan'] : '';
         if ($tipe == "struktural") {
             $model = JabatanStruktural::model()->findByPk($_POST['Pegawai']['jabatan_struktural_id']);
-            $data['eselon'] = $model->Eselon->nama;
+            $data['eselon'] =  isset($model->Eselon->nama) ? $model->Eselon->nama : '-';
+            $data['masa_kerja'] = isset($model->Eselon->masa_kerja) ? $model->Eselon->masa_kerja : 0;
         } elseif ($tipe == "fungsional_umum") {
             $model = JabatanFu::model()->findByPk($_POST['Pegawai']['jabatan_fu_id']);
         } elseif ($tipe == "fungsional_tertentu") {
@@ -568,7 +615,7 @@ class PegawaiController extends Controller {
             if ($model->tipe_jabatan == "struktural") {
                 $jabatan = JabatanStruktural::model()->findByPk($model->jabatan_struktural_id);
             } elseif ($model->tipe_jabatan == "fungsional_umum") {
-                $jabatan = JabatanFu::model()->findByPk($model->jabatan_fu_id);
+                $jabatan = JabatanFu::actioninmodel()->findByPk($model->jabatan_fu_id);
             } elseif ($model->tipe_jabatan == "fungsional_tertentu") {
                 $jabatan = JabatanFt::model()->findByPk($model->jabatan_ft_id);
             }
@@ -756,12 +803,12 @@ class PegawaiController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
-
-        if (isset($session['Pegawai_records'])) {
-            $model = $session['Pegawai_records'];
-        } else
+//        $session = new CHttpSession;
+//        $session->open();
+//
+//        if (isset($session['Pegawai_records'])) {
+//            $model = $session['Pegawai_records'];
+//        } else
             $model = Pegawai::model()->findAll();
 
 

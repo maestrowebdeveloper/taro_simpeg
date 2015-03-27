@@ -83,15 +83,13 @@
                             </div>
                             <?php
                             echo $form->radioButtonListRow($model, 'jenis_kelamin', Pegawai::model()->ArrJenisKelamin());
-
-                            if (!isset($_GET['v'])) {
-                                $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'kota', 'cityValue' => $model->kota, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
-                                echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'style' => 'width:50%', 'class' => 'span9'));
-                                echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
-                                echo $form->textFieldRow($model, 'hp', array('class' => 'span5 angka', 'style' => 'max-width:500px;width:200px', 'maxlength' => 25, 'prepend' => '+62'));
-                                echo $form->textFieldRow($model, 'email', array('class' => 'span5', 'maxlength' => 50));
-                                echo $form->radioButtonListRow($model, 'golongan_darah', Pegawai::model()->ArrGolonganDarah());
-                            }
+                            $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'tempat_lahir', 'cityValue' => $model->tempat_lahir, 'disabled' => false, 'width' => '40%', 'label' => 'Tempat Lahir'));
+                            echo $form->datepickerRow(
+                                    $model, 'tanggal_lahir', array(
+                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                'prepend' => '<i class="icon-calendar"></i>',
+                                    )
+                            );
                             ?>
                         </div>
                         <div class="span3" style="margin-left: -15px;">
@@ -124,13 +122,14 @@
                     <div class="form-row row-fluid">
                         <div class="span12">
                             <?php
-                            $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'tempat_lahir', 'cityValue' => $model->tempat_lahir, 'disabled' => false, 'width' => '40%', 'label' => 'Tempat Lahir'));
-                            echo $form->datepickerRow(
-                                    $model, 'tanggal_lahir', array(
-                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                                'prepend' => '<i class="icon-calendar"></i>'
-                                    )
-                            );
+                            if (!isset($_GET['v'])) {
+                                $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'kota', 'cityValue' => $model->kota, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
+                                echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'style' => 'width:50%', 'class' => 'span9'));
+                                echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
+                                echo $form->textFieldRow($model, 'hp', array('class' => 'span5 angka', 'style' => 'max-width:500px;width:200px', 'maxlength' => 25, 'prepend' => '+62'));
+                                echo $form->textFieldRow($model, 'email', array('class' => 'span5', 'maxlength' => 50));
+                                echo $form->radioButtonListRow($model, 'golongan_darah', Pegawai::model()->ArrGolonganDarah());
+                            }
                             echo $form->radioButtonListRow($model, 'agama', Pegawai::model()->ArrAgama());
                             echo $form->radioButtonListRow($model, 'status_pernikahan', Pegawai::model()->arrStatusPernikahan());
                             ?>
@@ -224,7 +223,11 @@
                                 </div>
                             </div>
 
-                            <?php echo $form->radioButtonListRow($model, 'tipe_jabatan', Pegawai::model()->arrTipeJabatan()); ?>
+                            <?php
+                            echo $form->radioButtonListRow($model, 'tipe_jabatan', Pegawai::model()->arrTipeJabatan(), array(
+                                'onclick' => 'pensiun()'
+                            ));
+                            ?>
 
                             <?php
                             $struktural = ($model->tipe_jabatan == "struktural") ? "" : "none";
@@ -250,6 +253,8 @@
                                                        success : function(data){   
                                                        obj = JSON.parse(data);
                                                         $("#eselon").val(obj.eselon);
+                                                        $("#masa_kerja").val(obj.masa_kerja);
+                                                        pensiun();
                                                         if(obj.status==1){
                                                             if($("#Pegawai_jabatan_struktural_id").val()!="' . $model->jabatan_struktural_id . '"){
                                                                 alert("Jabatan Telah Diemban Orang Lain");
@@ -280,6 +285,7 @@
                                 </div>
                                 <div class="control-group "><label class="control-label" for="eselon">Eselon</label>
                                     <div class="controls">
+                                        <input type="hidden" name="masa_kerja" id="masa_kerja" value="<?php echo isset($model->JabatanStruktural->Eselon->masa_kerja) and !empty($model->JabatanStruktural->Eselon->masa_kerja) ? $model->JabatanStruktural->Eselon->id : 0; ?>">
                                         <?php
                                         echo CHtml::textField('eselon', isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-', array('id' => 'eselon', 'class' => 'span5', 'readonly' => true));
                                         ?>
@@ -380,7 +386,7 @@
                             </div>
 
 
-                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));         ?>
+                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));          ?>
 
                             <?php if (isset($_GET['v'])) { ?>
                                 <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
@@ -416,7 +422,7 @@
                     $hukuman = RiwayatHukuman::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_pemberian DESC'));
                     $pelatihan = RiwayatPelatihan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal DESC'));
                     $penghargaan = RiwayatPenghargaan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_pemberian DESC'));
-                    $file = '';
+                    $file = File::model()->findAll(array('condition' => 'pegawai_id=' . $model->id));
 
                     if (!isset($_GET['v']))
                         $edit = true;
@@ -448,7 +454,12 @@
                         <?php echo $this->renderPartial('_tableHukuman', array('hukuman' => $hukuman, 'edit' => $edit)); ?>                
                     </div>
                     <div class="tab-pane" id="file">
-                        <?php echo $this->renderPartial('_tableFile', array('file' => $file, 'edit' => $edit)) ?>
+
+                        <?php
+                        if (!isset($_GET['v']))
+                            echo $this->renderPartial('_formUploadFile', array('model' => $model, 'file' => $file, 'edit' => $edit));
+                        echo $this->renderPartial('_tableFile', array('model' => $model, 'file' => $file, 'edit' => $edit))
+                        ?>
                     </div>
                     <?php
                 }
@@ -471,9 +482,9 @@
                 ));
                 ?>
                 </div>
-            <?php } ?>    </fieldset>
+        <?php } ?>    </fieldset>
 
-        <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>
 
     </div>
 </div>
@@ -514,7 +525,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <?php echo $this->renderPartial('_tablePangkat', array('pangkat' => $pangkat)); ?>
+    <?php echo $this->renderPartial('_tablePangkat', array('pangkat' => $pangkat)); ?>
                 </td>
             </tr>
             <tr>
@@ -522,7 +533,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <?php echo $this->renderPartial('_tableJabatan', array('jabatan' => $jabatan)); ?> 
+    <?php echo $this->renderPartial('_tableJabatan', array('jabatan' => $jabatan)); ?> 
                 </td>
             </tr>
             <tr>
@@ -530,7 +541,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <?php echo $this->renderPartial('_tableGaji', array('gaji' => $gaji)); ?>
+    <?php echo $this->renderPartial('_tableGaji', array('gaji' => $gaji)); ?>
                 </td>
             </tr>
             <tr>
@@ -538,7 +549,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <?php echo $this->renderPartial('_tableKeluarga', array('keluarga' => $keluarga)); ?>
+    <?php echo $this->renderPartial('_tableKeluarga', array('keluarga' => $keluarga)); ?>
                 </td>
             </tr>
             <tr>
@@ -546,7 +557,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <?php echo $this->renderPartial('_tablePendidikan', array('pendidikan' => $pendidikan)); ?>
+    <?php echo $this->renderPartial('_tablePendidikan', array('pendidikan' => $pendidikan)); ?>
                 </td>
             </tr>
             <tr>
@@ -554,7 +565,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <?php echo $this->renderPartial('_tablePenghargaan', array('penghargaan' => $penghargaan)); ?> 
+    <?php echo $this->renderPartial('_tablePenghargaan', array('penghargaan' => $penghargaan)); ?> 
                 </td>
             </tr>
             <tr>
@@ -562,7 +573,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <?php echo $this->renderPartial('_tablePelatihan', array('pelatihan' => $pelatihan)); ?>
+    <?php echo $this->renderPartial('_tablePelatihan', array('pelatihan' => $pelatihan)); ?>
                 </td>
             </tr>    
             <tr>
@@ -570,7 +581,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <?php echo $this->renderPartial('_tableHukuman', array('hukuman' => $hukuman)); ?>
+    <?php echo $this->renderPartial('_tableHukuman', array('hukuman' => $hukuman)); ?>
                 </td>
             </tr>
 
@@ -662,5 +673,23 @@ $this->beginWidget(
         });
 
     }
-    ;
+
+    function pensiun() {
+        var lahir = new Date($("#Pegawai_tanggal_lahir").val());
+        var tipe = $('input[name="Pegawai[tipe_jabatan]"]:checked').val();
+        var masa_kerja = 0;
+        if (tipe == 'struktural') {
+            if ($("#masa_kerja").val() == '')
+                masa_kerja = 0
+            else
+                masa_kerja = parseInt($("#masa_kerja").val());
+        } else if (tipe == 'fungsional_umum') {
+            masa_kerja = 58;
+        } else if (tipe == 'fungsional_tertentu') {
+            masa_kerja = 60;
+        }
+        var kalkulasi = new Date(new Date(lahir).setYear(lahir.getFullYear() + masa_kerja));
+        var pensiun = kalkulasi.getFullYear() + '-' + kalkulasi.getMonth() + '-' + kalkulasi.getDate();
+        $("#Pegawai_tmt_pensiun").val(pensiun)
+    }
 </script>
