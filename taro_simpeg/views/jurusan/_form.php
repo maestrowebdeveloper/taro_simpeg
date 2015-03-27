@@ -14,18 +14,23 @@
         </legend>
 
         <?php echo $form->errorSummary($model,'Opps!!!', null,array('class'=>'alert alert-error span12')); ?>
+<div class="control-group ">
+            <label class="control-label">Universitas</label>
+            <div class="controls">
+<?php
+                $data = array('0' => '- Universitas -') + CHtml::listData(Universitas::model()->findAll(array('order' => 'name')), 'id', 'name');
+                $this->widget(
+                        'bootstrap.widgets.TbSelect2', array(
+                    'name' => 'Jurusan[id_universitas]',
+                    'data' => $data,
+                    'value' => $model->id_universitas,
+                    'options' => array(
+                        'width' => '40%;margin:0px;text-align:left',
+                )));
+                ?>  
+                  </div>
+        </div>
 
-<?php 
-                        $data= array('0' => '- Universitas -') + CHtml::listData(Universitas::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');                            
-                        $this->widget(
-                                    'bootstrap.widgets.TbSelect2', array(      
-                                        'name' => 'Universitas[id]',
-                                        'data' => $data,
-                                        'value'=>$model->id,
-                                        'options' => array(
-                                            'width' => '40%;margin:0px;text-align:left',
-                                            )));
-                    ?>  
                                    
  <?php // echo $form->textFieldRow($model,'id_universitas',array('class'=>'span5')); ?>
 

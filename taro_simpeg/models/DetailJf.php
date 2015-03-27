@@ -1,21 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "{{jurusan}}".
+ * This is the model class for table "{{detail_jf}}".
  *
- * The followings are the available columns in table '{{jurusan}}':
+ * The followings are the available columns in table '{{detail_jf}}':
  * @property integer $id
- * @property integer $id_universitas
- * @property string $Name
+ * @property integer $jabatan_fungsional_id
+ * @property integer $golongan_id
+ * @property string $created
+ * @property string $modified
  */
-class Jurusan extends CActiveRecord
+class DetailJf extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{jurusan}}';
+		return '{{detail_jf}}';
 	}
 
 	/**
@@ -26,11 +28,11 @@ class Jurusan extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_universitas', 'numerical', 'integerOnly'=>true),
-			array('Name', 'length', 'max'=>255),
+			array('jabatan_fungsional_id, golongan_id', 'required'),
+			array('jabatan_fungsional_id, golongan_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, id_universitas, Name', 'safe', 'on'=>'search'),
+			array('id, jabatan_fungsional_id, golongan_id, created, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -42,6 +44,7 @@ class Jurusan extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+                     'JabatanFungsional' => array(self::BELONGS_TO, 'JabatanFungsional', 'jabatan_fungsional_id'),
 		);
 	}
 
@@ -52,8 +55,10 @@ class Jurusan extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'id_universitas' => 'Id Universitas',
-			'Name' => 'Jurusan',
+			'jabatan_fungsional_id' => 'Jabatan Fungsional',
+			'golongan_id' => 'Golongan',
+			'created' => 'Created',
+			'modified' => 'Modified',
 		);
 	}
 
@@ -76,8 +81,10 @@ class Jurusan extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('id_universitas',$this->id_universitas);
-		$criteria->compare('Name',$this->Name,true);
+		$criteria->compare('jabatan_fungsional_id',$this->jabatan_fungsional_id);
+		$criteria->compare('golongan_id',$this->golongan_id);
+		$criteria->compare('created',$this->created,true);
+		$criteria->compare('modified',$this->modified,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -89,7 +96,7 @@ class Jurusan extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Jurusan the static model class
+	 * @return DetailJf the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
