@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Universitases');
+$this->setPageTitle('Universitas');
 $this->breadcrumbs=array(
-	'Universitases',
+	'Universitas',
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -45,15 +45,48 @@ $this->endWidget();
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
+<?php
+	$display = (landa()->checkAccess("universitas","d")==0)?'none':'';
+	$button = "";
+    if (landa()->checkAccess("universitas", 'r')) 
+        $button .= '{view} ';    
+    if (landa()->checkAccess("universitas", 'u')) 
+        $button .= '{update} ';    
+    if (landa()->checkAccess("universitas", 'd')) 
+        $button .= '{delete}';    
 
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id' => 'chargeAdditional-form',
+        'enableAjaxValidation' => false,
+        'method' => 'post',
+        'type' => 'horizontal',
+        'htmlOptions' => array(
+            'enctype' => 'multipart/form-data'
+        )
+    ));
+    ?>
+
+<button type="submit" name="delete" value="dd" style="margin-left: 10px;display:<?php echo $display;?>" class="btn btn-danger pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Delete Checked</button>    
+ <br>
+ <br>
 
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'universitas-grid',
 	'dataProvider'=>$model->search(),
         'type'=>'striped bordered condensed',
-        'template'=>'{summary}{pager}{items}{pager}',
+        'template'=>'{items}{pager}{summary}',
 	'columns'=>array(
-		'id',
+            array(
+                'class' => 'CCheckBoxColumn',
+                'selectableRows' => 2,
+	            'htmlOptions' => array('style' => 'text-align:center;display:'.$display),
+	            'headerHtmlOptions'=>array('style'=>'width:25px;text-align:center;display:'.$display),                
+                'checkBoxHtmlOptions' => array(
+                    'name' => 'ceckbox[]',
+                    'value' => '$data->id',
+                ),
+            ),
+	
 		'name',
        array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
@@ -81,5 +114,5 @@ $this->endWidget();
             'htmlOptions'=>array('style'=>'width: 125px'),
            )
 	),
-)); ?>
+)); $this->endWidget(); ?>
 

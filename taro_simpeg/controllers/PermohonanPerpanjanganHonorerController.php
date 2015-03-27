@@ -45,6 +45,7 @@ class PermohonanPerpanjanganHonorerController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionGetNilai() {
+        $id = $_POST["id"];
         $nilai = NilaiHonorer::model()->findAll(array('condition' => 'pegawai_id=' . $_POST['id'], 'order' => 'tahun DESC', 'limit' => 5));
         $table = '';
         $table .= ' <fieldset>
@@ -85,8 +86,21 @@ class PermohonanPerpanjanganHonorerController extends Controller {
         }
         $table .= '</tbody>
                     </table>';
+        $return['table']=$table;
 
-        echo $table;
+        $model = Honorer::model()->findByPk($id);
+        $return['id'] = $id;
+        $return['nama'] = $model->nama;
+        $return['jenis_kelamin'] = $model->jenis_kelamin;        
+        $return['unit_kerja'] = $model->unitKerja;
+        $return['masa_kerja'] = $model->masaKerja;
+        $return['tempat_lahir'] = $model->tempatLahir;
+        $return['tanggal_lahir'] = $model->tanggal_lahir;
+        $return['kota'] = $model->kota;
+        $return['alamat'] = $model->alamat;
+        $return['pendidikan_terakhir'] = $model->pendidikan_terakhir;
+        echo json_encode($return);
+        
     }
 
     public function actionView($id) {

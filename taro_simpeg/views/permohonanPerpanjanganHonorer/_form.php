@@ -21,7 +21,7 @@
         )
     ));
     ?>
-    <fieldset>
+
         <legend>
             <p class="note">Fields dengan <span class="required">*</span> harus di isi.</p>
         </legend>
@@ -33,8 +33,9 @@
         </fieldset>
 
         <?php echo $form->errorSummary($model, 'Opps!!!', null, array('class' => 'alert alert-error span12')); ?>
-
-        <?php echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span5', 'maxlength' => 225)); ?>
+        <div class="row-fluid">
+        <div class="span5">
+        <?php echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span10', 'maxlength' => 225)); ?>
 
         <?php
         echo $form->datepickerRow(
@@ -53,19 +54,28 @@
                            url : "' . url('permohonanPerpanjanganHonorer/getNilai') . '",
                            type : "POST",
                            data :  { id:  $(this).val()},
-                           success : function(data){    
-                            $(".riwayatNilai").html(data);
+                           success : function(data){                             
+                            obj = JSON.parse(data);                                                    
+                            $(".riwayatNilai").html(obj.table);
+                            $("#unit_kerja").val(obj.unit_kerja);                            
+                            $("#jenis_kelamin").val(obj.jenis_kelamin);
+                            $("#tempat_lahir").val(obj.tempat_lahir);
+                            $("#tanggal_lahir").val(obj.tanggal_lahir);
+                            $("#pendidikan_terakhir").val(obj.pendidikan_terakhir);
+                            $("#alamat").val(obj.alamat);
                             $(".riwayatNilai").show();
                         }
                     });
                 }'),
             'options' => array(
                 "allowClear" => false,
-                'width' => '40%',
+                'width' => '80%',
             ))
         );
+        ?>
+        <?php
 
-        echo $form->textFieldRow($model, 'honor_saat_ini', array('class' => 'span5 angka', 'prepend' => 'Rp'));
+        echo $form->textFieldRow($model, 'honor_saat_ini', array('class' => 'span10 angka', 'prepend' => 'Rp'));
 
         echo $form->datepickerRow(
                 $model, 'tmt_mulai', array(
@@ -81,6 +91,36 @@
                 )
         );
         ?>
+    </div>
+    <div class="span5">
+        <?php
+        $unit_kerja = (!empty($model->Honorer->unitKerja))?$model->Honorer->unitKerja:'';
+        $jenis_kelamin = (!empty($model->Honorer->jenis_kelamin))?$model->Honorer->jenis_kelamin:'';
+        $tempat_lahir = (!empty($model->Honorer->tempatLahir))?$model->Honorer->tempatLahir:'';
+        $tanggal_lahir = (!empty($model->Honorer->tanggal_lahir))?$model->Honorer->tanggal_lahir:'';
+        $pendidikan_terakhir = (!empty($model->Honorer->pendidikan_terakhir))?$model->Honorer->pendidikan_terakhir:'';
+        $alamat = (!empty($model->Honorer->alamat))?$model->Honorer->alamat:'';
+        ?>
+         <div class="control-group "><label  class="control-label">Unit Kerja</label><div class="controls">
+            <input disabled class="span12" maxlength="225" name="" value="<?php echo $unit_kerja;?>" id="unit_kerja" type="text">
+        </div></div>
+        <div class="control-group "><label  class="control-label">Jenis Kelamin</label><div class="controls">
+            <input disabled class="span12" maxlength="225" name="" value="<?php echo $jenis_kelamin;?>" id="jenis_kelamin" type="text">
+        </div></div>
+        <div class="control-group "><label  class="control-label">Tempat Lahir</label><div class="controls">
+            <input disabled class="span12" maxlength="225" name="" value="<?php echo $tempat_lahir;?>" id="tempat_lahir" type="text">
+        </div></div>        
+        <div class="control-group "><label class="control-label" for="">Tanggal Lahir</label><div class="controls">
+            <div  class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span><input id="tanggal_lahir" value="<?php echo $tanggal_lahir;?>" disabled type="text"></div>
+        </div></div>    
+        <div class="control-group "><label  class="control-label">Pendidikan Terakhir</label><div class="controls">
+            <input disabled class="span12" maxlength="225" name="" id="pendidikan_terakhir" value="<?php echo $pendidikan_terakhir;?>" type="text">
+        </div></div>        
+        <div class="control-group "><label  class="control-label">Alamat</label><div class="controls">
+            <input disabled class="span12" maxlength="225" name="alamat" id="" value="<?php echo $alamat;?>" type="text">
+        </div></div>
+    </div>
+</div>
 
         <?php
         if ($model->isNewRecord == true)
@@ -137,6 +177,7 @@
             </table>
         </div>
 
+
         <?php if (!isset($_GET['v'])) { ?>        <div class="form-actions">
             <?php
             $this->widget('bootstrap.widgets.TbButton', array(
@@ -154,7 +195,7 @@
             ));
             ?>
             </div>
-        <?php } ?>    </fieldset>
+        <?php } ?>    
 
     <?php $this->endWidget(); ?>
 

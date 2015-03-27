@@ -97,10 +97,13 @@ class PegawaiController extends Controller {
         $model = Pegawai::model()->findByPk($id);
         $return['id'] = $id;
         $return['nama'] = $model->namaGelar;
+        $return['jenis_kelamin'] = $model->jenis_kelamin;
         $return['jabatan'] = $model->jabatan;
         $return['tipe_jabatan'] = $model->tipe;
         $return['unit_kerja'] = $model->unitKerja;
         $return['masa_kerja'] = $model->masaKerja;
+        $return['tempat_lahir'] = $model->tempat_lahir;
+        $return['tanggal_lahir'] = $model->tanggal_lahir;
         echo json_encode($return);
     }
 
@@ -166,15 +169,15 @@ class PegawaiController extends Controller {
             else
                 $model = RiwayatJabatan::model()->findByPk($_POST['RiwayatJabatan']['id']);
 
-            $model->attributes = $_POST['RiwayatJabatan'];
-            $model->tipe_jabatan = $_POST['RiwayatJabatan']['tipe_jabatan'];
-            $model->jabatan_struktural_id = $_POST['RiwayatJabatan']['jabatan_struktural_id'];
-            $model->jabatan_fu_id = $_POST['RiwayatJabatan']['jabatan_fu_id'];
-            $model->jabatan_ft_id = $_POST['RiwayatJabatan']['jabatan_ft_id'];
+            $model->attributes = (isset($_POST['RiwayatJabatan']))?$_POST['RiwayatJabatan']:'';
+            $model->tipe_jabatan = (isset($_POST['RiwayatJabatan']['tipe_jabatan']))?$_POST['RiwayatJabatan']['tipe_jabatan']:'';
+            $model->jabatan_struktural_id = (isset($_POST['RiwayatJabatan']['jabatan_struktural_id']))?$_POST['RiwayatJabatan']['jabatan_struktural_id']:'';
+            $model->jabatan_fu_id = (isset($_POST['RiwayatJabatan']['jabatan_fu_id']))?$_POST['RiwayatJabatan']['jabatan_fu_id']:'';
+            $model->jabatan_ft_id = (isset($_POST['RiwayatJabatan']['jabatan_ft_id']))?$_POST['RiwayatJabatan']['jabatan_ft_id']:'';
             if ($model->save()) {
                 $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tmt_mulai DESC'));
                 echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $model->pegawai_id));
-            }
+            }            
         }
     }
 
@@ -472,6 +475,14 @@ class PegawaiController extends Controller {
         ));
     }
 
+    public function actionImportData() {    
+        $model = new Pegawai('search');
+        $model->unsetAttributes();  // clear any default values  
+        $this->render('importDataPegawai', array(    
+            'model' => $model,        
+        ));
+    }
+
     public function actionCheckErrorExcel() {
         $session = new CHttpSession;
         $session->open();
@@ -644,7 +655,7 @@ class PegawaiController extends Controller {
             if ($model->tipe_jabatan == "struktural") {
                 $jabatan = JabatanStruktural::model()->findByPk($model->jabatan_struktural_id);
             } elseif ($model->tipe_jabatan == "fungsional_umum") {
-                $jabatan = JabatanFu::model()->findByPk($model->jabatan_fu_id);
+                $jabatan = JabatanFu::actioninmodel()->findByPk($model->jabatan_fu_id);
             } elseif ($model->tipe_jabatan == "fungsional_tertentu") {
                 $jabatan = JabatanFt::model()->findByPk($model->jabatan_ft_id);
             }
@@ -837,12 +848,12 @@ class PegawaiController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
-
-        if (isset($session['Pegawai_records'])) {
-            $model = $session['Pegawai_records'];
-        } else
+//        $session = new CHttpSession;
+//        $session->open();
+//
+//        if (isset($session['Pegawai_records'])) {
+//            $model = $session['Pegawai_records'];
+//        } else
             $model = Pegawai::model()->findAll();
 
 

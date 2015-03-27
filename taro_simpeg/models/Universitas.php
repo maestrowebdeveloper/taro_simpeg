@@ -51,7 +51,7 @@ class Universitas extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'name' => 'Universitas',
 		);
 	}
 

@@ -1,10 +1,10 @@
 <?php
-$criteria = '';
-if (!empty($model->unit_kerja_id))
-    $criteria .= ' and unit_kerja_id='.$model->unit_kerja_id;
+//$criteria = '';
+//if (!empty($model->unit_kerja_id))
+//    $criteria .= 'unit_kerja_id='.$model->unit_kerja_id;
 
-$data = Pegawai::model()->with('Golongan')->findAll(array('condition' => 'Golongan.tingkat BETWEEN ' . $model->jabatan_fu_id . ' AND ' . $model->jabatan_ft_id . ' '.$criteria));	
-app()->session['Pegawai_records'] = $data; 
+$data = Pegawai::model()->with('Golongan')->findAll();	
+//app()->session['Pegawai_records'] = $data; 
 ?>
 
 <div style="text-align: right">
@@ -14,7 +14,7 @@ app()->session['Pegawai_records'] = $data;
 </div>
 <div class="report" id="report" style="width: 100%">
 <h3 style="text-align:center">LAPORAN PEGAWAI BERDASARKAN URUTAN KEPANGKATAN PEGAWAI</h3><br>
-<h6  style="text-align:center">Tangga : <?php echo date('d F Y');?></h6>
+<h6  style="text-align:center">Tanggal : <?php echo date('d F Y');?></h6>
 <hr>
 <table class="table table-bordered">
 	<thead>

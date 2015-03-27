@@ -42,7 +42,7 @@
                 <li><a href="#gaji"> R. Gaji</a></li>       
                 <li><a href="#keluarga"> R. Keluarga</a></li>       
                 <li><a href="#pendidikan"> R. Pendidikan</a></li>                       
-                <li><a href="#pelatihan"> R. Pelatihan</a></li>       
+                <li><a href="#pelatihan"> R. Diklat</a></li>       
                 <li><a href="#penghargaan"> R. Penghargaan</a></li>       
                 <li><a href="#hukuman"> R. Hukuman</a></li> 
                 <li><a href="#file"> File</a></li> 
@@ -138,6 +138,7 @@
                             </fieldset>
                             <?php
                             echo $form->textFieldRow($model, 'npwp', array('class' => 'span5', 'maxlength' => 50));
+                            echo $form->textFieldRow($model, 'kpe', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->textFieldRow($model, 'no_taspen', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->textFieldRow($model, 'bpjs', array('class' => 'span5', 'maxlength' => 50));
                             ?>

@@ -91,6 +91,23 @@ class HonorerController extends Controller {
         }
     }
 
+    public function actionGetDetail() {
+        $id = $_POST["id"];
+        $model = Honorer::model()->findByPk($id);
+        $return['id'] = $id;
+        $return['nama'] = $model->nama;
+        $return['jenis_kelamin'] = $model->jenis_kelamin;        
+        $return['unit_kerja'] = $model->unitKerja;
+        $return['masa_kerja'] = $model->masaKerja;
+        $return['tempat_lahir'] = $model->tempat_lahir;
+        $return['tanggal_lahir'] = $model->tanggal_lahir;
+        $return['kota'] = $model->kota;
+        $return['nama_kota'] = $model->namaKota;
+        $return['alamat'] = $model->alamat;
+        $return['pendidikan_terakhir'] = $model->pendidikan_terakhir;
+        echo json_encode($return);
+    }
+
     public function actionRemovephoto($id) {
         Honorer::model()->updateByPk($id, array('foto' => NULL));
     }

@@ -90,7 +90,7 @@ $this->breadcrumbs = array(
 
 
 <?php
-if (!empty($model->jabatan_ft_id) && !empty($model->jabatan_fu_id)) {
+if (!empty($model->unit_kerja_id)) {
     $this->renderPartial('_urutKepangkatan', array('model' => $model));
 }
 ?>
