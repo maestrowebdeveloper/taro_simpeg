@@ -47,7 +47,7 @@
                 'bootstrap.widgets.TbSelect2', array(
             'name' => 'RiwayatPendidikan[id_jurusan]',
             'data' => $data,
-            'value' => $model->id_universitas,
+            'value' => $model->id_jurusan,
             'options' => array(
                 'width' => '40%;margin:0px;text-align:left',
         )));
