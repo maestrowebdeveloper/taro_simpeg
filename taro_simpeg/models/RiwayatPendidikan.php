@@ -33,7 +33,7 @@ class RiwayatPendidikan extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('pegawai_id, jenjang_pendidikan, tahun, jurusan, nama_sekolah', 'required'),
+			array('pegawai_id, jenjang_pendidikan, id_jurusan,id_universitas,tahun, jurusan, nama_sekolah', 'required'),
 			array('alamat_sekolah, created, created_user_id, modified', 'safe'),
 			array('pegawai_id, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('jenjang_pendidikan', 'length', 'max'=>9),
@@ -42,7 +42,7 @@ class RiwayatPendidikan extends CActiveRecord
 			array('nama_sekolah', 'length', 'max'=>225),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pegawai_id, jenjang_pendidikan, tahun, jurusan, nama_sekolah, alamat_sekolah, created, created_user_id, modified', 'safe', 'on'=>'search'),
+			array('id, pegawai_id, id_jurusan,id_universitas,jenjang_pendidikan, tahun, jurusan, nama_sekolah, alamat_sekolah, created, created_user_id, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,6 +69,8 @@ class RiwayatPendidikan extends CActiveRecord
 			'jenjang_pendidikan' => 'Jenjang Pendidikan',
 			'tahun' => 'Tahun',
 			'jurusan' => 'Jurusan',
+			'id_universitas' => 'Universitas',
+			'id_jurusan' => 'Jurusan',
 			'nama_sekolah' => 'Nama Sekolah',
 			'alamat_sekolah' => 'Alamat Sekolah',
 			'created' => 'Created',
@@ -103,6 +105,8 @@ class RiwayatPendidikan extends CActiveRecord
 		$criteria->compare('jenjang_pendidikan',$this->jenjang_pendidikan,true);
 		$criteria->compare('tahun',$this->tahun,true);
 		$criteria->compare('jurusan',$this->jurusan,true);
+		$criteria->compare('universitas',$this->id_universitas,true);
+		$criteria->compare('jurusan',$this->id_jurusan,true);
 		$criteria->compare('nama_sekolah',$this->nama_sekolah,true);
 		$criteria->compare('alamat_sekolah',$this->alamat_sekolah,true);
 		$criteria->compare('created',$this->created,true);

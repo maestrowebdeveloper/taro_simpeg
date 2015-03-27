@@ -47,11 +47,11 @@
                         <?php
                         $arrMenu = Auth::model()->modules();
                         $mAuth = Auth::model()->findAll(array('index' => 'id', 'select' => 'id,crud'));
-                        trace($mAuth);
+//                        trace($mAuth);
 
                         if ($model->isNewRecord == false) {
                             $mRolesAuth = RolesAuth::model()->findAll(array('condition' => 'roles_id=' . $model->id, 'select' => 'id,auth_id,crud', 'index' => 'auth_id'));
-                            trace($mRolesAuth);
+//                            trace($mRolesAuth);
                         }
 
                         foreach ($arrMenu as $arr) {
