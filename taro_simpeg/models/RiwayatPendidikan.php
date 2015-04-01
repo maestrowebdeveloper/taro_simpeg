@@ -33,8 +33,8 @@ class RiwayatPendidikan extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('pegawai_id, jenjang_pendidikan, id_jurusan,id_universitas,tahun, jurusan, nama_sekolah', 'required'),
-			array('alamat_sekolah, created, created_user_id, modified', 'safe'),
+			array('pegawai_id, jenjang_pendidikan, tahun', 'required'),
+			array('alamat_sekolah, created, nama_sekolah, created_user_id, id_jurusan, id_universitas, modified, jurusan', 'safe'),
 			array('pegawai_id, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('jenjang_pendidikan', 'length', 'max'=>9),
 			array('tahun', 'length', 'max'=>10),
