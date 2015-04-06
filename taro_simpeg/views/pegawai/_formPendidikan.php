@@ -25,10 +25,13 @@
         echo $form->hiddenField($model, 'pegawai_id');
 
         echo $form->radioButtonListRow($model, 'jenjang_pendidikan', Pegawai::model()->ArrJenjangPendidikan());
-        echo $form->textFieldRow($model, 'jurusan', array('class' => 'span3', 'maxlength' => 50));
-        echo' <div class="control-group ">
-            <label class="control-label">Universitas</label>
-            <div class="controls">';
+        echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span3', 'maxlength' => 100));
+        echo $form->textFieldRow($model, 'jurusan', array(
+            'class' => 'span3',
+            'maxlength' => 50,
+            'id' => 'jurusan_sma'
+        ));
+        echo' <div class="control-group "><label class="control-label">Universitas</label><div class="controls">';
         $data = array('0' => '- Universitas -') + CHtml::listData(Universitas::model()->findAll(array('order' => 'name')), 'id', 'name');
         $this->widget(
                 'bootstrap.widgets.TbSelect2', array(
@@ -39,20 +42,19 @@
                 'width' => '40%;margin:0px;text-align:left',
         )));
         echo "</div></div>";
-          echo' <div class="control-group ">
-            <label class="control-label">Jurusan</label>
-            <div class="controls">';
+        echo' <div class="control-group "><label class="control-label">Jurusan</label><div class="controls">';
         $data = array('0' => '- jurusan -') + CHtml::listData(Jurusan::model()->findAll(array('order' => 'Name')), 'id', 'Name');
         $this->widget(
                 'bootstrap.widgets.TbSelect2', array(
             'name' => 'RiwayatPendidikan[id_jurusan]',
+            'id' => 'jurusan_kuliah',
             'data' => $data,
             'value' => $model->id_jurusan,
             'options' => array(
                 'width' => '40%;margin:0px;text-align:left',
         )));
         echo "</div></div>";
-        echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span3', 'maxlength' => 100));
+
         echo $form->textAreaRow($model, 'alamat_sekolah', array('rows' => 4, 'cols' => 50, 'class' => 'span8'));
         echo $form->textFieldRow($model, 'tahun', array('class' => 'span1 angka', 'maxlength' => 100));
         ?>
@@ -99,5 +101,32 @@
             },
         });
 
+    });
+    $("body").on("click", ".radio", function () {
+        var id = $(this).find("input").val();
+        if (id == "SMA/SMK") {
+            $("#RiwayatPendidikan_id_universitas").parent().parent().attr("style", "display:none")
+            $("#RiwayatPendidikan_id_jurusan").parent().parent().attr("style", "display:none");
+            $("#jurusan_sma").parent().parent().attr("style", "display:");
+            $("#RiwayatPendidikan_nama_sekolah").parent().parent().attr("style", "display:");
+        }
+        else if (id == "SMP") {
+            $("#RiwayatPendidikan_id_universitas").parent().parent().attr("style", "display:none");
+            $("#RiwayatPendidikan_id_jurusan").parent().parent().attr("style", "display:none");
+            $("#jurusan_sma").parent().parent().attr("style", "display:none");
+            $("#RiwayatPendidikan_nama_sekolah").parent().parent().attr("style", "display:");
+        }
+        else if (id == "SD") {
+            $("#RiwayatPendidikan_id_universitas").parent().parent().attr("style", "display:none");
+            $("#RiwayatPendidikan_id_jurusan").parent().parent().attr("style", "display:none");
+            $("#jurusan_sma").parent().parent().attr("style", "display:none");
+            $("#RiwayatPendidikan_nama_sekolah").parent().parent().attr("style", "display:");
+        }
+        else {
+            $("#jurusan_sma").parent().parent().attr("style", "display:none");
+            $("#RiwayatPendidikan_nama_sekolah").parent().parent().attr("style", "display:none");
+            $("#RiwayatPendidikan_id_universitas").parent().parent().attr("style", "display:");
+            $("#RiwayatPendidikan_id_jurusan").parent().parent().attr("style", "display:");
+        }
     });
 </script>

@@ -85,7 +85,7 @@
                             echo $form->radioButtonListRow($model, 'jenis_kelamin', Pegawai::model()->ArrJenisKelamin());
                             $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'tempat_lahir', 'cityValue' => $model->tempat_lahir, 'disabled' => false, 'width' => '40%', 'label' => 'Tempat Lahir'));
                             echo $form->datepickerRow(
-                                    $model, 'tanggal_lahir', array(
+                                    $model, 'tanggal_lahir', array('value' => str_replace("0000-00-00", "", $model->tanggal_lahir),
                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                 'prepend' => '<i class="icon-calendar"></i>',
                                     )
@@ -175,6 +175,7 @@
                                         $this->widget(
                                                 'bootstrap.widgets.TbDatePicker', array(
                                             'name' => 'Pegawai[tmt_cpns]',
+                                            'value' => str_replace("0000-00-00", "", $model->tmt_cpns),
                                             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                             'htmlOptions' => array('class' => ''),
                                                 )
@@ -189,7 +190,7 @@
                             </div>
                             <?php
                             echo $form->datepickerRow(
-                                    $model, 'tmt_pns', array(
+                                    $model, 'tmt_pns', array('value' => str_replace("0000-00-00", "", $model->tmt_pns),
                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                 'prepend' => '<i class="icon-calendar"></i>',
                                     )
@@ -270,7 +271,8 @@
                                         )));
                                         echo '&nbsp;&nbsp;';
                                         ?>
-                                        <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
+                                        <div class="input-prepend">
+                                            <span class="add-on"><i class="icon-calendar"></i></span>
                                             <?php
                                             $this->widget(
                                                     'bootstrap.widgets.TbDatePicker', array(
@@ -285,10 +287,23 @@
                                 </div>
                                 <div class="control-group "><label class="control-label" for="eselon">Eselon</label>
                                     <div class="controls">
-                                        <input type="hidden" name="masa_kerja" id="masa_kerja" value="<?php echo isset($model->JabatanStruktural->Eselon->masa_kerja) and !empty($model->JabatanStruktural->Eselon->masa_kerja) ? $model->JabatanStruktural->Eselon->id : 0; ?>">
+                                        <input type="hidden" name="masa_kerja" id="masa_kerja" value="<?php echo isset($model->JabatanStruktural->Eselon->masa_kerja) and ! empty($model->JabatanStruktural->Eselon->masa_kerja) ? $model->JabatanStruktural->Eselon->id : 0; ?>">
                                         <?php
                                         echo CHtml::textField('eselon', isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-', array('id' => 'eselon', 'class' => 'span5', 'readonly' => true));
+                                        echo '&nbsp;&nbsp;';
                                         ?>
+                                        <div class="input-prepend">
+                                            <span class="add-on"><i class="icon-calendar"></i></span>
+                                            <?php
+                                            $this->widget(
+                                                    'bootstrap.widgets.TbDatePicker', array(
+                                                'name' => 'Pegawai[tmt_eselon]',
+                                                'value' => str_replace("0000-00-00", "", $model->tmt_eselon),
+                                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -329,7 +344,7 @@
                                             $this->widget(
                                                     'bootstrap.widgets.TbDatePicker', array(
                                                 'name' => 'Pegawai[tmt_jabatan_fu]',
-                                                'value' => $model->tmt_jabatan_fu,
+                                                'value' => str_replace("0000-00-00", "", $model->tmt_jabatan_fu),
                                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                                     )
                                             );
@@ -351,17 +366,11 @@
                                             'value' => $model->jabatan_ft_id,
                                             'events' => array('change' => 'js: function() {
                                                     $.ajax({
-                                                       url : "' . url('pegawai/statusJabatan') . '",
+                                                       url : "' . url('pegawai/fungsionalTertentu') . '",
                                                        type : "POST",
                                                        data : $("#pegawai-form").serialize(),
                                                        success : function(data){                                                                                                               
-                                                        if(data==1){
-                                                            if($("#Pegawai_jabatan_ft_id").val()!="' . $model->jabatan_ft_id . '"){
-                                                                alert("Jabatan Telah Diemban Orang Lain");
-                                                                $("#s2id_Pegawai_jabatan_ft_id").select2("val", "' . $model->jabatan_ft_id . '") ;  
-                                                            }                                                                                                                       
-                                                        }
-                                                        
+                                                            $("#jabatan_fungsional_tertentu").val(data);
                                                     }
                                                 });
                                             }'),
@@ -375,7 +384,7 @@
                                             $this->widget(
                                                     'bootstrap.widgets.TbDatePicker', array(
                                                 'name' => 'Pegawai[tmt_jabatan_ft]',
-                                                'value' => $model->tmt_jabatan_ft,
+                                                'value' => str_replace("0000-00-00", "", $model->tmt_jabatan_ft),
                                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                                     )
                                             );
@@ -383,10 +392,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="control-group "><label class="control-label" for="jabatan_fungsional_tertentu">Jabatan Fungsional</label>
+                                    <div class="controls">
+                                        <?php
+                                        $jabatanFung = JabatanFungsional::model()->find(array('condition'=>'jabatan_ft_id='.$model->jabatan_ft_id));
+                                        echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span5', 'readonly' => true));
+                                        ?>   
+                                    </div>
+                                </div>
                             </div>
 
 
-                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));          ?>
+                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));            ?>
 
                             <?php if (isset($_GET['v'])) { ?>
                                 <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
@@ -482,9 +499,9 @@
                 ));
                 ?>
                 </div>
-        <?php } ?>    </fieldset>
+            <?php } ?>    </fieldset>
 
-<?php $this->endWidget(); ?>
+        <?php $this->endWidget(); ?>
 
     </div>
 </div>
@@ -525,7 +542,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tablePangkat', array('pangkat' => $pangkat)); ?>
+                    <?php echo $this->renderPartial('_tablePangkat', array('pangkat' => $pangkat)); ?>
                 </td>
             </tr>
             <tr>
@@ -533,7 +550,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tableJabatan', array('jabatan' => $jabatan)); ?> 
+                    <?php echo $this->renderPartial('_tableJabatan', array('jabatan' => $jabatan)); ?> 
                 </td>
             </tr>
             <tr>
@@ -541,7 +558,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tableGaji', array('gaji' => $gaji)); ?>
+                    <?php echo $this->renderPartial('_tableGaji', array('gaji' => $gaji)); ?>
                 </td>
             </tr>
             <tr>
@@ -549,7 +566,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tableKeluarga', array('keluarga' => $keluarga)); ?>
+                    <?php echo $this->renderPartial('_tableKeluarga', array('keluarga' => $keluarga)); ?>
                 </td>
             </tr>
             <tr>
@@ -557,7 +574,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tablePendidikan', array('pendidikan' => $pendidikan)); ?>
+                    <?php echo $this->renderPartial('_tablePendidikan', array('pendidikan' => $pendidikan)); ?>
                 </td>
             </tr>
             <tr>
@@ -565,7 +582,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tablePenghargaan', array('penghargaan' => $penghargaan)); ?> 
+                    <?php echo $this->renderPartial('_tablePenghargaan', array('penghargaan' => $penghargaan)); ?> 
                 </td>
             </tr>
             <tr>
@@ -573,7 +590,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tablePelatihan', array('pelatihan' => $pelatihan)); ?>
+                    <?php echo $this->renderPartial('_tablePelatihan', array('pelatihan' => $pelatihan)); ?>
                 </td>
             </tr>    
             <tr>
@@ -581,7 +598,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-    <?php echo $this->renderPartial('_tableHukuman', array('hukuman' => $hukuman)); ?>
+                    <?php echo $this->renderPartial('_tableHukuman', array('hukuman' => $hukuman)); ?>
                 </td>
             </tr>
 
