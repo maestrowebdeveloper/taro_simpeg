@@ -130,7 +130,7 @@ class Auth extends CActiveRecord {
                     array('visible' => landa()->checkAccess('jurusan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Jurusan', 'url' => url('/jurusan'), 'auth_id' => 'jurusan'),
                     array('visible' => landa()->checkAccess('universitas', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Kampus/Universitas', 'url' => url('/universitas'), 'auth_id' => 'universitas'),
                 )),
-            array('visible' => landa()->checkAccess('pegawai', 'r'), 'label' => '<span class="icon16  icomoon-icon-user-3 "></span>Data Pegawai', 'url' => url('/pegawai'), 'auth_id' => 'pegawai'),
+            array('visible' => landa()->checkAccess('pegawai', 'r'), 'label' => '<span class="icon16  icomoon-icon-user-3 "></span>Data PNS', 'url' => url('/pegawai'), 'auth_id' => 'pegawai'),
             array('visible' => landa()->checkAccess('honorer', 'r'), 'label' => '<span class="icon16  wpzoom-user-2"></span>Data Honorer', 'url' => url('/honorer'), 'auth_id' => 'honorer'),
             array('visible' => landa()->checkAccess('suratMasuk', 'r'), 'label' => '<span class="icon16  eco-mail "></span>Arsip Surat', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
                     array('visible' => landa()->checkAccess('suratMasuk', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Surat Masuk', 'url' => url('/suratMasuk'), 'auth_id' => 'suratMasuk'),
