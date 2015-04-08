@@ -2897,3 +2897,170 @@ Stack trace:
 REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanIjinBelajar/create.html
 HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanIjinBelajar/create.html
 ---
+2015/04/01 11:28:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:483
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(270): CController->missingAction('images')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('images')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('site/images/fav...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/site/images/favicon.ico
+---
+2015/04/01 11:28:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/avatar/65-150x150-administrator.jpg".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/avatar/6...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/avatar/65-150x150-administrator.jpg
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/
+---
+2015/04/01 11:28:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/site/1-700x700-mlm-trader.png".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/site/1-7...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/site/1-700x700-mlm-trader.png
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/
+---
+2015/04/09 05:53:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:483
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(270): CController->missingAction('images')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('images')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('site/images/fav...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/site/images/favicon.ico
+---
+2015/04/09 05:53:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/avatar/65-150x150-administrator.jpg".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/avatar/6...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/avatar/65-150x150-administrator.jpg
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/
+---
+2015/04/09 05:54:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/avatar/65-150x150-administrator.jpg".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/avatar/6...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/avatar/65-150x150-administrator.jpg
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanIjinBelajar.html
+---
+2015/04/09 05:54:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/avatar/65-150x150-administrator.jpg".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/avatar/6...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/avatar/65-150x150-administrator.jpg
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanIjinBelajar.html
+---
+2015/04/09 05:55:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/avatar/65-150x150-administrator.jpg".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/avatar/6...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/avatar/65-150x150-administrator.jpg
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanMutasi.html
+---
+2015/04/09 05:55:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/avatar/65-150x150-administrator.jpg".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/avatar/6...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/avatar/65-150x150-administrator.jpg
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPensiun.html
+---
+2015/04/09 05:55:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/avatar/65-150x150-administrator.jpg".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/avatar/6...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/avatar/65-150x150-administrator.jpg
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer.html
+---
+2015/04/09 06:25:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/avatar/65-150x150-administrator.jpg".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/avatar/6...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/avatar/65-150x150-administrator.jpg
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/permohonanPerpanjanganHonorer/index.html
+---
+2015/04/09 06:31:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/avatar/65-150x150-administrator.jpg".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/avatar/6...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/avatar/65-150x150-administrator.jpg
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai.html
+---
+2015/04/09 06:31:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/150x150-noimage.jpg".' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('images/150x150-...')
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/images/150x150-noimage.jpg
+HTTP_REFERER=http://localhost/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai.html
+---
+2015/04/09 06:31:46 [error] [exception.CException] exception 'CException' with message 'Property "Pegawai.tmt_eselon" is not defined.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CComponent.php:130
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\db\ar\CActiveRecord.php(145): CComponent->__get('tmt_eselon')
+#1 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\_form.php(301): CActiveRecord->__get('tmt_eselon')
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#5 D:\xampp\htdocs\taro_simpeg\taro_simpeg\views\pegawai\update.php(43): CController->renderPartial('_form', Array)
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(126): require('D:\xampp\htdocs...')
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CBaseController.php(95): CBaseController->renderInternal('D:\xampp\htdocs...', Array, true)
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(869): CBaseController->renderFile('D:\xampp\htdocs...', Array, true)
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(782): CController->renderPartial('update', Array, true)
+#10 D:\xampp\htdocs\taro_simpeg\taro_simpeg\controllers\PegawaiController.php(727): CController->render('update', Array)
+#11 [internal function]: PegawaiController->actionUpdate('3734')
+#12 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(PegawaiController), Array)
+#13 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(PegawaiController), Object(ReflectionMethod), Array)
+#14 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(308): CInlineAction->runWithParams(Array)
+#15 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#16 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#17 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#18 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#19 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#20 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#21 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('update')
+#23 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/update')
+#24 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#25 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#26 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/3734.html
+---
+2015/04/09 06:31:46 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php:336
+Stack trace:
+#0 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilter.php(40): CFilterChain->run()
+#3 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(291): CFilterChain->run()
+#7 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(282): CController->run('update')
+#9 D:\xampp\htdocs\taro_simpeg\common\lib\yii\web\CWebApplication.php(141): CWebApplication->runController('pegawai/update/...')
+#10 D:\xampp\htdocs\taro_simpeg\common\lib\yii\base\CApplication.php(180): CWebApplication->processRequest()
+#11 D:\xampp\htdocs\taro_simpeg\taro_simpeg\www\simpeg.sampang\index.php(16): CApplication->run()
+#12 {main}
+REQUEST_URI=/taro_simpeg/taro_simpeg/www/simpeg.sampang/pegawai/update/images/favicon.ico
+---
