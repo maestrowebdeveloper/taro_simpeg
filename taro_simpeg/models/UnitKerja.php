@@ -112,7 +112,7 @@ class UnitKerja extends CActiveRecord
                         'sort' => array ('defaultOrder' => 'root,lft',),
 		));		
 
-        app()->session['UnitKerja_records'] = $this->findAll($criteria); 
+        //app()->session['UnitKerja_records'] = $this->findAll($criteria); 
 
 		return $data;
 	}

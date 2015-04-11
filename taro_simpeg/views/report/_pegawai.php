@@ -1,9 +1,12 @@
 <?php
 $criteria = '';
-if (!empty($model->unit_kerja_id))
+if (!empty($model->unit_kerja_id) && $model->unit_kerja_id>0 )
     $criteria .= ' and unit_kerja_id='.$model->unit_kerja_id;
-if (!empty($model->golongan_id))
+if (!empty($model->golongan_id)  && $model->golongan_id>0)
     $criteria .= ' and golongan_id='.$model->golongan_id;
+if (!empty($model->kedudukan_id)  && $model->kedudukan_id>0)
+    $criteria .= ' and kedudukan_id='.$model->kedudukan_id;
+
 if (!empty($model->tipe_jabatan))
     $criteria .= ' and tipe_jabatan='.$model->tipe_jabatan;
 
@@ -29,6 +32,7 @@ app()->session['Pegawai_records'] = $data;
 			<th style="width:10px">NO</th>
 			<th class="span1">NIP</th>
 			<th class="span1">NAMA</th>			
+			<th class="span1">KEDUDUKAN</th>			
 			<th class="span1">UNIT KERJA</th>
 			<th class="span1">GOLONGAN</th>			
 			<th class="span1">TIPE JABATAN</th>
@@ -46,6 +50,7 @@ app()->session['Pegawai_records'] = $data;
 			<td>'.$no.'</td>
 			<td>'.$value->nip.'</td>
 			<td>'.$value->nama.'</td>			
+			<td>'.$value->kedudukan.'</td>			
 			<td>'.$value->unitKerja.'</td>
 			<td>'.$value->golongan.'</td>			
 			<td>'.$value->tipe.'</td>

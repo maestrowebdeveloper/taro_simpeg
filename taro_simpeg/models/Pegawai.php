@@ -17,7 +17,7 @@ class Pegawai extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nip, nama, tanggal_lahir, jenis_kelamin,  kedudukan_id, unit_kerja_id', 'required'),
-            array('gelar_depan, gelar_belakang, tempat_lahir,pendidikan_terakhir, tahun_pendidikan,agama, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, id', 'safe'),
+            array('gelar_depan, gelar_belakang,modified_user_id, tempat_lahir,pendidikan_terakhir, tahun_pendidikan,agama, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, id', 'safe'),
             array('tempat_lahir, kedudukan_id, kota, unit_kerja_id, golongan_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, gaji, created_user_id, id', 'numerical', 'integerOnly' => true),
             array('nip, gelar_depan, gelar_belakang, bpjs, kpe, npwp', 'length', 'max' => 50),
             array('nama', 'length', 'max' => 100),
@@ -49,6 +49,7 @@ class Pegawai extends CActiveRecord {
             'JabatanStruktural' => array(self::BELONGS_TO, 'JabatanStruktural', 'jabatan_struktural_id'),
             'JabatanFu' => array(self::BELONGS_TO, 'JabatanFu', 'jabatan_fu_id'),
             'JabatanFt' => array(self::BELONGS_TO, 'JabatanFt', 'jabatan_ft_id'),
+            'LastEdit' => array(self::BELONGS_TO, 'User', 'modified_user_id'),
         );
     }
 
@@ -96,6 +97,7 @@ class Pegawai extends CActiveRecord {
             'tmt_pensiun' => 'Tmt Pensiun',
             'created' => 'Created',
             'created_user_id' => 'Created User',
+            'modified_user_id' => 'Last Edit',
             'modified' => 'Upload File Excel',
         );
     }
@@ -194,7 +196,7 @@ class Pegawai extends CActiveRecord {
             'criteria' => $criteria,
             'sort' => array('defaultOrder' => 'nama')
         ));
-        app()->session['Pegawai_records'] = $this->findAll($criteria);
+        //app()->session['Pegawai_records'] = $this->findAll($criteria);
 
         return $data;
     }
@@ -210,23 +212,32 @@ class Pegawai extends CActiveRecord {
     }
 
     public function listPegawai() {
-/*        if (!app()->session['listPegawai']) {
-            $result = array();
-            $users = $this->findAll(array('index' => 'id'));
-            app()->session['listPegawai'] = $users;
-        }*/
+//        if (!app()->session['listPegawai']) {
+//            $result = array();
+//            $users = $this->findAll(array('index' => 'id'));
+//            app()->session['listPegawai'] = $users;
+//        }
         $users = $this->findAll(array('index' => 'id'));
+//        return app()->session['listPegawai'];
         return $users;
     }
 
     protected function beforeValidate() {
-        if (empty($this->created_user_id))
+        if (empty($this->created_user_id)){
             $this->created_user_id = Yii::app()->user->id;
+            $this->modified = date("Y-m-d H:i:s");
+            $this->modified_user_id = Yii::app()->user->id;
+
+        }
         return parent::beforeValidate();
     }
 
     public function getGolongan() {
         return (!empty($this->Golongan->nama)) ? $this->Golongan->nama . ' - ' . $this->Golongan->keterangan : '-';
+    }
+
+    public function getLastEdit() {
+        return (!empty($this->LastEdit->name)) ? $this->modified . ' By ' . $this->LastEdit->name : '-';
     }
 
     public function getNamaGolongan() {
@@ -314,7 +325,24 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getMasaKerja() {
+        if(empty($this->tmt_cpns)){
+            return '';
+        }else
         return landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)));
+    }
+
+    public function getMasaKerjaTahun() {
+        if(empty($this->tmt_cpns)){
+            return '';
+        }else
+        return landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)),true);
+    }
+
+    public function getMasaKerjaBulan() {
+        if(empty($this->tmt_cpns)){
+            return '';
+        }else
+        return landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)),false,true);
     }
 
     public function getTtl() {

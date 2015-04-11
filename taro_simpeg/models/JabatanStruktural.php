@@ -123,7 +123,7 @@ class JabatanStruktural extends CActiveRecord
 		));
 			
 
-        app()->session['JabatanStruktural_records'] = $this->findAll($criteria); 
+        //app()->session['JabatanStruktural_records'] = $this->findAll($criteria); 
 
 		return $data;
 	}

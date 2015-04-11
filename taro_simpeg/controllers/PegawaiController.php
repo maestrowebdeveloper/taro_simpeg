@@ -104,6 +104,8 @@ class PegawaiController extends Controller {
         $return['masa_kerja'] = $model->masaKerja;
         $return['tempat_lahir'] = $model->tempat_lahir;
         $return['tanggal_lahir'] = $model->tanggal_lahir;
+        $return['alamat'] = $model->alamat;
+        $return['pendidikan_terakhir'] = $model->pendidikan_terakhir;
         echo json_encode($return);
     }
 
@@ -480,6 +482,52 @@ class PegawaiController extends Controller {
     public function actionImportData() {    
         $model = new Pegawai('search');
         $model->unsetAttributes();  // clear any default values  
+        if (isset($_POST['Pegawai'])) {
+            $file = CUploadedFile::getInstance($model, 'modified');
+            if (is_object($file)) { //jika filenya valid
+                $file->saveAs('images/file/' . $file->name);
+                $data = new Spreadsheet_Excel_Reader('images/file/' . $file->name);
+                $total_pegawai =$gagal = $sukses = 0;                
+                for ($j = 2; $j <= $data->sheets[0]['numRows']; $j++) {
+                    if(!empty($data->sheets[0]['cells'][$j][1])){
+                        $nip = (isset($data->sheets[0]['cells'][$j][1])) ? $data->sheets[0]['cells'][$j][1] : '';                        
+                        $pegawai = Pegawai::model()->find(array('condition'=>'nip='.$nip));
+                        if(empty($pegawai)){
+                            $pegawai = new Pegawai;
+                        }       
+                        $pegawai->nip = $nip;                 
+                        $pegawai->nip_lama = (isset($data->sheets[0]['cells'][$j][2])) ? $data->sheets[0]['cells'][$j][2] : '';
+                        $pegawai->nama = (isset($data->sheets[0]['cells'][$j][3])) ? $data->sheets[0]['cells'][$j][3] : '';
+                        $pegawai->gelar_depan = (isset($data->sheets[0]['cells'][$j][4])) ? $data->sheets[0]['cells'][$j][4] : '';
+                        $pegawai->gelar_belakang = (isset($data->sheets[0]['cells'][$j][5])) ? $data->sheets[0]['cells'][$j][5] : '';
+                        $pegawai->jenis_kelamin = (isset($data->sheets[0]['cells'][$j][6])) ? $data->sheets[0]['cells'][$j][6] : '';
+                        $pegawai->tanggal_lahir = (isset($data->sheets[0]['cells'][$j][7])) ? $data->sheets[0]['cells'][$j][7] : '';
+                        $pegawai->alamat = (isset($data->sheets[0]['cells'][$j][8])) ? $data->sheets[0]['cells'][$j][8] : '';
+                        $pegawai->kode_pos = (isset($data->sheets[0]['cells'][$j][9])) ? $data->sheets[0]['cells'][$j][9] : '';
+                        $pegawai->hp = (isset($data->sheets[0]['cells'][$j][10])) ? $data->sheets[0]['cells'][$j][10] : '';
+                        $pegawai->email = (isset($data->sheets[0]['cells'][$j][11])) ? $data->sheets[0]['cells'][$j][11] : '';
+                        $pegawai->golongan_darah = (isset($data->sheets[0]['cells'][$j][12])) ? $data->sheets[0]['cells'][$j][12] : '';
+                        $pegawai->agama = (isset($data->sheets[0]['cells'][$j][13])) ? $data->sheets[0]['cells'][$j][13] : '';
+                        $pegawai->status_pernikahan = (isset($data->sheets[0]['cells'][$j][14])) ? $data->sheets[0]['cells'][$j][14] : '';
+                        $pegawai->npwp = (isset($data->sheets[0]['cells'][$j][15])) ? $data->sheets[0]['cells'][$j][15] : '';
+                        $pegawai->kpe = (isset($data->sheets[0]['cells'][$j][16])) ? $data->sheets[0]['cells'][$j][16] : '';
+                        $pegawai->no_taspen = (isset($data->sheets[0]['cells'][$j][17])) ? $data->sheets[0]['cells'][$j][17] : '';
+                        $pegawai->bpjs = (isset($data->sheets[0]['cells'][$j][18])) ? $data->sheets[0]['cells'][$j][18] : '';
+                        $pegawai->tmt_cpns = (isset($data->sheets[0]['cells'][$j][19])) ? $data->sheets[0]['cells'][$j][19] : '';
+                        $pegawai->tmt_pns = (isset($data->sheets[0]['cells'][$j][20])) ? $data->sheets[0]['cells'][$j][20] : '';
+                        $pegawai->tmt_pensiun = (isset($data->sheets[0]['cells'][$j][21])) ? $data->sheets[0]['cells'][$j][21] : '';  
+                        if($pegawai->save()){
+                            $sukses++;
+                        }else{
+                            $gagal++;
+                        }
+                        $total_pegawai++;
+                    }                               
+                }
+
+                user()->setFlash('info', '<strong>Berhasil! </strong>Total Pegawai : '.$total_pegawai.', Berhasil : '.$sukses.', Gagal : '.$gagal);
+            }
+        }
         $this->render('importDataPegawai', array(    
             'model' => $model,        
         ));

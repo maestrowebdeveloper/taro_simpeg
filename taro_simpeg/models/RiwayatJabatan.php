@@ -121,7 +121,7 @@ class RiwayatJabatan extends CActiveRecord {
             'sort' => array('defaultOrder' => 'tmt_mulai DESC')
         ));
 
-        app()->session['RiwayatJabatan_records'] = $this->findAll($criteria);
+        //app()->session['RiwayatJabatan_records'] = $this->findAll($criteria);
 
         return $data;
     }

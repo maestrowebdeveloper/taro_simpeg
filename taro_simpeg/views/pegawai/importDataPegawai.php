@@ -1,5 +1,10 @@
 <div class="form">
     <?php
+
+    foreach (Yii::app()->user->getFlashes() as $key => $message) {
+        echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
+    }
+
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id' => 'User-form',
         'enableAjaxValidation' => false,

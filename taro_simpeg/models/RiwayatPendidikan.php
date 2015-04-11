@@ -117,7 +117,7 @@ class RiwayatPendidikan extends CActiveRecord
 			'criteria'=>$criteria,
                         'sort' => array('defaultOrder' => 'tahun DESC')
 		));
-		app()->session['RiwayatPangkat_records'] = $this->findAll($criteria); 
+		//app()->session['RiwayatPangkat_records'] = $this->findAll($criteria); 
 
 		return $data;
 	}

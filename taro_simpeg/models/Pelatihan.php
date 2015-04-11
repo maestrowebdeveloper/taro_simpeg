@@ -96,7 +96,7 @@ class Pelatihan extends CActiveRecord
                         'sort' => array('defaultOrder' => 'nama')
 		));
 
-		app()->session['Pelatihan_records'] = $this->findAll($criteria); 
+		//app()->session['Pelatihan_records'] = $this->findAll($criteria); 
 
 		return $data;
 	}

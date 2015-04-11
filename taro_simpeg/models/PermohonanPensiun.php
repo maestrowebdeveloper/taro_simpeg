@@ -126,7 +126,7 @@ class PermohonanPensiun extends CActiveRecord
                         'sort' => array('defaultOrder' => 'id DESC')
 		));
 
-		app()->session['PermohonanMutasi_records'] = $this->findAll($criteria); 
+		//app()->session['PermohonanMutasi_records'] = $this->findAll($criteria); 
 
 		return $data;
 	}

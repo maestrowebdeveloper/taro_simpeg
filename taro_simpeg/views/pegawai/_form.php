@@ -395,6 +395,7 @@
                                 <div class="control-group "><label class="control-label" for="jabatan_fungsional_tertentu">Jabatan Fungsional</label>
                                     <div class="controls">
                                         <?php
+                                        $model->jabatan_ft_id = ($model->isNewRecord == false)?$model->jabatan_ft_id:0;
                                         $jabatanFung = JabatanFungsional::model()->find(array('condition'=>'jabatan_ft_id='.$model->jabatan_ft_id));
                                         echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span5', 'readonly' => true));
                                         ?>   
@@ -405,15 +406,17 @@
 
                             <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));            ?>
 
-                            <?php if (isset($_GET['v'])) { ?>
+                
                                 <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
                                     <div class="controls">
                                         <?php
-                                        echo CHtml::textField('masaKerja', $model->masaKerja, array('id' => 'masaKerja', 'class' => 'span5', 'disable' => true));
+                                        echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerja', 'class' => 'span2', 'disabled' => true));
+                                        echo '&nbsp;&nbsp;';
+                                        echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerja', 'class' => 'span2', 'disabled' => true));
                                         ?>
                                     </div>
                                 </div>
-                            <?php } ?>
+                        
 
                             <?php
                             echo $form->datepickerRow(
