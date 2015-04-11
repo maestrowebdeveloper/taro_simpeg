@@ -482,7 +482,7 @@ class LandaCore extends CApplicationComponent {
             
     }
     
-    public function usia($dob)
+    public function usia($dob,$hanyaTahun=false,$hanyaBulan=false)
     {
         $localtime = getdate();
         $today = $localtime['mday']."-".$localtime['mon']."-".$localtime['year'];
@@ -525,7 +525,14 @@ class LandaCore extends CApplicationComponent {
         $tahun = ($years>0)?"$years Bulan ":"";
         $tahun = ($years>0)?"$years Hari ":"";
         if ($months>0)*/
-            return "$years Tahun $months Bulan";
+            if($hanyaTahun==true){
+                return $years.' Tahun';
+            }elseif ($hanyaBulan==true) {
+                return $months.' Bulan';
+            }else{
+                return "$years Tahun $months Bulan";
+            }
+            
       /*  else
             return "$years Tahun";*/
     } 

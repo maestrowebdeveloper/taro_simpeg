@@ -111,7 +111,7 @@ class Golongan extends CActiveRecord
                         'sort' => array ('defaultOrder' => 'root,lft',),                        
 		));
 
-        app()->session['Golongan_records'] = $this->findAll($criteria); 
+        //app()->session['Golongan_records'] = $this->findAll($criteria); 
 
 		return $data;
 

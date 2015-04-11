@@ -33,7 +33,7 @@ class RiwayatGaji extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nomor_register, pegawai_id, gaji, dasar_perubahan, tmt_mulai', 'required'),
-			array('created, created_user_id, modified', 'safe'),
+			array('created, created_user_id, modified,tmt_selesai', 'safe'),
 			array('pegawai_id, gaji, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('nomor_register', 'length', 'max'=>225),
 			// The following rule is used by search().
@@ -107,7 +107,7 @@ class RiwayatGaji extends CActiveRecord
                         'sort' => array('defaultOrder' => 'tmt_mulai DESC')
 		));
 
-		app()->session['RiwayatGaji_records'] = $this->findAll($criteria); 
+		//app()->session['RiwayatGaji_records'] = $this->findAll($criteria); 
 
 		return $data;
 	}

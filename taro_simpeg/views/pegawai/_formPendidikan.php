@@ -91,7 +91,9 @@
             success: function (data) {
                 if (data != "") {
                     $("#tablePendidikan").replaceWith(data);
-                    $("#modalForm").modal("hide");
+                    //$("#modalForm").modal("hide");
+                    $(".modal-body").html(data);
+                    $("#modalForm").modal("show");
                 } else {
                     alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
                 }

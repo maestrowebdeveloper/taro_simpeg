@@ -26,6 +26,17 @@ $this->breadcrumbs = array(
 
     <div class="row-fluid">
         <?php
+        $data = array('0' => '- Kedudukan -') + CHtml::listData(Kedudukan::model()->findAll(), 'id', 'nama');
+        echo $form->select2Row($model, 'kedudukan_id', array(
+            'asDropDownList' => true,
+            'data' => $data,
+            'options' => array(
+                "allowClear" => false,
+                'width' => '40%',
+            ))
+        );
+
+        
         $data = array('0'=>'- Unit Kerja -')+CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
         echo $form->select2Row($model, 'unit_kerja_id', array(
             'asDropDownList' => true,                    

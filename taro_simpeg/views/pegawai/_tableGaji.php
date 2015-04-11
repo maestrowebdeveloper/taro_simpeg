@@ -14,7 +14,8 @@ if(!empty($edit)){
         <th>Nomor Register</th>        
         <th>Dasar Perubahan</th>
         <th>Gaji</th>
-        <th>TMT</th>        
+        <th>TMT Mulai</th>        
+        <th>TMT Selesai</th>        
         <?php echo $th;?>            
     </thead>
     <tbody>
@@ -32,6 +33,7 @@ if(!empty($edit)){
                 <td>'.$value->dasar_perubahan.'</td>
                 <td>'.landa()->rp($value->gaji).'</td>                
                 <td>'.$value->tmt_mulai.'</td>
+                <td>'.$value->tmt_selesai.'</td>
                 '.$action.'
                 </tr>
             ';

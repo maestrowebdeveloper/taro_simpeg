@@ -96,7 +96,7 @@ class Penghargaan extends CActiveRecord
                         'sort' => array('defaultOrder' => 'nama')
 		));
 
-		app()->session['Penghargaan_records'] = $this->findAll($criteria); 
+		//app()->session['Penghargaan_records'] = $this->findAll($criteria); 
 
 		return $data;
 	}

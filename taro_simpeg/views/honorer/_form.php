@@ -1,3 +1,76 @@
+<?php if (isset($_GET['v'])) { ?>
+    <div class="alert alert-info">
+        <label class="radio">
+            <input id="viewTab" value="PNS" checked="checked" name="view" type="radio">
+            <label for="viewTab">View as Tab</label></label>
+        <label class="radio"><input id="viewFull" name="view" type="radio">
+            <label for="viewFull">View as Report </label></label>
+    </div>
+
+<?php } ?>
+
+<?php
+if ($model->isNewRecord == true) {
+    $edit = '';
+    $nilai = array();
+} else {
+    if (isset($_GET['v'])) {
+        $edit = '';
+    } else {
+        $edit = 1;
+    }
+    $nilai = NilaiHonorer::model()->findAll(array('condition' => 'pegawai_id=' . $model->id));
+}
+?>
+
+
+<?php if ($model->isNewRecord == false) {
+    ?>
+    <div class='report' id="report" style="display:none">
+        <table class="table">
+            <tr>
+                <th style="background:beige;text-align:center !important" colspan="2"><h3 style="margin:0px">PROFIL <?php echo strtoupper($model->nama); ?></h3></th>
+            </tr>
+            <tr>
+                <td style="text-align:left" class="span3">            
+                    <?php
+                    $img = Yii::app()->landa->urlImg('honorer/', $model->foto, $_GET['id']);
+                    echo '<img style="max-width:300px;max-height:400px" src="' . $img['medium'] . '" alt="" class="image img-polaroid" id="my_image"  /> ';
+                    ?>
+
+                </td>
+                <td>
+                    <?php
+                    echo $model->tagProfil;
+                    ?>
+                </td>
+            </tr>  
+            <tr>
+                <th style="background:beige" colspan="2">UNIT KERJA & JABATAN</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <?php
+                    echo $model->tagPangkatJabatan;
+                    ?>
+                </td>
+            </tr> 
+            <tr>
+                <th style="background:beige" colspan="2">NILAI SKP</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <?php 
+                    echo $this->renderPartial('_tableNilai', array('nilai' => $nilai, 'edit' => $edit));
+                    //echo $this->renderPartial('_tablePangkat', array('pangkat' => $pangkat)); ?>
+
+                </td>
+            </tr>            
+        </table>
+    </div>
+<?php } ?>
+
+
 <style>
     #content .form-row.row-fluid {
         margin-top: 0px !important;
@@ -11,7 +84,7 @@
         position: relative;
     }
 </style>
-<div class="form">
+<div class="form" id="tabView">
     <?php
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id' => 'honorer-form',
@@ -169,18 +242,7 @@
 
             </div>
             <div class="tab-pane" id="nilaiSkp">
-                <?php
-                if ($model->isNewRecord == true) {
-                    $edit = '';
-                    $nilai = array();
-                } else {
-                    if (isset($_GET['v'])) {
-                        $edit = '';
-                    } else {
-                        $edit = 1;
-                    }
-                    $nilai = NilaiHonorer::model()->findAll(array('condition' => 'pegawai_id=' . $model->id));
-                }
+                <?php                
                 echo $this->renderPartial('_tableNilai', array('nilai' => $nilai, 'edit' => $edit));
                 ?>
             </div>
@@ -221,6 +283,9 @@ $this->beginWidget(
 
 </div>
 
+
+
+
 <?php $this->endWidget(); ?>
 <style>
     .form-horizontal{
@@ -250,3 +315,50 @@ $this->beginWidget(
         margin-bottom: 0px;
     }
 </style>
+
+<script>
+    $("#viewTab").click(function () {
+        $("#report").hide();
+        $("#tabView").show();
+    });
+
+    $("#viewFull").click(function () {
+        $("#report").show();
+        $("#tabView").hide();
+    });
+
+    $("#Pegawai_nip").focusout(function () {
+        var value = $(this).val();
+        if (value.length < 18) {
+            $(".nipError").show();
+        } else {
+            $(".nipError").hide();
+        }
+
+    });
+
+
+    function printDiv(divName)
+    {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        $("#myTab a").click(function (e) {
+            e.preventDefault();
+            $(this).tab("show");
+        });
+        $("#viewTab").click(function () {
+            $("#report").hide();
+            $("#tabView").show();
+        });
+
+        $("#viewFull").click(function () {
+            $("#report").show();
+            $("#tabView").hide();
+        });
+
+    }
+
+</script>

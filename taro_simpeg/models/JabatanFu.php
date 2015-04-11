@@ -114,7 +114,7 @@ class JabatanFu extends CActiveRecord
                         'sort' => array ('defaultOrder' => 'root,lft',),
 		));
 
-		app()->session['JabatanFu_records'] = $this->findAll($criteria); 
+		//app()->session['JabatanFu_records'] = $this->findAll($criteria); 
 
 		return $data;
 	}

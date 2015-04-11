@@ -168,7 +168,7 @@ class Honorer extends CActiveRecord
                         'sort' => array('defaultOrder' => 'nama')
 		));
 
-		app()->session['Honorer_records'] = $this->findAll($criteria); 
+		//app()->session['Honorer_records'] = $this->findAll($criteria); 
 
 		return $data;
 	}
@@ -191,13 +191,229 @@ class Honorer extends CActiveRecord
     }    
 
     public function listHonorer() {
-        if (!app()->session['listHonorer']) {
-            $result = array();
+       /* if (!app()->session['listHonorer']) {
+            $result = array();*/
             $users = $this->findAll(array('index' => 'id'));
-            app()->session['listHonorer'] = $users;
-        }
-        return app()->session['listHonorer'];
+            /*app()->session['listHonorer'] = $users;
+        }*/
+        return $users;// app()->session['listHonorer'];
     } 
+
+    public function getTagProfil() {
+        $data = '
+                       
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Nama</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->nama . '
+                    </div>
+                </div>  
+
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Pendidikan</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . ucwords(strtolower($this->pendidikan_terakhir)) . ', Tahun : ' . $this->tahun_pendidikan . '
+                    </div>
+                </div>  
+
+               <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Jenis Kelamin</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->jenis_kelamin . '
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>TTL</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->ttl . '
+                    </div>
+                </div>  
+
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Alamat</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->alamat . ' ' . $this->kota . '
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Kode Pos</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->kode_pos . '
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>HP</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . landa()->hp($this->hp) . '
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Agama</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->agama . '
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Golongan Darah</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->golongan_darah . '
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Status Pernikahan</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->status_pernikahan . '
+                    </div>
+                </div>
+               
+               <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>NPWP</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->npwp . '
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>BPJS</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->bpjs . '
+                    </div>
+                </div>
+
+                ';
+        return $data;
+    }
+
+    public function getTagPangkatJabatan() {
+        $data = '
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Nomor Register</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->nomor_register . '
+                    </div>
+                </div>   
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Tanggal Register</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->tanggal_register . '
+                    </div>
+                </div>      
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Unit Kerja</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->unitKerja . '
+                    </div>
+                </div>  
+
+                
+
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Jabatan</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->jabatan . ', TMT :  ' . $this->tmtJabatan . '
+                    </div>
+                </div> 
+
+                
+
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Gaji</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . landa()->rp($this->gaji) . '
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Masa Kerja</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . $this->masaKerja . '
+                    </div>
+                </div>   
+
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>TMT Kontrak</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . date('d M Y', strtotime($this->tmt_kontrak)) . '
+                    </div>
+                </div>      
+
+                 <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>TMT Akhir Kontrak</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . date('d M Y', strtotime($this->tmt_akhir_kontrak)) . '
+                    </div>
+                </div>        
+                ';
+        return $data;
+    }
+
+    
 
     public function getUnitKerja() {        
         return (!empty($this->UnitKerja->nama))?$this->UnitKerja->nama:'-';

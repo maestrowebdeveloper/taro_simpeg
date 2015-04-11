@@ -50,11 +50,57 @@
         echo $form->select2Row($model, 'pegawai_id', array(
             'asDropDownList' => true,
             'data' => $data,
+            'events' => array('change' => 'js: function() {
+                        $.ajax({
+                           url : "' . url('pegawai/getDetail') . '",
+                           type : "POST",
+                           data :  { id:  $(this).val()},
+                           success : function(data){                             
+                            obj = JSON.parse(data);                                                                                
+                            $("#unit_kerja").val(obj.unit_kerja);                            
+                            $("#jenis_kelamin").val(obj.jenis_kelamin);
+                            $("#tempat_lahir").val(obj.tempat_lahir);
+                            $("#tanggal_lahir").val(obj.tanggal_lahir);
+                            $("#pendidikan_terakhir").val(obj.pendidikan_terakhir);
+                            $("#alamat").val(obj.alamat);                            
+                        }
+                    });
+                }'),
             'options' => array(
                 "allowClear" => false,
                 'width' => '40%',
             ))
         );
+
+        ?>
+        <?php
+        $unit_kerja = (!empty($model->Pegawai->unitKerja))?$model->Pegawai->unitKerja:'';
+        $jenis_kelamin = (!empty($model->Pegawai->jenis_kelamin))?$model->Pegawai->jenis_kelamin:'';
+        $tempat_lahir = (!empty($model->Pegawai->tempatLahir))?$model->Pegawai->tempatLahir:'';
+        $tanggal_lahir = (!empty($model->Pegawai->tanggal_lahir))?$model->Pegawai->tanggal_lahir:'';
+        $pendidikan_terakhir = (!empty($model->Pegawai->pendidikan_terakhir))?$model->Pegawai->pendidikan_terakhir:'';
+        $alamat = (!empty($model->Pegawai->alamat))?$model->Pegawai->alamat:'';
+        ?>
+         <div class="control-group "><label  class="control-label">Unit Kerja</label><div class="controls">
+            <input disabled class="span4" maxlength="225" name="" value="<?php echo $unit_kerja;?>" id="unit_kerja" type="text">
+        </div></div>
+        <div class="control-group "><label  class="control-label">Jenis Kelamin</label><div class="controls">
+            <input disabled class="span4" maxlength="225" name="" value="<?php echo $jenis_kelamin;?>" id="jenis_kelamin" type="text">
+        </div></div>
+        <div class="control-group "><label  class="control-label">Tempat Lahir</label><div class="controls">
+            <input disabled class="span4" maxlength="225" name="" value="<?php echo $tempat_lahir;?>" id="tempat_lahir" type="text">
+        </div></div>        
+        <div class="control-group "><label class="control-label" for="">Tanggal Lahir</label><div class="controls">
+            <div  class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span><input id="tanggal_lahir" value="<?php echo $tanggal_lahir;?>" disabled type="text"></div>
+        </div></div>    
+        <div class="control-group "><label  class="control-label">Pendidikan Terakhir</label><div class="controls">
+            <input disabled class="span4" maxlength="225" name="" id="pendidikan_terakhir" value="<?php echo $pendidikan_terakhir;?>" type="text">
+        </div></div>        
+        <div class="control-group "><label  class="control-label">Alamat</label><div class="controls">
+            <input disabled class="span6" maxlength="225" name="alamat" id="" value="<?php echo $alamat;?>" type="text">
+        </div></div>
+
+        <?php
         
         echo $form->radioButtonListRow($model, 'jenjang_pendidikan_asal', Pegawai::model()->ArrJenjangPendidikan());
        

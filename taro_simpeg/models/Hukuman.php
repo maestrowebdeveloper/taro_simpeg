@@ -96,7 +96,7 @@ class Hukuman extends CActiveRecord
                         'sort' => array('defaultOrder' => 'nama')
 		));
 
-		app()->session['Hukuman_records'] = $this->findAll($criteria); 
+		//app()->session['Hukuman_records'] = $this->findAll($criteria); 
 
 		return $data;
 	}

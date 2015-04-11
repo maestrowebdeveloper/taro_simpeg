@@ -114,28 +114,28 @@ class User extends CActiveRecord {
             'sort' => array('defaultOrder' => 't.id DESC')
         ));
 
-        app()->session['User_records'] = $this->findAll($criteria); 
+        //app()->session['User_records'] = $this->findAll($criteria); 
 
         return $data;
     }
 
     public function listUser() {
-        if (!app()->session['listUser']) {
-            $result = array();
+       /* if (!app()->session['listUser']) {
+            $result = array();*/
             $users = $this->findAll(array('index' => 'id'));
-            app()->session['listUser'] = $users;
-        }
-        return app()->session['listUser'];
+            /*app()->session['listUser'] = $users;
+        }*/
+        return $users;//app()->session['listUser'];
     }
 
     public function listUserPhone() {
-        if (!app()->session['listUserPhone']) {
-            $result = array();
+       /* if (!app()->session['listUserPhone']) {
+            $result = array();*/
             $users = $this->findAll(array('index' => 'phone'));
-            app()->session['listUserPhone'] = $users;
-        }
+            /*app()->session['listUserPhone'] = $users;
+        }*/
 
-        return app()->session['listUserPhone'];
+        return $users; //app()->session['listUserPhone'];
     }
 
     public function roles() {

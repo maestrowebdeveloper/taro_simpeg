@@ -92,7 +92,7 @@ $this->endWidget();
            'header' => 'Foto',
             'type' => 'raw',
             'value' => '"$data->smallFoto"', 
-            'htmlOptions' => array('style' => 'text-align: center; width:180px;text-align:center;width:100px')
+            'htmlOptions' => array('style' => 'text-align: center; width:180px;text-align:center;width:120px')
             ),	
 		'nip',
 		'nama',
@@ -114,6 +114,11 @@ $this->endWidget();
             'header' => 'Jabatan',
             'value' => 'ucwords($data->jabatan)',            
         ),
+        array(
+            'name' => 'modified_user_id',            
+            'value' => 'ucwords($data->lastEdit)',            
+        ),
+       
 		
        array(
             'class'=>'bootstrap.widgets.TbButtonColumn',

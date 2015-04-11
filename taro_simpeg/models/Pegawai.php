@@ -17,7 +17,7 @@ class Pegawai extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nip, nama, tanggal_lahir, jenis_kelamin,  kedudukan_id, unit_kerja_id', 'required'),
-            array('gelar_depan, gelar_belakang, tempat_lahir,pendidikan_terakhir, tahun_pendidikan,agama, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, id', 'safe'),
+            array('gelar_depan, riwayat_jabatan_id,riwayat_pangkat_id,pendidikan_id,gelar_belakang,modified_user_id, tempat_lahir,pendidikan_terakhir, tahun_pendidikan,agama, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, id', 'safe'),
             array('tempat_lahir, kedudukan_id, kota, unit_kerja_id, golongan_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, gaji, created_user_id, id', 'numerical', 'integerOnly' => true),
             array('nip, gelar_depan, gelar_belakang, bpjs, kpe, npwp', 'length', 'max' => 50),
             array('nama', 'length', 'max' => 100),
@@ -49,6 +49,10 @@ class Pegawai extends CActiveRecord {
             'JabatanStruktural' => array(self::BELONGS_TO, 'JabatanStruktural', 'jabatan_struktural_id'),
             'JabatanFu' => array(self::BELONGS_TO, 'JabatanFu', 'jabatan_fu_id'),
             'JabatanFt' => array(self::BELONGS_TO, 'JabatanFt', 'jabatan_ft_id'),
+            'LastEdit' => array(self::BELONGS_TO, 'User', 'modified_user_id'),
+            'Pendidikan' => array(self::BELONGS_TO, 'RiwayatPendidikan', 'pendidikan_id'),
+            'Pangkat' => array(self::BELONGS_TO, 'RiwayatPangkat', 'riwayat_pangkat_id'),
+            'RiwayatJabatan' => array(self::BELONGS_TO, 'RiwayatJabatan', 'riwayat_jabatan_id'),
         );
     }
 
@@ -96,6 +100,7 @@ class Pegawai extends CActiveRecord {
             'tmt_pensiun' => 'Tmt Pensiun',
             'created' => 'Created',
             'created_user_id' => 'Created User',
+            'modified_user_id' => 'Last Edit',
             'modified' => 'Upload File Excel',
         );
     }
@@ -194,7 +199,7 @@ class Pegawai extends CActiveRecord {
             'criteria' => $criteria,
             'sort' => array('defaultOrder' => 'nama')
         ));
-        app()->session['Pegawai_records'] = $this->findAll($criteria);
+        //app()->session['Pegawai_records'] = $this->findAll($criteria);
 
         return $data;
     }
@@ -221,13 +226,55 @@ class Pegawai extends CActiveRecord {
     }
 
     protected function beforeValidate() {
-        if (empty($this->created_user_id))
+        if (empty($this->created_user_id)){
             $this->created_user_id = Yii::app()->user->id;
+            $this->modified = date("Y-m-d H:i:s");
+            $this->modified_user_id = Yii::app()->user->id;
+
+        }
         return parent::beforeValidate();
     }
 
     public function getGolongan() {
         return (!empty($this->Golongan->nama)) ? $this->Golongan->nama . ' - ' . $this->Golongan->keterangan : '-';
+    } 
+
+    public function getRiwayatTipeJabatan() {
+        return (!empty($this->RiwayatJabatan->tipe)) ? $this->RiwayatJabatan->tipe : '-';
+    }
+
+    public function getRiwayatNamaJabatan() {
+        return (!empty($this->RiwayatJabatan->jabatan)) ? $this->RiwayatJabatan->jabatan : '-';
+    }
+
+
+    public function getRiwayatTmtJabatan() {
+        return (!empty($this->RiwayatJabatan->tmt_mulai)) ? $this->RiwayatJabatan->tmt_mulai : '-';
+    }
+
+
+    public function getPangkat() {
+        return (!empty($this->Pangkat->nama_golongan)) ? $this->Pangkat->nama_golongan : '-';
+    }
+
+    public function getTmtPangkat() {
+        return (!empty($this->Pangkat->tmt_pangkat)) ? $this->Pangkat->tmt_pangkat  : '-';
+    }
+
+    public function getPendidikanTerakhir() {
+        return (!empty($this->Pendidikan->jenjang_pendidikan)) ? $this->Pendidikan->jenjang_pendidikan : '-';
+    }
+
+    public function getPendidikanTahun() {
+        return (!empty($this->Pendidikan->tahun)) ? $this->Pendidikan->tahun : '-';
+    }
+
+    public function getPendidikanJurusan() {
+        return (!empty($this->Pendidikan->jurusan)) ? $this->Pendidikan->jurusan : '-';
+    }
+
+    public function getLastEdit() {
+        return (!empty($this->LastEdit->name)) ? $this->modified . ' By ' . $this->LastEdit->name : '-';
     }
 
     public function getNamaGolongan() {
@@ -315,7 +362,24 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getMasaKerja() {
+        if(empty($this->tmt_cpns)){
+            return '';
+        }else
         return landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)));
+    }
+
+    public function getMasaKerjaTahun() {
+        if(empty($this->tmt_cpns)){
+            return '';
+        }else
+        return landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)),true);
+    }
+
+    public function getMasaKerjaBulan() {
+        if(empty($this->tmt_cpns)){
+            return '';
+        }else
+        return landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)),false,true);
     }
 
     public function getTtl() {
@@ -410,7 +474,17 @@ class Pegawai extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . ucwords(strtolower($this->pendidikan_terakhir)) . ', Tahun : ' . $this->tahun_pendidikan . '
+                        ' . ucwords(strtolower($this->pendidikanTerakhir)) . ', Tahun : ' . $this->pendidikanTahun . '
+                    </div>
+                </div>  
+
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>Jurusan</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . ucwords(strtolower($this->pendidikanJurusan))  . '
                     </div>
                 </div>  
 

@@ -28,8 +28,8 @@ class File extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('pegawai_id,created_user_id', 'numerical', 'integerOnly'=>true),
-			array('nama,url', 'length', 'max'=>255),
+			array('pegawai_id', 'numerical', 'integerOnly'=>true),
+			array('nama', 'length', 'max'=>255),
 			array('created, modified', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -104,10 +104,4 @@ class File extends CActiveRecord
 		return parent::model($className);
 	}
 
-	
-    protected function beforeValidate() {
-        if (empty($this->created_user_id))
-            $this->created_user_id = Yii::app()->user->id;
-        return parent::beforeValidate();
-    }
 }
