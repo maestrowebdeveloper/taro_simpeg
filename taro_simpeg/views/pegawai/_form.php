@@ -36,17 +36,28 @@
                 <!-- <li ><a href="#pangkatJabatan">Pangkat & Jabatan</a></li> -->
                 <?php
                 if ($model->isNewRecord == false) {
-                    echo '  
-                <li><a href="#pangkat"> R. Pangkat</a></li>              
-                <li><a href="#jabatan"> R. Jabatan</a></li>       
-                <li><a href="#gaji"> R. Gaji</a></li>       
-                <li><a href="#keluarga"> R. Keluarga</a></li>       
-                <li><a href="#pendidikan"> R. Pendidikan</a></li>                       
-                <li><a href="#pelatihan"> R. Diklat</a></li>       
-                <li><a href="#penghargaan"> R. Penghargaan</a></li>       
-                <li><a href="#hukuman"> R. Hukuman</a></li> 
-                <li><a href="#file"> File</a></li> 
-                ';
+                    if (!isset($_GET['v'])) {
+                        echo '                                                                          
+                            <li><a href="#gaji"> R. Gaji</a></li>       
+                            <li><a href="#keluarga"> R. Keluarga</a></li>                                                                       
+                            <li><a href="#pelatihan"> R. Diklat</a></li>       
+                            <li><a href="#penghargaan"> R. Penghargaan</a></li>       
+                            <li><a href="#hukuman"> R. Hukuman</a></li> 
+                            <li><a href="#file"> File</a></li> 
+                            ';
+                        }else{
+                             echo '  
+                            <li><a href="#pangkat"> R. Pangkat</a></li>              
+                            <li><a href="#jabatan"> R. Jabatan</a></li>       
+                            <li><a href="#gaji"> R. Gaji</a></li>       
+                            <li><a href="#keluarga"> R. Keluarga</a></li>                                           
+                            <li><a href="#pendidikan"> R. Pendidikan</a></li>                                           
+                            <li><a href="#pelatihan"> R. Diklat</a></li>       
+                            <li><a href="#penghargaan"> R. Penghargaan</a></li>       
+                            <li><a href="#hukuman"> R. Hukuman</a></li> 
+                            <li><a href="#file"> File</a></li> 
+                            ';
+                        }
                 }
                 ?>               
             </ul>
@@ -68,13 +79,25 @@
                             <?php
                             //echo $form->textFieldRow($model,'nip',array('class'=>'span4 angka','style'=>'max-width:500px;width:300px','maxlength'=>18));                                     
                             echo $form->textFieldRow($model, 'nama', array('class' => 'span5', 'maxlength' => 100));
+                            echo $form->hiddenField($model, 'pendidikan_id', array('class' => 'span5', 'maxlength' => 100));
                             ?>                    
                             <div class="control-group "><label class="control-label" for="Pegawai_pendidikan_terakhir">Pendidikan</label>
-                                <div class="controls">
-                                    <?php echo CHtml::dropDownList('Pegawai[pendidikan_terakhir]', $model->pendidikan_terakhir, Pegawai::model()->arrJenjangPendidikan(), array('class' => 'span2')); ?>
-                                    <input class="span2 angka" maxlength="4" value="<?php echo $model->tahun_pendidikan; ?>" name="Pegawai[tahun_pendidikan]" id="Pegawai_tahun_pendidikan" placeHolder="Tahun" type="text">
+                                <div class="controls">                                    
+                                    <input class="span3" disabled value="<?php echo $model->pendidikanTerakhir; ?>"  id="pendidikanTerakhir" placeHolder="Pendidikan Terakhir" type="text">
+                                    <input class="span1 angka"  disabled maxlength="4" value="<?php echo $model->pendidikanTahun; ?>" id="pendidikanTahun" placeHolder="Tahun" type="text">
+                                    <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
+                                    <a class="btn blue pilihPendidikan" pegawai="<?php echo $model->id;?>;" id="pilihPendidikan"><i class="wpzoom-search blue"></i> Riwayat Pendidikan</a>
+                                    <?php  } ?>
+
                                 </div>
                             </div>
+
+                            <div class="control-group "><label class="control-label" for="Pegawai_pendidikan_terakhir">Jurusan</label>
+                                <div class="controls">                                                                       
+                                    <input class="span6" disabled maxlength="4" value="<?php echo $model->pendidikanJurusan; ?>" id="pendidikanJurusan" placeHolder="Jurusan" type="text">
+                                </div>
+                            </div>
+
                             <div class="control-group "><label class="control-label" for="Pegawai_gelar_depan">Gelar</label>
                                 <div class="controls">
                                     <input class="span2" maxlength="25" value="<?php echo $model->gelar_depan; ?>" name="Pegawai[gelar_depan]" id="Pegawai_gelar_depan" placeHolder="Depan" type="text">
@@ -199,35 +222,44 @@
                             <div class="control-group "><label class="control-label" for="Pegawai_golongan_id">Pangkat/Golru</label>
                                 <div class="controls">
                                     <?php
-                                    $data = array('0' => '- Golongan -') + CHtml::listData(Golongan::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedFullName');
-                                    $this->widget(
-                                            'bootstrap.widgets.TbSelect2', array(
-                                        'name' => 'Pegawai[golongan_id]',
-                                        'value' => $model->golongan_id,
-                                        'data' => $data,
-                                        'options' => array(
-                                            'width' => '40%;margin:0px;text-align:left',
-                                    )));
-                                    echo '&nbsp;&nbsp;';
+                                    echo $form->hiddenField($model, 'riwayat_pangkat_id', array('class' => 'span5', 'maxlength' => 100));
                                     ?>
+                                    <input class="span4" disabled value="<?php echo $model->pangkat; ?>"  id="nama_pangkat" placeHolder="" type="text">
                                     <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
-                                        <?php
-                                        $this->widget(
-                                                'bootstrap.widgets.TbDatePicker', array(
-                                            'name' => 'Pegawai[tmt_golongan]',
-                                            'value' => $model->tmt_golongan,
-                                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                                                )
-                                        );
-                                        ?>
-                                    </div>
+                                            <input class="span10"  disabled maxlength="4" id="tmtPangkat" value="<?php echo $model->tmtPangkat; ?>"  type="text">
+                                    </div>                                    
+                                    
+                                    <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
+                                    <a class="btn blue pilihPangkat" pegawai="<?php echo $model->id;?>;" id="pilihPangkat"><i class="wpzoom-search blue"></i> Riwayat Pangkat</a>
+                                    <?php  } ?>
+                                </div>
+                            </div>
+
+                            <div class="control-group "><label class="control-label" for="Pegawai_golongan_id">Tipe Jabatan</label>
+                                <div class="controls">
+                                    <?php
+                                    echo $form->hiddenField($model, 'riwayat_jabatan_id', array('class' => 'span5', 'maxlength' => 100));
+                                    ?>
+                                    <input class="span4" disabled value="<?php echo $model->riwayatTipeJabatan; ?>"  id="riwayatTipeJabatan" placeHolder="" type="text">                                    
+                                    <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
+                                    <a class="btn blue pilihJabatan" pegawai="<?php echo $model->id;?>;" id="pilihJabatan"><i class="wpzoom-search blue"></i> Riwayat Jabatan</a>
+                                    <?php  } ?>
+                                </div>
+                            </div>
+
+                            <div class="control-group "><label class="control-label" for="Pegawai_golongan_id">Jabatan</label>
+                                <div class="controls">                                    
+                                    <input class="span4" disabled value="<?php echo $model->riwayatNamaJabatan; ?>"  id="riwayatNamaJabatan" placeHolder="" type="text">
+                                    <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
+                                            <input class="span10"  disabled maxlength="4" id="riwayatTmtJabatan" value="<?php echo $model->riwayatTmtJabatan; ?>"  type="text">
+                                    </div>                                                                                                            
                                 </div>
                             </div>
 
                             <?php
-                            echo $form->radioButtonListRow($model, 'tipe_jabatan', Pegawai::model()->arrTipeJabatan(), array(
+                            /*echo $form->radioButtonListRow($model, 'tipe_jabatan', Pegawai::model()->arrTipeJabatan(), array(
                                 'onclick' => 'pensiun()'
-                            ));
+                            ));*/
                             ?>
 
                             <?php
@@ -236,7 +268,7 @@
                             $ft = ($model->tipe_jabatan == "fungsional_tertentu") ? "" : "none";
                             ?>
 
-                            <div class="struktural" style="display:<?php echo $struktural; ?>">              
+                            <!-- <div class="struktural" style="display:<?php echo $struktural; ?>">              
                                 <div class="control-group "><label class="control-label" for="Pegawai_jabatan_struktural_id">Jabatan</label>
                                     <div class="controls">
                                         <?php
@@ -401,7 +433,7 @@
                                         ?>   
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
 
                             <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));            ?>
@@ -618,7 +650,7 @@ $this->beginWidget(
 ?>
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
-    <h3 style="text-align:center">FORM RIWAYAT PEGAWAI</h3>
+    <h3 style="text-align:center">RIWAYAT PEGAWAI</h3>
 </div>
 <div class="modal-body form-horizontal">
 
@@ -712,4 +744,44 @@ $this->beginWidget(
         var pensiun = kalkulasi.getFullYear() + '-' + kalkulasi.getMonth() + '-' + kalkulasi.getDate();
         $("#Pegawai_tmt_pensiun").val(pensiun)
     }
+</script>
+
+
+
+<script>
+$(".pilihPendidikan").click(function(){
+    $.ajax({                  
+        url:"<?php echo url('pegawai/getTablePendidikan');?>",
+        data:"id=<?php echo $model->id;?>"+"&pegawai="+$(this).attr("pegawai"),
+        type:"post",
+        success:function(data){                
+             $(".modal-body").html(data);
+        }
+    });
+    $("#modalForm").modal("show");
+}); 
+
+$(".pilihPangkat").click(function(){
+    $.ajax({                  
+        url:"<?php echo url('pegawai/getTablePangkat');?>",
+        data:"id=<?php echo $model->id;?>"+"&pegawai="+$(this).attr("pegawai"),
+        type:"post",
+        success:function(data){                
+             $(".modal-body").html(data);
+        }
+    });
+    $("#modalForm").modal("show");
+}); 
+
+$(".pilihJabatan").click(function(){
+    $.ajax({                  
+        url:"<?php echo url('pegawai/getTableJabatan');?>",
+        data:"id=<?php echo $model->id;?>"+"&pegawai="+$(this).attr("pegawai"),
+        type:"post",
+        success:function(data){                
+             $(".modal-body").html(data);
+        }
+    });
+    $("#modalForm").modal("show");
+}); 
 </script>

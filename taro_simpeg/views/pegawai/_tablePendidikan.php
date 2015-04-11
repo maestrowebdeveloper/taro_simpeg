@@ -6,7 +6,7 @@ if(!empty($edit)){
     $pegawai_id = (!empty($pegawai_id))?$pegawai_id:'';
     $pegawai_id = (!empty($_GET['id']))?$_GET['id']:$pegawai_id;
    echo '<a class="btn blue addPendidikan" pegawai="'.$pegawai_id.'" id=""><i class="minia-icon-file-add blue"></i>Tambah Riwayat Pendidikan</a>';
-   $th ='<th></th>';
+   $th ='<th style="width:125px"></th>';
 }
 ?>
 <table class="table table-bordered">
@@ -25,6 +25,7 @@ if(!empty($edit)){
           $action = $action = (!empty($edit))?'<td style="width: 85px;text-align:center">
                     <a class="btn btn-small update editPendidikan" pegawai="'.$value->pegawai_id.'" id="'.$value->id.'" title="Edit" rel="tooltip" ><i class="icon-pencil"></i></a> 
                     <a class="btn btn-small delete deletePendidikan" title="Hapus" pegawai="'.$value->pegawai_id.'" id="'.$value->id.'" rel="tooltip" ><i class="icon-trash"></i></a>
+                    <a class="btn btn-small pilih selectPendidikan" title="Pilih" pegawai="'.$value->pegawai_id.'" id="'.$value->id.'" rel="tooltip" ><i class="icon-ok"></i></a>
                     </td>':'';  
             echo '
                 <tr>
@@ -59,8 +60,26 @@ $(".editPendidikan,.addPendidikan").click(function(){
                 data:"id="+$(this).attr("id")+"&pegawai="+$(this).attr("pegawai"),
                 type:"post",
                 success:function(data){                             
-                    $("#tablePendidikan").replaceWith(data);
+                    /*$("#tablePendidikan").replaceWith(data);*/
+                    $(".modal-body").html(data);
+                    $("#modalForm").modal("show");
                 }
             });            
         }); 
+        $(".selectPendidikan").click(function(){
+            $.ajax({                                  
+                url:"<?php echo url('pegawai/selectPendidikan');?>",
+                data:"id="+$(this).attr("id")+"&pegawai="+$(this).attr("pegawai"),
+                type:"post",
+                success:function(data){         
+                    obj = JSON.parse(data);                            
+                    $("#Pegawai_pendidikan_id").val(obj.id);
+                    $("#pendidikanTerakhir").val(obj.jenjang_pendidikan);
+                    $("#pendidikanTahun").val(obj.tahun);
+                    $("#pendidikanJurusan").val(obj.jurusan);
+                    $("#modalForm").modal("hide");
+                }
+            });            
+        }); 
+
 </script>

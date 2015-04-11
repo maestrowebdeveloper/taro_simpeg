@@ -109,6 +109,24 @@ class PegawaiController extends Controller {
         echo json_encode($return);
     }
 
+    public function actionSelectPangkat() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';        
+        $model = RiwayatPangkat::model()->findByPk($id);
+        if(!empty($model)){
+            $data['id']=$model->id;
+            $data['nama_golongan']=$model->nama_golongan;
+            $data['tmt_pangkat']=$model->tmt_pangkat;            
+            echo json_encode($data);
+        }
+        
+    }
+
+    public function actionGetTablePangkat() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
+        $pangkat = RiwayatPangkat::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tmt_pangkat DESC'));
+        echo $this->renderPartial('/pegawai/_tablePangkat', array('pangkat' => $pangkat, 'edit' => true, 'pegawai_id' => $id));        
+    }
+
     public function actionGetPangkat() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $pegawai = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
@@ -144,6 +162,26 @@ class PegawaiController extends Controller {
             }
         }
     }
+
+    public function actionSelectJabatan() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';        
+        $model = RiwayatJabatan::model()->findByPk($id);
+        if(!empty($model)){
+            $data['id']=$model->id;
+            $data['tipe']=$model->tipe;
+            $data['jabatan']=$model->jabatan;
+            $data['tmt']=$model->tmt_mulai;            
+            echo json_encode($data);
+        }
+        
+    }
+
+    public function actionGetTableJabatan() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
+        $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tmt_mulai DESC'));
+        echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $id));
+    }
+
 
     public function actionGetJabatan() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
@@ -261,6 +299,13 @@ class PegawaiController extends Controller {
         }
     }
 
+    public function actionGetTablePendidikan() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
+        $pendidikan = RiwayatPendidikan::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tahun DESC'));
+        echo $this->renderPartial('/pegawai/_tablePendidikan', array('pendidikan' => $pendidikan, 'edit' => true, 'pegawai_id' => $id));
+        
+    }
+
     public function actionGetPendidikan() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $pegawai = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
@@ -270,6 +315,19 @@ class PegawaiController extends Controller {
         } else {
             echo $this->renderPartial('/pegawai/_formPendidikan', array('model' => new RiwayatPendidikan, 'pegawai_id' => $pegawai));
         }
+    }
+
+    public function actionSelectPendidikan() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';        
+        $model = RiwayatPendidikan::model()->findByPk($id);
+        if(!empty($model)){
+            $data['id']=$model->id;
+            $data['jenjang_pendidikan']=$model->jenjang_pendidikan;
+            $data['tahun']=$model->tahun;
+            $data['jurusan']=$model->jurusan;
+            echo json_encode($data);
+        }
+        
     }
 
     public function actionDeletePendidikan() {
@@ -634,10 +692,11 @@ class PegawaiController extends Controller {
 
             $model->attributes = $_POST['Pegawai'];
             $model->tmt_cpns = $_POST['Pegawai']['tmt_cpns'];
-            $model->tmt_jabatan_struktural = $_POST['Pegawai']['tmt_jabatan_struktural'];
+            /*$model->tmt_jabatan_struktural = $_POST['Pegawai']['tmt_jabatan_struktural'];
             $model->tmt_jabatan_fu = $_POST['Pegawai']['tmt_jabatan_fu'];
             $model->tmt_jabatan_ft = $_POST['Pegawai']['tmt_jabatan_ft'];
             $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon'];
+            */
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
             $model->kota = $_POST['kota'];
             $model->tempat_lahir = $_POST['tempat_lahir'];
@@ -718,10 +777,10 @@ class PegawaiController extends Controller {
 
 
             $model->attributes = $_POST['Pegawai'];
-            $model->tmt_jabatan_struktural = $_POST['Pegawai']['tmt_jabatan_struktural'];
+            /*$model->tmt_jabatan_struktural = $_POST['Pegawai']['tmt_jabatan_struktural'];
             $model->tmt_jabatan_fu = $_POST['Pegawai']['tmt_jabatan_fu'];
             $model->tmt_jabatan_ft = $_POST['Pegawai']['tmt_jabatan_ft'];
-            $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon'];
+            $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon'];*/
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
             $model->kota = $_POST['kota'];
             $model->tempat_lahir = $_POST['tempat_lahir'];

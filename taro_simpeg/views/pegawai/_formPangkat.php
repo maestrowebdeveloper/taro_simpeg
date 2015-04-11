@@ -67,7 +67,9 @@ $(".savePangkat").click(function(){
         success:function(data){            
             if(data!=""){
                $("#tablePangkat").replaceWith(data);
-              $("#modalForm").modal("hide");
+              //$("#modalForm").modal("hide");
+                $(".modal-body").html(data);
+                $("#modalForm").modal("show");
             }else{
               alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
             }
