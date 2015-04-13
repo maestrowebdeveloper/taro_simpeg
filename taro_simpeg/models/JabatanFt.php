@@ -111,7 +111,7 @@ class JabatanFt extends CActiveRecord {
             'sort' => array('defaultOrder' => 'root,lft',),
         ));
 
-        app()->session['JabatanFt_records'] = $this->findAll($criteria);
+        //app()->session['JabatanFt_records'] = $this->findAll($criteria);
 
         return $data;
     }

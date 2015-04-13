@@ -115,7 +115,7 @@ class PermohonanPerpanjanganHonorer extends CActiveRecord
                         'sort' => array('defaultOrder' => 'tanggal DESC')
 		));
 
-		app()->session['PermohonanPerpanjanganHonorer_records'] = $this->findAll($criteria); 
+		//app()->session['PermohonanPerpanjanganHonorer_records'] = $this->findAll($criteria); 
 
 		return $data;
 	}

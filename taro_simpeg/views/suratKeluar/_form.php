@@ -66,6 +66,8 @@
             </div>
             <?php
         }
+
+        echo $form->textFieldRow($model,'tembusan',array('class'=>'span4','maxlength'=>225));
         ?>
                     
         <?php if (!isset($_GET['v'])) { ?>        <div class="form-actions">

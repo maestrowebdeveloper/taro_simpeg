@@ -109,7 +109,7 @@ class RiwayatPangkat extends CActiveRecord
 			'criteria'=>$criteria,
                         'sort' => array('defaultOrder' => 'tmt_pangkat DESC')
 		));
-		app()->session['RiwayatPangkat_records'] = $this->findAll($criteria); 
+		//app()->session['RiwayatPangkat_records'] = $this->findAll($criteria); 
 
 		return $data;
 	}

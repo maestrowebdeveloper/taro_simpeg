@@ -20,11 +20,15 @@
         $model->pegawai_id = (!empty($pegawai_id)) ? $pegawai_id : $model->pegawai_id;
         echo $form->hiddenField($model, 'id');
         echo $form->hiddenField($model, 'pegawai_id');
+        echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span4', 'maxlength' => 100));
+
         ?>
 
         <?php echo $form->radioButtonListRow($model, 'tipe_jabatan', Pegawai::model()->arrTipeJabatan()); ?>
 
         <?php
+
+
         $struktural = ($model->tipe_jabatan == "struktural") ? "" : "none";
         $fu = ($model->tipe_jabatan == "fungsional_umum") ? "" : "none";
         $ft = ($model->tipe_jabatan == "fungsional_tertentu") ? "" : "none";
@@ -193,7 +197,9 @@
             success: function (data) {
                 if (data != "") {
                     $("#tableJabatan").replaceWith(data);
-                    $("#modalForm").modal("hide");
+                    //$("#modalForm").modal("hide");
+                    $(".modal-body").html(data);
+                    $("#modalForm").modal("show");
                 } else {
                     alert("Terjadi  Input Data. Silahkan Dicek Kembali!");
                 }

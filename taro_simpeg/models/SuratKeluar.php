@@ -37,7 +37,7 @@ class SuratKeluar extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('penerima, tanggal_kirim, sifat, nomor_surat, perihal', 'required'),
-			array('pengirim, tanggal_kirim, isi, file, created, created_user_id, modified', 'safe'),
+			array('pengirim, tanggal_kirim, isi, file, created, created_user_id,tembusan, modified', 'safe'),
 			array('created_user_id', 'numerical', 'integerOnly'=>true),
 			array('pengirim, penerima, nomor_surat, perihal, file', 'length', 'max'=>225),
 			array('sifat', 'length', 'max'=>7),
@@ -67,8 +67,8 @@ class SuratKeluar extends CActiveRecord
 			'id' => 'ID',
 			'pengirim' => 'Pengirim',
 			'penerima' => 'Penerima',
-			'tanggal_kirim' => 'Tanggal Kirim',
-			'tanggal_terima' => 'Tanggal Terima',
+			'tanggal_kirim' => 'Tanggal ',
+			'tanggal_terima' => 'Tanggal ',
 			'sifat' => 'Sifat',
 			'nomor_surat' => 'Nomor Surat',
 			'perihal' => 'Perihal',
@@ -117,7 +117,7 @@ class SuratKeluar extends CActiveRecord
                         'sort' => array('defaultOrder' => 'id DESC')
 		));
 
-		app()->session['SuratKeluar_records'] = $this->findAll($criteria); 
+		//app()->session['SuratKeluar_records'] = $this->findAll($criteria); 
 
 		return $data;
 	}

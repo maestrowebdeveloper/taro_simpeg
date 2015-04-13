@@ -126,7 +126,7 @@ class PermohonanIjinBelajar extends CActiveRecord {
             'sort' => array('defaultOrder' => 'tanggal DESC')
         ));
 
-        app()->session['PermohonanIjinBelajar_records'] = $this->findAll($criteria);
+        //app()->session['PermohonanIjinBelajar_records'] = $this->findAll($criteria);
 
         return $data;
     }

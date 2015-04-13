@@ -114,7 +114,7 @@ class JabatanHonorer extends CActiveRecord
                         'sort' => array ('defaultOrder' => 'root,lft',),
 		));
 
-		app()->session['JabatanHonorer_records'] = $this->findAll($criteria); 
+		//app()->session['JabatanHonorer_records'] = $this->findAll($criteria); 
 
 		return $data;
 	}

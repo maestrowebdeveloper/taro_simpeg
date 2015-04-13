@@ -104,7 +104,27 @@ class PegawaiController extends Controller {
         $return['masa_kerja'] = $model->masaKerja;
         $return['tempat_lahir'] = $model->tempat_lahir;
         $return['tanggal_lahir'] = $model->tanggal_lahir;
+        $return['alamat'] = $model->alamat;
+        $return['pendidikan_terakhir'] = $model->pendidikan_terakhir;
         echo json_encode($return);
+    }
+
+    public function actionSelectPangkat() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';        
+        $model = RiwayatPangkat::model()->findByPk($id);
+        if(!empty($model)){
+            $data['id']=$model->id;
+            $data['nama_golongan']=$model->nama_golongan;
+            $data['tmt_pangkat']=$model->tmt_pangkat;            
+            echo json_encode($data);
+        }
+        
+    }
+
+    public function actionGetTablePangkat() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
+        $pangkat = RiwayatPangkat::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tmt_pangkat DESC'));
+        echo $this->renderPartial('/pegawai/_tablePangkat', array('pangkat' => $pangkat, 'edit' => true, 'pegawai_id' => $id));        
     }
 
     public function actionGetPangkat() {
@@ -142,6 +162,26 @@ class PegawaiController extends Controller {
             }
         }
     }
+
+    public function actionSelectJabatan() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';        
+        $model = RiwayatJabatan::model()->findByPk($id);
+        if(!empty($model)){
+            $data['id']=$model->id;
+            $data['tipe']=$model->tipe;
+            $data['jabatan']=$model->jabatan;
+            $data['tmt']=$model->tmt_mulai;            
+            echo json_encode($data);
+        }
+        
+    }
+
+    public function actionGetTableJabatan() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
+        $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tmt_mulai DESC'));
+        echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $id));
+    }
+
 
     public function actionGetJabatan() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
@@ -259,6 +299,13 @@ class PegawaiController extends Controller {
         }
     }
 
+    public function actionGetTablePendidikan() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
+        $pendidikan = RiwayatPendidikan::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tahun DESC'));
+        echo $this->renderPartial('/pegawai/_tablePendidikan', array('pendidikan' => $pendidikan, 'edit' => true, 'pegawai_id' => $id));
+        
+    }
+
     public function actionGetPendidikan() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $pegawai = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
@@ -268,6 +315,19 @@ class PegawaiController extends Controller {
         } else {
             echo $this->renderPartial('/pegawai/_formPendidikan', array('model' => new RiwayatPendidikan, 'pegawai_id' => $pegawai));
         }
+    }
+
+    public function actionSelectPendidikan() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';        
+        $model = RiwayatPendidikan::model()->findByPk($id);
+        if(!empty($model)){
+            $data['id']=$model->id;
+            $data['jenjang_pendidikan']=$model->jenjang_pendidikan;
+            $data['tahun']=$model->tahun;
+            $data['jurusan']=$model->jurusan;
+            echo json_encode($data);
+        }
+        
     }
 
     public function actionDeletePendidikan() {
@@ -402,11 +462,13 @@ class PegawaiController extends Controller {
 
         $id = $_GET['id'];
         Yii::import("common.extensions.EAjaxUpload.qqFileUploader");
+
         $folder = 'images/file/' . $id . '/'; // folder for uploaded files             
         if (!file_exists($folder))
             mkdir($folder, '777');
         $allowedExtensions = array("jpg", "jpeg", "gif", "png", "gif", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "pdf", "zip", "rar"); //array("jpg","jpeg","gif","exe","mov" and etc...
         $sizeLimit = 7 * 1024 * 1024;
+
         $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
         $result = $uploader->handleUpload($folder);
         $return = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
@@ -478,6 +540,52 @@ class PegawaiController extends Controller {
     public function actionImportData() {    
         $model = new Pegawai('search');
         $model->unsetAttributes();  // clear any default values  
+        if (isset($_POST['Pegawai'])) {
+            $file = CUploadedFile::getInstance($model, 'modified');
+            if (is_object($file)) { //jika filenya valid
+                $file->saveAs('images/file/' . $file->name);
+                $data = new Spreadsheet_Excel_Reader('images/file/' . $file->name);
+                $total_pegawai =$gagal = $sukses = 0;                
+                for ($j = 2; $j <= $data->sheets[0]['numRows']; $j++) {
+                    if(!empty($data->sheets[0]['cells'][$j][1])){
+                        $nip = (isset($data->sheets[0]['cells'][$j][1])) ? $data->sheets[0]['cells'][$j][1] : '';                        
+                        $pegawai = Pegawai::model()->find(array('condition'=>'nip='.$nip));
+                        if(empty($pegawai)){
+                            $pegawai = new Pegawai;
+                        }       
+                        $pegawai->nip = $nip;                 
+                        $pegawai->nip_lama = (isset($data->sheets[0]['cells'][$j][2])) ? $data->sheets[0]['cells'][$j][2] : '';
+                        $pegawai->nama = (isset($data->sheets[0]['cells'][$j][3])) ? $data->sheets[0]['cells'][$j][3] : '';
+                        $pegawai->gelar_depan = (isset($data->sheets[0]['cells'][$j][4])) ? $data->sheets[0]['cells'][$j][4] : '';
+                        $pegawai->gelar_belakang = (isset($data->sheets[0]['cells'][$j][5])) ? $data->sheets[0]['cells'][$j][5] : '';
+                        $pegawai->jenis_kelamin = (isset($data->sheets[0]['cells'][$j][6])) ? $data->sheets[0]['cells'][$j][6] : '';
+                        $pegawai->tanggal_lahir = (isset($data->sheets[0]['cells'][$j][7])) ? $data->sheets[0]['cells'][$j][7] : '';
+                        $pegawai->alamat = (isset($data->sheets[0]['cells'][$j][8])) ? $data->sheets[0]['cells'][$j][8] : '';
+                        $pegawai->kode_pos = (isset($data->sheets[0]['cells'][$j][9])) ? $data->sheets[0]['cells'][$j][9] : '';
+                        $pegawai->hp = (isset($data->sheets[0]['cells'][$j][10])) ? $data->sheets[0]['cells'][$j][10] : '';
+                        $pegawai->email = (isset($data->sheets[0]['cells'][$j][11])) ? $data->sheets[0]['cells'][$j][11] : '';
+                        $pegawai->golongan_darah = (isset($data->sheets[0]['cells'][$j][12])) ? $data->sheets[0]['cells'][$j][12] : '';
+                        $pegawai->agama = (isset($data->sheets[0]['cells'][$j][13])) ? $data->sheets[0]['cells'][$j][13] : '';
+                        $pegawai->status_pernikahan = (isset($data->sheets[0]['cells'][$j][14])) ? $data->sheets[0]['cells'][$j][14] : '';
+                        $pegawai->npwp = (isset($data->sheets[0]['cells'][$j][15])) ? $data->sheets[0]['cells'][$j][15] : '';
+                        $pegawai->kpe = (isset($data->sheets[0]['cells'][$j][16])) ? $data->sheets[0]['cells'][$j][16] : '';
+                        $pegawai->no_taspen = (isset($data->sheets[0]['cells'][$j][17])) ? $data->sheets[0]['cells'][$j][17] : '';
+                        $pegawai->bpjs = (isset($data->sheets[0]['cells'][$j][18])) ? $data->sheets[0]['cells'][$j][18] : '';
+                        $pegawai->tmt_cpns = (isset($data->sheets[0]['cells'][$j][19])) ? $data->sheets[0]['cells'][$j][19] : '';
+                        $pegawai->tmt_pns = (isset($data->sheets[0]['cells'][$j][20])) ? $data->sheets[0]['cells'][$j][20] : '';
+                        $pegawai->tmt_pensiun = (isset($data->sheets[0]['cells'][$j][21])) ? $data->sheets[0]['cells'][$j][21] : '';  
+                        if($pegawai->save()){
+                            $sukses++;
+                        }else{
+                            $gagal++;
+                        }
+                        $total_pegawai++;
+                    }                               
+                }
+
+                user()->setFlash('info', '<strong>Berhasil! </strong>Total Pegawai : '.$total_pegawai.', Berhasil : '.$sukses.', Gagal : '.$gagal);
+            }
+        }
         $this->render('importDataPegawai', array(    
             'model' => $model,        
         ));
@@ -584,10 +692,11 @@ class PegawaiController extends Controller {
 
             $model->attributes = $_POST['Pegawai'];
             $model->tmt_cpns = $_POST['Pegawai']['tmt_cpns'];
-            $model->tmt_jabatan_struktural = $_POST['Pegawai']['tmt_jabatan_struktural'];
+            /*$model->tmt_jabatan_struktural = $_POST['Pegawai']['tmt_jabatan_struktural'];
             $model->tmt_jabatan_fu = $_POST['Pegawai']['tmt_jabatan_fu'];
             $model->tmt_jabatan_ft = $_POST['Pegawai']['tmt_jabatan_ft'];
             $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon'];
+            */
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
             $model->kota = $_POST['kota'];
             $model->tempat_lahir = $_POST['tempat_lahir'];
@@ -668,10 +777,10 @@ class PegawaiController extends Controller {
 
 
             $model->attributes = $_POST['Pegawai'];
-            $model->tmt_jabatan_struktural = $_POST['Pegawai']['tmt_jabatan_struktural'];
+            /*$model->tmt_jabatan_struktural = $_POST['Pegawai']['tmt_jabatan_struktural'];
             $model->tmt_jabatan_fu = $_POST['Pegawai']['tmt_jabatan_fu'];
             $model->tmt_jabatan_ft = $_POST['Pegawai']['tmt_jabatan_ft'];
-            $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon'];
+            $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon'];*/
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
             $model->kota = $_POST['kota'];
             $model->tempat_lahir = $_POST['tempat_lahir'];

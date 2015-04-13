@@ -31,6 +31,13 @@
                          'prepend' => '<i class="icon-calendar"></i>'
                              )
                       );   
+
+                    echo $form->datepickerRow(
+                             $model, 'tmt_selesai', array(
+                         'options' => array('language' => 'id','format'=>'yyyy-mm-dd'),
+                         'prepend' => '<i class="icon-calendar"></i>'
+                             )
+                      );   
               ?>
            
         <br>
