@@ -46,64 +46,72 @@
                 )
         );
 
-        $data = array('0' => '- Pegawai -') + CHtml::listData(Pegawai::model()->listPegawai(), 'id', 'nipNama');
+        $idpegawai = isset($model->pegawai_id) ? $model->pegawai_id : 0;
+        $pegawaiName = isset($model->Pegawai->nama) ? $model->Pegawai->nama : '';
         echo $form->select2Row($model, 'pegawai_id', array(
-            'asDropDownList' => true,
-            'data' => $data,
-            'events' => array('change' => 'js: function() {
-                        $.ajax({
-                           url : "' . url('pegawai/getDetail') . '",
-                           type : "POST",
-                           data :  { id:  $(this).val()},
-                           success : function(data){                             
-                            obj = JSON.parse(data);                                                                                
-                            $("#unit_kerja").val(obj.unit_kerja);                            
-                            $("#jenis_kelamin").val(obj.jenis_kelamin);
-                            $("#tempat_lahir").val(obj.tempat_lahir);
-                            $("#tanggal_lahir").val(obj.tanggal_lahir);
-                            $("#pendidikan_terakhir").val(obj.pendidikan_terakhir);
-                            $("#alamat").val(obj.alamat);                            
-                        }
-                    });
-                }'),
+            'asDropDownList' => false,
+//                    'data' => $data,
+//                    'value' => $model->Pegawai->nama,
             'options' => array(
-                "allowClear" => false,
-                'width' => '40%',
-            ))
+                'placeholder' => t('choose', 'global'),
+                'allowClear' => true,
+                'width' => '400px',
+                'minimumInputLength' => '3',
+                'ajax' => array(
+                    'url' => Yii::app()->createUrl('pegawai/getListPegawai'),
+                    'dataType' => 'json',
+                    'data' => 'js:function(term, page) { 
+                                                        return {
+                                                            q: term 
+                                                        }; 
+                                                    }',
+                    'results' => 'js:function(data) { 
+                                                        return {
+                                                            results: data
+                                                            
+                                                        };
+                                                    }',
+                ),
+                'initSelection' => 'js:function(element, callback) 
+                            { 
+                               callback({id: '.$idpegawai.', text: "'.$pegawaiName.'" });
+                            
+                                  
+                            }',
+            ),
+                )
         );
-
         ?>
         <?php
-        $unit_kerja = (!empty($model->Pegawai->unitKerja))?$model->Pegawai->unitKerja:'';
-        $jenis_kelamin = (!empty($model->Pegawai->jenis_kelamin))?$model->Pegawai->jenis_kelamin:'';
-        $tempat_lahir = (!empty($model->Pegawai->tempatLahir))?$model->Pegawai->tempatLahir:'';
-        $tanggal_lahir = (!empty($model->Pegawai->tanggal_lahir))?$model->Pegawai->tanggal_lahir:'';
-        $pendidikan_terakhir = (!empty($model->Pegawai->pendidikan_terakhir))?$model->Pegawai->pendidikan_terakhir:'';
-        $alamat = (!empty($model->Pegawai->alamat))?$model->Pegawai->alamat:'';
+        $unit_kerja = (!empty($model->Pegawai->unitKerja)) ? $model->Pegawai->unitKerja : '';
+        $jenis_kelamin = (!empty($model->Pegawai->jenis_kelamin)) ? $model->Pegawai->jenis_kelamin : '';
+        $tempat_lahir = (!empty($model->Pegawai->tempatLahir)) ? $model->Pegawai->tempatLahir : '';
+        $tanggal_lahir = (!empty($model->Pegawai->tanggal_lahir)) ? $model->Pegawai->tanggal_lahir : '';
+        $pendidikan_terakhir = (!empty($model->Pegawai->pendidikan_terakhir)) ? $model->Pegawai->pendidikan_terakhir : '';
+        $alamat = (!empty($model->Pegawai->alamat)) ? $model->Pegawai->alamat : '';
         ?>
-         <div class="control-group "><label  class="control-label">Unit Kerja</label><div class="controls">
-            <input disabled class="span4" maxlength="225" name="" value="<?php echo $unit_kerja;?>" id="unit_kerja" type="text">
-        </div></div>
+        <div class="control-group "><label  class="control-label">Unit Kerja</label><div class="controls">
+                <input disabled class="span4" maxlength="225" name="" value="<?php echo $unit_kerja; ?>" id="unit_kerja" type="text">
+            </div></div>
         <div class="control-group "><label  class="control-label">Jenis Kelamin</label><div class="controls">
-            <input disabled class="span4" maxlength="225" name="" value="<?php echo $jenis_kelamin;?>" id="jenis_kelamin" type="text">
-        </div></div>
+                <input disabled class="span4" maxlength="225" name="" value="<?php echo $jenis_kelamin; ?>" id="jenis_kelamin" type="text">
+            </div></div>
         <div class="control-group "><label  class="control-label">Tempat Lahir</label><div class="controls">
-            <input disabled class="span4" maxlength="225" name="" value="<?php echo $tempat_lahir;?>" id="tempat_lahir" type="text">
-        </div></div>        
+                <input disabled class="span4" maxlength="225" name="" value="<?php echo $tempat_lahir; ?>" id="tempat_lahir" type="text">
+            </div></div>        
         <div class="control-group "><label class="control-label" for="">Tanggal Lahir</label><div class="controls">
-            <div  class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span><input id="tanggal_lahir" value="<?php echo $tanggal_lahir;?>" disabled type="text"></div>
-        </div></div>    
+                <div  class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span><input id="tanggal_lahir" value="<?php echo $tanggal_lahir; ?>" disabled type="text"></div>
+            </div></div>    
         <div class="control-group "><label  class="control-label">Pendidikan Terakhir</label><div class="controls">
-            <input disabled class="span4" maxlength="225" name="" id="pendidikan_terakhir" value="<?php echo $pendidikan_terakhir;?>" type="text">
-        </div></div>        
+                <input disabled class="span4" maxlength="225" name="" id="pendidikan_terakhir" value="<?php echo $pendidikan_terakhir; ?>" type="text">
+            </div></div>        
         <div class="control-group "><label  class="control-label">Alamat</label><div class="controls">
-            <input disabled class="span6" maxlength="225" name="alamat" id="" value="<?php echo $alamat;?>" type="text">
-        </div></div>
+                <input disabled class="span6" maxlength="225" name="alamat" id="" value="<?php echo $alamat; ?>" type="text">
+            </div></div>
 
         <?php
-        
         echo $form->radioButtonListRow($model, 'jenjang_pendidikan_asal', Pegawai::model()->ArrJenjangPendidikan());
-       
+
 
         echo $form->radioButtonListRow($model, 'jenjang_pendidikan', Pegawai::model()->ArrJenjangPendidikan());
         ?>
@@ -115,10 +123,47 @@
         <?php echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span5', 'maxlength' => 225)); ?>
 
         <?php
-        $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'PermohonanIjinBelajar[kota]', 'cityValue' => $model->kota, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
+//        $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'PermohonanIjinBelajar[kota]', 'cityValue' => $model->kota, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
+
+        $idkota = isset($model->kota) ? $model->kota : 0;
+        $kotaName = isset($model->Kota->name) ? $model->Kota->Province->name.' - '.$model->Kota->name : '';
+        echo $form->select2Row($model, 'kota', array(
+            'asDropDownList' => false,
+//                    'data' => $data,
+//                    'value' => $model->Kota->name,
+            'options' => array(
+                'placeholder' => t('choose', 'global'),
+                'allowClear' => true,
+                'width' => '400px',
+                'minimumInputLength' => '3',
+                'ajax' => array(
+                    'url' => Yii::app()->createUrl('city/getListKota'),
+                    'dataType' => 'json',
+                    'data' => 'js:function(term, page) { 
+                                                        return {
+                                                            q: term 
+                                                        }; 
+                                                    }',
+                    'results' => 'js:function(data) { 
+                                                        return {
+                                                            results: data
+                                                            
+                                                        };
+                                                    }',
+                ),
+                'initSelection' => 'js:function(element, callback) 
+                            { 
+                            callback({id: '.$idkota.', text: "'.$kotaName.'" });
+                             
+                                  callback(data);
+                                  
+                            }',
+            ),
+                )
+        );
         ?>
 
-<?php echo $form->textAreaRow($model, 'alamat', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
+        <?php echo $form->textAreaRow($model, 'alamat', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
 
 
 
@@ -139,13 +184,13 @@
             ));
             ?>
             </div>
-<?php } ?>    </fieldset>
+        <?php } ?>    </fieldset>
 
     <?php $this->endWidget(); ?>
 
 </div>
 
-    <?php if (isset($_GET['v'])) { ?>
+<?php if (isset($_GET['v'])) { ?>
     <div class="surat" id="surat" style="display:none">
         <?php
         $siteConfig = SiteConfig::model()->listSiteConfig();
@@ -172,13 +217,34 @@
         vertical-align: top !important;
     }
 </style>
-<script>
-    $("#viewTab").click(function () {
+<script type="text/javascript">
+    $("#PermohonanIjinBelajar_pegawai_id").on("change", function() {
+        //var name = $("#Registration_guest_user_id").val();
+        //  alert(name);
+
+        $.ajax({
+            url: "<?php echo url('pegawai/getDetail'); ?>",
+            type: "POST",
+            data: {id: $(this).val()},
+            success: function(data) {
+
+                obj = JSON.parse(data);
+                $("#unit_kerja").val(obj.unit_kerja);
+                $("#jenis_kelamin").val(obj.jenis_kelamin);
+                $("#tempat_lahir").val(obj.tempat_lahir);
+                $("#tanggal_lahir").val(obj.tanggal_lahir);
+                $("#pendidikan_terakhir").val(obj.pendidikan_terakhir);
+                $("#alamat").val(obj.alamat);
+            }
+        });
+    })
+
+    $("#viewTab").click(function() {
         $(".surat").hide();
         $(".form").show();
     });
 
-    $("#viewFull").click(function () {
+    $("#viewFull").click(function() {
         $(".surat").show();
         $(".form").hide();
     });
@@ -192,16 +258,16 @@
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
-        $("#myTab a").click(function (e) {
+        $("#myTab a").click(function(e) {
             e.preventDefault();
             $(this).tab("show");
         })
-        $("#viewTab").click(function () {
+        $("#viewTab").click(function() {
             $(".surat").hide();
             $(".form").show();
         });
 
-        $("#viewFull").click(function () {
+        $("#viewFull").click(function() {
             $(".surat").show();
             $(".form").hide();
         });

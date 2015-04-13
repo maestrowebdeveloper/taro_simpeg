@@ -38,27 +38,61 @@
         ?>
 
         <?php
-        $data = array('0' => '- Pegawai -') + CHtml::listData(Pegawai::model()->listPegawai(), 'id', 'nipNama');
+//        $data = array('0' => '- Pegawai -') + CHtml::listData(Pegawai::model()->listPegawai(), 'id', 'nipNama');
+//        echo $form->select2Row($model, 'pegawai_id', array(
+//            'asDropDownList' => true,
+//            'data' => $data,
+//            'events' => array('change' => 'js: function() {
+//                        $.ajax({
+//                           url : "' . url('pegawai/getDetail') . '",
+//                           type : "POST",
+//                           data :  { id:  $(this).val()},
+//                           success : function(data){                                                                                                                                           
+//                            obj = JSON.parse(data);
+//                            $("#PermohonanMutasi_unit_kerja_lama").val(obj.unit_kerja);                           
+//                            $("#PermohonanMutasi_tipe_jabatan_lama").val(obj.tipe_jabatan);                           
+//                            $("#PermohonanMutasi_jabatan_lama").val(obj.jabatan);                           
+//                        }
+//                    });
+//                }'),
+//            'options' => array(
+//                "allowClear" => false,
+//                'width' => '40%',
+//            ))
+//        );
+
+        $idpegawai = isset($model->pegawai_id) ? $model->pegawai_id : 0;
+        $pegawaiName = isset($model->Pegawai->nama) ? $model->Pegawai->nama : 0;
         echo $form->select2Row($model, 'pegawai_id', array(
-            'asDropDownList' => true,
-            'data' => $data,
-            'events' => array('change' => 'js: function() {
-                        $.ajax({
-                           url : "' . url('pegawai/getDetail') . '",
-                           type : "POST",
-                           data :  { id:  $(this).val()},
-                           success : function(data){                                                                                                                                           
-                            obj = JSON.parse(data);
-                            $("#PermohonanMutasi_unit_kerja_lama").val(obj.unit_kerja);                           
-                            $("#PermohonanMutasi_tipe_jabatan_lama").val(obj.tipe_jabatan);                           
-                            $("#PermohonanMutasi_jabatan_lama").val(obj.jabatan);                           
-                        }
-                    });
-                }'),
+            'asDropDownList' => false,
+//                    'data' => $data,
+//                    'value' => $model->Pegawai->nama,
             'options' => array(
-                "allowClear" => false,
-                'width' => '40%',
-            ))
+                'placeholder' => t('choose', 'global'),
+                'allowClear' => true,
+                'width' => '400px',
+                'minimumInputLength' => '3',
+                'ajax' => array(
+                    'url' => Yii::app()->createUrl('pegawai/getListPegawai'),
+                    'dataType' => 'json',
+                    'data' => 'js:function(term, page) { 
+                                                        return {
+                                                            q: term 
+                                                        }; 
+                                                    }',
+                    'results' => 'js:function(data) { 
+                                                        return {
+                                                            results: data
+                                                            
+                                                        };
+                                                    }',
+                ),
+                'initSelection' => 'js:function(element, callback) 
+                            { 
+                                 callback({id: ' . $idpegawai . ', text: "' . $pegawaiName . '" });
+                            }',
+            ),
+                )
         );
         ?>
 
@@ -120,6 +154,8 @@
                     'width' => '50%',
                 ))
             );
+            
+            
             ?>
 
             <div class="control-group "><label class="control-label" for="eselon">Eselon</label>
@@ -235,12 +271,34 @@
     }
 </style>
 <script>
-    $("#viewTab").click(function () {
+
+    // get detail pegawai
+    $("#PermohonanMutasi_pegawai_id").on("change", function() {
+        //var name = $("#Registration_guest_user_id").val();
+        //  alert(name);
+
+        $.ajax({
+            url: "<?php echo url('pegawai/getDetail'); ?>",
+            type: "POST",
+            data: {id: $(this).val()},
+            success: function(data) {
+
+                obj = JSON.parse(data);
+                $("#PermohonanMutasi_unit_kerja_lama").val(obj.unit_kerja);
+                $("#PermohonanMutasi_tipe_jabatan_lama").val(obj.tipe_jabatan);
+                $("#PermohonanMutasi_jabatan_lama").val(obj.jabatan);
+            }
+        });
+    })
+
+    //get detail eselon
+
+    $("#viewTab").click(function() {
         $(".surat").hide();
         $(".form").show();
     });
 
-    $("#viewFull").click(function () {
+    $("#viewFull").click(function() {
         $(".surat").show();
         $(".form").hide();
     });
@@ -254,16 +312,16 @@
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
-        $("#myTab a").click(function (e) {
+        $("#myTab a").click(function(e) {
             e.preventDefault();
             $(this).tab("show");
         })
-        $("#viewTab").click(function () {
+        $("#viewTab").click(function() {
             $(".surat").hide();
             $(".form").show();
         });
 
-        $("#viewFull").click(function () {
+        $("#viewFull").click(function() {
             $(".surat").show();
             $(".form").hide();
         });

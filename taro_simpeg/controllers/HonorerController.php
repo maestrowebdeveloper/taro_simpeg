@@ -135,8 +135,9 @@ class HonorerController extends Controller {
 
         if (isset($_POST['Honorer'])) {
             $model->attributes = $_POST['Honorer'];
-            $model->kota = $_POST['kota'];
-            $model->tempat_lahir = $_POST['tempat_lahir'];
+//            $model->kota = $_POST['Honorer']['kota'];
+            $model->kota = $_POST['id'];
+            $model->tempat_lahir = $_POST['Honorer']['tempat_lahir'];
 
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {
@@ -173,8 +174,9 @@ class HonorerController extends Controller {
 
         if (isset($_POST['Honorer'])) {
             $model->attributes = $_POST['Honorer'];
-            $model->kota = $_POST['kota'];
-            $model->tempat_lahir = $_POST['tempat_lahir'];
+            //            $model->kota = $_POST['Honorer']['kota'];
+            $model->kota = $_POST['id'];
+            $model->tempat_lahir = $_POST['Honorer']['tempat_lahir'];
 
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {
@@ -197,6 +199,26 @@ class HonorerController extends Controller {
         $this->render('update', array(
             'model' => $model,
         ));
+    }
+    
+    public function actionGetListKota() {
+        //$guestName = User::model()->listUsers('guest');
+        $name = $_GET['term'];
+        $guestName = City::model()->findAll(array('condition' => 'name like "%' . $name . '%"','limit' => '10'));
+        $source = array();
+        foreach ($guestName as $val) {
+//            if (empty($val->company)) {
+//                $name = $val->name;
+//            } else {
+                $name = $val->Province->name.' - '.$val->name ;
+//            }
+            $source[] = array(
+                'item_id' => $val->id,
+                'label' => $name,
+                'value' => $val->name,
+            );
+        }
+        echo CJSON::encode($source);
     }
 
     /**

@@ -45,8 +45,8 @@
                             <li><a href="#hukuman"> R. Hukuman</a></li> 
                             <li><a href="#file"> File</a></li> 
                             ';
-                        }else{
-                             echo '  
+                    } else {
+                        echo '  
                             <li><a href="#pangkat"> R. Pangkat</a></li>              
                             <li><a href="#jabatan"> R. Jabatan</a></li>       
                             <li><a href="#gaji"> R. Gaji</a></li>       
@@ -57,7 +57,7 @@
                             <li><a href="#hukuman"> R. Hukuman</a></li> 
                             <li><a href="#file"> File</a></li> 
                             ';
-                        }
+                    }
                 }
                 ?>               
             </ul>
@@ -86,8 +86,8 @@
                                     <input class="span3" disabled value="<?php echo $model->pendidikanTerakhir; ?>"  id="pendidikanTerakhir" placeHolder="Pendidikan Terakhir" type="text">
                                     <input class="span1 angka"  disabled maxlength="4" value="<?php echo $model->pendidikanTahun; ?>" id="pendidikanTahun" placeHolder="Tahun" type="text">
                                     <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
-                                    <a class="btn blue pilihPendidikan" pegawai="<?php echo $model->id;?>;" id="pilihPendidikan"><i class="wpzoom-search blue"></i> Riwayat Pendidikan</a>
-                                    <?php  } ?>
+                                        <a class="btn blue pilihPendidikan" pegawai="<?php echo $model->id; ?>;" id="pilihPendidikan"><i class="wpzoom-search blue"></i> Riwayat Pendidikan</a>
+                                    <?php } ?>
 
                                 </div>
                             </div>
@@ -106,7 +106,43 @@
                             </div>
                             <?php
                             echo $form->radioButtonListRow($model, 'jenis_kelamin', Pegawai::model()->ArrJenisKelamin());
-                            $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'tempat_lahir', 'cityValue' => $model->tempat_lahir, 'disabled' => false, 'width' => '40%', 'label' => 'Tempat Lahir'));
+
+                            $kotaName = isset($model->tempat_lahir) ? $model->tempat_lahir : '';
+                            echo $form->select2Row($model, 'tempat_lahir', array(
+                                'asDropDownList' => false,
+//                    'data' => $data,
+//                    'value' => $model->Kota->name,
+                                'options' => array(
+                                    'placeholder' => t('choose', 'global'),
+                                    'allowClear' => true,
+                                    'width' => '400px',
+                                    'minimumInputLength' => '3',
+                                    'ajax' => array(
+                                        'url' => Yii::app()->createUrl('city/getListKota2'),
+                                        'dataType' => 'json',
+                                        'data' => 'js:function(term, page) { 
+                                                        return {
+                                                            q: term 
+                                                        }; 
+                                                    }',
+                                        'results' => 'js:function(data) { 
+                                                        return {
+                                                            results: data
+                                                            
+                                                        };
+                                                    }',
+                                    ),
+                                    'initSelection' => 'js:function(element, callback) 
+                            { 
+                            callback({id: 1, text: "' . $kotaName . '" });
+                             
+                                  callback(data);
+                                  
+                            }',
+                                ),
+                                    )
+                            );
+                            
                             echo $form->datepickerRow(
                                     $model, 'tanggal_lahir', array('value' => str_replace("0000-00-00", "", $model->tanggal_lahir),
                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
@@ -146,7 +182,69 @@
                         <div class="span12">
                             <?php
                             if (!isset($_GET['v'])) {
-                                $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'kota', 'cityValue' => $model->kota, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
+                                
+                                ?>
+                            <div class="control-group ">
+                            <label class="control-label">Kota </label>
+                            <div class="controls">
+                                <input type="hidden" name="id" id="id" value="<?php echo $model->kota ?>">
+                                <?php
+                                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                                    'name' => 'Honorer[kota]',
+                                    'sourceUrl' => array('honorer/GetListKota'),
+                                    'value' => isset($model->Kota->name) ? $model->Kota->Province->name.' - '.$model->Kota->name : '',
+                                    'options' => array(
+                                        'showAnim' => 'fold',
+                                        'minLength' => '3',
+                                        'select' => 'js:function(event, ui){
+                                        jQuery("#id").val(ui.item["item_id"]);
+                                        jQuery("#name").val(ui.item["label"]);
+                                    }'
+                                    ),
+                                    'htmlOptions' => array(
+                                        'style' => 'width:300px;',
+                                    ),
+                                ))
+                                ?>   
+                            </div>
+                        </div> 
+                            <?php
+
+//                                $idkota = isset($model->kota) ? $model->kota : 0;
+//                                $kotaName = isset($model->Kota->name) ? $model->Kota->Province->name . ' - ' . $model->Kota->name : '';
+//                                echo $form->select2Row($model, 'kota', array(
+//                                    'asDropDownList' => false,
+////                    'data' => $data,
+////                    'value' => $model->Kota->name,
+//                                    'options' => array(
+//                                        'placeholder' => t('choose', 'global'),
+//                                        'allowClear' => true,
+//                                        'width' => '400px',
+//                                        'minimumInputLength' => '3',
+//                                        'ajax' => array(
+//                                            'url' => Yii::app()->createUrl('city/getListKota'),
+//                                            'dataType' => 'json',
+//                                            'data' => 'js:function(term, page) { 
+//                                                        return {
+//                                                            q: term 
+//                                                        }; 
+//                                                    }',
+//                                            'results' => 'js:function(data) { 
+//                                                        return {
+//                                                            results: data
+//                                                            
+//                                                        };
+//                                                    }',
+//                                        ),
+//                                        'initSelection' => 'js:function(element, callback) 
+//                            { 
+//                            callback({id: ' . $idkota . ', text: "' . $kotaName . '" });
+//                             
+//                                  
+//                            }',
+//                                    ),
+//                                        )
+//                                );
                                 echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'style' => 'width:50%', 'class' => 'span9'));
                                 echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
                                 echo $form->textFieldRow($model, 'hp', array('class' => 'span5 angka', 'style' => 'max-width:500px;width:200px', 'maxlength' => 25, 'prepend' => '+62'));
@@ -226,12 +324,12 @@
                                     ?>
                                     <input class="span4" disabled value="<?php echo $model->pangkat; ?>"  id="nama_pangkat" placeHolder="" type="text">
                                     <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
-                                            <input class="span10"  disabled maxlength="4" id="tmtPangkat" value="<?php echo $model->tmtPangkat; ?>"  type="text">
+                                        <input class="span10"  disabled maxlength="4" id="tmtPangkat" value="<?php echo $model->tmtPangkat; ?>"  type="text">
                                     </div>                                    
-                                    
+
                                     <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
-                                    <a class="btn blue pilihPangkat" pegawai="<?php echo $model->id;?>;" id="pilihPangkat"><i class="wpzoom-search blue"></i> Riwayat Pangkat</a>
-                                    <?php  } ?>
+                                        <a class="btn blue pilihPangkat" pegawai="<?php echo $model->id; ?>;" id="pilihPangkat"><i class="wpzoom-search blue"></i> Riwayat Pangkat</a>
+                                    <?php } ?>
                                 </div>
                             </div>
 
@@ -242,8 +340,8 @@
                                     ?>
                                     <input class="span4" disabled value="<?php echo $model->riwayatTipeJabatan; ?>"  id="riwayatTipeJabatan" placeHolder="" type="text">                                    
                                     <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
-                                    <a class="btn blue pilihJabatan" pegawai="<?php echo $model->id;?>;" id="pilihJabatan"><i class="wpzoom-search blue"></i> Riwayat Jabatan</a>
-                                    <?php  } ?>
+                                        <a class="btn blue pilihJabatan" pegawai="<?php echo $model->id; ?>;" id="pilihJabatan"><i class="wpzoom-search blue"></i> Riwayat Jabatan</a>
+                                    <?php } ?>
                                 </div>
                             </div>
 
@@ -251,15 +349,15 @@
                                 <div class="controls">                                    
                                     <input class="span4" disabled value="<?php echo $model->riwayatNamaJabatan; ?>"  id="riwayatNamaJabatan" placeHolder="" type="text">
                                     <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
-                                            <input class="span10"  disabled maxlength="4" id="riwayatTmtJabatan" value="<?php echo $model->riwayatTmtJabatan; ?>"  type="text">
+                                        <input class="span10"  disabled maxlength="4" id="riwayatTmtJabatan" value="<?php echo $model->riwayatTmtJabatan; ?>"  type="text">
                                     </div>                                                                                                            
                                 </div>
                             </div>
 
                             <?php
-                            /*echo $form->radioButtonListRow($model, 'tipe_jabatan', Pegawai::model()->arrTipeJabatan(), array(
-                                'onclick' => 'pensiun()'
-                            ));*/
+                            /* echo $form->radioButtonListRow($model, 'tipe_jabatan', Pegawai::model()->arrTipeJabatan(), array(
+                              'onclick' => 'pensiun()'
+                              )); */
                             ?>
 
                             <?php
@@ -271,14 +369,14 @@
                             <!-- <div class="struktural" style="display:<?php echo $struktural; ?>">              
                                 <div class="control-group "><label class="control-label" for="Pegawai_jabatan_struktural_id">Jabatan</label>
                                     <div class="controls">
-                                        <?php
-                                        $data = array('0' => '- Jabatan Struktural -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                                        $this->widget(
-                                                'bootstrap.widgets.TbSelect2', array(
-                                            'name' => 'Pegawai[jabatan_struktural_id]',
-                                            'value' => $model->jabatan_struktural_id,
-                                            'data' => $data,
-                                            'events' => array('change' => 'js: function() {
+                            <?php
+                            $data = array('0' => '- Jabatan Struktural -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                            $this->widget(
+                                    'bootstrap.widgets.TbSelect2', array(
+                                'name' => 'Pegawai[jabatan_struktural_id]',
+                                'value' => $model->jabatan_struktural_id,
+                                'data' => $data,
+                                'events' => array('change' => 'js: function() {
                                                     $.ajax({
                                                        url : "' . url('pegawai/statusJabatan') . '",
                                                        type : "POST",
@@ -298,43 +396,43 @@
                                                     }
                                                 });
                                             }'),
-                                            'options' => array(
-                                                'width' => '40%;margin:0px;text-align:left',
-                                        )));
-                                        echo '&nbsp;&nbsp;';
-                                        ?>
+                                'options' => array(
+                                    'width' => '40%;margin:0px;text-align:left',
+                            )));
+                            echo '&nbsp;&nbsp;';
+                            ?>
                                         <div class="input-prepend">
                                             <span class="add-on"><i class="icon-calendar"></i></span>
-                                            <?php
-                                            $this->widget(
-                                                    'bootstrap.widgets.TbDatePicker', array(
-                                                'name' => 'Pegawai[tmt_jabatan_struktural]',
-                                                'value' => $model->tmt_jabatan_struktural,
-                                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                                                    )
-                                            );
-                                            ?>
+                            <?php
+                            $this->widget(
+                                    'bootstrap.widgets.TbDatePicker', array(
+                                'name' => 'Pegawai[tmt_jabatan_struktural]',
+                                'value' => $model->tmt_jabatan_struktural,
+                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                    )
+                            );
+                            ?>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="control-group "><label class="control-label" for="eselon">Eselon</label>
                                     <div class="controls">
-                                        <input type="hidden" name="masa_kerja" id="masa_kerja" value="<?php echo isset($model->JabatanStruktural->Eselon->masa_kerja) and ! empty($model->JabatanStruktural->Eselon->masa_kerja) ? $model->JabatanStruktural->Eselon->id : 0; ?>">
-                                        <?php
-                                        echo CHtml::textField('eselon', isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-', array('id' => 'eselon', 'class' => 'span5', 'readonly' => true));
-                                        echo '&nbsp;&nbsp;';
-                                        ?>
+                                        <input type="hidden" name="masa_kerja" id="masa_kerja" value="<?php echo isset($model->JabatanStruktural->Eselon->masa_kerja) and !empty($model->JabatanStruktural->Eselon->masa_kerja) ? $model->JabatanStruktural->Eselon->id : 0; ?>">
+                            <?php
+                            echo CHtml::textField('eselon', isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-', array('id' => 'eselon', 'class' => 'span5', 'readonly' => true));
+                            echo '&nbsp;&nbsp;';
+                            ?>
                                         <div class="input-prepend">
                                             <span class="add-on"><i class="icon-calendar"></i></span>
-                                            <?php
-                                            $this->widget(
-                                                    'bootstrap.widgets.TbDatePicker', array(
-                                                'name' => 'Pegawai[tmt_eselon]',
-                                                'value' => str_replace("0000-00-00", "", $model->tmt_eselon),
-                                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                                                    )
-                                            );
-                                            ?>
+                            <?php
+                            $this->widget(
+                                    'bootstrap.widgets.TbDatePicker', array(
+                                'name' => 'Pegawai[tmt_eselon]',
+                                'value' => str_replace("0000-00-00", "", $model->tmt_eselon),
+                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                    )
+                            );
+                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -343,14 +441,14 @@
                             <div class="fungsional_umum" style="display:<?php echo $fu; ?>">              
                                 <div class="control-group "><label class="control-label" for="Pegawai_jabatan_fu_id">Jabatan</label>
                                     <div class="controls">
-                                        <?php
-                                        $data = array('0' => '- Jabatan Fungsional Umum -') + CHtml::listData(JabatanFu::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                                        $this->widget(
-                                                'bootstrap.widgets.TbSelect2', array(
-                                            'name' => 'Pegawai[jabatan_fu_id]',
-                                            'value' => $model->jabatan_fu_id,
-                                            'data' => $data,
-                                            'events' => array('change' => 'js: function() {
+                            <?php
+                            $data = array('0' => '- Jabatan Fungsional Umum -') + CHtml::listData(JabatanFu::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                            $this->widget(
+                                    'bootstrap.widgets.TbSelect2', array(
+                                'name' => 'Pegawai[jabatan_fu_id]',
+                                'value' => $model->jabatan_fu_id,
+                                'data' => $data,
+                                'events' => array('change' => 'js: function() {
                                                     $.ajax({
                                                        url : "' . url('pegawai/statusJabatan') . '",
                                                        type : "POST",
@@ -366,21 +464,21 @@
                                                     }
                                                 });
                                             }'),
-                                            'options' => array(
-                                                'width' => '40%;margin:0px;text-align:left',
-                                        )));
-                                        echo '&nbsp;&nbsp;';
-                                        ?>
+                                'options' => array(
+                                    'width' => '40%;margin:0px;text-align:left',
+                            )));
+                            echo '&nbsp;&nbsp;';
+                            ?>
                                         <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
-                                            <?php
-                                            $this->widget(
-                                                    'bootstrap.widgets.TbDatePicker', array(
-                                                'name' => 'Pegawai[tmt_jabatan_fu]',
-                                                'value' => str_replace("0000-00-00", "", $model->tmt_jabatan_fu),
-                                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                                                    )
-                                            );
-                                            ?>
+                            <?php
+                            $this->widget(
+                                    'bootstrap.widgets.TbDatePicker', array(
+                                'name' => 'Pegawai[tmt_jabatan_fu]',
+                                'value' => str_replace("0000-00-00", "", $model->tmt_jabatan_fu),
+                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                    )
+                            );
+                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -389,14 +487,14 @@
                             <div class="fungsional_tertentu" style="display:<?php echo $ft; ?>">              
                                 <div class="control-group "><label class="control-label" for="Pegawai_jabatan_ft_id">Jabatan</label>
                                     <div class="controls">
-                                        <?php
-                                        $data = array('0' => '- Jabatan Fungsional Tertentu -') + CHtml::listData(JabatanFt::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                                        $this->widget(
-                                                'bootstrap.widgets.TbSelect2', array(
-                                            'name' => 'Pegawai[jabatan_ft_id]',
-                                            'data' => $data,
-                                            'value' => $model->jabatan_ft_id,
-                                            'events' => array('change' => 'js: function() {
+                            <?php
+                            $data = array('0' => '- Jabatan Fungsional Tertentu -') + CHtml::listData(JabatanFt::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                            $this->widget(
+                                    'bootstrap.widgets.TbSelect2', array(
+                                'name' => 'Pegawai[jabatan_ft_id]',
+                                'data' => $data,
+                                'value' => $model->jabatan_ft_id,
+                                'events' => array('change' => 'js: function() {
                                                     $.ajax({
                                                        url : "' . url('pegawai/fungsionalTertentu') . '",
                                                        type : "POST",
@@ -406,31 +504,31 @@
                                                     }
                                                 });
                                             }'),
-                                            'options' => array(
-                                                'width' => '40%;margin:0px;text-align:left',
-                                        )));
-                                        echo '&nbsp;&nbsp;';
-                                        ?>
+                                'options' => array(
+                                    'width' => '40%;margin:0px;text-align:left',
+                            )));
+                            echo '&nbsp;&nbsp;';
+                            ?>
                                         <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
-                                            <?php
-                                            $this->widget(
-                                                    'bootstrap.widgets.TbDatePicker', array(
-                                                'name' => 'Pegawai[tmt_jabatan_ft]',
-                                                'value' => str_replace("0000-00-00", "", $model->tmt_jabatan_ft),
-                                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                                                    )
-                                            );
-                                            ?>
+                            <?php
+                            $this->widget(
+                                    'bootstrap.widgets.TbDatePicker', array(
+                                'name' => 'Pegawai[tmt_jabatan_ft]',
+                                'value' => str_replace("0000-00-00", "", $model->tmt_jabatan_ft),
+                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                    )
+                            );
+                            ?>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="control-group "><label class="control-label" for="jabatan_fungsional_tertentu">Jabatan Fungsional</label>
                                     <div class="controls">
-                                        <?php
-                                        $model->jabatan_ft_id = ($model->isNewRecord == false)?$model->jabatan_ft_id:0;
-                                        $jabatanFung = JabatanFungsional::model()->find(array('condition'=>'jabatan_ft_id='.$model->jabatan_ft_id));
-                                        echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span5', 'readonly' => true));
-                                        ?>   
+                            <?php
+                            $model->jabatan_ft_id = ($model->isNewRecord == false) ? $model->jabatan_ft_id : 0;
+                            $jabatanFung = JabatanFungsional::model()->find(array('condition' => 'jabatan_ft_id=' . $model->jabatan_ft_id));
+                            echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span5', 'readonly' => true));
+                            ?>   
                                     </div>
                                 </div>
                             </div> -->
@@ -438,17 +536,17 @@
 
                             <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));            ?>
 
-                
-                                <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
-                                    <div class="controls">
-                                        <?php
-                                        echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerja', 'class' => 'span2', 'disabled' => true));
-                                        echo '&nbsp;&nbsp;';
-                                        echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerja', 'class' => 'span2', 'disabled' => true));
-                                        ?>
-                                    </div>
+
+                            <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
+                                <div class="controls">
+                                    <?php
+                                    echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerja', 'class' => 'span2', 'disabled' => true));
+                                    echo '&nbsp;&nbsp;';
+                                    echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerja', 'class' => 'span2', 'disabled' => true));
+                                    ?>
                                 </div>
-                        
+                            </div>
+
 
                             <?php
                             echo $form->datepickerRow(
@@ -682,17 +780,17 @@ $this->beginWidget(
     }
 </style>
 <script>
-    $("#viewTab").click(function () {
+    $("#viewTab").click(function() {
         $("#report").hide();
         $("#tabView").show();
     });
 
-    $("#viewFull").click(function () {
+    $("#viewFull").click(function() {
         $("#report").show();
         $("#tabView").hide();
     });
 
-    $("#Pegawai_nip").focusout(function () {
+    $("#Pegawai_nip").focusout(function() {
         var value = $(this).val();
         if (value.length < 18) {
             $(".nipError").show();
@@ -710,16 +808,16 @@ $this->beginWidget(
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
-        $("#myTab a").click(function (e) {
+        $("#myTab a").click(function(e) {
             e.preventDefault();
             $(this).tab("show");
         });
-        $("#viewTab").click(function () {
+        $("#viewTab").click(function() {
             $("#report").hide();
             $("#tabView").show();
         });
 
-        $("#viewFull").click(function () {
+        $("#viewFull").click(function() {
             $("#report").show();
             $("#tabView").hide();
         });
@@ -749,39 +847,39 @@ $this->beginWidget(
 
 
 <script>
-$(".pilihPendidikan").click(function(){
-    $.ajax({                  
-        url:"<?php echo url('pegawai/getTablePendidikan');?>",
-        data:"id=<?php echo $model->id;?>"+"&pegawai="+$(this).attr("pegawai"),
-        type:"post",
-        success:function(data){                
-             $(".modal-body").html(data);
-        }
+    $(".pilihPendidikan").click(function() {
+        $.ajax({
+            url: "<?php echo url('pegawai/getTablePendidikan'); ?>",
+            data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
+            type: "post",
+            success: function(data) {
+                $(".modal-body").html(data);
+            }
+        });
+        $("#modalForm").modal("show");
     });
-    $("#modalForm").modal("show");
-}); 
 
-$(".pilihPangkat").click(function(){
-    $.ajax({                  
-        url:"<?php echo url('pegawai/getTablePangkat');?>",
-        data:"id=<?php echo $model->id;?>"+"&pegawai="+$(this).attr("pegawai"),
-        type:"post",
-        success:function(data){                
-             $(".modal-body").html(data);
-        }
+    $(".pilihPangkat").click(function() {
+        $.ajax({
+            url: "<?php echo url('pegawai/getTablePangkat'); ?>",
+            data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
+            type: "post",
+            success: function(data) {
+                $(".modal-body").html(data);
+            }
+        });
+        $("#modalForm").modal("show");
     });
-    $("#modalForm").modal("show");
-}); 
 
-$(".pilihJabatan").click(function(){
-    $.ajax({                  
-        url:"<?php echo url('pegawai/getTableJabatan');?>",
-        data:"id=<?php echo $model->id;?>"+"&pegawai="+$(this).attr("pegawai"),
-        type:"post",
-        success:function(data){                
-             $(".modal-body").html(data);
-        }
+    $(".pilihJabatan").click(function() {
+        $.ajax({
+            url: "<?php echo url('pegawai/getTableJabatan'); ?>",
+            data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
+            type: "post",
+            success: function(data) {
+                $(".modal-body").html(data);
+            }
+        });
+        $("#modalForm").modal("show");
     });
-    $("#modalForm").modal("show");
-}); 
 </script>

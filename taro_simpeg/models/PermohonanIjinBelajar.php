@@ -39,7 +39,7 @@ class PermohonanIjinBelajar extends CActiveRecord {
         return array(
             array('nomor_register, tanggal, pegawai_id,jurusan, jenjang_pendidikan, jenjang_pendidikan_asal,  nama_sekolah, tanggal_usul', 'required'),
             array('nip, golongan, nama,jabatan, unit_kerja,  kota, alamat, created, created_user_id, modified', 'safe'),
-            array('pegawai_id, kota, created_user_id', 'numerical', 'integerOnly' => true),
+            array(' kota, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register, nip, jabatan, unit_kerja, jurusan, nama_sekolah', 'length', 'max' => 225),
             array('golongan', 'length', 'max' => 100),
             array('jenjang_pendidikan', 'length', 'max' => 9),

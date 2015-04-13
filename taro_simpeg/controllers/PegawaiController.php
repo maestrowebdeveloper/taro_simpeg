@@ -108,6 +108,19 @@ class PegawaiController extends Controller {
         $return['pendidikan_terakhir'] = $model->pendidikan_terakhir;
         echo json_encode($return);
     }
+     public function actionGetListPegawai() {
+        $name = $_GET["q"];
+        $list = array();
+        $data = Pegawai::model()->findAll(array('condition' => 'nama like "%' . $name . '%"', 'limit' => '10'));
+        if (empty($data)) {
+            $list[] = array("id" => "0", "text" => "No Results Found..");
+        } else {
+            foreach ($data as $val) {
+                $list[] = array("id" => $val->id, "text" =>  $val->nama);
+            }
+        }
+        echo json_encode($list);
+    }
 
     public function actionSelectPangkat() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';        
@@ -698,8 +711,9 @@ class PegawaiController extends Controller {
             $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon'];
             */
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
-            $model->kota = $_POST['kota'];
-            $model->tempat_lahir = $_POST['tempat_lahir'];
+//            $model->kota = $_POST['Pegawai']['kota'];
+            $model->kota = $_POST['id'];
+            $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
 
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {
@@ -782,8 +796,9 @@ class PegawaiController extends Controller {
             $model->tmt_jabatan_ft = $_POST['Pegawai']['tmt_jabatan_ft'];
             $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon'];*/
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
-            $model->kota = $_POST['kota'];
-            $model->tempat_lahir = $_POST['tempat_lahir'];
+           //            $model->kota = $_POST['Honorer']['kota'];
+            $model->kota = $_POST['id'];
+            $model->tempat_lahir = $_POST['Honorer']['tempat_lahir'];
 
 
             $file = CUploadedFile::getInstance($model, 'foto');

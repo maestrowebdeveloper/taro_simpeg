@@ -89,6 +89,34 @@ class CityController extends Controller {
             'model' => $model,
         ));
     }
+    
+       public function actionGetListKota() {
+        $name = $_GET["q"];
+        $list = array();
+        $data = City::model()->findAll(array('condition' => 'name like "%' . $name . '%"', 'limit' => '10'));
+        if (empty($data)) {
+            $list[] = array("id" => "0", "text" => "No Results Found..");
+        } else {
+            foreach ($data as $val) {
+                $list[] = array("id" => $val->id, "text" => ucwords($val->Province->name) .' - '.$val->name);
+            }
+        }
+        echo json_encode($list);
+    }
+    
+       public function actionGetListKota2() {
+        $name = $_GET["q"];
+        $list = array();
+        $data = City::model()->findAll(array('condition' => 'name like "%' . $name . '%"', 'limit' => '10'));
+        if (empty($data)) {
+            $list[] = array("id" => "0", "text" => "No Results Found..");
+        } else {
+            foreach ($data as $val) {
+                $list[] = array("id" => $val->Province->name.' - '.$val->name, "text" => ucwords($val->Province->name) .' - '.$val->name);
+            }
+        }
+        echo json_encode($list);
+    }
 
     /**
      * Deletes a particular model.

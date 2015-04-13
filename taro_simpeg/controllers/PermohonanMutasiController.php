@@ -267,19 +267,19 @@ class PermohonanMutasiController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
-
-        if (isset($session['PermohonanMutasi_records'])) {
-            $model = $session['PermohonanMutasi_records'];
-        } else
-            $model = PermohonanMutasi::model()->findAll();
-
-
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
-                        ), true)
-        );
+//        $session = new CHttpSession;
+//        $session->open();
+//
+//        if (isset($session['PermohonanMutasi_records'])) {
+//            $model = $session['PermohonanMutasi_records'];
+//        } else
+//            $model = PermohonanMutasi::model()->findAll();
+//
+//
+//        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+//                    'model' => $model
+//                        ), true)
+//        );
     }
 
 }
