@@ -16,8 +16,8 @@ class Pegawai extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('nip, nama, tanggal_lahir, jenis_kelamin,  kedudukan_id, unit_kerja_id', 'required'),
-            array('gelar_depan, gelar_belakang, tempat_lahir,pendidikan_terakhir, tahun_pendidikan,agama, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, id', 'safe'),
+            array('nip, nama, jenis_kelamin, tanggal_lahir  kedudukan_id, unit_kerja_id', 'required'),
+            array('gelar_depan, gelar_belakang, tempat_lahir_lainnya, tempat_lahir, pendidikan_terakhir, tahun_pendidikan,agama, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, id', 'safe'),
             array('tempat_lahir, kedudukan_id, kota, unit_kerja_id, golongan_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, gaji, created_user_id, id', 'numerical', 'integerOnly' => true),
             array('nip, gelar_depan, gelar_belakang, bpjs, kpe, npwp', 'length', 'max' => 50),
             array('nama', 'length', 'max' => 100),
@@ -63,6 +63,7 @@ class Pegawai extends CActiveRecord {
             'gelar_depan' => 'Gelar Depan',
             'gelar_belakang' => 'Gelar Belakang',
             'tempat_lahir' => 'Tempat Lahir',
+            'tempat_lahir_lainnya' => 'Tempat Lahir Lainnya',
             'tanggal_lahir' => 'Tanggal Lahir',
             'jenis_kelamin' => 'Jenis Kelamin',
             'agama' => 'Agama',

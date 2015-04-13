@@ -81,9 +81,45 @@
                                     <input class="span2" maxlength="25" value="<?php echo $model->gelar_belakang; ?>" name="Pegawai[gelar_belakang]" id="Pegawai_gelar_belakang" placeHolder="Belakang" type="text">
                                 </div>
                             </div>
+
                             <?php
                             echo $form->radioButtonListRow($model, 'jenis_kelamin', Pegawai::model()->ArrJenisKelamin());
-                            $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'tempat_lahir', 'cityValue' => $model->tempat_lahir, 'disabled' => false, 'width' => '40%', 'label' => 'Tempat Lahir'));
+                            ?>
+
+
+                            <?php
+                            $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'tempat_lahir',
+                                'cityValue' => $model->tempat_lahir,
+                                'disabled' => false,
+                                'width' => '40%',
+                                'label' => 'Tempat Lahir'
+                                    )
+                            );
+//                                    $data = array('0' => '- city -') + CHtml::listData(City::model()->findAll(), 'id', 'name');
+//                                    $this->widget(
+//                                            'bootstrap.widgets.TbSelect2', array(
+//                                        'name' => 'Pegawai[tempat_lahir]',
+//                                        'value' => $model->tempat_lahir,
+//                                        'data' => $data,
+//                                        'options' => array(
+//                                            'width' => '40%;margin:0px;text-align:left',
+//                                    )));
+//                                    
+                            ?>
+                            <div class="controls-group">
+                                <input type="checkbox" style="text-align:left" id="check_box"/> centang jika kota anda tidak tercantum
+
+                                <div id="autoUpdate">
+
+                                    <?php
+//                                        echo CHtml::textField('Pegawai[tempat_lahir_lainnya]', '', array('class' => 'span4', 'placeholder' => $model->tempat_lahir_lainnya));
+                                    echo $form->textFieldRow($model, 'tempat_lahir_lainnya', array('class' => 'span5', 'maxlength' => 50));
+                                    ?>
+                                </div>
+                            </div>
+
+
+                            <?php
                             echo $form->datepickerRow(
                                     $model, 'tanggal_lahir', array('value' => str_replace("0000-00-00", "", $model->tanggal_lahir),
                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
@@ -395,7 +431,7 @@
                                 <div class="control-group "><label class="control-label" for="jabatan_fungsional_tertentu">Jabatan Fungsional</label>
                                     <div class="controls">
                                         <?php
-                                        $jabatanFung = JabatanFungsional::model()->find(array('condition'=>'jabatan_ft_id='.$model->jabatan_ft_id));
+                                        $jabatanFung = JabatanFungsional::model()->find(array('condition' => 'jabatan_ft_id=' . $model->jabatan_ft_id));
                                         echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span5', 'readonly' => true));
                                         ?>   
                                     </div>
@@ -403,7 +439,7 @@
                             </div>
 
 
-                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));            ?>
+                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));                 ?>
 
                             <?php if (isset($_GET['v'])) { ?>
                                 <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
@@ -709,4 +745,13 @@ $this->beginWidget(
         var pensiun = kalkulasi.getFullYear() + '-' + kalkulasi.getMonth() + '-' + kalkulasi.getDate();
         $("#Pegawai_tmt_pensiun").val(pensiun)
     }
+</script>
+<script>
+    $('#check_box').change(function () {
+        if ($(this).is(":checked"))
+            $('#autoUpdate').fadeIn('slow');
+        else
+            $('#autoUpdate').fadeOut('slow');
+
+    });
 </script>

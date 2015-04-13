@@ -71,7 +71,7 @@ class PermohonanIjinBelajarController extends Controller
 			$model->nip = $pegawai->nip;
 			$model->nama = $pegawai->namaGelar;
 			$model->jabatan = $pegawai->jabatan;
-			$model->unit_kerja = $pegawai->unit_kerja;
+			$model->unit_kerja = $pegawai->unit_kerja_id;
 			$model->golongan = $pegawai->golongan;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
