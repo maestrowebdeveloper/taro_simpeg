@@ -104,6 +104,7 @@
                                     <input class="span2" maxlength="25" value="<?php echo $model->gelar_belakang; ?>" name="Pegawai[gelar_belakang]" id="Pegawai_gelar_belakang" placeHolder="Belakang" type="text">
                                 </div>
                             </div>
+
                             <?php
                             echo $form->radioButtonListRow($model, 'jenis_kelamin', Pegawai::model()->ArrJenisKelamin());
 
@@ -534,7 +535,7 @@
                             </div> -->
 
 
-                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));            ?>
+                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));                 ?>
 
 
                             <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>

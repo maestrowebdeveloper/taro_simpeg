@@ -116,12 +116,47 @@
         echo $form->radioButtonListRow($model, 'jenjang_pendidikan', Pegawai::model()->ArrJenjangPendidikan());
         ?>
 
-
-
-        <?php echo $form->textFieldRow($model, 'jurusan', array('class' => 'span5', 'maxlength' => 225)); ?>
-
+      <?php
+          echo $form->textFieldRow($model, 'jurusan', array(
+              'class' => 'span5',
+              'maxlength' => 225,
+             
+              ));
+     // }
+    ?>
+        
         <?php echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span5', 'maxlength' => 225)); ?>
-
+      <?php
+//    if(isset($model->jenjang_pendidikan != 'SMA/SMK') && ($model->jenjang_pendidikan != 'SD') && ($model->jenjang_pendidikan != 'SMP'){
+    
+      ?>
+        <?php
+         echo' <div class="control-group "><label class="control-label">Universitas</label><div class="controls">';
+        $data = array('0' => '- Universitas -') + CHtml::listData(Universitas::model()->findAll(array('order' => 'name')), 'id', 'name');
+        $this->widget(
+                'bootstrap.widgets.TbSelect2', array(
+            'name' => 'PermohonanIjinBelajar[id_universitas]',
+            'data' => $data,
+            'value' => $model->id_universitas,
+            'options' => array(
+                'width' => '40%;margin:0px;text-align:left',
+        )));
+        echo "</div></div>";
+        echo' <div class="control-group "><label class="control-label">Jurusan</label><div class="controls">';
+        $data = array('0' => '- jurusan -') + CHtml::listData(Jurusan::model()->findAll(array('order' => 'Name')), 'id', 'Name');
+        $this->widget(
+                'bootstrap.widgets.TbSelect2', array(
+            'name' => 'PermohonanIjinBelajar[id_jurusan]',
+            'id' => 'jurusan_kuliah',
+            'data' => $data,
+            'value' => $model->id_jurusan,
+            'options' => array(
+                'width' => '40%;margin:0px;text-align:left',
+        )));
+        echo "</div></div>";
+//    }
+        ?>
+        
         <?php
 //        $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'PermohonanIjinBelajar[kota]', 'cityValue' => $model->kota, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
 
@@ -204,6 +239,8 @@
         $content = str_replace('{jabatan}', $model->jabatan, $content);
         $content = str_replace('{jenjang_pendidikan}', $model->jenjang_pendidikan, $content);
         $content = str_replace('{jurusan}', $model->jurusan, $content);
+        $content = str_replace('{id_jurusan}', $model->jurusan, $content);
+        $content = str_replace('{id_universitas}', $model->jurusan, $content);
         $content = str_replace('{nama_sekolah}', $model->nama_sekolah, $content);
         $content = str_replace('{kota_sekolah}', $model->kotaSekolah, $content);
         $content = str_replace('{tanggal}', date('d F Y', strtotime($model->created)), $content);
@@ -274,4 +311,31 @@
 
 
     }
+        $("body").on("click", ".radio", function () {
+        var id = $(this).find("input").val();
+        if (id == "SMA/SMK") {
+            $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none")
+            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:");
+            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");
+        }
+        else if (id == "SMP") {
+            $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");
+        }
+        else if (id == "SD") {
+            $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");
+        }
+        else {
+            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:");
+            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:");
+        }
+    });
 </script>

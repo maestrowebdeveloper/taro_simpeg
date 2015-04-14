@@ -67,6 +67,7 @@ class Pegawai extends CActiveRecord {
             'gelar_depan' => 'Gelar Depan',
             'gelar_belakang' => 'Gelar Belakang',
             'tempat_lahir' => 'Tempat Lahir',
+            'tempat_lahir_lainnya' => 'Tempat Lahir Lainnya',
             'tanggal_lahir' => 'Tanggal Lahir',
             'jenis_kelamin' => 'Jenis Kelamin',
             'agama' => 'Agama',
