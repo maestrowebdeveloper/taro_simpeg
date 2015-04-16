@@ -798,7 +798,7 @@ class PegawaiController extends Controller {
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
            //            $model->kota = $_POST['Honorer']['kota'];
             $model->kota = $_POST['id'];
-            $model->tempat_lahir = $_POST['Honorer']['tempat_lahir'];
+            $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
 
 
             $file = CUploadedFile::getInstance($model, 'foto');

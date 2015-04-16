@@ -143,7 +143,7 @@
                                 ),
                                     )
                             );
-                            
+
                             echo $form->datepickerRow(
                                     $model, 'tanggal_lahir', array('value' => str_replace("0000-00-00", "", $model->tanggal_lahir),
                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
@@ -183,34 +183,32 @@
                         <div class="span12">
                             <?php
                             if (!isset($_GET['v'])) {
-                                
                                 ?>
-                            <div class="control-group ">
-                            <label class="control-label">Kota </label>
-                            <div class="controls">
-                                <input type="hidden" name="id" id="id" value="<?php echo $model->kota ?>">
-                                <?php
-                                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                                    'name' => 'Honorer[kota]',
-                                    'sourceUrl' => array('honorer/GetListKota'),
-                                    'value' => isset($model->Kota->name) ? $model->Kota->Province->name.' - '.$model->Kota->name : '',
-                                    'options' => array(
-                                        'showAnim' => 'fold',
-                                        'minLength' => '3',
-                                        'select' => 'js:function(event, ui){
+                                <div class="control-group ">
+                                    <label class="control-label">Kota </label>
+                                    <div class="controls">
+                                        <input type="hidden" name="id" id="id" value="<?php echo $model->kota ?>">
+                                        <?php
+                                        $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                                            'name' => 'Honorer[kota]',
+                                            'sourceUrl' => array('honorer/GetListKota'),
+                                            'value' => isset($model->Kota->name) ? $model->Kota->Province->name . ' - ' . $model->Kota->name : '',
+                                            'options' => array(
+                                                'showAnim' => 'fold',
+                                                'minLength' => '3',
+                                                'select' => 'js:function(event, ui){
                                         jQuery("#id").val(ui.item["item_id"]);
                                         jQuery("#name").val(ui.item["label"]);
                                     }'
-                                    ),
-                                    'htmlOptions' => array(
-                                        'style' => 'width:300px;',
-                                    ),
-                                ))
-                                ?>   
-                            </div>
-                        </div> 
-                            <?php
-
+                                            ),
+                                            'htmlOptions' => array(
+                                                'style' => 'width:300px;',
+                                            ),
+                                        ))
+                                        ?>   
+                                    </div>
+                                </div> 
+                                <?php
 //                                $idkota = isset($model->kota) ? $model->kota : 0;
 //                                $kotaName = isset($model->Kota->name) ? $model->Kota->Province->name . ' - ' . $model->Kota->name : '';
 //                                echo $form->select2Row($model, 'kota', array(
@@ -277,7 +275,9 @@
                                     'width' => '40%',
                                 ))
                             );
-
+                            
+                             echo $form->textFieldRow($model, 'keterangan', array('class' => 'span5', 'maxlength' => 50));
+                           
                             $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
                             echo $form->select2Row($model, 'unit_kerja_id', array(
                                 'asDropDownList' => true,
@@ -418,7 +418,7 @@
                                 </div>
                                 <div class="control-group "><label class="control-label" for="eselon">Eselon</label>
                                     <div class="controls">
-                                        <input type="hidden" name="masa_kerja" id="masa_kerja" value="<?php echo isset($model->JabatanStruktural->Eselon->masa_kerja) and !empty($model->JabatanStruktural->Eselon->masa_kerja) ? $model->JabatanStruktural->Eselon->id : 0; ?>">
+                                        <input type="hidden" name="masa_kerja" id="masa_kerja" value="<?php echo isset($model->JabatanStruktural->Eselon->masa_kerja) and ! empty($model->JabatanStruktural->Eselon->masa_kerja) ? $model->JabatanStruktural->Eselon->id : 0; ?>">
                             <?php
                             echo CHtml::textField('eselon', isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-', array('id' => 'eselon', 'class' => 'span5', 'readonly' => true));
                             echo '&nbsp;&nbsp;';
@@ -535,7 +535,7 @@
                             </div> -->
 
 
-                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));                 ?>
+                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));                  ?>
 
 
                             <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
@@ -550,12 +550,7 @@
 
 
                             <?php
-                            echo $form->datepickerRow(
-                                    $model, 'tmt_pensiun', array(
-                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                                'prepend' => '<i class="icon-calendar"></i>'
-                                    )
-                            );
+                           
                             ?>
                         </div>
                     </div>
@@ -781,17 +776,17 @@ $this->beginWidget(
     }
 </style>
 <script>
-    $("#viewTab").click(function() {
+    $("#viewTab").click(function () {
         $("#report").hide();
         $("#tabView").show();
     });
 
-    $("#viewFull").click(function() {
+    $("#viewFull").click(function () {
         $("#report").show();
         $("#tabView").hide();
     });
 
-    $("#Pegawai_nip").focusout(function() {
+    $("#Pegawai_nip").focusout(function () {
         var value = $(this).val();
         if (value.length < 18) {
             $(".nipError").show();
@@ -809,16 +804,16 @@ $this->beginWidget(
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
-        $("#myTab a").click(function(e) {
+        $("#myTab a").click(function (e) {
             e.preventDefault();
             $(this).tab("show");
         });
-        $("#viewTab").click(function() {
+        $("#viewTab").click(function () {
             $("#report").hide();
             $("#tabView").show();
         });
 
-        $("#viewFull").click(function() {
+        $("#viewFull").click(function () {
             $("#report").show();
             $("#tabView").hide();
         });
@@ -848,39 +843,53 @@ $this->beginWidget(
 
 
 <script>
-    $(".pilihPendidikan").click(function() {
+    $(".pilihPendidikan").click(function () {
         $.ajax({
             url: "<?php echo url('pegawai/getTablePendidikan'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function(data) {
+            success: function (data) {
                 $(".modal-body").html(data);
             }
         });
         $("#modalForm").modal("show");
     });
 
-    $(".pilihPangkat").click(function() {
+    $(".pilihPangkat").click(function () {
         $.ajax({
             url: "<?php echo url('pegawai/getTablePangkat'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function(data) {
+            success: function (data) {
                 $(".modal-body").html(data);
             }
         });
         $("#modalForm").modal("show");
     });
 
-    $(".pilihJabatan").click(function() {
+    $(".pilihJabatan").click(function () {
         $.ajax({
             url: "<?php echo url('pegawai/getTableJabatan'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function(data) {
+            success: function (data) {
                 $(".modal-body").html(data);
             }
         });
         $("#modalForm").modal("show");
     });
+</script>
+<script>
+    $(function() {
+   
+    $('#Pegawai_kedudukan_id').change(function(){
+        if($('#Pegawai_kedudukan_id').val() == '1') {
+           $("#Pegawai_keterangan").parent().parent().attr("style", "display:none");
+           $('#Pegawai_keterangan').attr("value","");
+        } else {
+            $("#Pegawai_keterangan").parent().parent().attr("style", "display:"); 
+        } 
+    });
+});
+
 </script>
