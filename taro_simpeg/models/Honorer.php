@@ -20,7 +20,7 @@ class Honorer extends CActiveRecord
 		return array(
 			array('nomor_register, nama, unit_kerja_id,tanggal_register, tanggal_lahir', 'required'),
 			array('tempat_lahir, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_honorer_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
-			array('tempat_lahir, kota, unit_kerja_id, jabatan_honorer_id, gaji, created_user_id', 'numerical', 'integerOnly'=>true),
+			array(' unit_kerja_id, jabatan_honorer_id, gaji, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('nomor_register, foto', 'length', 'max'=>225),
 			array('nama', 'length', 'max'=>100),
 			array('jenis_kelamin', 'length', 'max'=>11),
@@ -47,8 +47,8 @@ class Honorer extends CActiveRecord
 		return array(
 			'UnitKerja' => array(self::BELONGS_TO, 'UnitKerja', 'unit_kerja_id'),
 			'JabatanHonorer' => array(self::BELONGS_TO, 'JabatanHonorer', 'jabatan_honorer_id'),
-			'TempatLahir' => array(self::BELONGS_TO, 'City', 'tempat_lahir'),
-            'Kota' => array(self::BELONGS_TO, 'City', 'kota'),
+//			'TempatLahir' => array(self::BELONGS_TO, 'City', 'tempat_lahir'),
+//            'Kota' => array(self::BELONGS_TO, 'City', 'kota'),
 		);
 	}
 
