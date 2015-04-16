@@ -359,6 +359,7 @@ class PegawaiController extends Controller {
                 $model = RiwayatPendidikan::model()->findByPk($_POST['RiwayatPendidikan']['id']);
 
             $model->attributes = $_POST['RiwayatPendidikan'];
+//            $model->jenjang_pendidikan = 'hjhj';
             if ($model->save()) {
                 $pendidikan = RiwayatPendidikan::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tahun DESC'));
                 echo $this->renderPartial('/pegawai/_tablePendidikan', array('pendidikan' => $pendidikan, 'edit' => true, 'pegawai_id' => $model->pegawai_id));

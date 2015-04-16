@@ -43,6 +43,7 @@ class Pegawai extends CActiveRecord {
         return array(
             'UnitKerja' => array(self::BELONGS_TO, 'UnitKerja', 'unit_kerja_id'),
             'Golongan' => array(self::BELONGS_TO, 'Golongan', 'golongan_id'),
+            
 //            'TempatLahir' => array(self::BELONGS_TO, 'City', 'tempat_lahir'),
 //            'Kota' => array(self::BELONGS_TO, 'City', 'kota'),
             'Kedudukan' => array(self::BELONGS_TO, 'Kedudukan', 'kedudukan_id'),

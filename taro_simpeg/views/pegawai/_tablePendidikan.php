@@ -30,8 +30,8 @@ if(!empty($edit)){
             echo '
                 <tr>
                 <td>'.$value->jenjang_pendidikan.'</td>
-                <td>'.$value->jurusan.'</td>
-                <td>'.$value->nama_sekolah.'</td>
+                <td>'.$value->Jurusan->Name.'</td>
+                <td>'.$value->Universitas->name.'</td>
                 <td>'.$value->alamat_sekolah.'</td>
                 <td>'.$value->tahun.'</td>                
                 '.$action.'              
