@@ -194,6 +194,16 @@ class ReportController extends Controller {
         }
         $this->render('permohonanPensiun', array('model' => $model));
     }
+    
+    public function actionPensiun(){
+        $model = new Pegawai();
+        if(isset($_POST['Pegawai'])){
+            $model->attributes = $_POST['Pegawai'];     
+            $model->id='1';  
+        }
+        $this->render('pensiun', array('model'=>$model));
+    }
+ 
 
 }
 
