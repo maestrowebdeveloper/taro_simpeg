@@ -711,8 +711,8 @@ class PegawaiController extends Controller {
             $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon'];
             */
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
-//            $model->kota = $_POST['Pegawai']['kota'];
-            $model->kota = $_POST['id'];
+            $model->kota = $_POST['Pegawai']['kota'];
+//            $model->kota = $_POST['id'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
 
             $file = CUploadedFile::getInstance($model, 'foto');
@@ -796,8 +796,8 @@ class PegawaiController extends Controller {
             $model->tmt_jabatan_ft = $_POST['Pegawai']['tmt_jabatan_ft'];
             $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon'];*/
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
-           //            $model->kota = $_POST['Honorer']['kota'];
-            $model->kota = $_POST['id'];
+                       $model->kota = $_POST['Honorer']['kota'];
+//            $model->kota = $_POST['id'];
             $model->tempat_lahir = $_POST['Honorer']['tempat_lahir'];
 
 

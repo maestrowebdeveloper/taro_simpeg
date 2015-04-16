@@ -157,7 +157,7 @@ if ($model->isNewRecord == true) {
                             { 
                             callback({id: 1, text: "' . $kotaName . '" });
                              
-                                  callback(data);
+                                  
                                   
                             }',
                             ),
@@ -171,31 +171,42 @@ if ($model->isNewRecord == true) {
                                 )
                         );
 //                        $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'kota', 'cityValue' => $model->kota, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
+                        $kota = isset($model->kota) ? $model->kota : '';
+                        echo $form->select2Row($model, 'kota', array(
+                            'asDropDownList' => false,
+//                    'data' => $data,
+//                    'value' => $model->Kota->name,
+                            'options' => array(
+                                'placeholder' => t('choose', 'global'),
+                                'allowClear' => true,
+                                'width' => '400px',
+                                'minimumInputLength' => '3',
+                                'ajax' => array(
+                                    'url' => Yii::app()->createUrl('city/getListKota2'),
+                                    'dataType' => 'json',
+                                    'data' => 'js:function(term, page) { 
+                                                        return {
+                                                            q: term 
+                                                        }; 
+                                                    }',
+                                    'results' => 'js:function(data) { 
+                                                        return {
+                                                            results: data
+                                                            
+                                                        };
+                                                    }',
+                                ),
+                                'initSelection' => 'js:function(element, callback) 
+                            { 
+                            callback({id: 1, text: "' . $kota . '" });
+                             
+                                  
+                            }',
+                            ),
+                                )
+                        );
                         ?>
-                        <div class="control-group ">
-                            <label class="control-label">Kota </label>
-                            <div class="controls">
-                                <input type="hidden" name="id" id="id" value="<?php echo $model->kota ?>">
-                                <?php
-                                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                                    'name' => 'Honorer[kota]',
-                                    'sourceUrl' => array('honorer/GetListKota'),
-                                    'value' => isset($model->Kota->name) ? $model->Kota->Province->name.' - '.$model->Kota->name : '',
-                                    'options' => array(
-                                        'showAnim' => 'fold',
-                                        'minLength' => '3',
-                                        'select' => 'js:function(event, ui){
-                                        jQuery("#id").val(ui.item["item_id"]);
-                                        jQuery("#name").val(ui.item["label"]);
-                                    }'
-                                    ),
-                                    'htmlOptions' => array(
-                                        'style' => 'width:300px;',
-                                    ),
-                                ))
-                                ?>   
-                            </div>
-                        </div>  
+                        
                     </div>
                     <div class="span3" style="margin-left: -15px;">
                         <?php
