@@ -182,40 +182,40 @@
                         <div class="span12">
                             <?php
                             if (!isset($_GET['v'])) {
-                              $kota = isset($model->kota) ? $model->kota : '';
-                        echo $form->select2Row($model, 'kota', array(
-                            'asDropDownList' => false,
+                                $kota = isset($model->kota) ? $model->kota : '';
+                                echo $form->select2Row($model, 'kota', array(
+                                    'asDropDownList' => false,
 //                    'data' => $data,
 //                    'value' => $model->Kota->name,
-                            'options' => array(
-                                'placeholder' => t('choose', 'global'),
-                                'allowClear' => true,
-                                'width' => '400px',
-                                'minimumInputLength' => '3',
-                                'ajax' => array(
-                                    'url' => Yii::app()->createUrl('city/getListKota2'),
-                                    'dataType' => 'json',
-                                    'data' => 'js:function(term, page) { 
+                                    'options' => array(
+                                        'placeholder' => t('choose', 'global'),
+                                        'allowClear' => true,
+                                        'width' => '400px',
+                                        'minimumInputLength' => '3',
+                                        'ajax' => array(
+                                            'url' => Yii::app()->createUrl('city/getListKota2'),
+                                            'dataType' => 'json',
+                                            'data' => 'js:function(term, page) { 
                                                         return {
                                                             q: term 
                                                         }; 
                                                     }',
-                                    'results' => 'js:function(data) { 
+                                            'results' => 'js:function(data) { 
                                                         return {
                                                             results: data
                                                             
                                                         };
                                                     }',
-                                ),
-                                'initSelection' => 'js:function(element, callback) 
+                                        ),
+                                        'initSelection' => 'js:function(element, callback) 
                             { 
                             callback({id: 1, text: "' . $kota . '" });
                              
                                   
                             }',
-                            ),
-                                )
-                        );
+                                    ),
+                                        )
+                                );
                                 echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'style' => 'width:50%', 'class' => 'span9'));
                                 echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
                                 echo $form->textFieldRow($model, 'hp', array('class' => 'span5 angka', 'style' => 'max-width:500px;width:200px', 'maxlength' => 25, 'prepend' => '+62'));
@@ -247,9 +247,9 @@
                                     'width' => '40%',
                                 ))
                             );
-                            
-                             echo $form->textFieldRow($model, 'keterangan', array('class' => 'span5', 'maxlength' => 50));
-                           
+
+                            echo $form->textFieldRow($model, 'keterangan', array('class' => 'span5', 'maxlength' => 50));
+
                             $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
                             echo $form->select2Row($model, 'unit_kerja_id', array(
                                 'asDropDownList' => true,
@@ -271,7 +271,9 @@
                                             'name' => 'Pegawai[tmt_cpns]',
                                             'value' => str_replace("0000-00-00", "", $model->tmt_cpns),
                                             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                                            'htmlOptions' => array('class' => ''),
+                                            'events' => array('changeDate' => 'js:function(){
+                                                                getMasaKerja();
+                                                         }'),
                                                 )
                                         );
                                         ?>
@@ -357,7 +359,6 @@
                                                        success : function(data){   
                                                        obj = JSON.parse(data);
                                                         $("#eselon").val(obj.eselon);
-                                                        $("#masa_kerja").val(obj.masa_kerja);
                                                         pensiun();
                                                         if(obj.status==1){
                                                             if($("#Pegawai_jabatan_struktural_id").val()!="' . $model->jabatan_struktural_id . '"){
@@ -507,22 +508,43 @@
                             </div> -->
 
 
-                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));                  ?>
-
-
-                            <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
-                                <div class="controls">
-                                    <?php
-                                    echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerja', 'class' => 'span2', 'disabled' => true));
-                                    echo '&nbsp;&nbsp;';
-                                    echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerja', 'class' => 'span2', 'disabled' => true));
-                                    ?>
-                                </div>
-                            </div>
-
+                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));                    ?>
 
                             <?php
-                           
+                            if (isset($model->perubahan_masa_kerja) and ! empty($model->perubahan_masa_kerja)) {
+                                $perubahan = json_decode($model->perubahan_masa_kerja, false);
+                            }
+                            ?>
+                            <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
+                                <div class="controls">
+                                    <div class="input-append span1" style="margin-right: 5px;">
+                                        <?php echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerjaTahun', 'class' => 'span8', 'disabled' => true)); ?>    
+                                        <span class="add-on">
+                                            Tahun
+                                        </span>
+                                    </div>
+                                    <div class="input-append span1" style="margin-right: 5px;">
+                                        <?php echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerjaBulan', 'class' => 'span8', 'disabled' => true)); ?>    
+                                        <span class="add-on">
+                                            Bulan
+                                        </span>
+                                    </div>
+                                    <div class="input-append span1" style="margin-right: 5px;">
+                                        <?php echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span8', 'onkeyup' => 'getMasaKerja();')); ?>
+                                        <span class="add-on">
+                                            Tahun
+                                        </span>
+                                    </div>
+                                    <div class="input-append span1">
+                                        <?php echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span8', 'onkeyup' => 'if($(this).val() <= 12 && $(this).val() >= -12){ getMasaKerja(); }else{ alert("Masukkan angka -12 sampai 12"); }')); ?>    
+                                        <span class="add-on">
+                                            Bulan
+                                        </span>
+                                    </div>
+                                    <input type="hidden" name="Pegawai[id]" value="<?php echo isset($model->id) ? $model->id : ''; ?>">
+                                </div>
+                            </div>
+                            <?php
                             ?>
                         </div>
                     </div>
@@ -748,6 +770,19 @@ $this->beginWidget(
     }
 </style>
 <script>
+    function getMasaKerja() {
+        $.ajax({
+            url: "<?php echo url('pegawai/getMasaKerja') ?> ",
+            type: "POST",
+            data: {tmt_cpns: $("#Pegawai_tmt_cpns").val(), tahun: $("#kalkulasiTahun").val(), bulan: $("#kalkulasiBulan").val()},
+            success: function (data) {
+                obj = JSON.parse(data);
+                $("#masaKerjaTahun").val(obj.tahun);
+                $("#masaKerjaBulan").val(obj.bulan);
+            }
+        });
+    }
+
     $("#viewTab").click(function () {
         $("#report").hide();
         $("#tabView").show();
@@ -852,16 +887,16 @@ $this->beginWidget(
     });
 </script>
 <script>
-    $(function() {
-   
-    $('#Pegawai_kedudukan_id').change(function(){
-        if($('#Pegawai_kedudukan_id').val() == '1') {
-           $("#Pegawai_keterangan").parent().parent().attr("style", "display:none");
-           $('#Pegawai_keterangan').attr("value","");
-        } else {
-            $("#Pegawai_keterangan").parent().parent().attr("style", "display:"); 
-        } 
+    $(function () {
+
+        $('#Pegawai_kedudukan_id').change(function () {
+            if ($('#Pegawai_kedudukan_id').val() == '1') {
+                $("#Pegawai_keterangan").parent().parent().attr("style", "display:none");
+                $('#Pegawai_keterangan').attr("value", "");
+            } else {
+                $("#Pegawai_keterangan").parent().parent().attr("style", "display:");
+            }
+        });
     });
-});
 
 </script>
