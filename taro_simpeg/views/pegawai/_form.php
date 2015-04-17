@@ -182,40 +182,40 @@
                         <div class="span12">
                             <?php
                             if (!isset($_GET['v'])) {
-                              $kota = isset($model->kota) ? $model->kota : '';
-                        echo $form->select2Row($model, 'kota', array(
-                            'asDropDownList' => false,
+                                $kota = isset($model->kota) ? $model->kota : '';
+                                echo $form->select2Row($model, 'kota', array(
+                                    'asDropDownList' => false,
 //                    'data' => $data,
 //                    'value' => $model->Kota->name,
-                            'options' => array(
-                                'placeholder' => t('choose', 'global'),
-                                'allowClear' => true,
-                                'width' => '400px',
-                                'minimumInputLength' => '3',
-                                'ajax' => array(
-                                    'url' => Yii::app()->createUrl('city/getListKota2'),
-                                    'dataType' => 'json',
-                                    'data' => 'js:function(term, page) { 
+                                    'options' => array(
+                                        'placeholder' => t('choose', 'global'),
+                                        'allowClear' => true,
+                                        'width' => '400px',
+                                        'minimumInputLength' => '3',
+                                        'ajax' => array(
+                                            'url' => Yii::app()->createUrl('city/getListKota2'),
+                                            'dataType' => 'json',
+                                            'data' => 'js:function(term, page) { 
                                                         return {
                                                             q: term 
                                                         }; 
                                                     }',
-                                    'results' => 'js:function(data) { 
+                                            'results' => 'js:function(data) { 
                                                         return {
                                                             results: data
                                                             
                                                         };
                                                     }',
-                                ),
-                                'initSelection' => 'js:function(element, callback) 
+                                        ),
+                                        'initSelection' => 'js:function(element, callback) 
                             { 
                             callback({id: 1, text: "' . $kota . '" });
                              
                                   
                             }',
-                            ),
-                                )
-                        );
+                                    ),
+                                        )
+                                );
                                 echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'style' => 'width:50%', 'class' => 'span9'));
                                 echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
                                 echo $form->textFieldRow($model, 'hp', array('class' => 'span5 angka', 'style' => 'max-width:500px;width:200px', 'maxlength' => 25, 'prepend' => '+62'));
@@ -223,6 +223,7 @@
                                 echo $form->radioButtonListRow($model, 'golongan_darah', Pegawai::model()->ArrGolonganDarah());
                             }
                             echo $form->radioButtonListRow($model, 'agama', Pegawai::model()->ArrAgama());
+                            echo $form->textFieldRow($model, 'ket_agama', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->radioButtonListRow($model, 'status_pernikahan', Pegawai::model()->arrStatusPernikahan());
                             ?>
                             <fieldset>
@@ -247,9 +248,9 @@
                                     'width' => '40%',
                                 ))
                             );
-                            
-                             echo $form->textFieldRow($model, 'keterangan', array('class' => 'span5', 'maxlength' => 50));
-                           
+
+                            echo $form->textFieldRow($model, 'keterangan', array('class' => 'span5', 'maxlength' => 50));
+
                             $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
                             echo $form->select2Row($model, 'unit_kerja_id', array(
                                 'asDropDownList' => true,
@@ -522,7 +523,6 @@
 
 
                             <?php
-                           
                             ?>
                         </div>
                     </div>
@@ -852,16 +852,41 @@ $this->beginWidget(
     });
 </script>
 <script>
-    $(function() {
-   
-    $('#Pegawai_kedudukan_id').change(function(){
-        if($('#Pegawai_kedudukan_id').val() == '1') {
-           $("#Pegawai_keterangan").parent().parent().attr("style", "display:none");
-           $('#Pegawai_keterangan').attr("value","");
-        } else {
-            $("#Pegawai_keterangan").parent().parent().attr("style", "display:"); 
-        } 
-    });
-});
+    $(function () {
 
+        $('#Pegawai_kedudukan_id').change(function () {
+            if ($('#Pegawai_kedudukan_id').val() == '1') {
+                $("#Pegawai_keterangan").parent().parent().attr("style", "display:none");
+                $('#Pegawai_keterangan').attr("value", "");
+            } else {
+                $("#Pegawai_keterangan").parent().parent().attr("style", "display:");
+            }
+        });
+    });
+
+</script>
+<script>
+    $("body").on("click", ".radio", function () {
+       
+        var id = $(this).find("input").val();
+        if (id == "Lainnya") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:");
+           
+        } else if (id == "Islam") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Hindu") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Katolik") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Protestan") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Konghucu") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        }
+    });
 </script>

@@ -242,6 +242,7 @@ if ($model->isNewRecord == true) {
                         echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
                         echo $form->textFieldRow($model, 'hp', array('class' => 'span5 angka', 'style' => 'max-width:500px;width:200px', 'maxlength' => 25, 'prepend' => '+62'));
                         echo $form->radioButtonListRow($model, 'agama', Pegawai::model()->ArrAgama());
+                        echo $form->textFieldRow($model, 'ket_agama', array('class' => 'span5', 'maxlength' => 50));
                         echo $form->radioButtonListRow($model, 'golongan_darah', Pegawai::model()->ArrGolonganDarah());
                         echo $form->radioButtonListRow($model, 'status_pernikahan', Pegawai::model()->arrStatusPernikahan());
                         echo $form->textFieldRow($model, 'npwp', array('class' => 'span5', 'maxlength' => 50));
@@ -432,4 +433,29 @@ $this->beginWidget(
 
     }
 
+</script>
+<script>
+    $("body").on("click", ".radio", function () {
+       
+        var id = $(this).find("input").val();
+        if (id == "Lainnya") {
+            $("#Honorer_ket_agama").parent().parent().attr("style", "display:");
+           
+        } else if (id == "Islam") {
+            $("#Honorer_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Honorer_ket_agama').attr("value", "");
+        } else if (id == "Hindu") {
+            $("#Honorer_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Honorer_ket_agama').attr("value", "");
+        } else if (id == "Katolik") {
+            $("#Honorer_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Honorer_ket_agama').attr("value", "");
+        } else if (id == "Protestan") {
+            $("#Honorer_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Honorer_ket_agama').attr("value", "");
+        } else if (id == "Konghucu") {
+            $("#Honorer_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Honorer_ket_agama').attr("value", "");
+        }
+    });
 </script>
