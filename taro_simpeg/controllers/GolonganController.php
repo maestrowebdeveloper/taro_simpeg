@@ -196,19 +196,20 @@ class GolonganController extends Controller
 		}
 	}
 
-	public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
-
-        if (isset($session['Golongan_records'])) {
-            $model = $session['Golongan_records'];
-        } else
-            $model = Golongan::model()->findAll();
-
-
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
-                        ), true)
-        );
-    }
+//	public function actionGenerateExcel() {
+//        $session = new CHttpSession;
+//        $session->open();
+//
+//        if (isset($session['Golongan_records'])) {
+//            $model = $session['Golongan_records'];
+//        } else
+//            $model = Golongan::model()->findAll();
+//
+//
+//        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+//                    'model' => $model
+//                        ), true)
+//        );
+//    }
+//
 }

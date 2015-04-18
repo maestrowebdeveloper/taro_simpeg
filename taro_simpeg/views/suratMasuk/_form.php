@@ -29,7 +29,7 @@
         echo $form->radioButtonListRow($model, 'sifat', SuratMasuk::model()->ArrSifat());
 
         echo $form->textFieldRow($model,'nomor_surat',array('class'=>'span4','maxlength'=>225)); 
-
+        
         echo $form->textFieldRow($model,'perihal',array('class'=>'span4','maxlength'=>225));
         
         ?>
