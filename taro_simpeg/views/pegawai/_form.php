@@ -142,7 +142,7 @@
                                 ),
                                     )
                             );
-                            
+
                             echo $form->datepickerRow(
                                     $model, 'tanggal_lahir', array('value' => str_replace("0000-00-00", "", $model->tanggal_lahir),
                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
@@ -182,40 +182,40 @@
                         <div class="span12">
                             <?php
                             if (!isset($_GET['v'])) {
-                              $kota = isset($model->kota) ? $model->kota : '';
-                        echo $form->select2Row($model, 'kota', array(
-                            'asDropDownList' => false,
+                                $kota = isset($model->kota) ? $model->kota : '';
+                                echo $form->select2Row($model, 'kota', array(
+                                    'asDropDownList' => false,
 //                    'data' => $data,
 //                    'value' => $model->Kota->name,
-                            'options' => array(
-                                'placeholder' => t('choose', 'global'),
-                                'allowClear' => true,
-                                'width' => '400px',
-                                'minimumInputLength' => '3',
-                                'ajax' => array(
-                                    'url' => Yii::app()->createUrl('city/getListKota2'),
-                                    'dataType' => 'json',
-                                    'data' => 'js:function(term, page) { 
+                                    'options' => array(
+                                        'placeholder' => t('choose', 'global'),
+                                        'allowClear' => true,
+                                        'width' => '400px',
+                                        'minimumInputLength' => '3',
+                                        'ajax' => array(
+                                            'url' => Yii::app()->createUrl('city/getListKota2'),
+                                            'dataType' => 'json',
+                                            'data' => 'js:function(term, page) { 
                                                         return {
                                                             q: term 
                                                         }; 
                                                     }',
-                                    'results' => 'js:function(data) { 
+                                            'results' => 'js:function(data) { 
                                                         return {
                                                             results: data
                                                             
                                                         };
                                                     }',
-                                ),
-                                'initSelection' => 'js:function(element, callback) 
+                                        ),
+                                        'initSelection' => 'js:function(element, callback) 
                             { 
                             callback({id: 1, text: "' . $kota . '" });
                              
                                   
                             }',
-                            ),
-                                )
-                        );
+                                    ),
+                                        )
+                                );
                                 echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'style' => 'width:50%', 'class' => 'span9'));
                                 echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
                                 echo $form->textFieldRow($model, 'hp', array('class' => 'span5 angka', 'style' => 'max-width:500px;width:200px', 'maxlength' => 25, 'prepend' => '+62'));
@@ -223,6 +223,7 @@
                                 echo $form->radioButtonListRow($model, 'golongan_darah', Pegawai::model()->ArrGolonganDarah());
                             }
                             echo $form->radioButtonListRow($model, 'agama', Pegawai::model()->ArrAgama());
+                            echo $form->textFieldRow($model, 'ket_agama', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->radioButtonListRow($model, 'status_pernikahan', Pegawai::model()->arrStatusPernikahan());
                             ?>
                             <fieldset>
@@ -248,6 +249,8 @@
                                 ))
                             );
 
+                            echo $form->textFieldRow($model, 'keterangan', array('class' => 'span5', 'maxlength' => 50));
+
                             $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
                             echo $form->select2Row($model, 'unit_kerja_id', array(
                                 'asDropDownList' => true,
@@ -269,7 +272,9 @@
                                             'name' => 'Pegawai[tmt_cpns]',
                                             'value' => str_replace("0000-00-00", "", $model->tmt_cpns),
                                             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                                            'htmlOptions' => array('class' => ''),
+                                            'events' => array('changeDate' => 'js:function(){
+                                                                getMasaKerja();
+                                                         }'),
                                                 )
                                         );
                                         ?>
@@ -355,7 +360,6 @@
                                                        success : function(data){   
                                                        obj = JSON.parse(data);
                                                         $("#eselon").val(obj.eselon);
-                                                        $("#masa_kerja").val(obj.masa_kerja);
                                                         pensiun();
                                                         if(obj.status==1){
                                                             if($("#Pegawai_jabatan_struktural_id").val()!="' . $model->jabatan_struktural_id . '"){
@@ -388,7 +392,7 @@
                                 </div>
                                 <div class="control-group "><label class="control-label" for="eselon">Eselon</label>
                                     <div class="controls">
-                                        <input type="hidden" name="masa_kerja" id="masa_kerja" value="<?php echo isset($model->JabatanStruktural->Eselon->masa_kerja) and !empty($model->JabatanStruktural->Eselon->masa_kerja) ? $model->JabatanStruktural->Eselon->id : 0; ?>">
+                                        <input type="hidden" name="masa_kerja" id="masa_kerja" value="<?php echo isset($model->JabatanStruktural->Eselon->masa_kerja) and ! empty($model->JabatanStruktural->Eselon->masa_kerja) ? $model->JabatanStruktural->Eselon->id : 0; ?>">
                             <?php
                             echo CHtml::textField('eselon', isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-', array('id' => 'eselon', 'class' => 'span5', 'readonly' => true));
                             echo '&nbsp;&nbsp;';
@@ -505,27 +509,43 @@
                             </div> -->
 
 
-                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));                 ?>
-
-
-                            <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
-                                <div class="controls">
-                                    <?php
-                                    echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerja', 'class' => 'span2', 'disabled' => true));
-                                    echo '&nbsp;&nbsp;';
-                                    echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerja', 'class' => 'span2', 'disabled' => true));
-                                    ?>
-                                </div>
-                            </div>
-
+                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));                    ?>
 
                             <?php
-                            echo $form->datepickerRow(
-                                    $model, 'tmt_pensiun', array(
-                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                                'prepend' => '<i class="icon-calendar"></i>'
-                                    )
-                            );
+                            if (isset($model->perubahan_masa_kerja) and ! empty($model->perubahan_masa_kerja)) {
+                                $perubahan = json_decode($model->perubahan_masa_kerja, false);
+                            }
+                            ?>
+                            <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
+                                <div class="controls">
+                                    <div class="input-append span1" style="margin-right: 5px;">
+                                        <?php echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerjaTahun', 'class' => 'span8', 'disabled' => true)); ?>    
+                                        <span class="add-on">
+                                            Tahun
+                                        </span>
+                                    </div>
+                                    <div class="input-append span1" style="margin-right: 5px;">
+                                        <?php echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerjaBulan', 'class' => 'span8', 'disabled' => true)); ?>    
+                                        <span class="add-on">
+                                            Bulan
+                                        </span>
+                                    </div>
+                                    <div class="input-append span1" style="margin-right: 5px;">
+                                        <?php echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span8', 'onkeyup' => 'getMasaKerja();')); ?>
+                                        <span class="add-on">
+                                            Tahun
+                                        </span>
+                                    </div>
+                                    <div class="input-append span1">
+                                        <?php echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span8', 'onkeyup' => 'if($(this).val() <= 12 && $(this).val() >= -12){ getMasaKerja(); }else{ alert("Masukkan angka -12 sampai 12"); }')); ?>    
+                                        <span class="add-on">
+                                            Bulan
+                                        </span>
+                                    </div>
+                                    <input type="hidden" name="Pegawai[id]" value="<?php echo isset($model->id) ? $model->id : ''; ?>">
+                                </div>
+                            </div>
+                            <?php
                             ?>
                         </div>
                     </div>
@@ -751,17 +771,30 @@ $this->beginWidget(
     }
 </style>
 <script>
-    $("#viewTab").click(function() {
+    function getMasaKerja() {
+        $.ajax({
+            url: "<?php echo url('pegawai/getMasaKerja') ?> ",
+            type: "POST",
+            data: {tmt_cpns: $("#Pegawai_tmt_cpns").val(), tahun: $("#kalkulasiTahun").val(), bulan: $("#kalkulasiBulan").val()},
+            success: function (data) {
+                obj = JSON.parse(data);
+                $("#masaKerjaTahun").val(obj.tahun);
+                $("#masaKerjaBulan").val(obj.bulan);
+            }
+        });
+    }
+
+    $("#viewTab").click(function () {
         $("#report").hide();
         $("#tabView").show();
     });
 
-    $("#viewFull").click(function() {
+    $("#viewFull").click(function () {
         $("#report").show();
         $("#tabView").hide();
     });
 
-    $("#Pegawai_nip").focusout(function() {
+    $("#Pegawai_nip").focusout(function () {
         var value = $(this).val();
         if (value.length < 18) {
             $(".nipError").show();
@@ -779,16 +812,16 @@ $this->beginWidget(
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
-        $("#myTab a").click(function(e) {
+        $("#myTab a").click(function (e) {
             e.preventDefault();
             $(this).tab("show");
         });
-        $("#viewTab").click(function() {
+        $("#viewTab").click(function () {
             $("#report").hide();
             $("#tabView").show();
         });
 
-        $("#viewFull").click(function() {
+        $("#viewFull").click(function () {
             $("#report").show();
             $("#tabView").hide();
         });
@@ -818,39 +851,78 @@ $this->beginWidget(
 
 
 <script>
-    $(".pilihPendidikan").click(function() {
+    $(".pilihPendidikan").click(function () {
         $.ajax({
             url: "<?php echo url('pegawai/getTablePendidikan'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function(data) {
+            success: function (data) {
                 $(".modal-body").html(data);
             }
         });
         $("#modalForm").modal("show");
     });
 
-    $(".pilihPangkat").click(function() {
+    $(".pilihPangkat").click(function () {
         $.ajax({
             url: "<?php echo url('pegawai/getTablePangkat'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function(data) {
+            success: function (data) {
                 $(".modal-body").html(data);
             }
         });
         $("#modalForm").modal("show");
     });
 
-    $(".pilihJabatan").click(function() {
+    $(".pilihJabatan").click(function () {
         $.ajax({
             url: "<?php echo url('pegawai/getTableJabatan'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function(data) {
+            success: function (data) {
                 $(".modal-body").html(data);
             }
         });
         $("#modalForm").modal("show");
+    });
+</script>
+<script>
+    $(function () {
+
+        $('#Pegawai_kedudukan_id').change(function () {
+            if ($('#Pegawai_kedudukan_id').val() == '1') {
+                $("#Pegawai_keterangan").parent().parent().attr("style", "display:none");
+                $('#Pegawai_keterangan').attr("value", "");
+            } else {
+                $("#Pegawai_keterangan").parent().parent().attr("style", "display:");
+            }
+        });
+    });
+
+</script>
+<script>
+    $("body").on("click", ".radio", function () {
+       
+        var id = $(this).find("input").val();
+        if (id == "Lainnya") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:");
+           
+        } else if (id == "Islam") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Hindu") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Katolik") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Protestan") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Konghucu") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        }
     });
 </script>

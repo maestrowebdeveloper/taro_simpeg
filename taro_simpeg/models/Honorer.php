@@ -19,7 +19,7 @@ class Honorer extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nomor_register, nama, unit_kerja_id,tanggal_register, tanggal_lahir', 'required'),
-			array('tempat_lahir, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_honorer_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
+			array('tempat_lahir, ket_agama, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_honorer_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
 			array(' unit_kerja_id, jabatan_honorer_id, gaji, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('nomor_register, foto', 'length', 'max'=>225),
 			array('nama', 'length', 'max'=>100),
@@ -65,6 +65,7 @@ class Honorer extends CActiveRecord
 			'tanggal_lahir' => 'Tanggal Lahir',
 			'jenis_kelamin' => 'Jenis Kelamin',
 			'agama' => 'Agama',
+			'ket_agama' => 'Keterangan Agama',
 			'pendidikan_terakhir' => 'Pendidikan Terakhir',
 			'tahun_pendidikan' => 'Tahun Pendidikan',
 			'status_pernikahan' => 'Status Pernikahan',

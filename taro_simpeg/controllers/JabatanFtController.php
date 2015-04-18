@@ -231,19 +231,19 @@ class JabatanFtController extends Controller
 		}
 	}
 
-	public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
-
-        if (isset($session['JabatanFt_records'])) {
-            $model = $session['JabatanFt_records'];
-        } else
-            $model = JabatanFt::model()->findAll();
-
-
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
-                        ), true)
-        );
-    }
+//	public function actionGenerateExcel() {
+//        $session = new CHttpSession;
+//        $session->open();
+//
+//        if (isset($session['JabatanFt_records'])) {
+//            $model = $session['JabatanFt_records'];
+//        } else
+//            $model = JabatanFt::model()->findAll();
+//
+//
+//        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+//                    'model' => $model
+//                        ), true)
+//        );
+//    }
 }

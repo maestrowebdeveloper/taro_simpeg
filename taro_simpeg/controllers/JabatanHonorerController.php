@@ -231,19 +231,19 @@ class JabatanHonorerController extends Controller
 		}
 	}
 
-	public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
-
-        if (isset($session['JabatanHonorer_records'])) {
-            $model = $session['JabatanHonorer_records'];
-        } else
-            $model = JabatanHonorer::model()->findAll();
-
-
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
-                        ), true)
-        );
-    }
+//	public function actionGenerateExcel() {
+//        $session = new CHttpSession;
+//        $session->open();
+//
+//        if (isset($session['JabatanHonorer_records'])) {
+//            $model = $session['JabatanHonorer_records'];
+//        } else
+//            $model = JabatanHonorer::model()->findAll();
+//
+//
+//        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+//                    'model' => $model
+//                        ), true)
+//        );
+//    }
 }

@@ -244,19 +244,19 @@ class JabatanStrukturalController extends Controller
 		}
 	}
 
-	public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
-
-        if (isset($session['JabatanStruktural_records'])) {
-            $model = $session['JabatanStruktural_records'];
-        } else
-            $model = JabatanStruktural::model()->findAll();
-
-
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
-                        ), true)
-        );
-    }
+//	public function actionGenerateExcel() {
+//        $session = new CHttpSession;
+//        $session->open();
+//
+//        if (isset($session['JabatanStruktural_records'])) {
+//            $model = $session['JabatanStruktural_records'];
+//        } else
+//            $model = JabatanStruktural::model()->findAll();
+//
+//
+//        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+//                    'model' => $model
+//                        ), true)
+//        );
+//    }
 }

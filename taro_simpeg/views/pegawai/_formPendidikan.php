@@ -107,7 +107,7 @@
     $("body").on("click", ".radio", function () {
         var id = $(this).find("input").val();
         if (id == "SMA/SMK") {
-            $("#RiwayatPendidikan_id_universitas").parent().parent().attr("style", "display:none")
+            $("#RiwayatPendidikan_id_universitas").parent().parent().attr("style", "display:none");
             $("#RiwayatPendidikan_id_jurusan").parent().parent().attr("style", "display:none");
             $("#jurusan_sma").parent().parent().attr("style", "display:");
             $("#RiwayatPendidikan_nama_sekolah").parent().parent().attr("style", "display:");
