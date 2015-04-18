@@ -272,7 +272,9 @@
                                             'name' => 'Pegawai[tmt_cpns]',
                                             'value' => str_replace("0000-00-00", "", $model->tmt_cpns),
                                             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                                            'htmlOptions' => array('class' => ''),
+                                            'events' => array('changeDate' => 'js:function(){
+                                                                getMasaKerja();
+                                                         }'),
                                                 )
                                         );
                                         ?>
@@ -358,7 +360,6 @@
                                                        success : function(data){   
                                                        obj = JSON.parse(data);
                                                         $("#eselon").val(obj.eselon);
-                                                        $("#masa_kerja").val(obj.masa_kerja);
                                                         pensiun();
                                                         if(obj.status==1){
                                                             if($("#Pegawai_jabatan_struktural_id").val()!="' . $model->jabatan_struktural_id . '"){
@@ -508,20 +509,42 @@
                             </div> -->
 
 
-                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));                  ?>
+                            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp'));                    ?>
 
-
+                            <?php
+                            if (isset($model->perubahan_masa_kerja) and ! empty($model->perubahan_masa_kerja)) {
+                                $perubahan = json_decode($model->perubahan_masa_kerja, false);
+                            }
+                            ?>
                             <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
                                 <div class="controls">
-                                    <?php
-                                    echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerja', 'class' => 'span2', 'disabled' => true));
-                                    echo '&nbsp;&nbsp;';
-                                    echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerja', 'class' => 'span2', 'disabled' => true));
-                                    ?>
+                                    <div class="input-append span1" style="margin-right: 5px;">
+                                        <?php echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerjaTahun', 'class' => 'span8', 'disabled' => true)); ?>    
+                                        <span class="add-on">
+                                            Tahun
+                                        </span>
+                                    </div>
+                                    <div class="input-append span1" style="margin-right: 5px;">
+                                        <?php echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerjaBulan', 'class' => 'span8', 'disabled' => true)); ?>    
+                                        <span class="add-on">
+                                            Bulan
+                                        </span>
+                                    </div>
+                                    <div class="input-append span1" style="margin-right: 5px;">
+                                        <?php echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span8', 'onkeyup' => 'getMasaKerja();')); ?>
+                                        <span class="add-on">
+                                            Tahun
+                                        </span>
+                                    </div>
+                                    <div class="input-append span1">
+                                        <?php echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span8', 'onkeyup' => 'if($(this).val() <= 12 && $(this).val() >= -12){ getMasaKerja(); }else{ alert("Masukkan angka -12 sampai 12"); }')); ?>    
+                                        <span class="add-on">
+                                            Bulan
+                                        </span>
+                                    </div>
+                                    <input type="hidden" name="Pegawai[id]" value="<?php echo isset($model->id) ? $model->id : ''; ?>">
                                 </div>
                             </div>
-
-
                             <?php
                             ?>
                         </div>
@@ -748,6 +771,19 @@ $this->beginWidget(
     }
 </style>
 <script>
+    function getMasaKerja() {
+        $.ajax({
+            url: "<?php echo url('pegawai/getMasaKerja') ?> ",
+            type: "POST",
+            data: {tmt_cpns: $("#Pegawai_tmt_cpns").val(), tahun: $("#kalkulasiTahun").val(), bulan: $("#kalkulasiBulan").val()},
+            success: function (data) {
+                obj = JSON.parse(data);
+                $("#masaKerjaTahun").val(obj.tahun);
+                $("#masaKerjaBulan").val(obj.bulan);
+            }
+        });
+    }
+
     $("#viewTab").click(function () {
         $("#report").hide();
         $("#tabView").show();

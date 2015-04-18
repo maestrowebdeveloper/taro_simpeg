@@ -43,7 +43,6 @@ class Pegawai extends CActiveRecord {
         return array(
             'UnitKerja' => array(self::BELONGS_TO, 'UnitKerja', 'unit_kerja_id'),
             'Golongan' => array(self::BELONGS_TO, 'Golongan', 'golongan_id'),
-            
 //            'TempatLahir' => array(self::BELONGS_TO, 'City', 'tempat_lahir'),
 //            'Kota' => array(self::BELONGS_TO, 'City', 'kota'),
             'Kedudukan' => array(self::BELONGS_TO, 'Kedudukan', 'kedudukan_id'),
@@ -230,18 +229,17 @@ class Pegawai extends CActiveRecord {
     }
 
     protected function beforeValidate() {
-        if (empty($this->created_user_id)){
+        if (empty($this->created_user_id)) {
             $this->created_user_id = Yii::app()->user->id;
             $this->modified = date("Y-m-d H:i:s");
             $this->modified_user_id = Yii::app()->user->id;
-
         }
         return parent::beforeValidate();
     }
 
     public function getGolongan() {
         return (!empty($this->Golongan->nama)) ? $this->Golongan->nama . ' - ' . $this->Golongan->keterangan : '-';
-    } 
+    }
 
     public function getRiwayatTipeJabatan() {
         return (!empty($this->RiwayatJabatan->tipe)) ? $this->RiwayatJabatan->tipe : '-';
@@ -251,18 +249,16 @@ class Pegawai extends CActiveRecord {
         return (!empty($this->RiwayatJabatan->jabatan)) ? $this->RiwayatJabatan->jabatan : '-';
     }
 
-
     public function getRiwayatTmtJabatan() {
         return (!empty($this->RiwayatJabatan->tmt_mulai)) ? $this->RiwayatJabatan->tmt_mulai : '-';
     }
-
 
     public function getPangkat() {
         return (!empty($this->Pangkat->nama_golongan)) ? $this->Pangkat->nama_golongan : '-';
     }
 
     public function getTmtPangkat() {
-        return (!empty($this->Pangkat->tmt_pangkat)) ? $this->Pangkat->tmt_pangkat  : '-';
+        return (!empty($this->Pangkat->tmt_pangkat)) ? $this->Pangkat->tmt_pangkat : '-';
     }
 
     public function getPendidikanTerakhir() {
@@ -366,24 +362,40 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getMasaKerja() {
-        if(empty($this->tmt_cpns)){
+        if (empty($this->tmt_cpns)) {
             return '';
-        }else
-        return landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)));
+        } else
+            return landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)));
     }
 
     public function getMasaKerjaTahun() {
-        if(empty($this->tmt_cpns)){
-            return '';
-        }else
-        return landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)),true);
+        if (isset($this->perubahan_masa_kerja) and ! empty($this->perubahan_masa_kerja)) {
+            $perubahan = json_decode($this->perubahan_masa_kerja, false);
+        }
+
+        $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun : 0;
+
+        if (empty($this->tmt_cpns)) {
+            $tahun = '';
+        } else
+            $tahun = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)), true)) + $perubahanTahun;
+
+        return $tahun;
     }
 
     public function getMasaKerjaBulan() {
-        if(empty($this->tmt_cpns)){
-            return '';
-        }else
-        return landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)),false,true);
+        if (isset($this->perubahan_masa_kerja) and ! empty($this->perubahan_masa_kerja)) {
+            $perubahan = json_decode($this->perubahan_masa_kerja, false);
+        }
+
+        $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan : 0;
+        
+        if (empty($this->tmt_cpns)) {
+            $bulan = '';
+        } else
+            $bulan = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)), false, true)) + $perubahanBulan;
+
+        return $bulan;
     }
 
     public function getTtl() {
@@ -488,7 +500,7 @@ class Pegawai extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . ucwords(strtolower($this->pendidikanJurusan))  . '
+                        ' . ucwords(strtolower($this->pendidikanJurusan)) . '
                     </div>
                 </div>  
 
