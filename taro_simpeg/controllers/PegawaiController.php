@@ -152,11 +152,21 @@ class PegawaiController extends Controller {
     }
 
     public function actionDeletePangkat() {
+        $data = array();
+        $pangkatPegawai = (!empty($_POST['riwayat_pangkat_pegawai'])) ? $_POST['riwayat_pangkat_pegawai'] : 0;
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $pegawai_id = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
         RiwayatPangkat::model()->findByPk($id)->delete();
         $pangkat = RiwayatPangkat::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tmt_pangkat DESC'));
-        echo $this->renderPartial('/pegawai/_tablePangkat', array('pangkat' => $pangkat, 'edit' => true, 'pegawai_id' => $pegawai_id));
+        $data['body'] = $this->renderPartial('/pegawai/_tablePangkat', array('pangkat' => $pangkat, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
+        if (!empty($pegawai_id)) {
+            $PangkatPegawai = Pegawai::model()->findbyPk($pegawai_id);
+            if ($PangkatPegawai->riwayat_pangkat_id == $id or $pangkatPegawai == $id)
+                $data['default'] = 1;
+            else
+                $data['default'] = 0;
+        }
+        echo CJSON::encode($data);
     }
 
     public function actionSavePangkat() {
@@ -206,11 +216,21 @@ class PegawaiController extends Controller {
     }
 
     public function actionDeleteJabatan() {
+        $data = array();
+        $jabatanPegawai = (!empty($_POST['riwayat_jabatan_pegawai'])) ? $_POST['riwayat_jabatan_pegawai'] : 0;
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $pegawai_id = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
         RiwayatJabatan::model()->findByPk($id)->delete();
         $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tmt_mulai DESC'));
-        echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $pegawai_id));
+        $data['body'] = $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
+        if (!empty($pegawai_id)) {
+            $JabatanPegawai = Pegawai::model()->findbyPk($pegawai_id);
+            if ($JabatanPegawai->riwayat_jabatan_id == $id or $jabatanPegawai == $id)
+                $data['default'] = 1;
+            else
+                $data['default'] = 0;
+        }
+        echo CJSON::encode($data);
     }
 
     public function actionSaveJabatan() {
@@ -340,11 +360,21 @@ class PegawaiController extends Controller {
     }
 
     public function actionDeletePendidikan() {
+        $data = array();
+        $pendidikanPegawai = (!empty($_POST['riwayat_pendidikan_pegawai'])) ? $_POST['riwayat_pendidikan_pegawai'] : 0;
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $pegawai_id = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
         RiwayatPendidikan::model()->findByPk($id)->delete();
         $pendidikan = RiwayatPendidikan::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tahun DESC'));
-        echo $this->renderPartial('/pegawai/_tablePendidikan', array('pendidikan' => $pendidikan, 'edit' => true, 'pegawai_id' => $pegawai_id));
+        $data['body'] = $this->renderPartial('/pegawai/_tablePendidikan', array('pendidikan' => $pendidikan, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
+        if (!empty($pegawai_id)) {
+            $PendidikanPegawai = Pegawai::model()->findbyPk($pegawai_id);
+            if ($PendidikanPegawai->pendidikan_id == $id or $pendidikanPegawai == $id)
+                $data['default'] = 1;
+            else
+                $data['default'] = 0;
+        }
+        echo CJSON::encode($data);
     }
 
     public function actionSavePendidikan() {
@@ -648,7 +678,7 @@ class PegawaiController extends Controller {
 
     public function actionFungsionalTertentu() {
         $gol_id = isset($_POST['golongan_id']) ? $_POST['golongan_id'] : 0;
-        $data = JabatanFungsional::model()->with('DetailJf')->find(array('condition' => 't.jabatan_ft_id = ' . $_POST['jabatan_ft_id'] ));
+        $data = JabatanFungsional::model()->with('DetailJf')->find(array('condition' => 't.jabatan_ft_id = ' . $_POST['jabatan_ft_id']));
         $tmp = isset($data->nama) ? $data->nama : '-';
         echo $tmp;
     }
