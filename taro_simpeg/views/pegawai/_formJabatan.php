@@ -59,7 +59,7 @@
             </div>
             <div class="control-group "><label class="control-label" for="eselon">Eselon</label>
                 <div class="controls">
-                    <input type="text" id="Riwayateselon" readonly="true" class="span5" value="<?php echo isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-'; ?>">
+                    <input type="text" id="Riwayateselon" readonly="true" class="span4" value="<?php echo isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-'; ?>">
                     <?php
                     echo '&nbsp;&nbsp;';
                     ?>
@@ -148,7 +148,7 @@
                     <?php
                     $model->jabatan_ft_id = ($model->isNewRecord == false) ? $model->jabatan_ft_id : 0;
                     $jabatanFung = JabatanFungsional::model()->find(array('condition' => 'jabatan_ft_id=' . $model->jabatan_ft_id));
-                    echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span5', 'readonly' => true));
+                    echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
                     ?>   
                 </div>
             </div>
@@ -207,7 +207,7 @@
                     $(".modal-body").html(data);
                     $("#modalForm").modal("show");
                 } else {
-                    alert("Terjadi  Input Data. Silahkan Dicek Kembali!");
+                    alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
                 }
             },
             error: function (data) {
