@@ -647,13 +647,10 @@ class PegawaiController extends Controller {
     }
 
     public function actionFungsionalTertentu() {
-        $data = JabatanFungsional::model()->with('DetailJf')->find(array('condition' => 't.jabatan_ft_id = ' . $_POST['Pegawai']['jabatan_ft_id'] . ' and DetailJf.golongan_id = ' . $_POST['Pegawai']['golongan_id']));
+        $gol_id = isset($_POST['golongan_id']) ? $_POST['golongan_id'] : 0;
+        $data = JabatanFungsional::model()->with('DetailJf')->find(array('condition' => 't.jabatan_ft_id = ' . $_POST['jabatan_ft_id'] ));
         $tmp = isset($data->nama) ? $data->nama : '-';
         echo $tmp;
-//        $data = JabatanFungsional::model()->with('DetailJf')->find();
-//        echo $data->nama;
-//        $jabatan = JabatanFt::model()->find(array('condition' => 'jabatan_ft_id=' . $_POST['Pegawai']['jabatan_ft_id']));
-//        echo $_POST['Pegawai']['golongan_id']. ;
     }
 
     public function actionRiwayatStatusJabatan() {
@@ -663,7 +660,6 @@ class PegawaiController extends Controller {
         if ($tipe == "struktural") {
             $model = JabatanStruktural::model()->findByPk($_POST['RiwayatJabatan']['jabatan_struktural_id']);
             $data['eselon'] = isset($model->Eselon->nama) ? $model->Eselon->nama : '-';
-            $data['masa_kerja'] = isset($model->Eselon->masa_kerja) ? $model->Eselon->masa_kerja : 0;
         } elseif ($tipe == "fungsional_umum") {
             $model = JabatanFu::model()->findByPk($_POST['RiwayatJabatan']['jabatan_fu_id']);
         } elseif ($tipe == "fungsional_tertentu") {
