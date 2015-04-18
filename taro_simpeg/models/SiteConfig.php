@@ -47,7 +47,7 @@ class SiteConfig extends CActiveRecord {
             array('client_name,npwp, client_logo, address', 'length', 'max' => 255),
             array('phone, email', 'length', 'max' => 45),
             array('others_include,date_system,settings,
-                format_cpns,format_perpanjangan_honorer,format_mutasi,format_pensiun,format_ijin_belajar', 'safe'),
+                format_cpns,format_perpanjangan_honorer,format_mutasi,format_pensiun,format_ijin_belajar,format_surat_masuk,format_surat_keluar', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, client_name, city_id, address, phone, email', 'safe', 'on' => 'search'),
