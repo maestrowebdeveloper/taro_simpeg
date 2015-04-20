@@ -50,8 +50,8 @@ class RiwayatHukuman extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'Pegawai' => array(self::BELONGS_TO, 'Pegawai', 'pegawai_id'),
-			'Hukuman' => array(self::BELONGS_TO, 'Hukuman', 'hukuman_id'),
+                    'Pegawai' => array(self::BELONGS_TO, 'Pegawai', 'pegawai_id'),
+            'Hukuman' => array(self::BELONGS_TO, 'Hukuman', 'hukuman_id'),
 		);
 	}
 

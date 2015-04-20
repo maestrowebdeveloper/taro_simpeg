@@ -43,6 +43,7 @@
                             <li><a href="#pelatihan"> R. Diklat</a></li>       
                             <li><a href="#penghargaan"> R. Penghargaan</a></li>       
                             <li><a href="#hukuman"> R. Hukuman</a></li> 
+                            <li><a href="#cuti"> R. Cuti</a></li> 
                             <li><a href="#file"> File</a></li> 
                             ';
                     } else {
@@ -55,6 +56,7 @@
                             <li><a href="#pelatihan"> R. Diklat</a></li>       
                             <li><a href="#penghargaan"> R. Penghargaan</a></li>       
                             <li><a href="#hukuman"> R. Hukuman</a></li> 
+                            <li><a href="#cuti"> R. Cuti</a></li> 
                             <li><a href="#file"> File</a></li> 
                             ';
                     }
@@ -231,6 +233,7 @@
                             </fieldset>
                             <?php
                             echo $form->textFieldRow($model, 'npwp', array('class' => 'span5', 'maxlength' => 50));
+                            echo $form->textFieldRow($model, 'karpeg', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->textFieldRow($model, 'kpe', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->textFieldRow($model, 'no_taspen', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->textFieldRow($model, 'bpjs', array('class' => 'span5', 'maxlength' => 50));
@@ -500,9 +503,9 @@
                                 <div class="control-group "><label class="control-label" for="jabatan_fungsional_tertentu">Jabatan Fungsional</label>
                                     <div class="controls">
                             <?php
-                            $model->jabatan_ft_id = ($model->isNewRecord == false) ? $model->jabatan_ft_id : 0;
-                            $jabatanFung = JabatanFungsional::model()->find(array('condition' => 'jabatan_ft_id=' . $model->jabatan_ft_id));
-                            echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span5', 'readonly' => true));
+//                            $model->jabatan_ft_id = ($model->isNewRecord == false) ? $model->jabatan_ft_id : 0;
+//                            $jabatanFung = JabatanFungsional::model()->find(array('condition' => 'jabatan_ft_id=' . $model->jabatan_ft_id));
+//                            echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span5', 'readonly' => true));
                             ?>   
                                     </div>
                                 </div>
@@ -549,6 +552,8 @@
                                         </span>
                                     </div>
                                     <input type="hidden" name="Pegawai[id]" value="<?php echo isset($model->id) ? $model->id : ''; ?>">
+                                    <br><br>
+                                    Gunakan tanda (<b>-</b>) untuk mengurangi tahun maupun bulan
                                 </div>
                             </div>
                         </div>
@@ -565,6 +570,7 @@
                     $keluarga = RiwayatKeluarga::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'hubungan DESC'));
                     $pendidikan = RiwayatPendidikan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tahun DESC'));
                     $hukuman = RiwayatHukuman::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_pemberian DESC'));
+                    $cuti = RiwayatCuti::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_sk DESC'));
                     $pelatihan = RiwayatPelatihan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal DESC'));
                     $penghargaan = RiwayatPenghargaan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_pemberian DESC'));
                     $file = File::model()->findAll(array('condition' => 'pegawai_id=' . $model->id));
@@ -597,6 +603,9 @@
                     </div>
                     <div class="tab-pane " id="hukuman">
                         <?php echo $this->renderPartial('_tableHukuman', array('hukuman' => $hukuman, 'edit' => $edit)); ?>                
+                    </div>
+                    <div class="tab-pane " id="cuti">
+                        <?php echo $this->renderPartial('_tableCuti', array('cuti' => $cuti, 'edit' => $edit)); ?>                
                     </div>
                     <div class="tab-pane" id="file">
 
@@ -727,6 +736,14 @@
             <tr>
                 <td colspan="2">
                     <?php echo $this->renderPartial('_tableHukuman', array('hukuman' => $hukuman)); ?>
+                </td>
+            </tr>
+            <tr>
+                <th style="background:beige"  colspan="2">RIWAYAT CUTI</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <?php echo $this->renderPartial('_tableCuti', array('cuti' => $cuti)); ?>
                 </td>
             </tr>
         </table>

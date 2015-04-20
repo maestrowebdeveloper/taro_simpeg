@@ -197,6 +197,48 @@ class Honorer extends CActiveRecord {
         return $users; // app()->session['listHonorer'];
     }
 
+    public function getMasaKerjaTahun() {
+        if (isset($this->perubahan_masa_kerja) and ! empty($this->perubahan_masa_kerja)) {
+            $perubahan = json_decode($this->perubahan_masa_kerja, false);
+        }
+
+        $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun * -1 : 0;
+        if ($this->tmt_kontrak != NULL and $this->tmt_kontrak != "0000-00-00") {
+            $date = explode("-", $this->tmt_kontrak);
+            $tmt = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $perubahanTahun);
+            $tmt_kontrak = date("Y-m-d", $tmt);
+        } else {
+            $tmt_kontrak = date("Y-m-d");
+        }
+        if (empty($this->tmt_kontrak)) {
+            $tahun = '';
+        } else
+            $tahun = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_kontrak)), true));
+
+        return $tahun;
+    }
+
+    public function getMasaKerjaBulan() {
+        if (isset($this->perubahan_masa_kerja) and ! empty($this->perubahan_masa_kerja)) {
+            $perubahan = json_decode($this->perubahan_masa_kerja, false);
+        }
+
+        $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan * -1 : 0;
+        if ($this->tmt_kontrak != NULL and $this->tmt_kontrak != "0000-00-00") {
+            $date = explode("-", $this->tmt_kontrak);
+            $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0]);
+            $tmt_kontrak = date("Y-m-d", $tmt);
+        } else {
+            $tmt_kontrak = date("Y-m-d");
+        }
+        if (empty($this->tmt_kontrak)) {
+            $bulan = '';
+        } else
+            $bulan = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_kontrak)), false, true));
+
+        return $bulan;
+    }
+
     public function getTagProfil() {
         $data = '
                        
@@ -353,9 +395,6 @@ class Honorer extends CActiveRecord {
                         ' . $this->unitKerja . '
                     </div>
                 </div>  
-
-                
-
                 <div class="row-fluid">
                     <div class="span3" style="text-align:left">
                         <b>Jabatan</b>
@@ -365,9 +404,6 @@ class Honorer extends CActiveRecord {
                         ' . $this->jabatan . ', TMT :  ' . $this->tmtJabatan . '
                     </div>
                 </div> 
-
-                
-
                 <div class="row-fluid">
                     <div class="span3" style="text-align:left">
                         <b>Gaji</b>
@@ -377,7 +413,6 @@ class Honorer extends CActiveRecord {
                         ' . landa()->rp($this->gaji) . '
                     </div>
                 </div>
-
                 <div class="row-fluid">
                     <div class="span3" style="text-align:left">
                         <b>Masa Kerja</b>
@@ -387,7 +422,6 @@ class Honorer extends CActiveRecord {
                         ' . $this->masaKerja . '
                     </div>
                 </div>   
-
                 <div class="row-fluid">
                     <div class="span3" style="text-align:left">
                         <b>TMT Kontrak</b>
@@ -397,7 +431,6 @@ class Honorer extends CActiveRecord {
                         ' . date('d M Y', strtotime($this->tmt_kontrak)) . '
                     </div>
                 </div>      
-
                  <div class="row-fluid">
                     <div class="span3" style="text-align:left">
                         <b>TMT Akhir Kontrak</b>
