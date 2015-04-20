@@ -549,6 +549,8 @@
                                         </span>
                                     </div>
                                     <input type="hidden" name="Pegawai[id]" value="<?php echo isset($model->id) ? $model->id : ''; ?>">
+                                    <br><br>
+                                    Gunakan tanda (<b>-</b>) untuk mengurangi tahun maupun bulan
                                 </div>
                             </div>
                         </div>

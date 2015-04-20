@@ -245,6 +245,13 @@ class PegawaiController extends Controller {
             $model->jabatan_struktural_id = (isset($_POST['RiwayatJabatan']['jabatan_struktural_id'])) ? $_POST['RiwayatJabatan']['jabatan_struktural_id'] : '';
             $model->jabatan_fu_id = (isset($_POST['RiwayatJabatan']['jabatan_fu_id'])) ? $_POST['RiwayatJabatan']['jabatan_fu_id'] : '';
             $model->jabatan_ft_id = (isset($_POST['RiwayatJabatan']['jabatan_ft_id'])) ? $_POST['RiwayatJabatan']['jabatan_ft_id'] : '';
+            if ($model->tipe_jabatan == "struktural") {
+                $model->tmt_mulai = $_POST['tmt_mulai_struktural'];
+            } else if ($model->tipe_jabatan == "fungsional_umum") {
+                $model->tmt_mulai = $_POST['tmt_mulai_fu'];
+            } else if ($model->tipe_jabatan == "fungsional_tertentu") {
+                $model->tmt_mulai = $_POST['tmt_mulai_ft'];
+            }
             if ($model->save()) {
                 $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tmt_mulai DESC'));
                 echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $model->pegawai_id));
@@ -975,6 +982,7 @@ class PegawaiController extends Controller {
             'model' => $model,
         ));
     }
+
     public function actionRekapEselon() {
         $model = new Pegawai;
         $model->unsetAttributes();  // clear any default values  
@@ -986,6 +994,7 @@ class PegawaiController extends Controller {
             'model' => $model,
         ));
     }
+
     public function actionRekapJabfung() {
         $model = new Pegawai;
         $model->unsetAttributes();  // clear any default values  
