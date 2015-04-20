@@ -142,6 +142,15 @@ class RiwayatJabatan extends CActiveRecord {
         return parent::beforeValidate();
     }
 
+    public function getStatusjabatan() {
+        if ($this->tipe_jabatan == "struktural") {
+            $status = (!empty($this->JabatanStruktural->status)) ? $this->JabatanStruktural->status : '0';
+        }else{
+            $status = 0;
+        }
+        return $status;
+    }
+
     public function getPegawai() {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
     }

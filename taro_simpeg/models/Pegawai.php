@@ -374,10 +374,13 @@ class Pegawai extends CActiveRecord {
         }
 
         $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun * -1 : 0;
-
-        $date = explode("-", $this->tmt_cpns);
-        $tmt = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $perubahanTahun);
-        $tmt_cpns = date("Y-m-d", $tmt);
+        if ($this->tmt_cpns != NULL and $this->tmt_cpns != "0000-00-00") {
+            $date = explode("-", $this->tmt_cpns);
+            $tmt = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $perubahanTahun);
+            $tmt_cpns = date("Y-m-d", $tmt);
+        } else {
+            $tmt_cpns = date("Y-m-d");
+        }
 
         if (empty($this->tmt_cpns)) {
             $tahun = '';
@@ -393,10 +396,14 @@ class Pegawai extends CActiveRecord {
         }
 
         $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan * -1 : 0;
-        
-        $date = explode("-", $this->tmt_cpns);
-        $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0]);
-        $tmt_cpns = date("Y-m-d", $tmt);
+
+        if ($this->tmt_cpns != NULL and $this->tmt_cpns != "0000-00-00") {
+            $date = explode("-", $this->tmt_cpns);
+            $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0]);
+            $tmt_cpns = date("Y-m-d", $tmt);
+        } else {
+            $tmt_cpns = date("Y-m-d");
+        }
 
         if (empty($this->tmt_cpns)) {
             $bulan = '';
@@ -420,6 +427,7 @@ class Pegawai extends CActiveRecord {
         $agama = array('jenis_kelamin' => '1 | Jenis Kelamin', 'agama' => '2 | Agama', 'tingkat_pendidikan' => '3 | Tingkat Pendidikan', 'golongan' => '4 | Golongan', 'jabatan' => '5 | Jabatan');
         return $agama;
     }
+
     public function arrRekapitulasiJabfung() {
         $agama = array('ft' => '1 | Fungsional tertentu', 'fu' => '2 | Fungsional Umum', 'guru' => '3 | Kelompok Guru', 'kesehatan' => '4 | Kelompok Kesehatan');
         return $agama;

@@ -194,6 +194,7 @@ class PegawaiController extends Controller {
             $data['tipe'] = $model->tipe;
             $data['jabatan'] = $model->jabatan;
             $data['tmt'] = $model->tmt_mulai;
+            $data['status'] = $model->statusjabatan;
             echo json_encode($data);
         }
     }
@@ -748,18 +749,22 @@ class PegawaiController extends Controller {
 
             $model->attributes = $_POST['Pegawai'];
             $model->tmt_cpns = $_POST['Pegawai']['tmt_cpns'];
-            /* $model->tmt_jabatan_struktural = $_POST['Pegawai']['tmt_jabatan_struktural'];
-              $model->tmt_jabatan_fu = $_POST['Pegawai']['tmt_jabatan_fu'];
-              $model->tmt_jabatan_ft = $_POST['Pegawai']['tmt_jabatan_ft'];
-              $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon'];
-             */
             $perubahan['tahun'] = $_POST['kalkulasiTahun'];
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
             $model->kota = $_POST['Pegawai']['kota'];
-//            $model->kota = $_POST['id'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
+
+            $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
+            if (!empty($riwayat)) {
+                if ($riwayat->tipe_jabatan == "struktural") {
+                    $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
+                    $jabatan = JabatanStruktural::model()->findByPk($riwayat->jabatan_struktural_id);
+                    $jabatan->status = 1;
+                    $jabatan->save();
+                }
+            }
 
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {
@@ -768,32 +773,8 @@ class PegawaiController extends Controller {
                 unset($model->foto);
             }
 
-            if ($model->tipe_jabatan == "struktural") {
-                $model->jabatan_fu_id = "";
-                $model->tmt_jabatan_fu = "";
-                $model->jabatan_ft_id = "";
-                $model->tmt_jabatan_ft = "";
-                $jabatan = JabatanStruktural::model()->findByPk($model->jabatan_struktural_id);
-            } elseif ($model->tipe_jabatan == "fungsional_umum") {
-                $model->jabatan_ft_id = "";
-                $model->tmt_jabatan_ft = "";
-                $model->jabatan_struktural_id = "";
-                $model->tmt_jabatan_struktural = "";
-                $jabatan = JabatanFu::model()->findByPk($model->jabatan_fu_id);
-            } elseif ($model->tipe_jabatan == "fungsional_tertentu") {
-                $model->jabatan_fu_id = "";
-                $model->tmt_jabatan_fu = "";
-                $model->jabatan_struktural_id = "";
-                $model->tmt_jabatan_struktural = "";
-                $jabatan = JabatanFt::model()->findByPk($model->jabatan_ft_id);
-            }
-
-
             if ($model->save()) {
-                if (!empty($jabatan)) {
-                    $jabatan->status = 1;
-                    $jabatan->saveNode();
-                }
+
                 if (is_object($file)) {
                     $file->saveAs('images/pegawai/' . $model->foto);
                     Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
@@ -821,32 +802,25 @@ class PegawaiController extends Controller {
 
         if (isset($_POST['Pegawai'])) {
 
-            if ($model->tipe_jabatan == "struktural") {
-                $jabatan = JabatanStruktural::model()->findByPk($model->jabatan_struktural_id);
-            } elseif ($model->tipe_jabatan == "fungsional_umum") {
-                $jabatan = JabatanFu::actioninmodel()->findByPk($model->jabatan_fu_id);
-            } elseif ($model->tipe_jabatan == "fungsional_tertentu") {
-                $jabatan = JabatanFt::model()->findByPk($model->jabatan_ft_id);
+            $jabatanStruktural = 0;
+            if (isset($model->RiwayatJabatan->id)) {
+                if ($model->RiwayatJabatan->tipe_jabatan == "struktural") {
+                    $jabatan = JabatanStruktural::model()->findByPk($model->RiwayatJabatan->jabatan_struktural_id);
+                    $jabatanStruktural = $jabatan->id;
+                }
+                if (!empty($jabatan)) {
+                    $jabatan->status = 0;
+                    $jabatan->saveNode();
+                    $jabatan = "";
+                }
             }
-            if (!empty($jabatan)) {
-                $jabatan->status = 0;
-                $jabatan->saveNode();
-                $jabatan = "";
-            }
-
-
 
             $model->attributes = $_POST['Pegawai'];
             $perubahan['tahun'] = $_POST['kalkulasiTahun'];
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
-            /* $model->tmt_jabatan_struktural = $_POST['Pegawai']['tmt_jabatan_struktural'];
-              $model->tmt_jabatan_fu = $_POST['Pegawai']['tmt_jabatan_fu'];
-              $model->tmt_jabatan_ft = $_POST['Pegawai']['tmt_jabatan_ft'];
-              $model->tmt_eselon = $_POST['Pegawai']['tmt_eselon']; */
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
             $model->kota = $_POST['Pegawai']['kota'];
-//            $model->kota = $_POST['id'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
 
 
@@ -857,32 +831,39 @@ class PegawaiController extends Controller {
                 unset($model->foto);
             }
 
-            if ($model->tipe_jabatan == "struktural") {
+            $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
+            if ($riwayat->tipe_jabatan == "struktural") {
                 $model->jabatan_fu_id = "";
                 $model->tmt_jabatan_fu = "";
                 $model->jabatan_ft_id = "";
                 $model->tmt_jabatan_ft = "";
-                $jabatan = JabatanStruktural::model()->findByPk($model->jabatan_struktural_id);
-            } elseif ($model->tipe_jabatan == "fungsional_umum") {
+                $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
+            } elseif ($riwayat->tipe_jabatan == "fungsional_umum") {
                 $model->jabatan_ft_id = "";
                 $model->tmt_jabatan_ft = "";
                 $model->jabatan_struktural_id = "";
                 $model->tmt_jabatan_struktural = "";
-                $jabatan = JabatanFu::model()->findByPk($model->jabatan_fu_id);
-            } elseif ($model->tipe_jabatan == "fungsional_tertentu") {
+            } elseif ($riwayat->tipe_jabatan == "fungsional_tertentu") {
                 $model->jabatan_fu_id = "";
                 $model->tmt_jabatan_fu = "";
                 $model->jabatan_struktural_id = "";
                 $model->tmt_jabatan_struktural = "";
-                $jabatan = JabatanFt::model()->findByPk($model->jabatan_ft_id);
             }
 
+            $model->tipe_jabatan = $riwayat->tipe_jabatan;
+
+            if ($riwayat->tipe_jabatan == "struktural") {
+                $jabatan = JabatanStruktural::model()->findByPk($riwayat->jabatan_struktural_id);
+            } else {
+                $jabatan = "";
+            }
+
+            if (!empty($jabatan)) {
+                $jabatan->status = 1;
+                $jabatan->saveNode();
+            }
 
             if ($model->save()) {
-                if (!empty($jabatan)) {
-                    $jabatan->status = 1;
-                    $jabatan->saveNode();
-                }
                 $file = CUploadedFile::getInstance($model, 'foto');
                 if (is_object($file)) {
                     $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;

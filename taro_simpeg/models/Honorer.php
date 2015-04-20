@@ -200,11 +200,13 @@ class Honorer extends CActiveRecord {
         }
 
         $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun * -1 : 0;
-
-        $date = explode("-", $this->tmt_kontrak);
-        $tmt = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $perubahanTahun);
-        $tmt_kontrak = date("Y-m-d", $tmt);
-
+        if ($this->tmt_kontrak != NULL and $this->tmt_kontrak != "0000-00-00") {
+            $date = explode("-", $this->tmt_kontrak);
+            $tmt = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $perubahanTahun);
+            $tmt_kontrak = date("Y-m-d", $tmt);
+        } else {
+            $tmt_kontrak = date("Y-m-d");
+        }
         if (empty($this->tmt_kontrak)) {
             $tahun = '';
         } else
@@ -219,11 +221,13 @@ class Honorer extends CActiveRecord {
         }
 
         $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan * -1 : 0;
-
-        $date = explode("-", $this->tmt_kontrak);
-        $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0]);
-        $tmt_kontrak = date("Y-m-d", $tmt);
-
+        if ($this->tmt_kontrak != NULL and $this->tmt_kontrak != "0000-00-00") {
+            $date = explode("-", $this->tmt_kontrak);
+            $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0]);
+            $tmt_kontrak = date("Y-m-d", $tmt);
+        } else {
+            $tmt_kontrak = date("Y-m-d");
+        }
         if (empty($this->tmt_kontrak)) {
             $bulan = '';
         } else
