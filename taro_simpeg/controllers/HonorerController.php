@@ -51,6 +51,20 @@ class HonorerController extends Controller {
 	    ');
     }
 
+    public function actionGetMasaKerja() {
+        $bulan = !empty($_POST['bulan']) ? ($_POST['bulan'] * -1) : 0;
+        $tahun = !empty($_POST['tahun']) ? ($_POST['tahun'] * -1) : 0;
+        $date = explode("-", $_POST['tmt_kontrak']);
+        $tmt = mktime(0, 0, 0, $date[1] + $bulan, $date[2], $date[0] + $tahun);
+        $tmt_kontrak = date("Y-m-d", $tmt);
+        if (isset($tmt_kontrak) or ! empty($tmt_kontrak)) {
+            $data = array();
+            $data['bulan'] = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_kontrak)), false, true));
+            $data['tahun'] = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_kontrak)), true));
+            echo json_encode($data);
+        }
+    }
+
     public function actionDeleteNilai() {
         $model = NilaiHonorer::model()->deleteByPk($_POST['id']);
         $nilai = NilaiHonorer::model()->findAll(array('condition' => 'pegawai_id=' . $_POST['pegawai'], 'order' => 'tahun DESC'));
@@ -150,6 +164,9 @@ class HonorerController extends Controller {
             $model->attributes = $_POST['Honorer'];
             $model->kota = $_POST['Honorer']['kota'];
 //            $model->kota = $_POST['id'];
+            $perubahan['tahun'] = $_POST['kalkulasiTahun'];
+            $perubahan['bulan'] = $_POST['kalkulasiBulan'];
+            $model->perubahan_masa_kerja = json_encode($perubahan);
             $model->tempat_lahir = $_POST['Honorer']['tempat_lahir'];
 
             $file = CUploadedFile::getInstance($model, 'foto');
@@ -190,7 +207,9 @@ class HonorerController extends Controller {
             $model->kota = $_POST['Honorer']['kota'];
 //            $model->kota = $_POST['id'];
             $model->tempat_lahir = $_POST['Honorer']['tempat_lahir'];
-
+            $perubahan['tahun'] = $_POST['kalkulasiTahun'];
+            $perubahan['bulan'] = $_POST['kalkulasiBulan'];
+            $model->perubahan_masa_kerja = json_encode($perubahan);
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {
                 $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
@@ -247,8 +266,7 @@ class HonorerController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -311,8 +329,7 @@ class HonorerController extends Controller {
 
         if (isset($session['Honorer_records'])) {
             $model = $session['Honorer_records'];
-        }
-        else
+        } else
             $model = Honorer::model()->findAll();
 
 
