@@ -58,6 +58,7 @@ class JabatanStruktural extends CActiveRecord
 		return array(
 			'UnitKerja' => array(self::BELONGS_TO, 'UnitKerja', 'unit_kerja_id'),
 			'Eselon' => array(self::BELONGS_TO, 'Eselon', 'eselon_id'),
+                        'Pegawai' => array(self::HAS_MANY, 'Pegawai', 'jabatan_struktural_id'),
 		);
 	}
 

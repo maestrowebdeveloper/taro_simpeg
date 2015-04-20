@@ -4,7 +4,7 @@
             <input id="viewTab" value="PNS" checked="checked" name="view" type="radio">
             <label for="viewTab">View as Tab</label></label>
         <label class="radio"><input id="viewFull" name="view" type="radio">
-            <label for="viewFull">View as Report </label></label>
+            <label for="viewFull">Vimasew as Report </label></label>
     </div>
 
 <?php } ?>
@@ -516,7 +516,8 @@
                                 $perubahan = json_decode($model->perubahan_masa_kerja, false);
                             }
                             ?>
-                            <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
+                            <div class="control-group ">
+                                <label class="control-label" for="masaKerja">Masa Kerja</label>
                                 <div class="controls">
                                     <div class="input-append span1" style="margin-right: 5px;">
                                         <?php echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerjaTahun', 'class' => 'span8', 'disabled' => true)); ?>    
@@ -529,7 +530,12 @@
                                         <span class="add-on">
                                             Bulan
                                         </span>
-                                    </div>
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="perubahanMasaKerja">Penambahan / Pengurangan Masa Kerja</label>
+                                <div class="controls">
                                     <div class="input-append span1" style="margin-right: 5px;">
                                         <?php echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span8', 'onkeyup' => 'getMasaKerja();')); ?>
                                         <span class="add-on">
@@ -545,8 +551,6 @@
                                     <input type="hidden" name="Pegawai[id]" value="<?php echo isset($model->id) ? $model->id : ''; ?>">
                                 </div>
                             </div>
-                            <?php
-                            ?>
                         </div>
                     </div>
                 </div> 
@@ -725,7 +729,6 @@
                     <?php echo $this->renderPartial('_tableHukuman', array('hukuman' => $hukuman)); ?>
                 </td>
             </tr>
-
         </table>
     </div>
 <?php } ?>
@@ -903,11 +906,11 @@ $this->beginWidget(
 </script>
 <script>
     $("body").on("click", ".radio", function () {
-       
+
         var id = $(this).find("input").val();
         if (id == "Lainnya") {
             $("#Pegawai_ket_agama").parent().parent().attr("style", "display:");
-           
+
         } else if (id == "Islam") {
             $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
             $('#Pegawai_ket_agama').attr("value", "");

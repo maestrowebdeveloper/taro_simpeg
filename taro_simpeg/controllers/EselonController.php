@@ -125,7 +125,6 @@ class EselonController extends Controller
 	 */
 	public function actionIndex()
 	{        
-
                 $model=new Eselon('search');
                 $model->unsetAttributes();  // clear any default values
 
