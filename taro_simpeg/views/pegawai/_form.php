@@ -223,6 +223,7 @@
                                 echo $form->radioButtonListRow($model, 'golongan_darah', Pegawai::model()->ArrGolonganDarah());
                             }
                             echo $form->radioButtonListRow($model, 'agama', Pegawai::model()->ArrAgama());
+                            echo $form->textFieldRow($model, 'ket_agama', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->radioButtonListRow($model, 'status_pernikahan', Pegawai::model()->arrStatusPernikahan());
                             ?>
                             <fieldset>
@@ -899,4 +900,29 @@ $this->beginWidget(
         });
     });
 
+</script>
+<script>
+    $("body").on("click", ".radio", function () {
+       
+        var id = $(this).find("input").val();
+        if (id == "Lainnya") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:");
+           
+        } else if (id == "Islam") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Hindu") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Katolik") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Protestan") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Konghucu") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        }
+    });
 </script>

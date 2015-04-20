@@ -11,9 +11,6 @@
     ));
     ?>
     <fieldset>
-        <!-- <legend>
-            <p class="note">Fields dengan <span class="required">*</span> harus di isi.</p>
-        </legend> -->
         <?php echo $form->errorSummary($model, 'Opps!!!', null, array('class' => 'alert alert-error span12')); ?>
 
         <?php
@@ -21,14 +18,11 @@
         echo $form->hiddenField($model, 'id');
         echo $form->hiddenField($model, 'pegawai_id');
         echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span4', 'maxlength' => 100));
-
         ?>
 
         <?php echo $form->radioButtonListRow($model, 'tipe_jabatan', Pegawai::model()->arrTipeJabatan()); ?>
 
         <?php
-
-
         $struktural = ($model->tipe_jabatan == "struktural") ? "" : "none";
         $fu = ($model->tipe_jabatan == "fungsional_umum") ? "" : "none";
         $ft = ($model->tipe_jabatan == "fungsional_tertentu") ? "" : "none";
@@ -65,7 +59,7 @@
             </div>
             <div class="control-group "><label class="control-label" for="eselon">Eselon</label>
                 <div class="controls">
-                    <input type="text" id="Riwayateselon" readonly="true" class="span5" value="<?php echo isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-'; ?>">
+                    <input type="text" id="Riwayateselon" readonly="true" class="span4" value="<?php echo isset($model->JabatanStruktural->Eselon->nama) ? $model->JabatanStruktural->Eselon->nama : '-'; ?>">
                     <?php
                     echo '&nbsp;&nbsp;';
                     ?>
@@ -106,7 +100,7 @@
                         $this->widget(
                                 'bootstrap.widgets.TbDatePicker', array(
                             'name' => 'RiwayatJabatan[tmt_mulai]',
-                            'value' => str_replace("0000-00-00", "",  $model->tmt_mulai),
+                            'value' => str_replace("0000-00-00", "", $model->tmt_mulai),
                             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                 )
                         );
@@ -128,7 +122,9 @@
                         'data' => $data,
                         'options' => array(
                             'width' => '40%;margin:0px;text-align:left',
-                    )));
+                        )
+                            )
+                    );
                     echo '&nbsp;&nbsp;';
                     ?>
                     <div class="input-prepend">
@@ -143,6 +139,17 @@
                         );
                         ?>
                     </div>
+                </div>
+            </div>
+
+            <div class="control-group ">
+                <label class="control-label" for="jabatan_fungsional_tertentu">Jabatan Fungsional</label>
+                <div class="controls">
+                    <?php
+                    $model->jabatan_ft_id = ($model->isNewRecord == false) ? $model->jabatan_ft_id : 0;
+                    $jabatanFung = JabatanFungsional::model()->find(array('condition' => 'jabatan_ft_id=' . $model->jabatan_ft_id));
+                    echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
+                    ?>   
                 </div>
             </div>
         </div>
@@ -197,11 +204,10 @@
             success: function (data) {
                 if (data != "") {
                     $("#tableJabatan").replaceWith(data);
-                    //$("#modalForm").modal("hide");
                     $(".modal-body").html(data);
                     $("#modalForm").modal("show");
                 } else {
-                    alert("Terjadi  Input Data. Silahkan Dicek Kembali!");
+                    alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
                 }
             },
             error: function (data) {
@@ -211,16 +217,26 @@
 
     });
 
-    $("#RiwayatJabatan_jabatan_struktural_id").click(function () {
+    $("#RiwayatJabatan_jabatan_struktural_id").change(function () {
         var postData = $("#jabatan-form").serialize();
         $.ajax({
             url: "<?php echo url('pegawai/riwayatStatusJabatan'); ?>",
             data: postData,
             type: "post",
             success: function (data) {
-//                alert(data);
                 obj = JSON.parse(data);
                 $("#Riwayateselon").val(obj.eselon);
+            }
+        });
+    });
+
+    $("#RiwayatJabatan_jabatan_ft_id").change(function () {
+        $.ajax({
+            url: "<?php echo url('pegawai/fungsionalTertentu'); ?>",
+            data: { golongan_id: $("#RiwayatPangkat_golongan_id").val(), jabatan_ft_id: $(this).val() },
+            type: "POST",
+            success: function (data) {
+                $("#jabatan_fungsional_tertentu").val(data);
             }
         });
     });

@@ -195,49 +195,49 @@ class UniversitasController extends Controller
 			), true)
 		);
 	}
-        public function actionGeneratePdf() 
-	{
-           
-           $session=new CHttpSession;
-           $session->open();
-		Yii::import('application.modules.admin.extensions.giiplus.bootstrap.*');
-		require_once(Yii::getPathOfAlias('common').'/extensions/tcpdf/tcpdf.php');
-		require_once(Yii::getPathOfAlias('common').'/extensions/tcpdf/config/lang/eng.php');
-
-             if(isset($session['Universitas_records']))
-               {
-                $model=$session['Universitas_records'];
-               }
-               else
-                 $model = Universitas::model()->findAll();
-
-
-
-		$html = $this->renderPartial('expenseGridtoReport', array(
-			'model'=>$model
-		), true);
-		
-		//die($html);
-		
-		$pdf = new TCPDF();
-		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetAuthor(Yii::app()->name);
-		$pdf->SetTitle('Laporan Universitas');
-		$pdf->SetSubject('Laporan Universitas Report');
-		//$pdf->SetKeywords('example, text, report');
-		$pdf->SetHeaderData('', 0, "Report", '');
-		//$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "Laporan" Universitas, "");
-		$pdf->SetHeaderData("", "", "Laporan Universitas", "");
-		$pdf->setHeaderFont(Array('helvetica', '', 8));
-		$pdf->setFooterFont(Array('helvetica', '', 6));
-		$pdf->SetMargins(15, 18, 15);
-		$pdf->SetHeaderMargin(5);
-		$pdf->SetFooterMargin(10);
-		$pdf->SetAutoPageBreak(TRUE, 0);
-		$pdf->SetFont('dejavusans', '', 7);
-		$pdf->AddPage();
-		$pdf->writeHTML($html, true, false, true, false, '');
-		$pdf->LastPage();
-		$pdf->Output("Universitas_002.pdf", "I");
-	}
+//        public function actionGeneratePdf() 
+//	{
+//           
+//           $session=new CHttpSession;
+//           $session->open();
+//		Yii::import('application.modules.admin.extensions.giiplus.bootstrap.*');
+//		require_once(Yii::getPathOfAlias('common').'/extensions/tcpdf/tcpdf.php');
+//		require_once(Yii::getPathOfAlias('common').'/extensions/tcpdf/config/lang/eng.php');
+//
+//             if(isset($session['Universitas_records']))
+//               {
+//                $model=$session['Universitas_records'];
+//               }
+//               else
+//                 $model = Universitas::model()->findAll();
+//
+//
+//
+//		$html = $this->renderPartial('expenseGridtoReport', array(
+//			'model'=>$model
+//		), true);
+//		
+//		//die($html);
+//		
+//		$pdf = new TCPDF();
+//		$pdf->SetCreator(PDF_CREATOR);
+//		$pdf->SetAuthor(Yii::app()->name);
+//		$pdf->SetTitle('Laporan Universitas');
+//		$pdf->SetSubject('Laporan Universitas Report');
+//		//$pdf->SetKeywords('example, text, report');
+//		$pdf->SetHeaderData('', 0, "Report", '');
+//		//$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "Laporan" Universitas, "");
+//		$pdf->SetHeaderData("", "", "Laporan Universitas", "");
+//		$pdf->setHeaderFont(Array('helvetica', '', 8));
+//		$pdf->setFooterFont(Array('helvetica', '', 6));
+//		$pdf->SetMargins(15, 18, 15);
+//		$pdf->SetHeaderMargin(5);
+//		$pdf->SetFooterMargin(10);
+//		$pdf->SetAutoPageBreak(TRUE, 0);
+//		$pdf->SetFont('dejavusans', '', 7);
+//		$pdf->AddPage();
+//		$pdf->writeHTML($html, true, false, true, false, '');
+//		$pdf->LastPage();
+//		$pdf->Output("Universitas_002.pdf", "I");
+//	}
 }
