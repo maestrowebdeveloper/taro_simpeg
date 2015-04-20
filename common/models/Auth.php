@@ -143,7 +143,14 @@ class Auth extends CActiveRecord {
                     array('visible' => landa()->checkAccess('permohonanPensiun', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Permohonan Pensiun', 'url' => url('/permohonanPensiun'), 'auth_id' => 'permohonanPensiun'),
                     array('visible' => landa()->checkAccess('permohonanPerpanjanganHonorer', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Perpanjang Honorer', 'url' => url('/permohonanPerpanjanganHonorer'), 'auth_id' => 'permohonanPerpanjanganHonorer'),
                 )),
-            array('visible' => landa()->checkAccess('rekapPegawai', 'r'), 'label' => '<span class="icon16  eco-article "></span>Rekap Data', 'url' => url('/pegawai/rekap'), 'auth_id' => 'rekapPegawai'),
+            array('visible' => landa()->checkAccess('rekapPegawai', 'r'), 'label' => '<span class="icon16  eco-article "></span>Rekapitulasi', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
+                    array('visible' => landa()->checkAccess('rekapPegawai', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Rekap Data', 'url' => url('/pegawai/rekap'), 'auth_id' => 'rekapPegawai'),
+                    array('visible' => landa()->checkAccess('rekapPegawai', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Rekap Data Eselon', 'url' => url('/pegawai/rekapEselon'), 'auth_id' => 'rekapPegawai'),
+                    array('visible' => landa()->checkAccess('rekapPegawai', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Rekap Data Jab. Fung.', 'url' => url('/pegawai/rekapJabfung'), 'auth_id' => 'rekapPegawai'),
+                    
+                    
+                )),
+//            array('visible' => landa()->checkAccess('rekapPegawai', 'r'), 'label' => '<span class="icon16  eco-article "></span>Rekap Data', 'url' => url('/pegawai/rekap'), 'auth_id' => 'rekapPegawai'),
             array('visible' => landa()->checkAccess('cariGolongan', 'r'), 'label' => '<span class="icon16  eco-search "></span>Pencarian Data', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
                     array('visible' => landa()->checkAccess('cariGolongan', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Pangkat / Golru', 'url' => url('/pegawai/cariRiwayatPangkat'), 'auth_id' => 'cariGolongan'),
                     array('visible' => landa()->checkAccess('cariJabatan', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Jabatan', 'url' => url('/pegawai/cariRiwayatJabatan'), 'auth_id' => 'cariJabatan'),

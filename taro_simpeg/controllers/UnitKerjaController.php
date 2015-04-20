@@ -234,20 +234,20 @@ class UnitKerjaController extends Controller {
         }
     }
 
-    public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
-
-        if (isset($session['UnitKerja_records'])) {
-            $model = $session['UnitKerja_records'];
-        } else
-            $model = UnitKerja::model()->findAll();
-
-
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
-                        ), true)
-        );
-    }
+//    public function actionGenerateExcel() {
+//        $session = new CHttpSession;
+//        $session->open();
+//
+//        if (isset($session['UnitKerja_records'])) {
+//            $model = $session['UnitKerja_records'];
+//        } else
+//            $model = UnitKerja::model()->findAll();
+//
+//
+//        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+//                    'model' => $model
+//                        ), true)
+//        );
+//    }
 
 }

@@ -4,7 +4,7 @@
             <input id="viewTab" value="PNS" checked="checked" name="view" type="radio">
             <label for="viewTab">View as Tab</label></label>
         <label class="radio"><input id="viewFull" name="view" type="radio">
-            <label for="viewFull">View as Report </label></label>
+            <label for="viewFull">Vimasew as Report </label></label>
     </div>
 
 <?php } ?>

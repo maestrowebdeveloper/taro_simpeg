@@ -194,19 +194,19 @@ class PenghargaanController extends Controller
 		}
 	}
 
-	public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
-
-        if (isset($session['Penghargaan_records'])) {
-            $model = $session['Penghargaan_records'];
-        } else
-            $model = Penghargaan::model()->findAll();
-
-
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
-                        ), true)
-        );
-    }
+//	public function actionGenerateExcel() {
+//        $session = new CHttpSession;
+//        $session->open();
+//
+//        if (isset($session['Penghargaan_records'])) {
+//            $model = $session['Penghargaan_records'];
+//        } else
+//            $model = Penghargaan::model()->findAll();
+//
+//
+//        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+//                    'model' => $model
+//                        ), true)
+//        );
+//    }
 }

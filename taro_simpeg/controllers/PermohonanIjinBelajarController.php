@@ -185,20 +185,31 @@ class PermohonanIjinBelajarController extends Controller {
     }
 
     public function actionGenerateExcel() {
-//        $session = new CHttpSession;
-//        $session->open();
+        $session = new CHttpSession;
+        $session->open();
+        if (isset($session['PermohonanIjinBelajar_records'])) {
+            $model = $session['PermohonanIjinBelajar_records'];
+        }
+        else
+            $model = PermohonanIjinBelajar::model()->findAll();
 
-//        if (isset($session['PermohonanIjinBelajar_records'])) {
-//            $model = $session['PermohonanIjinBelajar_records'];
-//        }
-//        else
-//            $model = PermohonanIjinBelajar::model()->findAll();
-//
-//
-//        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
-//                    'model' => $model
-//                        ), true)
-//        );
+
+        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+                    'model' => $model
+                        ), true)
+        );
+    }
+    
+    public function actionRangePrint(){
+         $model = new PermohonanIjinBelajar;
+        $model->unsetAttributes();  // clear any default values  
+        if (isset($_POST['PermohonanIjinBelajar'])) {
+            $model->attributes = $_POST['PermohonanIjinBelajar'];
+        }
+//        $this->cssJs();
+        $this->render('rangePrint', array(
+            'model' => $model,
+        ));
     }
 
 }

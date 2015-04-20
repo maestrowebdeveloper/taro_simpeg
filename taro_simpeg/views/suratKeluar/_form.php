@@ -28,10 +28,28 @@
 
         echo $form->radioButtonListRow($model, 'sifat', SuratMasuk::model()->ArrSifat());
 
-        echo $form->textFieldRow($model,'nomor_surat',array('class'=>'span4','maxlength'=>225)); 
+        echo $form->textFieldRow($model,'nomor_surat',array('class'=>'span4','maxlength'=>225));
+        echo $form->textFieldRow($model,'no_agenda',array('class'=>'span1','maxlength'=>225)); 
 
         echo $form->textFieldRow($model,'perihal',array('class'=>'span4','maxlength'=>225));
-        
+        ?>
+        <div class="control-group ">
+        <label class="control-label" for="Pegawai_jabatan_id">Di Teruskan</label>
+        <div class="controls">
+            <?php
+            $data= array('0' => '- Diteruskan ke -') + SuratMasuk::model()->arrTerusan();                            
+            $this->widget(
+                        'bootstrap.widgets.TbSelect2', array(      
+                            'name' => 'SuratKeluar[terusan]',
+                            'data' => $data,
+                            'value'=>$model->terusan,
+                            'options' => array(
+                                'width' => '40%;margin:0px;text-align:left',
+                                )));
+                                     
+           ?>
+        </div>
+        </div>
         ?>
         <div class="control-group "><label class="control-label required" for="SuratKeluar_isi">Isi Surat</label>
         <div class="controls">
