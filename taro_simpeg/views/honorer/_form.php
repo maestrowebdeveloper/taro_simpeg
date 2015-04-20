@@ -125,7 +125,22 @@ if ($model->isNewRecord == true) {
                                 <input class="span2 angka" maxlength="4" value="<?php echo $model->tahun_pendidikan; ?>" name="Honorer[tahun_pendidikan]" id="Honorer_tahun_pendidikan" placeHolder="Tahun" type="text">
                             </div>
                         </div>
-
+                        <div class="control-group ">
+                            <label class="control-label" for="Honorer_st_peg">Status SK</label>
+                            <div class="controls">
+                                <?php
+                                $data = array('0' => '- Pilih Status -') + Honorer::model()->arrStatusSk();
+                                $this->widget(
+                                        'bootstrap.widgets.TbSelect2', array(
+                                    'name' => 'Honorer[status_sk]',
+                                    'data' => $data,
+                                    'value' => $model->status_sk,
+                                    'options' => array(
+                                        'width' => '40%;margin:0px;text-align:left',
+                                )));
+                                ?>
+                            </div>
+                        </div>
                         <?php
                         echo $form->radioButtonListRow($model, 'jenis_kelamin', Pegawai::model()->ArrJenisKelamin());
                         $kotaName = isset($model->tempat_lahir) ? $model->tempat_lahir : '';
@@ -206,7 +221,7 @@ if ($model->isNewRecord == true) {
                                 )
                         );
                         ?>
-                        
+
                     </div>
                     <div class="span3" style="margin-left: -15px;">
                         <?php
@@ -279,7 +294,24 @@ if ($model->isNewRecord == true) {
                         'width' => '50%',
                     ))
                 );
-
+                ?>
+                <div class="control-group ">
+                    <label class="control-label" for="Honorer_st_peg">Status</label>
+                    <div class="controls">
+                        <?php
+                        $data = array('0' => '- Pilih Status -') + Honorer::model()->arrStatus();
+                        $this->widget(
+                                'bootstrap.widgets.TbSelect2', array(
+                            'name' => 'Honorer[st_peg]',
+                            'data' => $data,
+                            'value' => $model->st_peg,
+                            'options' => array(
+                                'width' => '40%;margin:0px;text-align:left',
+                        )));
+                        ?>
+                    </div>
+                </div>
+                <?php
                 echo $form->datepickerRow(
                         $model, 'tmt_jabatan', array(
                     'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
@@ -389,17 +421,17 @@ $this->beginWidget(
 </style>
 
 <script>
-    $("#viewTab").click(function() {
+    $("#viewTab").click(function () {
         $("#report").hide();
         $("#tabView").show();
     });
 
-    $("#viewFull").click(function() {
+    $("#viewFull").click(function () {
         $("#report").show();
         $("#tabView").hide();
     });
 
-    $("#Pegawai_nip").focusout(function() {
+    $("#Pegawai_nip").focusout(function () {
         var value = $(this).val();
         if (value.length < 18) {
             $(".nipError").show();
@@ -417,16 +449,16 @@ $this->beginWidget(
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
-        $("#myTab a").click(function(e) {
+        $("#myTab a").click(function (e) {
             e.preventDefault();
             $(this).tab("show");
         });
-        $("#viewTab").click(function() {
+        $("#viewTab").click(function () {
             $("#report").hide();
             $("#tabView").show();
         });
 
-        $("#viewFull").click(function() {
+        $("#viewFull").click(function () {
             $("#report").show();
             $("#tabView").hide();
         });
@@ -436,11 +468,11 @@ $this->beginWidget(
 </script>
 <script>
     $("body").on("click", ".radio", function () {
-       
+
         var id = $(this).find("input").val();
         if (id == "Lainnya") {
             $("#Honorer_ket_agama").parent().parent().attr("style", "display:");
-           
+
         } else if (id == "Islam") {
             $("#Honorer_ket_agama").parent().parent().attr("style", "display:none");
             $('#Honorer_ket_agama').attr("value", "");

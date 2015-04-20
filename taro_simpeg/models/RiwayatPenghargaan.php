@@ -32,7 +32,7 @@ class RiwayatPenghargaan extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('pegawai_id, penghargaan_id', 'required'),
+			array('pegawai_id, pejabat,penghargaan_id', 'required'),
 			array('nomor_register, tanggal_pemberian, keterangan, created, created_user_id, modified', 'safe'),
 			array('pegawai_id, penghargaan_id, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('nomor_register', 'length', 'max'=>225),
@@ -65,6 +65,7 @@ class RiwayatPenghargaan extends CActiveRecord
 			'pegawai_id' => 'Pegawai',
 			'penghargaan_id' => 'Penghargaan',
 			'nomor_register' => 'Nomor Register',
+			'pejabat' => 'Pejabat',
 			'tanggal_pemberian' => 'Tanggal Pemberian',
 			'keterangan' => 'Keterangan',
 			'created' => 'Created',

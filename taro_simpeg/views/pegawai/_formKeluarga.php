@@ -44,7 +44,7 @@
         $display = ($model->hubungan=='anak' || empty($model->hubungan))?'none':'';
         $anak = ($model->hubungan=='anak')?'':'none';
         ?>
-        <div class="suami_istri" style="display:<?php echo $display;?>">
+        <div class="suami_istri" style="display:<?php  echo $display;?>">
         <?php
         echo $form->textFieldRow($model,'nomor_karsu',array('class'=>'span3','maxlength'=>100));
         echo $form->datepickerRow(
@@ -155,4 +155,7 @@ $(".saveKeluarga").click(function(){
     
 });
 
+</script>
+<script>
+    
 </script>
