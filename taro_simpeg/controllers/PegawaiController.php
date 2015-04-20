@@ -478,8 +478,8 @@ class PegawaiController extends Controller {
         $tmt_cpns = date("Y-m-d", $tmt);
         if (isset($tmt_cpns) or ! empty($tmt_cpns)) {
             $data = array();
-            $data['bulan'] = landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true);
-            $data['tahun'] = landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true);
+            $data['bulan'] = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true));
+            $data['tahun'] = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true));
             echo json_encode($data);
         }
     }

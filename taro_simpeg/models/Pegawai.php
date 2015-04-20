@@ -401,7 +401,7 @@ class Pegawai extends CActiveRecord {
         if (empty($this->tmt_cpns)) {
             $bulan = '';
         } else
-            $bulan = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true)) + $perubahanBulan;
+            $bulan = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true));
 
         return $bulan;
     }
