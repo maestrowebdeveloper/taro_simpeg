@@ -38,12 +38,12 @@ class SuratKeluar extends CActiveRecord
 		return array(
 			array('penerima, tanggal_kirim, sifat, nomor_surat, perihal', 'required'),
 			array('pengirim, tanggal_kirim, isi, file, created, created_user_id,tembusan, modified', 'safe'),
-			array('created_user_id', 'numerical', 'integerOnly'=>true),
+			array('created_user_id,no_agenda', 'numerical', 'integerOnly'=>true),
 			array('pengirim, penerima, nomor_surat, perihal, file', 'length', 'max'=>225),
 			array('sifat', 'length', 'max'=>7),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pengirim, penerima, tanggal_kirim, tanggal_terima, sifat, nomor_surat, perihal, isi, file, created, created_user_id, modified', 'safe', 'on'=>'search'),
+			array('id,terusan, no_agenda, pengirim, penerima, tanggal_kirim, tanggal_terima, sifat, nomor_surat, perihal, isi, file, created, created_user_id, modified', 'safe', 'on'=>'search'),
 		);
 	}
 

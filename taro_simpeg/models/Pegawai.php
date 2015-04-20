@@ -373,12 +373,16 @@ class Pegawai extends CActiveRecord {
             $perubahan = json_decode($this->perubahan_masa_kerja, false);
         }
 
-        $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun : 0;
+        $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun * -1 : 0;
+
+        $date = explode("-", $this->tmt_cpns);
+        $tmt = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $perubahanTahun);
+        $tmt_cpns = date("Y-m-d", $tmt);
 
         if (empty($this->tmt_cpns)) {
             $tahun = '';
         } else
-            $tahun = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)), true)) + $perubahanTahun;
+            $tahun = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true));
 
         return $tahun;
     }
@@ -388,12 +392,16 @@ class Pegawai extends CActiveRecord {
             $perubahan = json_decode($this->perubahan_masa_kerja, false);
         }
 
-        $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan : 0;
+        $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan * -1 : 0;
         
+        $date = explode("-", $this->tmt_cpns);
+        $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0]);
+        $tmt_cpns = date("Y-m-d", $tmt);
+
         if (empty($this->tmt_cpns)) {
             $bulan = '';
         } else
-            $bulan = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)), false, true)) + $perubahanBulan;
+            $bulan = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true)) + $perubahanBulan;
 
         return $bulan;
     }
@@ -410,6 +418,10 @@ class Pegawai extends CActiveRecord {
 
     public function arrRekapitulasi() {
         $agama = array('jenis_kelamin' => '1 | Jenis Kelamin', 'agama' => '2 | Agama', 'tingkat_pendidikan' => '3 | Tingkat Pendidikan', 'golongan' => '4 | Golongan', 'jabatan' => '5 | Jabatan');
+        return $agama;
+    }
+    public function arrRekapitulasiJabfung() {
+        $agama = array('ft' => '1 | Fungsional tertentu', 'fu' => '2 | Fungsional Umum', 'guru' => '3 | Kelompok Guru', 'kesehatan' => '4 | Kelompok Kesehatan');
         return $agama;
     }
 

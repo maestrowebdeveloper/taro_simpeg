@@ -464,13 +464,15 @@ class PegawaiController extends Controller {
     }
 
     public function actionGetMasaKerja() {
-        $tmt_cpns = $_POST['tmt_cpns'];
-        $bulan = !empty($_POST['bulan']) ? $_POST['bulan'] : 0;
-        $tahun = !empty($_POST['tahun']) ? $_POST['tahun'] : 0;
+        $bulan = !empty($_POST['bulan']) ? ($_POST['bulan'] * -1) : 0;
+        $tahun = !empty($_POST['tahun']) ? ($_POST['tahun'] * -1) : 0;
+        $date = explode("-", $_POST['tmt_cpns']);
+        $tmt = mktime(0, 0, 0, $date[1] + $bulan, $date[2], $date[0] + $tahun);
+        $tmt_cpns = date("Y-m-d", $tmt);
         if (isset($tmt_cpns) or ! empty($tmt_cpns)) {
             $data = array();
-            $data['bulan'] = landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true) + $bulan;
-            $data['tahun'] = landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true) + $tahun;
+            $data['bulan'] = landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true);
+            $data['tahun'] = landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true);
             echo json_encode($data);
         }
     }
@@ -970,6 +972,28 @@ class PegawaiController extends Controller {
         }
         $this->cssJs();
         $this->render('rekap', array(
+            'model' => $model,
+        ));
+    }
+    public function actionRekapEselon() {
+        $model = new Pegawai;
+        $model->unsetAttributes();  // clear any default values  
+        if (isset($_POST['Pegawai'])) {
+            $model->attributes = $_POST['Pegawai'];
+        }
+        $this->cssJs();
+        $this->render('rekapEselon', array(
+            'model' => $model,
+        ));
+    }
+    public function actionRekapJabfung() {
+        $model = new Pegawai;
+        $model->unsetAttributes();  // clear any default values  
+        if (isset($_POST['Pegawai'])) {
+            $model->attributes = $_POST['Pegawai'];
+        }
+        $this->cssJs();
+        $this->render('rekapJabfung', array(
             'model' => $model,
         ));
     }

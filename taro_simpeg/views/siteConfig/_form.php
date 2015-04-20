@@ -27,6 +27,8 @@
             <li><a href="#perpanjangan_honorer">Format Surat Perpanangan Honorer</a></li>
             <li><a href="#permohonan_mutasi">Format Surat Mutasi</a></li>
             <li><a href="#permohonan_pensiun">Format Surat Pensiun</a></li>           
+            <li><a href="#surat_masuk">Format Surat Masuk</a></li>           
+
         </ul>
 
         <div class="tab-content">
@@ -47,7 +49,7 @@
 
                             <?php echo $form->textFieldRow($model, 'client_name', array('class' => 'span4', 'maxlength' => 255)); ?>
 
-                            <?php $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'city_id', 'provinceValue' =>  $model->City->province_id, 'cityValue' => $model->city_id, 'disabled' => false,'width'=>'50%')); ?>                  
+                            <?php $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'city_id', 'provinceValue' => $model->City->province_id, 'cityValue' => $model->city_id, 'disabled' => false, 'width' => '50%')); ?>                  
                             <?php echo $form->textAreaRow($model, 'address', array('class' => 'span4', 'rows' => 4, 'maxlength' => 255)); ?>
                             <?php
                             echo $form->textFieldRow(
@@ -56,7 +58,7 @@
                             ?>
 
                             <?php echo $form->textFieldRow($model, 'email', array('class' => 'span4', 'maxlength' => 45)); ?>
-                            
+
                         </td>
 
                     </tr>
@@ -65,9 +67,9 @@
 
             </div>
 
-          
+
             <div class="tab-pane" id="setting">               
-                 <div class="control-group "><label class="control-label" for="">Persentase Price Sell</label>
+                <div class="control-group "><label class="control-label" for="">Persentase Price Sell</label>
                     <div class="controls">
                         <div class="input-append">                         
                             <input class="span1 angka" maxlength="255" name="price_sell_persentase" value="<?php echo $price_sell_persentase ?>" id="price_sell_persentase" type="text">
@@ -122,7 +124,7 @@
                     </ul>
                 </div>
             </div>
-             <div class="tab-pane" id="permohonan_mutasi">
+            <div class="tab-pane" id="permohonan_mutasi">
                 <center><h4>FORMAT SURAT PERMOHONAN MUTASI</h4></center>
                 <hr>
                 <?php
@@ -157,7 +159,7 @@
                     </ul>
                 </div>
             </div>
-             <div class="tab-pane" id="permohonan_pensiun">
+            <div class="tab-pane" id="permohonan_pensiun">
                 <center><h4>FORMAT SURAT PERMOHONAN PENSIUN</h4></center>
                 <hr>
                 <?php
@@ -227,36 +229,70 @@
                     </ul>
                 </div>
             </div>
+            <div class="tab-pane" id="surat_masuk">
+                <center><h4>FORMAT SURAT MASUK</h4></center>
+                <hr>
+                <?php
+                echo $form->ckEditorRow(
+                        $model, 'format_surat_masuk', array(
+                    'options' => array(
+                        'fullpage' => 'js:true',
+                        'filebrowserBrowseUrl' => $this->createUrl("fileManager/indexBlank"),
+                        'resize_maxWidth' => '1007',
+                        'resize_minWidth' => '320'
+                    ), 'label' => false,
+                        )
+                );
+                //echo $form->textAreaRow($model, 'report_sell', array('class' => 'span8', 'rows' => 8)); 
+                ?> 
+                <div class="well">
+                    Gunakan format berikut untuk men-generate sebuah field.
+                    <hr>
+                    <ul>                      
+                        <li><b>{pengirim}</b>  : Mengembalikan Nama Pengirim</li>                          
+                        <li><b>{tanggal}</b> : Mengembalikan tanggal di kirim</li>                                                                   
+                        <li><b>{no_surat}</b> : Mengembalikan Nomor Surat</li>
+                        <li><b>{perihal}</b> : Mengembalikan Perihal Surat</li>
+                        <li><b>{ttl_terima}</b> : Mengembalikan Tanggal terima Surat</li>
+                        <li><b>{no_agenda}</b> : Mengembalikan Nomor Agenda</li>
+                        <li><b>{terusan}</b> : Mengembalikan di Teruskan Kepada</li>
+
+
+                    </ul>
+                </div>
+            </div>
         </div>
 
-
-            <div class="form-actions">
-                <?php
-                $this->widget('bootstrap.widgets.TbButton', array(
-                    'buttonType' => 'submit',
-                    'type' => 'primary',
-                    'icon' => 'ok white',
-                    'label' => $model->isNewRecord ? 'Create' : 'Simpan',
-                ));
-                ?>
-                <?php
-                $this->widget('bootstrap.widgets.TbButton', array(
-                    'buttonType' => 'reset',
-                    'icon' => 'remove',
-                    'label' => 'Reset',
-                ));
-                ?>
-            </div>
-
-    </fieldset>
+</div>
 
 
+<div class="form-actions">
+    <?php
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type' => 'primary',
+        'icon' => 'ok white',
+        'label' => $model->isNewRecord ? 'Create' : 'Simpan',
+    ));
+    ?>
+    <?php
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'reset',
+        'icon' => 'remove',
+        'label' => 'Reset',
+    ));
+    ?>
+</div>
 
-
+</fieldset>
 
 
 
-    <?php $this->endWidget(); ?>
+
+
+
+
+<?php $this->endWidget(); ?>
 
 </div>
 <script>

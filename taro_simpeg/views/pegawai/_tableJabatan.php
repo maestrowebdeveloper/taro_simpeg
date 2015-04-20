@@ -36,10 +36,10 @@
                     $eselon = (!empty($value->JabatanStruktural->Eselon->nama)) ? $value->JabatanStruktural->Eselon->nama : '-';
                     $tmt_eselon = $value->tmt_eselon;
                 } else if ($value->tipe_jabatan == "fungsional_umum") {
-                    $jabatan = $value->JabatanFu->nama;
+                    $jabatan = (isset($value->JabatanFu->nama)) ? $value->JabatanFu->nama : '';
                     $tmt_jabatan = $value->tmt_mulai;
                 } else if ($value->tipe_jabatan == "fungsional_tertentu") {
-                    $jabatan = $value->JabatanFt->nama;
+                    $jabatan = (isset($value->JabatanFt->nama)) ? $value->JabatanFt->nama : '';
                     $tmt_jabatan = $value->tmt_mulai;
                 }
                 echo '
