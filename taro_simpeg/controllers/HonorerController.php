@@ -90,6 +90,19 @@ class HonorerController extends Controller {
             echo $this->renderPartial('/honorer/_formNilai', array('model' => new NilaiHonorer, 'pegawai_id' => $pegawai));
         }
     }
+    public function actionGetListHonorer() {
+        $name = $_GET["q"];
+        $list = array();
+        $data = Honorer::model()->findAll(array('condition' => 'nama like "%' . $name . '%"', 'limit' => '10'));
+        if (empty($data)) {
+            $list[] = array("id" => "0", "text" => "No Results Found..");
+        } else {
+            foreach ($data as $val) {
+                $list[] = array("id" => $val->id, "text" => $val->nama);
+            }
+        }
+        echo json_encode($list);
+    }
 
     public function actionGetDetail() {
         $id = $_POST["id"];

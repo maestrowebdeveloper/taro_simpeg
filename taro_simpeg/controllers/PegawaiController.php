@@ -476,7 +476,46 @@ class PegawaiController extends Controller {
             echo json_encode($data);
         }
     }
+    
+    // riwayat cuti
+     public function actionGetCuti() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
+        $pegawai = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
+        $model = RiwayatCuti::model()->findByPk($id);
+        if (!empty($model)) {
+            echo $this->renderPartial('/pegawai/_formCuti', array('model' => $model, 'pegawai_id' => $pegawai));
+        } else {
+            echo $this->renderPartial('/pegawai/_formCuti', array('model' => new RiwayatCuti, 'pegawai_id' => $pegawai));
+        }
+    }
+    
+     public function actionDeleteCuti() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
+        $pegawai_id = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
+        RiwayatCuti::model()->findByPk($id)->delete();
+        $cuti = RiwayatCuti::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tanggal_sk DESC'));
+        echo $this->renderPartial('/pegawai/_tableCuti', array('cuti' => $cuti, 'edit' => true, 'pegawai_id' => $pegawai_id));
+    }
+    
+     public function actionSaveCuti() {
+        if (isset($_POST['RiwayatCuti'])) {
+            if (empty($_POST['RiwayatCuti']['id']))
+                $model = new RiwayatCuti;
+            else
+                $model = RiwayatCuti::model()->findByPk($_POST['RiwayatCuti']['id']);
 
+            $model->attributes = $_POST['RiwayatCuti'];
+            $model->pejabat = $_POST['RiwayatCuti']['pejabat'];
+
+            if ($model->save()) {
+                $cuti = RiwayatCuti::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tanggal_sk DESC'));
+                echo $this->renderPartial('/pegawai/_tableCuti', array('cuti' => $cuti, 'edit' => true, 'pegawai_id' => $model->pegawai_id));
+            }
+        }
+    }
+    
+
+    ///hukuman
     public function actionGetHukuman() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $pegawai = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
