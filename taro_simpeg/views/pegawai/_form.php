@@ -4,7 +4,7 @@
             <input id="viewTab" value="PNS" checked="checked" name="view" type="radio">
             <label for="viewTab">View as Tab</label></label>
         <label class="radio"><input id="viewFull" name="view" type="radio">
-            <label for="viewFull">View as Report </label></label>
+            <label for="viewFull">Vimasew as Report </label></label>
     </div>
 
 <?php } ?>
@@ -903,11 +903,11 @@ $this->beginWidget(
 </script>
 <script>
     $("body").on("click", ".radio", function () {
-       
+
         var id = $(this).find("input").val();
         if (id == "Lainnya") {
             $("#Pegawai_ket_agama").parent().parent().attr("style", "display:");
-           
+
         } else if (id == "Islam") {
             $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
             $('#Pegawai_ket_agama').attr("value", "");
