@@ -274,7 +274,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getLastEdit() {
-        return (!empty($this->LastEdit->name)) ? $this->modified . ' By ' . $this->LastEdit->name : '-';
+        return (!empty($this->LastEdit->name)) ? date('d-M-Y, H:i', strtotime($this->modified)) . ' Oleh ' . $this->LastEdit->name : '-';
     }
 
     public function getNamaGolongan() {

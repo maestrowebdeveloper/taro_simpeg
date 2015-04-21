@@ -4,13 +4,14 @@
             <input id="viewTab" value="PNS" checked="checked" name="view" type="radio">
             <label for="viewTab">View as Tab</label></label>
         <label class="radio"><input id="viewFull" name="view" type="radio">
-            <label for="viewFull">Vimasew as Report </label></label>
+            <label for="viewFull">View as Report </label></label>
     </div>
 
 <?php } ?>
 
 <div id="tabView">
     <div class="form">
+
         <?php
         $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'id' => 'pegawai-form',
@@ -30,7 +31,6 @@
             <?php } ?>
 
             <?php echo $form->errorSummary($model, 'Opps!!!', null, array('class' => 'alert alert-error span12')); ?>
-
             <ul class="nav nav-tabs" id="myTab">
                 <li class="active"><a href="#pegawai">Data Pegawai</a></li>
                 <!-- <li ><a href="#pangkatJabatan">Pangkat & Jabatan</a></li> -->
@@ -66,7 +66,7 @@
                 <div class="tab-pane active" id="pegawai">
                     <div class="form-row row-fluid">
                         <fieldset>
-                            <legend>Biodata Pegawai</legend>
+                            <legend>Biodata Pegawai <div class="pull-right" style="font-size: 12px;font-style: italic;">Last Update : <?php echo $model->lastEdit ?></div></legend>
                         </fieldset>
                         <div class="span9" style="margin-left: 0px;"> 
                             <div class="control-group "><label class="control-label required" for="Pegawai_nip">Nip <span class="required">*</span></label>
