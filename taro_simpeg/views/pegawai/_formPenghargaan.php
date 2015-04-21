@@ -39,6 +39,7 @@
                'prepend' => '<i class="icon-calendar"></i>'
                    )
                 ); 
+                 echo $form->textFieldRow($model,'pejabat',array('class'=>'span3','maxlength'=>100));
                 echo $form->textAreaRow($model,'keterangan',array('rows'=>3, 'cols'=>50, 'class'=>'span6'));
             ?>
            

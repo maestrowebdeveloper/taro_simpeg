@@ -38,14 +38,14 @@ class RiwayatKeluarga extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('pegawai_id, hubungan, nama', 'required'),
-			array('jenis_kelamin,keluarga_pegawai_id,anak_ke,status_anak, tempat_lahir, tanggal_lahir, pendidikan_terakhir, pekerjaan, nomor_karsu, tanggal_pernikahan, status, created, created_user_id, modified', 'safe'),
+			array('jenis_kelamin,no_sk,tanggal_sk,jns_masalah,no_karsi,keluarga_pegawai_id,anak_ke,status_anak, tempat_lahir, tanggal_lahir, pendidikan_terakhir, pekerjaan, nomor_karsu, tanggal_pernikahan, status, created, created_user_id, modified', 'safe'),
 			array('pegawai_id, tempat_lahir, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('hubungan', 'length', 'max'=>11),
 			array('nama, pekerjaan, nomor_karsu', 'length', 'max'=>225),
 			array('pendidikan_terakhir, status', 'length', 'max'=>9),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pegawai_id, hubungan, nama, tempat_lahir, tanggal_lahir, pendidikan_terakhir, pekerjaan, nomor_karsu, tanggal_pernikahan, status, created, created_user_id, modified', 'safe', 'on'=>'search'),
+			array('id, pegawai_id,no_karsi, hubungan, nama, tempat_lahir, tanggal_lahir, pendidikan_terakhir, pekerjaan, nomor_karsu, tanggal_pernikahan, status, created, created_user_id, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -80,7 +80,11 @@ class RiwayatKeluarga extends CActiveRecord
 			'tanggal_lahir' => 'Tanggal Lahir',
 			'pendidikan_terakhir' => 'Pendidikan',
 			'pekerjaan' => 'Pekerjaan',
+			'jns_masalah' => 'Jenis Masalah',
+			'no_sk' => 'No. SK',
+			'tanggal_sk' => 'Tanggal SK',
 			'nomor_karsu' => 'No. Karsu',
+			'nomor_karsi' => 'No. Karsi',
 			'tanggal_pernikahan' => 'Tgl. Nikah',
 			'status' => 'Status',
 			'created' => 'Created',
@@ -116,8 +120,12 @@ class RiwayatKeluarga extends CActiveRecord
 		$criteria->compare('tempat_lahir',$this->tempat_lahir,true);
 		$criteria->compare('tanggal_lahir',$this->tanggal_lahir,true);
 		$criteria->compare('pendidikan_terakhir',$this->pendidikan_terakhir,true);
+		$criteria->compare('jns_masalah',$this->jns_masalah,true);
+		$criteria->compare('no_sk',$this->no_sk,true);
+		$criteria->compare('tanggal_sk',$this->tanggal_sk,true);
 		$criteria->compare('pekerjaan',$this->pekerjaan,true);
 		$criteria->compare('nomor_karsu',$this->nomor_karsu,true);
+		$criteria->compare('nomor_karsi',$this->nomor_karsi,true);
 		$criteria->compare('tanggal_pernikahan',$this->tanggal_pernikahan,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('status_anak',$this->status_anak,true);

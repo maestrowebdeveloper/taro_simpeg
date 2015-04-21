@@ -17,7 +17,7 @@ class Honorer extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nomor_register, nama, unit_kerja_id,tanggal_register, tanggal_lahir', 'required'),
-            array('tempat_lahir, ket_agama, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_honorer_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
+            array('tempat_lahir,st_peg,status_sk, ket_agama, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_honorer_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
             array(' unit_kerja_id, jabatan_honorer_id, gaji, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register, foto', 'length', 'max' => 225),
             array('nama', 'length', 'max' => 100),
@@ -31,7 +31,7 @@ class Honorer extends CActiveRecord {
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, nomor_register, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto, unit_kerja_id, tmt_kontrak, jabatan_honorer_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id,status_sk, st_peg, nomor_register, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto, unit_kerja_id, tmt_kontrak, jabatan_honorer_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -61,6 +61,7 @@ class Honorer extends CActiveRecord {
             'tanggal_lahir' => 'Tanggal Lahir',
             'jenis_kelamin' => 'Jenis Kelamin',
             'agama' => 'Agama',
+            'st_peg' => 'Status',
             'ket_agama' => 'Keterangan Agama',
             'pendidikan_terakhir' => 'Pendidikan Terakhir',
             'tahun_pendidikan' => 'Tahun Pendidikan',
@@ -70,7 +71,7 @@ class Honorer extends CActiveRecord {
             'kode_pos' => 'Kode Pos',
             'hp' => 'Hp',
             'golongan_darah' => 'Golongan Darah',
-            'bpjs' => 'Bpjs',
+            'bpjs' => 'Bpjs / Askes / KIS',
             'npwp' => 'No. NPWP',
             'foto' => 'Foto',
             'unit_kerja_id' => 'Unit Kerja',
@@ -135,6 +136,7 @@ class Honorer extends CActiveRecord {
         $criteria->compare('nomor_register', $this->nomor_register, true);
         $criteria->compare('nama', $this->nama, true);
         $criteria->compare('tempat_lahir', $this->tempat_lahir);
+        $criteria->compare('status_sk', $this->status_sk);
         $criteria->compare('tanggal_lahir', $this->tanggal_lahir, true);
         $criteria->compare('jenis_kelamin', $this->jenis_kelamin, true);
         $criteria->compare('agama', $this->agama, true);
@@ -148,6 +150,7 @@ class Honorer extends CActiveRecord {
         $criteria->compare('golongan_darah', $this->golongan_darah, true);
         $criteria->compare('bpjs', $this->bpjs, true);
         $criteria->compare('npwp', $this->npwp, true);
+        $criteria->compare('st_peg', $this->st_peg, true);
         $criteria->compare('foto', $this->foto, true);
         $criteria->compare('unit_kerja_id', $this->unit_kerja_id);
         $criteria->compare('tmt_kontrak', $this->tmt_kontrak, true);
@@ -439,6 +442,15 @@ class Honorer extends CActiveRecord {
                 </div>        
                 ';
         return $data;
+    }
+
+    public function arrStatus() {
+        $agama = array('gtt' => 'Guru Tidak Tetap', 'ptt' => 'Pegawai Tidak Tetap', 'tkd' => 'Tenaga Kontrak Daerah');
+        return $agama;
+    }
+    public function arrStatusSk() {
+        $agama = array('40' => 'SK Bupati non Database', '20' => 'SK Bupati non Database Lulus', '21' => 'SK Bupati non Database Pensiun');
+        return $agama;
     }
 
     public function getUnitKerja() {

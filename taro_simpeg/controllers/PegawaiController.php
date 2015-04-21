@@ -322,6 +322,8 @@ class PegawaiController extends Controller {
                 $model = RiwayatKeluarga::model()->findByPk($_POST['RiwayatKeluarga']['id']);
 
             $model->attributes = $_POST['RiwayatKeluarga'];
+            $model->nomor_karsu = $_POST['RiwayatKeluarga']['nomor_karsu'];
+            $model->nomor_karsi = $_POST['RiwayatKeluarga']['nomor_karsi'];
 
             if ($model->hubungan == "anak") {
                 $model->nomor_karsu = "-";

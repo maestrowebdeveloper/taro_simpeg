@@ -125,7 +125,22 @@ if ($model->isNewRecord == true) {
                                 <input class="span2 angka" maxlength="4" value="<?php echo $model->tahun_pendidikan; ?>" name="Honorer[tahun_pendidikan]" id="Honorer_tahun_pendidikan" placeHolder="Tahun" type="text">
                             </div>
                         </div>
-
+                        <div class="control-group ">
+                            <label class="control-label" for="Honorer_st_peg">Status SK</label>
+                            <div class="controls">
+                                <?php
+                                $data = array('0' => '- Pilih Status -') + Honorer::model()->arrStatusSk();
+                                $this->widget(
+                                        'bootstrap.widgets.TbSelect2', array(
+                                    'name' => 'Honorer[status_sk]',
+                                    'data' => $data,
+                                    'value' => $model->status_sk,
+                                    'options' => array(
+                                        'width' => '40%;margin:0px;text-align:left',
+                                )));
+                                ?>
+                            </div>
+                        </div>
                         <?php
                         echo $form->radioButtonListRow($model, 'jenis_kelamin', Pegawai::model()->ArrJenisKelamin());
                         $kotaName = isset($model->tempat_lahir) ? $model->tempat_lahir : '';
@@ -273,23 +288,40 @@ if ($model->isNewRecord == true) {
                         ))
                     );
 
-                    $data = array('0' => '- Jabatan  -') + CHtml::listData(JabatanHonorer::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                    echo $form->select2Row($model, 'jabatan_honorer_id', array(
-                        'asDropDownList' => true,
-                        'data' => $data,
-                        'options' => array(
-                            "allowClear" => false,
-                            'width' => '50%',
-                        ))
-                    );
-
-                    echo $form->datepickerRow(
-                            $model, 'tmt_jabatan', array(
-                        'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                        'prepend' => '<i class="icon-calendar"></i>'
-                            )
-                    );
-                    ?>
+                $data = array('0' => '- Jabatan  -') + CHtml::listData(JabatanHonorer::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                echo $form->select2Row($model, 'jabatan_honorer_id', array(
+                    'asDropDownList' => true,
+                    'data' => $data,
+                    'options' => array(
+                        "allowClear" => false,
+                        'width' => '50%',
+                    ))
+                );
+                ?>
+                <div class="control-group ">
+                    <label class="control-label" for="Honorer_st_peg">Status</label>
+                    <div class="controls">
+                        <?php
+                        $data = array('0' => '- Pilih Status -') + Honorer::model()->arrStatus();
+                        $this->widget(
+                                'bootstrap.widgets.TbSelect2', array(
+                            'name' => 'Honorer[st_peg]',
+                            'data' => $data,
+                            'value' => $model->st_peg,
+                            'options' => array(
+                                'width' => '40%;margin:0px;text-align:left',
+                        )));
+                        ?>
+                    </div>
+                </div>
+                <?php
+                echo $form->datepickerRow(
+                        $model, 'tmt_jabatan', array(
+                    'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                    'prepend' => '<i class="icon-calendar"></i>'
+                        )
+                );
+                ?>
 
 
                     <?php echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp')); ?>
