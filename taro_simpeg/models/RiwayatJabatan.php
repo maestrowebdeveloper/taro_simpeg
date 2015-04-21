@@ -34,7 +34,7 @@ class RiwayatJabatan extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('nomor_register, pegawai_id, tipe_jabatan,  tmt_mulai', 'required'),
+            array('nomor_register, pegawai_id, tipe_jabatan', 'required'),
             array('jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id,tmt_selesai, nama_jabatan, created, created_user_id, id, tmt_eselon', 'safe'),
             array('pegawai_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register, nama_jabatan', 'length', 'max' => 225),
@@ -140,6 +140,15 @@ class RiwayatJabatan extends CActiveRecord {
         if (empty($this->created_user_id))
             $this->created_user_id = Yii::app()->user->id;
         return parent::beforeValidate();
+    }
+
+    public function getStatusjabatan() {
+        if ($this->tipe_jabatan == "struktural") {
+            $status = (!empty($this->JabatanStruktural->status)) ? $this->JabatanStruktural->status : '0';
+        }else{
+            $status = 0;
+        }
+        return $status;
     }
 
     public function getPegawai() {

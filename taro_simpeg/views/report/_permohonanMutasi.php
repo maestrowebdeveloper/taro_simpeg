@@ -3,6 +3,11 @@ $criteria = '';
 if (!empty($model->tanggal) && !empty($model->created))
     $criteria .= ' and tanggal between "'.$model->tanggal.'" and "'.$model->created.'"';
 
+if (!empty($model->mutasi))
+    $criteria .= ' and mutasi="'.$model->mutasi.'"';
+
+if (!empty($model->status))
+    $criteria .= ' and status='.$model->status.'';
 
 $data = PermohonanMutasi::model()->findAll(array('condition' => 'id > 0 '.$criteria));	
 app()->session['PermohonanMutasi_records'] = $data; 

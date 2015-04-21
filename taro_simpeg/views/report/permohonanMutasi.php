@@ -28,7 +28,27 @@ $this->breadcrumbs = array(
         <div class="span11">
        
         
+        <?php
+         $data = array('0' => '- Mutasi -') + array('luar_daerah' => '1 | Luar Daerah', 'dalam_daerah' => '2 | Dalam Daerah');
+        echo $form->select2Row($model, 'mutasi', array(
+            'asDropDownList' => true,
+            'data' => $data,
+            'options' => array(
+                "allowClear" => false,
+                'width' => '40%',
+            ))
+        );
         
+         $data = array('0' => '- Status Otoritas -') + array('1' => '1 | Sudah di Otoritas', '2' => '2 | Belum di Otoritas');
+        echo $form->select2Row($model, 'status', array(
+            'asDropDownList' => true,
+            'data' => $data,
+            'options' => array(
+                "allowClear" => false,
+                'width' => '40%',
+            ))
+        );
+        ?>
          <div class="control-group "><label class="control-label" for="">Tanggal</label>
             <div class="controls">
                 <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>

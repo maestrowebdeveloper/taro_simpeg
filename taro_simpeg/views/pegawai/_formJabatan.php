@@ -48,7 +48,7 @@
                         <?php
                         $this->widget(
                                 'bootstrap.widgets.TbDatePicker', array(
-                            'name' => 'RiwayatJabatan[tmt_mulai]',
+                            'name' => 'tmt_mulai_struktural',
                             'value' => $model->tmt_mulai,
                             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                 )
@@ -99,7 +99,7 @@
                         <?php
                         $this->widget(
                                 'bootstrap.widgets.TbDatePicker', array(
-                            'name' => 'RiwayatJabatan[tmt_mulai]',
+                            'name' => 'tmt_mulai_fu',
                             'value' => str_replace("0000-00-00", "", $model->tmt_mulai),
                             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                 )
@@ -132,7 +132,7 @@
                         <?php
                         $this->widget(
                                 'bootstrap.widgets.TbDatePicker', array(
-                            'name' => 'RiwayatJabatan[tmt_mulai]',
+                            'name' => 'tmt_mulai_ft',
                             'value' => str_replace("0000-00-00", "", $model->tmt_mulai),
                             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                 )
@@ -172,7 +172,7 @@
 
 <script>
     jQuery(function ($) {
-        jQuery('#RiwayatJabatan_tmt_mulai, #RiwayatJabatan_tmt_eselon').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
+        jQuery('#RiwayatJabatan_tmt_mulai, #RiwayatJabatan_tmt_eselon, #tmt_mulai_ft, #tmt_mulai_fu, #tmt_mulai_struktural').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
         jQuery('#RiwayatJabatan_jabatan_struktural_id').select2({'width': '40%'});
         jQuery('#RiwayatJabatan_jabatan_fu_id').select2({'width': '40%'});
         jQuery('#RiwayatJabatan_jabatan_ft_id').select2({'width': '40%'});

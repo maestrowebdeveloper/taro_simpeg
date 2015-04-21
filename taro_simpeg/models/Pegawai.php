@@ -17,7 +17,7 @@ class Pegawai extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nip, nama, tanggal_lahir, jenis_kelamin,  kedudukan_id, unit_kerja_id', 'required'),
-            array('gelar_depan, ketarangan, ket_agama, riwayat_jabatan_id,riwayat_pangkat_id,pendidikan_id,gelar_belakang,modified_user_id, tempat_lahir,pendidikan_terakhir, tahun_pendidikan,agama, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, id', 'safe'),
+            array('gelar_depan, ketarangan, ket_agama, riwayat_jabatan_id,riwayat_pangkat_id,pendidikan_id,gelar_belakang,modified_user_id, tempat_lahir,pendidikan_terakhir, tahun_pendidikan,agama, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp,karpeg, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, id', 'safe'),
             array(' kedudukan_id, unit_kerja_id, golongan_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, gaji, created_user_id, id', 'numerical', 'integerOnly' => true),
             array('nip, gelar_depan, gelar_belakang, keterangan, bpjs, kpe, npwp', 'length', 'max' => 50),
             array('nama', 'length', 'max' => 100),
@@ -32,7 +32,7 @@ class Pegawai extends CActiveRecord {
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, ketarngan, nip, nama, gelar_depan, gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, kpe, npwp, foto, unit_kerja_id, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, ketarngan, nip, nama, gelar_depan, gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, kpe, npwp,karpeg, foto, unit_kerja_id, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -81,9 +81,10 @@ class Pegawai extends CActiveRecord {
             'kode_pos' => 'Kode Pos',
             'hp' => 'Hp',
             'golongan_darah' => 'Golongan Darah',
-            'bpjs' => 'BPJS',
+            'bpjs' => 'BPJS/ASKES/KIS',
             'npwp' => 'No. NPWP',
             'kpe' => 'KPE',
+            'karpeg' => 'Kartu Pegawai',
             'keterangan' => 'Keterangan',
             'no_taspen' => 'No. TASPEN',
             'foto' => 'Foto',
@@ -373,12 +374,19 @@ class Pegawai extends CActiveRecord {
             $perubahan = json_decode($this->perubahan_masa_kerja, false);
         }
 
-        $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun : 0;
+        $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun * -1 : 0;
+        if ($this->tmt_cpns != NULL and $this->tmt_cpns != "0000-00-00") {
+            $date = explode("-", $this->tmt_cpns);
+            $tmt = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $perubahanTahun);
+            $tmt_cpns = date("Y-m-d", $tmt);
+        } else {
+            $tmt_cpns = date("Y-m-d");
+        }
 
         if (empty($this->tmt_cpns)) {
             $tahun = '';
         } else
-            $tahun = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)), true)) + $perubahanTahun;
+            $tahun = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true));
 
         return $tahun;
     }
@@ -388,12 +396,20 @@ class Pegawai extends CActiveRecord {
             $perubahan = json_decode($this->perubahan_masa_kerja, false);
         }
 
-        $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan : 0;
-        
+        $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan * -1 : 0;
+
+        if ($this->tmt_cpns != NULL and $this->tmt_cpns != "0000-00-00") {
+            $date = explode("-", $this->tmt_cpns);
+            $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0]);
+            $tmt_cpns = date("Y-m-d", $tmt);
+        } else {
+            $tmt_cpns = date("Y-m-d");
+        }
+
         if (empty($this->tmt_cpns)) {
             $bulan = '';
         } else
-            $bulan = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)), false, true)) + $perubahanBulan;
+            $bulan = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true));
 
         return $bulan;
     }
@@ -412,6 +428,7 @@ class Pegawai extends CActiveRecord {
         $agama = array('jenis_kelamin' => '1 | Jenis Kelamin', 'agama' => '2 | Agama', 'tingkat_pendidikan' => '3 | Tingkat Pendidikan', 'golongan' => '4 | Golongan', 'jabatan' => '5 | Jabatan');
         return $agama;
     }
+
     public function arrRekapitulasiJabfung() {
         $agama = array('ft' => '1 | Fungsional tertentu', 'fu' => '2 | Fungsional Umum', 'guru' => '3 | Kelompok Guru', 'kesehatan' => '4 | Kelompok Kesehatan');
         return $agama;

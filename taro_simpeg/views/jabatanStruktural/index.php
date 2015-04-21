@@ -98,7 +98,12 @@ $this->endWidget();
         array(
             'name' => 'eselon_id',
             'value' => '$data->eselon',            
-        ),			
+        ),
+        array(
+            'header' => 'Nama Pegawai',
+            'name' => 'status',
+            'value' => '$data->pegawai',            
+        ),
        array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
 			'template' => '{view} {update} {delete}',
