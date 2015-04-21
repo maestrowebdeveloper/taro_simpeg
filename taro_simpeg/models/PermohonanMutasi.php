@@ -16,14 +16,14 @@ class PermohonanMutasi extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array(' created,tipe_jabatan_lama,unit_kerja_lama,jabatan_lama, created_user_id, modified,unit_kerja_id, tipe_jabatan, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id', 'safe'),
+            array(' created,pejabat,mutasi,status,tipe_jabatan_lama,unit_kerja_lama,jabatan_lama, created_user_id, modified,unit_kerja_id, tipe_jabatan, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id', 'safe'),
             array('nomor_register, tanggal, pegawai_id, new_unit_kerja_id, new_tipe_jabatan, new_jabatan_struktural_id, new_jabatan_fu_id, new_jabatan_ft_id, tmt', 'required'),
             array('pegawai_id, unit_kerja_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, new_unit_kerja_id, new_jabatan_struktural_id, new_jabatan_fu_id, new_jabatan_ft_id, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register', 'length', 'max' => 100),
             array('tipe_jabatan, new_tipe_jabatan', 'length', 'max' => 19),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, nomor_register, tanggal, pegawai_id, unit_kerja_id, tipe_jabatan, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, new_unit_kerja_id, new_tipe_jabatan, new_jabatan_struktural_id, new_jabatan_fu_id, new_jabatan_ft_id, tmt, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, nomor_register, pejabat,mutasi,status,tanggal, pegawai_id, unit_kerja_id, tipe_jabatan, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, new_unit_kerja_id, new_tipe_jabatan, new_jabatan_struktural_id, new_jabatan_fu_id, new_jabatan_ft_id, tmt, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -48,7 +48,7 @@ class PermohonanMutasi extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'nomor_register' => 'Nomor Register',
+            'nomor_register' => 'Nomor SK',
             'tanggal' => 'Tanggal',
             'pegawai_id' => 'Pegawai',
             'unit_kerja_id' => 'Unit Kerja Lama',
@@ -62,6 +62,7 @@ class PermohonanMutasi extends CActiveRecord {
             'new_jabatan_fu_id' => 'Jabatan Baru',
             'new_jabatan_ft_id' => 'Jabatan Baru',
             'tmt' => 'Tmt',
+            'pejabat' => 'Yang menconfirm',
             'created' => 'Created',
             'created_user_id' => 'Created User',
             'modified' => 'Modified',
@@ -148,6 +149,20 @@ class PermohonanMutasi extends CActiveRecord {
         } else {
             return '-';
         }
+    }
+    
+    public function getStatusoto(){
+        if($this->status == 1){
+            $status = '<span class="label label-info">Sudah</span>';
+        }else{
+            $status = '<span class="label label-warning">Belum</span>';
+        }
+        return $status;
+    }
+
+    public function arrMutasi() {
+        $agama = array('luar_daerah' => '1 | Luar Daerah', 'dalam_daerah' => '2 | Dalam Daerah');
+        return $agama;
     }
 
 }

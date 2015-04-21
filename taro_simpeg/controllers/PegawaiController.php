@@ -97,6 +97,7 @@ class PegawaiController extends Controller {
         $model = Pegawai::model()->findByPk($id);
         $return['id'] = $id;
         $return['nama'] = $model->namaGelar;
+        $return['nip'] = $model->nip;
         $return['jenis_kelamin'] = $model->jenis_kelamin;
         $return['jabatan'] = $model->jabatan;
         $return['tipe_jabatan'] = $model->tipe;
@@ -793,6 +794,7 @@ class PegawaiController extends Controller {
             $model->perubahan_masa_kerja = json_encode($perubahan);
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
             $model->kota = $_POST['Pegawai']['kota'];
+            $model->karpeg = $_POST['Pegawai']['karpeg'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
 
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
@@ -861,6 +863,7 @@ class PegawaiController extends Controller {
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
             $model->kota = $_POST['Pegawai']['kota'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
+            $model->karpeg = $_POST['Pegawai']['karpeg'];
 
 
             $file = CUploadedFile::getInstance($model, 'foto');

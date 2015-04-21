@@ -27,39 +27,7 @@
         </legend>
 
         <?php echo $form->errorSummary($model, 'Opps!!!', null, array('class' => 'alert alert-error span12')); ?>
-        <?php echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span3', 'maxlength' => 100)); ?>
         <?php
-        echo $form->datepickerRow(
-                $model, 'tanggal', array(
-            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-            'prepend' => '<i class="icon-calendar"></i>'
-                )
-        );
-        ?>
-
-        <?php
-//        $data = array('0' => '- Pegawai -') + CHtml::listData(Pegawai::model()->listPegawai(), 'id', 'nipNama');
-//        echo $form->select2Row($model, 'pegawai_id', array(
-//            'asDropDownList' => true,
-//            'data' => $data,
-//            'events' => array('change' => 'js: function() {
-//                        $.ajax({
-//                           url : "' . url('pegawai/getDetail') . '",
-//                           type : "POST",
-//                           data :  { id:  $(this).val()},
-//                           success : function(data){                                                                                                                                           
-//                            obj = JSON.parse(data);
-//                            $("#PermohonanMutasi_unit_kerja_lama").val(obj.unit_kerja);                           
-//                            $("#PermohonanMutasi_tipe_jabatan_lama").val(obj.tipe_jabatan);                           
-//                            $("#PermohonanMutasi_jabatan_lama").val(obj.jabatan);                           
-//                        }
-//                    });
-//                }'),
-//            'options' => array(
-//                "allowClear" => false,
-//                'width' => '40%',
-//            ))
-//        );
 
         $idpegawai = isset($model->pegawai_id) ? $model->pegawai_id : 0;
         $pegawaiName = isset($model->Pegawai->nama) ? $model->Pegawai->nama : 0;
@@ -95,6 +63,11 @@
                 )
         );
         ?>
+        <div class="control-group "><label class="control-label" for="eselon">NIP</label>
+                <div class="controls">
+                    <input class="span3" maxlength="19" readonly="1" name="" id="nip" type="text">
+                </div>
+            </div>
 
 
         <?php echo $form->textFieldRow($model, 'unit_kerja_lama', array('class' => 'span6', 'readOnly' => true)); ?>
@@ -104,6 +77,30 @@
         <?php echo $form->textFieldRow($model, 'jabatan_lama', array('class' => 'span5', 'readOnly' => true)); ?>
 
 
+        <?php echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span3', 'maxlength' => 100)); ?>
+        <?php echo $form->textFieldRow($model, 'pejabat', array('class' => 'span3', 'maxlength' => 100)); ?>
+        <?php
+        echo $form->datepickerRow(
+                $model, 'tanggal', array(
+            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+            'prepend' => '<i class="icon-calendar"></i>'
+                )
+        );
+        
+          $data = array('0' => '- Mutasi -') + array('luar_daerah' => '1 | Luar Daerah', 'dalam_daerah' => '2 | Dalam Daerah');
+        echo $form->select2Row($model, 'mutasi', array(
+            'asDropDownList' => true,
+            'data' => $data,
+            'options' => array(
+                "allowClear" => false,
+                'width' => '40%',
+            ))
+        );
+        ?>
+       
+         
+
+        
         <?php
         $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
         echo $form->select2Row($model, 'new_unit_kerja_id', array(
@@ -287,6 +284,7 @@
                 $("#PermohonanMutasi_unit_kerja_lama").val(obj.unit_kerja);
                 $("#PermohonanMutasi_tipe_jabatan_lama").val(obj.tipe_jabatan);
                 $("#PermohonanMutasi_jabatan_lama").val(obj.jabatan);
+                $("#nip").val(obj.nip);
             }
         });
     })
