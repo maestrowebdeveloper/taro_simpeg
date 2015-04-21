@@ -223,40 +223,46 @@ class PermohonanMutasiController extends Controller {
             if (isset($_POST['otoritas'])) {
                 $model = PermohonanMutasi::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ')'));
                 foreach ($model as $a) {
-//                    Pegawai::model()->updateAll(array(
-//                        'tipe_jabatan'=>$a->new_tipe_jabatan,
-//                        'jabatan_struktural_id'=>$a->new_jabatan_struktural_id,
-//                        'jabatan_fu_id'=>$a->new_jabatan_fu_id,
-//                        'jabatan_ft_id'=>$a->new_jabatan_ft_id,
-//                        'unit_kerja_id'=>$a->new_unit_kerja_id,
-//                        ),'id='.$a->pegawai_id);
+                    Pegawai::model()->updateAll(array(
+                        'tipe_jabatan'=>$a->new_tipe_jabatan,
+                        'jabatan_struktural_id'=>$a->new_jabatan_struktural_id,
+                        'jabatan_fu_id'=>$a->new_jabatan_fu_id,
+                        'jabatan_ft_id'=>$a->new_jabatan_ft_id,
+                        'unit_kerja_id'=>$a->new_unit_kerja_id,
+                        ),'id='.$a->pegawai_id);
                     
                     $pegawai = Pegawai::model()->findByPk($a->pegawai_id);
                 if ($pegawai->jabatan_struktural_id != 0) {
-                    $jabatan = JabatanStruktural::model()->findByPk($pegawai->jabatan_struktural_id);
-                    $jabatan->status = 0;
-                    $jabatan->saveNode();
-                    $pegawai->tmt_jabatan_struktural = $a->tmt;
+                    JabatanStruktural::model()->updateAll(array('status'=>0),'id='.$pegawai->jabatan_struktural_id);
+                    Pegawai::model()->updateAll(array('tmt_jabatan_struktural'=>$a->tmt),'id='.$a->pegawai_id);
+//                    $jabatan = JabatanStruktural::model()->findByPk($pegawai->jabatan_struktural_id);
+//                    $jabatan->status = 0;
+//                    $jabatan->saveNode();
+//                    $pegawai->tmt_jabatan_struktural = $a->tmt;
                 } elseif ($pegawai->jabatan_fu_id != 0) {
-                    $jabatan = JabatanFu::model()->findByPk($pegawai->jabatan_fu_id);
-                    $jabatan->status = 0;
-                    $jabatan->saveNode();
-                    $pegawai->tmt_jabatan_fu = $a->tmt;
+                    JabatanFu::model()->updateAll(array('status'=>0),'id='.$pegawai->jabatan_fu_id);
+                    Pegawai::model()->updateAll(array('tmt_jabatan_fu'=>2015-04-12),'id='.$a->pegawai_id);
+//                    $jabatan = JabatanFu::model()->findByPk($pegawai->jabatan_fu_id);
+//                    $jabatan->status = 0;
+//                    $jabatan->saveNode();
+//                    $pegawai->tmt_jabatan_fu = $a->tmt;
                 } elseif ($pegawai->jabatan_ft_id != 0) {
-                    $jabatan = JabatanFt::model()->findByPk($pegawai->jabatan_ft_id);
-                    $jabatan->status = 0;
-                    $jabatan->saveNode();
-                    $pegawai->tmt_jabatan_ft = $a->tmt;
+                    JabatanFt::model()->updateAll(array('status'=>0),'id='.$pegawai->jabatan_ft_id);
+                    Pegawai::model()->updateAll(array('tmt_jabatan_ft'=>$a->tmt),'id='.$a->pegawai_id);
+//                    $jabatan = JabatanFt::model()->findByPk($pegawai->jabatan_ft_id);
+//                    $jabatan->status = 0;
+//                    $jabatan->saveNode();
+//                    $pegawai->tmt_jabatan_ft = $a->tmt;
                 }
-                $pegawai->tipe_jabatan = $a->new_tipe_jabatan;
-                $pegawai->jabatan_struktural_id = $a->new_jabatan_struktural_id;
-                $pegawai->jabatan_fu_id = $a->new_jabatan_fu_id;
-                $pegawai->jabatan_ft_id = $a->new_jabatan_ft_id;
-                $pegawai->unit_kerja_id = $a->new_unit_kerja_id;
-                $pegawai->save();
+//                $pegawai->tipe_jabatan = $a->new_tipe_jabatan;
+//                $pegawai->jabatan_struktural_id = $a->new_jabatan_struktural_id;
+//                $pegawai->jabatan_fu_id = $a->new_jabatan_fu_id;
+//                $pegawai->jabatan_ft_id = $a->new_jabatan_ft_id;
+//                $pegawai->unit_kerja_id = $a->new_unit_kerja_id;
+//                $pegawai->save();
                 
                 // change status
-                    $a->status = 1;
+                    $a->status = 2;
                     $a->save();
                 }
                 user()->setFlash('info', 'Data is update now.');

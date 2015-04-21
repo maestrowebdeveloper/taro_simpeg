@@ -78,8 +78,18 @@
 
 
         <?php echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span3', 'maxlength' => 100)); ?>
-        <?php echo $form->textFieldRow($model, 'pejabat', array('class' => 'span3', 'maxlength' => 100)); ?>
+        <?php // echo $form->textFieldRow($model, 'pejabat', array('class' => 'span3', 'maxlength' => 100)); ?>
         <?php
+         $data = array('0' => '- Pejabat -') + array('bupati_sampang' => 'Bupati Sampang', 'wakil_bupati_sampang' => 'Wakil Bupati Sampang','sekretaris_daerah_kab._sampang'=>'Sekeretaris Daerah Kab. Sampang','gubernur_jawa_timur'=>'Gubernur Jawa timur');
+        echo $form->select2Row($model, 'pejabat', array(
+            'asDropDownList' => true,
+            'data' => $data,
+            'options' => array(
+                "allowClear" => false,
+                'width' => '40%',
+            ))
+        );
+        
         echo $form->datepickerRow(
                 $model, 'tanggal', array(
             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),

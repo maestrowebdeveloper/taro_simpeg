@@ -152,7 +152,7 @@ class PermohonanMutasi extends CActiveRecord {
     }
     
     public function getStatusoto(){
-        if($this->status == 1){
+        if($this->status == 2){
             $status = '<span class="label label-info">Sudah</span>';
         }else{
             $status = '<span class="label label-warning">Belum</span>';
