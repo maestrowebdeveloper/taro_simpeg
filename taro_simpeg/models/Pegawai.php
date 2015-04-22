@@ -388,7 +388,7 @@ class Pegawai extends CActiveRecord {
         }
 
         $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan : 0;
-        
+
         if (empty($this->tmt_cpns)) {
             $bulan = '';
         } else

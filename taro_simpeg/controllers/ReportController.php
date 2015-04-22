@@ -41,9 +41,10 @@ class ReportController extends Controller {
     }
 
     public function actionUrutKepangkatan() {
-        $model = new Pegawai();
-        if (isset($_POST['Pegawai'])) {
-            $model->attributes = $_POST['Pegawai'];
+        $model = new Pegawai('search');
+        $model->unsetAttributes();
+        if (isset($_GET['Pegawai'])) {
+            $model->attributes = $_GET['Pegawai'];
         }
         $this->render('urutKepangkatan', array('model' => $model));
     }
@@ -185,7 +186,6 @@ class ReportController extends Controller {
         $this->render('permohonanMutasi', array('model' => $model));
     }
 
-
     public function actionPermohonanPensiun() {
         $model = new PermohonanPensiun();
         if (isset($_POST['PermohonanPensiun'])) {
@@ -194,17 +194,28 @@ class ReportController extends Controller {
         }
         $this->render('permohonanPensiun', array('model' => $model));
     }
-    
-    public function actionPensiun(){
+
+    public function actionPensiun() {
         $model = new Pegawai();
-        if(isset($_POST['Pegawai'])){
-            $model->attributes = $_POST['Pegawai'];     
-            $model->id='1';  
+        if (isset($_POST['Pegawai'])) {
+            $model->attributes = $_POST['Pegawai'];
+            $model->id = '1';
         }
-        $this->render('pensiun', array('model'=>$model));
+        $this->render('pensiun', array('model' => $model));
     }
- 
+
+    public function actionExcelKepangkatan() {
+        
+        $model = Pegawai::model()->findAll(array(
+            
+        ));
+        
+        return Yii::app()->request->sendFile('excelReport.xls', $this->renderPartial('excelReport', array(
+                            'model' => $model,
+                            'start' => $start,
+                            'end' => $end,
+                                ), true)
+        );
+    }
 
 }
-
-?>
