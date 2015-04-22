@@ -55,10 +55,10 @@ foreach ($data as $value) {
 			<td>' . $no . '</td>
 			<td>' . $value->nama . '</td>
 			<td>' . $value->nip . '</td>			
-			<td>' . $value->Golongan->nama . '</td>			
+			<td>' . $value->pangkat . '</td>			
 			<td>' . $value->JabatanStruktural->nama . '</td>			
 			<td>' . $value->JabatanStruktural->Eselon->nama . '</td>			
-			<td>' . $value->JabatanStruktural->Eselon->nama . '</td>			
+			<td>' . $value->alamat . ','.$value->kota.'</td>			
 									
 		</tr>';
     $no++;

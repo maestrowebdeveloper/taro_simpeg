@@ -24,7 +24,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         $data = array('0'=>'- Unit Kerja -')+CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
         echo $form->select2Row($model, 'unit_kerja_id', array(
             'asDropDownList' => true,                    
-            'data' => $data,    
+            'data' => $data,
+            'value' => isset($_POST['unit_kerja_id']) ? $_POST['unit_kerja_id'] : '',
             'options' => array(                        
                 "allowClear" => false,
                 'width' => '50%',
@@ -41,7 +42,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                             'bootstrap.widgets.TbSelect2', array(
                         'name' => 'eselon_id',
                         'data' => $data,
-                        'value' => isset($model->JabatanStruktural->Eselon->id) ? $model->JabatanStruktural->Eselon->id : '',
+                        'value' => isset($_POST['eselon_id']) ? $_POST['eselon_id'] : '',
                         'options' => array(
                             'width' => '40%;margin:0px;text-align:left',
                     )));

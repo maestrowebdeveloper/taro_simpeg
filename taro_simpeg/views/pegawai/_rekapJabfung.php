@@ -25,7 +25,7 @@ if (!empty($_POST['type'])) {
     
     if($_POST['type'] == 'guru'){
         $guru = array();
-        $sGuru = JabatanFt::model()->findAll(array('condition'=>'type=guru'));
+        $sGuru = JabatanFt::model()->findAll(array('condition'=>'type="guru"'));
         foreach($sGuru as $data){
             $guru[] = $data->id;
         }
@@ -34,10 +34,11 @@ if (!empty($_POST['type'])) {
     
     if($_POST['type'] == 'kesehatan'){
         $kesehatan = array();
-        $sKesehatan = JabatanFt::model()->findAll(array('condition'=>'type=kesehatan'));
+        $sKesehatan = JabatanFt::model()->findAll(array('condition'=>'type="kesehatan"'));
         foreach($sKesehatan as $data){
             $kesehatan[] = $data->id;
         }
+//        print_r($kesehatan);
         $criteria .= ' and jabatan_ft_id IN (' . implode(',', $kesehatan) . ') ';
     }
    
@@ -79,10 +80,10 @@ foreach ($data as $value) {
 			<td>' . $no . '</td>
 			<td>' . $value->nama . '</td>
 			<td>' . $value->nip . '</td>			
-			<td>' . $value->Golongan->nama . '</td>			
-			<td>' . $value->JabatanFu->nama . '</td>			
-			<td>' . $value->JabatanFu->nama . '</td>			
-			<td>' . $value->Unitkerja->nama . '</td>			
+			<td>' . $value->golongan . '</td>			
+			<td>' . $value->jabatanFu . '</td>			
+			<td>' . $value->pangkat . '</td>			
+			<td>' . $value->unitKerja . '</td>			
 									
 		</tr>';
     $no++;

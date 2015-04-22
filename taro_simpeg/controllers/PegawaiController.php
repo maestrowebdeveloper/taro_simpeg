@@ -97,6 +97,7 @@ class PegawaiController extends Controller {
         $model = Pegawai::model()->findByPk($id);
         $return['id'] = $id;
         $return['nama'] = $model->namaGelar;
+        $return['nip'] = $model->nip;
         $return['jenis_kelamin'] = $model->jenis_kelamin;
         $return['jabatan'] = $model->jabatan;
         $return['tipe_jabatan'] = $model->tipe;
@@ -192,7 +193,7 @@ class PegawaiController extends Controller {
         if (!empty($model)) {
             $data['id'] = $model->id;
             $data['tipe'] = $model->tipe;
-            $data['jabatan'] = $model->jabatan;
+            $data['jabatan'] = $model->jabatanPegawai;
             $data['tmt'] = $model->tmt_mulai;
             $data['status'] = $model->statusjabatan;
             echo json_encode($data);
@@ -486,9 +487,9 @@ class PegawaiController extends Controller {
             echo json_encode($data);
         }
     }
-    
+
     // riwayat cuti
-     public function actionGetCuti() {
+    public function actionGetCuti() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $pegawai = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
         $model = RiwayatCuti::model()->findByPk($id);
@@ -498,16 +499,16 @@ class PegawaiController extends Controller {
             echo $this->renderPartial('/pegawai/_formCuti', array('model' => new RiwayatCuti, 'pegawai_id' => $pegawai));
         }
     }
-    
-     public function actionDeleteCuti() {
+
+    public function actionDeleteCuti() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $pegawai_id = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
         RiwayatCuti::model()->findByPk($id)->delete();
         $cuti = RiwayatCuti::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tanggal_sk DESC'));
         echo $this->renderPartial('/pegawai/_tableCuti', array('cuti' => $cuti, 'edit' => true, 'pegawai_id' => $pegawai_id));
     }
-    
-     public function actionSaveCuti() {
+
+    public function actionSaveCuti() {
         if (isset($_POST['RiwayatCuti'])) {
             if (empty($_POST['RiwayatCuti']['id']))
                 $model = new RiwayatCuti;
@@ -523,7 +524,6 @@ class PegawaiController extends Controller {
             }
         }
     }
-    
 
     ///hukuman
     public function actionGetHukuman() {
@@ -795,15 +795,19 @@ class PegawaiController extends Controller {
             $model->perubahan_masa_kerja = json_encode($perubahan);
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
             $model->kota = $_POST['Pegawai']['kota'];
+            $model->karpeg = $_POST['Pegawai']['karpeg'];
+            $model->no_taspen = $_POST['Pegawai']['no_taspen'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
 
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
             if (!empty($riwayat)) {
-                if ($riwayat->tipe_jabatan == "struktural") {
-                    $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
-                    $jabatan = JabatanStruktural::model()->findByPk($riwayat->jabatan_struktural_id);
-                    $jabatan->status = 1;
-                    $jabatan->save();
+                if (!empty($riwayat)) {
+                    if ($riwayat->tipe_jabatan == "struktural") {
+                        $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
+                        $jabatan = JabatanStruktural::model()->findByPk($riwayat->jabatan_struktural_id);
+                        $jabatan->status = 1;
+                        $jabatan->save();
+                    }
                 }
             }
 
@@ -863,6 +867,7 @@ class PegawaiController extends Controller {
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
             $model->kota = $_POST['Pegawai']['kota'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
+            $model->karpeg = $_POST['Pegawai']['karpeg'];
 
 
             $file = CUploadedFile::getInstance($model, 'foto');
@@ -873,35 +878,35 @@ class PegawaiController extends Controller {
             }
 
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
-            if ($riwayat->tipe_jabatan == "struktural") {
-                $model->jabatan_fu_id = "";
-                $model->tmt_jabatan_fu = "";
-                $model->jabatan_ft_id = "";
-                $model->tmt_jabatan_ft = "";
-                $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
-            } elseif ($riwayat->tipe_jabatan == "fungsional_umum") {
-                $model->jabatan_ft_id = "";
-                $model->tmt_jabatan_ft = "";
-                $model->jabatan_struktural_id = "";
-                $model->tmt_jabatan_struktural = "";
-            } elseif ($riwayat->tipe_jabatan == "fungsional_tertentu") {
-                $model->jabatan_fu_id = "";
-                $model->tmt_jabatan_fu = "";
-                $model->jabatan_struktural_id = "";
-                $model->tmt_jabatan_struktural = "";
-            }
-
-            $model->tipe_jabatan = $riwayat->tipe_jabatan;
-
-            if ($riwayat->tipe_jabatan == "struktural") {
-                $jabatan = JabatanStruktural::model()->findByPk($riwayat->jabatan_struktural_id);
+            if (!empty($riwayat)) {
+                if ($riwayat->tipe_jabatan == "struktural") {
+                    $model->jabatan_fu_id = "";
+                    $model->tmt_jabatan_fu = "";
+                    $model->jabatan_ft_id = "";
+                    $model->tmt_jabatan_ft = "";
+                    $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
+                    $jabatan = JabatanStruktural::model()->findByPk($riwayat->jabatan_struktural_id);
+                    $jabatan->status = 1;
+                    $jabatan->saveNode();
+                } elseif ($riwayat->tipe_jabatan == "fungsional_umum") {
+                    $model->jabatan_ft_id = "";
+                    $model->tmt_jabatan_ft = "";
+                    $model->jabatan_struktural_id = "";
+                    $model->tmt_jabatan_struktural = "";
+                } elseif ($riwayat->tipe_jabatan == "fungsional_tertentu") {
+                    $model->jabatan_fu_id = "";
+                    $model->tmt_jabatan_fu = "";
+                    $model->jabatan_struktural_id = "";
+                    $model->tmt_jabatan_struktural = "";
+                }
+                $model->tipe_jabatan = $riwayat->tipe_jabatan;
             } else {
-                $jabatan = "";
-            }
-
-            if (!empty($jabatan)) {
-                $jabatan->status = 1;
-                $jabatan->saveNode();
+                $model->jabatan_fu_id = "";
+                $model->tmt_jabatan_fu = "";
+                $model->jabatan_ft_id = "";
+                $model->tmt_jabatan_ft = "";
+                $model->jabatan_struktural_id = "";
+                $model->tmt_jabatan_struktural = "";
             }
 
             if ($model->save()) {

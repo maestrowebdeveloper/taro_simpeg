@@ -115,6 +115,8 @@ class PermohonanMutasiController extends Controller {
         $this->cssJs();
         if (isset($_POST['PermohonanMutasi'])) {
             $model->attributes = $_POST['PermohonanMutasi'];
+            $model->mutasi = $_POST['PermohonanMutasi']['mutasi'];
+            $model->pejabat = $_POST['PermohonanMutasi']['pejabat'];
             if ($model->save()) {
                 $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
                 if ($pegawai->jabatan_struktural_id != 0) {
@@ -130,11 +132,11 @@ class PermohonanMutasiController extends Controller {
                     $jabatan->status = 0;
                     $jabatan->save();
                 }
-                $pegawai->tipe_jabatan = $model->new_tipe_jabatan;
-                $pegawai->jabatan_struktural_id = $model->new_jabatan_struktural_id;
-                $pegawai->jabatan_fu_id = $model->new_jabatan_fu_id;
-                $pegawai->jabatan_ft_id = $model->new_jabatan_ft_id;
-                $pegawai->save();
+//                $pegawai->tipe_jabatan = $model->new_tipe_jabatan;
+//                $pegawai->jabatan_struktural_id = $model->new_jabatan_struktural_id;
+//                $pegawai->jabatan_fu_id = $model->new_jabatan_fu_id;
+//                $pegawai->jabatan_ft_id = $model->new_jabatan_ft_id;
+//                $pegawai->save();
 
                 $this->redirect(array('view', 'id' => $model->id));
             }
@@ -158,30 +160,32 @@ class PermohonanMutasiController extends Controller {
 
         if (isset($_POST['PermohonanMutasi'])) {
             $model->attributes = $_POST['PermohonanMutasi'];
+            $model->mutasi = $_POST['PermohonanMutasi']['mutasi'];
+            $model->pejabat = $_POST['PermohonanMutasi']['pejabat'];
             if ($model->save()) {
-                $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
-                if ($pegawai->jabatan_struktural_id != 0) {
-                    $jabatan = JabatanStruktural::model()->findByPk($pegawai->jabatan_struktural_id);
-                    $jabatan->status = 0;
-                    $jabatan->saveNode();
-                    $pegawai->tmt_jabatan_struktural = $model->tmt;
-                } elseif ($pegawai->jabatan_fu_id != 0) {
-                    $jabatan = JabatanFu::model()->findByPk($pegawai->jabatan_fu_id);
-                    $jabatan->status = 0;
-                    $jabatan->saveNode();
-                    $pegawai->tmt_jabatan_fu = $model->tmt;
-                } elseif ($pegawai->jabatan_ft_id != 0) {
-                    $jabatan = JabatanFt::model()->findByPk($pegawai->jabatan_ft_id);
-                    $jabatan->status = 0;
-                    $jabatan->saveNode();
-                    $pegawai->tmt_jabatan_ft = $model->tmt;
-                }
-                $pegawai->tipe_jabatan = $model->new_tipe_jabatan;
-                $pegawai->jabatan_struktural_id = $model->new_jabatan_struktural_id;
-                $pegawai->jabatan_fu_id = $model->new_jabatan_fu_id;
-                $pegawai->jabatan_ft_id = $model->new_jabatan_ft_id;
-                $pegawai->unit_kerja_id = $model->new_unit_kerja_id;
-                $pegawai->save();
+//                $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
+//                if ($pegawai->jabatan_struktural_id != 0) {
+//                    $jabatan = JabatanStruktural::model()->findByPk($pegawai->jabatan_struktural_id);
+//                    $jabatan->status = 0;
+//                    $jabatan->saveNode();
+//                    $pegawai->tmt_jabatan_struktural = $model->tmt;
+//                } elseif ($pegawai->jabatan_fu_id != 0) {
+//                    $jabatan = JabatanFu::model()->findByPk($pegawai->jabatan_fu_id);
+//                    $jabatan->status = 0;
+//                    $jabatan->saveNode();
+//                    $pegawai->tmt_jabatan_fu = $model->tmt;
+//                } elseif ($pegawai->jabatan_ft_id != 0) {
+//                    $jabatan = JabatanFt::model()->findByPk($pegawai->jabatan_ft_id);
+//                    $jabatan->status = 0;
+//                    $jabatan->saveNode();
+//                    $pegawai->tmt_jabatan_ft = $model->tmt;
+//                }
+//                $pegawai->tipe_jabatan = $model->new_tipe_jabatan;
+//                $pegawai->jabatan_struktural_id = $model->new_jabatan_struktural_id;
+//                $pegawai->jabatan_fu_id = $model->new_jabatan_fu_id;
+//                $pegawai->jabatan_ft_id = $model->new_jabatan_ft_id;
+//                $pegawai->unit_kerja_id = $model->new_unit_kerja_id;
+//                $pegawai->save();
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -204,25 +208,111 @@ class PermohonanMutasiController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        } else
+        }
+        else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
     /**
      * Lists all models.
      */
+    public function actionOtoritas() {
+//        logs(implode(',', $_POST['id']));
+        if (isset($_POST['ceckbox'])) {
+            $id = $_POST['ceckbox'];
+            if (isset($_POST['otoritas'])) {
+                $model = PermohonanMutasi::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ')'));
+                foreach ($model as $a) {
+                    Pegawai::model()->updateAll(array(
+                        'tipe_jabatan'=>$a->new_tipe_jabatan,
+                        'jabatan_struktural_id'=>$a->new_jabatan_struktural_id,
+                        'jabatan_fu_id'=>$a->new_jabatan_fu_id,
+                        'jabatan_ft_id'=>$a->new_jabatan_ft_id,
+                        'unit_kerja_id'=>$a->new_unit_kerja_id,
+                        ),'id='.$a->pegawai_id);
+                    
+                    $pegawai = Pegawai::model()->findByPk($a->pegawai_id);
+                if ($pegawai->jabatan_struktural_id != 0) {
+                    JabatanStruktural::model()->updateAll(array('status'=>0),'id='.$pegawai->jabatan_struktural_id);
+                    Pegawai::model()->updateAll(array('tmt_jabatan_struktural'=>$a->tmt),'id='.$a->pegawai_id);
+//                    $jabatan = JabatanStruktural::model()->findByPk($pegawai->jabatan_struktural_id);
+//                    $jabatan->status = 0;
+//                    $jabatan->saveNode();
+//                    $pegawai->tmt_jabatan_struktural = $a->tmt;
+                } elseif ($pegawai->jabatan_fu_id != 0) {
+                    JabatanFu::model()->updateAll(array('status'=>0),'id='.$pegawai->jabatan_fu_id);
+                    Pegawai::model()->updateAll(array('tmt_jabatan_fu'=>2015-04-12),'id='.$a->pegawai_id);
+//                    $jabatan = JabatanFu::model()->findByPk($pegawai->jabatan_fu_id);
+//                    $jabatan->status = 0;
+//                    $jabatan->saveNode();
+//                    $pegawai->tmt_jabatan_fu = $a->tmt;
+                } elseif ($pegawai->jabatan_ft_id != 0) {
+                    JabatanFt::model()->updateAll(array('status'=>0),'id='.$pegawai->jabatan_ft_id);
+                    Pegawai::model()->updateAll(array('tmt_jabatan_ft'=>$a->tmt),'id='.$a->pegawai_id);
+//                    $jabatan = JabatanFt::model()->findByPk($pegawai->jabatan_ft_id);
+//                    $jabatan->status = 0;
+//                    $jabatan->saveNode();
+//                    $pegawai->tmt_jabatan_ft = $a->tmt;
+                }
+//                $pegawai->tipe_jabatan = $a->new_tipe_jabatan;
+//                $pegawai->jabatan_struktural_id = $a->new_jabatan_struktural_id;
+//                $pegawai->jabatan_fu_id = $a->new_jabatan_fu_id;
+//                $pegawai->jabatan_ft_id = $a->new_jabatan_ft_id;
+//                $pegawai->unit_kerja_id = $a->new_unit_kerja_id;
+//                $pegawai->save();
+                
+                // change status
+                    $a->status = 2;
+                    $a->save();
+                }
+                user()->setFlash('info', 'Data is update now.');
+                $this->redirect(array('permohonanMutasi/index'));
+            } else {
+                PermohonanMutasi::model()->deleteAll('id IN (' . implode(',', $_POST['ceckbox']) . ')');
+                user()->setFlash('danger', '<strong>Attention! </strong>Data is deleted.');
+                $this->redirect(array('permohonanMutasi/index'));
+            }
+            
+        } else {
+            user()->setFlash('danger', '<strong>Error! </strong>Please chekked article and then choose the button.');
+            $this->redirect(array('permohonanMutasi/index'));
+        }
+    }
     public function actionIndex() {
 
         $model = new PermohonanMutasi('search');
         $model->unsetAttributes();  // clear any default values
+//        if (isset($_POST['action']) && isset($_POST['ceckbox'])) {
+//            if ($_POST['action'] == 'del') {
+//                foreach ($_POST['ceckbox'] as $data) {
+//                    $a = $this->loadModel($data);
+//                    if (!empty($a)) {
+//                        
+//                    }
+//                    $a->delete();
+//                }
+//            } else {
+//                foreach ($_POST['ceckbox'] as $data) {
+//                    $model = $this->loadModel($data);
+//                    $pegawai = Pegawai::model()->findByPk($data);
+////                if (!empty($$model)){
+//                    //change for pegawai
+//                    $pegawai->tipe_jabatan = $model->new_tipe_jabatan;
+//                    $pegawai->jabatan_struktural_id = $model->new_jabatan_struktural_id;
+//                    $pegawai->jabatan_fu_id = $model->new_jabatan_fu_id;
+//                    $pegawai->jabatan_ft_id = $model->new_jabatan_ft_id;
+//                    $pegawai->unit_kerja_id = $model->new_unit_kerja_id;
+//                    $pegawai->save();
+//
+//                    //chage status
+//                    $model->status = 1;
+//                    $model->save();
+////                }
+//                }
+//            }
+//        }
 
-        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-            foreach ($_POST['ceckbox'] as $data) {
-                $a = $this->loadModel($data);
-                if (!empty($a))
-                    $a->delete();
-            }
-        }
+
 
         if (isset($_GET['PermohonanMutasi'])) {
             $model->attributes = $_GET['PermohonanMutasi'];

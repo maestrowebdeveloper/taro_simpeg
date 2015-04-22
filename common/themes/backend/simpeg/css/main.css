@@ -110,7 +110,7 @@ body {
 
 /*Error pages style*/
 body.errorPage, body.loginPage {
-    background: url(../images/patterns/2.png) repeat;
+    background: url(../images/patterns/7.png) repeat;
 }
 .errorContainer {
     background: url(../images/patterns/6.png) repeat;

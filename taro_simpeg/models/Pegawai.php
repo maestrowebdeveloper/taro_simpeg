@@ -84,6 +84,7 @@ class Pegawai extends CActiveRecord {
             'bpjs' => 'BPJS/ASKES/KIS',
             'npwp' => 'No. NPWP',
             'kpe' => 'KPE',
+            'karpeg' => 'Kartu Pegawai',
             'keterangan' => 'Keterangan',
             'no_taspen' => 'No. TASPEN',
             'foto' => 'Foto',
@@ -274,7 +275,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getLastEdit() {
-        return (!empty($this->LastEdit->name)) ? $this->modified . ' By ' . $this->LastEdit->name : '-';
+        return (!empty($this->LastEdit->name)) ? date('d-M-Y, H:i', strtotime($this->modified)) . ' Oleh ' . $this->LastEdit->name : '-';
     }
 
     public function getNamaGolongan() {
@@ -346,7 +347,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getSmallFoto() {
-        return '<img style="width:98px;height:98px" src="' . $this->imgUrl['small'] . '" class="img-polaroid"/>';
+        return '<img style="width:40px;height:40px" src="' . $this->imgUrl['small'] . '" class="img-polaroid"/>';
     }
 
     public function getTinyFoto() {
