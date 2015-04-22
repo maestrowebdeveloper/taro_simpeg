@@ -193,7 +193,7 @@ class PegawaiController extends Controller {
         if (!empty($model)) {
             $data['id'] = $model->id;
             $data['tipe'] = $model->tipe;
-            $data['jabatan'] = $model->jabatan;
+            $data['jabatan'] = $model->jabatanPegawai;
             $data['tmt'] = $model->tmt_mulai;
             $data['status'] = $model->statusjabatan;
             echo json_encode($data);

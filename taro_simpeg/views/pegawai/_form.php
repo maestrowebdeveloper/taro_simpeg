@@ -148,6 +148,9 @@
                             echo $form->datepickerRow(
                                     $model, 'tanggal_lahir', array('value' => str_replace("0000-00-00", "", $model->tanggal_lahir),
                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                'events' => array('changeDate' => 'js:function(){
+                                                                pensiun();
+                                                         }'),
                                 'prepend' => '<i class="icon-calendar"></i>',
                                     )
                             );
@@ -292,6 +295,13 @@
                             echo $form->datepickerRow(
                                     $model, 'tmt_pns', array('value' => str_replace("0000-00-00", "", $model->tmt_pns),
                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                'prepend' => '<i class="icon-calendar"></i>',
+                                    )
+                            );
+                            ?>
+                            <?php
+                            echo $form->textfieldRow(
+                                    $model, 'tmt_pensiun', array('value' => str_replace("0000-00-00", "", $model->tmt_pensiun), 'readonly' => true,
                                 'prepend' => '<i class="icon-calendar"></i>',
                                     )
                             );
@@ -850,20 +860,19 @@ $this->beginWidget(
 
     function pensiun() {
         var lahir = new Date($("#Pegawai_tanggal_lahir").val());
-        var tipe = $('input[name="Pegawai[tipe_jabatan]"]:checked').val();
+        var tipe = $('#riwayatTipeJabatan').val();
         var masa_kerja = 0;
-        if (tipe == 'struktural') {
-            if ($("#masa_kerja").val() == '')
-                masa_kerja = 0
-            else
-                masa_kerja = parseInt($("#masa_kerja").val());
-        } else if (tipe == 'fungsional_umum') {
+        if (tipe == 'Struktural') {
             masa_kerja = 58;
-        } else if (tipe == 'fungsional_tertentu') {
+        } else if (tipe == 'Fungsional Umum') {
+            masa_kerja = 58;
+        } else if (tipe == 'Fungsional Tertentu') {
             masa_kerja = 60;
         }
         var kalkulasi = new Date(new Date(lahir).setYear(lahir.getFullYear() + masa_kerja));
-        var pensiun = kalkulasi.getFullYear() + '-' + kalkulasi.getMonth() + '-' + kalkulasi.getDate();
+        var bulan = kalkulasi.getMonth() + 1;
+        var tanggal = kalkulasi.getDate();
+        var pensiun = kalkulasi.getFullYear() + '-' + ('0' + bulan).substr(-2, 2) + '-' + ('0' + tanggal).substr(-2, 2);
         $("#Pegawai_tmt_pensiun").val(pensiun)
     }
 </script>
