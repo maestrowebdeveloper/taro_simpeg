@@ -107,7 +107,8 @@ class RiwayatJabatan extends CActiveRecord {
         $criteria->compare('Pegawai.nip', $this->id, true);
         $criteria->compare('nomor_register', $this->nomor_register, true);
         $criteria->compare('Pegawai.nama', $this->pegawai_id, true);
-        $criteria->compare('t.tipe_jabatan', $this->tipe_jabatan, true);
+        $criteria->compare('t.tipe_jabatan', $this->tipe_jabatan, true, 'OR');
+        $criteria->compare('JabatanFt.type', $this->tipe_jabatan, true, 'OR');
 
 //        if ($this->tipe_jabatan == "struktural") {
         $criteria->compare('JabatanStruktural.nama', $this->jabatan, true, 'OR');
@@ -115,7 +116,6 @@ class RiwayatJabatan extends CActiveRecord {
         $criteria->compare('JabatanFu.nama', $this->jabatan, true, 'OR');
 //        } else if ($this->tipe_jabatan == "fungsional_tertentu") {
         $criteria->compare('JabatanFt.nama', $this->jabatan, true, 'OR');
-//        }
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'sort' => array('defaultOrder' => 'tmt_mulai DESC')
