@@ -1,6 +1,6 @@
 <?php
 
-class JabatanFungsionalController extends Controller {
+class TransferCpnsController extends Controller {
 
     public $breadcrumbs;
 
@@ -53,29 +53,78 @@ class JabatanFungsionalController extends Controller {
         $this->actionUpdate($id);
     }
 
+    public function actionTransfer() {
+//        logs(implode(',', $_POST['id']));
+        if (isset($_POST['ceckbox'])) {
+            
+            if (isset($_POST['transfer'])) {
+                $id = $_POST['ceckbox'];
+//                print_r($_POST['ceckbox']);
+                $model = TransferCpns::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ')'));
+                print_r($model);
+                foreach ($model as $data) {
+                    // update kesehatan di pegawai
+                    Pegawai::model()->updateAll(array(
+                        'nomor_kesehatan' => $data->nomor_kesehatan,
+                        'tanggal_kesehatan' => $data->tanggal_kesehatan
+                            ), 'id=' . $data->pegawai_id);
+
+                    // add riwayat diklat
+                    $diklat = new RiwayatPelatihan;
+                    $diklat->nomor_sttpl = $data->nomor_diklat;
+                    $diklat->pelatihan_id = $data->pelatihan_id;
+                    $diklat->tanggal = $data->tanggal_diklat;
+                    $diklat->pegawai_id = $data->pegawai_id;
+                    $diklat->save();
+                    
+                    TransferCpns::model()->updateAll(array(
+                        'status' => 2,
+                            ), 'id=' . $data->id);
+                    
+                }
+                user()->setFlash('danger', '<strong>Attention! </strong>Data is transfered.');
+                    $this->redirect(array('transferCpns/index'));
+            } else {
+                TransferCpns::model()->deleteAll('id IN (' . implode(',', $_POST['ceckbox']) . ')');
+                user()->setFlash('danger', '<strong>Attention! </strong>Data is deleted.');
+                $this->redirect(array('transferCpns/index'));
+            }
+        }
+    }
+
+    public function actionGetNilai() {
+        $id = $_POST['id'];
+        $model = Pegawai::model()->findByPk($id);
+        $return['id'] = $id;
+        $return['nip'] = $model->nip;
+        $return['nama'] = $model->nama;
+        $return['jenis_kelamin'] = $model->jenis_kelamin;
+        $return['unit_kerja'] = $model->unitKerja;
+        $return['masa_kerja'] = $model->masaKerja;
+        $return['tempat_lahir'] = $model->tempatLahir;
+        $return['tanggal_lahir'] = $model->tanggal_lahir;
+        $return['pendidikan_terakhir'] = $model->pendidikan_terakhir;
+        $return['tahun_pendidikan'] = $model->tahun_pendidikan;
+        $return['golru'] = $model->golongan;
+        $return['tmt'] = $model->tmt_cpns;
+        $return['jabatan'] = $model->jabatan;
+        echo json_encode($return);
+    }
+
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $model = new JabatanFungsional;
+        $model = new TransferCpns;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['JabatanFungsional'])) {
-            $model->attributes = $_POST['JabatanFungsional'];
-            if ($model->save()) {
-                if (isset($_POST['golongan_id'])) {
-                    for ($i = 0; $i <= count(['golongan_id']); $i++) {
-                        $det = new DetailJf;
-                        $det->jabatan_fungsional_id = $model->id;
-                        $det->golongan_id = $_POST['golongan_id'][$i];
-                        $det->save();
-                    }
-                    $this->redirect(array('view', 'id' => $model->id));
-                }
-            }
+        if (isset($_POST['TransferCpns'])) {
+            $model->attributes = $_POST['TransferCpns'];
+            if ($model->save())
+                $this->redirect(array('view', 'id' => $model->id));
         }
 
         $this->render('create', array(
@@ -94,8 +143,8 @@ class JabatanFungsionalController extends Controller {
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['JabatanFungsional'])) {
-            $model->attributes = $_POST['JabatanFungsional'];
+        if (isset($_POST['TransferCpns'])) {
+            $model->attributes = $_POST['TransferCpns'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }
@@ -118,7 +167,8 @@ class JabatanFungsionalController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        } else
+        }
+        else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -126,47 +176,44 @@ class JabatanFungsionalController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-            foreach ($_POST['ceckbox'] as $data) {
-            	$a = JabatanFungsional::model()->findByPk($data);
-            	if(!empty($a))
-            		$a->delete();	            		
-            }	            
-        }
 
-        $model = new JabatanFungsional('search');
+        $model = new TransferCpns('search');
         $model->unsetAttributes();  // clear any default values
 
-        if (isset($_GET['JabatanFungsional'])) {
-            $model->attributes = $_GET['JabatanFungsional'];
+        if (isset($_GET['TransferCpns'])) {
+            $model->attributes = $_GET['TransferCpns'];
 
 
             if (!empty($model->id))
                 $criteria->addCondition('id = "' . $model->id . '"');
 
 
-            if (!empty($model->nama))
-                $criteria->addCondition('nama = "' . $model->nama . '"');
+            if (!empty($model->pegawai_id))
+                $criteria->addCondition('pegawai_id = "' . $model->pegawai_id . '"');
 
 
-            if (!empty($model->keterangan))
-                $criteria->addCondition('keterangan = "' . $model->keterangan . '"');
+            if (!empty($model->nomor_kesehatan))
+                $criteria->addCondition('nomor_kesehatan = "' . $model->nomor_kesehatan . '"');
 
 
-            if (!empty($model->golongan_id))
-                $criteria->addCondition('golongan_id = "' . $model->golongan_id . '"');
+            if (!empty($model->tanggal_kesehatan))
+                $criteria->addCondition('tanggal_kesehatan = "' . $model->tanggal_kesehatan . '"');
 
 
-            if (!empty($model->jabatan_ft_id))
-                $criteria->addCondition('jabatan_ft_id = "' . $model->jabatan_ft_id . '"');
+            if (!empty($model->pelatihan_id))
+                $criteria->addCondition('pelatihan_id = "' . $model->pelatihan_id . '"');
 
 
-            if (!empty($model->created))
-                $criteria->addCondition('created = "' . $model->created . '"');
+            if (!empty($model->nomor_diklat))
+                $criteria->addCondition('nomor_diklat = "' . $model->nomor_diklat . '"');
 
 
-            if (!empty($model->modified))
-                $criteria->addCondition('modified = "' . $model->modified . '"');
+            if (!empty($model->tanggal_diklat))
+                $criteria->addCondition('tanggal_diklat = "' . $model->tanggal_diklat . '"');
+
+
+            if (!empty($model->status))
+                $criteria->addCondition('status = "' . $model->status . '"');
         }
 
         $this->render('index', array(
@@ -180,7 +227,7 @@ class JabatanFungsionalController extends Controller {
      * @param integer the ID of the model to be loaded
      */
     public function loadModel($id) {
-        $model = JabatanFungsional::model()->findByPk($id);
+        $model = TransferCpns::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
@@ -191,7 +238,7 @@ class JabatanFungsionalController extends Controller {
      * @param CModel the model to be validated
      */
     protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'jabatan-fungsional-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'transfer-cpns-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
