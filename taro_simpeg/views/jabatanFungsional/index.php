@@ -54,9 +54,14 @@ $this->endWidget();
 		'id',
 		'nama',
 		'keterangan',
-		'jabatan_ft_id',
-		'created',
+		array(
+                    'name' => 'jabatan_ft_id',
+                    'header' => 'Jabatan Fungsional',
+                    'value' => '$data->jabatanft'
+                    
+                ),
 		/*
+                'created',
 		'modified',
 		*/
        array(
