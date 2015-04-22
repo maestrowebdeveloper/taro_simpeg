@@ -20,6 +20,8 @@
  */
 class RiwayatJabatan extends CActiveRecord {
 
+    public $jabatan;
+
     /**
      * @return string the associated database table name
      */
@@ -42,7 +44,7 @@ class RiwayatJabatan extends CActiveRecord {
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, nomor_register, pegawai_id, tipe_jabatan, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, nama_jabatan, tmt_mulai, tmt_selesai, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, nomor_register, pegawai_id, jabatan, tipe_jabatan, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, nama_jabatan, tmt_mulai, tmt_selesai, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -98,24 +100,22 @@ class RiwayatJabatan extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+//        $criteria->select = new CDbExpression('nomor_register, tipe_jabatan, Pegawai.nip, Pegawai.nama, CONCAT(JabatanStruktural.nama,"",JabatanFu.nama,"",JabatanFt.nama) jabatan');
         $criteria->with = array('Pegawai', 'JabatanStruktural', 'JabatanFt', 'JabatanFu');
         $criteria->together = true;
-
 
         $criteria->compare('Pegawai.nip', $this->id, true);
         $criteria->compare('nomor_register', $this->nomor_register, true);
         $criteria->compare('Pegawai.nama', $this->pegawai_id, true);
         $criteria->compare('t.tipe_jabatan', $this->tipe_jabatan, true);
-        $criteria->compare('JabatanStruktural.nama', $this->jabatan_struktural_id, true);
-        $criteria->compare('JabatanFu.nama', $this->jabatan_fu_id, true);
-        $criteria->compare('JabatanFt.nama', $this->jabatan_ft_id, true);
-        $criteria->compare('nama_jabatan', $this->nama_jabatan, true);
-        $criteria->compare('tmt_mulai', $this->tmt_mulai, true);
-        $criteria->compare('tmt_selesai', $this->tmt_selesai, true);
-        $criteria->compare('created', $this->created, true);
-        $criteria->compare('created_user_id', $this->created_user_id);
-        $criteria->compare('modified', $this->modified, true);
 
+//        if ($this->tipe_jabatan == "struktural") {
+        $criteria->compare('JabatanStruktural.nama', $this->jabatan, true, 'OR');
+//        } else if ($this->tipe_jabatan == "fungsional_umum") {
+        $criteria->compare('JabatanFu.nama', $this->jabatan, true, 'OR');
+//        } else if ($this->tipe_jabatan == "fungsional_tertentu") {
+        $criteria->compare('JabatanFt.nama', $this->jabatan, true, 'OR');
+//        }
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'sort' => array('defaultOrder' => 'tmt_mulai DESC')
@@ -145,7 +145,7 @@ class RiwayatJabatan extends CActiveRecord {
     public function getStatusjabatan() {
         if ($this->tipe_jabatan == "struktural") {
             $status = (!empty($this->JabatanStruktural->status)) ? $this->JabatanStruktural->status : '0';
-        }else{
+        } else {
             $status = 0;
         }
         return $status;
@@ -155,7 +155,15 @@ class RiwayatJabatan extends CActiveRecord {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
     }
 
-    public function getJabatan() {
+    public function getTipeJabatan() {
+        if ($this->tipe_jabatan == "fungsional_tertentu") {
+            return (!empty($this->JabatanFt->type)) ? $this->JabatanFt->type : '-';
+        }else{
+            return str_replace("_", " ", $this->tipe_jabatan);
+        }
+    }
+
+    public function getJabatanPegawai() {
         if ($this->tipe_jabatan == "struktural") {
             return (!empty($this->JabatanStruktural->nama)) ? $this->JabatanStruktural->nama : '-';
         } elseif ($this->tipe_jabatan == "fungsional_umum") {
