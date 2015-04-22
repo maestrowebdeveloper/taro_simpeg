@@ -546,7 +546,7 @@
                                         </span>
                                     </div>
                                     <div class="input-append span1">
-                                        <?php echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span8', 'onkeyup' => 'if($(this).val() <= 12 && $(this).val() >= -12){ getMasaKerja(); }else{ alert("Masukkan angka -12 sampai 12"); }')); ?>    
+                                        <?php echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span8', 'onkeyup' => 'getMasaKerja();')); ?>    
                                         <span class="add-on">
                                             Bulan
                                         </span>
