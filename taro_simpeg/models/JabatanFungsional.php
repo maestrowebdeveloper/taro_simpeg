@@ -48,12 +48,18 @@ class JabatanFungsional extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
                     'DetailJf' => array(self::HAS_MANY, 'DetailJf', 'jabatan_fungsional_id'),
+                    'JabatanFt' => array(self::BELONGS_TO, 'JabatanFt', 'jabatan_ft_id'),
 		);
 	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
+        
+        public function getJabatanft(){
+            return (!empty($this->JabatanFt->nama)) ? $this->JabatanFt->nama : '-';
+        }
+        
 	public function attributeLabels()
 	{
 		return array(

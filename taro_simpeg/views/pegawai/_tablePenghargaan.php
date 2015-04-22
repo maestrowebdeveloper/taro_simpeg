@@ -14,6 +14,7 @@ if(!empty($edit)){
         <th>Penghargaan</th>
         <th>Nomor Register</th>
         <th>Tanggal Pemberian</th>
+        <th>Pejabat</th>
         <th>Keterangan</th>   
         <?php echo $th;?>      
     </thead>
@@ -31,6 +32,7 @@ if(!empty($edit)){
                 <td>'.$value->penghargaan.'</td>
                 <td>'.$value->nomor_register.'</td>
                 <td>'.$value->tanggal_pemberian.'</td>
+                <td>'.$value->pejabat.'</td>
                 <td>'.$value->keterangan.'</td>      
                 '.$action.'               
                 </tr>

@@ -31,8 +31,7 @@ $this->widget('bootstrap.widgets.TbMenu', array(
 		array('label'=>'Tambah', 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
                 array('label'=>'List Data', 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('index'),'active'=>true, 'linkOptions'=>array()),
 		array('label'=>'Pencarian', 'icon'=>'icon-search', 'url'=>'#', 'linkOptions'=>array('class'=>'search-button')),
-        array('label' => 'Export ke Excel', 'icon' => 'icon-download', 'url' => Yii::app()->controller->createUrl('GenerateExcel'), 'linkOptions' => array('target' => '_blank'), 'visible' => true),
-	),
+       ),
 ));
 $this->endWidget();
 ?>
@@ -99,7 +98,12 @@ $this->endWidget();
         array(
             'name' => 'eselon_id',
             'value' => '$data->eselon',            
-        ),			
+        ),
+        array(
+            'header' => 'Nama Pegawai',
+            'name' => 'status',
+            'value' => '$data->pegawai',            
+        ),
        array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
 			'template' => '{view} {update} {delete}',

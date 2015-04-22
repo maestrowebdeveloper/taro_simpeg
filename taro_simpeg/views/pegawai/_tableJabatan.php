@@ -9,7 +9,7 @@
         $th = '<th style="width:125px"></th>';
     }
     ?>
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="tableJabatan">
         <thead>
         <th>No. Register</th>
         <th>Jabatan</th>
@@ -25,7 +25,7 @@
                     $action = '<td style="width: 85px;text-align:center">
                         <a class="btn btn-small update editJabatan" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" title="Edit" rel="tooltip" ><i class="icon-pencil"></i></a> 
                         <a class="btn btn-small delete deleteJabatan" title="Hapus" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-trash"></i></a>
-                        <a class="btn btn-small pilih selectJabatan" title="Pilih" pegawai="'.$value->pegawai_id.'" id="'.$value->id.'" rel="tooltip" ><i class="icon-ok"></i></a>
+                        <a class="btn btn-small pilih selectJabatan" title="Pilih" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-ok"></i></a>
                         </td>';
 
                 $eselon = '-';
@@ -33,13 +33,13 @@
                 if ($value->tipe_jabatan == "struktural") {
                     $jabatan = $value->JabatanStruktural->nama;
                     $tmt_jabatan = $value->tmt_mulai;
-                    $eselon = (!empty($value->JabatanStruktural->Eselon->nama))?$value->JabatanStruktural->Eselon->nama:'-';
+                    $eselon = (!empty($value->JabatanStruktural->Eselon->nama)) ? $value->JabatanStruktural->Eselon->nama : '-';
                     $tmt_eselon = $value->tmt_eselon;
                 } else if ($value->tipe_jabatan == "fungsional_umum") {
-                    $jabatan = $value->JabatanFu->nama;
+                    $jabatan = (isset($value->JabatanFu->nama)) ? $value->JabatanFu->nama : '';
                     $tmt_jabatan = $value->tmt_mulai;
                 } else if ($value->tipe_jabatan == "fungsional_tertentu") {
-                    $jabatan = $value->JabatanFt->nama;
+                    $jabatan = (isset($value->JabatanFt->nama)) ? $value->JabatanFt->nama : '';
                     $tmt_jabatan = $value->tmt_mulai;
                 }
                 echo '
@@ -73,29 +73,36 @@
     $(".deleteJabatan").click(function () {
         $.ajax({
             url: "<?php echo url('pegawai/deleteJabatan'); ?>",
-            data: "id=" + $(this).attr("id") + "&pegawai=" + $(this).attr("pegawai"),
+            data: "id=" + $(this).attr("id") + "&pegawai=" + $(this).attr("pegawai") + "&riwayat_jabatan_pegawai=" + $("#Pegawai_riwayat_jabatan_id").val(),
             type: "post",
             success: function (data) {
-                //$("#tableJabatan").replaceWith(data);
-                $(".modal-body").html(data);
-                    $("#modalForm").modal("show");
+                obj = JSON.parse(data);
+                $(".modal-body").html(obj.body);
+                if (obj.default == 1) {
+                    $("#riwayatTipeJabatan").val("-");
+                    $("#riwayatNamaJabatan").val("-");
+                    $("#riwayatTmtJabatan").val("-");
+                }
             }
         });
     });
-
-    $(".selectJabatan").click(function(){
-            $.ajax({                                  
-                url:"<?php echo url('pegawai/selectJabatan');?>",
-                data:"id="+$(this).attr("id")+"&pegawai="+$(this).attr("pegawai"),
-                type:"post",
-                success:function(data){         
-                    obj = JSON.parse(data);                            
+    $(".selectJabatan").click(function () {
+        $.ajax({
+            url: "<?php echo url('pegawai/selectJabatan'); ?>",
+            data: "id=" + $(this).attr("id") + "&pegawai=" + $(this).attr("pegawai"),
+            type: "post",
+            success: function (data) {
+                obj = JSON.parse(data);
+//                if (obj.status == "1") {
+//                    alert("Jabatan telah diemban oleh orang lain");
+//                } else {
                     $("#Pegawai_riwayat_jabatan_id").val(obj.id);
                     $("#riwayatTipeJabatan").val(obj.tipe);
-                    $("#riwayatNamaJabatan").val(obj.jabatan);  
-                    $("#riwayatTmtJabatan").val(obj.tmt);  
-                    $("#modalForm").modal("hide");                  
-                }
-            });            
-        }); 
+                    $("#riwayatNamaJabatan").val(obj.jabatan);
+                    $("#riwayatTmtJabatan").val(obj.tmt);
+                    $("#modalForm").modal("hide");
+//                }
+            }
+        });
+    });
 </script>

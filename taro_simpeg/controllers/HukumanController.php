@@ -193,19 +193,19 @@ class HukumanController extends Controller
 		}
 	}
 
-	public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
-
-        if (isset($session['Hukuman_records'])) {
-            $model = $session['Hukuman_records'];
-        } else
-            $model = Hukuman::model()->findAll();
-
-
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
-                        ), true)
-        );
-    }
+//	public function actionGenerateExcel() {
+//        $session = new CHttpSession;
+//        $session->open();
+//
+//        if (isset($session['Hukuman_records'])) {
+//            $model = $session['Hukuman_records'];
+//        } else
+//            $model = Hukuman::model()->findAll();
+//
+//
+//        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+//                    'model' => $model
+//                        ), true)
+//        );
+//    }
 }

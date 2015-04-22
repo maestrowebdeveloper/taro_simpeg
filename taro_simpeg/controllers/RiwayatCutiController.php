@@ -1,6 +1,6 @@
 <?php
 
-class EselonController extends Controller
+class RiwayatCutiController extends Controller
 {
         public $breadcrumbs;
 	/**
@@ -22,19 +22,19 @@ class EselonController extends Controller
             return array(
                 array('allow', // c
                     'actions' => array('index', 'create'),
-                    'expression' => 'app()->controller->isValidAccess("eselon","c")'
+                    'expression' => 'app()->controller->isValidAccess(1,"c")'
                 ),
                 array('allow', // r
                     'actions' => array('index', 'view'),
-                    'expression' => 'app()->controller->isValidAccess("eselon","r")'
+                    'expression' => 'app()->controller->isValidAccess(1,"r")'
                 ),
                 array('allow', // u
                     'actions' => array('index', 'update'),
-                    'expression' => 'app()->controller->isValidAccess("eselon","u")'
+                    'expression' => 'app()->controller->isValidAccess(1,"u")'
                 ),
                 array('allow', // d
                     'actions' => array('index', 'delete'),
-                    'expression' => 'app()->controller->isValidAccess("eselon","d")'
+                    'expression' => 'app()->controller->isValidAccess(1,"d")'
                 )
             );
         }
@@ -59,14 +59,14 @@ class EselonController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Eselon;
+		$model=new RiwayatCuti;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Eselon']))
+		if(isset($_POST['RiwayatCuti']))
 		{
-			$model->attributes=$_POST['Eselon'];
+			$model->attributes=$_POST['RiwayatCuti'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -88,9 +88,9 @@ class EselonController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Eselon']))
+		if(isset($_POST['RiwayatCuti']))
 		{
-			$model->attributes=$_POST['Eselon'];
+			$model->attributes=$_POST['RiwayatCuti'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -125,42 +125,34 @@ class EselonController extends Controller
 	 */
 	public function actionIndex()
 	{        
-                $model=new Eselon('search');
+
+                $model=new RiwayatCuti('search');
                 $model->unsetAttributes();  // clear any default values
 
-                if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-		            foreach ($_POST['ceckbox'] as $data) {
-		                $this->loadModel($data)->delete();                            
-		            }               
-		        }
-
-                if(isset($_GET['Eselon']))
+                if(isset($_GET['RiwayatCuti']))
 		{
-                        $model->attributes=$_GET['Eselon'];
+                        $model->attributes=$_GET['RiwayatCuti'];
 			
                    	
                        if (!empty($model->id)) $criteria->addCondition('id = "'.$model->id.'"');
                      
                     	
-                       if (!empty($model->nama)) $criteria->addCondition('nama = "'.$model->nama.'"');
+                       if (!empty($model->pegawai_id)) $criteria->addCondition('pegawai_id = "'.$model->pegawai_id.'"');
                      
                     	
-                       if (!empty($model->keterangan)) $criteria->addCondition('keterangan = "'.$model->keterangan.'"');
+                       if (!empty($model->jenis_cuti)) $criteria->addCondition('jenis_cuti = "'.$model->jenis_cuti.'"');
                      
                     	
-                       if (!empty($model->level)) $criteria->addCondition('level = "'.$model->level.'"');
+                       if (!empty($model->no_sk)) $criteria->addCondition('no_sk = "'.$model->no_sk.'"');
                      
                     	
-                       if (!empty($model->lft)) $criteria->addCondition('lft = "'.$model->lft.'"');
+                       if (!empty($model->tanggal_sk)) $criteria->addCondition('tanggal_sk = "'.$model->tanggal_sk.'"');
                      
                     	
-                       if (!empty($model->rgt)) $criteria->addCondition('rgt = "'.$model->rgt.'"');
+                       if (!empty($model->mulai_cuti)) $criteria->addCondition('mulai_cuti = "'.$model->mulai_cuti.'"');
                      
                     	
-                       if (!empty($model->root)) $criteria->addCondition('root = "'.$model->root.'"');
-                     
-                    	
-                       if (!empty($model->parent_id)) $criteria->addCondition('parent_id = "'.$model->parent_id.'"');
+                       if (!empty($model->selesai_cuti)) $criteria->addCondition('selesai_cuti = "'.$model->selesai_cuti.'"');
                      
                     	
                        if (!empty($model->created)) $criteria->addCondition('created = "'.$model->created.'"');
@@ -187,7 +179,7 @@ class EselonController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Eselon::model()->findByPk($id);
+		$model=RiwayatCuti::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -199,7 +191,7 @@ class EselonController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='eselon-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='riwayat-cuti-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

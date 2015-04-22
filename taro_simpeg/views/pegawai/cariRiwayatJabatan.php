@@ -48,28 +48,29 @@ $this->widget('bootstrap.widgets.TbMenu', array(
             'htmlOptions' => array('style' => 'text-align: left;')
         ),  
         array(
-            'name' => 'jabatan_struktural_id',
-            'value' => '$data->jabatanStruktural',
+            'name' => 'jabatan',
+            'header' => 'Jabatan',
+            'value' => '$data->jabatan',
             'htmlOptions' => array('style' => 'text-align: left;')
         ),  	
         		
-        array(
-            'name' => 'jabatan_fu_id',
-            'value' => '$data->jabatanFu',
-            'htmlOptions' => array('style' => 'text-align: left;')
-        ),      
-        
-        array(
-            'name' => 'jabatan_ft_id',
-            'value' => '$data->jabatanFt',
-            'htmlOptions' => array('style' => 'text-align: left;')
-        ),      
-        
-        array(
-            'name' => 'tmt_mulai',
-            'value' => '$data->tmt_mulai',
-            'htmlOptions' => array('style' => 'text-align: left;')
-        ),    
+//        array(
+//            'name' => 'jabatan_fu_id',
+//            'value' => '$data->jabatanFu',
+//            'htmlOptions' => array('style' => 'text-align: left;')
+//        ),      
+//        
+//        array(
+//            'name' => 'jabatan_ft_id',
+//            'value' => '$data->jabatanFt',
+//            'htmlOptions' => array('style' => 'text-align: left;')
+//        ),      
+//        
+//        array(
+//            'name' => 'tmt_mulai',
+//            'value' => '$data->tmt_mulai',
+//            'htmlOptions' => array('style' => 'text-align: left;')
+//        ),    
 	
 		
        array(

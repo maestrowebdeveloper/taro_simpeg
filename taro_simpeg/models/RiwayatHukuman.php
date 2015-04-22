@@ -32,13 +32,13 @@ class RiwayatHukuman extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('pegawai_id, hukuman_id,alasan', 'required'),
-			array('nomor_register, tanggal_pemberian, created, created_user_id, modified', 'safe'),
+			array('pegawai_id,pejabat,mulai_sk,selesai_sk, hukuman_id,nomor_register,tingkat_hukuman,tanggal_pemberian', 'required'),
+			array('alasan, created, created_user_id, modified', 'safe'),
 			array('pegawai_id, hukuman_id, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('nomor_register', 'length', 'max'=>225),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pegawai_id, hukuman_id, nomor_register, tanggal_pemberian, alasan, created, created_user_id, modified', 'safe', 'on'=>'search'),
+			array('id,pejabat, pegawai_id,tingkat_hukuman, hukuman_id, nomor_register, tanggal_pemberian, alasan, created, created_user_id, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -50,8 +50,8 @@ class RiwayatHukuman extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'Pegawai' => array(self::BELONGS_TO, 'Pegawai', 'pegawai_id'),
-			'Hukuman' => array(self::BELONGS_TO, 'Hukuman', 'hukuman_id'),
+                    'Pegawai' => array(self::BELONGS_TO, 'Pegawai', 'pegawai_id'),
+            'Hukuman' => array(self::BELONGS_TO, 'Hukuman', 'hukuman_id'),
 		);
 	}
 
@@ -63,9 +63,11 @@ class RiwayatHukuman extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'pegawai_id' => 'Pegawai',
-			'hukuman_id' => 'Hukuman',
-			'nomor_register' => 'Nomor Register',
-			'tanggal_pemberian' => 'Tanggal Pemberian',
+			'hukuman_id' => 'Jenis Hukuman',
+			'tingkat_hukuman' => 'Tingkat Hukuman',
+			'nomor_register' => 'Nomor SK',
+			'pejabat' => 'Pejabat',
+			'tanggal_pemberian' => 'Tanggal SK',
 			'alasan' => 'Alasan',
 			'created' => 'Created',
 			'created_user_id' => 'Created User',
@@ -94,6 +96,9 @@ class RiwayatHukuman extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('pegawai_id',$this->pegawai_id);
 		$criteria->compare('hukuman_id',$this->hukuman_id);
+		$criteria->compare('tingkat_hukuman',$this->tingkat_hukuman);
+		$criteria->compare('mulai_sk',$this->mulai_sk);
+		$criteria->compare('selesai_sk',$this->selesai_sk);
 		$criteria->compare('nomor_register',$this->nomor_register,true);
 		$criteria->compare('tanggal_pemberian',$this->tanggal_pemberian,true);
 		$criteria->compare('alasan',$this->alasan,true);
@@ -123,7 +128,12 @@ class RiwayatHukuman extends CActiveRecord
             $this->created_user_id = Yii::app()->user->id;
         return parent::beforeValidate();
     }
-  
+    
+        public function arrTingkatHukuman() {
+        $agama = array('ringan' => 'Ringan', 'sedang' => 'Sedang', 'berat' => 'Berat');
+        return $agama;
+    }
+    
     public function getPegawai() {        
         return (!empty($this->Pegawai->nama))?$this->Pegawai->nama:'-';
     }

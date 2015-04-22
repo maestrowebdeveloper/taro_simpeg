@@ -4,7 +4,7 @@
             <input id="viewTab" value="PNS" checked="checked" name="view" type="radio">
             <label for="viewTab">View as Tab</label></label>
         <label class="radio"><input id="viewFull" name="view" type="radio">
-            <label for="viewFull">View as Report </label></label>
+            <label for="viewFull">Vimasew as Report </label></label>
     </div>
 
 <?php } ?>
@@ -43,6 +43,7 @@
                             <li><a href="#pelatihan"> R. Diklat</a></li>       
                             <li><a href="#penghargaan"> R. Penghargaan</a></li>       
                             <li><a href="#hukuman"> R. Hukuman</a></li> 
+                            <li><a href="#cuti"> R. Cuti</a></li> 
                             <li><a href="#file"> File</a></li> 
                             ';
                     } else {
@@ -55,6 +56,7 @@
                             <li><a href="#pelatihan"> R. Diklat</a></li>       
                             <li><a href="#penghargaan"> R. Penghargaan</a></li>       
                             <li><a href="#hukuman"> R. Hukuman</a></li> 
+                            <li><a href="#cuti"> R. Cuti</a></li> 
                             <li><a href="#file"> File</a></li> 
                             ';
                     }
@@ -223,6 +225,7 @@
                                 echo $form->radioButtonListRow($model, 'golongan_darah', Pegawai::model()->ArrGolonganDarah());
                             }
                             echo $form->radioButtonListRow($model, 'agama', Pegawai::model()->ArrAgama());
+                            echo $form->textFieldRow($model, 'ket_agama', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->radioButtonListRow($model, 'status_pernikahan', Pegawai::model()->arrStatusPernikahan());
                             ?>
                             <fieldset>
@@ -230,6 +233,7 @@
                             </fieldset>
                             <?php
                             echo $form->textFieldRow($model, 'npwp', array('class' => 'span5', 'maxlength' => 50));
+                            echo $form->textFieldRow($model, 'karpeg', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->textFieldRow($model, 'kpe', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->textFieldRow($model, 'no_taspen', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->textFieldRow($model, 'bpjs', array('class' => 'span5', 'maxlength' => 50));
@@ -499,9 +503,9 @@
                                 <div class="control-group "><label class="control-label" for="jabatan_fungsional_tertentu">Jabatan Fungsional</label>
                                     <div class="controls">
                             <?php
-                            $model->jabatan_ft_id = ($model->isNewRecord == false) ? $model->jabatan_ft_id : 0;
-                            $jabatanFung = JabatanFungsional::model()->find(array('condition' => 'jabatan_ft_id=' . $model->jabatan_ft_id));
-                            echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span5', 'readonly' => true));
+//                            $model->jabatan_ft_id = ($model->isNewRecord == false) ? $model->jabatan_ft_id : 0;
+//                            $jabatanFung = JabatanFungsional::model()->find(array('condition' => 'jabatan_ft_id=' . $model->jabatan_ft_id));
+//                            echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span5', 'readonly' => true));
                             ?>   
                                     </div>
                                 </div>
@@ -515,7 +519,8 @@
                                 $perubahan = json_decode($model->perubahan_masa_kerja, false);
                             }
                             ?>
-                            <div class="control-group "><label class="control-label" for="masaKerja">Masa Kerja</label>
+                            <div class="control-group ">
+                                <label class="control-label" for="masaKerja">Masa Kerja</label>
                                 <div class="controls">
                                     <div class="input-append span1" style="margin-right: 5px;">
                                         <?php echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerjaTahun', 'class' => 'span8', 'disabled' => true)); ?>    
@@ -528,7 +533,12 @@
                                         <span class="add-on">
                                             Bulan
                                         </span>
-                                    </div>
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="perubahanMasaKerja">Penambahan / Pengurangan Masa Kerja</label>
+                                <div class="controls">
                                     <div class="input-append span1" style="margin-right: 5px;">
                                         <?php echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span8', 'onkeyup' => 'getMasaKerja();')); ?>
                                         <span class="add-on">
@@ -542,10 +552,10 @@
                                         </span>
                                     </div>
                                     <input type="hidden" name="Pegawai[id]" value="<?php echo isset($model->id) ? $model->id : ''; ?>">
+                                    <br><br>
+                                    Gunakan tanda (<b>-</b>) untuk mengurangi tahun maupun bulan
                                 </div>
                             </div>
-                            <?php
-                            ?>
                         </div>
                     </div>
                 </div> 
@@ -560,6 +570,7 @@
                     $keluarga = RiwayatKeluarga::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'hubungan DESC'));
                     $pendidikan = RiwayatPendidikan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tahun DESC'));
                     $hukuman = RiwayatHukuman::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_pemberian DESC'));
+                    $cuti = RiwayatCuti::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_sk DESC'));
                     $pelatihan = RiwayatPelatihan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal DESC'));
                     $penghargaan = RiwayatPenghargaan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_pemberian DESC'));
                     $file = File::model()->findAll(array('condition' => 'pegawai_id=' . $model->id));
@@ -592,6 +603,9 @@
                     </div>
                     <div class="tab-pane " id="hukuman">
                         <?php echo $this->renderPartial('_tableHukuman', array('hukuman' => $hukuman, 'edit' => $edit)); ?>                
+                    </div>
+                    <div class="tab-pane " id="cuti">
+                        <?php echo $this->renderPartial('_tableCuti', array('cuti' => $cuti, 'edit' => $edit)); ?>                
                     </div>
                     <div class="tab-pane" id="file">
 
@@ -724,7 +738,14 @@
                     <?php echo $this->renderPartial('_tableHukuman', array('hukuman' => $hukuman)); ?>
                 </td>
             </tr>
-
+            <tr>
+                <th style="background:beige"  colspan="2">RIWAYAT CUTI</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <?php echo $this->renderPartial('_tableCuti', array('cuti' => $cuti)); ?>
+                </td>
+            </tr>
         </table>
     </div>
 <?php } ?>
@@ -899,4 +920,29 @@ $this->beginWidget(
         });
     });
 
+</script>
+<script>
+    $("body").on("click", ".radio", function () {
+
+        var id = $(this).find("input").val();
+        if (id == "Lainnya") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:");
+
+        } else if (id == "Islam") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Hindu") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Katolik") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Protestan") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        } else if (id == "Konghucu") {
+            $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
+            $('#Pegawai_ket_agama').attr("value", "");
+        }
+    });
 </script>
