@@ -96,6 +96,7 @@ $this->endWidget();
         ),
 //		'created',
 		/*
+                'created',
 		'modified',
 		*/
        array(
