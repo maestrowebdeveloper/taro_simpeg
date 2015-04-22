@@ -347,7 +347,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getSmallFoto() {
-        return '<img style="width:98px;height:98px" src="' . $this->imgUrl['small'] . '" class="img-polaroid"/>';
+        return '<img style="width:40px;height:40px" src="' . $this->imgUrl['small'] . '" class="img-polaroid"/>';
     }
 
     public function getTinyFoto() {
