@@ -25,7 +25,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         echo $form->select2Row($model, 'unit_kerja_id', array(
             'asDropDownList' => true,                    
             'data' => $data,
-            'value' => isset($_POST['unit_kerja_id']) ? $_POST['unit_kerja_id'] : '',
+            'value' => isset($_POST['Pegawai']['unit_kerja_id']) ? $_POST['Pegawai']['unit_kerja_id'] : '',
             'options' => array(                        
                 "allowClear" => false,
                 'width' => '50%',
@@ -52,7 +52,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         
            
         </div>
-        <div><?php if (!empty($model->jabatan_fu_id)) { ?>
+        <div><?php if (!empty($_POST['Pegawai'])) { ?>
                 <a onclick="hide()" class="btn btn-small view" title="Remove Form" rel="tooltip"><i class=" icon-remove-circle"></i></a>
             <?php } ?>
         </div>
@@ -73,7 +73,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 
 <?php
-if ( !empty($_POST)) {
+if ( !empty($_POST['Pegawai']['unit_kerja_id'])) {
     $this->renderPartial('_rekapEselon', array('model' => $model));
 }
 ?>

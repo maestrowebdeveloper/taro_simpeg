@@ -1,7 +1,7 @@
 <?php
 $criteria = '';
-if (!empty($_POST['unit_kerja_id']))
-    $criteria .= ' and unit_kerja_id="' . $_POST['unit_kerja_id'] . '"';
+if (!empty($_POST['Pegawai']['unit_kerja_id']))
+    $criteria .= ' and unit_kerja_id="' . $_POST['Pegawai']['unit_kerja_id'] . '"';
 
 if (!empty($_POST['eselon_id'])) {
     $jbt_id = array();
@@ -15,21 +15,15 @@ if (!empty($_POST['eselon_id'])) {
 }
 
 
-$data = Pegawai::model()->findAll(array('condition' => 'id > 0 ' . $criteria, 'limit' => 10));
-
-//print_r($jbt_id);
-//foreach ($data as $val) {
-//    echo $val->nama;
-//}
+$data = Pegawai::model()->findAll(array('condition' => 'tmt_pensiun > "' . date("Y-m-d") . '" ' . $criteria, 'limit' => 10));
 ?>
 
 <div style="text-align: right">
 
     <button class="print entypo-icon-printer button" onclick="printDiv('report')" type="button">&nbsp;&nbsp;Print Report</button>    
-    <a class="btn btn-info pull-right" href="<?php echo url("/suratMasuk/generateExcel"); ?>" target="_blank"><span class="icon16 icomoon-icon-file-excel  white"></span>Export to Excel</a>
 </div>
 <div class="report" id="report" style="width: 100%">
-    <h3 style="text-align:center">REKAPITULASI DATA ESELON</h3><br>
+    <h3 style="text-align:center">REKAPITULASI DATA ESELON</h3>
     <h6  style="text-align:center">Tangga : <?php echo date('d F Y'); ?></h6>
     <hr>
 
@@ -37,8 +31,8 @@ $data = Pegawai::model()->findAll(array('condition' => 'id > 0 ' . $criteria, 'l
         <thead>
             <tr>
                 <th style="width:10px">NO</th>
-                <th class="span1">NAMA</th>
                 <th class="span1">NIP</th>
+                <th class="span1">NAMA</th>
                 <th class="span1">GOL</th>					
                 <th class="span1">JABATAN</th>					
                 <th class="span1">ESELON</th>					
@@ -48,19 +42,24 @@ $data = Pegawai::model()->findAll(array('condition' => 'id > 0 ' . $criteria, 'l
         <tbody>
             <?php
             $no = 1;
-            foreach ($data as $value) {
-                echo '	
+            if (!empty($data)) {
+                foreach ($data as $value) {
+                    $eselon = isset($value->JabatanStruktural->Eselon->nama) ? $value->JabatanStruktural->Eselon->nama : "-";
+                    echo '	
 		<tr>
 			<td>' . $no . '</td>
-			<td>' . $value->nama . '</td>
-			<td>' . $value->nip . '</td>			
+                        <td>' . $value->nip . '</td>	
+			<td>' . $value->nama . '</td>		
 			<td>' . $value->pangkat . '</td>			
-			<td>' . "-" . '</td>			
-			<td>' . "-" . '</td>			
-			<td>' . $value->alamat . ',' . $value->kota . '</td>			
+			<td>' . $value->jabatan . '</td>			
+			<td>' . $eselon . '</td>			
+			<td>' . $value->alamat . '</td>			
 									
 		</tr>';
-                $no++;
+                    $no++;
+                }
+            }else{
+                echo '<tr><td colspan="7">No data results</td></tr>';
             }
             ?>
         </tbody>
