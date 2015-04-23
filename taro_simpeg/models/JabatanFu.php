@@ -36,7 +36,7 @@ class JabatanFu extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nama', 'required'),
-			array(' keterangan, status, level, lft, rgt, root, parent_id, created, created_user_id', 'safe'),
+			array('jabatan_struktural_id, keterangan, status, level, lft, rgt, root, parent_id, created, created_user_id', 'safe'),
 			array('status, level, lft, rgt, root, parent_id, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('nama', 'length', 'max'=>255),
 			array('modified', 'safe'),
@@ -54,6 +54,7 @@ class JabatanFu extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+                    'Bidang' => array(self::BELONGS_TO,'JabatanStruktural','jabatan_struktural_id'),
 		);
 	}
 
@@ -140,6 +141,7 @@ class JabatanFu extends CActiveRecord
             ),
         );
     }
+    
     
     public function getNestedName() {
         return ($this->level == 1) ? $this->nama : str_repeat("|— ", $this->level - 1) . $this->nama;
