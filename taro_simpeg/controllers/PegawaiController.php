@@ -123,6 +123,20 @@ class PegawaiController extends Controller {
         }
         echo json_encode($list);
     }
+    
+    public function actionGetListPegawaicpns() {
+        $name = $_GET["q"];
+        $list = array();
+        $data = Pegawai::model()->findAll(array('condition' => 'nama like "%' . $name . '%" and tmt_pns is null', 'limit' => '10'));
+        if (empty($data)) {
+            $list[] = array("id" => "0", "text" => "No Results Found..");
+        } else {
+            foreach ($data as $val) {
+                $list[] = array("id" => $val->id, "text" => $val->nama);
+            }
+        }
+        echo json_encode($list);
+    }
 
     public function actionSelectPangkat() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
