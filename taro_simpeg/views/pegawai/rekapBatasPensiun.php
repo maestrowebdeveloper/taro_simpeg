@@ -1,8 +1,8 @@
 <?php
-$this->setPageTitle('Rekapitulasi Data Eselon');
+$this->setPageTitle('Rekapitulasi Batas Pensiun');
 $this->breadcrumbs=array(
 	'Pegawai'=>array('index'),
-	'Rekapitulasi Data Eselon',
+	'Rekapitulasi Data Pegawai',
 );
 ?>
 
@@ -24,35 +24,15 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         $data = array('0'=>'- Unit Kerja -')+CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
         echo $form->select2Row($model, 'unit_kerja_id', array(
             'asDropDownList' => true,                    
-            'data' => $data,
-            'value' => isset($_POST['Pegawai']['unit_kerja_id']) ? $_POST['Pegawai']['unit_kerja_id'] : '',
+            'data' => $data,    
             'options' => array(                        
                 "allowClear" => false,
                 'width' => '50%',
             ))
         );
-        ?>
-
-        <div class="control-group">
-                <label class="control-label">Eselon<span class="required">*</span></label>
-                <div class="controls">
-                    <?php
-                    $data = array('0' => '- Eselon -') + CHtml::listData(Eselon::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                    $this->widget(
-                            'bootstrap.widgets.TbSelect2', array(
-                        'name' => 'eselon_id',
-                        'data' => $data,
-                        'value' => isset($_POST['eselon_id']) ? $_POST['eselon_id'] : '',
-                        'options' => array(
-                            'width' => '40%;margin:0px;text-align:left',
-                    )));
-                    ?>                 
-                </div>
-            </div>
-        
-           
+        ?> 
         </div>
-        <div><?php if (!empty($_POST['Pegawai'])) { ?>
+        <div><?php if (!empty($model->unit_kerja_id)) { ?>
                 <a onclick="hide()" class="btn btn-small view" title="Remove Form" rel="tooltip"><i class=" icon-remove-circle"></i></a>
             <?php } ?>
         </div>
@@ -68,13 +48,11 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         ));
         ?>
     </div>
-
     <?php $this->endWidget(); ?>
 
-
 <?php
-if ( !empty($_POST['Pegawai']['unit_kerja_id'])) {
-    $this->renderPartial('_rekapEselon', array('model' => $model));
+if ( !empty($model->unit_kerja_id)) {
+    $this->renderPartial('_rekapBatasPensiun', array('model' => $model));
 }
 ?>
 

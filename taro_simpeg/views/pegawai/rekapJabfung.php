@@ -1,8 +1,8 @@
 <?php
-$this->setPageTitle('Rekapitulasi Data Eselon');
+$this->setPageTitle('Rekapitulasi Data Jabatan Fungsional');
 $this->breadcrumbs=array(
 	'Pegawai'=>array('index'),
-	'Rekapitulasi Data Pegawai',
+	'Rekapitulasi Data Jabatan Fungsional',
 );
 ?>
 
