@@ -74,6 +74,8 @@ if (landa()->checkAccess("permohonanMutasi", 'd'))
 ?>
 <button type="submit" name="delete" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-danger pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Delete Checked</button>
         <button type="submit" name="otoritas" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-info pull-right"><span class="icon16 entypo-icon-publish white"></span> Otoritas Checked </button>
+        <button type="submit" name="otoritasluar" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-warning pull-right"><span class="icon16 entypo-icon-publish white"></span> Otoritas Luar </button>
+        <button type="submit" name="otoritasdalam" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-success pull-right"><span class="icon16 entypo-icon-publish white"></span> Otoritas Dalam</button>
 
 <!--<button type="submit" name="action" value="del" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-danger pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Delete Checked</button>    
 <button type="submit" name="action" value="oto" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-info pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Otoritas Checked</button>    -->
