@@ -20,15 +20,7 @@ if (!empty($_POST['eselon_id'])) {
     $criteria .= ' and jabatan_struktural_id IN ("' . implode(',', $jbt_id) . '") ';
 }
 
-
-$data = Pegawai::model()->findAll(array('condition' => 'id > 0 ' . $criteria));
-app()->session['SuratMasuk_records'] = $data;
-echo $tgl_lahir . '<br>';
-echo $_POST['bulan'];
-print_r($jbt_id);
-foreach ($data as $val) {
-    echo $val->nama;
-}
+$data = Pegawai::model()->with('RiwayatJabatan')->findAll(array('condition' => 't.id > 0 ' . $criteria));
 ?>
 
 <div style="text-align: right">
@@ -45,22 +37,25 @@ foreach ($data as $val) {
         <thead>
             <tr>
                 <th style="width:10px">NO</th>
-                <th class="span1">NAMA</th>
                 <th class="span1">NIP</th>
-                <th class="span1">Status</th>					
+                <th class="span1">NAMA</th>
+                <th class="span1">ESELON</th>
+                <th class="span1">UNIT KERJA</th>					
             </tr>
         </thead>
         <tbody>
             <?php
             $no = 1;
             foreach ($data as $value) {
+                $satuan = isset($value->UnitKerja->nama) ? $value->UnitKerja->nama : "-";
+                $eselon = isset($value->RiwayatJabatan->JabatanStruktural->Eselon->nama) ? $value->RiwayatJabatan->JabatanStruktural->Eselon->nama : "-";
                 echo '	
 		<tr>
 			<td>' . $no . '</td>
-			<td>' . $value->nama . '</td>
-			<td>' . $value->nip . '</td>			
-			<td>' . $value->Kedudukan->nama . '</td>			
-									
+			<td>' . $value->nip . '</td>
+                        <td>' . $value->nama . '</td>
+			<td>' . $eselon . '</td>
+                        <td>' . $satuan . '</td>
 		</tr>';
                 $no++;
             }

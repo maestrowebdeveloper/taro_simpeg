@@ -69,7 +69,7 @@ $this->breadcrumbs = array(
         </div>
 
         <div class="control-group">
-            <label class="control-label">Satuan Kerja<span class="required">*</span></label>
+            <label class="control-label">Unit Kerja<span class="required">*</span></label>
             <div class="controls">
                 <?php
                 $data = array('0' => '- Select All -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
@@ -77,7 +77,7 @@ $this->breadcrumbs = array(
                         'bootstrap.widgets.TbSelect2', array(
                     'name' => 'satuan_kerja_id',
                     'data' => $data,
-                    'value' => isset($model->UnitKerja->id) ? $model->UnitKerja->id : '',
+                    'value' => isset($_POST['satuan_kerja_id']) ? $_POST['satuan_kerja_id'] : '',
                     'options' => array(
                         'width' => '40%;margin:0px;text-align:left',
                 )));
@@ -93,7 +93,7 @@ $this->breadcrumbs = array(
                         'bootstrap.widgets.TbSelect2', array(
                     'name' => 'eselon_id',
                     'data' => $data,
-                    'value' => isset($model->JabatanStruktural->Eselon->id) ? $model->JabatanStruktural->Eselon->id : '',
+                    'value' => isset($_POST['eselon_id']) ? $_POST['eselon_id'] : '',
                     'options' => array(
                         'width' => '40%;margin:0px;text-align:left',
                 )));
