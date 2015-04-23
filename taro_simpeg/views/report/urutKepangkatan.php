@@ -88,17 +88,14 @@ Yii::app()->clientScript->registerScript('search', "
                 'label' => 'View Report',
             ));
             ?>
+            <a class="btn excelReport" onclick="exportExcel();"><i class="icomoon-icon-file-excel icon-white"></i> Export Excel</a>
         </div>
 
     </div>
     <?php $this->endWidget(); ?>
 </div>
-
-<?php
-//if (!empty($model->unit_kerja_id)) {
-//    $this->renderPartial('_urutKepangkatan', array('model' => $model));
-//}
-?>
+<h3 style="text-align:center">LAPORAN PEGAWAI BERDASARKAN URUTAN KEPANGKATAN PEGAWAI</h3><br>
+    <h6  style="text-align:center">Tanggal : <?php echo date('d F Y'); ?></h6>
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'daftar-pegawai-grid',
@@ -147,6 +144,16 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
+    }
+    function exportExcel(){
+        var unit_id = $("#Pegawai_unit_kerja_id").val();
+        var fu_id = $("#Pegawai_jabatan_fu_id").val();
+        var ft_id = $("#Pegawai_jabatan_ft_id").val();
+        if(unit_id != 0){
+            window.open('<?php echo url('report/excelKepangkatan')?>?unit_id='+unit_id+'&fu_id='+fu_id+'&ft_id='+ft_id);
+        }else{
+            alert('Pilih Unit Kerja terlebih dahulu!');
+        }
     }
 </script>
 <style>

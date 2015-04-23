@@ -3,7 +3,7 @@
 //if (!empty($model->unit_kerja_id))
 //    $criteria .= 'unit_kerja_id='.$model->unit_kerja_id;
 
-$data = Pegawai::model()->with('Golongan')->findAll();
+//$data = Pegawai::model()->with('Golongan')->findAll();
 //app()->session['Pegawai_records'] = $data; 
 ?>
 
@@ -32,7 +32,7 @@ $data = Pegawai::model()->with('Golongan')->findAll();
         <tbody>
             <?php
             $no = 1;
-            foreach ($data as $value) {
+            foreach ($model as $value) {
                 echo '	
 		<tr>
 			<td>' . $no . '</td>

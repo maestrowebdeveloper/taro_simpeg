@@ -205,15 +205,25 @@ class ReportController extends Controller {
     }
 
     public function actionExcelKepangkatan() {
+        $unit_id = $_GET['unit_id'];
+        $fu_id = $_GET['fu_id'];
+        $ft_id = $_GET['ft_id'];
         
-        $model = Pegawai::model()->findAll(array(
-            
-        ));
+        $criteria = new CDbCriteria();
+        if(!empty($unit_id) && $unit_id != 0){
+            $criteria->addCondition('unit_kerja_id='.$unit_id);
+        }
+        if(!empty($fu_id) && $fu_id != 0){
+            $criteria->addCondition('jabatan_fu_id='.$fu_id);
+        }
+        if(!empty($ft_id) && $ft_id != 0){
+            $criteria->addCondition('jabatan_ft_id='.$ft_id);
+        }
         
-        return Yii::app()->request->sendFile('excelReport.xls', $this->renderPartial('excelReport', array(
+        $model = Pegawai::model()->findAll($criteria);
+        
+        return Yii::app()->request->sendFile('Laporan Daftar Urutan Kepangkatan Pegawai.xls', $this->renderPartial('_urutKepangkatan', array(
                             'model' => $model,
-                            'start' => $start,
-                            'end' => $end,
                                 ), true)
         );
     }
