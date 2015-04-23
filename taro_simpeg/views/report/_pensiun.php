@@ -24,7 +24,6 @@ if (!empty($_POST['eselon_id'])) {
     $criteria .= ' and RiwayatJabatan.jabatan_struktural_id IN ("' . implode(',', $jbt_id) . '") ';
 }
 
-
 $data = Pegawai::model()->with('RiwayatJabatan')->findAll(array('condition' => 't.id > 0 ' . $criteria));
 ?>
 
@@ -45,7 +44,7 @@ $data = Pegawai::model()->with('RiwayatJabatan')->findAll(array('condition' => '
                 <th class="span1">NIP</th>
                 <th class="span1">NAMA</th>
                 <th class="span1">ESELON</th>
-                <th class="span1">SATUAN KERJA</th>					
+                <th class="span1">UNIT KERJA</th>					
             </tr>
         </thead>
         <tbody>

@@ -1,22 +1,21 @@
 <?php
-
 $criteria = '';
 if (!empty($_POST['unit_kerja_id']))
     $criteria .= ' and unit_kerja_id="' . $_POST['unit_kerja_id'] . '"';
 
 if (!empty($_POST['eselon_id'])) {
     $jbt_id = array();
-//    $eselon = Eselon::model()->findByPk($_POST['eselon_id']);
     $jbt = JabatanStruktural::model()->findAll(array('condition' => 'eselon_id=' . $_POST['eselon_id']));
-    foreach ($jbt as $a) {
-        $jbt_id[] = $a->id;
+    if (!empty($jbt)) {
+        foreach ($jbt as $a) {
+            $jbt_id[] = $a->id;
+        }
+        $criteria .= ' and jabatan_struktural_id IN (' . implode(',', $jbt_id) . ') ';
     }
-    $criteria .= ' and jabatan_struktural_id IN (' . implode(',', $jbt_id) . ') ';
 }
 
 
-$data = Pegawai::model()->findAll(array('condition' => 'id > 0 ' . $criteria));
-app()->session['SuratMasuk_records'] = $data;
+$data = Pegawai::model()->findAll(array('condition' => 'id > 0 ' . $criteria, 'limit' => 10));
 
 //print_r($jbt_id);
 //foreach ($data as $val) {
@@ -47,23 +46,23 @@ app()->session['SuratMasuk_records'] = $data;
             </tr>
         </thead>
         <tbody>
-<?php
-$no = 1;
-foreach ($data as $value) {
-    echo '	
+            <?php
+            $no = 1;
+            foreach ($data as $value) {
+                echo '	
 		<tr>
 			<td>' . $no . '</td>
 			<td>' . $value->nama . '</td>
 			<td>' . $value->nip . '</td>			
 			<td>' . $value->pangkat . '</td>			
-			<td>' . $value->JabatanStruktural->nama . '</td>			
-			<td>' . $value->JabatanStruktural->Eselon->nama . '</td>			
-			<td>' . $value->alamat . ','.$value->kota.'</td>			
+			<td>' . "-" . '</td>			
+			<td>' . "-" . '</td>			
+			<td>' . $value->alamat . ',' . $value->kota . '</td>			
 									
 		</tr>';
-    $no++;
-}
-?>
+                $no++;
+            }
+            ?>
         </tbody>
     </table>
 </div>

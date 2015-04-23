@@ -1047,6 +1047,18 @@ class PegawaiController extends Controller {
             'model' => $model,
         ));
     }
+    
+    public function actionRekapBatasPensiun() {
+        $model = new Pegawai;
+        $model->unsetAttributes();  // clear any default values  
+        if (isset($_POST['Pegawai'])) {
+            $model->attributes = $_POST['Pegawai'];
+        }
+        $this->cssJs();
+        $this->render('rekapBatasPensiun', array(
+            'model' => $model,
+        ));
+    }
 
     public function actionRekapExcel() {
 
