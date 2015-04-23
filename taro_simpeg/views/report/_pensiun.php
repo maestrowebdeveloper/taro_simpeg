@@ -12,12 +12,14 @@ if (!empty($_POST['unit_kerja_id']))
 
 if (!empty($_POST['eselon_id'])) {
     $jbt_id = array();
-//    $eselon = Eselon::model()->findByPk($_POST['eselon_id']);
+
     $jbt = JabatanStruktural::model()->findAll(array('condition' => 'eselon_id=' . $_POST['eselon_id']));
-    foreach ($jbt as $a) {
-        $jbt_id[] = $a->id;
+    if (!empty($jbt)) {
+        foreach ($jbt as $a) {
+            $jbt_id[] = $a->id;
+        }
+        $criteria .= ' and jabatan_struktural_id IN ("' . implode(',', $jbt_id) . '") ';
     }
-    $criteria .= ' and jabatan_struktural_id IN ("' . implode(',', $jbt_id) . '") ';
 }
 
 $data = Pegawai::model()->with('RiwayatJabatan')->findAll(array('condition' => 't.id > 0 ' . $criteria));
