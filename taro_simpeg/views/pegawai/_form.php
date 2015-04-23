@@ -1001,4 +1001,11 @@ $this->beginWidget(
             $('#Pegawai_ket_agama').attr("value", "");
         }
     });
+    <?php 
+        if($model->agama == "Lainnya"){
+            echo '$("#Pegawai_ket_agama").parent().parent().attr("style", "display:");';
+        }else{
+            echo '$("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");';
+        }
+    ?>
 </script>
