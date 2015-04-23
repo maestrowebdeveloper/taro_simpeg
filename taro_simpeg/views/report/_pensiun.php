@@ -34,32 +34,44 @@ $data = Pegawai::model()->with('RiwayatJabatan')->findAll(array('condition' => '
     <h3 style="text-align:center">LAPORAN PENSIUN</h3><br>
     <h6  style="text-align:center">Tangga : <?php echo date('d F Y'); ?></h6>
     <hr>
-
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th style="width:10px">NO</th>
-                <th class="span1">NIP</th>
-                <th class="span1">NAMA</th>
-                <th class="span1">ESELON</th>
-                <th class="span1">UNIT KERJA</th>					
+                <th style="width:10px">BUP</th>
+                <th>PROYEKSI PENSIUN</th>
+                <th>STATUS</th>
+                <th>NIP</th>
+                <th>NAMA</th>
+                <th>GOL</th>
+                <th>JABATAN</th>
+                <th>UNIT KERJA</th>					
             </tr>
         </thead>
         <tbody>
             <?php
-            $no = 1;
-            foreach ($data as $value) {
-                $satuan = isset($value->UnitKerja->nama) ? $value->UnitKerja->nama : "-";
-                $eselon = isset($value->RiwayatJabatan->JabatanStruktural->Eselon->nama) ? $value->RiwayatJabatan->JabatanStruktural->Eselon->nama : "-";
-                echo '	
+            if (!empty($data)) {
+                foreach ($data as $value) {
+                    $satuan = isset($value->UnitKerja->nama) ? $value->UnitKerja->nama : "-";
+                    $eselon = isset($value->RiwayatJabatan->JabatanStruktural->Eselon->nama) ? $value->RiwayatJabatan->JabatanStruktural->Eselon->nama : "-";
+                    
+                    $status = 'Aktif';
+                    if(date("Y-m-d") > $value->tmt_pensiun){
+                        $status = 'Pensiun';
+                    }
+                    echo '	
 		<tr>
-			<td>' . $no . '</td>
+			<td>' . $_POST['bup'] . '</td>
+                        <td>' . date("d-m-Y",  strtotime($value->tmt_pensiun)) . '</td>
+                        <td>' . $status .'</td>
 			<td>' . $value->nip . '</td>
                         <td>' . $value->nama . '</td>
 			<td>' . $eselon . '</td>
+                        <td>' . $value->jabatan . '</td>
                         <td>' . $satuan . '</td>
 		</tr>';
-                $no++;
+                }
+            } else {
+                echo '<tr><td colspan="5">No data available</td></tr>';
             }
             ?>
         </tbody>
