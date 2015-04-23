@@ -2,7 +2,7 @@
 $this->setPageTitle('Rekapitulasi Batas Pensiun');
 $this->breadcrumbs=array(
 	'Pegawai'=>array('index'),
-	'Rekapitulasi Data Pegawai',
+	'Rekapitulasi Batas Pensiun',
 );
 ?>
 

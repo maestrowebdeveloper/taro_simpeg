@@ -10,9 +10,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         ));
 ?>
 <?php
-$this->setPageTitle('Laporan Daftar Urutan Kepangkatan Pegawai');
+$this->setPageTitle('Laporan Pegawai Negeri Sipil');
 $this->breadcrumbs = array(
-    'Laporan Daftar Urutan Kepangkatan Pegawai',
+    'Laporan Pegawai Negeri Sipil',
 );
 ?>
 <script>
