@@ -52,6 +52,7 @@ class JabatanFt extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'JabatanFungsional' => array(self::HAS_MANY, 'JabatanFungsional', 'jabatan_ft_id'),
+            'Bidang' => array(self::BELONGS_TO,'JabatanStruktural','jabatan_struktural_id'),
         );
     }
 
