@@ -816,8 +816,16 @@ class PegawaiController extends Controller {
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
             if (!empty($riwayat)) {
                 if (!empty($riwayat)) {
+                    //simpan jabatan di tabel pegawai
+                    $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
+                    $model->tmt_jabatan_struktural = $riwayat->tmt_mulai;
+                    $model->jabatan_fu_id = $riwayat->jabatan_fu_id;
+                    $model->tmt_jabatan_fu = $riwayat->tmt_mulai;
+                    $model->tmt_jabatan_ft_id = $riwayat->jabatan_ft_id;
+                    $model->tmt_jabatan_ft = $riwayat->tmt_mulai;
+                    $model->tipe_jabatan = $riwayat->tipe_jabatan;
                     if ($riwayat->tipe_jabatan == "struktural") {
-                        $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
+                        //simpan status jabatan struktural
                         $jabatan = JabatanStruktural::model()->findByPk($riwayat->jabatan_struktural_id);
                         $jabatan->status = 1;
                         $jabatan->save();
@@ -893,27 +901,19 @@ class PegawaiController extends Controller {
 
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
             if (!empty($riwayat)) {
+                //simpan jabatan di tabel pegawai
+                $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
+                $model->tmt_jabatan_struktural = $riwayat->tmt_mulai;
+                $model->jabatan_fu_id = $riwayat->jabatan_fu_id;
+                $model->tmt_jabatan_fu = $riwayat->tmt_mulai;
+                $model->tmt_jabatan_ft_id = $riwayat->jabatan_ft_id;
+                $model->tmt_jabatan_ft = $riwayat->tmt_mulai;
+                $model->tipe_jabatan = $riwayat->tipe_jabatan;
                 if ($riwayat->tipe_jabatan == "struktural") {
-                    $model->jabatan_fu_id = "";
-                    $model->tmt_jabatan_fu = "";
-                    $model->jabatan_ft_id = "";
-                    $model->tmt_jabatan_ft = "";
-                    $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
                     $jabatan = JabatanStruktural::model()->findByPk($riwayat->jabatan_struktural_id);
                     $jabatan->status = 1;
                     $jabatan->saveNode();
-                } elseif ($riwayat->tipe_jabatan == "fungsional_umum") {
-                    $model->jabatan_ft_id = "";
-                    $model->tmt_jabatan_ft = "";
-                    $model->jabatan_struktural_id = "";
-                    $model->tmt_jabatan_struktural = "";
-                } elseif ($riwayat->tipe_jabatan == "fungsional_tertentu") {
-                    $model->jabatan_fu_id = "";
-                    $model->tmt_jabatan_fu = "";
-                    $model->jabatan_struktural_id = "";
-                    $model->tmt_jabatan_struktural = "";
                 }
-                $model->tipe_jabatan = $riwayat->tipe_jabatan;
             } else {
                 $model->jabatan_fu_id = "";
                 $model->tmt_jabatan_fu = "";

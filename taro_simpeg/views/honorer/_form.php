@@ -544,4 +544,11 @@ $this->beginWidget(
             $('#Honorer_ket_agama').attr("value", "");
         }
     });
+        <?php 
+        if($model->agama == "Lainnya"){
+            echo '$("#Honorer_ket_agama").parent().parent().attr("style", "display:");';
+        }else{
+            echo '$("#Honorer_ket_agama").parent().parent().attr("style", "display:none");';
+        }
+    ?>
 </script>
