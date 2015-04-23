@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Pegawais');
+$this->setPageTitle('Transfer Cpns');
 $this->breadcrumbs = array(
-    'Pegawais',
+    'Transfer Cpns',
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -10,7 +10,7 @@ $('.search-button').click(function(){
     return false;
 });
 $('.search-form form').submit(function(){
-    $.fn.yiiGridView.update('pegawai-grid', {
+    $.fn.yiiGridView.update('transfer-cpns-grid', {
         data: $(this).serialize()
     });
     return false;
@@ -30,13 +30,16 @@ $this->widget('bootstrap.widgets.TbMenu', array(
         array('label' => 'Tambah', 'icon' => 'icon-plus', 'url' => Yii::app()->controller->createUrl('create'), 'linkOptions' => array()),
         array('label' => 'List Data', 'icon' => 'icon-th-list', 'url' => Yii::app()->controller->createUrl('index'), 'active' => true, 'linkOptions' => array()),
         array('label' => 'Pencarian', 'icon' => 'icon-search', 'url' => '#', 'linkOptions' => array('class' => 'search-button')),
-        array('label' => 'Export ke Excel', 'icon' => 'icon-download', 'url' => Yii::app()->controller->createUrl('GenerateExcel'), 'linkOptions' => array('target' => '_blank'), 'visible' => true),
     ),
 ));
 $this->endWidget();
 ?>
 
-
+<?php
+foreach (Yii::app()->user->getFlashes() as $key => $message) {
+    echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
+}
+?>
 
 <div class="search-form" style="display:none">
     <?php
@@ -47,76 +50,74 @@ $this->endWidget();
 </div><!-- search-form -->
 
 <?php
-$display = (landa()->checkAccess("pegawai", "d") == 0) ? 'none' : '';
+$display = (landa()->checkAccess("permohonanMutasi", "d") == 0) ? 'none' : '';
 $button = "";
-if (landa()->checkAccess("pegawai", 'r'))
+if (landa()->checkAccess("permohonanMutasi", 'r'))
     $button .= '{view} ';
-if (landa()->checkAccess("pegawai", 'u'))
+if (landa()->checkAccess("permohonanMutasi", 'u'))
     $button .= '{update} ';
-if (landa()->checkAccess("pegawai", 'd'))
+if (landa()->checkAccess("permohonanMutasi", 'd'))
     $button .= '{delete}';
-
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id' => 'chargeAdditional-form',
+    'id' => 'ws-finish-form',
     'enableAjaxValidation' => false,
     'method' => 'post',
     'type' => 'horizontal',
+    'action' => url('transferCpns/transfer'),
     'htmlOptions' => array(
-        'enctype' => 'multipart/form-data'
+        'enctype' => 'multipart/form-data',
+        'class' => 'table table-striped'
     )
         ));
 ?>
+<button type="submit" name="delete" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-danger pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Delete Checked</button>
+<button type="submit" name="transfer" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-info pull-right"><span class="icon16 entypo-icon-publish white"></span> Transfer Checked </button><br>
 
-<button type="submit" name="delete" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-danger pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Delete Checked</button>    
-<br>
-<br>
 
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
-    'id' => 'pegawai-grid',
+    'id' => 'transfer-cpns-grid',
     'dataProvider' => $model->search(),
     'type' => 'striped bordered condensed',
-    'template' => '{items}{pager}{summary}',
+    'template' => '{summary}{pager}{items}{pager}',
     'columns' => array(
-        array(
+         array(
             'class' => 'CCheckBoxColumn',
             'selectableRows' => 2,
             'htmlOptions' => array('style' => 'text-align:center;display:' . $display),
             'headerHtmlOptions' => array('style' => 'width:25px;text-align:center;display:' . $display),
+//             'cssClassExpression'=>'$data->status==2 ? "hidden" : ""', 
             'checkBoxHtmlOptions' => array(
                 'name' => 'ceckbox[]',
                 'value' => '$data->id',
             ),
         ),
-        array(
-            'name' => 'foto',
-            'header' => 'Foto',
+        'id',
+         array(
+            'name' => 'pegawai_id',
             'type' => 'raw',
-            'value' => '"$data->smallFoto"',
-            'htmlOptions' => array('style' => 'text-align: center; width:180px;text-align:center;width:120px')
+            'header' => 'Pegawai',
+            'value' => '$data->namaPegawai',
+            'htmlOptions' => array('style' => 'text-align: left;')
         ),
-        'nip',
-        'nama',
+        'nomor_kesehatan',
+        'tanggal_kesehatan',
+        'pelatihan_id',
+        'nomor_diklat',
         array(
-            'name' => 'unit_kerja_id',
-            'value' => '$data->unitKerja',
+            'name' => 'status',
+            'type' => 'raw',
+            'header' => 'Transfer',
+            'value' => '$data->statusname',
+            'htmlOptions' => array('style' => 'text-align: left;')
         ),
-        array(
-            'name' => 'golongan_id',
-            'value' => '$data->golongan',
-        ),
-        array(
-            'name' => 'tipe_jabatan',
-            'value' => 'ucwords($data->tipe)',
-        ),
-        array(
-            'name' => 'jabatan_struktural_id',
-            'header' => 'Jabatan',
-            'value' => 'ucwords($data->jabatan)',
-        ),
+        /*
+          'tanggal_diklat',
+          'status',
+         */
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
-            'template' => '{view} {update} {delete}',
+            'template' => $button,
             'buttons' => array(
                 'view' => array(
                     'label' => 'Lihat',
@@ -137,10 +138,11 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                     )
                 )
             ),
-            'htmlOptions' => array('style' => 'width: 125px;text-align:center'),
+            'htmlOptions' => array('style' => 'width: 125px'),
         )
     ),
 ));
+
 $this->endWidget();
 ?>
 

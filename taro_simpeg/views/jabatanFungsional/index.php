@@ -43,7 +43,30 @@ $this->endWidget();
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
+<?php
+	$display = (landa()->checkAccess("jabatanFt","d")==0)?'none':'';
+	$button = "";
+    if (landa()->checkAccess("jabatanFt", 'r')) 
+        $button .= '{view} ';    
+    if (landa()->checkAccess("jabatanFt", 'u')) 
+        $button .= '{update} ';    
+    if (landa()->checkAccess("jabatanFt", 'd')) 
+        $button .= '{delete}';    
 
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id' => 'chargeAdditional-form',
+        'enableAjaxValidation' => false,
+        'method' => 'post',
+        'type' => 'horizontal',
+        'htmlOptions' => array(
+            'enctype' => 'multipart/form-data'
+        )
+    ));
+    ?>
+
+<button type="submit" name="delete" value="dd" style="margin-left: 10px;display:<?php echo $display;?>" class="btn btn-danger pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Delete Checked</button>    
+ <br>
+ <br>
 
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'jabatan-fungsional-grid',
@@ -51,15 +74,27 @@ $this->endWidget();
         'type'=>'striped bordered condensed',
         'template'=>'{summary}{pager}{items}{pager}',
 	'columns'=>array(
+            array(
+                'class' => 'CCheckBoxColumn',
+                'selectableRows' => 2,
+	            'htmlOptions' => array('style' => 'text-align:center;display:'.$display),
+	            'headerHtmlOptions'=>array('style'=>'width:25px;text-align:center;display:'.$display),                
+                'checkBoxHtmlOptions' => array(
+                    'name' => 'ceckbox[]',
+                    'value' => '$data->id',
+                ),
+            ),
 		'id',
 		'nama',
 		'keterangan',
 		array(
-                    'name' => 'jabatan_ft_id',
-                    'header' => 'Jabatan Fungsional',
-                    'value' => '$data->jabatanft'
-                    
-                ),
+            'name' => 'jabatan_ft_id',
+            'type' => 'raw',
+            'header' => 'Jabatan Fung. Tertentu',
+            'value' => '$data->jabFt',
+            'htmlOptions' => array('style' => 'text-align: left;')
+        ),
+//		'created',
 		/*
                 'created',
 		'modified',
@@ -90,5 +125,7 @@ $this->endWidget();
             'htmlOptions'=>array('style'=>'width: 125px'),
            )
 	),
-)); ?>
+));
+$this->endWidget()
+?>
 

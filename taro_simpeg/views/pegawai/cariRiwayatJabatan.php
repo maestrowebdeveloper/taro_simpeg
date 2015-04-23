@@ -44,13 +44,13 @@ $this->widget('bootstrap.widgets.TbMenu', array(
          
         array(
             'name' => 'tipe_jabatan',
-            'value' => '$data->tipe',
+            'value' => '$data->tipeJabatan',
             'htmlOptions' => array('style' => 'text-align: left;')
         ),  
         array(
             'name' => 'jabatan',
             'header' => 'Jabatan',
-            'value' => '$data->jabatan',
+            'value' => '$data->jabatanPegawai',
             'htmlOptions' => array('style' => 'text-align: left;')
         ),  	
         		

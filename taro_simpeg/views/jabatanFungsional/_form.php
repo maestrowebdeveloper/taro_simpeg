@@ -27,7 +27,7 @@
                     'data' => $data,
                     'value' => $model->jabatan_ft_id,
                     'options' => array(
-                        'width' => '40%;margin:0px;text-align:left',
+                        'width' => '50%;margin:0px;text-align:left',
                 )));
                 ?>    
             </div>

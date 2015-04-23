@@ -39,9 +39,11 @@ if ($model->jabatan_fu_id == "agama") {
         $criteria .= ' and t.unit_kerja_id=' . $model->unit_kerja_id;
 
     $struktural = Pegawai::model()->with('JabatanStruktural.Eselon')->findAll(array('condition' => 't.id>0' . ' and JabatanStruktural.eselon_id = Eselon.id and t.tipe_jabatan="struktural" ' . $criteria, 'group' => 'Eselon.nama', 'select' => '*,count(t.id) as id'));
-    $eselon = CHtml::listData(Eselon::model()->findAll(array('order'=>'id ASC')), 'nama', 'nama');
+    $eselon = CHtml::listData(Eselon::model()->findAll(array('order' => 'id ASC')), 'nama', 'nama');
     foreach ($struktural as $value) {
-        $eselon[$value->JabatanStruktural->Eselon->nama] = $value->id;
+        if (isset($value->JabatanStruktural->Eselon->nama)) {
+            $eselon[$value->JabatanStruktural->Eselon->nama] = $value->id;
+        }
     }
 
     foreach ($eselon as $key => $value) {
@@ -49,9 +51,11 @@ if ($model->jabatan_fu_id == "agama") {
     }
 
     $jbtTertentu = Pegawai::model()->with('JabatanFt')->findAll(array('condition' => 't.id>0' . $criteria . ' and t.tipe_jabatan="fungsional_tertentu" ', 'group' => 'JabatanFt.type', 'select' => '*,count(t.id) as id'));
-    $tertentu = array('guru' => 'Guru', 'kesehatan' => 'Kesehatan', 'umum' => 'Umum');
+    $tertentu = array('guru' => 'Guru', 'kesehatan' => 'Kesehatan', 'umum' => 'Teknis');
     foreach ($jbtTertentu as $value) {
-        $tertentu[$value->JabatanFt->type] = $value->id;
+        if (isset($value->JabatanFt->type)) {
+            $tertentu[$value->JabatanFt->type] = $value->id;
+        }
     }
 
     foreach ($tertentu as $key => $value) {

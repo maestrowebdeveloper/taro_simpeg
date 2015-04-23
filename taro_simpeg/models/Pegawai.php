@@ -32,7 +32,7 @@ class Pegawai extends CActiveRecord {
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, ketarngan, nip, nama, gelar_depan, gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, kpe, npwp,karpeg, foto, unit_kerja_id, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, ketarngan, nip, nama, gelar_depan, gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, kpe, npwp,karpeg, foto, unit_kerja_id, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, nomor_kesehatan, tanggal_kesehatan,  created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -275,7 +275,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getLastEdit() {
-        return (!empty($this->LastEdit->name)) ? $this->modified . ' By ' . $this->LastEdit->name : '-';
+        return (!empty($this->LastEdit->name)) ? date('d-M-Y, H:i', strtotime($this->modified)) . ' Oleh ' . $this->LastEdit->name : '-';
     }
 
     public function getNamaGolongan() {
@@ -347,7 +347,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getSmallFoto() {
-        return '<img style="width:98px;height:98px" src="' . $this->imgUrl['small'] . '" class="img-polaroid"/>';
+        return '<img style="width:40px;height:40px" src="' . $this->imgUrl['small'] . '" class="img-polaroid"/>';
     }
 
     public function getTinyFoto() {
