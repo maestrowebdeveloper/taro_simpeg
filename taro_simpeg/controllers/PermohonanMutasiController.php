@@ -221,47 +221,24 @@ class PermohonanMutasiController extends Controller {
         if (isset($_POST['ceckbox'])) {
             $id = $_POST['ceckbox'];
             if (isset($_POST['otoritas'])) {
-                $model = PermohonanMutasi::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ')'));
+                $model = PermohonanMutasi::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ') and status=1'));
                 foreach ($model as $a) {
+
+                    // ganti jabatan baru
                     Pegawai::model()->updateAll(array(
-                        'tipe_jabatan'=>$a->new_tipe_jabatan,
-                        'jabatan_struktural_id'=>$a->new_jabatan_struktural_id,
-                        'jabatan_fu_id'=>$a->new_jabatan_fu_id,
-                        'jabatan_ft_id'=>$a->new_jabatan_ft_id,
-                        'unit_kerja_id'=>$a->new_unit_kerja_id,
-                        ),'id='.$a->pegawai_id);
-                    
+                        'tipe_jabatan' => $a->new_tipe_jabatan,
+                        'jabatan_struktural_id' => $a->new_jabatan_struktural_id,
+                        'jabatan_fu_id' => $a->new_jabatan_fu_id,
+                        'jabatan_ft_id' => $a->new_jabatan_ft_id,
+                        'unit_kerja_id' => $a->new_unit_kerja_id,
+                            ), 'id=' . $a->pegawai_id);
+
+                    // mengkosongi status di table jabatan sturkturall
                     $pegawai = Pegawai::model()->findByPk($a->pegawai_id);
-                if ($pegawai->jabatan_struktural_id != 0) {
-                    JabatanStruktural::model()->updateAll(array('status'=>0),'id='.$pegawai->jabatan_struktural_id);
-                    Pegawai::model()->updateAll(array('tmt_jabatan_struktural'=>$a->tmt),'id='.$a->pegawai_id);
-//                    $jabatan = JabatanStruktural::model()->findByPk($pegawai->jabatan_struktural_id);
-//                    $jabatan->status = 0;
-//                    $jabatan->saveNode();
-//                    $pegawai->tmt_jabatan_struktural = $a->tmt;
-                } elseif ($pegawai->jabatan_fu_id != 0) {
-                    JabatanFu::model()->updateAll(array('status'=>0),'id='.$pegawai->jabatan_fu_id);
-                    Pegawai::model()->updateAll(array('tmt_jabatan_fu'=>2015-04-12),'id='.$a->pegawai_id);
-//                    $jabatan = JabatanFu::model()->findByPk($pegawai->jabatan_fu_id);
-//                    $jabatan->status = 0;
-//                    $jabatan->saveNode();
-//                    $pegawai->tmt_jabatan_fu = $a->tmt;
-                } elseif ($pegawai->jabatan_ft_id != 0) {
-                    JabatanFt::model()->updateAll(array('status'=>0),'id='.$pegawai->jabatan_ft_id);
-                    Pegawai::model()->updateAll(array('tmt_jabatan_ft'=>$a->tmt),'id='.$a->pegawai_id);
-//                    $jabatan = JabatanFt::model()->findByPk($pegawai->jabatan_ft_id);
-//                    $jabatan->status = 0;
-//                    $jabatan->saveNode();
-//                    $pegawai->tmt_jabatan_ft = $a->tmt;
-                }
-//                $pegawai->tipe_jabatan = $a->new_tipe_jabatan;
-//                $pegawai->jabatan_struktural_id = $a->new_jabatan_struktural_id;
-//                $pegawai->jabatan_fu_id = $a->new_jabatan_fu_id;
-//                $pegawai->jabatan_ft_id = $a->new_jabatan_ft_id;
-//                $pegawai->unit_kerja_id = $a->new_unit_kerja_id;
-//                $pegawai->save();
-                
-                // change status
+                    if ($pegawai->jabatan_struktural_id != 0) {
+                        JabatanStruktural::model()->updateAll(array('status' => 0), 'id=' . $pegawai->jabatan_struktural_id);
+                    }
+                    // change status
                     $a->status = 2;
                     $a->save();
                 }
@@ -272,12 +249,77 @@ class PermohonanMutasiController extends Controller {
                 user()->setFlash('danger', '<strong>Attention! </strong>Data is deleted.');
                 $this->redirect(array('permohonanMutasi/index'));
             }
-            
         } else {
-            user()->setFlash('danger', '<strong>Error! </strong>Please chekked article and then choose the button.');
-            $this->redirect(array('permohonanMutasi/index'));
+            if (isset($_POST['otoritasluar'])) {
+                $jumlah=0;
+                $model = PermohonanMutasi::model()->findAll(array('condition'=>'mutasi="luar_daerah" and status=1'));
+                $jumlah = count($model);
+                foreach($model as $data){
+                    
+                    // ganti jabatan baru
+                    Pegawai::model()->updateAll(array(
+                        'tipe_jabatan' => $data->new_tipe_jabatan,
+                        'jabatan_struktural_id' => $data->new_jabatan_struktural_id,
+                        'jabatan_fu_id' => $data->new_jabatan_fu_id,
+                        'jabatan_ft_id' => $data->new_jabatan_ft_id,
+                        'unit_kerja_id' => $data->new_unit_kerja_id,
+                            ), 'id=' . $data->pegawai_id);
+
+                    // mengkosongi status di table jabatan sturkturall
+                    $pegawai = Pegawai::model()->findByPk($data->pegawai_id);
+                    if ($pegawai->jabatan_struktural_id != 0) {
+                        JabatanStruktural::model()->updateAll(array('status' => 0), 'id=' . $pegawai->jabatan_struktural_id);
+                    }
+                    // change status
+                    $data->status = 2;
+                    $data->save();
+                }
+                if($jumlah == 0){
+                 user()->setFlash('danger', 'Data mutasi luar daerah sudah terotoritas semua.');
+                $this->redirect(array('permohonanMutasi/index'));   
+                }else{
+                 user()->setFlash('info', 'Berhasil meng-otoritas luar daerah sebanyak <b>'.$jumlah.'</b> pegawai.');
+                $this->redirect(array('permohonanMutasi/index'));   
+                }
+                
+            } elseif (isset($_POST['otoritasdalam'])) {
+                $jumlah=0;
+                $model = PermohonanMutasi::model()->findAll(array('condition'=>'mutasi="dalam_daerah" and status=1'));
+                $jumlah = count($model);
+                foreach($model as $data){
+                    
+                    // ganti jabatan baru
+                    Pegawai::model()->updateAll(array(
+                        'tipe_jabatan' => $data->new_tipe_jabatan,
+                        'jabatan_struktural_id' => $data->new_jabatan_struktural_id,
+                        'jabatan_fu_id' => $data->new_jabatan_fu_id,
+                        'jabatan_ft_id' => $data->new_jabatan_ft_id,
+                        'unit_kerja_id' => $data->new_unit_kerja_id,
+                            ), 'id=' . $data->pegawai_id);
+
+                    // mengkosongi status di table jabatan sturkturall
+                    $pegawai = Pegawai::model()->findByPk($data->pegawai_id);
+                    if ($pegawai->jabatan_struktural_id != 0) {
+                        JabatanStruktural::model()->updateAll(array('status' => 0), 'id=' . $pegawai->jabatan_struktural_id);
+                    }
+                    // change status
+                    $data->status = 2;
+                    $data->save();
+                }
+                if($jumlah == 0){
+                 user()->setFlash('danger', 'Data mutasi dalam daerah sudah terotoritas semua.');
+                $this->redirect(array('permohonanMutasi/index'));   
+                }else{
+                 user()->setFlash('info', 'Berhasil meng-otoritas dalam daerah sebanyak <b>'.$jumlah.'</b> pegawai.');
+                $this->redirect(array('permohonanMutasi/index'));   
+                }
+            } else {
+                user()->setFlash('danger', '<strong>Error! </strong>Please chekked article and then choose the button.');
+                $this->redirect(array('permohonanMutasi/index'));
+            }
         }
     }
+
     public function actionIndex() {
 
         $model = new PermohonanMutasi('search');
