@@ -16,9 +16,11 @@
         </legend>
 
         <?php echo $form->errorSummary($model, 'Opps!!!', null, array('class' => 'alert alert-error span12')); ?>
-
+        <fieldset>
+            <legend>Informasi Pegawai</legend>
+        </fieldset>
         <div class="row-fluid">
-            <div class="span6">
+            <div class="span5">
                 <input class="span12" name="TransferCpns[pelatihan_id]" id="TransferCpns_nomor_kesehatan" type="hidden" value="<?php echo (isset($model->pelatihan_id)) ? $odel->pelatihan_id : 2 ?>">
                 <?php
                 $idpegawai = isset($model->pegawai_id) ? $model->pegawai_id : 0;
@@ -63,12 +65,11 @@
                 $tanggal_lahir = (!empty($model->Pegawai->tanggal_lahir)) ? $model->Pegawai->tanggal_lahir : '';
                 $pendidikan_terakhir = (!empty($model->Pegawai->pendidikan_terakhir)) ? $model->Pegawai->pendidikan_terakhir : '';
                 $tahun_pendidikan = (!empty($model->Pegawai->tahun_pendidikan)) ? $model->Pegawai->tahun_pendidikan : '';
-                $jabatan= (!empty($model->Pegawai->jabatan)) ? $model->Pegawai->jabatan : '';
-                $golongan= (!empty($model->Pegawai->golongan)) ? $model->Pegawai->golongan : '';
-                $tmt= (!empty($model->Pegawai->tmt_cpns)) ? $model->Pegawai->tmt_cpns : '';
-                $mkTahun= (!empty($model->Pegawai->masaKerjaTahun)) ? $model->Pegawai->masaKerjaTahun : '';
-                $mkBulan= (!empty($model->Pegawai->masaKerjaBulan)) ? $model->Pegawai->masaKerjaBulan : '';
-                
+                $jabatan = (!empty($model->Pegawai->jabatan)) ? $model->Pegawai->jabatan : '';
+                $golongan = (!empty($model->Pegawai->golongan)) ? $model->Pegawai->golongan : '';
+                $tmt = (!empty($model->Pegawai->tmt_cpns)) ? $model->Pegawai->tmt_cpns : '';
+                $mkTahun = (!empty($model->Pegawai->masaKerjaTahun)) ? $model->Pegawai->masaKerjaTahun : '';
+                $mkBulan = (!empty($model->Pegawai->masaKerjaBulan)) ? $model->Pegawai->masaKerjaBulan : '';
                 ?>
 
                 <div class="control-group ">
@@ -96,12 +97,15 @@
                 <div class="control-group ">
                     <label class="control-label" for="TransferCpns_nomor_kesehatan">R. Pendidikan</label>
                     <div class="controls">
-                        <input class="span6" disabled name="" id="pendidikan_terakhir" value="<?php echo $pendidikan_terakhir ?>" type="text">
-                        <input class="span6" disabled name="" id="tahun_pendidikan" type="text" value="<?php echo $tahun_pendidikan ?>">
+                        <input class="span12" disabled name="" id="pendidikan_terakhir" value="<?php echo $pendidikan_terakhir ?>" type="text"><br><br>
+                        <input class="span12" disabled name="" id="tahun_pendidikan" type="text" value="<?php echo $tahun_pendidikan ?>">
 
                     </div>
                 </div>
-                <div class="control-group ">
+                
+            </div>
+            <div class="span5">
+<div class="control-group ">
                     <label class="control-label" for="TransferCpns_nomor_kesehatan">Jabatan</label>
                     <div class="controls">
                         <input class="span12" name="" disabled id="jabatan" type="text" value="<?php echo $jabatan ?>">
@@ -133,15 +137,20 @@
                 <div class="control-group ">
                     <label class="control-label" for="TransferCpns_nomor_kesehatan">Masa Kerja</label>
                     <div class="controls">
-                        <input class="span6" name="" disabled id="masa_kerja_tahun" value="<?php echo $mkTahun ?>" type="text">
+                        <input class="span6" name="" disabled id="masa_kerja_tahun" value="<?php echo $mkTahun ?>" type="text"><br><br>
                         <input class="span6" name="" disabled id="masa_kerja_bulan" value="<?php echo $mkBulan ?>" type="text">
 
                     </div>
                 </div>
-            </div>
-            <div class="span5">
+                
+             
 
-                <?php echo $form->textFieldRow($model, 'nomor_kesehatan', array('class' => 'span12')); ?>
+            </div>
+        </div>
+        <fieldset>
+            <legend>Form Transfer CPNS</legend>
+        </fieldset>
+        <?php echo $form->textFieldRow($model, 'nomor_kesehatan', array('class' => 'span5')); ?>
 
                 <?php
                 echo $form->datepickerRow(
@@ -152,9 +161,9 @@
                 );
                 ?>
 
-                
 
-                <?php echo $form->textFieldRow($model, 'nomor_diklat', array('class' => 'span12')); ?>
+
+                <?php echo $form->textFieldRow($model, 'nomor_diklat', array('class' => 'span5')); ?>
 
                 <?php
                 echo $form->datepickerRow(
@@ -164,8 +173,9 @@
                         )
                 );
                 ?>
-                <?php if (!isset($_GET['v'])) { ?>        <div class="form-actions">
-                        <?php
+
+    <?php if (!isset($_GET['v'])) { ?>        <div class="form-actions">
+                    <?php
                         $this->widget('bootstrap.widgets.TbButton', array(
                             'buttonType' => 'submit',
                             'type' => 'primary',
@@ -181,12 +191,7 @@
                         ));
                         ?>
                     </div>
-                <?php } ?> 
-
-            </div>
-        </div>
-
-
+                <?php } ?>
 
     </fieldset>
 

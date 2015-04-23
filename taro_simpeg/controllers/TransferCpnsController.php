@@ -59,9 +59,9 @@ class TransferCpnsController extends Controller {
             
             if (isset($_POST['transfer'])) {
                 $id = $_POST['ceckbox'];
-//                print_r($_POST['ceckbox']);
-                $model = TransferCpns::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ')'));
-                print_r($model);
+                $jumlah=0;
+                $model = TransferCpns::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ') and status=1'));
+                $jumlah = count($model);
                 foreach ($model as $data) {
                     // update kesehatan di pegawai
                     Pegawai::model()->updateAll(array(
@@ -82,13 +82,16 @@ class TransferCpnsController extends Controller {
                             ), 'id=' . $data->id);
                     
                 }
-                user()->setFlash('danger', '<strong>Attention! </strong>Data is transfered.');
+                user()->setFlash('danger', ''.$jumlah.' Pegawai CPNS sudah berhasil d trasnfer ke PNS');
                     $this->redirect(array('transferCpns/index'));
             } else {
                 TransferCpns::model()->deleteAll('id IN (' . implode(',', $_POST['ceckbox']) . ')');
-                user()->setFlash('danger', '<strong>Attention! </strong>Data is deleted.');
+                user()->setFlash('danger', 'Data berhasil di hapus.');
                 $this->redirect(array('transferCpns/index'));
             }
+        }else{
+          user()->setFlash('danger', 'Tidak ada yang terpilih.');
+                $this->redirect(array('transferCpns/index'));  
         }
     }
 

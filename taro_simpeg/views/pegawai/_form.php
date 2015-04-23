@@ -235,13 +235,23 @@
                             <fieldset>
                                 <legend>Status Kepegawaian</legend>
                             </fieldset>
+                            <div class="row-fluid">
+                                <div class="span5">
                             <?php
-                            echo $form->textFieldRow($model, 'npwp', array('class' => 'span5', 'maxlength' => 50));
-                            echo $form->textFieldRow($model, 'karpeg', array('class' => 'span5', 'maxlength' => 50));
-                            echo $form->textFieldRow($model, 'kpe', array('class' => 'span5', 'maxlength' => 50));
-                            echo $form->textFieldRow($model, 'no_taspen', array('class' => 'span5', 'maxlength' => 50));
-                            echo $form->textFieldRow($model, 'bpjs', array('class' => 'span5', 'maxlength' => 50));
+                            echo $form->textFieldRow($model, 'npwp', array('class' => 'span6', 'maxlength' => 50));
+                            echo $form->textFieldRow($model, 'karpeg', array('class' => 'span6', 'maxlength' => 50));
+                            echo $form->textFieldRow($model, 'kpe', array('class' => 'span6', 'maxlength' => 50));
+                            
                             ?>
+                                </div>
+                                <div class="span5">
+                            <?php
+                            echo $form->textFieldRow($model, 'no_taspen', array('class' => 'span6', 'maxlength' => 50));
+                            echo $form->textFieldRow($model, 'bpjs', array('class' => 'span6', 'maxlength' => 50));
+                            ?>        
+                                </div>
+                            </div>
+                            
                             <fieldset>
                                 <legend>Pangkat & Jabatan</legend>
                             </fieldset>
