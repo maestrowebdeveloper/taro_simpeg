@@ -2,7 +2,7 @@
 $this->setPageTitle('Rekapitulasi Data Eselon');
 $this->breadcrumbs=array(
 	'Pegawai'=>array('index'),
-	'Rekapitulasi Data Pegawai',
+	'Rekapitulasi Data Eselon',
 );
 ?>
 
