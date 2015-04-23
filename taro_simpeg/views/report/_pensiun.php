@@ -37,6 +37,7 @@ $data = Pegawai::model()->with('RiwayatJabatan')->findAll(array('condition' => '
         <thead>
             <tr>
                 <th style="width:10px">NO</th>
+                <th class="span1">NIP</th>
                 <th class="span1">NAMA</th>
                 <th class="span1">ESELON</th>
                 <th class="span1">UNIT KERJA</th>					
@@ -46,13 +47,15 @@ $data = Pegawai::model()->with('RiwayatJabatan')->findAll(array('condition' => '
             <?php
             $no = 1;
             foreach ($data as $value) {
+                $satuan = isset($value->UnitKerja->nama) ? $value->UnitKerja->nama : "-";
+                $eselon = isset($value->RiwayatJabatan->JabatanStruktural->Eselon->nama) ? $value->RiwayatJabatan->JabatanStruktural->Eselon->nama : "-";
                 echo '	
 		<tr>
 			<td>' . $no . '</td>
-			<td>' . $value->nama . '</td>
-			<td>' . $value->nip . '</td>			
-			<td>' . $value->Kedudukan->nama . '</td>			
-									
+			<td>' . $value->nip . '</td>
+                        <td>' . $value->nama . '</td>
+			<td>' . $eselon . '</td>
+                        <td>' . $satuan . '</td>
 		</tr>';
                 $no++;
             }
