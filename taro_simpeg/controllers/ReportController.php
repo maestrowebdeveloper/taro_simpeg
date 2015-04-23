@@ -41,9 +41,10 @@ class ReportController extends Controller {
     }
 
     public function actionUrutKepangkatan() {
-        $model = new Pegawai();
-        if (isset($_POST['Pegawai'])) {
-            $model->attributes = $_POST['Pegawai'];
+        $model = new Pegawai('search');
+        $model->unsetAttributes();
+        if (isset($_GET['Pegawai'])) {
+            $model->attributes = $_GET['Pegawai'];
         }
         $this->render('urutKepangkatan', array('model' => $model));
     }
@@ -185,7 +186,6 @@ class ReportController extends Controller {
         $this->render('permohonanMutasi', array('model' => $model));
     }
 
-
     public function actionPermohonanPensiun() {
         $model = new PermohonanPensiun();
         if (isset($_POST['PermohonanPensiun'])) {
@@ -194,17 +194,38 @@ class ReportController extends Controller {
         }
         $this->render('permohonanPensiun', array('model' => $model));
     }
-    
-    public function actionPensiun(){
+
+    public function actionPensiun() {
         $model = new Pegawai();
-        if(isset($_POST['Pegawai'])){
-            $model->attributes = $_POST['Pegawai'];     
-            $model->id='1';  
+        if (isset($_POST['Pegawai'])) {
+            $model->attributes = $_POST['Pegawai'];
+            $model->id = '1';
         }
-        $this->render('pensiun', array('model'=>$model));
+        $this->render('pensiun', array('model' => $model));
     }
- 
+
+    public function actionExcelKepangkatan() {
+        $unit_id = $_GET['unit_id'];
+        $fu_id = $_GET['fu_id'];
+        $ft_id = $_GET['ft_id'];
+        
+        $criteria = new CDbCriteria();
+        if(!empty($unit_id) && $unit_id != 0){
+            $criteria->addCondition('unit_kerja_id='.$unit_id);
+        }
+        if(!empty($fu_id) && $fu_id != 0){
+            $criteria->addCondition('jabatan_fu_id='.$fu_id);
+        }
+        if(!empty($ft_id) && $ft_id != 0){
+            $criteria->addCondition('jabatan_ft_id='.$ft_id);
+        }
+        
+        $model = Pegawai::model()->findAll($criteria);
+        
+        return Yii::app()->request->sendFile('Laporan Daftar Urutan Kepangkatan Pegawai.xls', $this->renderPartial('_urutKepangkatan', array(
+                            'model' => $model,
+                                ), true)
+        );
+    }
 
 }
-
-?>

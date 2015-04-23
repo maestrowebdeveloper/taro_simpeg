@@ -3,33 +3,39 @@
 $this->pageTitle = 'Dashboard - Selamat Datang di Area Administrator';
 $siteConfig = SiteConfig::model()->listSiteConfig();
 
-if (empty(Yii::app()->session['pegawai'])) {
-    $today = date('m/d');
-    $week = date('m/d', strtotime("+7 day", strtotime($today)));
-    $nextweek = date('m/d', strtotime("+7 day", strtotime($week)));
-    $month = date('m');
-    $nextmonth = date('m', strtotime("+1 month", strtotime($month)));
+$criteria = '';
 
-
-    $sql = Pegawai::model()->findBySql('SELECT COUNT(`id`) as total FROM `acca_pegawai` WHERE date_format(tanggal_lahir,"%m/%d") = "' . $today . '"');
-    $pegawai['hariIni'] = (empty($sql->total)) ? 0 : intval($sql->total);
-
-    $sql = Pegawai::model()->findBySql('SELECT COUNT(`id`) as total FROM `acca_pegawai` WHERE date_format(tanggal_lahir,"%m/%d") between "' . $today . '" and "' . $week . '"');
-    $pegawai['mingguIni'] = (empty($sql->total)) ? 0 : intval($sql->total);
-
-    $sql = Pegawai::model()->findBySql('SELECT COUNT(`id`) as total FROM `acca_pegawai` WHERE date_format(tanggal_lahir,"%m/%d") between "' . $week . '" and "' . $nextweek . '"');
-    $pegawai['mingguDepan'] = (empty($sql->total)) ? 0 : intval($sql->total);
-
-    $sql = Pegawai::model()->findBySql('SELECT COUNT(`id`) as total FROM `acca_pegawai` WHERE date_format(tanggal_lahir,"%m") = "' . $month . '"');
-    $pegawai['bulanIni'] = (empty($sql->total)) ? 0 : intval($sql->total);
-
-    $sql = Pegawai::model()->findBySql('SELECT COUNT(`id`) as total FROM `acca_pegawai` WHERE date_format(tanggal_lahir,"%m") = "' . $nextmonth . '"');
-    $pegawai['bulanDepan'] = (empty($sql->total)) ? 0 : intval($sql->total);
-
-    Yii::app()->session['pegawai'] = $pegawai;
+$struktural = Pegawai::model()->with('JabatanStruktural.Eselon')->findAll(array('condition' => 'JabatanStruktural.eselon_id = Eselon.id and t.tipe_jabatan="struktural" ', 'group' => 'Eselon.nama', 'select' => '*,count(t.id) as id'));
+$eselon = CHtml::listData(Eselon::model()->findAll(array('order' => 'id ASC')), 'nama', 'nama');
+foreach ($struktural as $value) {
+    if (isset($value->JabatanStruktural->Eselon->nama)) {
+        $eselon[$value->JabatanStruktural->Eselon->nama] = $value->id;
+    }
 }
 
-$pegawai = Yii::app()->session['pegawai'];
+foreach ($eselon as $key => $value) {
+    $grafik[$key] = intval($value);
+}
+
+$jbtTertentu = Pegawai::model()->with('JabatanFt')->findAll(array('condition' => 't.tipe_jabatan="fungsional_tertentu" ', 'group' => 'JabatanFt.type', 'select' => '*,count(t.id) as id'));
+$tertentu = array('guru' => 'Guru', 'kesehatan' => 'Kesehatan', 'umum' => 'Umum');
+foreach ($jbtTertentu as $value) {
+    if (isset($value->JabatanFt->type)) {
+        $grafik[$value->JabatanFt->type] = $value->id;
+    }
+}
+
+foreach ($tertentu as $key => $value) {
+    $grafik[$key] = intval($value);
+}
+
+$jbtUmum = Pegawai::model()->with('JabatanFu')->find(array('condition' => 't.tipe_jabatan="fungsional_umum" ', 'group' => 'tipe_jabatan', 'select' => '*,count(t.id) as id'));
+$grafik['fungsional umum'] = isset($jbtUmum->id) ? intval($jbtUmum->id) : 0;
+
+$data = array();
+foreach ($grafik as $key => $val) {
+    $data[] = array($key, $val);
+}
 ?>
 <div class="row-fluid">
     <div class="span8">
@@ -48,22 +54,10 @@ $pegawai = Yii::app()->session['pegawai'];
                     <?php
                     $this->Widget('common.extensions.highcharts.HighchartsWidget', array(
                         'options' => array(
-                            'title' => array('text' => 'Rekapitulasi berdasarkan Jabatan'),
-                            'xAxis' => array(
-                                'categories' => array('HARI INI', 'MINGGU INI', 'MINGGU DEPAN', 'BULAN INI', 'BULAN DEPAN')
-                            ),
-                            'yAxis' => array(
-                                'title' => array('text' => 'Jumlah')
-                            ),
-                            'series' => array(
-                                array('name' => 'Pegawai', 'data' => array($pegawai['hariIni'], $pegawai['mingguIni'], $pegawai['mingguDepan'], $pegawai['bulanIni'], $pegawai['bulanDepan'])),
-                            ),
-                            'legend' => array(
-                                'enabled' => false
-                            ),
-                            'credits' => array(
-                                'enabled' => false
-                            ),
+                            'series' => array(array(
+                                    'type' => 'pie',
+                                    'data' =>    $data,
+                                ))
                         )
                     ));
                     ?>
