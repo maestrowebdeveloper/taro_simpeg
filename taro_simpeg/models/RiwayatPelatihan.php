@@ -107,6 +107,22 @@ class RiwayatPelatihan extends CActiveRecord {
         ));
     }
 
+    public function search2() {
+        $criteria2 = new CDbCriteria();
+        if (!empty($this->pelatihan_id))//as pelatihan id
+            $criteria->compare('pelatihan_id', $this->pelatihan_id);
+
+        if (!empty($this->tanggal) && !empty($this->created))
+            $criteria->condition = 'tanggal between "' . $this->tanggal . '" and "' . $this->created . '"';
+
+
+        $isi = new CActiveDataProvider($this, array(
+            'criteria' => $criteria2,
+//            'sort' => array('defaultOrder' => 'name')
+        ));
+        return $isi;
+    }
+
     /**
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!

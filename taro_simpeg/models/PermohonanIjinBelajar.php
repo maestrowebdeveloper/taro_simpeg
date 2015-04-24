@@ -131,6 +131,17 @@ class PermohonanIjinBelajar extends CActiveRecord {
         return $data;
     }
 
+    public function search2() {
+        $criteria2 = new CDbCriteria();
+        if (!empty($this->tanggal) && !empty($this->created))
+            $criteria->condition = 'tanggal between "' . $this->tanggal . '" and "' . $this->created . '"';
+        $isi = new CActiveDataProvider($this, array(
+            'criteria' => $criteria2,
+//            'sort' => array('defaultOrder' => 'id')
+        ));
+        return $isi;
+    }
+
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }

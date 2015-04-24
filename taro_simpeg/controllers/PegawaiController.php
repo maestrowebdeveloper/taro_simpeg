@@ -123,7 +123,7 @@ class PegawaiController extends Controller {
         }
         echo json_encode($list);
     }
-    
+
     public function actionGetListPegawaicpns() {
         $name = $_GET["q"];
         $list = array();
@@ -379,7 +379,7 @@ class PegawaiController extends Controller {
             $data['id'] = $model->id;
             $data['jenjang_pendidikan'] = $model->jenjang_pendidikan;
             $data['tahun'] = $model->tahun;
-            $data['jurusan'] = $model->jurusan;
+            $data['jurusan'] = $model->jurusanPegawai;
             echo json_encode($data);
         }
     }
@@ -1048,7 +1048,7 @@ class PegawaiController extends Controller {
             'model' => $model,
         ));
     }
-    
+
     public function actionRekapBatasPensiun() {
         $model = new Pegawai;
         $model->unsetAttributes();  // clear any default values  
