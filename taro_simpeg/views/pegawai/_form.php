@@ -227,43 +227,7 @@
                         <div class="span12">
                             <?php
                             if (!isset($_GET['v'])) {
-                                $id_city='';
-                                $id_city = (isset($model->city_id)) ? $model->city_id : 0;
-                                $city = isset($model->City->name) ? $model->City->Province->name.' - '.$model->City->name :0;
                                 
-                                echo $form->select2Row($model, 'city_id', array(
-                                    'asDropDownList' => false,
-//                    'data' => $data,
-//                    'value' => $model->Kota->name,
-                                    'options' => array(
-                                        'placeholder' => t('choose', 'global'),
-                                        'allowClear' => true,
-                                        'width' => '400px',
-                                        'minimumInputLength' => '3',
-                                        'ajax' => array(
-                                            'url' => Yii::app()->createUrl('city/getListKota'),
-                                            'dataType' => 'json',
-                                            'data' => 'js:function(term, page) { 
-                                                        return {
-                                                            q: term 
-                                                        }; 
-                                                    }',
-                                            'results' => 'js:function(data) { 
-                                                        return {
-                                                            results: data
-                                                            
-                                                        };
-                                                    }',
-                                        ),
-                                        'initSelection' => 'js:function(element, callback) 
-                            { 
-                            callback({id: '.$id_city.', text: "'.$city.'" });
-                             
-                                  
-                            }',
-                                    ),
-                                        )
-                                );
                                 echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'style' => 'width:50%', 'class' => 'span9'));
                                 echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
                                 echo $form->textFieldRow($model, 'hp', array('class' => 'span5 angka', 'style' => 'max-width:500px;width:200px', 'maxlength' => 25, 'prepend' => '+62'));
@@ -343,6 +307,32 @@
                                     ?>
                                 </div>
                             </div>
+                            <div class="control-group ">
+                                <label class="control-label" for="Pegawai_tmt_cpns">Tgl/No SK CPNS</label>
+                                <div class="controls">
+                                     
+                                    <div class="input-prepend" style="margin-right: 40px;">
+                                        <span class="add-on"><i class="icon-calendar"></i></span>
+                                        <?php
+                                        $this->widget(
+                                                'bootstrap.widgets.TbDatePicker', array(
+                                            'name' => 'Pegawai[tanggal_sk_cpns]',
+                                            'value' => str_replace("0000-00-00", "", $model->tanggal_sk_cpns),
+                                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+//                                            'events' => array('changeDate' => 'js:function(){
+//                                                                getMasaKerja();
+//                                                         }'),
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                    <?php
+                                    echo '&nbsp;&nbsp;';
+                                    echo CHtml::textField('Pegawai[no_sk_cpns]', isset($model->no_sk_cpns) ? $model->no_sk_cpns : '', array('class' => 'span4', 'placeholder' => 'No Sk CPNS'));
+                                    ?>
+                                   
+                                </div>
+                            </div>
                             <?php
                             echo $form->datepickerRow(
                                     $model, 'tmt_pns', array('value' => str_replace("0000-00-00", "", $model->tmt_pns),
@@ -351,6 +341,32 @@
                                     )
                             );
                             ?>
+                            <div class="control-group ">
+                                <label class="control-label" for="Pegawai_tmt_cpns">Tgl/No SK PNS</label>
+                                <div class="controls">
+                                     
+                                    <div class="input-prepend" style="margin-right: 40px;">
+                                        <span class="add-on"><i class="icon-calendar"></i></span>
+                                        <?php
+                                        $this->widget(
+                                                'bootstrap.widgets.TbDatePicker', array(
+                                            'name' => 'Pegawai[tanggal_sk_pns]',
+                                            'value' => str_replace("0000-00-00", "", $model->tanggal_sk_pns),
+                                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+//                                            'events' => array('changeDate' => 'js:function(){
+//                                                                getMasaKerja();
+//                                                         }'),
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                    <?php
+                                    echo '&nbsp;&nbsp;';
+                                    echo CHtml::textField('Pegawai[no_sk_pns]', isset($model->no_sk_pns) ? $model->no_sk_pns : '', array('class' => 'span4', 'placeholder' => 'No Sk PNS'));
+                                    ?>
+                                   
+                                </div>
+                            </div>
                             <?php
                             echo $form->textfieldRow(
                                     $model, 'tmt_pensiun', array('value' => str_replace("0000-00-00", "", $model->tmt_pensiun), 'readonly' => true,

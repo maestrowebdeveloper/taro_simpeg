@@ -225,10 +225,14 @@ class PegawaiController extends Controller {
             $model->jabatan_ft_id = (isset($_POST['RiwayatJabatan']['jabatan_ft_id'])) ? $_POST['RiwayatJabatan']['jabatan_ft_id'] : '';
             if ($model->tipe_jabatan == "struktural") {
                 $model->tmt_mulai = $_POST['tmt_mulai_struktural'];
+                $model->no_sk_struktural = $_POST['RiwayatJabatan']['no_sk_struktural'];
+                $model->tanggal_sk_struktural = $_POST['tanggal_sk_struktural'];
             } else if ($model->tipe_jabatan == "fungsional_umum") {
                 $model->tmt_mulai = $_POST['tmt_mulai_fu'];
             } else if ($model->tipe_jabatan == "fungsional_tertentu") {
                 $model->tmt_mulai = $_POST['tmt_mulai_ft'];
+                $model->no_sk_struktural = $_POST['RiwayatJabatan']['no_sk_ft'];
+                $model->tanggal_sk_ft = $_POST['tanggal_sk_ft'];
             }
             if ($model->save()) {
                 $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tmt_mulai DESC'));
@@ -774,6 +778,10 @@ class PegawaiController extends Controller {
             $model->karpeg = $_POST['Pegawai']['karpeg'];
             $model->no_taspen = $_POST['Pegawai']['no_taspen'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
+            $model->no_sk_cpns = $_POST['Pegawai']['no_sk_cpns'];
+            $model->no_sk_pns = $_POST['Pegawai']['no_sk_pns'];
+            $model->tanggal_sk_cpns = $_POST['Pegawai']['tanggal_sk_cpns'];
+            $model->tanggal_sk_pns = $_POST['Pegawai']['tanggal_sk_pns'];
 
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
             if (!empty($riwayat)) {
@@ -853,7 +861,10 @@ logs($_POST['Pegawai']['city_id']);
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
             $model->karpeg = $_POST['Pegawai']['karpeg'];
             $model->riwayat_jabatan_id = $_POST['Pegawai']['riwayat_jabatan_id'];
-
+            $model->no_sk_cpns = $_POST['Pegawai']['no_sk_cpns'];
+            $model->no_sk_pns = $_POST['Pegawai']['no_sk_pns'];
+            $model->tanggal_sk_cpns = $_POST['Pegawai']['tanggal_sk_cpns'];
+            $model->tanggal_sk_pns = $_POST['Pegawai']['tanggal_sk_pns'];
 
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {
