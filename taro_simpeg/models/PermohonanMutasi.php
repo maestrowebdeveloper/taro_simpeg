@@ -13,8 +13,8 @@ class PermohonanMutasi extends CActiveRecord {
      * @return array validation rules for model attributes.
      */
     public function rules() {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
+// NOTE: you should only define rules for those attributes that
+// will receive user inputs.
         return array(
             array(' created,pejabat,mutasi,status,tipe_jabatan_lama,unit_kerja_lama,jabatan_lama, created_user_id, modified,unit_kerja_id, tipe_jabatan, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id', 'safe'),
             array('nomor_register, tanggal, pegawai_id, new_unit_kerja_id, new_tipe_jabatan, new_jabatan_struktural_id, new_jabatan_fu_id, new_jabatan_ft_id, tmt', 'required'),
@@ -22,7 +22,7 @@ class PermohonanMutasi extends CActiveRecord {
             array('nomor_register', 'length', 'max' => 100),
             array('tipe_jabatan, new_tipe_jabatan', 'length', 'max' => 19),
             // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
+// @todo Please remove those attributes that should not be searched.
             array('id, nomor_register, pejabat,mutasi,status,tanggal, pegawai_id, unit_kerja_id, tipe_jabatan, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, new_unit_kerja_id, new_tipe_jabatan, new_jabatan_struktural_id, new_jabatan_fu_id, new_jabatan_ft_id, tmt, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
@@ -31,8 +31,8 @@ class PermohonanMutasi extends CActiveRecord {
      * @return array relational rules.
      */
     public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
+// NOTE: you may need to adjust the relation name and the related
+// class name for the relations automatically generated below.
         return array(
             'Pegawai' => array(self::BELONGS_TO, 'Pegawai', 'pegawai_id'),
             'UnitKerja' => array(self::BELONGS_TO, 'UnitKerja', 'new_unit_kerja_id'),
@@ -82,7 +82,7 @@ class PermohonanMutasi extends CActiveRecord {
      * based on the search/filter conditions.
      */
     public function search() {
-        // @todo Please modify the following code to remove attributes that should not be searched.
+// @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
 
@@ -112,9 +112,26 @@ class PermohonanMutasi extends CActiveRecord {
             'criteria' => $criteria,
             'sort' => array('defaultOrder' => 'id DESC')
         ));
-        //app()->session['PermohonanMutasi_records'] = $this->findAll($criteria);
+//app()->session['PermohonanMutasi_records'] = $this->findAll($criteria);
 
         return $data;
+    }
+
+    public function search2() {
+        $criteria2 = new CDbCriteria();
+        if (!empty($this->tanggal) && !empty($this->created))
+            $criteria2->condition = 'tanggal between "' . $this->tanggal . '" and "' . $this->created . '"';
+
+        if (!empty($this->mutasi))
+            $criteria2->compare('mutasi', $this->mutasi);
+
+        if (!empty($this->status))
+            $criteria2->compare('status', $this->status);
+
+        $isi = new CActiveDataProvider($this, array(
+            'criteria' => $criteria2,
+        ));
+        return $isi;
     }
 
     /**
@@ -150,11 +167,11 @@ class PermohonanMutasi extends CActiveRecord {
             return '-';
         }
     }
-    
-    public function getStatusoto(){
-        if($this->status == 2){
+
+    public function getStatusoto() {
+        if ($this->status == 2) {
             $status = '<span class="label label-info">Sudah</span>';
-        }else{
+        } else {
             $status = '<span class="label label-warning">Belum</span>';
         }
         return $status;
