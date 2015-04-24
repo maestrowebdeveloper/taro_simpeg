@@ -112,6 +112,7 @@ class Pegawai extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+        $criteria->with = array('Pangkat', 'RiwayatJabatan');
 
         if (isset($_GET['today'])) {
             $today = date('m/d');
@@ -182,14 +183,16 @@ class Pegawai extends CActiveRecord {
         $criteria->compare('tmt_cpns', $this->tmt_cpns, true);
         $criteria->compare('tmt_pns', $this->tmt_pns, true);
         $criteria->compare('golongan_id', $this->golongan_id);
-        $criteria->compare('tmt_golongan', $this->tmt_golongan, true);
+        if (isset($_POST['Pegawai'])) {
+            $criteria->compare('Pangkat.tmt_pangkat', $_POST['Pegawai']['tmt_golongan'], true);
+            $criteria->compare('RiwayatJabatan.tmt_mulai', $_POST['Pegawai']['tmt_jabatan_struktural'], true);
+            $criteria->compare('RiwayatJabatan.tmt_jabatan_fu', $_POST['Pegawai']['tmt_jabatan_fu'], true);
+            $criteria->compare('RiwayatJabatan.tmt_jabatan_ft', $_POST['Pegawai']['tmt_jabatan_ft'], true);
+        }
         $criteria->compare('tipe_jabatan', $this->tipe_jabatan, true);
         $criteria->compare('jabatan_struktural_id', $this->jabatan_struktural_id);
-        $criteria->compare('tmt_jabatan_struktural', $this->tmt_jabatan_struktural, true);
         $criteria->compare('jabatan_fu_id', $this->jabatan_fu_id);
-        $criteria->compare('tmt_jabatan_fu', $this->tmt_jabatan_fu, true);
         $criteria->compare('jabatan_ft_id', $this->jabatan_ft_id);
-        $criteria->compare('tmt_jabatan_ft', $this->tmt_jabatan_ft, true);
         $criteria->compare('gaji', $this->gaji);
         $criteria->compare('tmt_pensiun', $this->tmt_pensiun, true);
         $criteria->compare('created', $this->created, true);
@@ -221,7 +224,7 @@ class Pegawai extends CActiveRecord {
             $criteria2->compare('RiwayatPendidikan.id_jurusan', $_POST['id_jurusan'], true, 'OR');
         }
         $criteria2->addCondition('t.id = RiwayatPendidikan.pegawai_id');
-        
+
         if (!empty($this->tmt_pns) && !empty($this->tmt_pensiun))
             $criteria2->addInCondition('tmt_pensiun between "' . $this->tmt_pns . '" and "' . $this->tmt_pensiun . '"');
 
@@ -288,31 +291,11 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getRiwayatTipeJabatan() {
-//        $jabatan ='';
-//        if ($this->RiwayatJabatan->tipe_jabatan == "struktural") {
-//            $jabatan = $this->RiwayatJabatan->JabatanStruktural->nama;
-//            
-//        } else if ($value->tipe_jabatan == "fungsional_umum") {
-//            $jabatan = (isset($value->JabatanFu->nama)) ? $value->JabatanFu->nama : '';
-//        } else if ($value->tipe_jabatan == "fungsional_tertentu") {
-//            $jabatan = (isset($value->JabatanFt->nama)) ? $value->JabatanFt->nama : '';
-//        }
         return (!empty($this->RiwayatJabatan->tipe)) ? $this->RiwayatJabatan->tipe : '-';
-//        return $jabatan;
     }
 
     public function getRiwayatNamaJabatan() {
-         $jabatan ='';
-        if ($this->RiwayatJabatan->tipe_jabatan == "struktural") {
-            $jabatan = $this->RiwayatJabatan->JabatanStruktural->nama;
-            
-        } else if ($this->RiwayatJabatan->tipe_jabatan == "fungsional_umum") {
-            $jabatan = (isset($this->RiwayatJabatan->JabatanFu->nama)) ? $this->RiwayatJabatan->JabatanFu->nama : '';
-        } else if ($this->RiwayatJabatan->tipe_jabatan == "fungsional_tertentu") {
-            $jabatan = (isset($this->RiwayatJabatan->JabatanFt->nama)) ? $this->RiwayatJabatan->JabatanFt->nama : '';
-        }
-//        return (!empty($this->RiwayatJabatan->jabatan)) ? $this->RiwayatJabatan->jabatan : '-';
-        return $jabatan;
+        return (!empty($this->RiwayatJabatan->jabatan)) ? $this->RiwayatJabatan->jabatan : '-';
     }
 
     public function getRiwayatTmtJabatan() {
@@ -396,15 +379,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getTmtJabatan() {
-        if ($this->tipe_jabatan == "struktural") {
-            return date('d M Y', strtotime($this->tmt_jabatan_struktural));
-        } elseif ($this->tipe_jabatan == "fungsional_umum") {
-            return date('d M Y', strtotime($this->tmt_jabatan_fu));
-        } elseif ($this->tipe_jabatan == "fungsional_tertentu") {
-            return date('d M Y', strtotime($this->tmt_jabatan_ft));
-        } else {
-            return '-';
-        }
+        return isset($this->RiwayatJabatan->tmt_mulai) ? $this->RiwayatJabatan->tmt_mulai : "-";
     }
 
     public function getImgUrl() {

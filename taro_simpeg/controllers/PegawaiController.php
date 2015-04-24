@@ -51,44 +51,6 @@ class PegawaiController extends Controller {
         e.preventDefault();
         $(this).tab("show");
     })
-
-    $("#Pegawai_tipe_jabatan_0").click(function(event) { 
-      $(".struktural").show();
-      $(".fungsional_umum").hide();            
-      $(".fungsional_tertentu").hide();   
-      $("#s2id_Pegawai_jabatan_ft_id").select2("val", "0") ;           
-      $("#s2id_Pegawai_jabatan_fu_id").select2("val", "0") ; 
-      $("#Pegawai_tmt_jabatan_fu").val("");            
-      $("#Pegawai_tmt_jabatan_ft").val("");           
-      $("#eselon").val("-");
-      $("#masa_kerja").val("0");
-    });
-
-    $("#Pegawai_tipe_jabatan_1").click(function(event) { 
-      $(".struktural").hide();
-      $(".fungsional_umum").show();            
-      $(".fungsional_tertentu").hide(); 
-      $("#s2id_Pegawai_jabatan_ft_id").select2("val", "0") ;           
-      $("#s2id_Pegawai_jabatan_struktural_id").select2("val", "0") ;  
-      $("#Pegawai_tmt_jabatan_ft").val("");            
-      $("#Pegawai_tmt_jabatan_struktural").val("");
-      $("#eselon").val("-");
-      $("#masa_kerja").val("0");
-    });
-
-    $("#Pegawai_tipe_jabatan_2").click(function(event) { 
-      $(".struktural").hide();
-      $(".fungsional_umum").hide();            
-      $(".fungsional_tertentu").show();   
-      $("#s2id_Pegawai_jabatan_struktural_id").select2("val", "0") ;           
-      $("#s2id_Pegawai_jabatan_fu_id").select2("val", "0") ;  
-      $("#Pegawai_tmt_jabatan_fu").val("");            
-      $("#Pegawai_tmt_jabatan_struktural").val("");                    
-      $("#eselon").val("-");
-      $("#masa_kerja").val("0");
-    });
-   
-
     ');
     }
 
@@ -841,12 +803,12 @@ class PegawaiController extends Controller {
             }
 
             if ($model->save()) {
-
+                $id = Pegawai::model()->find(array('condition' => 'nip=' . $model->nip, 'order' => 'id DESC'));
                 if (is_object($file)) {
                     $file->saveAs('images/pegawai/' . $model->foto);
                     Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
                 }
-                $this->redirect(array('update', 'id' => $model->id));
+                $this->redirect(array('update', 'id' => $id->id));
             }
         }
 
