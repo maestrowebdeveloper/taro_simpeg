@@ -172,6 +172,19 @@ class Honorer extends CActiveRecord {
         return $data;
     }
 
+    public function search2() {
+        $criteria2 = new CDbCriteria();
+        if (!empty($this->unit_kerja_id))
+            $criteria2->compare('unit_kerja_id', $this->unit_kerja_id);
+        if (!empty($this->tmt_kontrak) && !empty($this->tmt_akhir_kontrak))
+            $criteria2->condition = 'tmt_akhir_kontrak between "' . $this->tmt_kontrak . '" and "' . $this->tmt_akhir_kontrak . '"';
+
+        $isi = new CActiveDataProvider($this, array(
+            'criteria' => $criteria2,
+        ));
+        return $isi;
+    }
+
     /**
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -448,6 +461,7 @@ class Honorer extends CActiveRecord {
         $agama = array('gtt' => 'Guru Tidak Tetap', 'ptt' => 'Pegawai Tidak Tetap', 'tkd' => 'Tenaga Kontrak Daerah');
         return $agama;
     }
+
     public function arrStatusSk() {
         $agama = array('40' => 'SK Bupati non Database', '20' => 'SK Bupati non Database Lulus', '21' => 'SK Bupati non Database Pensiun');
         return $agama;

@@ -1000,7 +1000,7 @@ $this->beginWidget(
         } else if (id == "Hindu") {
             $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
             $('#Pegawai_ket_agama').attr("value", "");
-        } else if (id == "Katolik") {
+        } else if (id == "Khatolik") {
             $("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");
             $('#Pegawai_ket_agama').attr("value", "");
         } else if (id == "Protestan") {
@@ -1017,5 +1017,13 @@ $this->beginWidget(
         }else{
             echo '$("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");';
         }
+        
+        //
+        if($model->kedudukan_id == "1"){
+            echo ' $("#Pegawai_keterangan").parent().parent().attr("style", "display:none");';
+        }else{
+            echo ' $("#Pegawai_keterangan").parent().parent().attr("style", "display:");';
+        }
+
     ?>
 </script>

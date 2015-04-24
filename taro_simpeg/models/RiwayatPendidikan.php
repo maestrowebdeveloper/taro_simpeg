@@ -139,5 +139,13 @@ class RiwayatPendidikan extends CActiveRecord {
     public function getPegawai() {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
     }
+    
+    public function getJurusanPegawai(){
+        if(empty($this->jurusan) and !empty($this->id_jurusan)){
+            return $this->Jurusan->Name;
+        }else{
+            return $this->jurusan;
+        }
+    }
 
 }

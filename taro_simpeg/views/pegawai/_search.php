@@ -12,7 +12,7 @@
                     echo $form->textFieldRow($model,'nip',array('class'=>'span2 angka','style'=>'max-width:500px;width:200px','maxlength'=>18));                                     
                     echo $form->textFieldRow($model,'nama',array('class'=>'span3','maxlength'=>100));                    
                     ?>                    
-                                      <div class="control-group "><label class="control-label" for="Pegawai_gelar_depan">Gelar</label>
+                    <div class="control-group "><label class="control-label" for="Pegawai_gelar_depan">Gelar</label>
                     <div class="controls">
                         <input class="span1" maxlength="25" value="<?php echo $model->gelar_depan;?>" name="Pegawai[gelar_depan]" id="Pegawai_gelar_depan" placeHolder="Depan" type="text">
                         <input class="span1" maxlength="25" value="<?php echo $model->gelar_belakang;?>" name="Pegawai[gelar_belakang]" id="Pegawai_gelar_belakang" placeHolder="Belakang" type="text">
