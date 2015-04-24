@@ -17,7 +17,7 @@ class Honorer extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nomor_register, nama, unit_kerja_id,tanggal_register, tanggal_lahir', 'required'),
-            array('tempat_lahir,st_peg,status_sk, ket_agama, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_honorer_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
+            array('tempat_lahir,st_peg,status_sk, ket_agama, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_honorer_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
             array(' unit_kerja_id, jabatan_honorer_id, gaji, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register, foto', 'length', 'max' => 225),
             array('nama', 'length', 'max' => 100),
@@ -31,7 +31,7 @@ class Honorer extends CActiveRecord {
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id,status_sk, st_peg, nomor_register, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp, foto, unit_kerja_id, tmt_kontrak, jabatan_honorer_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id,status_sk, st_peg, nomor_register, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto, unit_kerja_id, tmt_kontrak, jabatan_honorer_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -45,7 +45,7 @@ class Honorer extends CActiveRecord {
             'UnitKerja' => array(self::BELONGS_TO, 'UnitKerja', 'unit_kerja_id'),
             'JabatanHonorer' => array(self::BELONGS_TO, 'JabatanHonorer', 'jabatan_honorer_id'),
 //			'TempatLahir' => array(self::BELONGS_TO, 'City', 'tempat_lahir'),
-//            'Kota' => array(self::BELONGS_TO, 'City', 'kota'),
+            'City' => array(self::BELONGS_TO, 'City', 'city_id'),
         );
     }
 
@@ -67,7 +67,7 @@ class Honorer extends CActiveRecord {
             'tahun_pendidikan' => 'Tahun Pendidikan',
             'status_pernikahan' => 'Status Pernikahan',
             'alamat' => 'Alamat',
-            'kota' => 'Kota',
+            'city_id' => 'Kota',
             'kode_pos' => 'Kode Pos',
             'hp' => 'Hp',
             'golongan_darah' => 'Golongan Darah',
@@ -144,7 +144,7 @@ class Honorer extends CActiveRecord {
         $criteria->compare('tahun_pendidikan', $this->tahun_pendidikan, true);
         $criteria->compare('status_pernikahan', $this->status_pernikahan, true);
         $criteria->compare('alamat', $this->alamat, true);
-        $criteria->compare('kota', $this->kota);
+        $criteria->compare('city_id', $this->city_id);
         $criteria->compare('kode_pos', $this->kode_pos, true);
         $criteria->compare('hp', $this->hp, true);
         $criteria->compare('golongan_darah', $this->golongan_darah, true);
@@ -301,7 +301,7 @@ class Honorer extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . $this->alamat . ' ' . $this->kota . '
+                        ' . $this->alamat . ' ' . $this->namaCity . '
                     </div>
                 </div>
 
@@ -476,11 +476,11 @@ class Honorer extends CActiveRecord {
     }
 
     public function getKota() {
-        return (!empty($this->Kota->name)) ? $this->Kota->name : '-';
+        return (!empty($this->City->name)) ? $this->City->name : '-';
     }
 
-    public function getNamaKota() {
-        return (!empty($this->Kota->name)) ? $this->Kota->name : '-';
+    public function getNamaCity() {
+        return (!empty($this->City->name)) ? $this->City->name : '-';
     }
 
     public function getJabatan() {

@@ -128,8 +128,8 @@ class HonorerController extends Controller {
         $return['masa_kerja'] = $model->masaKerja;
         $return['tempat_lahir'] = $model->tempat_lahir;
         $return['tanggal_lahir'] = $model->tanggal_lahir;
-        $return['kota'] = $model->kota;
-        $return['nama_kota'] = $model->namaKota;
+        $return['city'] = $model->namaCity;
+//        $return['nama_kota'] = $model->namaKota;
         $return['alamat'] = $model->alamat;
         $return['pendidikan_terakhir'] = $model->pendidikan_terakhir;
         echo json_encode($return);
@@ -162,7 +162,7 @@ class HonorerController extends Controller {
 
         if (isset($_POST['Honorer'])) {
             $model->attributes = $_POST['Honorer'];
-            $model->kota = $_POST['Honorer']['kota'];
+            $model->city_id = $_POST['Honorer']['city_id'];
 //            $model->kota = $_POST['id'];
             $perubahan['tahun'] = $_POST['kalkulasiTahun'];
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
@@ -204,7 +204,7 @@ class HonorerController extends Controller {
 
         if (isset($_POST['Honorer'])) {
             $model->attributes = $_POST['Honorer'];
-            $model->kota = $_POST['Honorer']['kota'];
+            $model->city_id = $_POST['Honorer']['city_id'];
 //            $model->kota = $_POST['id'];
             $model->tempat_lahir = $_POST['Honorer']['tempat_lahir'];
             $perubahan['tahun'] = $_POST['kalkulasiTahun'];
@@ -254,7 +254,8 @@ class HonorerController extends Controller {
     }
 
     /**
-     * Deletes a particular model.
+     * Deletes a particular mode
+     * l.
      * If deletion is successful, the browser will be redirected to the 'admin' page.
      * @param integer $id the ID of the model to be deleted
      */
@@ -287,8 +288,8 @@ class HonorerController extends Controller {
             $model->attributes = $_GET['Honorer'];
             if ($model->tempat_lahir == 0)
                 unset($model->tempat_lahir);
-            if ($model->kota == 0)
-                unset($model->kota);
+            if ($model->city_id == 0)
+                unset($model->city_id);
             if ($model->unit_kerja_id == 0)
                 unset($model->unit_kerja_id);
             if ($model->jabatan_honorer_id == 0)

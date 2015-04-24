@@ -241,5 +241,9 @@ class ReportController extends Controller {
         }
         echo CJSON::encode($source);
     }
+    
+    public function actionExcelPegawai() {
+        $this->render('_pegawai',array());
+    }
 
 }

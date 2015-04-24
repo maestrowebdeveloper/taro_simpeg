@@ -770,7 +770,7 @@ class PegawaiController extends Controller {
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
-            $model->kota = $_POST['Pegawai']['kota'];
+            $model->city_id = $_POST['Pegawai']['city_id'];
             $model->karpeg = $_POST['Pegawai']['karpeg'];
             $model->no_taspen = $_POST['Pegawai']['no_taspen'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
@@ -849,7 +849,7 @@ class PegawaiController extends Controller {
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
-            $model->kota = $_POST['Pegawai']['kota'];
+            $model->city_id = $_POST['Pegawai']['city_id'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
             $model->karpeg = $_POST['Pegawai']['karpeg'];
             $model->riwayat_jabatan_id = $_POST['Pegawai']['riwayat_jabatan_id'];

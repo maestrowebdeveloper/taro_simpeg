@@ -224,6 +224,45 @@
                         <div class="span12">
                             <?php
                             if (!isset($_GET['v'])) {
+                                $id_city='';
+                                $id_city = (!empty($model->city_id)) ? $model->city_id : 0;
+                                $city = (isset($model->City)) ? $model->City->Province->name.' - '.$model->City->name :'Ketik kotas disini';
+                                
+                                echo $form->select2Row($model, 'city_id', array(
+                                    'asDropDownList' => false,
+//                    'data' => $data,
+//                    'value' => $model->Kota->name,
+                                    'options' => array(
+                                        'placeholder' => t('choose', 'global'),
+                                        'allowClear' => true,
+                                        'width' => '400px',
+                                        'minimumInputLength' => '3',
+                                        'ajax' => array(
+                                            'url' => Yii::app()->createUrl('city/getListKota'),
+                                            'dataType' => 'json',
+                                            'data' => 'js:function(term, page) { 
+                                                        return {
+                                                            q: term 
+                                                        }; 
+                                                    }',
+                                            'results' => 'js:function(data) { 
+                                                        return {
+                                                            results: data
+                                                            
+                                                        };
+                                                    }',
+                                        ),
+                                        'initSelection' => 'js:function(element, callback) 
+                            { 
+                            callback({id: '.$id_city.', text: "'.$city.'" });
+                             
+                                  
+                            }',
+                                    ),
+                                        )
+                                );
+                                echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'style' => 'width:50%', 'class' => 'span9'));
+                                echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
                                 echo $form->textFieldRow($model, 'hp', array('class' => 'span5 angka', 'style' => 'max-width:500px;width:200px', 'maxlength' => 25, 'prepend' => '+62'));
                                 echo $form->textFieldRow($model, 'email', array('class' => 'span5', 'maxlength' => 50));
                                 echo $form->radioButtonListRow($model, 'golongan_darah', Pegawai::model()->ArrGolonganDarah());
