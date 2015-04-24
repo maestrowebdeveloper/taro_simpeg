@@ -299,7 +299,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getRiwayatNamaJabatan() {
-        return (!empty($this->RiwayatJabatan->jabatan)) ? $this->RiwayatJabatan->jabatan : '-';
+        return (!empty($this->RiwayatJabatan->jabatanPegawai)) ? $this->RiwayatJabatan->jabatanPegawai : '-';
     }
 
     public function getRiwayatTmtJabatan() {
