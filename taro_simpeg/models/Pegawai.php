@@ -204,7 +204,6 @@ class Pegawai extends CActiveRecord {
             'criteria' => $criteria,
             'sort' => array('defaultOrder' => 'nama')
         ));
-        //app()->session['Pegawai_records'] = $this->findAll($criteria);
 
         return $data;
     }
