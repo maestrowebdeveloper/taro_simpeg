@@ -22,19 +22,19 @@ class KenaikanGajiController extends Controller
             return array(
                 array('allow', // c
                     'actions' => array('index', 'create'),
-                    'expression' => 'app()->controller->isValidAccess(1,"c")'
+                    'expression' => 'app()->controller->isValidAccess("kenaikanGaji","c")'
                 ),
                 array('allow', // r
                     'actions' => array('index', 'view'),
-                    'expression' => 'app()->controller->isValidAccess(1,"r")'
+                    'expression' => 'app()->controller->isValidAccess("kenaikanGaji","r")'
                 ),
                 array('allow', // u
                     'actions' => array('index', 'update'),
-                    'expression' => 'app()->controller->isValidAccess(1,"u")'
+                    'expression' => 'app()->controller->isValidAccess("kenaikanGaji","u")'
                 ),
                 array('allow', // d
                     'actions' => array('index', 'delete'),
-                    'expression' => 'app()->controller->isValidAccess(1,"d")'
+                    'expression' => 'app()->controller->isValidAccess("kenaikanGaji","d")'
                 )
             );
         }
