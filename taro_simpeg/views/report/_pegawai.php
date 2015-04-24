@@ -1,4 +1,13 @@
 <?php
+Yii::app()->clientScript->registerScript('search', "
+$('.search-form form').submit(function(){
+    $.fn.yiiGridView.update('daftar-pegawai-grid', {
+        data: $(this).serialize()
+    });
+    return false;
+});
+");
+
 $criteria2 = new CDbCriteria();
 if (!empty($model->unit_kerja_id) && $model->unit_kerja_id > 0)
     $criteria2->compare('unit_kerja_id', $model->unit_kerja_id);
@@ -11,12 +20,12 @@ if (!empty($model->tipe_jabatan))
     $criteria2->compare('tipe_jabatan', $model->tipe_jabatan);
 
 if (!empty($model->tmt_pns) && !empty($model->tmt_pensiun))
-    $criteria2->addInCondition('tmt_pensiun between "' . $model->tmt_pns . '" and "' . $model->tmt_pensiun . '"');
+    $criteria2->condition = 'tmt_pensiun between "' . $model->tmt_pns . '" and "' . $model->tmt_pensiun . '"';
 
 //$data = Pegawai::model()->findAll(array('condition' => 'id > 0 ' . $criteria));
 //app()->session['Pegawai_records'] = $data;
 $isi = new CActiveDataProvider('Pegawai', array(
-            'criteria' => $criteria2,
+    'criteria' => $criteria2,
 //            'sort' => array('defaultOrder' => 'name')
         ));
 ?>
@@ -29,6 +38,7 @@ $isi = new CActiveDataProvider('Pegawai', array(
         'id' => 'daftar-pegawai-grid',
         'dataProvider' => $isi,
         'type' => 'striped bordered condensed',
+        'ajaxUpdate' => false,
         'template' => '{summary}{pager}{items}{pager}',
         'columns' => array(
             array(
