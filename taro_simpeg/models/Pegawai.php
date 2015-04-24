@@ -17,7 +17,7 @@ class Pegawai extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nip, nama, tanggal_lahir, jenis_kelamin,  kedudukan_id, unit_kerja_id', 'required'),
-            array('gelar_depan, ketarangan, ket_agama, riwayat_jabatan_id,riwayat_pangkat_id,pendidikan_id,gelar_belakang,modified_user_id, tempat_lahir,agama, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, npwp,karpeg, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, id', 'safe'),
+            array('gelar_depan, ketarangan, ket_agama, riwayat_jabatan_id,riwayat_pangkat_id,pendidikan_id,gelar_belakang,modified_user_id, tempat_lahir,agama, kedudukan_id, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp,karpeg, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, id', 'safe'),
             array(' kedudukan_id, unit_kerja_id, golongan_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, gaji, created_user_id, id', 'numerical', 'integerOnly' => true),
             array('nip, gelar_depan, gelar_belakang, keterangan, bpjs, kpe, npwp', 'length', 'max' => 50),
             array('nama', 'length', 'max' => 100),
@@ -32,7 +32,7 @@ class Pegawai extends CActiveRecord {
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, ketarngan, nip, nama, gelar_depan, gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, kedudukan_id, status_pernikahan, alamat, kota, kode_pos, hp, golongan_darah, bpjs, kpe, npwp,karpeg, foto, unit_kerja_id, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, nomor_kesehatan, tanggal_kesehatan,  created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, ketarngan, nip, nama, gelar_depan, gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, kedudukan_id, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, kpe, npwp,karpeg, foto, unit_kerja_id, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, nomor_kesehatan, tanggal_kesehatan,  created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -44,7 +44,7 @@ class Pegawai extends CActiveRecord {
             'UnitKerja' => array(self::BELONGS_TO, 'UnitKerja', 'unit_kerja_id'),
             'Golongan' => array(self::BELONGS_TO, 'Golongan', 'golongan_id'),
 //            'TempatLahir' => array(self::BELONGS_TO, 'City', 'tempat_lahir'),
-//            'Kota' => array(self::BELONGS_TO, 'City', 'kota'),
+            'City' => array(self::BELONGS_TO, 'City', 'city_id'),
             'Kedudukan' => array(self::BELONGS_TO, 'Kedudukan', 'kedudukan_id'),
             'JabatanStruktural' => array(self::BELONGS_TO, 'JabatanStruktural', 'jabatan_struktural_id'),
             'JabatanFu' => array(self::BELONGS_TO, 'JabatanFu', 'jabatan_fu_id'),
@@ -76,7 +76,7 @@ class Pegawai extends CActiveRecord {
             'kedudukan_id' => 'Kedudukan',
             'status_pernikahan' => 'Status Pernikahan',
             'alamat' => 'Alamat',
-            'kota' => 'Kota',
+            'city_id' => 'Kota',
             'kode_pos' => 'Kode Pos',
             'hp' => 'Hp',
             'golongan_darah' => 'Golongan Darah',
@@ -170,7 +170,7 @@ class Pegawai extends CActiveRecord {
         $criteria->compare('kedudukan_id', $this->kedudukan_id);
         $criteria->compare('status_pernikahan', $this->status_pernikahan, true);
         $criteria->compare('alamat', $this->alamat, true);
-        $criteria->compare('kota', $this->kota);
+        $criteria->compare('city_id', $this->city_id);
         $criteria->compare('kode_pos', $this->kode_pos, true);
         $criteria->compare('hp', $this->hp, true);
         $criteria->compare('golongan_darah', $this->golongan_darah, true);
@@ -364,8 +364,8 @@ class Pegawai extends CActiveRecord {
         return (!empty($this->TempatLahir->name)) ? $this->TempatLahir->name : '-';
     }
 
-    public function getKota() {
-        return (!empty($this->Kota->name)) ? $this->Kota->name : '-';
+    public function getCity() {
+        return (!empty($this->City->name)) ? $this->City->name : '-';
     }
 
     public function getTipe() {
@@ -617,7 +617,7 @@ class Pegawai extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . $this->alamat . ' ' . $this->kota . '
+                        ' . $this->alamat . ' ' . $this->City->name . '
                     </div>
                 </div>
 

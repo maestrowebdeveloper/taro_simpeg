@@ -188,8 +188,11 @@
                         <div class="span12">
                             <?php
                             if (!isset($_GET['v'])) {
-                                $kota = isset($model->kota) ? $model->kota : '';
-                                echo $form->select2Row($model, 'kota', array(
+                                $id_city='';
+                                $id_city = (!empty($model->city_id)) ? $model->city_id : 0;
+                                $city = (isset($model->City)) ? $model->City->Province->name.' - '.$model->City->name :'Ketik kotas disini';
+                                
+                                echo $form->select2Row($model, 'city_id', array(
                                     'asDropDownList' => false,
 //                    'data' => $data,
 //                    'value' => $model->Kota->name,
@@ -199,7 +202,7 @@
                                         'width' => '400px',
                                         'minimumInputLength' => '3',
                                         'ajax' => array(
-                                            'url' => Yii::app()->createUrl('city/getListKota2'),
+                                            'url' => Yii::app()->createUrl('city/getListKota'),
                                             'dataType' => 'json',
                                             'data' => 'js:function(term, page) { 
                                                         return {
@@ -215,7 +218,7 @@
                                         ),
                                         'initSelection' => 'js:function(element, callback) 
                             { 
-                            callback({id: 1, text: "' . $kota . '" });
+                            callback({id: '.$id_city.', text: "'.$city.'" });
                              
                                   
                             }',
