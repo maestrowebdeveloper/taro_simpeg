@@ -59,6 +59,7 @@ $this->breadcrumbs = array(
         ?>
         <div class="control-group "><label class="control-label" for="jurusan">Jurusan</label>
             <div class="controls">
+                <input type="text" name="id_jurusan" id="id_jurusan" value="<?php echo  isset($_POST['id_jurusan']) ? $_POST['id_jurusan'] : "-";?>">
                 <?php
                 $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                     'name' => 'jurusan',
@@ -68,7 +69,7 @@ $this->breadcrumbs = array(
                         'showAnim' => 'fold',
                         'minLength' => '3',
                         'select' => 'js:function(event, ui){
-                                        jQuery("#name").val(ui.item["label"]);
+                                        jQuery("#id_jurusan").val(ui.item["item_id"]);
                                     }'
                     ),
                 ))
