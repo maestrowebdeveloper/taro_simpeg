@@ -22,8 +22,8 @@ class Pegawai extends CActiveRecord {
             array('nip, gelar_depan, gelar_belakang, keterangan, bpjs, kpe, npwp', 'length', 'max' => 50),
             array('nama', 'length', 'max' => 100),
             array('jenis_kelamin', 'length', 'max' => 11),
-            array('agama, pendidikan_terakhir', 'length', 'max' => 9),
-            array('tahun_pendidikan, kode_pos', 'length', 'max' => 10),
+            array('agama', 'length', 'max' => 9),
+            array('kode_pos', 'length', 'max' => 10),
             array('status_pernikahan', 'length', 'max' => 12),
             array('hp', 'length', 'max' => 25),
             array('golongan_darah', 'length', 'max' => 5),
@@ -168,8 +168,8 @@ class Pegawai extends CActiveRecord {
         $criteria->compare('tanggal_lahir', $this->tanggal_lahir, true);
         $criteria->compare('jenis_kelamin', $this->jenis_kelamin, true);
         $criteria->compare('agama', $this->agama, true);
-        $criteria->compare('pendidikan_terakhir', $this->pendidikan_terakhir, true);
-        $criteria->compare('tahun_pendidikan', $this->tahun_pendidikan, true);
+//        $criteria->compare('pendidikan_terakhir', $this->pendidikan_terakhir, true);
+//        $criteria->compare('tahun_pendidikan', $this->tahun_pendidikan, true);
         $criteria->compare('kedudukan_id', $this->kedudukan_id);
         $criteria->compare('status_pernikahan', $this->status_pernikahan, true);
         $criteria->compare('alamat', $this->alamat, true);
@@ -435,7 +435,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function arrAgama() {
-        $agama = array('Islam' => 'Islam', 'Hindu' => 'Hindu', 'Budha' => 'Budha', 'Katolik' => 'Katolik', 'Protestan' => 'Protestan', 'Konghucu' => 'Konghucu', 'Lainnya' => 'Lainnya');
+        $agama = array('Islam' => 'Islam', 'Hindu' => 'Hindu', 'Budha' => 'Budha', 'Katholik' => 'Katholik', 'Protestan' => 'Protestan', 'Konghucu' => 'Konghucu', 'Lainnya' => 'Lainnya');
         return $agama;
     }
 
