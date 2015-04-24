@@ -379,7 +379,7 @@ class PegawaiController extends Controller {
             $data['id'] = $model->id;
             $data['jenjang_pendidikan'] = $model->jenjang_pendidikan;
             $data['tahun'] = $model->tahun;
-            $data['jurusan'] = $model->jurusan;
+            $data['jurusan'] = $model->jurusanPegawai;
             echo json_encode($data);
         }
     }
