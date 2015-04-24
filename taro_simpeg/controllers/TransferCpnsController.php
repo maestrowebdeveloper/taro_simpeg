@@ -106,8 +106,8 @@ class TransferCpnsController extends Controller {
         $return['masa_kerja'] = $model->masaKerja;
         $return['tempat_lahir'] = $model->tempatLahir;
         $return['tanggal_lahir'] = $model->tanggal_lahir;
-        $return['pendidikan_terakhir'] = $model->pendidikan_terakhir;
-        $return['tahun_pendidikan'] = $model->tahun_pendidikan;
+        $return['pendidikan_terakhir'] = $model->Pendidikan->jenjang_pendidikan.' - '.$model->Pendidikan->Jurusan->Name;
+        $return['tahun_pendidikan'] = $model->Pendidikan->tahun;
         $return['golru'] = $model->golongan;
         $return['tmt'] = $model->tmt_cpns;
         $return['jabatan'] = $model->jabatan;
