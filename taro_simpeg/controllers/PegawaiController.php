@@ -780,11 +780,8 @@ class PegawaiController extends Controller {
                 if (!empty($riwayat)) {
                     //simpan jabatan di tabel pegawai
                     $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
-                    $model->tmt_jabatan_struktural = $riwayat->tmt_mulai;
                     $model->jabatan_fu_id = $riwayat->jabatan_fu_id;
-                    $model->tmt_jabatan_fu = $riwayat->tmt_mulai;
                     $model->jabatan_ft_id = $riwayat->jabatan_ft_id;
-                    $model->tmt_jabatan_ft = $riwayat->tmt_mulai;
                     $model->tipe_jabatan = $riwayat->tipe_jabatan;
                     if ($riwayat->tipe_jabatan == "struktural") {
                         //simpan status jabatan struktural
@@ -866,11 +863,8 @@ class PegawaiController extends Controller {
             if (!empty($riwayat)) {
                 //simpan jabatan di tabel pegawai
                 $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
-                $model->tmt_jabatan_struktural = $riwayat->tmt_mulai;
                 $model->jabatan_fu_id = $riwayat->jabatan_fu_id;
-                $model->tmt_jabatan_fu = $riwayat->tmt_mulai;
                 $model->jabatan_ft_id = $riwayat->jabatan_ft_id;
-                $model->tmt_jabatan_ft = $riwayat->tmt_mulai;
                 $model->tipe_jabatan = $riwayat->tipe_jabatan;
                 if ($riwayat->tipe_jabatan == "struktural") {
                     $jabatan = JabatanStruktural::model()->findByPk($riwayat->jabatan_struktural_id);
