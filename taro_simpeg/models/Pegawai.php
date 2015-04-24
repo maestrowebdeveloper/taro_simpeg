@@ -53,6 +53,7 @@ class Pegawai extends CActiveRecord {
             'Pendidikan' => array(self::BELONGS_TO, 'RiwayatPendidikan', 'pendidikan_id'),
             'Pangkat' => array(self::BELONGS_TO, 'RiwayatPangkat', 'riwayat_pangkat_id'),
             'RiwayatJabatan' => array(self::BELONGS_TO, 'RiwayatJabatan', 'riwayat_jabatan_id'),
+            'RiwayatPendidikan' => array(self::HAS_MANY, 'RiwayatPendidikan', 'pegawai_id'),
         );
     }
 
@@ -208,6 +209,35 @@ class Pegawai extends CActiveRecord {
         return $data;
     }
 
+    public function search2() {
+        $criteria2 = new CDbCriteria();
+        $criteria2->with = array('RiwayatPendidikan');
+        $criteria2->together = true;
+        if (!empty($this->unit_kerja_id) && $this->unit_kerja_id > 0)
+            $criteria2->compare('unit_kerja_id', $this->unit_kerja_id);
+        if (!empty($this->golongan_id) && $this->golongan_id > 0)
+            $criteria2->compare('golongan_id', $this->golongan_id);
+        if (!empty($this->kedudukan_id) && $this->kedudukan_id > 0)
+            $criteria2->compare('kedudukan_id', $this->kedudukan_id);
+        if (!empty($this->tipe_jabatan))
+            $criteria2->compare('tipe_jabatan', $this->tipe_jabatan);
+        if (isset($_POST['jurusan']) and ! empty($_POST['jurusan'])) {
+            $criteria2->compare('RiwayatPendidikan.jurusan', $_POST['jurusan'], true, 'OR');
+            $criteria2->compare('RiwayatPendidikan.id_jurusan', $_POST['id_jurusan'], true, 'OR');
+        }
+        $criteria2->addCondition('t.id = RiwayatPendidikan.pegawai_id');
+        
+        if (!empty($this->tmt_pns) && !empty($this->tmt_pensiun))
+            $criteria2->addInCondition('tmt_pensiun between "' . $this->tmt_pns . '" and "' . $this->tmt_pensiun . '"');
+
+        $data = new CActiveDataProvider($this, array(
+            'criteria' => $criteria2,
+            'sort' => false,
+        ));
+
+        return $data;
+    }
+
     /**
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -238,8 +268,28 @@ class Pegawai extends CActiveRecord {
         return parent::beforeValidate();
     }
 
+    public function getBup() {
+        $eselon = isset($this->Eselon->nama) ? $this->Eselon->nama : "-";
+        $tingkatEselon = substr($eselon, 0, 2);
+        $bup = '-';
+        if ($tingkatEselon == "II" and $this->tipe_jabatan == "struktural") {
+            $bup = '60';
+        } else if (($tingkatEselon == "III" or $tingkatEselon == "IV" or $tingkatEselon == "V") and $this->tipe_jabatan == "struktural") {
+            $bup = '58';
+        } else if ($this->tipe_jabatan == "fungsional_umum") {
+            $bup = '60';
+        } else if ($this->tipe_jabatan == "fungsional_tertentu") {
+            $bup = '58';
+        }
+        return $bup;
+    }
+
     public function getGolongan() {
         return (!empty($this->Golongan->nama)) ? $this->Golongan->nama . ' - ' . $this->Golongan->keterangan : '-';
+    }
+
+    public function getEselon() {
+        return (!empty($this->JabatanStruktural->Eselon->nama)) ? $this->JabatanStruktural->Eselon->nama : '-';
     }
 
     public function getRiwayatTipeJabatan() {
