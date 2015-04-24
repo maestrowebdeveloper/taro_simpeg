@@ -123,7 +123,7 @@ class PegawaiController extends Controller {
         }
         echo json_encode($list);
     }
-    
+
     public function actionGetListPegawaicpns() {
         $name = $_GET["q"];
         $list = array();
@@ -821,7 +821,7 @@ class PegawaiController extends Controller {
                     $model->tmt_jabatan_struktural = $riwayat->tmt_mulai;
                     $model->jabatan_fu_id = $riwayat->jabatan_fu_id;
                     $model->tmt_jabatan_fu = $riwayat->tmt_mulai;
-                    $model->tmt_jabatan_ft_id = $riwayat->jabatan_ft_id;
+                    $model->jabatan_ft_id = $riwayat->jabatan_ft_id;
                     $model->tmt_jabatan_ft = $riwayat->tmt_mulai;
                     $model->tipe_jabatan = $riwayat->tipe_jabatan;
                     if ($riwayat->tipe_jabatan == "struktural") {
@@ -906,7 +906,7 @@ class PegawaiController extends Controller {
                 $model->tmt_jabatan_struktural = $riwayat->tmt_mulai;
                 $model->jabatan_fu_id = $riwayat->jabatan_fu_id;
                 $model->tmt_jabatan_fu = $riwayat->tmt_mulai;
-                $model->tmt_jabatan_ft_id = $riwayat->jabatan_ft_id;
+                $model->jabatan_ft_id = $riwayat->jabatan_ft_id;
                 $model->tmt_jabatan_ft = $riwayat->tmt_mulai;
                 $model->tipe_jabatan = $riwayat->tipe_jabatan;
                 if ($riwayat->tipe_jabatan == "struktural") {
@@ -1047,7 +1047,7 @@ class PegawaiController extends Controller {
             'model' => $model,
         ));
     }
-    
+
     public function actionRekapBatasPensiun() {
         $model = new Pegawai;
         $model->unsetAttributes();  // clear any default values  
