@@ -830,7 +830,7 @@ class PegawaiController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Pegawai'])) {
-
+logs($_POST['Pegawai']['city_id']);
             $jabatanStruktural = 0;
             if (isset($model->RiwayatJabatan->id)) {
                 if ($model->RiwayatJabatan->tipe_jabatan == "struktural") {
@@ -938,8 +938,8 @@ class PegawaiController extends Controller {
             $model->attributes = $_GET['Pegawai'];
             if ($model->tempat_lahir == 0)
                 unset($model->tempat_lahir);
-            if ($model->kota == 0)
-                unset($model->kota);
+            if ($model->city_id == 0)
+                unset($model->city_id);
             if ($model->kedudukan_id == 0)
                 unset($model->kedudukan_id);
             if ($model->unit_kerja_id == 0)

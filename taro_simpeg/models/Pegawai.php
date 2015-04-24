@@ -591,7 +591,7 @@ class Pegawai extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . $this->alamat . ' ' . $this->City->name . '
+                        ' . $this->alamat . ' ' . $this->city . '
                     </div>
                 </div>
 
