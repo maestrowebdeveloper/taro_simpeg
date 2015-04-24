@@ -50,13 +50,13 @@ foreach (Yii::app()->user->getFlashes() as $key => $message) {
 </div><!-- search-form -->
 
 <?php
-$display = (landa()->checkAccess("permohonanMutasi", "d") == 0) ? 'none' : '';
+$display = (landa()->checkAccess("transferCpns", "d") == 0) ? 'none' : '';
 $button = "";
-if (landa()->checkAccess("permohonanMutasi", 'r'))
+if (landa()->checkAccess("transferCpns", 'r'))
     $button .= '{view} ';
-if (landa()->checkAccess("permohonanMutasi", 'u'))
+if (landa()->checkAccess("transferCpns", 'u'))
     $button .= '{update} ';
-if (landa()->checkAccess("permohonanMutasi", 'd'))
+if (landa()->checkAccess("transferCpns", 'd'))
     $button .= '{delete}';
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'ws-finish-form',

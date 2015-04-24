@@ -37,6 +37,10 @@ class ReportController extends Controller {
                 'actions' => array('urutKepangkatan'),
                 'expression' => 'app()->controller->isValidAccess("laporanUrutanKepangkatan","r")'
             ),
+            array('allow', // r
+                'actions' => array('pensiun'),
+                'expression' => 'app()->controller->isValidAccess("laporanPensiun","r")'
+            ),
         );
     }
 

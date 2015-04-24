@@ -149,8 +149,8 @@ class Auth extends CActiveRecord {
                     array('visible' => landa()->checkAccess('rekapPegawai', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Rekap Data Jab. Fung.', 'url' => url('/pegawai/rekapJabfung'), 'auth_id' => 'rekapPegawai'),
                     array('visible' => landa()->checkAccess('rekapPegawai', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Rekap Batas Pensiun.', 'url' => url('/pegawai/rekapBatasPensiun'), 'auth_id' => 'rekapPegawai'),
                 )),
-            array('visible' => landa()->checkAccess('rekapPegawai', 'r'), 'label' => '<span class="icon16  eco-article "></span>Kenaikan Gaji Berkala', 'url' => url('/kenaikanGaji'), 'auth_id' => 'rekapPegawai'),
-            array('visible' => landa()->checkAccess('rekapPegawai', 'r'), 'label' => '<span class="icon16  eco-article "></span>Transfer CPNS', 'url' => url('/transferCpns'), 'auth_id' => 'rekapPegawai'),
+            array('visible' => landa()->checkAccess('kenaikanGaji', 'r'), 'label' => '<span class="icon16  eco-article "></span>Kenaikan Gaji Berkala', 'url' => url('/kenaikanGaji'), 'auth_id' => 'kenaikanGaji'),
+            array('visible' => landa()->checkAccess('transferCpns', 'r'), 'label' => '<span class="icon16  eco-article "></span>Transfer CPNS', 'url' => url('/transferCpns'), 'auth_id' => 'transferCpns'),
             array('visible' => landa()->checkAccess('cariGolongan', 'r'), 'label' => '<span class="icon16  eco-search "></span>Pencarian Data', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
                     array('visible' => landa()->checkAccess('cariGolongan', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Pangkat / Golru', 'url' => url('/pegawai/cariRiwayatPangkat'), 'auth_id' => 'cariGolongan'),
                     array('visible' => landa()->checkAccess('cariJabatan', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Jabatan', 'url' => url('/pegawai/cariRiwayatJabatan'), 'auth_id' => 'cariJabatan'),
@@ -176,7 +176,7 @@ class Auth extends CActiveRecord {
                     array('visible' => landa()->checkAccess('laporanHukumanPegawai', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Penerima Hukuman', 'url' => url('/report/penerimaHukuman'), 'auth_id' => 'laporanHukumanPegawai'),
                     array('visible' => landa()->checkAccess('laporanSuratMasuk', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Surat Masuk', 'url' => url('/report/suratMasuk'), 'auth_id' => 'laporanSuratMasuk'),
                     array('visible' => landa()->checkAccess('laporanSuratKeluar', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Surat Keluar', 'url' => url('/report/suratKeluar'), 'auth_id' => 'laporanSuratKeluar'),
-                    array('visible' => landa()->checkAccess('laporanSuratKeluar', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Laporan Pensiun', 'url' => url('/report/pensiun'), 'auth_id' => 'laporanSuratKeluar'),
+                    array('visible' => landa()->checkAccess('laporanPensiun', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Laporan Pensiun', 'url' => url('/report/pensiun'), 'auth_id' => 'laporanPens'),
                 )),
         );
     }
