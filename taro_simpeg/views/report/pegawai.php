@@ -59,7 +59,7 @@ $this->breadcrumbs = array(
         ?>
         <div class="control-group "><label class="control-label" for="jurusan">Jurusan</label>
             <div class="controls">
-                <input type="text" name="id_jurusan" id="id_jurusan" value="<?php echo  isset($_POST['id_jurusan']) ? $_POST['id_jurusan'] : "-";?>">
+                <input type="text" name="id_jurusan" id="id_jurusan" value="<?php echo isset($_POST['id_jurusan']) ? $_POST['id_jurusan'] : "-"; ?>">
                 <?php
                 $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                     'name' => 'jurusan',
@@ -123,6 +123,14 @@ $this->breadcrumbs = array(
         'type' => 'primary',
         'icon' => 'ok white',
         'label' => 'View Report',
+    ));
+    ?>
+    <?php
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'type' => 'primary',
+        'icon' => 'icon16 icomoon-icon-file-excel  white',
+        'label' => 'Export Excel',
+        'id' => 'export'
     ));
     ?>
 </div>
@@ -190,16 +198,19 @@ if ($cari == "1") {
         window.print();
         document.body.innerHTML = originalContents;
     }
-    function exportExcel() {
-        var unit_id = $("#Pegawai_unit_kerja_id").val();
-        var fu_id = $("#Pegawai_jabatan_fu_id").val();
-        var ft_id = $("#Pegawai_jabatan_ft_id").val();
-        if (unit_id != 0) {
-            window.open('<?php echo url('report/excelKepangkatan') ?>?unit_id=' + unit_id + '&fu_id=' + fu_id + '&ft_id=' + ft_id);
-        } else {
-            alert('Pilih Unit Kerja terlebih dahulu!');
-        }
-    }
+    $("#export").on("click", function () {
+        $.ajax({
+            type: 'post',
+            data: $('#results').serialize(),
+            url: "<?php echo url('report/excelPegawai') ?>",
+            success: function (data) {
+                var w = window.open();
+                var isi = data;
+
+                $(w.document.body).html(isi);
+            }
+        });
+    });
 </script>
 <style>
     .form-horizontal .control-group{
