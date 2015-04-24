@@ -102,7 +102,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         'nomor_kesehatan',
         'tanggal_kesehatan',
-        'pelatihan_id',
+//        'pelatihan_id',
         'nomor_diklat',
         array(
             'name' => 'status',

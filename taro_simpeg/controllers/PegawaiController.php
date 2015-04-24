@@ -890,6 +890,7 @@ class PegawaiController extends Controller {
             $model->kota = $_POST['Pegawai']['kota'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
             $model->karpeg = $_POST['Pegawai']['karpeg'];
+            $model->riwayat_jabatan_id = $_POST['Pegawai']['riwayat_jabatan_id'];
 
 
             $file = CUploadedFile::getInstance($model, 'foto');
