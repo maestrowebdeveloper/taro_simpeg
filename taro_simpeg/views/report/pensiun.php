@@ -3,6 +3,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'results',
     'enableAjaxValidation' => false,
     'method' => 'post',
+    'action' => url('report/pensiun?tampil=1'),
     'type' => 'horizontal',
     'htmlOptions' => array(
         'enctype' => 'multipart/form-data'
@@ -51,7 +52,7 @@ $this->breadcrumbs = array(
                         if (isset($_POST['tahun']) and $_POST['tahun'] == $x) {
                             $status = 'selected="selected"';
                         }
-                        echo'<option value="' . $x . '" '.$status.'>' . $x . '</option>';
+                        echo'<option value="' . $x . '" ' . $status . '>' . $x . '</option>';
                     }
                     ?> 
                 </select>
@@ -62,8 +63,16 @@ $this->breadcrumbs = array(
             <div class="controls">
                 <select name='bup'>
                     <option value=1> ---Select---</option>
-                    <option value="58" <?php if(isset($_POST['bup']) and $_POST['bup'] == "58") { echo 'selected="selected"';}?>> 58</option>
-                    <option value="60" <?php if(isset($_POST['bup']) and $_POST['bup'] == "60") { echo 'selected="selected"';}?>> 60</option>
+                    <option value="58" <?php
+                    if (isset($_POST['bup']) and $_POST['bup'] == "58") {
+                        echo 'selected="selected"';
+                    }
+                    ?>> 58</option>
+                    <option value="60" <?php
+                    if (isset($_POST['bup']) and $_POST['bup'] == "60") {
+                        echo 'selected="selected"';
+                    }
+                    ?>> 60</option>
                 </select>
             </div>
         </div>
@@ -100,12 +109,6 @@ $this->breadcrumbs = array(
                 ?>                 
             </div>
         </div>
-
-
-
-
-
-
     </div>
     <div class="span1"><?php if (!empty($model->id)) { ?>
             <a onclick="hide()" class="btn btn-small view" title="Remove Form" rel="tooltip"><i class=" icon-remove-circle"></i></a>
@@ -121,8 +124,112 @@ $this->breadcrumbs = array(
 
 
 <?php
-if (isset($_POST['yt0'])) {
-    $this->renderPartial('_pensiun', array('model' => $model));
+$tampil = isset($_GET['tampil']) ? "1" : "0";
+if ($tampil == "1") {
+    ?>
+    <?php
+    $criteria = new CDbCriteria();
+    $criteria->with = array('RiwayatJabatan');
+    $criteria->together = true;
+
+    if (!empty($_POST['tahun']) && !empty($_POST['bup'])) {
+        $tgl_lahir = $_POST['tahun'] - $_POST['bup'];
+        $criteria->addCondition('date_format(tanggal_lahir,"%y") = "' . date("y", strtotime($tgl_lahir)) . '"');
+    }
+
+    if (!empty($_POST['bulan']))
+        $criteria->addCondition('date_format(tanggal_lahir,"%m") = "' . date("m", strtotime($_POST['bulan'])) . '"');
+
+    if (!empty($_POST['unit_kerja_id']))
+        $criteria->addCondition('unit_kerja_id = ' . $_POST['unit_kerja_id']);
+
+    if (!empty($_POST['eselon_id'])) {
+        $jbt_id = array();
+
+        $jbt = JabatanStruktural::model()->findAll(array('condition' => 'eselon_id=' . $_POST['eselon_id']));
+        if (!empty($jbt)) {
+            foreach ($jbt as $a) {
+                $jbt_id[] = $a->id;
+            }
+            $criteria->addCondition('jabatan_struktural_id IN ("' . implode(',', $jbt_id) . '")');
+        }
+    }
+
+    $data = new CActiveDataProvider('Pegawai', array(
+        'criteria' => $criteria,
+        'sort' => false,
+    ));
+//$data = Pegawai::model()->with('RiwayatJabatan')->findAll(array('condition' => 't.id > 0 ' . $criteria));
+    ?>
+
+    <div style="text-align: right">
+
+        <button class="print entypo-icon-printer button" onclick="printDiv('report')" type="button">&nbsp;&nbsp;Print Report</button>    
+        <a class="btn btn-info pull-right" href="<?php echo url("/suratMasuk/generateExcel"); ?>" target="_blank"><span class="icon16 icomoon-icon-file-excel  white"></span>Export to Excel</a>
+    </div>
+    <div class="report" id="report" style="width: 100%">
+        <h3 style="text-align:center">LAPORAN PENSIUN</h3><br>
+        <h6  style="text-align:center">Tangga : <?php echo date('d F Y'); ?></h6>
+        <hr>
+        <?php
+        $this->widget('bootstrap.widgets.TbGridView', array(
+            'id' => 'daftar-pegawai-grid',
+            'dataProvider' => $data,
+            'type' => 'striped bordered condensed',
+            'template' => '{summary}{pager}{items}{pager}',
+            'columns' => array(
+                array(
+                    'name' => 'bup',
+                    'header' => 'BUP',
+                    'type' => 'raw',
+                    'value' => '$data->bup',
+                    'htmlOptions' => array('style' => 'text-align:left'),
+                ),
+                array(
+                    'name' => 'tmt_pensiun',
+                    'header' => 'Proyeksi Pensiun',
+                    'type' => 'raw',
+                    'value' => 'date("d/m/Y",strtotime($data->tmt_pensiun))',
+                ),
+                array(
+                    'name' => 'status',
+                    'header' => 'Status',
+                    'type' => 'raw',
+                    'value' => '(date("Y-m-d") < $data->tmt_pensiun) ? "Aktif" : "Pensiun"'
+                ),
+                array(
+                    'name' => 'nip',
+                    'type' => 'raw',
+                    'value' => '$data->nip',
+                    'htmlOptions' => array('style' => 'text-align:left'),
+                ),
+                'nama',
+                'kedudukan',
+                array(
+                    'name' => 'golongan',
+                    'type' => 'raw',
+                    'value' => '$data->golongan',
+                    'htmlOptions' => array('style' => 'text-align:left'),
+                ),
+                'jabatan',
+                array(
+                    'name' => 'eselon',
+                    'type' => 'raw',
+                    'value' => '$data->eselon',
+                    'htmlOptions' => array('style' => 'text-align:left'),
+                ),
+                array(
+                    'name' => 'unitKerja',
+                    'type' => 'raw',
+                    'value' => '$data->unitKerja',
+                    'htmlOptions' => array('style' => 'text-align:left'),
+                ),
+            ),
+        ));
+        ?>
+    </div>
+
+    <?php
 }
 ?>
 <script>
