@@ -1007,5 +1007,13 @@ $this->beginWidget(
         }else{
             echo '$("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");';
         }
+        
+        //
+        if($model->kedudukan_id == "1"){
+            echo ' $("#Pegawai_keterangan").parent().parent().attr("style", "display:none");';
+        }else{
+            echo ' $("#Pegawai_keterangan").parent().parent().attr("style", "display:");';
+        }
+
     ?>
 </script>

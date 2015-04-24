@@ -821,7 +821,7 @@ class PegawaiController extends Controller {
                     $model->tmt_jabatan_struktural = $riwayat->tmt_mulai;
                     $model->jabatan_fu_id = $riwayat->jabatan_fu_id;
                     $model->tmt_jabatan_fu = $riwayat->tmt_mulai;
-                    $model->tmt_jabatan_ft_id = $riwayat->jabatan_ft_id;
+                    $model->jabatan_ft_id = $riwayat->jabatan_ft_id;
                     $model->tmt_jabatan_ft = $riwayat->tmt_mulai;
                     $model->tipe_jabatan = $riwayat->tipe_jabatan;
                     if ($riwayat->tipe_jabatan == "struktural") {
@@ -890,6 +890,7 @@ class PegawaiController extends Controller {
             $model->kota = $_POST['Pegawai']['kota'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
             $model->karpeg = $_POST['Pegawai']['karpeg'];
+            $model->riwayat_jabatan_id = $_POST['Pegawai']['riwayat_jabatan_id'];
 
 
             $file = CUploadedFile::getInstance($model, 'foto');
@@ -906,7 +907,7 @@ class PegawaiController extends Controller {
                 $model->tmt_jabatan_struktural = $riwayat->tmt_mulai;
                 $model->jabatan_fu_id = $riwayat->jabatan_fu_id;
                 $model->tmt_jabatan_fu = $riwayat->tmt_mulai;
-                $model->tmt_jabatan_ft_id = $riwayat->jabatan_ft_id;
+                $model->jabatan_ft_id = $riwayat->jabatan_ft_id;
                 $model->tmt_jabatan_ft = $riwayat->tmt_mulai;
                 $model->tipe_jabatan = $riwayat->tipe_jabatan;
                 if ($riwayat->tipe_jabatan == "struktural") {

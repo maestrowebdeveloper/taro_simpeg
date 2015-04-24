@@ -243,11 +243,31 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getRiwayatTipeJabatan() {
+//        $jabatan ='';
+//        if ($this->RiwayatJabatan->tipe_jabatan == "struktural") {
+//            $jabatan = $this->RiwayatJabatan->JabatanStruktural->nama;
+//            
+//        } else if ($value->tipe_jabatan == "fungsional_umum") {
+//            $jabatan = (isset($value->JabatanFu->nama)) ? $value->JabatanFu->nama : '';
+//        } else if ($value->tipe_jabatan == "fungsional_tertentu") {
+//            $jabatan = (isset($value->JabatanFt->nama)) ? $value->JabatanFt->nama : '';
+//        }
         return (!empty($this->RiwayatJabatan->tipe)) ? $this->RiwayatJabatan->tipe : '-';
+//        return $jabatan;
     }
 
     public function getRiwayatNamaJabatan() {
-        return (!empty($this->RiwayatJabatan->jabatan)) ? $this->RiwayatJabatan->jabatan : '-';
+         $jabatan ='';
+        if ($this->RiwayatJabatan->tipe_jabatan == "struktural") {
+            $jabatan = $this->RiwayatJabatan->JabatanStruktural->nama;
+            
+        } else if ($this->RiwayatJabatan->tipe_jabatan == "fungsional_umum") {
+            $jabatan = (isset($this->RiwayatJabatan->JabatanFu->nama)) ? $this->RiwayatJabatan->JabatanFu->nama : '';
+        } else if ($this->RiwayatJabatan->tipe_jabatan == "fungsional_tertentu") {
+            $jabatan = (isset($this->RiwayatJabatan->JabatanFt->nama)) ? $this->RiwayatJabatan->JabatanFt->nama : '';
+        }
+//        return (!empty($this->RiwayatJabatan->jabatan)) ? $this->RiwayatJabatan->jabatan : '-';
+        return $jabatan;
     }
 
     public function getRiwayatTmtJabatan() {

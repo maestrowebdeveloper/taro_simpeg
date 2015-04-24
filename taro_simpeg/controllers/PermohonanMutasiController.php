@@ -231,6 +231,10 @@ class PermohonanMutasiController extends Controller {
                         'jabatan_fu_id' => $a->new_jabatan_fu_id,
                         'jabatan_ft_id' => $a->new_jabatan_ft_id,
                         'unit_kerja_id' => $a->new_unit_kerja_id,
+                        'tmt_jabatan_struktural'=>$a->tmt,
+                        'tmt_jabatan_fu'=>$a->tmt,
+                        'tmt_jabatan_ft'=>$a->tmt,
+                        
                             ), 'id=' . $a->pegawai_id);
 
                     // mengkosongi status di table jabatan sturkturall
