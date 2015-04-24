@@ -208,24 +208,38 @@ class ReportController extends Controller {
         $unit_id = $_GET['unit_id'];
         $fu_id = $_GET['fu_id'];
         $ft_id = $_GET['ft_id'];
-        
+
         $criteria = new CDbCriteria();
-        if(!empty($unit_id) && $unit_id != 0){
-            $criteria->addCondition('unit_kerja_id='.$unit_id);
+        if (!empty($unit_id) && $unit_id != 0) {
+            $criteria->addCondition('unit_kerja_id=' . $unit_id);
         }
-        if(!empty($fu_id) && $fu_id != 0){
-            $criteria->addCondition('jabatan_fu_id='.$fu_id);
+        if (!empty($fu_id) && $fu_id != 0) {
+            $criteria->addCondition('jabatan_fu_id=' . $fu_id);
         }
-        if(!empty($ft_id) && $ft_id != 0){
-            $criteria->addCondition('jabatan_ft_id='.$ft_id);
+        if (!empty($ft_id) && $ft_id != 0) {
+            $criteria->addCondition('jabatan_ft_id=' . $ft_id);
         }
-        
+
         $model = Pegawai::model()->findAll($criteria);
-        
+
         return Yii::app()->request->sendFile('Laporan Daftar Urutan Kepangkatan Pegawai.xls', $this->renderPartial('_urutKepangkatan', array(
                             'model' => $model,
                                 ), true)
         );
+    }
+
+    public function actionGetPendidikan() {
+        $name = $_GET['term'];
+        $jurusan = Jurusan::model()->findAll(array('condition' => 'Name like "%' . $name . '%"', 'limit' => '10'));
+        $source = array();
+        foreach ($jurusan as $val) {
+            $source[] = array(
+                'item_id' => $val->id,
+                'label' => $val->Name,
+                'value' => $val->Name,
+            );
+        }
+        echo CJSON::encode($source);
     }
 
 }

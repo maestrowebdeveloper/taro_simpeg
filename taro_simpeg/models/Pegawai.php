@@ -208,6 +208,28 @@ class Pegawai extends CActiveRecord {
         return $data;
     }
 
+    public function search2() {
+        $criteria2 = new CDbCriteria();
+        if (!empty($this->unit_kerja_id) && $this->unit_kerja_id > 0)
+            $criteria2->compare('unit_kerja_id', $this->unit_kerja_id);
+        if (!empty($this->golongan_id) && $this->golongan_id > 0)
+            $criteria2->compare('golongan_id', $this->golongan_id);
+        if (!empty($this->kedudukan_id) && $this->kedudukan_id > 0)
+            $criteria2->compare('kedudukan_id', $this->kedudukan_id);
+
+        if (!empty($this->tipe_jabatan))
+            $criteria2->compare('tipe_jabatan', $this->tipe_jabatan);
+
+        if (!empty($this->tmt_pns) && !empty($this->tmt_pensiun))
+            $criteria2->addInCondition('tmt_pensiun between "' . $this->tmt_pns . '" and "' . $this->tmt_pensiun . '"');
+
+        $data = new CActiveDataProvider($this, array(
+            'criteria' => $criteria2,
+        ));
+
+        return $data;
+    }
+
     /**
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -238,8 +260,28 @@ class Pegawai extends CActiveRecord {
         return parent::beforeValidate();
     }
 
+    public function getBup() {
+        $eselon = isset($this->Eselon->nama) ? $this->Eselon->nama : "-";
+        $tingkatEselon = substr($eselon, 0, 2);
+        $bup = '-';
+        if ($tingkatEselon == "II" and $this->tipe_jabatan == "struktural") {
+            $bup = '60';
+        } else if (($tingkatEselon == "III" or $tingkatEselon == "IV" or $tingkatEselon == "V") and $this->tipe_jabatan == "struktural") {
+            $bup = '58';
+        } else if ($this->tipe_jabatan == "fungsional_umum") {
+            $bup = '60';
+        } else if ($this->tipe_jabatan == "fungsional_tertentu") {
+            $bup = '58';
+        }
+        return $bup;
+    }
+
     public function getGolongan() {
         return (!empty($this->Golongan->nama)) ? $this->Golongan->nama . ' - ' . $this->Golongan->keterangan : '-';
+    }
+
+    public function getEselon() {
+        return (!empty($this->JabatanStruktural->Eselon->nama)) ? $this->JabatanStruktural->Eselon->nama : '-';
     }
 
     public function getRiwayatTipeJabatan() {
@@ -485,18 +527,18 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getTagProfil() {
-        $data = '
+        $data = '<div  style="padding:15px">
                 <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>NIP</b>
                     </div>
                     <div class="span1">:</div>
-                    <div class="span8" style="text-align:left">
+                    <div class="span4" style="text-align:left;">
                         ' . $this->nip . '
                     </div>
                 </div>        
                 <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>Nama</b>
                     </div>
                     <div class="span1">:</div>
@@ -506,7 +548,7 @@ class Pegawai extends CActiveRecord {
                 </div>  
 
                 <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>Pendidikan</b>
                     </div>
                     <div class="span1">:</div>
@@ -516,7 +558,7 @@ class Pegawai extends CActiveRecord {
                 </div>  
 
                 <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>Jurusan</b>
                     </div>
                     <div class="span1">:</div>
@@ -526,7 +568,7 @@ class Pegawai extends CActiveRecord {
                 </div>  
 
                <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>Jenis Kelamin</b>
                     </div>
                     <div class="span1">:</div>
@@ -536,7 +578,7 @@ class Pegawai extends CActiveRecord {
                 </div>
 
                 <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>TTL</b>
                     </div>
                     <div class="span1">:</div>
@@ -546,7 +588,7 @@ class Pegawai extends CActiveRecord {
                 </div>  
 
                 <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>Alamat</b>
                     </div>
                     <div class="span1">:</div>
@@ -556,7 +598,7 @@ class Pegawai extends CActiveRecord {
                 </div>
 
                 <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>Kode Pos</b>
                     </div>
                     <div class="span1">:</div>
@@ -566,7 +608,7 @@ class Pegawai extends CActiveRecord {
                 </div>
 
                 <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>HP</b>
                     </div>
                     <div class="span1">:</div>
@@ -576,7 +618,7 @@ class Pegawai extends CActiveRecord {
                 </div>
 
                 <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>Agama</b>
                     </div>
                     <div class="span1">:</div>
@@ -586,7 +628,7 @@ class Pegawai extends CActiveRecord {
                 </div>
 
                 <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>Golongan Darah</b>
                     </div>
                     <div class="span1">:</div>
@@ -596,7 +638,7 @@ class Pegawai extends CActiveRecord {
                 </div>
 
                 <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>Status Pernikahan</b>
                     </div>
                     <div class="span1">:</div>
@@ -606,7 +648,7 @@ class Pegawai extends CActiveRecord {
                 </div>
                
                <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>NPWP</b>
                     </div>
                     <div class="span1">:</div>
@@ -615,7 +657,7 @@ class Pegawai extends CActiveRecord {
                     </div>
                 </div>
  <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>KPE</b>
                     </div>
                     <div class="span1">:</div>
@@ -624,7 +666,7 @@ class Pegawai extends CActiveRecord {
                     </div>
                 </div>
                 <div class="row-fluid">
-                    <div class="span3" style="text-align:left">
+                    <div class="span2" style="text-align:left">
                         <b>BPJS</b>
                     </div>
                     <div class="span1">:</div>
@@ -632,7 +674,7 @@ class Pegawai extends CActiveRecord {
                         ' . $this->bpjs . '
                     </div>
                 </div>
-
+</div>
                 ';
         return $data;
     }

@@ -3,6 +3,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'results',
     'enableAjaxValidation' => false,
     'method' => 'post',
+    'action' => url("report/pegawai?cari=1"),
     'type' => 'horizontal',
     'htmlOptions' => array(
         'enctype' => 'multipart/form-data'
@@ -10,9 +11,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         ));
 ?>
 <?php
-$this->setPageTitle('Laporan Daftar Urutan Kepangkatan Pegawai');
+$this->setPageTitle('Laporan Pegawai Negeri Sipil');
 $this->breadcrumbs = array(
-    'Laporan Daftar Urutan Kepangkatan Pegawai',
+    'Laporan Pegawai Negeri Sipil',
 );
 ?>
 <script>
@@ -55,6 +56,27 @@ $this->breadcrumbs = array(
                 'width' => '50%',
             ))
         );
+        ?>
+        <div class="control-group "><label class="control-label" for="jurusan">Jurusan</label>
+            <div class="controls">
+                <?php
+                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                    'name' => 'jurusan',
+                    'sourceUrl' => array('report/getPendidikan'),
+                    'value' => isset($_POST['jurusan']) ? $_POST['jurusan'] : "",
+                    'options' => array(
+                        'showAnim' => 'fold',
+                        'minLength' => '3',
+                        'select' => 'js:function(event, ui){
+                                        jQuery("#name").val(ui.item["label"]);
+                                    }'
+                    ),
+                ))
+                ?>
+            </div>
+        </div>
+
+        <?php
         echo $form->radioButtonListRow($model, 'tipe_jabatan', Pegawai::model()->arrTipeJabatan());
         ?>
 
@@ -86,10 +108,6 @@ $this->breadcrumbs = array(
 
             </div>
         </div>
-
-
-
-
     </div>
     <div><?php if (!empty($post)) { ?>
             <a onclick="hide()" class="btn btn-small view" title="Remove Form" rel="tooltip"><i class=" icon-remove-circle"></i></a>
@@ -110,12 +128,58 @@ $this->breadcrumbs = array(
 
 <?php $this->endWidget(); ?>
 
-
 <?php
-if (!empty($post)) {
-    $this->renderPartial('_pegawai', array('model' => $model));
+$cari = isset($_GET['cari']) ? "1" : "0";
+if ($cari == "1") {
+    ?>
+    <div class="report" id="report" style="width: 100%">
+        <h3 style="text-align:center">LAPORAN DATA PEGAWAI NEGERI SIPIL</h3><br>
+        <h6  style="text-align:center">Tanggal : <?php echo date('d F Y'); ?></h6>
+        <hr>
+        <?php
+        $this->widget('bootstrap.widgets.TbGridView', array(
+            'id' => 'daftar-pegawai-grid',
+            'dataProvider' => $model->search2(),
+            'type' => 'striped bordered condensed',
+            'template' => '{summary}{pager}{items}{pager}',
+            'columns' => array(
+                array(
+                    'name' => 'nip',
+                    'type' => 'raw',
+                    'value' => '$data->nip',
+                    'htmlOptions' => array('style' => 'text-align:left'),
+                ),
+                'nama',
+                'kedudukan',
+                array(
+                    'name' => 'unitKerja',
+                    'type' => 'raw',
+                    'value' => '$data->unitKerja',
+                    'htmlOptions' => array('style' => 'text-align:left'),
+                ),
+                array(
+                    'name' => 'golongan',
+                    'type' => 'raw',
+                    'value' => '$data->golongan',
+                    'htmlOptions' => array('style' => 'text-align:left'),
+                ),
+                array(
+                    'name' => 'tipe',
+                    'type' => 'raw',
+                    'value' => '$data->tipe',
+                    'htmlOptions' => array('style' => 'text-align:left'),
+                ),
+                'jabatan',
+                'masaKerja',
+                'tmt_pensiun'
+            ),
+        ));
+        ?>
+    </div>
+    <?php
 }
 ?>
+
 <script>
     function printDiv(divName)
     {

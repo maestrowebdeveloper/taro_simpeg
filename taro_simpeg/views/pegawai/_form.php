@@ -1,3 +1,4 @@
+
 <?php if (isset($_GET['v'])) { ?>
     <div class="alert alert-info">
         <label class="radio">
@@ -656,32 +657,76 @@
 <?php if ($model->isNewRecord == false) {
     ?>
     <div class='report' id="report" style="display:none">
+        <style >
+            @media print
+            {
+                table.table td{border: none !important;}
+                
+            }
+        </style>
         <table class="table">
             <tr>
-                <th style="background:beige;text-align:center !important" colspan="2"><h3 style="margin:0px">PROFIL <?php echo strtoupper($model->nama); ?></h3></th>
+                <th style="background:beige;text-align:center !important" colspan="2">
+            <h3 style="margin:0px">PROFIL <?php echo strtoupper($model->nama); ?></h3>
+            </th>
             </tr>
             <tr>
-                <td style="text-align:left" class="span3">            
+                
+
+                <td style="line-height:10px;vertical-align:top;" class="span2">            
                     <?php
                     $img = Yii::app()->landa->urlImg('pegawai/', $model->foto, $_GET['id']);
-                    echo '<img style="max-width:300px;max-height:400px" src="' . $img['medium'] . '" alt="" class="image img-polaroid" id="my_image"  /> ';
+                    echo '<img style="max-width:250px;max-height:350px;" src="' . $img['medium'] . '" alt="" class="image img-polaroid" id="my_image"  /> ';
                     ?>
 
                 </td>
+               
                 <td>
-                    <?php
-                    echo $model->tagProfil;
-                    ?>
+                    <div style="padding:8px">
+                        <table class="table2" width="100%" >
+
+                            <tr><td>NIP</td><td>:</td><td><?php echo $model->nip; ?></td></tr>
+                            <tr><td>Nama</td><td>:</td><td><?php echo $model->namaGelar; ?></td></tr>
+                            <tr><td>Pendidikan</td><td>:</td><td><?php echo ucwords(strtolower($model->pendidikanTerakhir)) . ', Tahun : ' . $model->pendidikanTahun; ?></td></tr>
+                            <tr><td>Jurusan</td><td>:</td><td><?php echo ucwords(strtolower($model->pendidikanJurusan)); ?></td></tr>
+                            <tr><td>Jenis Kelamin</td><td>:</td><td><?php echo $model->jenis_kelamin; ?></td></tr>
+                            <tr><td>TTL</td><td>:</td><td><?php echo $model->ttl; ?></td></tr>
+                            <tr><td>Kode Pos</td><td>:</td><td><?php echo $model->kode_pos; ?></td></tr>
+                            <tr><td>HP</td><td>:</td><td><?php echo landa()->hp($model->hp); ?></td></tr>
+                            <tr><td>Agama</td><td>:</td><td><?php echo $model->agama; ?></td></tr>
+                            <tr><td>Golongan Darah</td><td>:</td><td><?php echo $model->golongan_darah; ?></td></tr>
+                            <tr><td>Status Pernikahan</td><td>:</td><td><?php echo $model->status_pernikahan; ?></td></tr>
+                            <tr><td>NPWP</td><td>:</td><td><?php echo $model->npwp; ?></td></tr>
+                            <tr><td>Karpeg</td><td>:</td><td><?php echo $model->karpeg; ?></td></tr>
+                            <tr><td>KPE</td><td>:</td><td><?php echo $model->kpe; ?></td></tr>
+                            <tr><td>Taspen</td><td>:</td><td><?php echo $model->no_taspen; ?></td></tr>
+                            <tr><td>BPJS/ASKES/KIS</td><td>:</td><td><?php echo $model->bpjs; ?></td></tr>
+
+                        </table>
+                    </div>
                 </td>
+                
             </tr>  
             <tr>
                 <th style="background:beige" colspan="2">PANGKAT & JABATAN</th>
             </tr>
-            <tr>
-                <td colspan="2">
-                    <?php
-                    echo $model->tagPangkatJabatan;
-                    ?>
+            <tr><td style="text-align:left" class="span3" colspan="3">
+                    <div style="padding:8px">
+                        <table class="table2" width="400" >
+                            <tr>
+                            <tr><td>Kedudukan</td><td>:</td><td><?php echo $model->kedudukan; ?></td></tr>
+                            <tr><td>Unit Kerja</td><td>:</td><td><?php echo $model->unitKerja; ?></td></tr>
+                            <tr><td>TMT CPNS</td><td>:</td><td><?php echo date('d M Y', strtotime($model->tmt_cpns)); ?></td></tr>
+                            <tr><td>TMT PNS</td><td>:</td><td><?php echo date('d M Y', strtotime($model->tmt_pns)); ?></td></tr>
+                            <tr><td>Pangkat / Golru</td><td>:</td><td><?php echo $model->golongan . ' TMT : ' . date('d M Y', strtotime($model->tmt_golongan)); ?></td></tr>
+                            <tr><td>Tipe Jabatan</td><td>:</td><td><?php echo ucwords(str_replace("_", " ", $model->tipe_jabatan)); ?></td></tr>
+                            <tr><td>Jabatan</td><td>:</td><td><?php echo $model->jabatan . ', TMT :  ' . $model->tmtJabatan; ?></td></tr>
+                            <tr><td>Masa Kerja</td><td>:</td><td><?php echo $model->masaKerja; ?></td></tr>
+                            <tr><td>Gaji</td><td>:</td><td><?php echo landa()->rp($model->gaji); ?></td></tr>
+                            <tr><td>TMT Pensiun</td><td>:</td><td><?php echo date('d M Y', strtotime($model->tmt_pensiun)); ?></td></tr>
+                            </tr>
+                        </table>
+                    </div>
                 </td>
             </tr> 
             <tr>
@@ -779,6 +824,7 @@ $this->beginWidget(
 
 
 <style>
+
     .form-horizontal{
         margin-bottom: 0px;
     }
@@ -839,6 +885,7 @@ $this->beginWidget(
     {
         var printContents = document.getElementById(divName).innerHTML;
         var originalContents = document.body.innerHTML;
+
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
@@ -954,4 +1001,11 @@ $this->beginWidget(
             $('#Pegawai_ket_agama').attr("value", "");
         }
     });
+    <?php 
+        if($model->agama == "Lainnya"){
+            echo '$("#Pegawai_ket_agama").parent().parent().attr("style", "display:");';
+        }else{
+            echo '$("#Pegawai_ket_agama").parent().parent().attr("style", "display:none");';
+        }
+    ?>
 </script>
