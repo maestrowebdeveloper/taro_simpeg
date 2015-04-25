@@ -176,7 +176,7 @@ class Auth extends CActiveRecord {
                     array('visible' => landa()->checkAccess('laporanHukumanPegawai', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Penerima Hukuman', 'url' => url('/report/penerimaHukuman'), 'auth_id' => 'laporanHukumanPegawai'),
                     array('visible' => landa()->checkAccess('laporanSuratMasuk', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Surat Masuk', 'url' => url('/report/suratMasuk'), 'auth_id' => 'laporanSuratMasuk'),
                     array('visible' => landa()->checkAccess('laporanSuratKeluar', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Surat Keluar', 'url' => url('/report/suratKeluar'), 'auth_id' => 'laporanSuratKeluar'),
-                    array('visible' => landa()->checkAccess('laporanPensiun', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Laporan Pensiun', 'url' => url('/report/pensiun'), 'auth_id' => 'laporanPens'),
+                    array('visible' => landa()->checkAccess('laporanPensiun', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Laporan Pensiun', 'url' => url('/report/pensiun'), 'auth_id' => 'laporanPensiun'),
                 )),
         );
     }
