@@ -34,7 +34,7 @@ class JabatanFt extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nama', 'required'),
-            array('jabatan_struktural_id, keterangan, status, level, lft, rgt, root, parent_id, created, created_user_id', 'safe'),
+            array('keterangan, status, level, lft, rgt, root, parent_id, created, created_user_id', 'safe'),
             array('status, level, lft, rgt, root, parent_id, created_user_id', 'numerical', 'integerOnly' => true),
             array('nama', 'length', 'max' => 255),
             array('modified', 'safe'),
@@ -52,7 +52,6 @@ class JabatanFt extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'JabatanFungsional' => array(self::HAS_MANY, 'JabatanFungsional', 'jabatan_ft_id'),
-            'Bidang' => array(self::BELONGS_TO,'JabatanStruktural','jabatan_struktural_id'),
         );
     }
 
