@@ -118,6 +118,18 @@ $this->breadcrumbs = array(
 </div>
 <div class="form-actions">
     <button class="btn btn-primary" id="yw2" type="submit" name="yt0" onclick="return validat()"><i class="icon-ok icon-white"></i> View Report</button>
+    <?php
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type' => 'primary',
+        'icon' => 'icon16 icomoon-icon-file-excel  white',
+        'label' => 'Export Excel',
+        'id' => 'export',
+        'htmlOptions' => array(
+            'name' => 'export'
+        )
+    ));
+    ?>
 </div>
 
 <?php $this->endWidget(); ?>
