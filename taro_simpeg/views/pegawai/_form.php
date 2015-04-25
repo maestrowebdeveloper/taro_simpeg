@@ -338,6 +338,32 @@
                                     ?>
                                 </div>
                             </div>
+                            <div class="control-group ">
+                                <label class="control-label" for="Pegawai_tmt_cpns">Tgl/No SK CPNS</label>
+                                <div class="controls">
+                                     
+                                    <div class="input-prepend" style="margin-right: 40px;">
+                                        <span class="add-on"><i class="icon-calendar"></i></span>
+                                        <?php
+                                        $this->widget(
+                                                'bootstrap.widgets.TbDatePicker', array(
+                                            'name' => 'Pegawai[tanggal_sk_cpns]',
+                                            'value' => str_replace("0000-00-00", "", $model->tanggal_sk_cpns),
+                                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+//                                            'events' => array('changeDate' => 'js:function(){
+//                                                                getMasaKerja();
+//                                                         }'),
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                    <?php
+                                    echo '&nbsp;&nbsp;';
+                                    echo CHtml::textField('Pegawai[no_sk_cpns]', isset($model->no_sk_cpns) ? $model->no_sk_cpns : '', array('class' => 'span4', 'placeholder' => 'No Sk CPNS'));
+                                    ?>
+                                   
+                                </div>
+                            </div>
                             <?php
                             echo $form->datepickerRow(
                                     $model, 'tmt_pns', array('value' => str_replace("0000-00-00", "", $model->tmt_pns),
@@ -346,6 +372,32 @@
                                     )
                             );
                             ?>
+                            <div class="control-group ">
+                                <label class="control-label" for="Pegawai_tmt_cpns">Tgl/No SK PNS</label>
+                                <div class="controls">
+                                     
+                                    <div class="input-prepend" style="margin-right: 40px;">
+                                        <span class="add-on"><i class="icon-calendar"></i></span>
+                                        <?php
+                                        $this->widget(
+                                                'bootstrap.widgets.TbDatePicker', array(
+                                            'name' => 'Pegawai[tanggal_sk_pns]',
+                                            'value' => str_replace("0000-00-00", "", $model->tanggal_sk_pns),
+                                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+//                                            'events' => array('changeDate' => 'js:function(){
+//                                                                getMasaKerja();
+//                                                         }'),
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                    <?php
+                                    echo '&nbsp;&nbsp;';
+                                    echo CHtml::textField('Pegawai[no_sk_pns]', isset($model->no_sk_pns) ? $model->no_sk_pns : '', array('class' => 'span4', 'placeholder' => 'No Sk PNS'));
+                                    ?>
+                                   
+                                </div>
+                            </div>
                             <?php
                             echo $form->textfieldRow(
                                     $model, 'tmt_pensiun', array('value' => str_replace("0000-00-00", "", $model->tmt_pensiun), 'readonly' => true,
