@@ -127,10 +127,14 @@ $this->breadcrumbs = array(
     ?>
     <?php
     $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
         'type' => 'primary',
         'icon' => 'icon16 icomoon-icon-file-excel  white',
         'label' => 'Export Excel',
-        'id' => 'export'
+        'id' => 'export',
+        'htmlOptions' => array(
+            'name' => 'export'
+        )
     ));
     ?>
 </div>
@@ -198,19 +202,6 @@ if ($cari == "1") {
         window.print();
         document.body.innerHTML = originalContents;
     }
-    $("#export").on("click", function () {
-        $.ajax({
-            type: 'post',
-            data: $('#results').serialize(),
-            url: "<?php echo url('report/excelPegawai') ?>",
-            success: function (data) {
-                var w = window.open();
-                var isi = data;
-
-                $(w.document.body).html(isi);
-            }
-        });
-    });
 </script>
 <style>
     .form-horizontal .control-group{

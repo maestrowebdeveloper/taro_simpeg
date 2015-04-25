@@ -1,8 +1,8 @@
 <div class="report" id="report" style="width: 100%">
     <h3 style="text-align:center">LAPORAN DATA PEGAWAI NEGERI SIPIL</h3><br>
-    <h6  style="text-align:center">Tangga : <?php // echo date('d F Y'); ?></h6>
+    <h6  style="text-align:center">Tanggal : <?php echo date('d F Y'); ?></h6>
     <hr>
-    <table class="table table-bordered">
+    <table class="table table-bordered" border="1px">
         <thead>
             <tr>
                 <th style="width:10px">NO</th>
@@ -18,12 +18,15 @@
             </tr>
         </thead>
         <tbody>
-            $no = 1;
-//            foreach ($data as $value) {
-//                echo '	
+            <?php
+            if (!empty($model)) {
+                $no = 1;
+                foreach ($model as $value) {
+                    $nip = (isset($value->nip)) ? $value->nip : '';
+                    echo '	
 		<tr>
 			<td>' . $no . '</td>
-			<td>' . $value->nip . '</td>
+			<td>' . $nip . '</td>
 			<td>' . $value->nama . '</td>			
 			<td>' . $value->kedudukan . '</td>			
 			<td>' . $value->unitKerja . '</td>
@@ -31,11 +34,13 @@
 			<td>' . $value->tipe . '</td>
 			<td>' . $value->jabatan . '</td>			
 			<td>' . $value->masaKerja . '</td>
-			<td>' . $value->tmt_pensiun . '</td>
+			<td>' . date("d F Y",  strtotime($value->tmt_pensiun)) . '</td>
 			
 		</tr>';
-//                $no++;
-//            }
+                    $no++;
+                }
+            }
+            ?>
         </tbody>
     </table>
 </div>
