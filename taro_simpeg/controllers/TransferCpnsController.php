@@ -22,7 +22,7 @@ class TransferCpnsController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // c
-                'actions' => array('index', 'create'),
+                'actions' => array('create'),
                 'expression' => 'app()->controller->isValidAccess("transferCpns","c")'
             ),
             array('allow', // r
@@ -30,11 +30,11 @@ class TransferCpnsController extends Controller {
                 'expression' => 'app()->controller->isValidAccess("transferCpns","r")'
             ),
             array('allow', // u
-                'actions' => array('index', 'update'),
+                'actions' => array('update'),
                 'expression' => 'app()->controller->isValidAccess("transferCpns","u")'
             ),
             array('allow', // d
-                'actions' => array('index', 'delete'),
+                'actions' => array('delete'),
                 'expression' => 'app()->controller->isValidAccess("transferCpns","d")'
             )
         );

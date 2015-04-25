@@ -22,7 +22,7 @@ class PermohonanPerpanjanganHonorerController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // c
-                'actions' => array('index', 'create'),
+                'actions' => array( 'create'),
                 'expression' => 'app()->controller->isValidAccess("permohonanPerpanjanganHonorer","c")'
             ),
             array('allow', // r
@@ -30,11 +30,11 @@ class PermohonanPerpanjanganHonorerController extends Controller {
                 'expression' => 'app()->controller->isValidAccess("permohonanPerpanjanganHonorer","r")'
             ),
             array('allow', // u
-                'actions' => array('index', 'update'),
+                'actions' => array( 'update'),
                 'expression' => 'app()->controller->isValidAccess("permohonanPerpanjanganHonorer","u")'
             ),
             array('allow', // d
-                'actions' => array('index', 'delete'),
+                'actions' => array( 'delete'),
                 'expression' => 'app()->controller->isValidAccess("permohonanPerpanjanganHonorer","d")'
             )
         );
