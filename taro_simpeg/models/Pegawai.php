@@ -267,16 +267,16 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getBup() {
-        $eselon = isset($this->Eselon->nama) ? $this->Eselon->nama : "-";
+        $eselon = isset($this->RiwayatJabatan->JabatanStruktural->Eselon->nama) ? $this->RiwayatJabatan->JabatanStruktural->Eselon->nama : "-";
         $tingkatEselon = substr($eselon, 0, 2);
         $bup = '-';
-        if ($tingkatEselon == "II" and $this->tipe_jabatan == "struktural") {
+        if ($tingkatEselon == "II" and $this->RiwayatJabatan->tipe_jabatan == "struktural") {
             $bup = '60';
-        } else if (($tingkatEselon == "III" or $tingkatEselon == "IV" or $tingkatEselon == "V") and $this->tipe_jabatan == "struktural") {
+        } else if (($tingkatEselon == "III" or $tingkatEselon == "IV" or $tingkatEselon == "V") and $this->RiwayatJabatan->tipe_jabatan == "struktural") {
             $bup = '58';
-        } else if ($this->tipe_jabatan == "fungsional_umum") {
+        } else if ($this->RiwayatJabatan->tipe_jabatan == "fungsional_umum") {
             $bup = '60';
-        } else if ($this->tipe_jabatan == "fungsional_tertentu") {
+        } else if ($this->RiwayatJabatan->tipe_jabatan == "fungsional_tertentu") {
             $bup = '58';
         }
         return $bup;

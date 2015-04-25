@@ -1,4 +1,3 @@
-
 <?php if (isset($_GET['v'])) { ?>
     <div class="alert alert-info">
         <label class="radio">
@@ -114,8 +113,6 @@
                             $kotaName = isset($model->tempat_lahir) ? $model->tempat_lahir : '';
                             echo $form->select2Row($model, 'tempat_lahir', array(
                                 'asDropDownList' => false,
-//                    'data' => $data,
-//                    'value' => $model->Kota->name,
                                 'options' => array(
                                     'placeholder' => t('choose', 'global'),
                                     'allowClear' => true,
@@ -150,48 +147,46 @@
                                     $model, 'tanggal_lahir', array('value' => str_replace("0000-00-00", "", $model->tanggal_lahir),
                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                 'events' => array('changeDate' => 'js:function(){
-                                                                pensiun();
+                                                                pensiun($(this).val(), 0);
                                                          }'),
                                 'prepend' => '<i class="icon-calendar"></i>',
                                     )
                             );
-                             $id_city='';
-                                $id_city = (isset($model->city_id)) ? $model->city_id : 0;
-                                $city = isset($model->City->name) ? $model->City->Province->name.' - '.$model->City->name : 0;
-                                
-                                echo $form->select2Row($model, 'city_id', array(
-                                    'asDropDownList' => false,
-//                    'data' => $data,
-//                    'value' => $model->Kota->name,
-                                    'options' => array(
-                                        'placeholder' => t('choose', 'global'),
-                                        'allowClear' => true,
-                                        'width' => '400px',
-                                        'minimumInputLength' => '3',
-                                        'ajax' => array(
-                                            'url' => Yii::app()->createUrl('city/getListKota'),
-                                            'dataType' => 'json',
-                                            'data' => 'js:function(term, page) { 
+                            $id_city = '';
+                            $id_city = (isset($model->city_id)) ? $model->city_id : 0;
+                            $city = isset($model->City->name) ? $model->City->Province->name . ' - ' . $model->City->name : 0;
+
+                            echo $form->select2Row($model, 'city_id', array(
+                                'asDropDownList' => false,
+                                'options' => array(
+                                    'placeholder' => t('choose', 'global'),
+                                    'allowClear' => true,
+                                    'width' => '400px',
+                                    'minimumInputLength' => '3',
+                                    'ajax' => array(
+                                        'url' => Yii::app()->createUrl('city/getListKota'),
+                                        'dataType' => 'json',
+                                        'data' => 'js:function(term, page) { 
                                                         return {
                                                             q: term 
                                                         }; 
                                                     }',
-                                            'results' => 'js:function(data) { 
+                                        'results' => 'js:function(data) { 
                                                         return {
                                                             results: data
                                                             
                                                         };
                                                     }',
-                                        ),
-                                        'initSelection' => 'js:function(element, callback) 
+                                    ),
+                                    'initSelection' => 'js:function(element, callback) 
                             { 
-                            callback({id: '.$id_city.', text: "'.$city.'" });
+                            callback({id: ' . $id_city . ', text: "' . $city . '" });
                              
                                   
                             }',
-                                    ),
-                                        )
-                                );
+                                ),
+                                    )
+                            );
                             echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'style' => 'width:50%', 'class' => 'span9'));
                             echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
                             ?>
@@ -227,10 +222,10 @@
                         <div class="span12">
                             <?php
                             if (!isset($_GET['v'])) {
-                                $id_city='';
+                                $id_city = '';
                                 $id_city = (isset($model->city_id)) ? $model->city_id : 0;
-                                $city = isset($model->City->name) ? $model->City->Province->name.' - '.$model->City->name :0;
-                                
+                                $city = isset($model->City->name) ? $model->City->Province->name . ' - ' . $model->City->name : 0;
+
                                 echo $form->select2Row($model, 'city_id', array(
                                     'asDropDownList' => false,
 //                    'data' => $data,
@@ -257,7 +252,7 @@
                                         ),
                                         'initSelection' => 'js:function(element, callback) 
                             { 
-                            callback({id: '.$id_city.', text: "'.$city.'" });
+                            callback({id: ' . $id_city . ', text: "' . $city . '" });
                              
                                   
                             }',
@@ -776,28 +771,33 @@ $this->beginWidget(
 
     }
 
-    function pensiun() {
-        var lahir = new Date($("#Pegawai_tanggal_lahir").val());
-        var tipe = $('#riwayatTipeJabatan').val();
-        var masa_kerja = 0;
-        if (tipe == 'Struktural') {
-            masa_kerja = 58;
-        } else if (tipe == 'Fungsional Umum') {
-            masa_kerja = 58;
-        } else if (tipe == 'Fungsional Tertentu') {
-            masa_kerja = 60;
-        }
-        var kalkulasi = new Date(new Date(lahir).setYear(lahir.getFullYear() + masa_kerja));
-        var bulan = kalkulasi.getMonth() + 1;
-        var tanggal = kalkulasi.getDate();
-        var pensiun = kalkulasi.getFullYear() + '-' + ('0' + bulan).substr(-2, 2) + '-' + ('0' + tanggal).substr(-2, 2);
-        $("#Pegawai_tmt_pensiun").val(pensiun)
+    function pensiun(tanggal, jabatan) {
+        $.ajax({
+            url: "<?php echo url('pegawai/getPensiun') ?> ",
+            type: "POST",
+            data: {tanggal_lahir: tanggal, riwayatJabatan: jabatan},
+//            data: {tanggal_lahir: $("#Pegawai_tanggal_lahir").val(), riwayatJabatan: $("#Pegawai_riwayat_jabatan_id").val()},
+            success: function (data) {
+                $("#Pegawai_tmt_pensiun").val(data);
+                alert(data);
+            }
+        });
+//        var lahir = new Date($("#Pegawai_tanggal_lahir").val());
+//        var tipe = $('#riwayatTipeJabatan').val();
+//        var masa_kerja = 0;
+//        if (tipe == 'Struktural') {
+//            masa_kerja = 58;
+//        } else if (tipe == 'Fungsional Umum') {
+//            masa_kerja = 58;
+//        } else if (tipe == 'Fungsional Tertentu') {
+//            masa_kerja = 60;
+//        }
+//        var kalkulasi = new Date(new Date(lahir).setYear(lahir.getFullYear() + masa_kerja));
+//        var bulan = kalkulasi.getMonth() + 1;
+//        var tanggal = kalkulasi.getDate();
+//        var pensiun = kalkulasi.getFullYear() + '-' + ('0' + bulan).substr(-2, 2) + '-' + ('0' + tanggal).substr(-2, 2);
+//        $("#Pegawai_tmt_pensiun").val(pensiun);
     }
-</script>
-
-
-
-<script>
     $(".pilihPendidikan").click(function () {
         $.ajax({
             url: "<?php echo url('pegawai/getTablePendidikan'); ?>",
@@ -833,8 +833,6 @@ $this->beginWidget(
         });
         $("#modalForm").modal("show");
     });
-</script>
-<script>
     $(function () {
 
         $('#Pegawai_kedudukan_id').change(function () {
@@ -846,9 +844,6 @@ $this->beginWidget(
             }
         });
     });
-
-</script>
-<script>
     $("body").on("click", ".radio", function () {
 
         var id = $(this).find("input").val();
