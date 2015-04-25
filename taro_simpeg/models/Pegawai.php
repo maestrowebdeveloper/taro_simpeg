@@ -17,7 +17,7 @@ class Pegawai extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nip, nama, tanggal_lahir, jenis_kelamin,  kedudukan_id, unit_kerja_id', 'required'),
-            array('gelar_depan, ketarangan, ket_agama, riwayat_jabatan_id,riwayat_pangkat_id,pendidikan_id,gelar_belakang,modified_user_id, tempat_lahir,agama, kedudukan_id, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp,karpeg, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, created, created_user_id, id', 'safe'),
+            array('gelar_depan, ketarangan, ket_agama, riwayat_jabatan_id,riwayat_pangkat_id,pendidikan_id,gelar_belakang,modified_user_id, tempat_lahir,agama, kedudukan_id, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp,karpeg, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun,no_sk_cpns,tanggal_sk_cpns,no_sk_pns,tanggal_sk_pns, created, created_user_id, id', 'safe'),
             array(' kedudukan_id, unit_kerja_id, golongan_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, gaji, created_user_id, id', 'numerical', 'integerOnly' => true),
             array('nip, gelar_depan, gelar_belakang, keterangan, bpjs, kpe, npwp', 'length', 'max' => 50),
             array('nama', 'length', 'max' => 100),
@@ -32,7 +32,7 @@ class Pegawai extends CActiveRecord {
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, ketarngan, nip, nama, gelar_depan, gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, kedudukan_id, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, kpe, npwp,karpeg, foto, unit_kerja_id, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, nomor_kesehatan, tanggal_kesehatan,  created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, ketarngan, nip, nama, gelar_depan, gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, kedudukan_id, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, kpe, npwp,karpeg, foto, unit_kerja_id, tmt_cpns, tmt_pns,no_sk_cpns,tanggal_sk_cpns,no_sk_pns,tanggal_sk_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, nomor_kesehatan, tanggal_kesehatan,  created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -101,6 +101,10 @@ class Pegawai extends CActiveRecord {
             'tmt_jabatan_ft' => 'Tmt Jabatan Ft',
             'gaji' => 'Gaji',
             'tmt_pensiun' => 'Tmt Pensiun',
+            'no_sk_cpns'=>'No SK',
+            'tanggal_sk_cpns'=>'Tanggal SK',
+            'no_sk_pns'=>'No SK',
+            'tanggal_sk_pns'=>'Tanggal SK',
             'created' => 'Created',
             'created_user_id' => 'Created User',
             'modified_user_id' => 'Last Edit',
@@ -267,16 +271,16 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getBup() {
-        $eselon = isset($this->Eselon->nama) ? $this->Eselon->nama : "-";
+        $eselon = isset($this->RiwayatJabatan->JabatanStruktural->Eselon->nama) ? $this->RiwayatJabatan->JabatanStruktural->Eselon->nama : "-";
         $tingkatEselon = substr($eselon, 0, 2);
         $bup = '-';
-        if ($tingkatEselon == "II" and $this->tipe_jabatan == "struktural") {
+        if ($tingkatEselon == "II" and $this->RiwayatJabatan->tipe_jabatan == "struktural") {
             $bup = '60';
-        } else if (($tingkatEselon == "III" or $tingkatEselon == "IV" or $tingkatEselon == "V") and $this->tipe_jabatan == "struktural") {
+        } else if (($tingkatEselon == "III" or $tingkatEselon == "IV" or $tingkatEselon == "V") and $this->RiwayatJabatan->tipe_jabatan == "struktural") {
             $bup = '58';
-        } else if ($this->tipe_jabatan == "fungsional_umum") {
+        } else if ($this->RiwayatJabatan->tipe_jabatan == "fungsional_umum") {
             $bup = '60';
-        } else if ($this->tipe_jabatan == "fungsional_tertentu") {
+        } else if ($this->RiwayatJabatan->tipe_jabatan == "fungsional_tertentu") {
             $bup = '58';
         }
         return $bup;
@@ -295,7 +299,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getRiwayatNamaJabatan() {
-        return (!empty($this->RiwayatJabatan->jabatan)) ? $this->RiwayatJabatan->jabatan : '-';
+        return (!empty($this->RiwayatJabatan->jabatanPegawai)) ? $this->RiwayatJabatan->jabatanPegawai : '-';
     }
 
     public function getRiwayatTmtJabatan() {

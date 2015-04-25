@@ -225,10 +225,14 @@ class PegawaiController extends Controller {
             $model->jabatan_ft_id = (isset($_POST['RiwayatJabatan']['jabatan_ft_id'])) ? $_POST['RiwayatJabatan']['jabatan_ft_id'] : '';
             if ($model->tipe_jabatan == "struktural") {
                 $model->tmt_mulai = $_POST['tmt_mulai_struktural'];
+                $model->no_sk_struktural = $_POST['RiwayatJabatan']['no_sk_struktural'];
+                $model->tanggal_sk_struktural = $_POST['tanggal_sk_struktural'];
             } else if ($model->tipe_jabatan == "fungsional_umum") {
                 $model->tmt_mulai = $_POST['tmt_mulai_fu'];
             } else if ($model->tipe_jabatan == "fungsional_tertentu") {
                 $model->tmt_mulai = $_POST['tmt_mulai_ft'];
+                $model->no_sk_struktural = $_POST['RiwayatJabatan']['no_sk_ft'];
+                $model->tanggal_sk_ft = $_POST['tanggal_sk_ft'];
             }
             if ($model->save()) {
                 $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tmt_mulai DESC'));
@@ -774,17 +778,18 @@ class PegawaiController extends Controller {
             $model->karpeg = $_POST['Pegawai']['karpeg'];
             $model->no_taspen = $_POST['Pegawai']['no_taspen'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
+            $model->no_sk_cpns = $_POST['Pegawai']['no_sk_cpns'];
+            $model->no_sk_pns = $_POST['Pegawai']['no_sk_pns'];
+            $model->tanggal_sk_cpns = $_POST['Pegawai']['tanggal_sk_cpns'];
+            $model->tanggal_sk_pns = $_POST['Pegawai']['tanggal_sk_pns'];
 
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
             if (!empty($riwayat)) {
                 if (!empty($riwayat)) {
                     //simpan jabatan di tabel pegawai
                     $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
-                    $model->tmt_jabatan_struktural = $riwayat->tmt_mulai;
                     $model->jabatan_fu_id = $riwayat->jabatan_fu_id;
-                    $model->tmt_jabatan_fu = $riwayat->tmt_mulai;
                     $model->jabatan_ft_id = $riwayat->jabatan_ft_id;
-                    $model->tmt_jabatan_ft = $riwayat->tmt_mulai;
                     $model->tipe_jabatan = $riwayat->tipe_jabatan;
                     if ($riwayat->tipe_jabatan == "struktural") {
                         //simpan status jabatan struktural
@@ -830,7 +835,6 @@ class PegawaiController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Pegawai'])) {
-logs($_POST['Pegawai']['city_id']);
             $jabatanStruktural = 0;
             if (isset($model->RiwayatJabatan->id)) {
                 if ($model->RiwayatJabatan->tipe_jabatan == "struktural") {
@@ -853,7 +857,10 @@ logs($_POST['Pegawai']['city_id']);
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
             $model->karpeg = $_POST['Pegawai']['karpeg'];
             $model->riwayat_jabatan_id = $_POST['Pegawai']['riwayat_jabatan_id'];
-
+            $model->no_sk_cpns = $_POST['Pegawai']['no_sk_cpns'];
+            $model->no_sk_pns = $_POST['Pegawai']['no_sk_pns'];
+            $model->tanggal_sk_cpns = $_POST['Pegawai']['tanggal_sk_cpns'];
+            $model->tanggal_sk_pns = $_POST['Pegawai']['tanggal_sk_pns'];
 
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {
@@ -866,11 +873,8 @@ logs($_POST['Pegawai']['city_id']);
             if (!empty($riwayat)) {
                 //simpan jabatan di tabel pegawai
                 $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
-                $model->tmt_jabatan_struktural = $riwayat->tmt_mulai;
                 $model->jabatan_fu_id = $riwayat->jabatan_fu_id;
-                $model->tmt_jabatan_fu = $riwayat->tmt_mulai;
                 $model->jabatan_ft_id = $riwayat->jabatan_ft_id;
-                $model->tmt_jabatan_ft = $riwayat->tmt_mulai;
                 $model->tipe_jabatan = $riwayat->tipe_jabatan;
                 if ($riwayat->tipe_jabatan == "struktural") {
                     $jabatan = JabatanStruktural::model()->findByPk($riwayat->jabatan_struktural_id);
@@ -1061,12 +1065,6 @@ logs($_POST['Pegawai']['city_id']);
     }
 
     public function actionGenerateExcel() {
-//        $session = new CHttpSession;
-//        $session->open();
-//
-//        if (isset($session['Pegawai_records'])) {
-//            $model = $session['Pegawai_records'];
-//        } else
         $model = Pegawai::model()->findAll();
 
 
@@ -1130,6 +1128,33 @@ logs($_POST['Pegawai']['city_id']);
                     'model' => $model
                         ), true)
         );
+    }
+
+    public function actionGetPensiun() {
+        $tgl_lahir = (!empty($_POST['tanggal_lahir'])) ? $_POST['tanggal_lahir'] : date("Y-m-d");
+        $id_riwayat = $_POST['riwayatJabatan'];
+        $jabatan = RiwayatJabatan::model()->findByPk($id_riwayat);
+        $bup = 0;
+        if (!empty($jabatan)) {
+            if ($jabatan->tipe_jabatan == "struktural") {
+                $eselon = isset($jabatan->JabatanStruktural->Eselon->nama) ? $jabatan->JabatanStruktural->Eselon->nama : "-";
+                $tingkatEselon = substr($eselon, 0, 2);
+                if ($tingkatEselon == "II") {
+                    $bup = 60;
+                } else if ($tingkatEselon == "III" or $tingkatEselon == "IV" or $tingkatEselon == "V") {
+                    $bup = 58;
+                }
+            } else if ($jabatan->tipe_jabatan == "fungsional_umum") {
+                $bup = 58;
+            } else if ($jabatan->tipe_jabatan == "fungsional_tertentu") {
+                $bup = 60;
+            }
+        } else {
+            $bup = 0;
+        }
+        $date = explode("-", $tgl_lahir);
+        $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $bup);
+        echo date("Y-m-d", $tmt_pensiun);
     }
 
     //-----------------------------------------------------------------------------------

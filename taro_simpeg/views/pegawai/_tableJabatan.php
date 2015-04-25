@@ -93,15 +93,12 @@
             type: "post",
             success: function (data) {
                 obj = JSON.parse(data);
-//                if (obj.status == "1") {
-//                    alert("Jabatan telah diemban oleh orang lain");
-//                } else {
                     $("#Pegawai_riwayat_jabatan_id").val(obj.id);
                     $("#riwayatTipeJabatan").val(obj.tipe);
                     $("#riwayatNamaJabatan").val(obj.jabatan);
                     $("#riwayatTmtJabatan").val(obj.tmt);
                     $("#modalForm").modal("hide");
-//                }
+                    pensiun($("#Pegawai_tanggal_lahir").val(), obj.id);
             }
         });
     });
