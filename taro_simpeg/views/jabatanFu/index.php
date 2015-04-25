@@ -92,11 +92,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => '$data->nestedname',
         ),
         array(
-            'name' => 'bidang',
-            'header' => 'Bidang',
-            'value' => 'isset($data->Bidang->nama) ? $data->Bidang->nama : "-"',
-        ),
-        array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
             'template' => '{view} {update} {delete}',
             'buttons' => array(

@@ -19,7 +19,7 @@ class ProvinceController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // c
-                'actions' => array('index', 'create'),
+                'actions' => array( 'create'),
                 'expression' => 'app()->controller->isValidAccess(1,"c")'
             ),
             array('allow', // r
@@ -27,11 +27,11 @@ class ProvinceController extends Controller {
                 'expression' => 'app()->controller->isValidAccess(1,"r")'
             ),
             array('allow', // u
-                'actions' => array('index', 'update'),
+                'actions' => array( 'update'),
                 'expression' => 'app()->controller->isValidAccess(1,"u")'
             ),
             array('allow', // d
-                'actions' => array('index', 'delete'),
+                'actions' => array( 'delete'),
                 'expression' => 'app()->controller->isValidAccess(1,"d")'
             )
         );

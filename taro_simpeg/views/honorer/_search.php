@@ -27,7 +27,7 @@
            'prepend' => '<i class="icon-calendar"></i>'
                )
         );   
-        $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'kota', 'cityValue' => $model->kota, 'disabled' => false,'width'=>'80%','label'=>'Kota'));
+        $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'city_id', 'cityValue' => $model->city_id, 'disabled' => false,'width'=>'80%','label'=>'Kota'));
         echo $form->textAreaRow($model,'alamat',array('rows'=>2, 'cols'=>50, 'class'=>'span3'));  
         echo $form->textFieldRow($model,'kode_pos',array('class'=>'span2','style'=>'max-width:500px;width:100px','maxlength'=>10)); 
         echo $form->textFieldRow($model,'hp',array('class'=>'span5 angka','style'=>'max-width:500px;width:150px','maxlength'=>25,'prepend'=>'+62')); 

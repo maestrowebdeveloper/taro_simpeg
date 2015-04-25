@@ -21,7 +21,7 @@ class PenghargaanController extends Controller
         public function accessRules() {
             return array(
                 array('allow', // c
-                    'actions' => array('index', 'create'),
+                    'actions' => array( 'create'),
                     'expression' => 'app()->controller->isValidAccess("penghargaan","c")'
                 ),
                 array('allow', // r
@@ -29,11 +29,11 @@ class PenghargaanController extends Controller
                     'expression' => 'app()->controller->isValidAccess("penghargaan","r")'
                 ),
                 array('allow', // u
-                    'actions' => array('index', 'update'),
+                    'actions' => array('update'),
                     'expression' => 'app()->controller->isValidAccess("penghargaan","u")'
                 ),
                 array('allow', // d
-                    'actions' => array('index', 'delete'),
+                    'actions' => array('delete'),
                     'expression' => 'app()->controller->isValidAccess("penghargaan","d")'
                 )
             );

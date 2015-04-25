@@ -22,7 +22,7 @@ class PegawaiController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // c
-                'actions' => array('index', 'create'),
+                'actions' => array( 'create'),
                 'expression' => 'app()->controller->isValidAccess("pegawai","c")'
             ),
             array('allow', // r
@@ -30,11 +30,11 @@ class PegawaiController extends Controller {
                 'expression' => 'app()->controller->isValidAccess("pegawai","r")'
             ),
             array('allow', // u
-                'actions' => array('index', 'update'),
+                'actions' => array( 'update'),
                 'expression' => 'app()->controller->isValidAccess("pegawai","u")'
             ),
             array('allow', // d
-                'actions' => array('index', 'delete'),
+                'actions' => array('delete'),
                 'expression' => 'app()->controller->isValidAccess("pegawai","d")'
             )
         );
@@ -51,44 +51,6 @@ class PegawaiController extends Controller {
         e.preventDefault();
         $(this).tab("show");
     })
-
-    $("#Pegawai_tipe_jabatan_0").click(function(event) { 
-      $(".struktural").show();
-      $(".fungsional_umum").hide();            
-      $(".fungsional_tertentu").hide();   
-      $("#s2id_Pegawai_jabatan_ft_id").select2("val", "0") ;           
-      $("#s2id_Pegawai_jabatan_fu_id").select2("val", "0") ; 
-      $("#Pegawai_tmt_jabatan_fu").val("");            
-      $("#Pegawai_tmt_jabatan_ft").val("");           
-      $("#eselon").val("-");
-      $("#masa_kerja").val("0");
-    });
-
-    $("#Pegawai_tipe_jabatan_1").click(function(event) { 
-      $(".struktural").hide();
-      $(".fungsional_umum").show();            
-      $(".fungsional_tertentu").hide(); 
-      $("#s2id_Pegawai_jabatan_ft_id").select2("val", "0") ;           
-      $("#s2id_Pegawai_jabatan_struktural_id").select2("val", "0") ;  
-      $("#Pegawai_tmt_jabatan_ft").val("");            
-      $("#Pegawai_tmt_jabatan_struktural").val("");
-      $("#eselon").val("-");
-      $("#masa_kerja").val("0");
-    });
-
-    $("#Pegawai_tipe_jabatan_2").click(function(event) { 
-      $(".struktural").hide();
-      $(".fungsional_umum").hide();            
-      $(".fungsional_tertentu").show();   
-      $("#s2id_Pegawai_jabatan_struktural_id").select2("val", "0") ;           
-      $("#s2id_Pegawai_jabatan_fu_id").select2("val", "0") ;  
-      $("#Pegawai_tmt_jabatan_fu").val("");            
-      $("#Pegawai_tmt_jabatan_struktural").val("");                    
-      $("#eselon").val("-");
-      $("#masa_kerja").val("0");
-    });
-   
-
     ');
     }
 
@@ -263,10 +225,14 @@ class PegawaiController extends Controller {
             $model->jabatan_ft_id = (isset($_POST['RiwayatJabatan']['jabatan_ft_id'])) ? $_POST['RiwayatJabatan']['jabatan_ft_id'] : '';
             if ($model->tipe_jabatan == "struktural") {
                 $model->tmt_mulai = $_POST['tmt_mulai_struktural'];
+                $model->no_sk_struktural = $_POST['RiwayatJabatan']['no_sk_struktural'];
+                $model->tanggal_sk_struktural = $_POST['tanggal_sk_struktural'];
             } else if ($model->tipe_jabatan == "fungsional_umum") {
                 $model->tmt_mulai = $_POST['tmt_mulai_fu'];
             } else if ($model->tipe_jabatan == "fungsional_tertentu") {
                 $model->tmt_mulai = $_POST['tmt_mulai_ft'];
+                $model->no_sk_struktural = $_POST['RiwayatJabatan']['no_sk_ft'];
+                $model->tanggal_sk_ft = $_POST['tanggal_sk_ft'];
             }
             if ($model->save()) {
                 $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tmt_mulai DESC'));
@@ -808,21 +774,22 @@ class PegawaiController extends Controller {
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
-            $model->kota = $_POST['Pegawai']['kota'];
+            $model->city_id = $_POST['Pegawai']['city_id'];
             $model->karpeg = $_POST['Pegawai']['karpeg'];
             $model->no_taspen = $_POST['Pegawai']['no_taspen'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
+            $model->no_sk_cpns = $_POST['Pegawai']['no_sk_cpns'];
+            $model->no_sk_pns = $_POST['Pegawai']['no_sk_pns'];
+            $model->tanggal_sk_cpns = $_POST['Pegawai']['tanggal_sk_cpns'];
+            $model->tanggal_sk_pns = $_POST['Pegawai']['tanggal_sk_pns'];
 
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
             if (!empty($riwayat)) {
                 if (!empty($riwayat)) {
                     //simpan jabatan di tabel pegawai
                     $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
-                    $model->tmt_jabatan_struktural = $riwayat->tmt_mulai;
                     $model->jabatan_fu_id = $riwayat->jabatan_fu_id;
-                    $model->tmt_jabatan_fu = $riwayat->tmt_mulai;
                     $model->jabatan_ft_id = $riwayat->jabatan_ft_id;
-                    $model->tmt_jabatan_ft = $riwayat->tmt_mulai;
                     $model->tipe_jabatan = $riwayat->tipe_jabatan;
                     if ($riwayat->tipe_jabatan == "struktural") {
                         //simpan status jabatan struktural
@@ -841,12 +808,12 @@ class PegawaiController extends Controller {
             }
 
             if ($model->save()) {
-
+                $id = Pegawai::model()->find(array('condition' => 'nip=' . $model->nip, 'order' => 'id DESC'));
                 if (is_object($file)) {
                     $file->saveAs('images/pegawai/' . $model->foto);
                     Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
                 }
-                $this->redirect(array('update', 'id' => $model->id));
+                $this->redirect(array('update', 'id' => $id->id));
             }
         }
 
@@ -868,7 +835,6 @@ class PegawaiController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Pegawai'])) {
-
             $jabatanStruktural = 0;
             if (isset($model->RiwayatJabatan->id)) {
                 if ($model->RiwayatJabatan->tipe_jabatan == "struktural") {
@@ -887,11 +853,14 @@ class PegawaiController extends Controller {
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
-            $model->kota = $_POST['Pegawai']['kota'];
+            $model->city_id = $_POST['Pegawai']['city_id'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
             $model->karpeg = $_POST['Pegawai']['karpeg'];
             $model->riwayat_jabatan_id = $_POST['Pegawai']['riwayat_jabatan_id'];
-
+            $model->no_sk_cpns = $_POST['Pegawai']['no_sk_cpns'];
+            $model->no_sk_pns = $_POST['Pegawai']['no_sk_pns'];
+            $model->tanggal_sk_cpns = $_POST['Pegawai']['tanggal_sk_cpns'];
+            $model->tanggal_sk_pns = $_POST['Pegawai']['tanggal_sk_pns'];
 
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {
@@ -904,11 +873,8 @@ class PegawaiController extends Controller {
             if (!empty($riwayat)) {
                 //simpan jabatan di tabel pegawai
                 $model->jabatan_struktural_id = $riwayat->jabatan_struktural_id;
-                $model->tmt_jabatan_struktural = $riwayat->tmt_mulai;
                 $model->jabatan_fu_id = $riwayat->jabatan_fu_id;
-                $model->tmt_jabatan_fu = $riwayat->tmt_mulai;
                 $model->jabatan_ft_id = $riwayat->jabatan_ft_id;
-                $model->tmt_jabatan_ft = $riwayat->tmt_mulai;
                 $model->tipe_jabatan = $riwayat->tipe_jabatan;
                 if ($riwayat->tipe_jabatan == "struktural") {
                     $jabatan = JabatanStruktural::model()->findByPk($riwayat->jabatan_struktural_id);
@@ -976,8 +942,8 @@ class PegawaiController extends Controller {
             $model->attributes = $_GET['Pegawai'];
             if ($model->tempat_lahir == 0)
                 unset($model->tempat_lahir);
-            if ($model->kota == 0)
-                unset($model->kota);
+            if ($model->city_id == 0)
+                unset($model->city_id);
             if ($model->kedudukan_id == 0)
                 unset($model->kedudukan_id);
             if ($model->unit_kerja_id == 0)
@@ -1099,12 +1065,6 @@ class PegawaiController extends Controller {
     }
 
     public function actionGenerateExcel() {
-//        $session = new CHttpSession;
-//        $session->open();
-//
-//        if (isset($session['Pegawai_records'])) {
-//            $model = $session['Pegawai_records'];
-//        } else
         $model = Pegawai::model()->findAll();
 
 
@@ -1168,6 +1128,33 @@ class PegawaiController extends Controller {
                     'model' => $model
                         ), true)
         );
+    }
+
+    public function actionGetPensiun() {
+        $tgl_lahir = (!empty($_POST['tanggal_lahir'])) ? $_POST['tanggal_lahir'] : date("Y-m-d");
+        $id_riwayat = $_POST['riwayatJabatan'];
+        $jabatan = RiwayatJabatan::model()->findByPk($id_riwayat);
+        $bup = 0;
+        if (!empty($jabatan)) {
+            if ($jabatan->tipe_jabatan == "struktural") {
+                $eselon = isset($jabatan->JabatanStruktural->Eselon->nama) ? $jabatan->JabatanStruktural->Eselon->nama : "-";
+                $tingkatEselon = substr($eselon, 0, 2);
+                if ($tingkatEselon == "II") {
+                    $bup = 60;
+                } else if ($tingkatEselon == "III" or $tingkatEselon == "IV" or $tingkatEselon == "V") {
+                    $bup = 58;
+                }
+            } else if ($jabatan->tipe_jabatan == "fungsional_umum") {
+                $bup = 58;
+            } else if ($jabatan->tipe_jabatan == "fungsional_tertentu") {
+                $bup = 60;
+            }
+        } else {
+            $bup = 0;
+        }
+        $date = explode("-", $tgl_lahir);
+        $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $bup);
+        echo date("Y-m-d", $tmt_pensiun);
     }
 
     //-----------------------------------------------------------------------------------
