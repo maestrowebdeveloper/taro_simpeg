@@ -222,7 +222,7 @@
                         <div class="span12">
                             <?php
                             if (!isset($_GET['v'])) {
-                                
+
 //                                echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'style' => 'width:50%', 'class' => 'span9'));
 //                                echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
 //                                echo $form->textFieldRow($model, 'hp', array('class' => 'span5 angka', 'style' => 'max-width:500px;width:200px', 'maxlength' => 25, 'prepend' => '+62'));
@@ -305,7 +305,7 @@
                             <div class="control-group ">
                                 <label class="control-label" for="Pegawai_tmt_cpns">Tgl/No SK CPNS</label>
                                 <div class="controls">
-                                     
+
                                     <div class="input-prepend" style="margin-right: 40px;">
                                         <span class="add-on"><i class="icon-calendar"></i></span>
                                         <?php
@@ -325,7 +325,7 @@
                                     echo '&nbsp;&nbsp;';
                                     echo CHtml::textField('Pegawai[no_sk_cpns]', isset($model->no_sk_cpns) ? $model->no_sk_cpns : '', array('class' => 'span4', 'placeholder' => 'No Sk CPNS'));
                                     ?>
-                                   
+
                                 </div>
                             </div>
                             <?php
@@ -339,7 +339,7 @@
                             <div class="control-group ">
                                 <label class="control-label" for="Pegawai_tmt_cpns">Tgl/No SK PNS</label>
                                 <div class="controls">
-                                     
+
                                     <div class="input-prepend" style="margin-right: 40px;">
                                         <span class="add-on"><i class="icon-calendar"></i></span>
                                         <?php
@@ -359,7 +359,7 @@
                                     echo '&nbsp;&nbsp;';
                                     echo CHtml::textField('Pegawai[no_sk_pns]', isset($model->no_sk_pns) ? $model->no_sk_pns : '', array('class' => 'span4', 'placeholder' => 'No Sk PNS'));
                                     ?>
-                                   
+
                                 </div>
                             </div>
                             <?php
@@ -406,6 +406,11 @@
                                 </div>
                             </div>
 
+                            <div class="control-group "><label class="control-label" for="Pegawai_bidang_id">Bidang</label>
+                                <div class="controls">                                    
+                                    <input class="span4" disabled value="<?php echo $model->riwayatBidangJabatan; ?>"  id="riwayatBidangJabatan" placeHolder="" type="text">
+                                </div>
+                            </div>
 
                             <?php
                             if (isset($model->perubahan_masa_kerja) and ! empty($model->perubahan_masa_kerja)) {
