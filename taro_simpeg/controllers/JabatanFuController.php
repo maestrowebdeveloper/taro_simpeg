@@ -21,7 +21,7 @@ class JabatanFuController extends Controller
         public function accessRules() {
             return array(
                 array('allow', // c
-                    'actions' => array('index', 'create'),
+                    'actions' => array( 'create'),
                     'expression' => 'app()->controller->isValidAccess("jabatanFu","c")'
                 ),
                 array('allow', // r
@@ -29,11 +29,11 @@ class JabatanFuController extends Controller
                     'expression' => 'app()->controller->isValidAccess("jabatanFu","r")'
                 ),
                 array('allow', // u
-                    'actions' => array('index', 'update'),
+                    'actions' => array( 'update'),
                     'expression' => 'app()->controller->isValidAccess("jabatanFu","u")'
                 ),
                 array('allow', // d
-                    'actions' => array('index', 'delete'),
+                    'actions' => array('delete'),
                     'expression' => 'app()->controller->isValidAccess("jabatanFu","d")'
                 )
             );

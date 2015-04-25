@@ -21,7 +21,7 @@ class KenaikanGajiController extends Controller
         public function accessRules() {
             return array(
                 array('allow', // c
-                    'actions' => array('index', 'create'),
+                    'actions' => array( 'create'),
                     'expression' => 'app()->controller->isValidAccess("kenaikanGaji","c")'
                 ),
                 array('allow', // r
@@ -29,11 +29,11 @@ class KenaikanGajiController extends Controller
                     'expression' => 'app()->controller->isValidAccess("kenaikanGaji","r")'
                 ),
                 array('allow', // u
-                    'actions' => array('index', 'update'),
+                    'actions' => array( 'update'),
                     'expression' => 'app()->controller->isValidAccess("kenaikanGaji","u")'
                 ),
                 array('allow', // d
-                    'actions' => array('index', 'delete'),
+                    'actions' => array('delete'),
                     'expression' => 'app()->controller->isValidAccess("kenaikanGaji","d")'
                 )
             );
