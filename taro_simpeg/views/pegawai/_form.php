@@ -223,11 +223,11 @@
                             <?php
                             if (!isset($_GET['v'])) {
                                 
-                                echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'style' => 'width:50%', 'class' => 'span9'));
-                                echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
-                                echo $form->textFieldRow($model, 'hp', array('class' => 'span5 angka', 'style' => 'max-width:500px;width:200px', 'maxlength' => 25, 'prepend' => '+62'));
-                                echo $form->textFieldRow($model, 'email', array('class' => 'span5', 'maxlength' => 50));
-                                echo $form->radioButtonListRow($model, 'golongan_darah', Pegawai::model()->ArrGolonganDarah());
+//                                echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'style' => 'width:50%', 'class' => 'span9'));
+//                                echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
+//                                echo $form->textFieldRow($model, 'hp', array('class' => 'span5 angka', 'style' => 'max-width:500px;width:200px', 'maxlength' => 25, 'prepend' => '+62'));
+//                                echo $form->textFieldRow($model, 'email', array('class' => 'span5', 'maxlength' => 50));
+//                                echo $form->radioButtonListRow($model, 'golongan_darah', Pegawai::model()->ArrGolonganDarah());
                             }
                             echo $form->radioButtonListRow($model, 'agama', Pegawai::model()->ArrAgama());
                             echo $form->textFieldRow($model, 'ket_agama', array('class' => 'span5', 'maxlength' => 50));
