@@ -147,7 +147,7 @@
                                     $model, 'tanggal_lahir', array('value' => str_replace("0000-00-00", "", $model->tanggal_lahir),
                                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                 'events' => array('changeDate' => 'js:function(){
-                                                                pensiun($(this).val(), 0);
+                                                                pensiun($(this).val(), $("#Pegawai_riwayat_jabatan_id").val());
                                                          }'),
                                 'prepend' => '<i class="icon-calendar"></i>',
                                     )
@@ -831,7 +831,7 @@ $this->beginWidget(
 //            data: {tanggal_lahir: $("#Pegawai_tanggal_lahir").val(), riwayatJabatan: $("#Pegawai_riwayat_jabatan_id").val()},
             success: function (data) {
                 $("#Pegawai_tmt_pensiun").val(data);
-                alert(data);
+//                alert(tanggal);
             }
         });
 //        var lahir = new Date($("#Pegawai_tanggal_lahir").val());

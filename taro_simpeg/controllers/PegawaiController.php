@@ -1131,7 +1131,7 @@ class PegawaiController extends Controller {
     }
 
     public function actionGetPensiun() {
-        $tgl_lahir = $_POST['tanggal_lahir'];
+        $tgl_lahir = (!empty($_POST['tanggal_lahir'])) ? $_POST['tanggal_lahir'] : date("Y-m-d");
         $id_riwayat = $_POST['riwayatJabatan'];
         $jabatan = RiwayatJabatan::model()->findByPk($id_riwayat);
         $bup = 0;
@@ -1154,8 +1154,7 @@ class PegawaiController extends Controller {
         }
         $date = explode("-", $tgl_lahir);
         $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $bup);
-//        return date("Y-m-d", strtotime($tmt_pensiun));
-        return $tgl_lahir;
+        echo date("Y-m-d", $tmt_pensiun);
     }
 
     //-----------------------------------------------------------------------------------

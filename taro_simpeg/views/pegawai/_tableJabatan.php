@@ -98,7 +98,7 @@
                     $("#riwayatNamaJabatan").val(obj.jabatan);
                     $("#riwayatTmtJabatan").val(obj.tmt);
                     $("#modalForm").modal("hide");
-                    pensiun($("Pegawai_tanggal_lahir").val(), obj.id);
+                    pensiun($("#Pegawai_tanggal_lahir").val(), obj.id);
             }
         });
     });
