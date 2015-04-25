@@ -835,7 +835,6 @@ class PegawaiController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Pegawai'])) {
-logs($_POST['Pegawai']['city_id']);
             $jabatanStruktural = 0;
             if (isset($model->RiwayatJabatan->id)) {
                 if ($model->RiwayatJabatan->tipe_jabatan == "struktural") {
@@ -1066,12 +1065,6 @@ logs($_POST['Pegawai']['city_id']);
     }
 
     public function actionGenerateExcel() {
-//        $session = new CHttpSession;
-//        $session->open();
-//
-//        if (isset($session['Pegawai_records'])) {
-//            $model = $session['Pegawai_records'];
-//        } else
         $model = Pegawai::model()->findAll();
 
 
@@ -1135,6 +1128,33 @@ logs($_POST['Pegawai']['city_id']);
                     'model' => $model
                         ), true)
         );
+    }
+
+    public function actionGetPensiun() {
+        $tgl_lahir = (!empty($_POST['tanggal_lahir'])) ? $_POST['tanggal_lahir'] : date("Y-m-d");
+        $id_riwayat = $_POST['riwayatJabatan'];
+        $jabatan = RiwayatJabatan::model()->findByPk($id_riwayat);
+        $bup = 0;
+        if (!empty($jabatan)) {
+            if ($jabatan->tipe_jabatan == "struktural") {
+                $eselon = isset($jabatan->JabatanStruktural->Eselon->nama) ? $jabatan->JabatanStruktural->Eselon->nama : "-";
+                $tingkatEselon = substr($eselon, 0, 2);
+                if ($tingkatEselon == "II") {
+                    $bup = 60;
+                } else if ($tingkatEselon == "III" or $tingkatEselon == "IV" or $tingkatEselon == "V") {
+                    $bup = 58;
+                }
+            } else if ($jabatan->tipe_jabatan == "fungsional_umum") {
+                $bup = 58;
+            } else if ($jabatan->tipe_jabatan == "fungsional_tertentu") {
+                $bup = 60;
+            }
+        } else {
+            $bup = 0;
+        }
+        $date = explode("-", $tgl_lahir);
+        $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $bup);
+        echo date("Y-m-d", $tmt_pensiun);
     }
 
     //-----------------------------------------------------------------------------------
