@@ -22,7 +22,7 @@ class PegawaiController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // c
-                'actions' => array( 'create'),
+                'actions' => array('create'),
                 'expression' => 'app()->controller->isValidAccess("pegawai","c")'
             ),
             array('allow', // r
@@ -30,7 +30,7 @@ class PegawaiController extends Controller {
                 'expression' => 'app()->controller->isValidAccess("pegawai","r")'
             ),
             array('allow', // u
-                'actions' => array( 'update'),
+                'actions' => array('update'),
                 'expression' => 'app()->controller->isValidAccess("pegawai","u")'
             ),
             array('allow', // d
@@ -171,6 +171,7 @@ class PegawaiController extends Controller {
             $data['tipe'] = $model->tipe;
             $data['jabatan'] = $model->jabatanPegawai;
             $data['tmt'] = $model->tmt_mulai;
+            $data['bidang'] = isset($model->Bidang->nama) ? $model->Bidang->nama : "-";
             $data['status'] = $model->statusjabatan;
             echo json_encode($data);
         }
@@ -229,10 +230,12 @@ class PegawaiController extends Controller {
                 $model->tanggal_sk_struktural = $_POST['tanggal_sk_struktural'];
             } else if ($model->tipe_jabatan == "fungsional_umum") {
                 $model->tmt_mulai = $_POST['tmt_mulai_fu'];
+                $model->bidang_id = $_POST['RiwayatJabatan']['bidang_fu_id'];
             } else if ($model->tipe_jabatan == "fungsional_tertentu") {
                 $model->tmt_mulai = $_POST['tmt_mulai_ft'];
                 $model->no_sk_struktural = $_POST['RiwayatJabatan']['no_sk_ft'];
                 $model->tanggal_sk_ft = $_POST['tanggal_sk_ft'];
+                $model->bidang_id = $_POST['RiwayatJabatan']['bidang_ft_id'];
             }
             if ($model->save()) {
                 $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tmt_mulai DESC'));

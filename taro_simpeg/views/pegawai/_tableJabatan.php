@@ -13,6 +13,7 @@
         <thead>
         <th>No. Register</th>
         <th>Jabatan</th>
+        <th>Bidang</th>
         <th>Tmt Jabatan</th>        
         <th>Eselon</th>     
         <th>Tmt Eselon</th>
@@ -42,10 +43,12 @@
                     $jabatan = (isset($value->JabatanFt->nama)) ? $value->JabatanFt->nama : '';
                     $tmt_jabatan = $value->tmt_mulai;
                 }
+                $bidang = isset($value->Bidang->nama) ? $value->Bidang->nama : "-";
                 echo '
                 <tr>
                 <td>' . $value->nomor_register . '</td>
                 <td>' . ucwords($jabatan) . '</td>
+                <td>' . $bidang . '</td>
                 <td>' . $tmt_jabatan . '</td>
                 <td>' . $eselon . '</td>
                 <td>' . $tmt_eselon . '</td>                            
@@ -93,12 +96,13 @@
             type: "post",
             success: function (data) {
                 obj = JSON.parse(data);
-                    $("#Pegawai_riwayat_jabatan_id").val(obj.id);
-                    $("#riwayatTipeJabatan").val(obj.tipe);
-                    $("#riwayatNamaJabatan").val(obj.jabatan);
-                    $("#riwayatTmtJabatan").val(obj.tmt);
-                    $("#modalForm").modal("hide");
-                    pensiun($("#Pegawai_tanggal_lahir").val(), obj.id);
+                $("#Pegawai_riwayat_jabatan_id").val(obj.id);
+                $("#riwayatTipeJabatan").val(obj.tipe);
+                $("#riwayatNamaJabatan").val(obj.jabatan);
+                $("#riwayatTmtJabatan").val(obj.tmt);
+                $("#riwayatBidangJabatan").val(obj.bidang);
+                $("#modalForm").modal("hide");
+                pensiun($("#Pegawai_tanggal_lahir").val(), obj.id);
             }
         });
     });
