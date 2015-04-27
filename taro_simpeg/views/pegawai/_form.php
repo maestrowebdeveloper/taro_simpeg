@@ -267,6 +267,31 @@
                             );
 
                             echo $form->textFieldRow($model, 'keterangan', array('class' => 'span5', 'maxlength' => 50));
+                            ?>
+                            <div class="control-group ">
+                                <label class="control-label" for="Pegawai_tmt_cpns">Tmt Keterangan</label>
+                                <div class="controls">
+
+                                    <div class="input-prepend" style="margin-right: 40px;">
+                                        <span class="add-on"><i class="icon-calendar"></i></span>
+                                        <?php
+                                        $this->widget(
+                                                'bootstrap.widgets.TbDatePicker', array(
+                                            'name' => 'Pegawai[tmt_keterangan_kedudukan]',
+                                            'value' => str_replace("0000-00-00", "", $model->tmt_keterangan_kedudukan),
+                                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+//                                            'events' => array('changeDate' => 'js:function(){
+//                                                                getMasaKerja();
+//                                                         }'),
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                    
+
+                                </div>
+                            </div>
+                            <?php
 
                             $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
                             echo $form->select2Row($model, 'unit_kerja_id', array(
@@ -885,8 +910,11 @@ $this->beginWidget(
             if ($('#Pegawai_kedudukan_id').val() == '1') {
                 $("#Pegawai_keterangan").parent().parent().attr("style", "display:none");
                 $('#Pegawai_keterangan').attr("value", "");
+                $("#Pegawai_tmt_keterangan_kedudukan").parent().parent().parent().attr("style", "display:none");
+                $('#Pegawai_tmt_keterangan_kedudukan').attr("value", "");
             } else {
                 $("#Pegawai_keterangan").parent().parent().attr("style", "display:");
+                $("#Pegawai_tmt_keterangan_kedudukan").parent().parent().parent().attr("style", "display:");
             }
         });
     });
