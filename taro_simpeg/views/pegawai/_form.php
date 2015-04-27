@@ -405,7 +405,7 @@
                                     <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
                                         <input class="span10"  disabled maxlength="4" id="tmtMulai" value="<?php echo $model->tmtGaji; ?>"  type="text">
                                     </div> 
-                                        <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
+                                    <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
                                         <a class="btn blue pilihGaji" pegawai="<?php echo $model->id; ?>;" id="pilihGaji"><i class="wpzoom-search blue"></i> Riwayat Gaji</a>
                                     <?php } ?>
                                 </div>
@@ -623,7 +623,7 @@
                             <tr><td>Tipe Jabatan</td><td>:</td><td><?php echo ucwords(str_replace("_", " ", $model->tipe_jabatan)); ?></td></tr>
                             <tr><td>Jabatan</td><td>:</td><td><?php echo $model->jabatan . ', TMT :  ' . $model->tmtJabatan; ?></td></tr>
                             <tr><td>Masa Kerja</td><td>:</td><td><?php echo $model->masaKerja; ?></td></tr>
-                            <tr><td>Gaji</td><td>:</td><td><?php echo landa()->rp($model->Gaji->gaji); ?></td></tr>
+                            <tr><td>Gaji</td><td>:</td><td><?php echo landa()->rp(isset($model->Gaji->gaji) ? $model->Gaji->gaji : 0); ?></td></tr>
                             <tr><td>TMT Pensiun</td><td>:</td><td><?php echo date('d M Y', strtotime($model->tmt_pensiun)); ?></td></tr>
                             </tr>
                         </table>

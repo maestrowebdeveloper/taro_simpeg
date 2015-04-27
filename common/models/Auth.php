@@ -130,6 +130,7 @@ class Auth extends CActiveRecord {
                     array('visible' => landa()->checkAccess('hukuman', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Hukuman', 'url' => url('/hukuman'), 'auth_id' => 'hukuman'),
                     array('visible' => landa()->checkAccess('jurusan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Jurusan', 'url' => url('/jurusan'), 'auth_id' => 'jurusan'),
                     array('visible' => landa()->checkAccess('universitas', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Kampus/Universitas', 'url' => url('/universitas'), 'auth_id' => 'universitas'),
+                    array('visible' => landa()->checkAccess('Gaji', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Gaji', 'url' => url('/gaji'), 'auth_id' => 'gaji'),
                 )),
             array('visible' => landa()->checkAccess('pegawai', 'r'), 'label' => '<span class="icon16  icomoon-icon-user-3 "></span>Data PNS', 'url' => url('/pegawai'), 'auth_id' => 'pegawai'),
             array('visible' => landa()->checkAccess('honorer', 'r'), 'label' => '<span class="icon16  wpzoom-user-2"></span>Data Honorer', 'url' => url('/honorer'), 'auth_id' => 'honorer'),
