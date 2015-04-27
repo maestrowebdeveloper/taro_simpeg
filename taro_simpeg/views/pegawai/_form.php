@@ -623,7 +623,7 @@
                             <tr><td>Tipe Jabatan</td><td>:</td><td><?php echo ucwords(str_replace("_", " ", $model->tipe_jabatan)); ?></td></tr>
                             <tr><td>Jabatan</td><td>:</td><td><?php echo $model->jabatan . ', TMT :  ' . $model->tmtJabatan; ?></td></tr>
                             <tr><td>Masa Kerja</td><td>:</td><td><?php echo $model->masaKerja; ?></td></tr>
-                            <tr><td>Gaji</td><td>:</td><td><?php echo landa()->rp($model->gaji); ?></td></tr>
+                            <tr><td>Gaji</td><td>:</td><td><?php echo landa()->rp($model->Gaji->gaji); ?></td></tr>
                             <tr><td>TMT Pensiun</td><td>:</td><td><?php echo date('d M Y', strtotime($model->tmt_pensiun)); ?></td></tr>
                             </tr>
                         </table>
