@@ -132,7 +132,7 @@
                     return {
                         results: data
                     };
-                }
+                },
             }
         }).on('change', function () {
             $.ajax({
