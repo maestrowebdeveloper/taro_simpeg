@@ -31,10 +31,16 @@
         </div>
         <div class="cari" style="display:none">
             <?php
-            $data = array('0' => '- Pegawai -') + CHtml::listData(Pegawai::model()->listPegawai(), 'id', 'nipNama');
+//            $data = array('0' => '- Pegawai -') + CHtml::listData(Pegawai::model()->listPegawai(), 'id', 'nipNama');
+//            echo $form->select2Row($model, 'keluarga_pegawai_id', array(
+//                'asDropDownList' => true,
+//                'data' => $data,
+//                    )
+//            );
+            $id = 0;
+            $pegawai_id = "hai";
             echo $form->select2Row($model, 'keluarga_pegawai_id', array(
-                'asDropDownList' => true,
-                'data' => $data,
+                'asDropDownList' => false,
                     )
             );
             ?>
@@ -88,10 +94,6 @@
         echo $form->textFieldRow($model, 'pekerjaan', array('class' => 'span3', 'maxlength' => 100));
         ?>
 
-
-
-
-
         <div class="form-actions">
             <a class="btn btn-primary saveKeluarga"><i class="icon-ok icon-white"></i> Simpan</a>
             <?php
@@ -104,7 +106,7 @@
         </div>
     </fieldset>
 
-<?php $this->endWidget(); ?>
+    <?php $this->endWidget(); ?>
 
 </div>
 
@@ -114,38 +116,49 @@
         jQuery('#RiwayatKeluarga_tanggal_lahir').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
         jQuery('#RiwayatKeluarga_tanggal_sk').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
         jQuery('#RiwayatKeluarga_tempat_lahir').select2({'width': '40%'});
-        jQuery('#RiwayatKeluarga_keluarga_pegawai_id').select2({'allowClear': false, 'width': '30%'}).on('change', function () {
+        jQuery('#RiwayatKeluarga_keluarga_pegawai_id').select2({
+            'allowClear': true,
+            'minimumInputLength': '3',
+            'width': '100%;margin:0px;text-align:left',
+            'ajax': {
+                'url': '<?php echo Yii::app()->createUrl('pegawai/getKeluargaPegawai'); ?>',
+                'dataType': 'json',
+                'data': function (term, page) {
+                    return {
+                        q: term
+                    };
+                },
+                'results': function (data) {
+                    return {
+                        results: data
+                    };
+                }
+            }
+        }).on('change', function () {
             $.ajax({
                 url: "<?php echo url('pegawai/getDetail') ?>",
-                type: "POST",
+                type: "post",
                 data: {id: $(this).val()},
                 success: function (data) {
                     obj = JSON.parse(data);
                     $("#RiwayatKeluarga_nama").val(obj.nama);
-
                     $("#RiwayatKeluarga_tanggal_lahir").val(obj.tanggal_lahir);
                     $("#s2id_RiwayatKeluarga_tempat_lahir").select2("val", obj.tempat_lahir);
                 }
             });
         });
     });
-
     $("#RiwayatKeluarga_hubungan_0,#RiwayatKeluarga_hubungan_1").click(function (event) {
         $(".suami_istri").show();
         $(".anak").hide();
     });
-
     $("#RiwayatKeluarga_hubungan_2").click(function (event) {
         $(".suami_istri").hide();
         $(".anak").show();
-
     });
-
     $('.btn-cari').click(function () {
         $('.cari').toggle();
     });
-
-
     $(".saveKeluarga").click(function () {
         var postData = $("#keluarga-form").serialize();
         $.ajax({
@@ -164,10 +177,7 @@
                 alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
             },
         });
-
-    });
-
-</script>
+    });</script>
 <script>
     $("body").on("click", ".radio", function () {
         var id = $(this).find("input").val();
@@ -180,16 +190,16 @@
             $("#RiwayatKeluarga_nomor_karsi").parent().parent().attr("style", "display:");
             $("#RiwayatKeluarga_tanggal_pernikahan").parent().parent().attr("style", "display:");
         }
-        
+
         if (id == "cerai") {
             $("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:");
             $("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:");
             $("#RiwayatKeluarga_tanggal_sk").parent().parent().parent().attr("style", "display:");
-        }else if(id == "aktif"){
-             $("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:none");
+        } else if (id == "aktif") {
+            $("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:none");
             $("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:none");
             $("#RiwayatKeluarga_tanggal_sk").parent().parent().parent().attr("style", "display:none");
-        }else if(id == "meninggal"){
+        } else if (id == "meninggal") {
             $("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:none");
             $("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:none");
             $("#RiwayatKeluarga_tanggal_sk").parent().parent().parent().attr("style", "display:none");

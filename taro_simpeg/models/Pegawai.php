@@ -530,7 +530,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function arrJenjangPendidikan() {
-        $data = array('SD' => 'SD', 'SMP' => 'SMP', 'SMA/SMK' => 'SMA/SMK', 'D-I' => 'D-I', 'D-II' => 'D-II', 'D-III' => 'D-III', 'D-IV' => 'D-IV', 'S-1' => 'S-1', 'S-2' => 'S-2', 'S-3' => 'S-3');
+        $data = array('SD' => 'SD', 'SLTP' => 'SLTP', 'SLTA/SMK' => 'SLTA/SMK', 'D-I' => 'D-I', 'D-II' => 'D-II', 'D-III' => 'D-III', 'D-IV' => 'D-IV', 'S-1' => 'S-1', 'S-2' => 'S-2', 'S-3' => 'S-3');
         return $data;
     }
 

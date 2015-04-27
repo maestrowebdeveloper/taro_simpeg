@@ -33,7 +33,7 @@ class RiwayatPangkat extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nomor_register, pegawai_id, golongan_id,  tmt_pangkat', 'required'),
-			array('   nama_golongan', 'safe'),
+			array('nama_golongan', 'safe'),
 			array('pegawai_id, golongan_id, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('nomor_register', 'length', 'max'=>225),
 			array('nama_golongan', 'length', 'max'=>25),
@@ -64,7 +64,7 @@ class RiwayatPangkat extends CActiveRecord
 	{
 		return array(
 			'id' => 'NIP',
-			'nomor_register' => 'Nomor Register',
+			'nomor_register' => 'Nomor CG',
 			'pegawai_id' => 'Pegawai',
 			'golongan_id' => 'Golongan',
 			'nama_golongan' => 'Nama Golongan',

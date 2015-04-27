@@ -353,6 +353,8 @@ class User extends CActiveRecord {
     }
 
     public function getTagBiodata() {
+		$prov = (isset($this->City->Province->name)) ? ucwords($this->City->Province->name) : '';
+		$city = (isset($this->City->name)) ? ucwords($this->City->name) : '';
         return '<div class="row-fluid">
                     <div class="span3" style="text-align:left">
                         <b>Identity Number</b>
@@ -377,7 +379,7 @@ class User extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . ucwords($this->City->Province->name) . '
+                        ' . $prov . '
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -386,7 +388,7 @@ class User extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . ucwords($this->City->name) . '
+                        ' . $city . '
                     </div>
                 </div>
                      <div class="row-fluid">

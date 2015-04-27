@@ -304,6 +304,20 @@ class PegawaiController extends Controller {
         }
     }
 
+    public function actionGetKeluargaPegawai() {
+        $name = $_GET["q"];
+        $data = array();
+        $pegawai = Pegawai::model()->findAll(array('condition' => 'nama like "%' . $name . '%"', 'limit' => 15));
+        if (empty($pegawai)) {
+            $data[] = array('id' => '0', 'text' => 'Tidak Ada Nama Yang Cocok');
+        } else {
+            foreach ($pegawai as $val) {
+                $data[] = array('id' => $val->id, 'text' => $val->nama);
+            }
+        }
+        echo json_encode($data);
+    }
+
     public function actionGetKeluarga() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $pegawai = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
