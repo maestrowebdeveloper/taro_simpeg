@@ -94,7 +94,7 @@ class PermohonanPerpanjanganHonorerController extends Controller {
         $return['jenis_kelamin'] = $model->jenis_kelamin;        
         $return['unit_kerja'] = $model->unitKerja;
         $return['masa_kerja'] = $model->masaKerja;
-        $return['tempat_lahir'] = $model->tempatLahir;
+        $return['tempat_lahir'] = $model->tempat_lahir;
         $return['tanggal_lahir'] = $model->tanggal_lahir;
         $return['kota'] = $model->kota;
         $return['alamat'] = $model->alamat;

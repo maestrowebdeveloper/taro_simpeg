@@ -359,7 +359,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getTempatLahir() {
-        return (!empty($this->TempatLahir->name)) ? $this->TempatLahir->name : '-';
+        return (!empty($this->tempat_lahir)) ? $this->tempat_lahir : '-';
     }
 
     public function getCity() {

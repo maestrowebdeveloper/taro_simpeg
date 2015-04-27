@@ -1,4 +1,4 @@
-<?php if (isset($_GET['v'])) { ?>
+ <?php if (isset($_GET['v'])) { ?>
     <div class="alert alert-info">
         <label class="radio">
             <input id="viewTab" value="PNS" checked="checked" name="view" type="radio">
@@ -67,7 +67,7 @@
         ?>
         <div class="control-group "><label class="control-label" for="eselon">NIP</label>
             <div class="controls">
-                <input class="span3" maxlength="19" readonly="1" name="" id="nip" type="text">
+                <input class="span3" maxlength="19" readonly="1" name="" id="nip" type="text" value="<?php echo (isset($model->Pegawai->nip)) ? $model->Pegawai->nip : '-' ?>">
             </div>
         </div>
 
