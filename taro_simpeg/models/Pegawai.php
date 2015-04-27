@@ -17,7 +17,7 @@ class Pegawai extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nip, nama, tanggal_lahir, jenis_kelamin,  kedudukan_id, unit_kerja_id', 'required'),
-            array('gelar_depan, ketarangan, ket_agama, riwayat_jabatan_id,riwayat_pangkat_id,pendidikan_id,gelar_belakang,modified_user_id, tempat_lahir,agama, kedudukan_id, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp,karpeg, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun,no_sk_cpns,tanggal_sk_cpns,no_sk_pns,tanggal_sk_pns, created, created_user_id, id', 'safe'),
+            array('gelar_depan, ketarangan, ket_agama, riwayat_jabatan_id,riwayat_pangkat_id,riwayat_gaji_id,pendidikan_id,gelar_belakang,modified_user_id, tempat_lahir,agama, kedudukan_id, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp,karpeg, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun,no_sk_cpns,tanggal_sk_cpns,no_sk_pns,tanggal_sk_pns, created, created_user_id, id', 'safe'),
             array(' kedudukan_id, unit_kerja_id, golongan_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, gaji, created_user_id, id', 'numerical', 'integerOnly' => true),
             array('nip, gelar_depan, gelar_belakang, keterangan, bpjs, kpe, npwp', 'length', 'max' => 50),
             array('nama', 'length', 'max' => 100),
@@ -52,6 +52,7 @@ class Pegawai extends CActiveRecord {
             'LastEdit' => array(self::BELONGS_TO, 'User', 'modified_user_id'),
             'Pendidikan' => array(self::BELONGS_TO, 'RiwayatPendidikan', 'pendidikan_id'),
             'Pangkat' => array(self::BELONGS_TO, 'RiwayatPangkat', 'riwayat_pangkat_id'),
+            'Gaji' => array(self::BELONGS_TO, 'RiwayatGaji', 'riwayat_gaji_id'),
             'RiwayatJabatan' => array(self::BELONGS_TO, 'RiwayatJabatan', 'riwayat_jabatan_id'),
             'RiwayatPendidikan' => array(self::HAS_MANY, 'RiwayatPendidikan', 'pegawai_id'),
         );
@@ -310,6 +311,12 @@ class Pegawai extends CActiveRecord {
         return (!empty($this->RiwayatJabatan->tmt_mulai)) ? $this->RiwayatJabatan->tmt_mulai : '-';
     }
 
+    public function getGajiPegawai() {
+        return (!empty($this->Gaji->gaji)) ? landa()->rp($this->Gaji->gaji) : '-';
+    }
+    public function getTmtGaji() {
+        return (!empty($this->Gaji->tmt_mulai)) ? $this->Gaji->tmt_mulai : '-';
+    }
     public function getPangkat() {
         return (!empty($this->Pangkat->nama_golongan)) ? $this->Pangkat->nama_golongan : '-';
     }
