@@ -17,8 +17,8 @@ class Pegawai extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nip, nama, tanggal_lahir, jenis_kelamin,  kedudukan_id, unit_kerja_id', 'required'),
-            array('gelar_depan, ketarangan, ket_agama, riwayat_jabatan_id,riwayat_pangkat_id,riwayat_gaji_id,pendidikan_id,gelar_belakang,modified_user_id, tempat_lahir,agama, kedudukan_id, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp,karpeg, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun,no_sk_cpns,tanggal_sk_cpns,no_sk_pns,tanggal_sk_pns, created, created_user_id, id', 'safe'),
-            array(' kedudukan_id, unit_kerja_id, golongan_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, gaji, created_user_id, id', 'numerical', 'integerOnly' => true),
+            array('gelar_depan, ketarangan, ket_agama, riwayat_jabatan_id,riwayat_pangkat_id,riwayat_gaji_id,pendidikan_id,gelar_belakang,modified_user_id, tempat_lahir,agama, kedudukan_id, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp,karpeg, foto, tmt_cpns, tmt_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, tmt_pensiun,no_sk_cpns,tanggal_sk_cpns,no_sk_pns,tanggal_sk_pns, created, created_user_id, id', 'safe'),
+            array(' kedudukan_id, unit_kerja_id, golongan_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, created_user_id, id', 'numerical', 'integerOnly' => true),
             array('nip, gelar_depan, gelar_belakang, keterangan, bpjs, kpe, npwp', 'length', 'max' => 50),
             array('nama', 'length', 'max' => 100),
             array('jenis_kelamin', 'length', 'max' => 11),
@@ -32,7 +32,7 @@ class Pegawai extends CActiveRecord {
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, ketarngan, nip, nama, gelar_depan, gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, kedudukan_id, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, kpe, npwp,karpeg, foto, unit_kerja_id, tmt_cpns, tmt_pns,no_sk_cpns,tanggal_sk_cpns,no_sk_pns,tanggal_sk_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, gaji, tmt_pensiun, nomor_kesehatan, tanggal_kesehatan,  created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, ketarngan, nip, nama, gelar_depan, gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, kedudukan_id, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, kpe, npwp,karpeg, foto, unit_kerja_id, tmt_cpns, tmt_pns,no_sk_cpns,tanggal_sk_cpns,no_sk_pns,tanggal_sk_pns, golongan_id, tmt_golongan, tipe_jabatan, jabatan_struktural_id, tmt_jabatan_struktural, jabatan_fu_id, tmt_jabatan_fu, jabatan_ft_id, tmt_jabatan_ft, tmt_pensiun, nomor_kesehatan, tanggal_kesehatan,  created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -100,7 +100,7 @@ class Pegawai extends CActiveRecord {
             'tmt_jabatan_fu' => 'Tmt Jabatan Fu',
             'jabatan_ft_id' => 'Jabatan Ft',
             'tmt_jabatan_ft' => 'Tmt Jabatan Ft',
-            'gaji' => 'Gaji',
+//            'gaji' => 'Gaji',
             'tmt_pensiun' => 'Tmt Pensiun',
             'no_sk_cpns'=>'No SK',
             'tanggal_sk_cpns'=>'Tanggal SK',
@@ -198,7 +198,7 @@ class Pegawai extends CActiveRecord {
         $criteria->compare('jabatan_struktural_id', $this->jabatan_struktural_id);
         $criteria->compare('jabatan_fu_id', $this->jabatan_fu_id);
         $criteria->compare('jabatan_ft_id', $this->jabatan_ft_id);
-        $criteria->compare('gaji', $this->gaji);
+//        $criteria->compare('gaji', $this->gaji);
         $criteria->compare('tmt_pensiun', $this->tmt_pensiun, true);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('created_user_id', $this->created_user_id);
@@ -779,7 +779,7 @@ class Pegawai extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . landa()->rp($this->gaji) . '
+                        ' . landa()->rp($this->Gaji->gaji) . '
                     </div>
                 </div>
 
