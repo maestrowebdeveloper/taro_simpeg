@@ -40,7 +40,7 @@ class RiwayatPendidikan extends CActiveRecord {
             array('nama_sekolah', 'length', 'max' => 225),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, pegawai_id, id_jurusan,id_universitas,jenjang_pendidikan, tahun, jurusan, nama_sekolah, alamat_sekolah, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, pegawai_id, id_jurusan,id_universitas,jenjang_pendidikan,no_ijazah, tahun, jurusan, nama_sekolah, alamat_sekolah, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -75,6 +75,7 @@ class RiwayatPendidikan extends CActiveRecord {
             'created' => 'Created',
             'created_user_id' => 'Created User',
             'modified' => 'Modified',
+            'no_ijazah'=>'No Ijazah'
         );
     }
 
@@ -110,6 +111,7 @@ class RiwayatPendidikan extends CActiveRecord {
         $criteria->compare('created', $this->created, true);
         $criteria->compare('created_user_id', $this->created_user_id);
         $criteria->compare('modified', $this->modified, true);
+        $criteria->compare('no_ijazah', $this->no_ijazah, true);
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,

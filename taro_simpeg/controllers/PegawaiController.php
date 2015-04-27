@@ -826,6 +826,7 @@ class PegawaiController extends Controller {
             $model->tanggal_sk_cpns = $_POST['Pegawai']['tanggal_sk_cpns'];
             $model->tanggal_sk_pns = $_POST['Pegawai']['tanggal_sk_pns'];
             $model->riwayat_gaji_id = $_POST['Pegawai']['riwayat_gaji_id'];
+            $model->tmt_keterangan_kedudukan = $_POST['Pegawai']['tmt_keterangan_kedudukan'];
 
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
             if (!empty($riwayat)) {
@@ -906,7 +907,8 @@ class PegawaiController extends Controller {
             $model->tanggal_sk_cpns = $_POST['Pegawai']['tanggal_sk_cpns'];
             $model->tanggal_sk_pns = $_POST['Pegawai']['tanggal_sk_pns'];
             $model->riwayat_gaji_id = $_POST['Pegawai']['riwayat_gaji_id'];
-
+            $model->tmt_keterangan_kedudukan = $_POST['Pegawai']['tmt_keterangan_kedudukan'];
+            
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {
                 $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;

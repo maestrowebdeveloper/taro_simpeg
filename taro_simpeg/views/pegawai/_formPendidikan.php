@@ -54,7 +54,7 @@
                 'width' => '40%;margin:0px;text-align:left',
         )));
         echo "</div></div>";
-
+        echo $form->textFieldRow($model, 'no_ijazah', array('class' => 'span3', 'maxlength' => 100));
         echo $form->textAreaRow($model, 'alamat_sekolah', array('rows' => 4, 'cols' => 50, 'class' => 'span8'));
         echo $form->textFieldRow($model, 'tahun', array('class' => 'span1 angka', 'maxlength' => 100));
         ?>
