@@ -139,7 +139,8 @@
                             ?>
                                 <div class="controls">
                             <?php
-                            echo CHtml::dropDownList('province_id', $model->City->province_id, CHtml::listData(Province::model()->findAll(), 'id', 'name'), array(
+                            $prov_id = (isset($model->City->province_id)) ? $model->City->province_id : 0;
+                            echo CHtml::dropDownList('province_id', $prov_id, CHtml::listData(Province::model()->findAll(), 'id', 'name'), array(
                                 'empty' => t('choose', 'global'),
                                 'ajax' => array(
                                     'type' => 'POST',
