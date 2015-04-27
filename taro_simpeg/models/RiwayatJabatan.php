@@ -37,7 +37,7 @@ class RiwayatJabatan extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nomor_register, pegawai_id, tipe_jabatan', 'required'),
-            array('jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id,tmt_selesai,tanggal_sk_struktural,no_sk_struktural,no_sk_ft,tanggal_sk_ft, nama_jabatan, created, created_user_id, id, tmt_eselon', 'safe'),
+            array('bidang_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id,tmt_selesai,tanggal_sk_struktural,no_sk_struktural,no_sk_ft,tanggal_sk_ft, nama_jabatan, created, created_user_id, id, tmt_eselon', 'safe'),
             array('pegawai_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register, nama_jabatan', 'length', 'max' => 225),
             array('tipe_jabatan', 'length', 'max' => 19),
@@ -60,6 +60,7 @@ class RiwayatJabatan extends CActiveRecord {
             'JabatanFu' => array(self::BELONGS_TO, 'JabatanFu', 'jabatan_fu_id'),
             'JabatanFt' => array(self::BELONGS_TO, 'JabatanFt', 'jabatan_ft_id'),
             'Eselon' => array(self::BELONGS_TO, 'Eselon', 'eselon_id'),
+            'Bidang' => array(self::BELONGS_TO,'JabatanStruktural','bidang_id'),
         );
     }
 

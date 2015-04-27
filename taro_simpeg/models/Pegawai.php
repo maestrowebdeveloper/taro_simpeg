@@ -294,6 +294,10 @@ class Pegawai extends CActiveRecord {
         return (!empty($this->JabatanStruktural->Eselon->nama)) ? $this->JabatanStruktural->Eselon->nama : '-';
     }
 
+    public function getRiwayatBidangJabatan(){
+    return (!empty($this->RiwayatJabatan->Bidang->nama) ? $this->RiwayatJabatan->Bidang->nama : "-");    
+    }
+    
     public function getRiwayatTipeJabatan() {
         return (!empty($this->RiwayatJabatan->tipe)) ? $this->RiwayatJabatan->tipe : '-';
     }

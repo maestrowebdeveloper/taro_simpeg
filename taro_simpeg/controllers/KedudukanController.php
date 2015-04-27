@@ -21,7 +21,7 @@ class KedudukanController extends Controller
         public function accessRules() {
             return array(
                 array('allow', // c
-                    'actions' => array('index', 'create'),
+                    'actions' => array('create'),
                     'expression' => 'app()->controller->isValidAccess("kedudukan","c")'
                 ),
                 array('allow', // r
@@ -29,11 +29,11 @@ class KedudukanController extends Controller
                     'expression' => 'app()->controller->isValidAccess("kedudukan","r")'
                 ),
                 array('allow', // u
-                    'actions' => array('index', 'update'),
+                    'actions' => array( 'update'),
                     'expression' => 'app()->controller->isValidAccess("kedudukan","u")'
                 ),
                 array('allow', // d
-                    'actions' => array('index', 'delete'),
+                    'actions' => array( 'delete'),
                     'expression' => 'app()->controller->isValidAccess("kedudukan","d")'
                 )
             );

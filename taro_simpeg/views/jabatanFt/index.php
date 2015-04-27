@@ -27,7 +27,7 @@ $this->beginWidget('zii.widgets.CPortlet', array(
 $this->widget('bootstrap.widgets.TbMenu', array(
     'type' => 'pills',
     'items' => array(
-        array('label' => 'Tambah', 'icon' => 'icon-plus', 'url' => Yii::app()->controller->createUrl('create'), 'linkOptions' => array()),
+        array('label' => 'Tambah', 'icon' => 'icon-plus', 'url' => Yii::app()->controller->createUrl('create'), 'linkOptions' => array(),'visible'=>landa()->checkAccess('jabatabFt', 'c')),
         array('label' => 'List Data', 'icon' => 'icon-th-list', 'url' => Yii::app()->controller->createUrl('index'), 'active' => true, 'linkOptions' => array()),
         array('label' => 'Pencarian', 'icon' => 'icon-search', 'url' => '#', 'linkOptions' => array('class' => 'search-button')),
     ),
@@ -91,11 +91,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array(
             'name' => 'nama',
             'value' => '$data->nestedname',
-        ),
-        array(
-            'name' => 'bidang',
-            'header' => 'Bidang',
-            'value' => 'isset($data->Bidang->nama) ? $data->Bidang->nama : "-"',
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

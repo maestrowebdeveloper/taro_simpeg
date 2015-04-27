@@ -22,7 +22,7 @@ class JabatanFungsionalController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // c
-                'actions' => array('index', 'create'),
+                'actions' => array('create'),
                 'expression' => 'app()->controller->isValidAccess(1,"c")'
             ),
             array('allow', // r
@@ -30,11 +30,11 @@ class JabatanFungsionalController extends Controller {
                 'expression' => 'app()->controller->isValidAccess(1,"r")'
             ),
             array('allow', // u
-                'actions' => array('index', 'update'),
+                'actions' => array( 'update'),
                 'expression' => 'app()->controller->isValidAccess(1,"u")'
             ),
             array('allow', // d
-                'actions' => array('index', 'delete'),
+                'actions' => array('delete'),
                 'expression' => 'app()->controller->isValidAccess(1,"d")'
             )
         );
@@ -67,7 +67,7 @@ class JabatanFungsionalController extends Controller {
             $model->attributes = $_POST['JabatanFungsional'];
             if ($model->save()) {
                 if (isset($_POST['golongan_id'])) {
-                    for ($i = 0; $i <= count(['golongan_id']); $i++) {
+                    for($i = 0; $i < count($_POST['golongan_id']); $i++) {
                         $det = new DetailJf;
                         $det->jabatan_fungsional_id = $model->id;
                         $det->golongan_id = $_POST['golongan_id'][$i];
@@ -96,8 +96,19 @@ class JabatanFungsionalController extends Controller {
 
         if (isset($_POST['JabatanFungsional'])) {
             $model->attributes = $_POST['JabatanFungsional'];
-            if ($model->save())
+            if ($model->save()){
+                DetailJf::model()->deleteAll('jabatan_fungsional_id='.$model->id);
+                 if (isset($_POST['golongan_id'])) {
+                    for($i = 0; $i < count($_POST['golongan_id']); $i++) {
+                        $det = new DetailJf;
+                        $det->jabatan_fungsional_id = $model->id;
+                        $det->golongan_id = $_POST['golongan_id'][$i];
+                        $det->save();
+                    }
+                    $this->redirect(array('view', 'id' => $model->id));
+                }
                 $this->redirect(array('view', 'id' => $model->id));
+        }
         }
 
         $this->render('update', array(
