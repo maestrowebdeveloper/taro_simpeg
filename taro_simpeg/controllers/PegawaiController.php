@@ -928,11 +928,11 @@ class PegawaiController extends Controller {
                 }
             } else {
                 $model->jabatan_fu_id = "";
-                $model->tmt_jabatan_fu = "";
+//                $model->tmt_jabatan_fu = "";
                 $model->jabatan_ft_id = "";
-                $model->tmt_jabatan_ft = "";
+//                $model->tmt_jabatan_ft = "";
                 $model->jabatan_struktural_id = "";
-                $model->tmt_jabatan_struktural = "";
+//                $model->tmt_jabatan_struktural = "";
             }
 
             if ($model->save()) {
