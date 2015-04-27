@@ -176,11 +176,27 @@ class PegawaiController extends Controller {
             echo json_encode($data);
         }
     }
+    public function actionSelectGaji() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
+        $model = RiwayatGaji::model()->findByPk($id);
+        if (!empty($model)) {
+            $data['id'] = $model->id;
+            $data['gaji'] = landa()->rp($model->gaji);
+            $data['tmt'] = $model->tmt_mulai;
+           
+            echo json_encode($data);
+        }
+    }
 
     public function actionGetTableJabatan() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tmt_mulai DESC'));
         echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $id));
+    }
+     public function actionGetTableGaji() {
+        $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
+        $gaji = RiwayatGaji::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tmt_mulai DESC'));
+        echo $this->renderPartial('/pegawai/_tableGaji', array('gaji' => $gaji, 'edit' => true, 'pegawai_id' => $id));
     }
 
     public function actionGetJabatan() {
@@ -256,11 +272,21 @@ class PegawaiController extends Controller {
     }
 
     public function actionDeleteGajiPokok() {
+        $data = array();
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
+        $gajiPegawai = (!empty($_POST['riwayat_gaji_pegawai'])) ? $_POST['riwayat_gaji_pegawai'] : 0;
         $pegawai_id = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
         RiwayatGaji::model()->findByPk($id)->delete();
         $gaji = RiwayatGaji::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tmt_mulai DESC'));
-        echo $this->renderPartial('/pegawai/_tableGaji', array('gaji' => $gaji, 'edit' => true, 'pegawai_id' => $pegawai_id));
+        $data['body'] = $this->renderPartial('/pegawai/_tableGaji', array('gaji' => $gaji, 'edit' => true, 'pegawai_id' => $pegawai_id));
+         if (!empty($pegawai_id)) {
+            $GajiPegawai = Pegawai::model()->findbyPk($pegawai_id);
+            if ($GajiPegawai->riwayat_gaji_id == $id or $gajiPegawai == $id)
+                $data['default'] = 1;
+            else
+                $data['default'] = 0;
+        }
+        echo CJSON::encode($data);
     }
 
     public function actionSaveGajiPokok() {
@@ -785,6 +811,7 @@ class PegawaiController extends Controller {
             $model->no_sk_pns = $_POST['Pegawai']['no_sk_pns'];
             $model->tanggal_sk_cpns = $_POST['Pegawai']['tanggal_sk_cpns'];
             $model->tanggal_sk_pns = $_POST['Pegawai']['tanggal_sk_pns'];
+            $model->riwayat_gaji_id = $_POST['Pegawai']['riwayat_gaji_id'];
 
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
             if (!empty($riwayat)) {
@@ -864,6 +891,7 @@ class PegawaiController extends Controller {
             $model->no_sk_pns = $_POST['Pegawai']['no_sk_pns'];
             $model->tanggal_sk_cpns = $_POST['Pegawai']['tanggal_sk_cpns'];
             $model->tanggal_sk_pns = $_POST['Pegawai']['tanggal_sk_pns'];
+            $model->riwayat_gaji_id = $_POST['Pegawai']['riwayat_gaji_id'];
 
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {

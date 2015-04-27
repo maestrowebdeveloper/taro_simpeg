@@ -396,6 +396,20 @@
                                     <?php } ?>
                                 </div>
                             </div>
+                            <div class="control-group "><label class="control-label" for="Pegawai_golongan_id">Gaji Sekarang</label>
+                                <div class="controls">
+                                    <?php
+                                    echo $form->hiddenField($model, 'riwayat_gaji_id', array('class' => 'span5', 'maxlength' => 100));
+                                    ?>
+                                    <input class="span4" disabled value="<?php echo $model->gajiPegawai; ?>"  id="riwayatGaji" placeHolder="" type="text">                                    
+                                    <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
+                                        <input class="span10"  disabled maxlength="4" id="tmtMulai" value="<?php echo $model->tmtGaji; ?>"  type="text">
+                                    </div> 
+                                        <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
+                                        <a class="btn blue pilihGaji" pegawai="<?php echo $model->id; ?>;" id="pilihGaji"><i class="wpzoom-search blue"></i> Riwayat Gaji</a>
+                                    <?php } ?>
+                                </div>
+                            </div>
 
                             <div class="control-group "><label class="control-label" for="Pegawai_golongan_id">Jabatan</label>
                                 <div class="controls">                                    
@@ -846,6 +860,17 @@ $this->beginWidget(
     $(".pilihJabatan").click(function () {
         $.ajax({
             url: "<?php echo url('pegawai/getTableJabatan'); ?>",
+            data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
+            type: "post",
+            success: function (data) {
+                $(".modal-body").html(data);
+            }
+        });
+        $("#modalForm").modal("show");
+    });
+    $(".pilihGaji").click(function () {
+        $.ajax({
+            url: "<?php echo url('pegawai/getTableGaji'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
             success: function (data) {

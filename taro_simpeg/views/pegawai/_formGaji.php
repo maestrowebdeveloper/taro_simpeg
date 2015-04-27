@@ -59,6 +59,7 @@
 <script>
 jQuery(function($) {
     jQuery('#RiwayatGaji_tmt_mulai').datepicker({'language':'id','format':'yyyy-mm-dd','weekStart':0});  
+    jQuery('#RiwayatGaji_tmt_selesai').datepicker({'language':'id','format':'yyyy-mm-dd','weekStart':0});  
       
 });
 $(".saveGajiPokok").click(function(){
@@ -70,7 +71,8 @@ $(".saveGajiPokok").click(function(){
         success:function(data){
             if(data!=""){
               $("#tableGajiPokok").replaceWith(data);
-              $("#modalForm").modal("hide");
+             $("#modalForm").modal("show");
+               $(".modal-body").html(data);
             }else{
               alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
             }           
@@ -79,6 +81,7 @@ $(".saveGajiPokok").click(function(){
             alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
         },
     });
+     
     
 });
 
