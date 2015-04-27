@@ -213,7 +213,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             </div>
 
 
-            <?php echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp')); ?>
+            <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp')); ?>
             <?php
             echo $form->datepickerRow(
                     $model, 'tmt_pensiun', array(
