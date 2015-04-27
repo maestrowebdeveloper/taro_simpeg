@@ -26,11 +26,6 @@
 
         echo $form->radioButtonListRow($model, 'jenjang_pendidikan', Pegawai::model()->ArrJenjangPendidikan());
         echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span3', 'maxlength' => 100));
-        echo $form->textFieldRow($model, 'jurusan', array(
-            'class' => 'span3',
-            'maxlength' => 50,
-            'id' => 'jurusan_sma'
-        ));
         echo' <div class="control-group "><label class="control-label">Universitas</label><div class="controls">';
         $data = array('0' => '- Universitas -') + CHtml::listData(Universitas::model()->findAll(array('order' => 'name')), 'id', 'name');
         $this->widget(

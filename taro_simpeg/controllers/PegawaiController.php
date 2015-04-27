@@ -68,7 +68,7 @@ class PegawaiController extends Controller {
         $return['tempat_lahir'] = $model->tempat_lahir;
         $return['tanggal_lahir'] = $model->tanggal_lahir;
         $return['alamat'] = $model->alamat;
-        $return['pendidikan_terakhir'] = $model->pendidikan_terakhir;
+        $return['pendidikan_terakhir'] = isset($model->Pendidikan->jenjang_pendidikan) ? $model->Pendidikan->jenjang_pendidikan : "";
         echo json_encode($return);
     }
 
@@ -176,6 +176,7 @@ class PegawaiController extends Controller {
             echo json_encode($data);
         }
     }
+
     public function actionSelectGaji() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $model = RiwayatGaji::model()->findByPk($id);
@@ -183,7 +184,7 @@ class PegawaiController extends Controller {
             $data['id'] = $model->id;
             $data['gaji'] = landa()->rp($model->gaji);
             $data['tmt'] = $model->tmt_mulai;
-           
+
             echo json_encode($data);
         }
     }
@@ -193,7 +194,8 @@ class PegawaiController extends Controller {
         $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tmt_mulai DESC'));
         echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $id));
     }
-     public function actionGetTableGaji() {
+
+    public function actionGetTableGaji() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $gaji = RiwayatGaji::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tmt_mulai DESC'));
         echo $this->renderPartial('/pegawai/_tableGaji', array('gaji' => $gaji, 'edit' => true, 'pegawai_id' => $id));
@@ -279,7 +281,7 @@ class PegawaiController extends Controller {
         RiwayatGaji::model()->findByPk($id)->delete();
         $gaji = RiwayatGaji::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tmt_mulai DESC'));
         $data['body'] = $this->renderPartial('/pegawai/_tableGaji', array('gaji' => $gaji, 'edit' => true, 'pegawai_id' => $pegawai_id));
-         if (!empty($pegawai_id)) {
+        if (!empty($pegawai_id)) {
             $GajiPegawai = Pegawai::model()->findbyPk($pegawai_id);
             if ($GajiPegawai->riwayat_gaji_id == $id or $gajiPegawai == $id)
                 $data['default'] = 1;
@@ -347,7 +349,7 @@ class PegawaiController extends Controller {
             $model->attributes = $_POST['RiwayatKeluarga'];
             $model->nomor_karsu = $_POST['RiwayatKeluarga']['nomor_karsu'];
             $model->nomor_karsi = $_POST['RiwayatKeluarga']['nomor_karsi'];
-
+            $model->pendidikan_terakhir = $_POST['RiwayatKeluarga']['pendidikan_terakhir'];
             if ($model->hubungan == "anak") {
                 $model->nomor_karsu = "-";
                 $model->tanggal_pernikahan = "-";
@@ -827,6 +829,7 @@ class PegawaiController extends Controller {
             $model->tanggal_sk_pns = $_POST['Pegawai']['tanggal_sk_pns'];
             $model->riwayat_gaji_id = $_POST['Pegawai']['riwayat_gaji_id'];
             $model->tmt_keterangan_kedudukan = $_POST['Pegawai']['tmt_keterangan_kedudukan'];
+            $model->ket_tmt_cpns = $_POST['Pegawai']['ket_tmt_cpns'];
 
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
             if (!empty($riwayat)) {
@@ -907,8 +910,9 @@ class PegawaiController extends Controller {
             $model->tanggal_sk_cpns = $_POST['Pegawai']['tanggal_sk_cpns'];
             $model->tanggal_sk_pns = $_POST['Pegawai']['tanggal_sk_pns'];
             $model->riwayat_gaji_id = $_POST['Pegawai']['riwayat_gaji_id'];
+            $model->ket_tmt_cpns = $_POST['Pegawai']['ket_tmt_cpns'];
             $model->tmt_keterangan_kedudukan = $_POST['Pegawai']['tmt_keterangan_kedudukan'];
-            
+
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {
                 $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
@@ -930,11 +934,8 @@ class PegawaiController extends Controller {
                 }
             } else {
                 $model->jabatan_fu_id = "";
-//                $model->tmt_jabatan_fu = "";
                 $model->jabatan_ft_id = "";
-//                $model->tmt_jabatan_ft = "";
                 $model->jabatan_struktural_id = "";
-//                $model->tmt_jabatan_struktural = "";
             }
 
             if ($model->save()) {

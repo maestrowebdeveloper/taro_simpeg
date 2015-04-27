@@ -41,8 +41,8 @@ $this->breadcrumbs=array(
             'htmlOptions' => array('style' => 'text-align: left;')
         ),  
         array(
-            'name' => 'jurusan',
-            'value' => '$data->jurusan',
+            'name' => 'id_jurusan',
+            'value' => '$data->jurusanPegawai',
             'htmlOptions' => array('style' => 'text-align: left;')
         ),  	
         		

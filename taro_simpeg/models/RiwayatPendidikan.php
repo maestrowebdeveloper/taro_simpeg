@@ -32,15 +32,14 @@ class RiwayatPendidikan extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('pegawai_id, jenjang_pendidikan, tahun', 'required'),
-            array('alamat_sekolah, created, nama_sekolah, created_user_id, id_jurusan, id_universitas, modified, jurusan', 'safe'),
+            array('alamat_sekolah, created, nama_sekolah, created_user_id, id_jurusan, id_universitas, modified, id, no_ijazah', 'safe'),
             array('pegawai_id, created_user_id', 'numerical', 'integerOnly' => true),
             array('jenjang_pendidikan', 'length', 'max' => 9),
             array('tahun', 'length', 'max' => 10),
-            array('jurusan', 'length', 'max' => 100),
             array('nama_sekolah', 'length', 'max' => 225),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, pegawai_id, id_jurusan,id_universitas,jenjang_pendidikan,no_ijazah, tahun, jurusan, nama_sekolah, alamat_sekolah, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, pegawai_id, id_jurusan,id_universitas,jenjang_pendidikan,no_ijazah, tahun, nama_sekolah, alamat_sekolah, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -67,7 +66,6 @@ class RiwayatPendidikan extends CActiveRecord {
             'pegawai_id' => 'Pegawai',
             'jenjang_pendidikan' => 'Jenjang Pendidikan',
             'tahun' => 'Tahun',
-            'jurusan' => 'Jurusan',
             'id_universitas' => 'Universitas',
             'id_jurusan' => 'Jurusan',
             'nama_sekolah' => 'Nama Sekolah',
@@ -95,7 +93,7 @@ class RiwayatPendidikan extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-        $criteria->with = array('Pegawai');
+        $criteria->with = array('Pegawai','Jurusan');
         $criteria->together = true;
 
 
@@ -103,9 +101,9 @@ class RiwayatPendidikan extends CActiveRecord {
         $criteria->compare('Pegawai.nama', $this->pegawai_id, true);
         $criteria->compare('jenjang_pendidikan', $this->jenjang_pendidikan, true);
         $criteria->compare('tahun', $this->tahun, true);
-        $criteria->compare('jurusan', $this->jurusan, true);
+//        $criteria->compare('jurusan', $this->jurusan, true);
         $criteria->compare('universitas', $this->id_universitas, true);
-        $criteria->compare('jurusan', $this->id_jurusan, true);
+        $criteria->compare('Jurusan.Name', $this->id_jurusan, true);
         $criteria->compare('nama_sekolah', $this->nama_sekolah, true);
         $criteria->compare('alamat_sekolah', $this->alamat_sekolah, true);
         $criteria->compare('created', $this->created, true);
@@ -143,10 +141,8 @@ class RiwayatPendidikan extends CActiveRecord {
     }
     
     public function getJurusanPegawai(){
-        if(empty($this->jurusan) and !empty($this->id_jurusan)){
+        if(!empty($this->id_jurusan)){
             return $this->Jurusan->Name;
-        }else{
-            return $this->jurusan;
         }
     }
 

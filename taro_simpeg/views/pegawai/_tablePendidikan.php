@@ -20,23 +20,23 @@
         </thead>
         <tbody>
             <?php
-            foreach ($pendidikan as $value) {
-                if (isset($value->Universitas->name))
-                    $sekolah = $value->Universitas->name;
-                else
-                    $sekolah = $value->nama_sekolah;
+            if (!empty($pendidikan)) {
+                foreach ($pendidikan as $value) {
+                    $jurusan = "-";
+                    if (isset($value->Universitas->name))
+                        $sekolah = $value->Universitas->name;
+                    else
+                        $sekolah = "-";
 
-                if (isset($value->Jurusan->Name))
-                    $jurusan = $value->Jurusan->Name;
-                else
-                    $jurusan = $value->jurusan;
+                    if (isset($value->Jurusan->Name))
+                        $jurusan = $value->Jurusan->Name;
 
-                $action = $action = (!empty($edit)) ? '<td style="width: 85px;text-align:center">
+                    $action = (!empty($edit)) ? '<td style="width: 85px;text-align:center">
                     <a class="btn btn-small update editPendidikan" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" title="Edit" rel="tooltip" ><i class="icon-pencil"></i></a> 
                     <a class="btn btn-small delete deletePendidikan" title="Hapus" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-trash"></i></a>
                     <a class="btn btn-small pilih selectPendidikan" title="Pilih" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-ok"></i></a>
                     </td>' : '';
-                echo '
+                    echo '
                 <tr>
                 <td>' . $value->jenjang_pendidikan . '</td>
                 <td>' . $jurusan . '</td>
@@ -44,8 +44,8 @@
                 <td>' . $value->alamat_sekolah . '</td>
                 <td>' . $value->tahun . '</td>                
                 ' . $action . '              
-                </tr>
-            ';
+                </tr>';
+                }
             }
             ?>
         </tbody>
