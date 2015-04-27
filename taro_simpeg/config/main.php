@@ -6,9 +6,7 @@ return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Sistem Informasi Pegawai',
     'language' => 'en',
-    // preloading 'log' component
     'preload' => array('log', 'bootstrap'),
-    // autoloading model band component classes
     'import' => array(
         'application.models.*',
         'common.models.*',
@@ -31,6 +29,7 @@ return array(
             ),
         ),
     ),
+    
     // application components
     'components' => array(
         'db' => array(
@@ -38,7 +37,7 @@ return array(
             'emulatePrepare' => true,
             'username' => $dbUser,
             'password' => $dbPwd,
-//            'tablePrefix' => 'acca_',
+            'tablePrefix' => '',
             'charset' => 'utf8',
             'enableProfiling' => true,
             'enableParamLogging' => true
