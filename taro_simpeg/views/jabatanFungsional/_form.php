@@ -39,7 +39,17 @@
         <div class="control-group "><label class="control-label" for="JabatanFungsional_golongan_id">Golongan</label>
             <div class="controls">
                 
-                <?php echo CHtml::checkBoxList('golongan_id', '', CHtml::listData(Golongan::model()->findAll(array('order' => 'root, lft')), 'id', 'nama'), array('class' => 'radio','separator' => '','style'=>'margin-bottom:5px;')); ?>
+                <?php 
+                $radio=array();
+                if(isset($model->id)){
+                    $check = DetailJf::model()->findAll(array('condition'=>'jabatan_fungsional_id='.$model->id));
+                    foreach($check as $a){
+                        $radio[]= $a->golongan_id;
+                    }
+                    
+                }
+//                print_r($radio);
+                echo CHtml::checkBoxList('golongan_id', (isset($radio)) ? $radio : '', CHtml::listData(Golongan::model()->findAll(array('order' => 'root, lft')), 'id', 'nama'), array('class' => 'radio','separator' => '','style'=>'margin-bottom:5px;')); ?>
             </div>
         </div>
 
