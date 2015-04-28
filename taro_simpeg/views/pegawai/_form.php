@@ -37,8 +37,7 @@
                 <?php
                 if ($model->isNewRecord == false) {
                     if (!isset($_GET['v'])) {
-                        echo '                                                                          
-                            <li><a href="#gaji"> R. Gaji</a></li>       
+                        echo '                                           
                             <li><a href="#keluarga"> R. Keluarga</a></li>                                                                       
                             <li><a href="#pelatihan"> R. Diklat</a></li>       
                             <li><a href="#penghargaan"> R. Penghargaan</a></li>       
@@ -517,20 +516,8 @@
                     else
                         $edit = false;
                     ?>
-                    <div class="tab-pane " id="pangkat">
-                        <?php echo $this->renderPartial('_tablePangkat', array('pangkat' => $pangkat, 'edit' => $edit)); ?>
-                    </div>
-                    <div class="tab-pane " id="jabatan">
-                        <?php echo $this->renderPartial('_tableJabatan', array('jabatan' => $jabatan, 'edit' => $edit)); ?>                
-                    </div>
-                    <div class="tab-pane " id="gaji">
-                        <?php echo $this->renderPartial('_tableGaji', array('gaji' => $gaji, 'edit' => $edit)); ?>                
-                    </div>
                     <div class="tab-pane " id="keluarga">
                         <?php echo $this->renderPartial('_tableKeluarga', array('keluarga' => $keluarga, 'edit' => $edit)); ?>                
-                    </div>
-                    <div class="tab-pane " id="pendidikan">
-                        <?php echo $this->renderPartial('_tablePendidikan', array('pendidikan' => $pendidikan, 'edit' => $edit)); ?>                
                     </div>
                     <div class="tab-pane " id="penghargaan">
                         <?php echo $this->renderPartial('_tablePenghargaan', array('penghargaan' => $penghargaan, 'edit' => $edit)); ?>                
