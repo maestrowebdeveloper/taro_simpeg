@@ -58,18 +58,18 @@
             type: "post",
             success: function (data) {
                 $(".modal-body").html(data);
+                $("#modalForm").modal("show");
             }
         });
-        $("#modalForm").modal("show");
     });
-     $(".deleteNilai").click(function(){
-            $.ajax({                                  
-                url:"<?php echo url('honorer/deleteNilai');?>",
-                data:"id="+$(this).attr("id")+"&pegawai="+$(this).attr("pegawai"),
-                type:"post",
-                success:function(data){                             
-                    $("#tableNilai").replaceWith(data);
-                }
-            });            
-        }); 
+    $(".deleteNilai").click(function () {
+        $.ajax({
+            url: "<?php echo url('honorer/deleteNilai'); ?>",
+            data: "id=" + $(this).attr("id") + "&pegawai=" + $(this).attr("pegawai"),
+            type: "post",
+            success: function (data) {
+                $("#tableNilai").replaceWith(data);
+            }
+        });
+    });
 </script>
