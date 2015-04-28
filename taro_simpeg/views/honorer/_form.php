@@ -24,7 +24,7 @@ if ($model->isNewRecord == true) {
 ?>
 
 
-<?php if (isset($_GET['v'])) {
+<?php if ($model->isNewRecord == false) {
     ?>
     <div class='report' id="report" style="display:none">
         <table class="table">
@@ -62,12 +62,14 @@ if ($model->isNewRecord == true) {
                 <td colspan="2">
                     <?php
                     echo $this->renderPartial('_tableNilai', array('nilai' => $nilai, 'edit' => $edit));
+                    //echo $this->renderPartial('_tablePangkat', array('pangkat' => $pangkat)); 
                     ?>
+
                 </td>
             </tr>            
         </table>
     </div>
-<?php }?>
+<?php } ?>
 
 
 <style>
@@ -104,7 +106,7 @@ if ($model->isNewRecord == true) {
             <li ><a href="#jabatan">Unit Kerja & Jabatan</a></li>
             <?php
             if ($model->isNewRecord != TRUE) {
-                echo '<li><a href="#nilaiSkp">Nilai SKP</a></li>';
+                echo '<li ><a href="#nilaiSkp">Nilai SKP</a></li>';
             }
             ?>
         </ul>

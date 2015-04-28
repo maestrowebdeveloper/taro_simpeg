@@ -22,7 +22,7 @@ class HonorerController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // c
-                'actions' => array('create'),
+                'actions' => array( 'create'),
                 'expression' => 'app()->controller->isValidAccess("honorer","c")'
             ),
             array('allow', // r
@@ -30,11 +30,11 @@ class HonorerController extends Controller {
                 'expression' => 'app()->controller->isValidAccess("honorer","r")'
             ),
             array('allow', // u
-                'actions' => array('update'),
+                'actions' => array( 'update'),
                 'expression' => 'app()->controller->isValidAccess("honorer","u")'
             ),
             array('allow', // d
-                'actions' => array('delete'),
+                'actions' => array( 'delete'),
                 'expression' => 'app()->controller->isValidAccess("honorer","d")'
             )
         );
@@ -73,15 +73,23 @@ class HonorerController extends Controller {
 
     public function actionSaveNilai() {
         if (isset($_POST['NilaiHonorer'])) {
-            if (empty($_POST['NilaiHonorer']['id']))
+            if (empty($_POST['NilaiHonorer']['id'])) {
                 $model = new NilaiHonorer;
-            else
+                $new = 1;
+                $cek = NilaiHonorer::model()->find(array('condition' => 'pegawai_id=' . $_POST['NilaiHonorer']['pegawai_id'] . ' and tahun=' . $_POST['NilaiHonorer']['tahun']));
+            } else {
+                $cek = NilaiHonorer::model()->find(array('condition' => 'pegawai_id=' . $_POST['NilaiHonorer']['pegawai_id'] . ' and tahun=' . $_POST['NilaiHonorer']['tahun'] . ' and id!=' . $_POST['NilaiHonorer']['id']));
                 $model = NilaiHonorer::model()->findByPk($_POST['NilaiHonorer']['id']);
-
-            $model->attributes = $_POST['NilaiHonorer'];
-            if ($model->save()) {
-                $nilai = NilaiHonorer::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tahun DESC'));
-                echo $this->renderPartial('/honorer/_tableNilai', array('nilai' => $nilai, 'edit' => true, 'pegawai_id' => $model->pegawai_id));
+                $new = 0;
+            }
+            if ((empty($cek) and $new == 0) or $new == 1) {
+                $model->attributes = $_POST['NilaiHonorer'];
+                if ($model->save()) {
+                    $nilai = NilaiHonorer::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tahun DESC'));
+                    echo $this->renderPartial('/honorer/_tableNilai', array('pegawai_id' => $model->pegawai_id, 'nilai' => $nilai, 'edit' => 1));
+                }
+            } else {
+                echo '';
             }
         }
     }
@@ -96,7 +104,6 @@ class HonorerController extends Controller {
             echo $this->renderPartial('/honorer/_formNilai', array('model' => new NilaiHonorer, 'pegawai_id' => $pegawai));
         }
     }
-
     public function actionGetListHonorer() {
         $name = $_GET["q"];
         $list = array();

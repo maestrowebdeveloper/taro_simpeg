@@ -118,20 +118,20 @@ class PermohonanMutasiController extends Controller {
             $model->mutasi = $_POST['PermohonanMutasi']['mutasi'];
             $model->pejabat = $_POST['PermohonanMutasi']['pejabat'];
             if ($model->save()) {
-                $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
-                if ($pegawai->jabatan_struktural_id != 0) {
-                    $jabatan = JabatanStruktural::model()->findByPk($pegawai->jabatan_struktural_id);
-                    $jabatan->status = 0;
-                    $jabatan->save();
-                } elseif ($pegawai->jabatan_fu_id != 0) {
-                    $jabatan = JabatanFu::model()->findByPk($pegawai->jabatan_fu_id);
-                    $jabatan->status = 0;
-                    $jabatan->save();
-                } elseif ($pegawai->jabatan_ft_id != 0) {
-                    $jabatan = JabatanFt::model()->findByPk($pegawai->jabatan_ft_id);
-                    $jabatan->status = 0;
-                    $jabatan->save();
-                }
+//                $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
+//                if ($pegawai->jabatan_struktural_id != 0) {
+//                    $jabatan = JabatanStruktural::model()->findByPk($pegawai->jabatan_struktural_id);
+//                    $jabatan->status = 0;
+//                    $jabatan->save();
+//                } elseif ($pegawai->jabatan_fu_id != 0) {
+//                    $jabatan = JabatanFu::model()->findByPk($pegawai->jabatan_fu_id);
+//                    $jabatan->status = 0;
+//                    $jabatan->save();
+//                } elseif ($pegawai->jabatan_ft_id != 0) {
+//                    $jabatan = JabatanFt::model()->findByPk($pegawai->jabatan_ft_id);
+//                    $jabatan->status = 0;
+//                    $jabatan->save();
+//                }
 //                $pegawai->tipe_jabatan = $model->new_tipe_jabatan;
 //                $pegawai->jabatan_struktural_id = $model->new_jabatan_struktural_id;
 //                $pegawai->jabatan_fu_id = $model->new_jabatan_fu_id;

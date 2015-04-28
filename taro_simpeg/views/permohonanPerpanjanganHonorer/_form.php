@@ -129,7 +129,7 @@
             <?php
             $unit_kerja = (!empty($model->Honorer->unitKerja)) ? $model->Honorer->unitKerja : '';
             $jenis_kelamin = (!empty($model->Honorer->jenis_kelamin)) ? $model->Honorer->jenis_kelamin : '';
-            $tempat_lahir = (!empty($model->Honorer->tempatLahir)) ? $model->Honorer->tempatLahir : '';
+            $tempat_lahir = (!empty($model->Honorer->tempat_lahir)) ? $model->Honorer->tempat_lahir : '';
             $tanggal_lahir = (!empty($model->Honorer->tanggal_lahir)) ? $model->Honorer->tanggal_lahir : '';
             $pendidikan_terakhir = (!empty($model->Honorer->pendidikan_terakhir)) ? $model->Honorer->pendidikan_terakhir : '';
             $alamat = (!empty($model->Honorer->alamat)) ? $model->Honorer->alamat : '';

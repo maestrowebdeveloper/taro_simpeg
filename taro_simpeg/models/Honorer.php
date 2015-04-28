@@ -516,7 +516,7 @@ class Honorer extends CActiveRecord {
     }
 
     public function getTtl() {
-        return ucwords(strtolower($this->tempatLahir)) . ', ' . date('d M Y', strtotime($this->tanggal_lahir));
+        return ucwords(strtolower($this->tempat_lahir)) . ', ' . date('d M Y', strtotime($this->tanggal_lahir));
     }
 
 }
