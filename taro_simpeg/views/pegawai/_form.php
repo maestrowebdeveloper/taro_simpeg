@@ -323,7 +323,7 @@
                                     </div>
                                     <?php
                                     echo '&nbsp;&nbsp;';
-                                    echo CHtml::textField('Pegawai[ket_tmt_cpns]', '', array('class' => 'span4', 'placeholder' => 'Keterangan Tmt CPNS'));
+                                    echo CHtml::textField('Pegawai[ket_tmt_cpns]',  isset($model->ket_tmt_cpns) ? $model->ket_tmt_cpns : '', array('class' => 'span4', 'placeholder' => 'Keterangan Tmt CPNS'));
                                     ?>
                                 </div>
                             </div>

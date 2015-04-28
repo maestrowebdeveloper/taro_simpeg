@@ -31,12 +31,6 @@
         </div>
         <div class="cari" style="display:none">
             <?php
-//            $data = array('0' => '- Pegawai -') + CHtml::listData(Pegawai::model()->listPegawai(), 'id', 'nipNama');
-//            echo $form->select2Row($model, 'keluarga_pegawai_id', array(
-//                'asDropDownList' => true,
-//                'data' => $data,
-//                    )
-//            );
             $id = 0;
             $pegawai_id = "hai";
             echo $form->select2Row($model, 'keluarga_pegawai_id', array(
@@ -46,7 +40,6 @@
             ?>
         </div>
         <?php
-        //echo $form->textFieldRow($model,'nama',array('class'=>'span3','maxlength'=>100)); 
         echo $form->radioButtonListRow($model, 'jenis_kelamin', Pegawai::model()->ArrJenisKelamin());
         $display = ($model->hubungan == 'anak' || empty($model->hubungan)) ? 'none' : '';
         $anak = ($model->hubungan == 'anak') ? '' : 'none';
@@ -151,6 +144,8 @@
     $("#RiwayatKeluarga_hubungan_0,#RiwayatKeluarga_hubungan_1").click(function (event) {
         $(".suami_istri").show();
         $(".anak").hide();
+        $("#RiwayatKeluarga_nomor_karsi").val("");
+        $("#RiwayatKeluarga_nomor_karsu").val("");
     });
     $("#RiwayatKeluarga_hubungan_2").click(function (event) {
         $(".suami_istri").hide();
