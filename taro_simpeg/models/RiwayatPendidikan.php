@@ -140,7 +140,11 @@ class RiwayatPendidikan extends CActiveRecord {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
     }
     
-    public function getJurusanPegawai(){
+    public function getNamaSekolah(){
+        return (!empty($this->nama_sekolah)) ? $this->nama_sekolah : $this->Universitas->name;
+    }
+
+        public function getJurusanPegawai(){
         if(!empty($this->id_jurusan)){
             return $this->Jurusan->Name;
         }
