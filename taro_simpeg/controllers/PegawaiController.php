@@ -68,7 +68,7 @@ class PegawaiController extends Controller {
         $return['tempat_lahir'] = $model->tempat_lahir;
         $return['tanggal_lahir'] = $model->tanggal_lahir;
         $return['alamat'] = $model->alamat;
-        $return['pendidikan_terakhir'] = $model->pendidikanTerakhir ;
+        $return['pendidikan_terakhir'] = $model->pendidikanTerakhir .' - '. $model->pendidikanJurusan;
         echo json_encode($return);
     }
 
