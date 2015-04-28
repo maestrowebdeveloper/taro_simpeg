@@ -226,8 +226,7 @@ class Pegawai extends CActiveRecord {
         if (!empty($this->tipe_jabatan))
             $criteria2->compare('tipe_jabatan', $this->tipe_jabatan);
         if (isset($_POST['jurusan']) and ! empty($_POST['jurusan'])) {
-            $criteria2->compare('RiwayatPendidikan.jurusan', $_POST['jurusan'], true, 'OR');
-            $criteria2->compare('RiwayatPendidikan.id_jurusan', $_POST['id_jurusan'], true, 'OR');
+            $criteria2->compare('RiwayatPendidikan.id_jurusan', $_POST['id_jurusan']);
         }
         $criteria2->addCondition('t.id = RiwayatPendidikan.pegawai_id');
 
