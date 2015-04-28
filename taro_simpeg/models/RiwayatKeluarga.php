@@ -73,7 +73,7 @@ class RiwayatKeluarga extends CActiveRecord
 			'keluarga_pegawai_id'=>'Pegawai',
 			'hubungan' => 'Hubungan',
 			'anak_ke' => 'Anak Ke',
-			'status_anak' => 'Status',
+			'status_anak' => 'Status Anak',
 			'jenis_kelamin' => 'JK',
 			'nama' => 'Nama',
 			'tempat_lahir' => 'Tempat Lahir',
