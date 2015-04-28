@@ -313,13 +313,14 @@
     }
         $("body").on("click", ".radio", function () {
         var id = $(this).find("input").val();
-        if (id == "SMA/SMK") {
+        
+        if (id == "SLTA/SMK") {
             $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none")
             $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
             $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:");
             $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");
         }
-        else if (id == "SMP") {
+        else if (id == "SLTP") {
             $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
             $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
             $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
@@ -337,5 +338,31 @@
             $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:");
             $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:");
         }
+       
     });
+    <?php
+    if ($model->jenjang_pendidikan == "SD") {
+    echo '$("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
+} else
+    if ($model->jenjang_pendidikan == "SLTP"){
+       echo ' $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
+}else
+    if ($model->jenjang_pendidikan == "SLTA/SMK"){
+        echo'$("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none")
+            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:");
+            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
+    }else{
+        echo'$("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:none");
+            $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:");
+            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:");';
+    }
+?>
 </script>
