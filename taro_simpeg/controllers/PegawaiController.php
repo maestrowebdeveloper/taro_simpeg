@@ -136,13 +136,13 @@ class PegawaiController extends Controller {
         RiwayatPangkat::model()->findByPk($id)->delete();
         $pangkat = RiwayatPangkat::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tmt_pangkat DESC'));
         $data['body'] = $this->renderPartial('/pegawai/_tablePangkat', array('pangkat' => $pangkat, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
-        if (!empty($pegawai_id)) {
-            $PangkatPegawai = Pegawai::model()->findbyPk($pegawai_id);
-            if ($PangkatPegawai->riwayat_pangkat_id == $id or $pangkatPegawai == $id)
+//        if (!empty($pegawai_id)) {
+//            $PangkatPegawai = Pegawai::model()->findbyPk($pegawai_id);
+            if ($pangkatPegawai == $id)
                 $data['default'] = 1;
             else
                 $data['default'] = 0;
-        }
+//        }
         echo CJSON::encode($data);
     }
 
@@ -220,13 +220,13 @@ class PegawaiController extends Controller {
         RiwayatJabatan::model()->findByPk($id)->delete();
         $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tmt_mulai DESC'));
         $data['body'] = $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
-        if (!empty($pegawai_id)) {
-            $JabatanPegawai = Pegawai::model()->findbyPk($pegawai_id);
-            if ($JabatanPegawai->riwayat_jabatan_id == $id or $jabatanPegawai == $id)
+//        if (!empty($pegawai_id)) {
+//            $JabatanPegawai = Pegawai::model()->findbyPk($pegawai_id);
+            if ($jabatanPegawai == $id)
                 $data['default'] = 1;
             else
                 $data['default'] = 0;
-        }
+//        }
         echo CJSON::encode($data);
     }
 
@@ -280,14 +280,13 @@ class PegawaiController extends Controller {
         $pegawai_id = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
         RiwayatGaji::model()->findByPk($id)->delete();
         $gaji = RiwayatGaji::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tmt_mulai DESC'));
-        $data['body'] = $this->renderPartial('/pegawai/_tableGaji', array('gaji' => $gaji, 'edit' => true, 'pegawai_id' => $pegawai_id));
-        if (!empty($pegawai_id)) {
-            $GajiPegawai = Pegawai::model()->findbyPk($pegawai_id);
-            if ($GajiPegawai->riwayat_gaji_id == $id or $gajiPegawai == $id)
+        $data['body'] = $this->renderPartial('/pegawai/_tableGaji', array('gaji' => $gaji, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
+//        if (!empty($pegawai_id)) {
+            if ($gajiPegawai == $id)
                 $data['default'] = 1;
             else
                 $data['default'] = 0;
-        }
+//        }
         echo CJSON::encode($data);
     }
 
@@ -403,13 +402,13 @@ class PegawaiController extends Controller {
         RiwayatPendidikan::model()->findByPk($id)->delete();
         $pendidikan = RiwayatPendidikan::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tahun DESC'));
         $data['body'] = $this->renderPartial('/pegawai/_tablePendidikan', array('pendidikan' => $pendidikan, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
-        if (!empty($pegawai_id)) {
-            $PendidikanPegawai = Pegawai::model()->findbyPk($pegawai_id);
-            if ($PendidikanPegawai->pendidikan_id == $id or $pendidikanPegawai == $id)
+//        if (!empty($pegawai_id)) {
+//            $PendidikanPegawai = Pegawai::model()->findbyPk($pegawai_id);
+            if ($pendidikanPegawai == $id)
                 $data['default'] = 1;
             else
                 $data['default'] = 0;
-        }
+//        }
         echo CJSON::encode($data);
     }
 
