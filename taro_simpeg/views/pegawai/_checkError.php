@@ -57,7 +57,7 @@ $judul = 'INFORMASI KESALAHAN DATA PEGAWAI PADA KOLOM '.$judul;
         array(
            'name' => 'pendidikan_terakhir',           
             'type' => 'raw',
-            'value' => '"$data->pendidikan_terakhir"',             
+            'value' => 'isset($data->RiwayatPendidikan->jenjang_pendidikan) ? $data->RiwayatPendidikan->jenjang_pendidikan : ""',             
             ),        
 	
        array(

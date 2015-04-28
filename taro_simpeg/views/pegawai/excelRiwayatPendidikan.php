@@ -16,7 +16,7 @@
         <td><?php echo "'".$row->Pegawai->nip; ?></td>
         <td><?php echo $row->pegawai ?></td>
         <td><?php echo $row->jenjang_pendidikan; ?></td>
-        <td><?php echo $row->jurusan; ?></td>
+        <td><?php echo isset($row->Jurusan->Name) ? $row->Jurusan->Name : ""; ?></td>
         <td><?php echo $row->nama_sekolah; ?></td>        
         <td><?php echo $row->alamat_sekolah; ?></td>        
         <td><?php echo $row->tahun; ?></td>        
