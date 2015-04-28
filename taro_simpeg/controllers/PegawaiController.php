@@ -89,7 +89,7 @@ class PegawaiController extends Controller {
     public function actionGetListPegawaicpns() {
         $name = $_GET["q"];
         $list = array();
-        $data = Pegawai::model()->findAll(array('condition' => 'nama like "%' . $name . '%" and tmt_pns is null', 'limit' => '10'));
+        $data = Pegawai::model()->findAll(array('condition' => 'nama like "%' . $name . '%" and (tmt_pns is null or tmt_pns="0000-00-00")', 'limit' => '10'));
         if (empty($data)) {
             $list[] = array("id" => "0", "text" => "No Results Found..");
         } else {
@@ -105,7 +105,7 @@ class PegawaiController extends Controller {
         $model = RiwayatPangkat::model()->findByPk($id);
         if (!empty($model)) {
             $data['id'] = $model->id;
-            $data['nama_golongan'] = $model->nama_golongan;
+            $data['nama_golongan'] = $model->golongan;
             $data['tmt_pangkat'] = $model->tmt_pangkat;
             echo json_encode($data);
         }

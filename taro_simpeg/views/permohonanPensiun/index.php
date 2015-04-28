@@ -77,7 +77,16 @@ $this->endWidget();
         'type'=>'striped bordered condensed',
         'template'=>'{items}{pager}{summary}',
 	'columns'=>array(
-
+ array(
+            'class' => 'CCheckBoxColumn',
+            'selectableRows' => 2,
+            'htmlOptions' => array('style' => 'text-align:center;display:' . $display),
+            'headerHtmlOptions' => array('style' => 'width:25px;text-align:center;display:' . $display),
+            'checkBoxHtmlOptions' => array(
+                'name' => 'ceckbox[]',
+                'value' => '$data->id',
+            ),
+        ),
 		'nomor_register',
 		'tanggal',
 		array(

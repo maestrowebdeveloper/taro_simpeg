@@ -33,10 +33,10 @@ class RiwayatPangkat extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nomor_register, pegawai_id, golongan_id,  tmt_pangkat', 'required'),
-			array('nama_golongan', 'safe'),
+			array('', 'safe'),
 			array('pegawai_id, golongan_id, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('nomor_register', 'length', 'max'=>225),
-			array('nama_golongan', 'length', 'max'=>25),
+			array('', 'length', 'max'=>25),
 			array('modified', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

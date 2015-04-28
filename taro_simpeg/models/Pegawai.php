@@ -119,7 +119,7 @@ class Pegawai extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-        $criteria->with = array('Pangkat', 'RiwayatJabatan');
+        $criteria->with = array('Pangkat', 'RiwayatJabatan','UnitKerja');
 
         if (isset($_GET['today'])) {
             $today = date('m/d');
@@ -166,7 +166,7 @@ class Pegawai extends CActiveRecord {
 
         $criteria->compare('id', $this->id);
         $criteria->compare('nip', $this->nip, true);
-        $criteria->compare('nama', $this->nama, true);
+        $criteria->compare('t.nama', $this->nama, true);
         $criteria->compare('gelar_depan', $this->gelar_depan, true);
         $criteria->compare('gelar_belakang', $this->gelar_belakang, true);
         $criteria->compare('tempat_lahir', $this->tempat_lahir);
@@ -186,7 +186,7 @@ class Pegawai extends CActiveRecord {
         $criteria->compare('npwp', $this->npwp, true);
         $criteria->compare('kpe', $this->kpe, true);
         $criteria->compare('foto', $this->foto, true);
-        $criteria->compare('unit_kerja_id', $this->unit_kerja_id);
+        $criteria->compare('t.unit_kerja_id', $this->unit_kerja_id, true);
         $criteria->compare('tmt_cpns', $this->tmt_cpns, true);
         $criteria->compare('tmt_pns', $this->tmt_pns, true);
         $criteria->compare('t.riwayat_pangkat_id', $this->riwayat_pangkat_id);
@@ -208,7 +208,7 @@ class Pegawai extends CActiveRecord {
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'nama')
+            'sort' => array('defaultOrder' => 't.nama')
         ));
 
         return $data;
@@ -319,7 +319,7 @@ class Pegawai extends CActiveRecord {
         return (!empty($this->Gaji->tmt_mulai)) ? $this->Gaji->tmt_mulai : '-';
     }
     public function getPangkat() {
-        return (!empty($this->Pangkat->nama_golongan)) ? $this->Pangkat->nama_golongan : '-';
+        return (!empty($this->Pangkat->golongan)) ? $this->Pangkat->golongan : '-';
     }
 
     public function getTmtPangkat() {

@@ -39,8 +39,8 @@ $this->widget('bootstrap.widgets.TbMenu', array(
         ),  
                  
         array(
-            'name' => 'nama_golongan',
-            'value' => '$data->nama_golongan',
+            'name' => 'golongan_id',
+            'value' => '$data->golongan',
             'htmlOptions' => array('style' => 'text-align: left;')
         ),  
         array(
