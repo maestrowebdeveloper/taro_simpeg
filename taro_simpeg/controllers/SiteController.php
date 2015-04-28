@@ -110,5 +110,11 @@ class SiteController extends Controller {
         $this->render('search', 
                 array());
     }
+    public function actionCari(){
+        if($_POST['nip']){
+        $model = Pegawai::model()->findByAttributes(array('nip' => $_POST['nip']));    
+        }
+        
+    }
 
 }

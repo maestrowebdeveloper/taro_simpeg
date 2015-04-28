@@ -84,10 +84,10 @@
         ?>
         <?php
         $unit_kerja = (!empty($model->Pegawai->unitKerja)) ? $model->Pegawai->unitKerja : '';
-        $jenis_kelamin = (!empty($model->Pegawai->jenis_kelamin)) ? $model->Pegawai->jenis_kelamin : '';
+        $jenis_kelamin = (!empty($model->Pegawai->jenis_kelamin)) ? $model->Pegawai->jenis_kelamin : '-';
         $tempat_lahir = (!empty($model->Pegawai->tempatLahir)) ? $model->Pegawai->tempatLahir : '';
         $tanggal_lahir = (!empty($model->Pegawai->tanggal_lahir)) ? $model->Pegawai->tanggal_lahir : '';
-        $pendidikan_terakhir = (!empty($model->Pegawai->pendidikan_terakhir)) ? $model->Pegawai->pendidikan_terakhir : '';
+        $pendidikan_terakhir = (!empty($model->Pegawai->pendidikanTerakhir)) ? $model->Pegawai->pendidikanTerakhir : '';
         $alamat = (!empty($model->Pegawai->alamat)) ? $model->Pegawai->alamat : '';
         ?>
         <div class="control-group "><label  class="control-label">Unit Kerja</label><div class="controls">

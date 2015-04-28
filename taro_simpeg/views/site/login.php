@@ -84,7 +84,11 @@ $form = $this->beginWidget('CActiveForm', array(
                     <div class="form-actions" style="margin:0px -20px">
                         <div class="span12 controls" style="padding:0px 20px">
                             <?php echo $form->checkBox($model, 'rememberMe', array('class' => 'left', 'style' => 'width:20px')); ?> Keep me login in
+                            <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=""> <i class="icon-search"></i></a>-->
+                            
                             <button type="submit" style="background:forestgreen" class="btn btn-info right" id="loginBtn"><span class="icon16 icomoon-icon-enter white"></span> Login</button>
+                            <!--<a href="<?php echo url('site/search') ?>"   style="background:forestgreen;height: 30px;margin-right: 10px;" class="btn btn-info right" ><span class="icon16 icon-search white"></span> </a>-->
+                        <a href="<?php echo url('site/search')?>" style="background:forestgreen;height: 20px;margin-right: 10px;" class="btn btn-info right" id="loginBtn"><span class="icon16 icon-search white"></span> </a>
                         </div>
                     </div>
                 </div>
