@@ -175,6 +175,7 @@ class Pegawai extends CActiveRecord {
         $criteria->compare('agama', $this->agama, true);
 //        $criteria->compare('pendidikan_terakhir', $this->pendidikan_terakhir, true);
         $criteria->compare('tmt_keterangan_kedudukan', $this->tmt_keterangan_kedudukan, true);
+        $criteria->compare('Pangkat.golongan_id', isset($_POST['golongan_id']) ? $_POST['golongan_id'] : "", true);
         $criteria->compare('kedudukan_id', $this->kedudukan_id);
         $criteria->compare('status_pernikahan', $this->status_pernikahan, true);
         $criteria->compare('alamat', $this->alamat, true);

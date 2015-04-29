@@ -106,7 +106,7 @@
                 <input disabled class="span4" maxlength="225" name="" id="pendidikan_terakhir" value="<?php echo $pendidikan_terakhir; ?>" type="text">
             </div></div>        
         <div class="control-group "><label  class="control-label">Alamat</label><div class="controls">
-                <input disabled class="span6" maxlength="225" name="alamat" id="" value="<?php echo $alamat; ?>" type="text">
+                <input disabled class="span6" maxlength="225" name="alamat" id="alamat" value="<?php echo $alamat; ?>" type="text">
             </div></div>
 
         <?php
