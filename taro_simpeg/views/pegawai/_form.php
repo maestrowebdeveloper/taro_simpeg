@@ -823,27 +823,12 @@ $this->beginWidget(
             url: "<?php echo url('pegawai/getPensiun') ?> ",
             type: "POST",
             data: {tanggal_lahir: tanggal, riwayatJabatan: jabatan},
-//            data: {tanggal_lahir: $("#Pegawai_tanggal_lahir").val(), riwayatJabatan: $("#Pegawai_riwayat_jabatan_id").val()},
             success: function (data) {
                 $("#Pegawai_tmt_pensiun").val(data);
-//                alert(tanggal);
+                alert(tanggal +" id "+ jabatan);
+                alert(data);
             }
         });
-//        var lahir = new Date($("#Pegawai_tanggal_lahir").val());
-//        var tipe = $('#riwayatTipeJabatan').val();
-//        var masa_kerja = 0;
-//        if (tipe == 'Struktural') {
-//            masa_kerja = 58;
-//        } else if (tipe == 'Fungsional Umum') {
-//            masa_kerja = 58;
-//        } else if (tipe == 'Fungsional Tertentu') {
-//            masa_kerja = 60;
-//        }
-//        var kalkulasi = new Date(new Date(lahir).setYear(lahir.getFullYear() + masa_kerja));
-//        var bulan = kalkulasi.getMonth() + 1;
-//        var tanggal = kalkulasi.getDate();
-//        var pensiun = kalkulasi.getFullYear() + '-' + ('0' + bulan).substr(-2, 2) + '-' + ('0' + tanggal).substr(-2, 2);
-//        $("#Pegawai_tmt_pensiun").val(pensiun);
     }
     $(".pilihPendidikan").click(function () {
         $.ajax({
