@@ -12,7 +12,7 @@ Yii::app()->clientScript->registerScript('search', "
     <?php
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id' => 'search-pegawai-form',
-        'action' => Yii::app()->createUrl($this->route),
+        'action' => url("report/urutKepangkatan?cari=1"),
         'method' => 'get',
     ));
     ?>
@@ -94,47 +94,44 @@ Yii::app()->clientScript->registerScript('search', "
     </div>
     <?php $this->endWidget(); ?>
 </div>
-<h3 style="text-align:center">LAPORAN PEGAWAI BERDASARKAN URUTAN KEPANGKATAN PEGAWAI</h3><br>
-    <h6  style="text-align:center">Tanggal : <?php echo date('d F Y'); ?></h6>
 <?php
-$this->widget('bootstrap.widgets.TbGridView', array(
-    'id' => 'daftar-pegawai-grid',
-    'dataProvider' => $model->search(),
-    'type' => 'striped bordered condensed',
-    'template' => '{summary}{pager}{items}{pager}',
-    'columns' => array(
-        array(
-            'name' => 'id',
-            'type' => 'raw',
-            'value' => '$data->id',
-            'htmlOptions' => array('style' => 'text-align:center'),
+if (isset($_GET['cari'])) {
+    ?>
+
+    <h3 style="text-align:center">LAPORAN PEGAWAI BERDASARKAN URUTAN KEPANGKATAN PEGAWAI</h3>
+    <h6  style="text-align:center">Tanggal : <?php echo date('d F Y'); ?></h6>
+    <?php
+    $this->widget('bootstrap.widgets.TbGridView', array(
+        'id' => 'daftar-pegawai-grid',
+        'dataProvider' => $model->search(),
+        'type' => 'striped bordered condensed',
+        'template' => '{summary}{pager}{items}{pager}',
+        'columns' => array(
+            array(
+                'name' => 'nip',
+                'type' => 'raw',
+                'value' => '$data->nip',
+            ),
+            'nama',
+            array(
+                'name' => 'unitKerja',
+                'type' => 'raw',
+                'value' => '$data->unitKerja',
+            ),
+            array(
+                'name' => 'golongan',
+                'type' => 'raw',
+                'value' => '$data->golongan',
+            ),
+            array(
+                'name' => 'tipe',
+                'value' => '$data->tipe',
+            ),
         ),
-        array(
-            'name' => 'nip',
-            'type' => 'raw',
-            'value' => '$data->nip',
-            'htmlOptions' => array('style' => 'text-align:center'),
-        ),
-        'nama',
-        array(
-            'name' => 'unitKerja',
-            'type' => 'raw',
-            'value' => '$data->unitKerja',
-            'htmlOptions' => array('style' => 'text-align:center'),
-        ),
-        array(
-            'name' => 'golongan',
-            'type' => 'raw',
-            'value' => '$data->golongan',
-            'htmlOptions' => array('style' => 'text-align:center'),
-        ),
-        array(
-            'name' => 'tipe',
-            'value' => '$data->tipe',
-            'htmlOptions' => array('style' => 'text-align:center'),
-        ),
-    ),
-));
+    ));
+    ?>
+    <?php
+}
 ?>
 <script>
     function printDiv(divName)
@@ -145,13 +142,13 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         window.print();
         document.body.innerHTML = originalContents;
     }
-    function exportExcel(){
+    function exportExcel() {
         var unit_id = $("#Pegawai_unit_kerja_id").val();
         var fu_id = $("#Pegawai_jabatan_fu_id").val();
         var ft_id = $("#Pegawai_jabatan_ft_id").val();
-        if(unit_id != 0){
-            window.open('<?php echo url('report/excelKepangkatan')?>?unit_id='+unit_id+'&fu_id='+fu_id+'&ft_id='+ft_id);
-        }else{
+        if (unit_id != 0) {
+            window.open('<?php echo url('report/excelKepangkatan') ?>?unit_id=' + unit_id + '&fu_id=' + fu_id + '&ft_id=' + ft_id);
+        } else {
             alert('Pilih Unit Kerja terlebih dahulu!');
         }
     }

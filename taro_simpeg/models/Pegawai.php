@@ -102,15 +102,15 @@ class Pegawai extends CActiveRecord {
 //            'tmt_jabatan_ft' => 'Tmt Jabatan Ft',
 //            'gaji' => 'Gaji',
             'tmt_pensiun' => 'Tmt Pensiun',
-            'no_sk_cpns'=>'No SK',
-            'tanggal_sk_cpns'=>'Tanggal SK',
-            'no_sk_pns'=>'No SK',
-            'tanggal_sk_pns'=>'Tanggal SK',
+            'no_sk_cpns' => 'No SK',
+            'tanggal_sk_cpns' => 'Tanggal SK',
+            'no_sk_pns' => 'No SK',
+            'tanggal_sk_pns' => 'Tanggal SK',
             'created' => 'Created',
             'created_user_id' => 'Created User',
             'modified_user_id' => 'Last Edit',
             'modified' => 'Upload File Excel',
-            'tmt_keterangan_kedudukan'=>'Tmt Keterangan',
+            'tmt_keterangan_kedudukan' => 'Tmt Keterangan',
             'ket_tmt_cpns' => ''
         );
     }
@@ -276,14 +276,16 @@ class Pegawai extends CActiveRecord {
         $eselon = isset($this->RiwayatJabatan->JabatanStruktural->Eselon->nama) ? $this->RiwayatJabatan->JabatanStruktural->Eselon->nama : "-";
         $tingkatEselon = substr($eselon, 0, 2);
         $bup = '-';
-        if ($tingkatEselon == "II" and $this->RiwayatJabatan->tipe_jabatan == "struktural") {
-            $bup = '60';
-        } else if (($tingkatEselon == "III" or $tingkatEselon == "IV" or $tingkatEselon == "V") and $this->RiwayatJabatan->tipe_jabatan == "struktural") {
-            $bup = '58';
-        } else if ($this->RiwayatJabatan->tipe_jabatan == "fungsional_umum") {
-            $bup = '60';
-        } else if ($this->RiwayatJabatan->tipe_jabatan == "fungsional_tertentu") {
-            $bup = '58';
+        if (isset($this->RiwayatJabatan)) {
+            if ($tingkatEselon == "II" and $this->RiwayatJabatan->tipe_jabatan == "struktural") {
+                $bup = '60';
+            } else if (($tingkatEselon == "III" or $tingkatEselon == "IV" or $tingkatEselon == "V") and $this->RiwayatJabatan->tipe_jabatan == "struktural") {
+                $bup = '58';
+            } else if ($this->RiwayatJabatan->tipe_jabatan == "fungsional_umum") {
+                $bup = '60';
+            } else if ($this->RiwayatJabatan->tipe_jabatan == "fungsional_tertentu") {
+                $bup = '58';
+            }
         }
         return $bup;
     }
@@ -296,10 +298,10 @@ class Pegawai extends CActiveRecord {
         return (!empty($this->JabatanStruktural->Eselon->nama)) ? $this->JabatanStruktural->Eselon->nama : '-';
     }
 
-    public function getRiwayatBidangJabatan(){
-    return (!empty($this->RiwayatJabatan->Bidang->nama) ? $this->RiwayatJabatan->Bidang->nama : "-");    
+    public function getRiwayatBidangJabatan() {
+        return (!empty($this->RiwayatJabatan->Bidang->nama) ? $this->RiwayatJabatan->Bidang->nama : "-");
     }
-    
+
     public function getRiwayatTipeJabatan() {
         return (!empty($this->RiwayatJabatan->tipe)) ? $this->RiwayatJabatan->tipe : '-';
     }
@@ -315,9 +317,11 @@ class Pegawai extends CActiveRecord {
     public function getGajiPegawai() {
         return (!empty($this->Gaji->gaji)) ? landa()->rp($this->Gaji->gaji) : '-';
     }
+
     public function getTmtGaji() {
         return (!empty($this->Gaji->tmt_mulai)) ? $this->Gaji->tmt_mulai : '-';
     }
+
     public function getPangkat() {
         return (!empty($this->Pangkat->nama_golongan)) ? $this->Pangkat->nama_golongan : '-';
     }
