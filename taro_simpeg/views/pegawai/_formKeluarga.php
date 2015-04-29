@@ -180,12 +180,10 @@
             $("#RiwayatKeluarga_nomor_karsu").parent().parent().attr("style", "display:");
             $("#RiwayatKeluarga_tanggal_pernikahan").parent().parent().attr("style", "display:");
             $("#RiwayatKeluarga_nomor_karsi").parent().parent().attr("style", "display:none");
-           
         } else if (id == "suami") {
             $("#RiwayatKeluarga_nomor_karsu").parent().parent().attr("style", "display:none");
             $("#RiwayatKeluarga_nomor_karsi").parent().parent().attr("style", "display:");
             $("#RiwayatKeluarga_tanggal_pernikahan").parent().parent().attr("style", "display:");
-            
         }
 
         if (id == "cerai") {
@@ -196,31 +194,10 @@
             $("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:none");
             $("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:none");
             $("#RiwayatKeluarga_tanggal_sk").parent().parent().parent().attr("style", "display:none");
-            $("#RiwayatKeluarga_jns_masalah").attr("value","");
-            $("#RiwayatKeluarga_no_sk").attr("value","");
-            $("#RiwayatKeluarga_tanggal_sk").attr("value","");
         } else if (id == "meninggal") {
-            $("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:none");
-            $("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:none");
-            $("#RiwayatKeluarga_tanggal_sk").parent().parent().parent().attr("style", "display:none");
-            $("#RiwayatKeluarga_jns_masalah").attr("value","");
-            $("#RiwayatKeluarga_no_sk").attr("value","");
-            $("#RiwayatKeluarga_tanggal_sk").attr("value","");
-        } else if (id = 'anak') {
             $("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:none");
             $("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:none");
             $("#RiwayatKeluarga_tanggal_sk").parent().parent().parent().attr("style", "display:none");
         }
     });
-<?php
-if ($model->status == "cerai") {
-    echo '$("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:");'
-    . '$("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:");'
-    . ' $("#RiwayatKeluarga_tanggal_sk").parent().parent().parent().attr("style", "display:");';
-} else {
-       echo '$("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:none");'
-    . '$("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:none");'
-    . ' $("#RiwayatKeluarga_tanggal_sk").parent().parent().parent().attr("style", "display:none");';
-}
-?>
 </script>

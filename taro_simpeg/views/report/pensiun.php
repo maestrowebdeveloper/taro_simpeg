@@ -150,7 +150,7 @@ if ($tampil == "1") {
     }
 
     if (!empty($_POST['bulan']))
-        $criteria->addCondition('date_format(tanggal_lahir,"%m") = "' . date("m", strtotime($_POST['bulan'])) . '"');
+        $criteria->addCondition('month(tanggal_lahir) = "' . substr("0" . $_POST['bulan'], -2, 2) . '"');
 
     if (!empty($_POST['unit_kerja_id']))
         $criteria->addCondition('unit_kerja_id = ' . $_POST['unit_kerja_id']);
