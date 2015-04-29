@@ -48,7 +48,7 @@ $this->breadcrumbs=array(
         		
         array(
             'name' => 'nama_sekolah',
-            'value' => '$data->nama_sekolah',
+            'value' => '$data->namaSekolah',
             'htmlOptions' => array('style' => 'text-align: left;')
         ),      
         

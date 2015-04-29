@@ -55,11 +55,11 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         'jabatan',
         'unitKerja',
         'agama',
-        array(
-            'name' => 'pendidikan_terakhir',
-            'type' => 'raw',
-            'value' => 'isset($data->RiwayatPendidikan->jenjang_pendidikan) ? $data->RiwayatPendidikan->jenjang_pendidikan : ""',
-        ),
+//        array(
+//            'name' => 'pendidikan_terakhir',
+//            'type' => 'raw',
+//            'value' => 'isset($data->RiwayatPendidikan->jenjang_pendidikan) ? $data->RiwayatPendidikan->jenjang_pendidikan : ""',
+//        ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
             'template' => '{view}',

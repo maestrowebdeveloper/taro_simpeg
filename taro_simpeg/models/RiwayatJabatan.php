@@ -37,14 +37,14 @@ class RiwayatJabatan extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nomor_register, pegawai_id, tipe_jabatan', 'required'),
-            array('bidang_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id,tmt_selesai,tanggal_sk_struktural,no_sk_struktural,no_sk_ft,tanggal_sk_ft, nama_jabatan, created, created_user_id, id, tmt_eselon', 'safe'),
+            array('bidang_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id,tmt_selesai,tanggal_sk_struktural,no_sk_struktural,no_sk_ft,tanggal_sk_ft, created, created_user_id, id, tmt_eselon', 'safe'),
             array('pegawai_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register, nama_jabatan', 'length', 'max' => 225),
             array('tipe_jabatan', 'length', 'max' => 19),
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, nomor_register, pegawai_id, jabatan, tipe_jabatan, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, nama_jabatan, tmt_mulai,tanggal_sk_struktural,no_sk_struktural,no_sk_ft,tanggal_sk_ft, tmt_selesai, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, nomor_register, pegawai_id, jabatan, tipe_jabatan, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, tmt_mulai,tanggal_sk_struktural,no_sk_struktural,no_sk_ft,tanggal_sk_ft, tmt_selesai, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -76,7 +76,7 @@ class RiwayatJabatan extends CActiveRecord {
             'jabatan_struktural_id' => 'Jabatan Struktural',
             'jabatan_fu_id' => 'Fungsional Umum',
             'jabatan_ft_id' => 'Fungsional Tertentu',
-            'nama_jabatan' => 'Nama Jabatan',
+//            'nama_jabatan' => 'Nama Jabatan',
             'tmt_mulai' => 'TMT',
             'tmt_selesai' => 'Tmt Selesai',
             'created' => 'Created',
