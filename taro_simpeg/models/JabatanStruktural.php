@@ -98,25 +98,26 @@ class JabatanStruktural extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+        $criteria->with = array('UnitKerja');
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('nama', $this->nama, true);
+        $criteria->compare('t.nama', $this->nama, true);
         $criteria->compare('keterangan', $this->keterangan, true);
-        $criteria->compare('unit_kerja_id', $this->unit_kerja_id);
-        $criteria->compare('eselon_id', $this->eselon_id);
-        $criteria->compare('status', $this->status);
-        $criteria->compare('level', $this->level);
-        $criteria->compare('lft', $this->lft);
-        $criteria->compare('rgt', $this->rgt);
-        $criteria->compare('root', $this->root);
-        $criteria->compare('parent_id', $this->parent_id);
+        $criteria->compare('t.unit_kerja_id', $this->unit_kerja_id, true);
+        $criteria->compare('eselon_id', $this->eselon_id,true);
+        $criteria->compare('status', $this->status,true);
+        $criteria->compare('level', $this->level, true);
+        $criteria->compare('t.lft', $this->lft,true);
+        $criteria->compare('t.rgt', $this->rgt,true);
+        $criteria->compare('t.root', $this->root, true);
+        $criteria->compare('parent_id', $this->parent_id, true);
         $criteria->compare('created', $this->created, true);
-        $criteria->compare('created_user_id', $this->created_user_id);
+        $criteria->compare('created_user_id', $this->created_user_id, true);
         $criteria->compare('modified', $this->modified, true);
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'root,lft',),
+            'sort' => array('defaultOrder' => 't.root,t.lft',),
         ));
 
 
