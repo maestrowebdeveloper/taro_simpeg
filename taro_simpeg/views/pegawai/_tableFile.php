@@ -17,7 +17,7 @@ if(!empty($edit)){
         foreach ($file as $value) {
             $del = (!empty($edit))?'<a class="btn btn-small delete deleteFile" title="Hapus" pegawai="'.$value->pegawai_id.'" id="'.$value->id.'" rel="tooltip" ><i class="icon-trash"></i></a>':'';
             $action = '<td style="width: 85px;text-align:center">
-                        <a class="btn btn-small view" target="_blank" href="'.param('urlImg').'/file/'.$value->pegawai_id."/".$value->nama.'" pegawai="'.$value->pegawai_id.'" id="'.$value->id.'" title="Download File" rel="tooltip" ><i class="icon-file"></i></a>                         
+                        <a class="btn btn-small view" target="_blank" href="'.param('urlImg').'/file/'.$value->pegawai_id."/".$value->url.'" pegawai="'.$value->pegawai_id.'" id="'.$value->id.'" title="Download File" rel="tooltip" ><i class="icon-file"></i></a>                         
                         '.$del.'
                         </td>';
             echo '

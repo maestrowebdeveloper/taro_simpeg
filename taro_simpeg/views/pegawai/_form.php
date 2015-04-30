@@ -286,7 +286,7 @@
                                         );
                                         ?>
                                     </div>
-                                    
+
 
                                 </div>
                             </div>
@@ -322,7 +322,7 @@
                                     </div>
                                     <?php
                                     echo '&nbsp;&nbsp;';
-                                    echo CHtml::textField('Pegawai[ket_tmt_cpns]',  isset($model->ket_tmt_cpns) ? $model->ket_tmt_cpns : '', array('class' => 'span4', 'placeholder' => 'Keterangan Tmt CPNS'));
+                                    echo CHtml::textField('Pegawai[ket_tmt_cpns]', isset($model->ket_tmt_cpns) ? $model->ket_tmt_cpns : '', array('class' => 'span4', 'placeholder' => 'Keterangan Tmt CPNS'));
                                     ?>
                                 </div>
                             </div>
@@ -515,9 +515,27 @@
                         $edit = true;
                     else
                         $edit = false;
+
+                    if (isset($_GET['v'])) {
+                        ?>
+                        <div class="tab-pane " id="pangkat">
+                            <?php echo $this->renderPartial('_tablePangkat', array('pangkat' => $pangkat, 'edit' => $edit)); ?>
+                        </div>
+                        <div class="tab-pane " id="jabatan">
+                            <?php echo $this->renderPartial('_tableJabatan', array('jabatan' => $jabatan, 'edit' => $edit)); ?>                
+                        </div>
+                        <div class="tab-pane " id="gaji">
+                            <?php echo $this->renderPartial('_tableGaji', array('gaji' => $gaji, 'edit' => $edit)); ?>                
+                        </div>
+                        <?php
+                    }
                     ?>
+
                     <div class="tab-pane " id="keluarga">
                         <?php echo $this->renderPartial('_tableKeluarga', array('keluarga' => $keluarga, 'edit' => $edit)); ?>                
+                    </div>
+                    <div class="tab-pane " id="pendidikan">
+                        <?php echo $this->renderPartial('_tablePendidikan', array('pendidikan' => $pendidikan, 'edit' => $edit)); ?>                
                     </div>
                     <div class="tab-pane " id="penghargaan">
                         <?php echo $this->renderPartial('_tablePenghargaan', array('penghargaan' => $penghargaan, 'edit' => $edit)); ?>                
@@ -543,22 +561,23 @@
                 }
                 ?>
             </div>
-            <?php if (!isset($_GET['v'])) { ?>        <div class="form-actions">
-                <?php
-                $this->widget('bootstrap.widgets.TbButton', array(
-                    'buttonType' => 'submit',
-                    'type' => 'primary',
-                    'icon' => 'ok white',
-                    'label' => $model->isNewRecord ? 'Tambah' : 'Simpan',
-                ));
-                ?>
-                <?php
-                $this->widget('bootstrap.widgets.TbButton', array(
-                    'buttonType' => 'reset',
-                    'icon' => 'remove',
-                    'label' => 'Reset',
-                ));
-                ?>
+            <?php if (!isset($_GET['v'])) { ?>        
+                <div class="form-actions">
+                    <?php
+                    $this->widget('bootstrap.widgets.TbButton', array(
+                        'buttonType' => 'submit',
+                        'type' => 'primary',
+                        'icon' => 'ok white',
+                        'label' => $model->isNewRecord ? 'Tambah' : 'Simpan',
+                    ));
+                    ?>
+                    <?php
+                    $this->widget('bootstrap.widgets.TbButton', array(
+                        'buttonType' => 'reset',
+                        'icon' => 'remove',
+                        'label' => 'Reset',
+                    ));
+                    ?>
                 </div>
             <?php } ?>    </fieldset>
 
@@ -567,7 +586,7 @@
     </div>
 </div>
 
-<?php if ($model->isNewRecord == false) {
+<?php if (isset($_GET['v'])) {
     ?>
     <div class='report' id="report" style="display:none">
         <style >
@@ -823,27 +842,12 @@ $this->beginWidget(
             url: "<?php echo url('pegawai/getPensiun') ?> ",
             type: "POST",
             data: {tanggal_lahir: tanggal, riwayatJabatan: jabatan},
-//            data: {tanggal_lahir: $("#Pegawai_tanggal_lahir").val(), riwayatJabatan: $("#Pegawai_riwayat_jabatan_id").val()},
             success: function (data) {
                 $("#Pegawai_tmt_pensiun").val(data);
-//                alert(tanggal);
+                alert(tanggal + " id " + jabatan);
+                alert(data);
             }
         });
-//        var lahir = new Date($("#Pegawai_tanggal_lahir").val());
-//        var tipe = $('#riwayatTipeJabatan').val();
-//        var masa_kerja = 0;
-//        if (tipe == 'Struktural') {
-//            masa_kerja = 58;
-//        } else if (tipe == 'Fungsional Umum') {
-//            masa_kerja = 58;
-//        } else if (tipe == 'Fungsional Tertentu') {
-//            masa_kerja = 60;
-//        }
-//        var kalkulasi = new Date(new Date(lahir).setYear(lahir.getFullYear() + masa_kerja));
-//        var bulan = kalkulasi.getMonth() + 1;
-//        var tanggal = kalkulasi.getDate();
-//        var pensiun = kalkulasi.getFullYear() + '-' + ('0' + bulan).substr(-2, 2) + '-' + ('0' + tanggal).substr(-2, 2);
-//        $("#Pegawai_tmt_pensiun").val(pensiun);
     }
     $(".pilihPendidikan").click(function () {
         $.ajax({

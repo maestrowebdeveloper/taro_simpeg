@@ -21,7 +21,7 @@
         </fieldset>
         <div class="row-fluid">
             <div class="span5">
-                <!--<input class="span12" name="TransferCpns[pelatihan_id]" id="TransferCpns_nomor_kesehatan" type="hidden" value="<?php echo (isset($model->pelatihan_id)) ? $odel->pelatihan_id : 2 ?>">-->
+                <input class="span12" name="TransferCpns[pelatihan_id]" id="TransferCpns_nomor_kesehatan" type="hidden" value="<?php echo (isset($model->pelatihan_id)) ? $odel->pelatihan_id : 2 ?>">
                 <?php
                 $idpegawai = isset($model->pegawai_id) ? $model->pegawai_id : 0;
                 $pegawaiName = isset($model->Pegawai->nama) ? $model->Pegawai->nama : '';
@@ -161,17 +161,7 @@
                 );
                 ?>
 
-        <?php
-            $data= array('0' => '- Pelatihan -') + CHtml::listData(Pelatihan::model()->findAll(array('condition'=>'nama like "%prajabatan%"')), 'id', 'nama');                            
-            echo $form->select2Row($model, 'pelatihan_id', array(
-                'asDropDownList' => true,                    
-                'data' => $data,    
-                'options' => array(                        
-                    "allowClear" => false,
-                    'width' => '40%',
-                ))
-            );
-            ?>
+
 
                 <?php echo $form->textFieldRow($model, 'nomor_diklat', array('class' => 'span5')); ?>
 

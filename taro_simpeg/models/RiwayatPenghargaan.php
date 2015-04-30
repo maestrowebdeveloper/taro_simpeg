@@ -109,7 +109,7 @@ class RiwayatPenghargaan extends CActiveRecord {
             $criteria2->compare('penghargaan_id', $this->penghargaan_id);
 
         if (!empty($this->tanggal_pemberian) && !empty($this->created))
-            $criteria2->condition = 'tanggal_pemberian between "' . $this->tanggal_pemberian . '" and "' . $this->created . '"';
+            $criteria->condition = 'tanggal_pemberian between "' . $this->tanggal_pemberian . '" and "' . $this->created . '"';
 
         $isi = new CActiveDataProvider($this, array(
             'criteria' => $criteria2,
