@@ -29,7 +29,7 @@
         ?>
 
         <div class="struktural" style="display:<?php echo $struktural; ?>">              
-            <div class="control-group "><label class="control-label" for="RiwayatJabatan_jabatan_struktural_id">Jabatan</label>
+            <div class="control-group "><label class="control-label" for="RiwayatJabatan_jabatan_struktural_id">Unit Kerja</label>
                 <div class="controls">
                     <?php
                     $data = array('0' => '- Jabatan Struktural -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
@@ -130,7 +130,7 @@
                 </div>
             </div>
             <div class="control-group ">
-                <label class="control-label">Bidang</label>
+                <label class="control-label">Unit Kerja</label>
                 <div class="controls">
                     <?php
                     $data = array('0' => '- Bidang -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
@@ -212,7 +212,7 @@
                 </div>
             </div>
             <div class="control-group ">
-                <label class="control-label">Bidang</label>
+                <label class="control-label">Unit Kerja</label>
                 <div class="controls">
                     <?php
                     $data = array('0' => '- Bidang -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
