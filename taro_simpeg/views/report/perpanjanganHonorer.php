@@ -4,7 +4,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'enableAjaxValidation' => false,
     'method' => 'post',
     'type' => 'horizontal',
-    'action' => url("report/perpanjanganHonorer?cari=1"),
+    'action' => url("report/honorer?cari=1"),
     'htmlOptions' => array(
         'enctype' => 'multipart/form-data'
     )
@@ -107,7 +107,7 @@ if (isset($_GET['cari'])) {
         <?php
         $this->widget('bootstrap.widgets.TbGridView', array(
             'id' => 'perpanjangan-honorer-grid',
-            'dataProvider' => $model->search2(),
+            'dataProvider' => $isi,
             'type' => 'striped bordered condensed',
             'template' => '{summary}{pager}{items}{pager}',
             'columns' => array(

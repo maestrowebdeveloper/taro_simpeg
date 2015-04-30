@@ -110,10 +110,10 @@ class RiwayatPelatihan extends CActiveRecord {
     public function search2() {
         $criteria2 = new CDbCriteria();
         if (!empty($this->pelatihan_id))//as pelatihan id
-            $criteria2->compare('pelatihan_id', $this->pelatihan_id);
+            $criteria->compare('pelatihan_id', $this->pelatihan_id);
 
         if (!empty($this->tanggal) && !empty($this->created))
-            $criteria2->condition = 'tanggal between "' . $this->tanggal . '" and "' . $this->created . '"';
+            $criteria->condition = 'tanggal between "' . $this->tanggal . '" and "' . $this->created . '"';
 
 
         $isi = new CActiveDataProvider($this, array(

@@ -27,10 +27,8 @@ $this->breadcrumbs = array(
 
     <div class="row-fluid">
         <div class="span11">
-
-
-
-            <div class="control-group "><label class="control-label" for="">Tanggal</label>
+            <div class="control-group ">
+                <label class="control-label" for="">Tanggal</label>
                 <div class="controls">
                     <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
                         <?php
@@ -149,11 +147,16 @@ if (isset($_GET['cari'])) {
                     'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 'jenjang_pendidikan',
-                'jurusan',
+                array(
+                    'name' => 'nama_jurusan',
+                    'type' => 'raw',
+                    'value' => '$data->namaJurusan',
+                    'htmlOptions' => array('style' => 'text-align:center'),
+                ),
                 array(
                     'name' => 'nama_sekolah',
                     'type' => 'raw',
-                    'value' => '$data->nama_sekolah',
+                    'value' => '$data->namaSekolah',
                     'htmlOptions' => array('style' => 'text-align:center'),
                 ),
             ),
