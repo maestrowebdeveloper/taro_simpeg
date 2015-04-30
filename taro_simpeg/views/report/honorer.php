@@ -130,13 +130,13 @@ $this->breadcrumbs = array(
                 array(
                     'name' => 'tmt_kontrak',
                     'type' => 'raw',
-                    'value' => 'date("d M Y",strtotime($data->tmt_kontrak))',
+                    'value' => 'date("d m Y",strtotime($data->tmt_kontrak))',
                     'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 array(
                     'name' => 'tmt_akhir_kontrak',
                     'type' => 'raw',
-                    'value' => 'date("d M Y",strtotime($data->tmt_akhir_kontrak))',
+                    'value' => 'date("d m Y",strtotime($data->tmt_kontrak))',
                     'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 'masaKerja',

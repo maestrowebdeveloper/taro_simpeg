@@ -68,7 +68,7 @@ class PegawaiController extends Controller {
         $return['tempat_lahir'] = $model->tempat_lahir;
         $return['tanggal_lahir'] = $model->tanggal_lahir;
         $return['alamat'] = $model->alamat;
-        $return['pendidikan_terakhir'] = $model->pendidikanTerakhir;
+        $return['pendidikan_terakhir'] = $model->pendidikanTerakhir .' - '. $model->pendidikanJurusan;
         echo json_encode($return);
     }
 
@@ -89,7 +89,7 @@ class PegawaiController extends Controller {
     public function actionGetListPegawaicpns() {
         $name = $_GET["q"];
         $list = array();
-        $data = Pegawai::model()->findAll(array('condition' => 'nama like "%' . $name . '%" and tmt_pns is null', 'limit' => '10'));
+        $data = Pegawai::model()->findAll(array('condition' => 'nama like "%' . $name . '%" and (tmt_pns is null or tmt_pns="0000-00-00")', 'limit' => '10'));
         if (empty($data)) {
             $list[] = array("id" => "0", "text" => "No Results Found..");
         } else {
@@ -105,7 +105,7 @@ class PegawaiController extends Controller {
         $model = RiwayatPangkat::model()->findByPk($id);
         if (!empty($model)) {
             $data['id'] = $model->id;
-            $data['nama_golongan'] = $model->nama_golongan;
+            $data['nama_golongan'] = $model->golongan;
             $data['tmt_pangkat'] = $model->tmt_pangkat;
             echo json_encode($data);
         }
@@ -138,10 +138,10 @@ class PegawaiController extends Controller {
         $data['body'] = $this->renderPartial('/pegawai/_tablePangkat', array('pangkat' => $pangkat, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
 //        if (!empty($pegawai_id)) {
 //            $PangkatPegawai = Pegawai::model()->findbyPk($pegawai_id);
-        if ($pangkatPegawai == $id)
-            $data['default'] = 1;
-        else
-            $data['default'] = 0;
+            if ($pangkatPegawai == $id)
+                $data['default'] = 1;
+            else
+                $data['default'] = 0;
 //        }
         echo CJSON::encode($data);
     }
@@ -222,10 +222,10 @@ class PegawaiController extends Controller {
         $data['body'] = $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
 //        if (!empty($pegawai_id)) {
 //            $JabatanPegawai = Pegawai::model()->findbyPk($pegawai_id);
-        if ($jabatanPegawai == $id)
-            $data['default'] = 1;
-        else
-            $data['default'] = 0;
+            if ($jabatanPegawai == $id)
+                $data['default'] = 1;
+            else
+                $data['default'] = 0;
 //        }
         echo CJSON::encode($data);
     }
@@ -282,10 +282,10 @@ class PegawaiController extends Controller {
         $gaji = RiwayatGaji::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tmt_mulai DESC'));
         $data['body'] = $this->renderPartial('/pegawai/_tableGaji', array('gaji' => $gaji, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
 //        if (!empty($pegawai_id)) {
-        if ($gajiPegawai == $id)
-            $data['default'] = 1;
-        else
-            $data['default'] = 0;
+            if ($gajiPegawai == $id)
+                $data['default'] = 1;
+            else
+                $data['default'] = 0;
 //        }
         echo CJSON::encode($data);
     }
@@ -404,10 +404,10 @@ class PegawaiController extends Controller {
         $data['body'] = $this->renderPartial('/pegawai/_tablePendidikan', array('pendidikan' => $pendidikan, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
 //        if (!empty($pegawai_id)) {
 //            $PendidikanPegawai = Pegawai::model()->findbyPk($pegawai_id);
-        if ($pendidikanPegawai == $id)
-            $data['default'] = 1;
-        else
-            $data['default'] = 0;
+            if ($pendidikanPegawai == $id)
+                $data['default'] = 1;
+            else
+                $data['default'] = 0;
 //        }
         echo CJSON::encode($data);
     }
@@ -1182,12 +1182,10 @@ class PegawaiController extends Controller {
         $id_riwayat = $_POST['riwayatJabatan'];
         $jabatan = RiwayatJabatan::model()->findByPk($id_riwayat);
         $bup = 0;
-        $tingkatEselon = "";
         if (!empty($jabatan)) {
             if ($jabatan->tipe_jabatan == "struktural") {
-                $eselon = isset($jabatan->JabatanStruktural->Eselon->nama) ? $jabatan->JabatanStruktural->Eselon->nama : "-.";
-                $tingkat = explode(".", $eselon);
-                $tingkatEselon = $tingkat[0];
+                $eselon = isset($jabatan->JabatanStruktural->Eselon->nama) ? $jabatan->JabatanStruktural->Eselon->nama : "-";
+                $tingkatEselon = substr($eselon, 0, 2);
                 if ($tingkatEselon == "II") {
                     $bup = 60;
                 } else if ($tingkatEselon == "III" or $tingkatEselon == "IV" or $tingkatEselon == "V") {
@@ -1198,10 +1196,12 @@ class PegawaiController extends Controller {
             } else if ($jabatan->tipe_jabatan == "fungsional_tertentu") {
                 $bup = 60;
             }
+        } else {
+            $bup = 0;
         }
-        $command = Yii::app()->db->createCommand("select DATE_ADD(  '" . $tgl_lahir . "', INTERVAL " . $bup . " YEAR ) as tmt_pensiun")->query()->read();
-        echo $command['tmt_pensiun'];
-//        echo $bup;
+        $date = explode("-", $tgl_lahir);
+        $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $bup);
+        echo date("Y-m-d", $tmt_pensiun);
     }
 
     //-----------------------------------------------------------------------------------

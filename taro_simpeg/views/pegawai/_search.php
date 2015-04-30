@@ -92,8 +92,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                     $data = array('0' => '- Golongan -') + CHtml::listData(Golongan::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedFullName');
                     $this->widget(
                             'bootstrap.widgets.TbSelect2', array(
-                        'name' => 'golongan_id',
-                        'value' => isset($model->Pangkat->golongan_id) ? $model->Pangkat->golongan_id : "",
+                        'name' => 'Pegawai[golongan_id]',
+                        'value' => $model->golongan_id,
                         'data' => $data,
                         'options' => array(
                             'width' => '20%;margin:0px;text-align:left',

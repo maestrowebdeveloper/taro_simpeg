@@ -58,8 +58,6 @@ class PermohonanIjinBelajar extends CActiveRecord {
         return array(
             'Pegawai' => array(self::BELONGS_TO, 'Pegawai', 'pegawai_id'),
             'Kota' => array(self::BELONGS_TO, 'City', 'kota'),
-            'Jurusan' => array(self::BELONGS_TO, 'Jurusan','id_jurusan'),
-            'Universitas' => array(self::BELONGS_TO,'Universitas','id_universitas'),
         );
     }
 
@@ -136,7 +134,7 @@ class PermohonanIjinBelajar extends CActiveRecord {
     public function search2() {
         $criteria2 = new CDbCriteria();
         if (!empty($this->tanggal) && !empty($this->created))
-            $criteria2->condition = 'tanggal between "' . $this->tanggal . '" and "' . $this->created . '"';
+            $criteria->condition = 'tanggal between "' . $this->tanggal . '" and "' . $this->created . '"';
         $isi = new CActiveDataProvider($this, array(
             'criteria' => $criteria2,
 //            'sort' => array('defaultOrder' => 'id')
@@ -160,22 +158,6 @@ class PermohonanIjinBelajar extends CActiveRecord {
 
     public function getKotaSekolah() {
         return (!empty($this->Kota->name)) ? $this->Kota->name : '-';
-    }
-    public function getNamaJurusan(){
-        if(empty($this->jurusan)){
-            $jurusan = isset($this->Jurusan->Name) ? $this->Jurusan->Name : "-";
-        }else{
-            $jurusan = $this->jurusan;
-        }
-        return $jurusan;
-    }
-    public function getNamaSekolah(){
-        if(empty($this->nama_sekolah)){
-            $sekolah = isset($this->Universitas->name) ? $this->Universitas->name : "-";
-        }else{
-            $sekolah = $this->nama_sekolah;
-        }
-        return $sekolah;
     }
 
 }
