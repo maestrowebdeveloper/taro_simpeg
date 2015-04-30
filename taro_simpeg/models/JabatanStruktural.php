@@ -35,8 +35,9 @@ class JabatanStruktural extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('nama,  unit_kerja_id, eselon_id', 'required'),
-            array(' keterangan,   status, level, lft, rgt, root, parent_id, created, created_user_id', 'safe'),
+//            array('nama,  unit_kerja_id, eselon_id', 'required'),
+            array('nama', 'required'),
+            array('keterangan,   status, level, lft, rgt, root, parent_id, created, created_user_id', 'safe'),
             array('unit_kerja_id, eselon_id, status, level, lft, rgt, root, parent_id, created_user_id', 'numerical', 'integerOnly' => true),
             array('nama', 'length', 'max' => 150),
             array('modified', 'safe'),

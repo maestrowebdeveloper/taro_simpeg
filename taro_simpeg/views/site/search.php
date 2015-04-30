@@ -17,15 +17,15 @@
     #login-form2 {
         width: 481px;
     }
-.center-bar {
+    .center-bar {
         margin: 0 auto 30px;
         display: block;
     }
-  
+
     .newLogin{
-        left: 45%;
+        left: 50%;
         top: 50%;
-        width: 350px;
+        width: 300px;
         height: auto;
         position: absolute;
         margin-top: -200px;
@@ -46,20 +46,20 @@
 <?php
 if (!isset($_POST['nip'])) {
     ?>
-<?php
+    <?php
 //        $model = new User;
-        $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-            'id' => 'User-form',
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id' => 'User-form',
 //                                    'action' => url('bbiiMember/sendEmail'),
-            'enableAjaxValidation' => false,
-            'method' => 'post',
-            'type' => 'horizontal',
-            'htmlOptions' => array(
-                'enctype' => 'multipart/form-data',
-                'style' => 'margin-top: 25px;'
-            )
-        ));
-        ?>
+        'enableAjaxValidation' => false,
+        'method' => 'post',
+        'type' => 'horizontal',
+        'htmlOptions' => array(
+            'enctype' => 'multipart/form-data',
+            'style' => 'margin-top: 25px;'
+        )
+    ));
+    ?>
     <div class="container-fluid">
         <div class="newLogin">        
             <!--<form class="form-horizontal" action="dashboard.html" />-->
@@ -74,17 +74,11 @@ if (!isset($_POST['nip'])) {
                 <div class="span12"> 
                     <div class="form-row row-fluid">
                         <div class="span12">            
-                            <div class="row-fluid">
-                                <div class="span2">NIP</div>
-                                <div class="span10">
-                                    <input type="text" maxlength="18" placeholder="Masukan NIP" onKeyup="angka(this);" name="nip" required>
-                               <!--<input class="span12"  style="width:100%" placeholder="Masukan NIP" onKeyup="angka(this);" name="nip" id="nip" type="text" required> </div>-->                   
-                            </div>
+                            <input type="text" maxlength="18" placeholder="Masukan NIP" onKeyup="angka(this);" name="nip" required>
                         </div>
                     </div>
-
-
-                    
+                    <br/>
+                </div>
             </div>
 
 
@@ -93,9 +87,9 @@ if (!isset($_POST['nip'])) {
                     <div class="row-fluid">
                         <div class="form-actions" style="margin:0px -20px">
                             <div class="span12 controls" style="padding:0px 20px">
-                              
-                                <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=""> <i class="icon-search"></i></a>-->
-                                <a href="<?php echo url('site/logout')?>" style="background:forestgreen" class="btn btn-info" id="loginBtn"><span class="icon16 icomoon-icon-enter white"></span> Login</a>
+
+          <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=""> <i class="icon-search"></i></a>-->
+                                <a href="<?php echo url('site/logout') ?>" style="background:forestgreen" class="btn btn-info" id="loginBtn"><span class="icon16 icomoon-icon-enter white"></span> Login</a>
                                 <button type="submit" style="background:forestgreen" class="btn btn-info right" id="loginBtn"><span class="icon16 icon-search white"></span> Search</button>
                             </div>
                         </div>
@@ -107,7 +101,7 @@ if (!isset($_POST['nip'])) {
         </div>
 
     </div>
-            <?php $this->endWidget(); ?>
+    <?php $this->endWidget(); ?>
     <?php
 } else {
     echo'';
@@ -142,7 +136,7 @@ if (isset($_POST['nip'])) {
                 </td>
                 <td>
                     <button class="btn btn-primary btn-lg " name="commit" type="submit"><i class="icon-search"></i>&nbsp; Search</button>
-                    <a href="<?php echo url('site/logout')?>" class="btn btn-primary btn-lg " name="commit" ><i class="icon16 icomoon-icon-enter white"></i>&nbsp; Login</a>
+                    <a href="<?php echo url('site/logout') ?>" class="btn btn-primary btn-lg " name="commit" ><i class="icon16 icomoon-icon-enter white"></i>&nbsp; Login</a>
                 </td>
             </tr>
         </table>
@@ -453,13 +447,13 @@ if (isset($_POST['nip'])) {
 ?>
 
 <script>
-                                function angka(e) {
-                                    if (!/^[0-9,+,-]+$/.test(e.value)) {
-                                        e.value = e.value.substring(0, e.value.length - 1);
-                                    }
-                                }
-                                $('#myTab a').click(function(e) {
-                                    e.preventDefault();
-                                    $(this).tab('show');
-                                })
+    function angka(e) {
+        if (!/^[0-9,+,-]+$/.test(e.value)) {
+            e.value = e.value.substring(0, e.value.length - 1);
+        }
+    }
+    $('#myTab a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    })
 </script>
