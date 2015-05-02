@@ -86,6 +86,16 @@ class UnitKerjaController extends Controller {
         ));
     }
 
+    public function actionMigration() {
+        //contoh migrasi 1 level
+        $var = explode('||', 'Sekretariat Daerah||Sekretariat DPRD||Dinas Pendidikan||Dinas Kesehatan||Dinas Sosial, Tenaga Kerja dan Transmigrasi||Dinas Perhubungan, Komunikasi dan Informatika||Dinas Kependudukan dan Pencatatan Sipil||Dinas Kebudayaan, Pariwisata, Pemuda dan Olah Raga||Dinas Pekerjaan Umum Cipta Karya dan Tata Ruang||Rumah Sakit Umum Daerah||Dinas Pekerjaan Umum Bina Marga||Dinas Pekerjaan Umum Pengairan||Dinas Koperasi, Usaha Kecil dan Menengah||Dinas Perindustrian, Perdagangan dan Pertambangan||Dinas Pertanian||Dinas Kehutanan dan Perkebunan||Dinas Kelautan, Perikanan dan Peternakan||Dinas Pendapatan, Pengelolaan Keuangan dan Aset||Inspektorat||Badan Perencanaan Pembangunan Daerah||Badan Kesatuan Bangsa dan politik||Badan Pemberdayaan Masyarakat||Badan Pemberdayaan Perempuan dan Keluarga Berencana||Badan Kepegawaian Daerah||Badan Ketahanan Pangan dan Pelaksana Penyuluhan Pertanian||Badan Lingkungan Hidup||Kantor Pelayanan Perijinan dan Penanaman Modal||Kantor Perpustakaan dan Arsip Daerah||Satuan Polisi Pamong Praja||Kecamatan Sampang||Kecamatan Omben||Kecamatan Camplong||Kecamatan Torjun||Kecamatan Jrengik||Kecamatan Sreseh||Kecamatan Kedungdung||Kecamatan Tambelangan||Kecamatan Robatal||Kecamatan Ketapang||Kecamatan Banyuates||Kecamatan Sokobanah||Kecamatan Pangarengan||Kecamatan Karang Penang||Kelurahan Gunung Sekar  Kecamatan Sampang||Kelurahan Dalpenang  Kecamatan Sampang||Kelurahan Rong Tengah  Kecamatan Sampang||Kelurahan Banyuanyar  Kecamatan Sampang||Kelurahan Polagan  Kecamatan Sampang||Kelurahan Karang Dalam  Kecamatan Sampang||Sekretariat KPUD||Badan Penanggulangan Bencana Daerah||Pemerintah Kabupaten Sampang||Sekretariat Dewan Pengurus KORPRI)');
+        foreach ($var as $val) {
+            $model = new UnitKerja;
+            $model->nama = $val;
+            $model->saveNode();
+        }
+    }
+
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -249,5 +259,4 @@ class UnitKerjaController extends Controller {
 //                        ), true)
 //        );
 //    }
-
 }

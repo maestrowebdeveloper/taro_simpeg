@@ -88,29 +88,29 @@ class Eselon extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id);
-		$criteria->compare('nama',$this->nama,true);
-		$criteria->compare('keterangan',$this->keterangan,true);
-		$criteria->compare('level',$this->level);
-		$criteria->compare('lft',$this->lft);
-		$criteria->compare('rgt',$this->rgt);
-		$criteria->compare('root',$this->root,true);
-		$criteria->compare('parent_id',$this->parent_id);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('created_user_id',$this->created_user_id);
-		$criteria->compare('modified',$this->modified,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-                        'sort' => array ('defaultOrder' => 'root,lft',),
-		));
-	}
+//	public function search()
+//	{
+//		// @todo Please modify the following code to remove attributes that should not be searched.
+//
+//		$criteria=new CDbCriteria;
+//
+//		$criteria->compare('id',$this->id);
+//		$criteria->compare('nama',$this->nama,true);
+//		$criteria->compare('keterangan',$this->keterangan,true);
+//		$criteria->compare('level',$this->level);
+//		$criteria->compare('lft',$this->lft);
+//		$criteria->compare('rgt',$this->rgt);
+//		$criteria->compare('root',$this->root,true);
+//		$criteria->compare('parent_id',$this->parent_id);
+//		$criteria->compare('created',$this->created,true);
+//		$criteria->compare('created_user_id',$this->created_user_id);
+//		$criteria->compare('modified',$this->modified,true);
+//
+//		return new CActiveDataProvider($this, array(
+//			'criteria'=>$criteria,
+//                        'sort' => array ('defaultOrder' => 'root,lft',),
+//		));
+//	}
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -123,20 +123,20 @@ class Eselon extends CActiveRecord
 		return parent::model($className);
 	}
 
-	 public function behaviors() {
-        return array(
-            'nestedSetBehavior' => array(
-                'class' => 'common.extensions.NestedSetBehavior.NestedSetBehavior',
-                'leftAttribute' => 'lft',
-                'rightAttribute' => 'rgt',
-                'levelAttribute' => 'level',
-                'hasManyRoots' => true,
-            ),
-        );
-    }
-    public function getNestedName() {
-        return ($this->level == 1) ? $this->nama : str_repeat("|— ", $this->level - 1) . $this->nama;
-    }
+//	 public function behaviors() {
+//        return array(
+//            'nestedSetBehavior' => array(
+//                'class' => 'common.extensions.NestedSetBehavior.NestedSetBehavior',
+//                'leftAttribute' => 'lft',
+//                'rightAttribute' => 'rgt',
+//                'levelAttribute' => 'level',
+//                'hasManyRoots' => true,
+//            ),
+//        );
+//    }
+//    public function getNestedName() {
+//        return ($this->level == 1) ? $this->nama : str_repeat("|— ", $this->level - 1) . $this->nama;
+//    }
     
     protected function beforeValidate() {
         if (empty($this->created_user_id))

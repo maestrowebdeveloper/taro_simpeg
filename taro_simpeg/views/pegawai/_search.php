@@ -86,33 +86,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </td>
         <td style="vertical-align:top">
 
-            <div class="control-group "><label class="control-label" for="Pegawai_golongan_id">Pangkat/Golru</label>
-                <div class="controls">
-                    <?php
-                    $data = array('0' => '- Golongan -') + CHtml::listData(Golongan::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedFullName');
-                    $this->widget(
-                            'bootstrap.widgets.TbSelect2', array(
-                        'name' => 'golongan_id',
-                        'value' => isset($model->Pangkat->golongan_id) ? $model->Pangkat->golongan_id : "",
-                        'data' => $data,
-                        'options' => array(
-                            'width' => '20%;margin:0px;text-align:left',
-                    )));
-                    echo '&nbsp;&nbsp;';
-                    ?>
-                    <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
-                        <?php
-                        $this->widget(
-                                'bootstrap.widgets.TbDatePicker', array(
-                            'name' => 'Pegawai[tmt_golongan]',
-                            'value' => isset($_POST['Pegawai']['tmt_golongan']) ? $_POST['Pegawai']['tmt_golongan'] : "-",
-                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                                )
-                        );
-                        ?>
-                    </div>
-                </div>
-            </div>
+            
 
             <?php echo $form->radioButtonListRow($model, 'tipe_jabatan', Pegawai::model()->arrTipeJabatan()); ?>
 

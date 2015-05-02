@@ -291,15 +291,16 @@
                                 </div>
                             </div>
                             <?php
-                            $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                            echo $form->select2Row($model, 'unit_kerja_id', array(
-                                'asDropDownList' => true,
-                                'data' => $data,
-                                'options' => array(
-                                    "allowClear" => false,
-                                    'width' => '50%',
-                                ))
-                            );
+
+//                            $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+//                            echo $form->select2Row($model, 'unit_kerja_id', array(
+//                                'asDropDownList' => true,
+//                                'data' => $data,
+//                                'options' => array(
+//                                    "allowClear" => false,
+//                                    'width' => '50%',
+//                                ))
+//                            );
                             ?>
                             <div class="control-group ">
                                 <label class="control-label" for="Pegawai_tmt_cpns">Tmt CPNS</label>
