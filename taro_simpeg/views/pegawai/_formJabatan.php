@@ -101,6 +101,23 @@
 
         <div class="fungsional_umum" style="display:<?php echo $fu; ?>">   
             <div class="control-group ">
+                <label class="control-label">Unit Kerja</label>
+                <div class="controls">
+                    <?php
+                    $data = array('0' => '- pilih -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                    $bidang_fu = $model->bidang_id;
+                    $this->widget(
+                            'bootstrap.widgets.TbSelect2', array(
+                        'name' => 'RiwayatJabatan[bidang_fu_id]',
+                        'data' => $data,
+                        'value' => $bidang_fu,
+                        'options' => array(
+                            'width' => '40%;margin:0px;text-align:left',
+                    )));
+                    ?>                
+                </div>
+            </div>
+            <div class="control-group ">
                 <label class="control-label" for="RiwayatJabatan_jabatan_fu_id">Jabatan</label>
                 <div class="controls">
                     <?php
@@ -129,26 +146,27 @@
                     </div>    
                 </div>
             </div>
+            
+        </div>
+
+        <div class="fungsional_tertentu" style="display:<?php echo $ft; ?>">
             <div class="control-group ">
                 <label class="control-label">Unit Kerja</label>
                 <div class="controls">
                     <?php
-                    $data = array('0' => '- Bidang -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                    $bidang_fu = $model->bidang_id;
+                    $data = array('0' => '- pilih -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                    $bidang_ft = $model->bidang_id;
                     $this->widget(
                             'bootstrap.widgets.TbSelect2', array(
-                        'name' => 'RiwayatJabatan[bidang_fu_id]',
+                        'name' => 'RiwayatJabatan[bidang_ft_id]',
                         'data' => $data,
-                        'value' => $bidang_fu,
+                        'value' => $bidang_ft,
                         'options' => array(
                             'width' => '40%;margin:0px;text-align:left',
                     )));
                     ?>                
                 </div>
             </div>
-        </div>
-
-        <div class="fungsional_tertentu" style="display:<?php echo $ft; ?>">              
             <div class="control-group "><label class="control-label" for="RiwayatJabatan_jabatan_fu_id">Jabatan</label>
                 <div class="controls">
                     <?php
@@ -211,23 +229,7 @@
                     </div>
                 </div>
             </div>
-            <div class="control-group ">
-                <label class="control-label">Unit Kerja</label>
-                <div class="controls">
-                    <?php
-                    $data = array('0' => '- Bidang -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                    $bidang_ft = $model->bidang_id;
-                    $this->widget(
-                            'bootstrap.widgets.TbSelect2', array(
-                        'name' => 'RiwayatJabatan[bidang_ft_id]',
-                        'data' => $data,
-                        'value' => $bidang_ft,
-                        'options' => array(
-                            'width' => '40%;margin:0px;text-align:left',
-                    )));
-                    ?>                
-                </div>
-            </div>
+            
         </div>
 
         <div class="form-actions">
