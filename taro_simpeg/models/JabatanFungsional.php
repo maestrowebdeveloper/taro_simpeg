@@ -79,7 +79,7 @@ class JabatanFungsional extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-
+        
         $criteria->compare('id', $this->id);
         $criteria->compare('nama', $this->nama, true);
         $criteria->compare('keterangan', $this->keterangan, true);

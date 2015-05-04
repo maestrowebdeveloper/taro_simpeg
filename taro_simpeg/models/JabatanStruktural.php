@@ -111,7 +111,9 @@ class JabatanStruktural extends CActiveRecord {
         $criteria->compare('t.lft', $this->lft,true);
         $criteria->compare('t.rgt', $this->rgt,true);
         $criteria->compare('t.root', $this->root, true);
-        $criteria->compare('parent_id', $this->parent_id, true);
+       if(!empty($_POST['JabatanStruktural']['parent_id'])){
+         $criteria->compare('parent_id', $this->parent_id, true);   
+       }
         $criteria->compare('created', $this->created, true);
         $criteria->compare('created_user_id', $this->created_user_id, true);
         $criteria->compare('modified', $this->modified, true);

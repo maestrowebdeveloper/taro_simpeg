@@ -186,6 +186,7 @@ class JabatanStrukturalController extends Controller {
             }
         }
 
+        $criteria = new CDbCriteria();
         $model = new JabatanStruktural('search');
         $model->unsetAttributes();  // clear any default values
 
