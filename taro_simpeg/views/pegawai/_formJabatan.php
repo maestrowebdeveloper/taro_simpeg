@@ -137,7 +137,7 @@
                     $bidang_fu = $model->bidang_id;
                     $this->widget(
                             'bootstrap.widgets.TbSelect2', array(
-                        'name' => 'RiwayatJabatan[bidang_fu_id]',
+                        'name' => 'RiwayatJabatan[bidang_id]',
                         'data' => $data,
                         'value' => $bidang_fu,
                         'options' => array(
@@ -188,6 +188,17 @@
                     $jabatanFung = JabatanFungsional::model()->find(array('condition' => 'jabatan_ft_id=' . $model->jabatan_ft_id));
                     echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
                     ?>   
+                    <?php
+                    $data = array('0' => '- Berdasarkan -') + RiwayatJabatan::model()->arrType();
+                    $this->widget(
+                            'bootstrap.widgets.TbSelect2', array(
+                        'name' => 'RiwayatJabatan[type]',
+                        'data' => $data,
+                        'value' => $model->type,
+                        'options' => array(
+                            'width' => '25%;margin:0px;text-align:left',
+                    )));
+                    ?>
                 </div>
             </div>
             <div class="control-group ">
@@ -247,39 +258,41 @@
 </div>
 
 <script>
-    jQuery(function ($) {
+    jQuery(function($) {
         jQuery('#RiwayatJabatan_tmt_mulai, #RiwayatJabatan_tmt_eselon, #tmt_mulai_ft, #tmt_mulai_fu, #tmt_mulai_struktural,#tanggal_sk_struktural,#tanggal_sk_ft').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
         jQuery('#RiwayatJabatan_jabatan_struktural_id').select2({'width': '40%'});
         jQuery('#RiwayatJabatan_jabatan_fu_id').select2({'width': '40%'});
         jQuery('#RiwayatJabatan_jabatan_ft_id').select2({'width': '40%'});
-        jQuery('#RiwayatJabatan_bidang_fu_id').select2({'width': '40%'});
+        jQuery('#RiwayatJabatan_bidang_id').select2({'width': '40%'});
+        jQuery('#RiwayatJabatan_type').select2({'width': '40%'});
+        jQuery('#RiwayatJabatan_bidang_id').select2({'width': '40%'});
         jQuery('#RiwayatJabatan_bidang_ft_id').select2({'width': '40%'});
     });
-    $("#RiwayatJabatan_tipe_jabatan_0").click(function (event) {
+    $("#RiwayatJabatan_tipe_jabatan_0").click(function(event) {
         $(".struktural").show();
         $(".fungsional_umum").hide();
         $(".fungsional_tertentu").hide();
     });
 
-    $("#RiwayatJabatan_tipe_jabatan_1").click(function (event) {
+    $("#RiwayatJabatan_tipe_jabatan_1").click(function(event) {
         $(".struktural").hide();
         $(".fungsional_umum").show();
         $(".fungsional_tertentu").hide();
     });
 
-    $("#RiwayatJabatan_tipe_jabatan_2").click(function (event) {
+    $("#RiwayatJabatan_tipe_jabatan_2").click(function(event) {
         $(".struktural").hide();
         $(".fungsional_umum").hide();
         $(".fungsional_tertentu").show();
     });
 
-    $(".saveJabatan").click(function () {
+    $(".saveJabatan").click(function() {
         var postData = $("#jabatan-form").serialize();
         $.ajax({
             url: "<?php echo url('pegawai/saveJabatan'); ?>",
             data: postData,
             type: "post",
-            success: function (data) {
+            success: function(data) {
                 if (data != "") {
                     $("#tableJabatan").replaceWith(data);
                     $(".modal-body").html(data);
@@ -288,32 +301,32 @@
                     alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
             },
         });
 
     });
 
-    $("#RiwayatJabatan_jabatan_struktural_id").change(function () {
+    $("#RiwayatJabatan_jabatan_struktural_id").change(function() {
         var postData = $("#jabatan-form").serialize();
         $.ajax({
             url: "<?php echo url('pegawai/riwayatStatusJabatan'); ?>",
             data: postData,
             type: "post",
-            success: function (data) {
+            success: function(data) {
                 obj = JSON.parse(data);
                 $("#Riwayateselon").val(obj.eselon);
             }
         });
     });
 
-    $("#RiwayatJabatan_jabatan_ft_id").change(function () {
+    $("#RiwayatJabatan_jabatan_ft_id").change(function() {
         $.ajax({
             url: "<?php echo url('pegawai/fungsionalTertentu'); ?>",
             data: {golongan_id: $("#RiwayatPangkat_golongan_id").val(), jabatan_ft_id: $(this).val()},
             type: "POST",
-            success: function (data) {
+            success: function(data) {
                 $("#jabatan_fungsional_tertentu").val(data);
             }
         });
