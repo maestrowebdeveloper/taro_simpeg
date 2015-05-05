@@ -24,7 +24,7 @@ if ($model->isNewRecord == true) {
 ?>
 
 
-<?php if ($model->isNewRecord == false) {
+<?php if (isset($_GET['v'])) {
     ?>
     <div class='report' id="report" style="display:none">
         <table class="table">

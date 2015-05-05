@@ -30,7 +30,7 @@ class JabatanFungsionalController extends Controller {
                 'expression' => 'app()->controller->isValidAccess(1,"r")'
             ),
             array('allow', // u
-                'actions' => array( 'update'),
+                'actions' => array('update'),
                 'expression' => 'app()->controller->isValidAccess(1,"u")'
             ),
             array('allow', // d
@@ -67,7 +67,7 @@ class JabatanFungsionalController extends Controller {
             $model->attributes = $_POST['JabatanFungsional'];
             if ($model->save()) {
                 if (isset($_POST['golongan_id'])) {
-                    for($i = 0; $i < count($_POST['golongan_id']); $i++) {
+                    for ($i = 0; $i < count($_POST['golongan_id']); $i++) {
                         $det = new DetailJf;
                         $det->jabatan_fungsional_id = $model->id;
                         $det->golongan_id = $_POST['golongan_id'][$i];
@@ -96,10 +96,10 @@ class JabatanFungsionalController extends Controller {
 
         if (isset($_POST['JabatanFungsional'])) {
             $model->attributes = $_POST['JabatanFungsional'];
-            if ($model->save()){
-                DetailJf::model()->deleteAll('jabatan_fungsional_id='.$model->id);
-                 if (isset($_POST['golongan_id'])) {
-                    for($i = 0; $i < count($_POST['golongan_id']); $i++) {
+            if ($model->save()) {
+                DetailJf::model()->deleteAll('jabatan_fungsional_id=' . $model->id);
+                if (isset($_POST['golongan_id'])) {
+                    for ($i = 0; $i < count($_POST['golongan_id']); $i++) {
                         $det = new DetailJf;
                         $det->jabatan_fungsional_id = $model->id;
                         $det->golongan_id = $_POST['golongan_id'][$i];
@@ -108,7 +108,7 @@ class JabatanFungsionalController extends Controller {
                     $this->redirect(array('view', 'id' => $model->id));
                 }
                 $this->redirect(array('view', 'id' => $model->id));
-        }
+            }
         }
 
         $this->render('update', array(
@@ -139,12 +139,12 @@ class JabatanFungsionalController extends Controller {
     public function actionIndex() {
         if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
             foreach ($_POST['ceckbox'] as $data) {
-            	$a = JabatanFungsional::model()->findByPk($data);
-            	if(!empty($a))
-            		$a->delete();	            		
-            }	            
+                $a = JabatanFungsional::model()->findByPk($data);
+                if (!empty($a))
+                    $a->delete();
+            }
         }
-
+        $criteria = new CDbCriteria();
         $model = new JabatanFungsional('search');
         $model->unsetAttributes();  // clear any default values
 
