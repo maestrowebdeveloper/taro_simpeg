@@ -38,7 +38,7 @@
                     </td>' : '';
                     echo '
                 <tr>
-                <td>' . $value->jenjang_pendidikan . '</td>
+                <td>' . $value->tingkatPendidikan . '</td>
                 <td>' . $jurusan . '</td>
                 <td>' . $sekolah . '</td>
                 <td>' . $value->alamat_sekolah . '</td>

@@ -30,7 +30,7 @@ class Jurusan extends CActiveRecord
 			array('Name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, id_universitas, Name', 'safe', 'on'=>'search'),
+			array('id, id_universitas, Name,tingkat', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,6 +54,7 @@ class Jurusan extends CActiveRecord
 			'id' => 'ID',
 			'id_universitas' => 'Id Universitas',
 			'Name' => 'Jurusan',
+			'tingkat' => 'Tingkat',
 		);
 	}
 
@@ -78,6 +79,7 @@ class Jurusan extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('id_universitas',$this->id_universitas);
 		$criteria->compare('Name',$this->Name,true);
+		$criteria->compare('tingkat',$this->tingkat,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -31,7 +31,7 @@ class RiwayatPendidikan extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('pegawai_id, jenjang_pendidikan, tahun', 'required'),
+            array('pegawai_id, tahun', 'required'),
             array('alamat_sekolah, created, nama_sekolah, created_user_id, id_jurusan, id_universitas, modified, id, no_ijazah', 'safe'),
             array('pegawai_id, created_user_id', 'numerical', 'integerOnly' => true),
             array('jenjang_pendidikan', 'length', 'max' => 9),
@@ -73,7 +73,7 @@ class RiwayatPendidikan extends CActiveRecord {
             'created' => 'Created',
             'created_user_id' => 'Created User',
             'modified' => 'Modified',
-            'no_ijazah'=>'No Ijazah'
+            'no_ijazah' => 'No Ijazah'
         );
     }
 
@@ -93,7 +93,7 @@ class RiwayatPendidikan extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-        $criteria->with = array('Pegawai','Jurusan');
+        $criteria->with = array('Pegawai', 'Jurusan');
         $criteria->together = true;
 
 
@@ -139,13 +139,16 @@ class RiwayatPendidikan extends CActiveRecord {
     public function getPegawai() {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
     }
-    
-    public function getNamaSekolah(){
+
+    public function getNamaSekolah() {
         return (!empty($this->nama_sekolah)) ? $this->nama_sekolah : $this->Universitas->name;
     }
+    public function getTingkatPendidikan() {
+        return (!empty($this->Jurusan->tingkat)) ? $this->Jurusan->tingkat : '-';
+    }
 
-        public function getJurusanPegawai(){
-        if(!empty($this->id_jurusan)){
+    public function getJurusanPegawai() {
+        if (!empty($this->id_jurusan)) {
             return $this->Jurusan->Name;
         }
     }
