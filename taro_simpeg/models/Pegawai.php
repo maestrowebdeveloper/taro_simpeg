@@ -389,6 +389,7 @@ class Pegawai extends CActiveRecord {
     public function getRiwayatTipeJabatan() {
         return (!empty($this->RiwayatJabatan->tipe)) ? $this->RiwayatJabatan->tipe : '-';
     }
+   
 
     public function getRiwayatNamaJabatan() {
         return (!empty($this->RiwayatJabatan->jabatanPegawai)) ? $this->RiwayatJabatan->jabatanPegawai : '-';
@@ -415,7 +416,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getPendidikanTerakhir() {
-        return (!empty($this->Pendidikan->jenjang_pendidikan)) ? $this->Pendidikan->jenjang_pendidikan : '-';
+        return (!empty($this->Pendidikan->Jurusan->tingkat)) ? $this->Pendidikan->Jurusan->tingkat : '-';
     }
 
     public function getPendidikanTahun() {
@@ -520,9 +521,10 @@ class Pegawai extends CActiveRecord {
         }
 
         $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun * -1 : 0;
+        $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan * -1 : 0;
         if ($this->tmt_cpns != NULL and $this->tmt_cpns != "0000-00-00") {
             $date = explode("-", $this->tmt_cpns);
-            $tmt = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $perubahanTahun);
+            $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0] + $perubahanTahun);
             $tmt_cpns = date("Y-m-d", $tmt);
         } else {
             $tmt_cpns = date("Y-m-d");
@@ -541,12 +543,12 @@ class Pegawai extends CActiveRecord {
         if (isset($this->perubahan_masa_kerja) and !empty($this->perubahan_masa_kerja)) {
             $perubahan = json_decode($this->perubahan_masa_kerja, false);
         }
-
+        $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun * -1 : 0;
         $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan * -1 : 0;
 
         if ($this->tmt_cpns != NULL and $this->tmt_cpns != "0000-00-00") {
             $date = explode("-", $this->tmt_cpns);
-            $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0]);
+            $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0] + $perubahanTahun);
             $tmt_cpns = date("Y-m-d", $tmt);
         } else {
             $tmt_cpns = date("Y-m-d");

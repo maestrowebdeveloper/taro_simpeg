@@ -20,11 +20,18 @@
         ?>
 
         <?php
+        $idjurusan = (!empty($model->Jurusan->id)) ? $model->Jurusan->id : 0; 
+        $jurusan = (!empty($model->Jurusan->Name)) ? $model->Jurusan->tingkat .' - '.$model->Jurusan->Name : 0; 
         $model->pegawai_id = (!empty($pegawai_id)) ? $pegawai_id : $model->pegawai_id;
         echo $form->hiddenField($model, 'id');
         echo $form->hiddenField($model, 'pegawai_id');
-
-        echo $form->radioButtonListRow($model, 'jenjang_pendidikan', Pegawai::model()->ArrJenjangPendidikan());
+        $id = 0;
+            $pegawai_id = "hai";
+            echo $form->select2Row($model, 'id_jurusan', array(
+                'asDropDownList' => false,
+                    )
+            );
+//        echo $form->radioButtonListRow($model, 'jenjang_pendidikan', Pegawai::model()->ArrJenjangPendidikan());
         echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span3', 'maxlength' => 100));
         echo' <div class="control-group "><label class="control-label">Universitas</label><div class="controls">';
         $data = array('0' => '- Universitas -') + CHtml::listData(Universitas::model()->findAll(array('order' => 'name')), 'id', 'name');
@@ -37,22 +44,12 @@
                 'width' => '40%;margin:0px;text-align:left',
         )));
         echo "</div></div>";
-        echo' <div class="control-group "><label class="control-label">Jurusan</label><div class="controls">';
-        $data = array('0' => '- jurusan -') + CHtml::listData(Jurusan::model()->findAll(array('order' => 'Name')), 'id', 'Name');
-        $this->widget(
-                'bootstrap.widgets.TbSelect2', array(
-            'name' => 'RiwayatPendidikan[id_jurusan]',
-            'id' => 'jurusan_kuliah',
-            'data' => $data,
-            'value' => $model->id_jurusan,
-            'options' => array(
-                'width' => '40%;margin:0px;text-align:left',
-        )));
-        echo "</div></div>";
+       
         echo $form->textFieldRow($model, 'no_ijazah', array('class' => 'span3', 'maxlength' => 100));
         echo $form->textAreaRow($model, 'alamat_sekolah', array('rows' => 4, 'cols' => 50, 'class' => 'span8'));
         echo $form->textFieldRow($model, 'tahun', array('class' => 'span1 angka', 'maxlength' => 100));
         ?>
+         
 
 
 
@@ -126,4 +123,27 @@
             $("#RiwayatPendidikan_id_jurusan").parent().parent().attr("style", "display:");
         }
     });
+       jQuery('#RiwayatPendidikan_id_jurusan').select2({
+            'allowClear': true,
+            'minimumInputLength': '3',
+            'width': '60%;margin:0px;text-align:left',
+            'ajax': {
+                'url': '<?php echo Yii::app()->createUrl('pegawai/getJurusanTingkat'); ?>',
+                'dataType': 'json',
+                'data': function (term, page) {
+                    return {
+                        q: term
+                    };
+                },
+                'results': function (data) {
+                    return {
+                        results: data
+                    };
+                },
+            },
+            'initSelection' : function(element, callback) 
+                            { 
+                                 callback({id: <?php echo $idjurusan ?>, text: "<?php echo $jurusan ?>" });
+                            }
+        })
 </script>

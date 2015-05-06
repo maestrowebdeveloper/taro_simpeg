@@ -99,6 +99,7 @@ class PegawaiController extends Controller {
         }
         echo json_encode($list);
     }
+   
 
     public function actionSelectPangkat() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
@@ -371,6 +372,19 @@ class PegawaiController extends Controller {
         $pendidikan = RiwayatPendidikan::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tahun DESC'));
         echo $this->renderPartial('/pegawai/_tablePendidikan', array('pendidikan' => $pendidikan, 'edit' => true, 'pegawai_id' => $id));
     }
+    public function actionGetJurusanTingkat() {
+        $name = $_GET["q"];
+        $data = array();
+        $pegawai = Jurusan::model()->findAll(array('condition' => 'Name like "%' . $name . '%"', 'limit' => 15));
+        if (empty($pegawai)) {
+            $data[] = array('id' => '0', 'text' => 'Tidak Ada Nama Yang Cocok');
+        } else {
+            foreach ($pegawai as $val) {
+                $data[] = array('id' => $val->id, 'text' => $val->tingkat .' - '.$val->Name);
+            }
+        }
+        echo json_encode($data);
+    }
 
     public function actionGetPendidikan() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
@@ -388,7 +402,7 @@ class PegawaiController extends Controller {
         $model = RiwayatPendidikan::model()->findByPk($id);
         if (!empty($model)) {
             $data['id'] = $model->id;
-            $data['jenjang_pendidikan'] = $model->jenjang_pendidikan;
+            $data['jenjang_pendidikan'] = $model->tingkatPendidikan;
             $data['tahun'] = $model->tahun;
             $data['jurusan'] = $model->jurusanPegawai;
             echo json_encode($data);

@@ -13,7 +13,7 @@
         <thead>
         <th>No. Register</th>
         <th>Jabatan</th>
-        <th>Bidang</th>
+        <th>Unit Kerja</th>
         <th>Tmt Jabatan</th>        
         <th>Eselon</th>     
         <th>Tmt Eselon</th>

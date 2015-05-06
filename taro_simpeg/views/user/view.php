@@ -141,7 +141,7 @@ if($restrict){
                             :
                         </td>
                         <td style="text-align: left" class="span4">
-                             <?php  echo $model->City->Province->name; ?>
+                             <?php  echo (empty($model->City->Province->name)) ? '-' :$model->City->Province->name; ?>
                         </td>
                         <td style="text-align: left" class="span1">
                             <span class="inventory"><b>Phone</b></span>
@@ -164,7 +164,7 @@ if($restrict){
                             :
                         </td>
                         <td style="text-align: left" class="span4">
-                             <?php  echo $model->City->name; ?>
+                             <?php  echo (empty($model->City->name)) ? '-' : $model->City->name; ?>
                         </td>
                         <td style="text-align: left" class="span1">
                             <span class="inventory"><b>Email</b></span>&nbsp;
