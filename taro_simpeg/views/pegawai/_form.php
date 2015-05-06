@@ -844,8 +844,8 @@ $this->beginWidget(
             data: {tanggal_lahir: tanggal, riwayatJabatan: jabatan},
             success: function (data) {
                 $("#Pegawai_tmt_pensiun").val(data);
-                alert(tanggal + " id " + jabatan);
-                alert(data);
+//                alert(tanggal + " id " + jabatan);
+//                alert(data);
             }
         });
     }

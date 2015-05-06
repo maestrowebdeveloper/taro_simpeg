@@ -11,6 +11,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'results',
     'enableAjaxValidation' => false,
     'method' => 'post',
+    'action' => url("pegawai/rekapEselon?cari=1"),
     'type' => 'horizontal',
     'htmlOptions' => array(
         'enctype' => 'multipart/form-data'
@@ -37,7 +38,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 <label class="control-label">Eselon<span class="required">*</span></label>
                 <div class="controls">
                     <?php
-                    $data = array('0' => '- Eselon -') + CHtml::listData(Eselon::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                    $data = array('0' => '- Eselon -') + CHtml::listData(Eselon::model()->findAll(array('order' => 'root, lft')), 'id', 'nama');
                     $this->widget(
                             'bootstrap.widgets.TbSelect2', array(
                         'name' => 'eselon_id',
@@ -73,8 +74,51 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 
 <?php
-if ( !empty($_POST['Pegawai']['unit_kerja_id'])) {
-    $this->renderPartial('_rekapEselon', array('model' => $model));
+if ( isset($_GET['cari'])) {
+$this->widget('bootstrap.widgets.TbGridView', array(
+    'id' => 'daftar-pegawai-grid',
+    'dataProvider' => $model->searchEselon(),
+    'type' => 'striped bordered condensed',
+    'template' => '{summary}{pager}{items}{pager}',
+    'columns' => array(
+        'nama',
+        array(
+            'name' => 'nip',
+            'type' => 'raw',
+            'value' => '$data->nip',
+            'htmlOptions' => array('style' => 'text-align:center'),
+        ),
+        
+        array(
+            'name' => 'golongan_id',
+            'type' => 'raw',
+            'header'=>'Golongan',
+            'value' => '$data->golongan',
+            'htmlOptions' => array('style' => 'text-align:center'),
+        ),
+        array(
+            'name' => 'jabatan_fu_id',
+            'type' => 'raw',
+            'header'=>'Jabatan Fungsional',
+            'value' => '$data->jabatanFu',
+            'htmlOptions' => array('style' => 'text-align:center'),
+        ),
+        array(
+            'name' => 'riwayat_pangkat_id',
+            'type' => 'raw',
+            'value' => '$data->pangkat',
+            'htmlOptions' => array('style' => 'text-align:center'),
+        ),
+        array(
+            'name' => 'unit_kerja_id',
+            'type' => 'raw',
+            'header'=>'Satuan Kerja',
+            'value' => '$data->unitKerja',
+            'htmlOptions' => array('style' => 'text-align:center'),
+        ),
+        
+    ),
+));
 }
 ?>
 

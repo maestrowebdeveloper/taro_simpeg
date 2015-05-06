@@ -47,15 +47,15 @@ $this->breadcrumbs = array(
                 'width' => '50%',
             ))
         );
-        $data = array('0' => '- Parent -') + CHtml::listData(Golongan::model()->findAll(array('order' => 'root, lft')), 'tingkat', 'nestedFullName');
-        echo $form->select2Row($model, 'golongan_id', array(
-            'asDropDownList' => true,
-            'data' => $data,
-            'options' => array(
-                "allowClear" => false,
-                'width' => '50%',
-            ))
-        );
+//        $data = array('0' => '- Parent -') + CHtml::listData(Golongan::model()->findAll(array('order' => 'root, lft')), 'tingkat', 'nestedFullName');
+//        echo $form->select2Row($model, 'golongan_id', array(
+//            'asDropDownList' => true,
+//            'data' => $data,
+//            'options' => array(
+//                "allowClear" => false,
+//                'width' => '50%',
+//            ))
+//        );
         ?>
         <div class="control-group "><label class="control-label" for="jurusan">Jurusan</label>
             <div class="controls">

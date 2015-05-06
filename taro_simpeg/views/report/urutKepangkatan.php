@@ -99,7 +99,7 @@ Yii::app()->clientScript->registerScript('search', "
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'daftar-pegawai-grid',
-    'dataProvider' => $model->search(),
+    'dataProvider' => $model->search2(),
     'type' => 'striped bordered condensed',
     'template' => '{summary}{pager}{items}{pager}',
     'columns' => array(
