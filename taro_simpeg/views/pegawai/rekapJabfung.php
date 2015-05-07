@@ -21,18 +21,22 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <div class="well">
 
     <div class="row-fluid">
-        <?php
-        $data = array('0'=>'- Unit Kerja -')+CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-        echo $form->select2Row($model, 'unit_kerja_id', array(
-            'asDropDownList' => true,                    
-            'data' => $data,
-            'value' => isset($_POST['unit_kerja_id']) ? $_POST['unit_kerja_id'] : '',
-            'options' => array(                        
-                "allowClear" => false,
-                'width' => '50%',
-            ))
-        );
-        ?>
+       <div class="control-group">
+                <label class="control-label">Satuan Kerja<span class="required">*</span></label>
+                <div class="controls">
+                    <?php
+                    $data = array('0' => '- Satuan Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                    $this->widget(
+                            'bootstrap.widgets.TbSelect2', array(
+                        'name' => 'riwayat_jabatan_id',
+                        'data' => $data,
+                        'value' => isset($_POST['riwayat_jabatan_id']) ? $_POST['riwayat_jabatan_id'] : '',
+                        'options' => array(
+                            'width' => '40%;margin:0px;text-align:left',
+                    )));
+                    ?>                 
+                </div>
+            </div>
 
         <div class="control-group ">
         <label class="control-label" for="Pegawai_jabatan_id">Berdasarkan</label>
@@ -83,40 +87,48 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 if ( isset($_GET['cari'])) {
 $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'daftar-pegawai-grid',
-    'dataProvider' => $model->search3(),
+    'dataProvider' => $model->searchJabFung(),
     'type' => 'striped bordered condensed',
     'template' => '{summary}{pager}{items}{pager}',
     'columns' => array(
-        'nama',
+//        'nama',
+        array(
+            'name' => 'nama',
+            'header' => 'Nama',
+            'type' => 'raw',
+            'value' => '$data->namaGelar',
+//            'htmlOptions' => array('style' => 'text-align:center'),
+        ),
         array(
             'name' => 'nip',
             'type' => 'raw',
             'value' => '$data->nip',
-            'htmlOptions' => array('style' => 'text-align:center'),
+//            'htmlOptions' => array('style' => 'text-align:center'),
         ),
         
         array(
-            'name' => 'golongan_id',
+            'name' => 'riwayat_pangkat_id',
             'type' => 'raw',
             'header'=>'Golongan',
-            'value' => '$data->golongan',
-            'htmlOptions' => array('style' => 'text-align:center'),
+            'value' => '$data->Pangkat->golongan',
+//            'htmlOptions' => array('style' => 'text-align:center'),
         ),
         array(
-            'name' => 'jabatan_fu_id',
+            'name' => 'riwayat_jabatan_id',
             'type' => 'raw',
-            'header'=>'Jabatan Fungsional',
-            'value' => '$data->jabatanFu',
+            'header'=>'Jabatan ',
+            'value' => '$data->RiwayatJabatan->jabatanStruktural',
             'htmlOptions' => array('style' => 'text-align:center'),
         ),
         array(
             'name' => 'riwayat_pangkat_id',
+            'header' => 'Jabatan Fungsional',
             'type' => 'raw',
             'value' => '$data->pangkat',
             'htmlOptions' => array('style' => 'text-align:center'),
         ),
         array(
-            'name' => 'unit_kerja_id',
+            'name' => 'riwayat_jabatan_id',
             'type' => 'raw',
             'header'=>'Satuan Kerja',
             'value' => '$data->unitKerja',
