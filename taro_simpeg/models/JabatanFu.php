@@ -37,7 +37,7 @@ class JabatanFu extends CActiveRecord
 		return array(
 			array('nama', 'required'),
 			array('keterangan, status, level, lft, rgt, root, parent_id, created, created_user_id', 'safe'),
-			array('status, level, lft, rgt, root, parent_id, created_user_id', 'numerical', 'integerOnly'=>true),
+			array('created_user_id', 'numerical', 'integerOnly'=>true),
 			array('nama', 'length', 'max'=>255),
 			array('modified', 'safe'),
 			// The following rule is used by search().
@@ -100,19 +100,19 @@ class JabatanFu extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('nama',$this->nama,true);
 		$criteria->compare('keterangan',$this->keterangan,true);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('level',$this->level);
-		$criteria->compare('lft',$this->lft);
-		$criteria->compare('rgt',$this->rgt);
-		$criteria->compare('root',$this->root);
-		$criteria->compare('parent_id',$this->parent_id);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('created_user_id',$this->created_user_id);
-		$criteria->compare('modified',$this->modified,true);
+//		$criteria->compare('status',$this->status);
+//		$criteria->compare('level',$this->level);
+//		$criteria->compare('lft',$this->lft);
+//		$criteria->compare('rgt',$this->rgt);
+//		$criteria->compare('root',$this->root);
+//		$criteria->compare('parent_id',$this->parent_id);
+//		$criteria->compare('created',$this->created,true);
+//		$criteria->compare('created_user_id',$this->created_user_id);
+//		$criteria->compare('modified',$this->modified,true);
 
 		$data =  new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-                        'sort' => array ('defaultOrder' => 'root,lft',),
+//                        'sort' => array ('defaultOrder' => 'root,lft',),
 		));
 
 		//app()->session['JabatanFu_records'] = $this->findAll($criteria); 
