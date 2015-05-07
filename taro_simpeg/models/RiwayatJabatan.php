@@ -177,11 +177,11 @@ class RiwayatJabatan extends CActiveRecord {
     }
 
     public function getJabatanStruktural() {
-        if ($this->tipe_jabatan == "struktural") {
+//        if ($this->tipe_jabatan == "struktural") {
             return (!empty($this->JabatanStruktural->nama)) ? $this->JabatanStruktural->nama : '-';
-        } else {
-            return '-';
-        }
+//        } else {
+//            return '-';
+//        }
     }
 
     public function getJabatanFu() {
