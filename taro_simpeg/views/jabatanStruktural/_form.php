@@ -52,7 +52,7 @@
             <label class="control-label">Eselon<span class="required">*</span></label>
             <div class="controls">
                 <?php 
-                    $data= array('0' => '- Eselon -') + CHtml::listData(Eselon::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');                            
+                    $data= array('0' => '- Eselon -') + CHtml::listData(Eselon::model()->findAll(array('order' => 'nama')), 'id', 'nama');                            
                     $this->widget(
                                 'bootstrap.widgets.TbSelect2', array(      
                                     'name' => 'JabatanStruktural[eselon_id]',

@@ -161,6 +161,8 @@ class HonorerController extends Controller {
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
             $model->tempat_lahir = $_POST['Honorer']['tempat_lahir'];
+            $model->gelar_depan = $_POST['Honorer']['gelar_depan'];
+            $model->gelar_belakang = $_POST['Honorer']['gelar_belakang'];
 
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {

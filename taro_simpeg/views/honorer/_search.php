@@ -13,7 +13,7 @@
         ?>                    
         <div class="control-group "><label class="control-label" for="Honorer_pendidikan_terakhir">Pendidikan</label>
         <div class="controls">
-            <?php echo CHtml::dropDownList('Honorer[pendidikan_terakhir]', $model->pendidikan_terakhir, Pegawai::model()->arrJenjangPendidikan(), array('class' => 'span2','empty'=>'- Pendidikan -')); ?>
+            <?php // echo CHtml::dropDownList('Honorer[pendidikan_terakhir]', $model->pendidikan_terakhir, Pegawai::model()->arrJenjangPendidikan(), array('class' => 'span2','empty'=>'- Pendidikan -')); ?>
             <input class="span2 angka" maxlength="4" value="<?php echo $model->tahun_pendidikan;?>" name="Honorer[tahun_pendidikan]" id="Honorer_tahun_pendidikan" placeHolder="Tahun" type="text">
         </div>
         </div>
@@ -61,15 +61,15 @@
                         ))
                     );    
 
-                    $data = array('0'=>'- Jabatan  -')+CHtml::listData(JabatanHonorer::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                    echo $form->select2Row($model, 'jabatan_honorer_id', array(
-                        'asDropDownList' => true,                    
-                        'data' => $data,    
-                        'options' => array(                        
-                            "allowClear" => false,
-                            'width' => '80%',
-                        ))
-                    );     
+//                    $data = array('0'=>'- Jabatan  -')+CHtml::listData(JabatanHonorer::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+//                    echo $form->select2Row($model, 'jabatan_honorer_id', array(
+//                        'asDropDownList' => true,                    
+//                        'data' => $data,    
+//                        'options' => array(                        
+//                            "allowClear" => false,
+//                            'width' => '80%',
+//                        ))
+//                    );     
 
                     echo $form->datepickerRow(
                            $model, 'tmt_jabatan', array(
