@@ -458,6 +458,16 @@ class Pegawai extends CActiveRecord {
     public function getTipe() {
         return ucwords(str_replace("_", " ", $this->tipe_jabatan));
     }
+    public function getTipe_inisial() {
+        if ($this->tipe_jabatan == "fungsional_umum")
+            $result = "FU";
+        elseif ($this->tipe_jabatan == "fungsional_tertentu")
+            $result = "FT";
+        else
+            $result = "Eseleon";
+        
+        return $result;
+    }
 
     public function getJabatanStruktural() {
         return (!empty($this->JabatanStruktural->nama)) ? $this->JabatanStruktural->nama : '-';

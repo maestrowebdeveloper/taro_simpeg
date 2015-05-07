@@ -22,31 +22,31 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             </div>
             <?php
             echo $form->radioButtonListRow($model, 'jenis_kelamin', Pegawai::model()->ArrJenisKelamin());
-            $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'tempat_lahir', 'cityValue' => $model->tempat_lahir, 'disabled' => false, 'width' => '40%', 'label' => 'Tempat Lahir'));
-            echo $form->datepickerRow(
-                    $model, 'tanggal_lahir', array(
-                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                'prepend' => '<i class="icon-calendar"></i>'
-                    )
-            );
-            echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'cols' => 50, 'class' => 'span3'));
+//            $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'tempat_lahir', 'cityValue' => $model->tempat_lahir, 'disabled' => false, 'width' => '40%', 'label' => 'Tempat Lahir'));
+//            echo $form->datepickerRow(
+//                    $model, 'tanggal_lahir', array(
+//                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+//                'prepend' => '<i class="icon-calendar"></i>'
+//                    )
+//            );
+//            echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'cols' => 50, 'class' => 'span3'));
             ?>
         </td>
         <td style="vertical-align:top">
             <?php
-            echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
-            $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'city_id', 'cityValue' => $model->city_id, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
+//            echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
+//            $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'city_id', 'cityValue' => $model->city_id, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
             echo $form->textFieldRow($model, 'hp', array('class' => 'span4 angka', 'style' => 'max-width:500px;width:200px', 'maxlength' => 25, 'prepend' => '+62'));
 
             echo $form->dropDownListRow($model, 'agama', Pegawai::model()->ArrAgama(), array('empty' => '- Agama -'));
-            echo $form->radioButtonListRow($model, 'golongan_darah', Pegawai::model()->ArrGolonganDarah());
+//            echo $form->radioButtonListRow($model, 'golongan_darah', Pegawai::model()->ArrGolonganDarah());
             echo $form->radioButtonListRow($model, 'status_pernikahan', Pegawai::model()->arrStatusPernikahan());
-            echo $form->textFieldRow($model, 'npwp', array('class' => 'span3', 'maxlength' => 50));
-            echo $form->textFieldRow($model, 'bpjs', array('class' => 'span3', 'maxlength' => 50));
+//            echo $form->textFieldRow($model, 'npwp', array('class' => 'span3', 'maxlength' => 50));
+//            echo $form->textFieldRow($model, 'bpjs', array('class' => 'span3', 'maxlength' => 50));
             ?>                    
         </td>
     </tr>
-    <tr style="background:#cca;border-top:1px solid #ccc">
+    <tr>
         <td style="vertical-align:top">
             <?php
             $data = array('0' => '- Kedudukan -') + CHtml::listData(Kedudukan::model()->findAll(), 'id', 'nama');
@@ -69,19 +69,19 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 ))
             );
 
-            echo $form->datepickerRow(
-                    $model, 'tmt_cpns', array(
-                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                'prepend' => '<i class="icon-calendar"></i>'
-                    )
-            );
-
-            echo $form->datepickerRow(
-                    $model, 'tmt_pns', array(
-                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                'prepend' => '<i class="icon-calendar"></i>',
-                    )
-            );
+//            echo $form->datepickerRow(
+//                    $model, 'tmt_cpns', array(
+//                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+//                'prepend' => '<i class="icon-calendar"></i>'
+//                    )
+//            );
+//
+//            echo $form->datepickerRow(
+//                    $model, 'tmt_pns', array(
+//                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+//                'prepend' => '<i class="icon-calendar"></i>',
+//                    )
+//            );
             ?>
         </td>
         <td style="vertical-align:top">
@@ -189,12 +189,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
             <?php // echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp')); ?>
             <?php
-            echo $form->datepickerRow(
-                    $model, 'tmt_pensiun', array(
-                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                'prepend' => '<i class="icon-calendar"></i>'
-                    )
-            );
+//            echo $form->datepickerRow(
+//                    $model, 'tmt_pensiun', array(
+//                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+//                'prepend' => '<i class="icon-calendar"></i>'
+//                    )
+//            );
             ?>
         </td>
     </tr> 

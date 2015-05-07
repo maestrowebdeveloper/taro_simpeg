@@ -60,7 +60,7 @@ class RiwayatJabatan extends CActiveRecord {
             'JabatanFu' => array(self::BELONGS_TO, 'JabatanFu', 'jabatan_fu_id'),
             'JabatanFt' => array(self::BELONGS_TO, 'JabatanFt', 'jabatan_ft_id'),
             'Eselon' => array(self::BELONGS_TO, 'Eselon', 'eselon_id'),
-            'Bidang' => array(self::BELONGS_TO,'JabatanStruktural','bidang_id'),
+//            'Bidang' => array(self::BELONGS_TO,'JabatanStruktural','bidang_id'),
         );
     }
 

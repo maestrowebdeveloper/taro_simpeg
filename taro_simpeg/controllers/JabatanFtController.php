@@ -64,26 +64,15 @@ class JabatanFtController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['JabatanFt'])) {
-            if ($_POST['JabatanFt']['parent_id']) {
-                $child = new JabatanFt;
-                $child->attributes = $_POST['JabatanFt'];
-
-                $root = $model->findByPk($_POST['JabatanFt']['parent_id']);
-                if ($child->appendTo($root))
-                    $this->redirect(array('view', 'id' => $child->id));
-            }else {
-                $model->attributes = $_POST['JabatanFt'];
-                if ($model->saveNode())
-                    $this->redirect(array('view', 'id' => $model->id));
-            }
+            $model->attributes = $_POST['JabatanFt'];
+            if ($model->save())
+                $this->redirect(array('view', 'id' => $model->id));
         }
 
         $this->render('create', array(
             'model' => $model,
         ));
     }
-
-    
 
     /**
      * Updates a particular model.
@@ -97,20 +86,9 @@ class JabatanFtController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['JabatanFt'])) {
-            if ($_POST['JabatanFt']['parent_id']) {
-                $model->attributes = $_POST['JabatanFt'];
-                if ($model->saveNode()) {
-                    $root = $model->findByPk($_POST['JabatanFt']['parent_id']);
-                    $model->moveAsFirst($root);
-                    $this->redirect(array('view', 'id' => $model->id));
-                }
-            } else {
-                $model->attributes = $_POST['JabatanFt'];
-                $model->saveNode();
-                if (!($model->isRoot()))
-                    $model->moveAsRoot();
-                $this->redirect(array('view', 'id' => $model->id));
-            }
+            $model->attributes = $_POST['JabatanFt'];
+            $model->save();
+            $this->redirect(array('view', 'id' => $model->id));
         }
 
         $this->render('update', array(
