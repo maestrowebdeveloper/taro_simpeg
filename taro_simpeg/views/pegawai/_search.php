@@ -100,7 +100,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 <div class="control-group "><label class="control-label" for="Pegawai_jabatan_struktural_id">Jabatan Struktural</label>
                     <div class="controls">
                         <?php
-                        $data = array('0' => '- Jabatan Struktural -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                        $data = array('0' => '- Jabatan Struktural -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'nama')), 'id', 'nama');
                         $this->widget(
                                 'bootstrap.widgets.TbSelect2', array(
                             'name' => 'Pegawai[jabatan_struktural_id]',
@@ -130,7 +130,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 <div class="control-group "><label class="control-label" for="Pegawai_jabatan_fu_id">Fungsional Umum</label>
                     <div class="controls">
                         <?php
-                        $data = array('0' => '- Jabatan Fungsional Umum -') + CHtml::listData(JabatanFu::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                        $data = array('0' => '- Jabatan Fungsional Umum -') + CHtml::listData(JabatanFu::model()->findAll(array('order' => 'nama')), 'id', 'nama');
                         $this->widget(
                                 'bootstrap.widgets.TbSelect2', array(
                             'name' => 'Pegawai[jabatan_fu_id]',
@@ -160,7 +160,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 <div class="control-group "><label class="control-label" for="Pegawai_jabatan_ft_id">Fungsional Tertentu</label>
                     <div class="controls">
                         <?php
-                        $data = array('0' => '- Jabatan Fungsional Tertentu -') + CHtml::listData(JabatanFt::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                        $data = array('0' => '- Jabatan Fungsional Tertentu -') + CHtml::listData(JabatanFt::model()->findAll(array('order' => 'nama')), 'id', 'nama');
                         $this->widget(
                                 'bootstrap.widgets.TbSelect2', array(
                             'name' => 'Pegawai[jabatan_ft_id]',

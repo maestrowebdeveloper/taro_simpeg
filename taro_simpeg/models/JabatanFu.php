@@ -130,22 +130,22 @@ class JabatanFu extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-	public function behaviors() {
-        return array(
-            'nestedSetBehavior' => array(
-                'class' => 'common.extensions.NestedSetBehavior.NestedSetBehavior',
-                'leftAttribute' => 'lft',
-                'rightAttribute' => 'rgt',
-                'levelAttribute' => 'level',
-                'hasManyRoots' => true,
-            ),
-        );
-    }
-    
-    
-    public function getNestedName() {
-        return ($this->level == 1) ? $this->nama : str_repeat("|— ", $this->level - 1) . $this->nama;
-    }
+//	public function behaviors() {
+//        return array(
+//            'nestedSetBehavior' => array(
+//                'class' => 'common.extensions.NestedSetBehavior.NestedSetBehavior',
+//                'leftAttribute' => 'lft',
+//                'rightAttribute' => 'rgt',
+//                'levelAttribute' => 'level',
+//                'hasManyRoots' => true,
+//            ),
+//        );
+//    }
+//    
+//    
+//    public function getNestedName() {
+//        return ($this->level == 1) ? $this->nama : str_repeat("|— ", $this->level - 1) . $this->nama;
+//    }
     
     protected function beforeValidate() {
         if (empty($this->created_user_id))

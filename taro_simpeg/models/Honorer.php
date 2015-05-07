@@ -17,12 +17,12 @@ class Honorer extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nomor_register, nama, unit_kerja_id,tanggal_register, tanggal_lahir', 'required'),
-            array('tempat_lahir,st_peg,status_sk, ket_agama, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_honorer_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
-            array(' unit_kerja_id, jabatan_honorer_id, gaji, created_user_id', 'numerical', 'integerOnly' => true),
+            array('gelar_depan,gelar_belakang,tempat_lahir,st_peg,status_sk, ket_agama, tanggal_lahir, jenis_kelamin, agama, id_jurusan, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_struktural_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
+            array(' unit_kerja_id, jabatan_struktural_id, gaji, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register, foto', 'length', 'max' => 225),
             array('nama', 'length', 'max' => 100),
             array('jenis_kelamin', 'length', 'max' => 11),
-            array('agama, pendidikan_terakhir', 'length', 'max' => 9),
+            array('agama', 'length', 'max' => 9),
             array('tahun_pendidikan, kode_pos', 'length', 'max' => 10),
             array('status_pernikahan', 'length', 'max' => 12),
             array('hp', 'length', 'max' => 25),
@@ -31,7 +31,7 @@ class Honorer extends CActiveRecord {
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id,status_sk, st_peg, nomor_register, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, pendidikan_terakhir, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto, unit_kerja_id, tmt_kontrak, jabatan_honorer_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id,status_sk, st_peg, nomor_register, nama,gelar_depan,gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, id_jurusan, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto, unit_kerja_id, tmt_kontrak, jabatan_struktural_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -42,8 +42,9 @@ class Honorer extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'UnitKerja' => array(self::BELONGS_TO, 'UnitKerja', 'unit_kerja_id'),
-            'JabatanHonorer' => array(self::BELONGS_TO, 'JabatanHonorer', 'jabatan_honorer_id'),
+            'SatuanKerja' => array(self::BELONGS_TO, 'UnitKerja', 'unit_kerja_id'),
+            'Jurusan' => array(self::BELONGS_TO, 'Jurusan', 'id_jurusan'),
+            'UnitKerja' => array(self::BELONGS_TO, 'JabatanStruktural', 'jabatan_struktural_id'),
 //			'TempatLahir' => array(self::BELONGS_TO, 'City', 'tempat_lahir'),
             'City' => array(self::BELONGS_TO, 'City', 'city_id'),
         );
@@ -63,7 +64,7 @@ class Honorer extends CActiveRecord {
             'agama' => 'Agama',
             'st_peg' => 'Status',
             'ket_agama' => 'Keterangan Agama',
-            'pendidikan_terakhir' => 'Pendidikan Terakhir',
+            'id_jurusan' => 'Pendidikan Terakhir',
             'tahun_pendidikan' => 'Tahun Pendidikan',
             'status_pernikahan' => 'Status Pernikahan',
             'alamat' => 'Alamat',
@@ -76,7 +77,7 @@ class Honorer extends CActiveRecord {
             'foto' => 'Foto',
             'unit_kerja_id' => 'Unit Kerja',
             'tmt_kontrak' => 'Tmt Kontrak',
-            'jabatan_honorer_id' => 'Jabatan',
+            'jabatan_struktural_id' => 'Jabatan',
             'tmt_jabatan' => 'Tmt Jabatan',
             'tmt_akhir_kontrak' => 'Tmt Akhir Kontrak',
             'gaji' => 'Gaji',
@@ -140,7 +141,7 @@ class Honorer extends CActiveRecord {
         $criteria->compare('tanggal_lahir', $this->tanggal_lahir, true);
         $criteria->compare('jenis_kelamin', $this->jenis_kelamin, true);
         $criteria->compare('agama', $this->agama, true);
-        $criteria->compare('pendidikan_terakhir', $this->pendidikan_terakhir, true);
+        $criteria->compare('id_jurusan', $this->id_jurusan, true);
         $criteria->compare('tahun_pendidikan', $this->tahun_pendidikan, true);
         $criteria->compare('status_pernikahan', $this->status_pernikahan, true);
         $criteria->compare('alamat', $this->alamat, true);
@@ -154,7 +155,7 @@ class Honorer extends CActiveRecord {
         $criteria->compare('foto', $this->foto, true);
         $criteria->compare('unit_kerja_id', $this->unit_kerja_id);
         $criteria->compare('tmt_kontrak', $this->tmt_kontrak, true);
-        $criteria->compare('jabatan_honorer_id', $this->jabatan_honorer_id);
+        $criteria->compare('jabatan_struktural_id', $this->jabatan_struktural_id);
         $criteria->compare('tmt_jabatan', $this->tmt_jabatan, true);
         $criteria->compare('tmt_akhir_kontrak', $this->tmt_akhir_kontrak, true);
         $criteria->compare('gaji', $this->gaji);
@@ -251,6 +252,7 @@ class Honorer extends CActiveRecord {
 
         return $bulan;
     }
+     
 
     public function getTagProfil() {
         $data = '
@@ -261,7 +263,7 @@ class Honorer extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . $this->nama . '
+                        ' . $this->namaGelar . '
                     </div>
                 </div>  
 
@@ -271,7 +273,7 @@ class Honorer extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . ucwords(strtolower($this->pendidikan_terakhir)) . ', Tahun : ' . $this->tahun_pendidikan . '
+                        ' . ucwords(strtolower($this->pendidikan)) . ', Tahun : ' . $this->tahun_pendidikan . '
                     </div>
                 </div>  
 
@@ -401,11 +403,11 @@ class Honorer extends CActiveRecord {
                 </div>      
                 <div class="row-fluid">
                     <div class="span3" style="text-align:left">
-                        <b>Unit Kerja</b>
+                        <b>Satuan Kerja</b>
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . $this->unitKerja . '
+                        ' . $this->satuanKerja . '
                     </div>
                 </div>  
                 <div class="row-fluid">
@@ -414,7 +416,7 @@ class Honorer extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . $this->jabatan . ', TMT :  ' . $this->tmtJabatan . '
+                        ' . $this->unitKerja . ', TMT :  ' . $this->tmtJabatan . '
                     </div>
                 </div> 
                 <div class="row-fluid">
@@ -470,6 +472,9 @@ class Honorer extends CActiveRecord {
     public function getUnitKerja() {
         return (!empty($this->UnitKerja->nama)) ? $this->UnitKerja->nama : '-';
     }
+    public function getSatuanKerja() {
+        return (!empty($this->SatuanKerja->nama)) ? $this->SatuanKerja->nama : '-';
+    }
 
     public function getTempatLahir() {
         return (!empty($this->TempatLahir->name)) ? $this->TempatLahir->name : '-';
@@ -483,9 +488,9 @@ class Honorer extends CActiveRecord {
         return (!empty($this->City->name)) ? $this->City->name : '-';
     }
 
-    public function getJabatan() {
-        return (!empty($this->JabatanHonorer->nama)) ? $this->JabatanHonorer->nama : '-';
-    }
+//    public function getJabatan() {
+//        return (!empty($this->JabatanHonorer->nama)) ? $this->JabatanHonorer->nama : '-';
+//    }
 
     public function getTmtJabatan() {
         return date('d M Y', strtotime($this->tmt_jabatan));
@@ -517,6 +522,14 @@ class Honorer extends CActiveRecord {
 
     public function getTtl() {
         return ucwords(strtolower($this->tempat_lahir)) . ', ' . date('d M Y', strtotime($this->tanggal_lahir));
+    }
+    public function getPendidikan() {'';
+        return (!empty($this->Jurusan->Name)) ? $this->Jurusan->tingkat .' - '. $this->Jurusan->Name : '-';
+    }
+    public function getNamaGelar() {
+        $depan = !empty($this->gelar_depan) ? $this->gelar_depan . '. ' : '';
+        $belakang = !empty($this->gelar_belakang) ? ', ' . $this->gelar_belakang : '';
+        return $depan . $this->nama . $belakang;
     }
 
 }

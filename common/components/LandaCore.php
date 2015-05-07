@@ -488,11 +488,15 @@ class LandaCore extends CApplicationComponent {
         $today = $localtime['mday']."-".$localtime['mon']."-".$localtime['year'];
         $dob_a = explode("-", $dob);
         $today_a = explode("-", $today);
-        $dob_d = $dob_a[0];$dob_m = $dob_a[1];$dob_y = $dob_a[2];
-        $today_d = $today_a[0];$today_m = $today_a[1];$today_y = $today_a[2];
+        $dob_d = $dob_a[0];
+        $dob_m = $dob_a[1];
+        $dob_y = $dob_a[2];
+        $today_d = $today_a[0];
+        $today_m = $today_a[1];
+        $today_y = $today_a[2];
         $years = $today_y - $dob_y;
         $months = $today_m - $dob_m;
-        if ($today_m.$today_d < $dob_m.$dob_d) 
+        if ($today_m < $dob_m && $today_d < $dob_d) 
         {
             $years--;
             $months = 12 + $today_m - $dob_m;

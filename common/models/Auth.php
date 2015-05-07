@@ -119,8 +119,8 @@ class Auth extends CActiveRecord {
                 )),
             array('visible' => landa()->checkAccess('golongan', 'r'), 'label' => '<span class="icon16  eco-archive-2 "></span>Data Master', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
                     array('visible' => landa()->checkAccess('golongan', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Pangkat / Golru', 'url' => url('/golongan'), 'auth_id' => 'golongan'),
-                    array('visible' => landa()->checkAccess('unitKerja', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Unit Kerja', 'url' => url('/unitKerja'), 'auth_id' => 'unitKerja'),
-                    array('visible' => landa()->checkAccess('jabatanStruktural', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Jab. Struktural', 'url' => url('/jabatanStruktural'), 'auth_id' => 'jabatanStruktural'),
+                    array('visible' => landa()->checkAccess('unitKerja', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Satuan Kerja', 'url' => url('/unitKerja'), 'auth_id' => 'unitKerja'),
+                    array('visible' => landa()->checkAccess('jabatanStruktural', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Unit Kerja', 'url' => url('/jabatanStruktural'), 'auth_id' => 'jabatanStruktural'),
                     array('visible' => landa()->checkAccess('jabatanFu', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Jab. Fung. Umum', 'url' => url('/jabatanFu'), 'auth_id' => 'jabatanFu'),
                     array('visible' => landa()->checkAccess('jabatanFt', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Jab. Fung. Tertentu', 'url' => url('/jabatanFt'), 'auth_id' => 'jabatanFt'),
                     array('visible' => landa()->checkAccess('jabatanHonorer', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Jab. Pegawai Honorer', 'url' => url('/jabatanHonorer'), 'auth_id' => 'jabatanHonorer'),

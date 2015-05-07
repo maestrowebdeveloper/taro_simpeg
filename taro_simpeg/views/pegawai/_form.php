@@ -291,7 +291,6 @@
                                 </div>
                             </div>
                             <?php
-
 //                            $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
 //                            echo $form->select2Row($model, 'unit_kerja_id', array(
 //                                'asDropDownList' => true,
@@ -398,7 +397,7 @@
                                     <?php
                                     echo $form->hiddenField($model, 'riwayat_pangkat_id', array('class' => 'span5', 'maxlength' => 100));
                                     ?>
-                                    <input class="span4" disabled value="<?php echo $model->pangkat; ?>"  id="nama_pangkat" placeHolder="" type="text">
+                                    <input class="span4" disabled value="<?php echo $model->Pangkat->golongan; ?>"  id="nama_pangkat" placeHolder="" type="text">
                                     <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
                                         <input class="span10"  disabled maxlength="4" id="tmtPangkat" value="<?php echo $model->tmtPangkat; ?>"  type="text">
                                     </div>                                    
@@ -420,20 +419,7 @@
                                     <?php } ?>
                                 </div>
                             </div>
-                            <div class="control-group "><label class="control-label" for="Pegawai_golongan_id">Gaji Sekarang</label>
-                                <div class="controls">
-                                    <?php
-                                    echo $form->hiddenField($model, 'riwayat_gaji_id', array('class' => 'span5', 'maxlength' => 100));
-                                    ?>
-                                    <input class="span4" disabled value="<?php echo $model->gajiPegawai; ?>"  id="riwayatGaji" placeHolder="" type="text">                                    
-                                    <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
-                                        <input class="span10"  disabled maxlength="4" id="tmtMulai" value="<?php echo $model->tmtGaji; ?>"  type="text">
-                                    </div> 
-                                    <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
-                                        <a class="btn blue pilihGaji" pegawai="<?php echo $model->id; ?>;" id="pilihGaji"><i class="wpzoom-search blue"></i> Riwayat Gaji</a>
-                                    <?php } ?>
-                                </div>
-                            </div>
+                            
 
                             <div class="control-group "><label class="control-label" for="Pegawai_golongan_id">Jabatan</label>
                                 <div class="controls">                                    
@@ -444,14 +430,14 @@
                                 </div>
                             </div>
 
-                            <div class="control-group "><label class="control-label" for="Pegawai_bidang_id">Bidang</label>
+                            <div class="control-group "><label class="control-label" for="Pegawai_bidang_id">Unit Kerja</label>
                                 <div class="controls">                                    
                                     <input class="span4" disabled value="<?php echo $model->riwayatBidangJabatan; ?>"  id="riwayatBidangJabatan" placeHolder="" type="text">
                                 </div>
                             </div>
 
                             <?php
-                            if (isset($model->perubahan_masa_kerja) and ! empty($model->perubahan_masa_kerja)) {
+                            if (isset($model->perubahan_masa_kerja) and !empty($model->perubahan_masa_kerja)) {
                                 $perubahan = json_decode($model->perubahan_masa_kerja, false);
                             }
                             ?>
@@ -490,6 +476,20 @@
                                     <input type="hidden" name="Pegawai[id]" value="<?php echo isset($model->id) ? $model->id : ''; ?>">
                                     <br><br>
                                     Gunakan tanda (<b>-</b>) untuk mengurangi tahun maupun bulan
+                                </div>
+                            </div>
+                            <div class="control-group "><label class="control-label" for="Pegawai_golongan_id">Gaji Sekarang</label>
+                                <div class="controls">
+                                    <?php
+                                    echo $form->hiddenField($model, 'riwayat_gaji_id', array('class' => 'span5', 'maxlength' => 100));
+                                    ?>
+                                    <input class="span4" disabled value="<?php echo $model->gajiPegawai; ?>"  id="riwayatGaji" placeHolder="" type="text">                                    
+                                    <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
+                                        <input class="span10"  disabled maxlength="4" id="tmtMulai" value="<?php echo $model->tmtGaji; ?>"  type="text">
+                                    </div> 
+                                    <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
+                                        <a class="btn blue pilihGaji" pegawai="<?php echo $model->id; ?>;" id="pilihGaji"><i class="wpzoom-search blue"></i> Riwayat Gaji</a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -784,7 +784,7 @@ $this->beginWidget(
             url: "<?php echo url('pegawai/getMasaKerja') ?> ",
             type: "POST",
             data: {tmt_cpns: $("#Pegawai_tmt_cpns").val(), tahun: $("#kalkulasiTahun").val(), bulan: $("#kalkulasiBulan").val()},
-            success: function (data) {
+            success: function(data) {
                 obj = JSON.parse(data);
                 $("#masaKerjaTahun").val(obj.tahun);
                 $("#masaKerjaBulan").val(obj.bulan);
@@ -792,17 +792,17 @@ $this->beginWidget(
         });
     }
 
-    $("#viewTab").click(function () {
+    $("#viewTab").click(function() {
         $("#report").hide();
         $("#tabView").show();
     });
 
-    $("#viewFull").click(function () {
+    $("#viewFull").click(function() {
         $("#report").show();
         $("#tabView").hide();
     });
 
-    $("#Pegawai_nip").focusout(function () {
+    $("#Pegawai_nip").focusout(function() {
         var value = $(this).val();
         if (value.length < 18) {
             $(".nipError").show();
@@ -821,16 +821,16 @@ $this->beginWidget(
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
-        $("#myTab a").click(function (e) {
+        $("#myTab a").click(function(e) {
             e.preventDefault();
             $(this).tab("show");
         });
-        $("#viewTab").click(function () {
+        $("#viewTab").click(function() {
             $("#report").hide();
             $("#tabView").show();
         });
 
-        $("#viewFull").click(function () {
+        $("#viewFull").click(function() {
             $("#report").show();
             $("#tabView").hide();
         });
@@ -842,62 +842,62 @@ $this->beginWidget(
             url: "<?php echo url('pegawai/getPensiun') ?> ",
             type: "POST",
             data: {tanggal_lahir: tanggal, riwayatJabatan: jabatan},
-            success: function (data) {
+            success: function(data) {
                 $("#Pegawai_tmt_pensiun").val(data);
-                alert(tanggal + " id " + jabatan);
-                alert(data);
+//                alert(tanggal + " id " + jabatan);
+//                alert(data);
             }
         });
     }
-    $(".pilihPendidikan").click(function () {
+    $(".pilihPendidikan").click(function() {
         $.ajax({
             url: "<?php echo url('pegawai/getTablePendidikan'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function (data) {
+            success: function(data) {
                 $(".modal-body").html(data);
             }
         });
         $("#modalForm").modal("show");
     });
 
-    $(".pilihPangkat").click(function () {
+    $(".pilihPangkat").click(function() {
         $.ajax({
             url: "<?php echo url('pegawai/getTablePangkat'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function (data) {
+            success: function(data) {
                 $(".modal-body").html(data);
             }
         });
         $("#modalForm").modal("show");
     });
 
-    $(".pilihJabatan").click(function () {
+    $(".pilihJabatan").click(function() {
         $.ajax({
             url: "<?php echo url('pegawai/getTableJabatan'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function (data) {
+            success: function(data) {
                 $(".modal-body").html(data);
             }
         });
         $("#modalForm").modal("show");
     });
-    $(".pilihGaji").click(function () {
+    $(".pilihGaji").click(function() {
         $.ajax({
             url: "<?php echo url('pegawai/getTableGaji'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function (data) {
+            success: function(data) {
                 $(".modal-body").html(data);
             }
         });
         $("#modalForm").modal("show");
     });
-    $(function () {
+    $(function() {
 
-        $('#Pegawai_kedudukan_id').change(function () {
+        $('#Pegawai_kedudukan_id').change(function() {
             if ($('#Pegawai_kedudukan_id').val() == '1') {
                 $("#Pegawai_keterangan").parent().parent().attr("style", "display:none");
                 $('#Pegawai_keterangan').attr("value", "");
@@ -909,7 +909,7 @@ $this->beginWidget(
             }
         });
     });
-    $("body").on("click", ".radio", function () {
+    $("body").on("click", ".radio", function() {
 
         var id = $(this).find("input").val();
         if (id == "Lainnya") {

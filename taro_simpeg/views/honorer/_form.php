@@ -29,7 +29,7 @@ if ($model->isNewRecord == true) {
     <div class='report' id="report" style="display:none">
         <table class="table">
             <tr>
-                <th style="background:beige;text-align:center !important" colspan="2"><h3 style="margin:0px">PROFIL <?php echo strtoupper($model->nama); ?></h3></th>
+                <th style="background:beige;text-align:center !important" colspan="2"><h3 style="margin:0px">PROFIL <?php echo strtoupper($model->namaGelar); ?></h3></th>
             </tr>
             <tr>
                 <td style="text-align:left" class="span3">            
@@ -118,10 +118,54 @@ if ($model->isNewRecord == true) {
                     <div class="span9" style="margin-left: 0px;">                                                
                         <?php
                         echo $form->textFieldRow($model, 'nama', array('class' => 'span5', 'maxlength' => 100));
-                        ?>                    
-                        <div class="control-group "><label class="control-label" for="Honorer_pendidikan_terakhir">Pendidikan</label>
+                        ?> 
+                        <div class="control-group "><label class="control-label" for="Pegawai_gelar_depan">Gelar</label>
+                                <div class="controls">
+                                    <input class="span2" maxlength="25" value="<?php echo $model->gelar_depan; ?>" name="Honorer[gelar_depan]" id="Honorer_gelar_depan" placeHolder="Depan" type="text">
+                                    <input class="span2" maxlength="25" value="<?php echo $model->gelar_belakang; ?>" name="Honorer[gelar_belakang]" id="Honorer_gelar_belakang" placeHolder="Belakang" type="text">
+                                </div>
+                            </div>
+                        <?php
+                        $idpendidikan = isset($model->Jurusan->id) ? $model->Jurusan->id : 0;
+                        $pendidikan = isset($model->Jurusan->Name) ? $model->Jurusan->Name : '';
+                        echo $form->select2Row($model, 'id_jurusan', array(
+                            'asDropDownList' => false,
+//                    'data' => $data,
+//                    'value' => $model->Kota->name,
+                            'options' => array(
+                                'placeholder' => t('choose', 'global'),
+                                'allowClear' => true,
+                                'width' => '400px',
+                                'minimumInputLength' => '3',
+                                'ajax' => array(
+                                    'url' => Yii::app()->createUrl('pegawai/getJurusanTingkat'),
+                                    'dataType' => 'json',
+                                    'data' => 'js:function(term, page) { 
+                                                        return {
+                                                            q: term 
+                                                        }; 
+                                                    }',
+                                    'results' => 'js:function(data) { 
+                                                        return {
+                                                            results: data
+                                                            
+                                                        };
+                                                    }',
+                                ),
+                                'initSelection' => 'js:function(element, callback) 
+                            { 
+                            callback({id: '.$idpendidikan.', text: "' . $pendidikan . '" });
+                             
+                                  
+                                  
+                            }',
+                            ),
+                                )
+                        );
+                        ?>
+                        <div class="control-group "><label class="control-label" for="Honorer_pendidikan_terakhir">Tahun</label>
                             <div class="controls">
-                                <?php echo CHtml::dropDownList('Honorer[pendidikan_terakhir]', $model->pendidikan_terakhir, Pegawai::model()->arrJenjangPendidikan(), array('class' => 'span2')); ?>
+                                
                                 <input class="span2 angka" maxlength="4" value="<?php echo $model->tahun_pendidikan; ?>" name="Honorer[tahun_pendidikan]" id="Honorer_tahun_pendidikan" placeHolder="Tahun" type="text">
                             </div>
                         </div>
@@ -291,8 +335,8 @@ if ($model->isNewRecord == true) {
                         ))
                     );
 
-                $data = array('0' => '- Jabatan  -') + CHtml::listData(JabatanHonorer::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                echo $form->select2Row($model, 'jabatan_honorer_id', array(
+                $data = array('0' => '- Jabatan  -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                echo $form->select2Row($model, 'jabatan_struktural_id', array(
                     'asDropDownList' => true,
                     'data' => $data,
                     'options' => array(
@@ -300,23 +344,9 @@ if ($model->isNewRecord == true) {
                         'width' => '50%',
                     ))
                 );
+                echo $form->textFieldRow($model, 'st_peg', array('class' => 'span5'));
                 ?>
-                <div class="control-group ">
-                    <label class="control-label" for="Honorer_st_peg">Status</label>
-                    <div class="controls">
-                        <?php
-                        $data = array('0' => '- Pilih Status -') + Honorer::model()->arrStatus();
-                        $this->widget(
-                                'bootstrap.widgets.TbSelect2', array(
-                            'name' => 'Honorer[st_peg]',
-                            'data' => $data,
-                            'value' => $model->st_peg,
-                            'options' => array(
-                                'width' => '40%;margin:0px;text-align:left',
-                        )));
-                        ?>
-                    </div>
-                </div>
+                
                 <?php
                 echo $form->datepickerRow(
                         $model, 'tmt_jabatan', array(

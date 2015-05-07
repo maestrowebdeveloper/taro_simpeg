@@ -11,6 +11,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'results',
     'enableAjaxValidation' => false,
     'method' => 'post',
+    'action' => url("pegawai/rekapJabfung?cari=1"),
     'type' => 'horizontal',
     'htmlOptions' => array(
         'enctype' => 'multipart/form-data'
@@ -74,8 +75,56 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 
 <?php
-if ( !empty($_POST)) {
-    $this->renderPartial('_rekapJabfung', array('model' => $model));
+//if ( !empty($_POST)) {
+//    $this->renderPartial('_rekapJabfung', array('model' => $model));
+//}
+?>
+<?php
+if ( isset($_GET['cari'])) {
+$this->widget('bootstrap.widgets.TbGridView', array(
+    'id' => 'daftar-pegawai-grid',
+    'dataProvider' => $model->search3(),
+    'type' => 'striped bordered condensed',
+    'template' => '{summary}{pager}{items}{pager}',
+    'columns' => array(
+        'nama',
+        array(
+            'name' => 'nip',
+            'type' => 'raw',
+            'value' => '$data->nip',
+            'htmlOptions' => array('style' => 'text-align:center'),
+        ),
+        
+        array(
+            'name' => 'golongan_id',
+            'type' => 'raw',
+            'header'=>'Golongan',
+            'value' => '$data->golongan',
+            'htmlOptions' => array('style' => 'text-align:center'),
+        ),
+        array(
+            'name' => 'jabatan_fu_id',
+            'type' => 'raw',
+            'header'=>'Jabatan Fungsional',
+            'value' => '$data->jabatanFu',
+            'htmlOptions' => array('style' => 'text-align:center'),
+        ),
+        array(
+            'name' => 'riwayat_pangkat_id',
+            'type' => 'raw',
+            'value' => '$data->pangkat',
+            'htmlOptions' => array('style' => 'text-align:center'),
+        ),
+        array(
+            'name' => 'unit_kerja_id',
+            'type' => 'raw',
+            'header'=>'Satuan Kerja',
+            'value' => '$data->unitKerja',
+            'htmlOptions' => array('style' => 'text-align:center'),
+        ),
+        
+    ),
+));
 }
 ?>
 

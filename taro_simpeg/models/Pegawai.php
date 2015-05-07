@@ -227,7 +227,7 @@ class Pegawai extends CActiveRecord {
             $criteria2->compare('kedudukan_id', $this->kedudukan_id);
         if (!empty($this->tipe_jabatan))
             $criteria2->compare('tipe_jabatan', $this->tipe_jabatan);
-        if (isset($_POST['jurusan']) and ! empty($_POST['jurusan'])) {
+        if (isset($_POST['jurusan']) and !empty($_POST['jurusan'])) {
             $criteria2->compare('RiwayatPendidikan.id_jurusan', $_POST['id_jurusan']);
         }
         $criteria2->addCondition('t.id = RiwayatPendidikan.pegawai_id');
@@ -237,6 +237,89 @@ class Pegawai extends CActiveRecord {
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria2,
+            'sort' => false,
+        ));
+
+        return $data;
+    }
+
+    //// untuk rekap jabatan fungsional
+    public function search3() {
+        $criteria3 = new CDbCriteria();
+        $criteria3->with = array('JabatanFt', 'JabatanFu','UnitKerja');
+        $criteria3->together = true;
+        if (!empty($this->unit_kerja_id) && $this->unit_kerja_id > 0)
+            $criteria3->compare('t.unit_kerja_id', $this->unit_kerja_id);
+        if (!empty($_POST['type'])) {
+            if ($_POST['type'] == 'ft') {
+                $ft = array();
+                $tertentu = JabatanFt::model()->findAll();
+                foreach ($tertentu as $data) {
+                    $ft[] = $data->id;
+                }
+                $criteria3->addCondition('jabatan_ft_id IN (' . implode(',', $ft) . ')');
+//                $criteria3 .= ' and jabatan_ft_id IN (' . implode(',', $ft) . ') ';
+            }
+
+            if ($_POST['type'] == 'fu') {
+                $fu = array();
+                $umum = JabatanFu::model()->findAll();
+                foreach ($umum as $data) {
+                    $fu[] = $data->id;
+                }
+                $criteria3->addCondition('jabatan_fu_id IN (' . implode(',', $fu) . ')');
+//                $criteria3 .= ' and jabatan_fu_id IN (' . implode(',', $fu) . ') ';
+            }
+
+            if ($_POST['type'] == 'guru') {
+                $guru = array();
+                $sGuru = JabatanFt::model()->findAll(array('condition' => 'type="guru"'));
+                foreach ($sGuru as $data) {
+                    $guru[] = $data->id;
+                }
+                $criteria3->addCondition('jabatan_ft_id IN (' . implode(',', $guru) . ')');
+//                $criteria3 .= ' and jabatan_ft_id IN (' . implode(',', $guru) . ') ';
+            }
+
+            if ($_POST['type'] == 'kesehatan') {
+                $kesehatan = array();
+                $sKesehatan = JabatanFt::model()->findAll(array('condition' => 'type="kesehatan"'));
+                foreach ($sKesehatan as $data) {
+                    $kesehatan[] = $data->id;
+                }
+                $criteria3->addCondition('jabatan_ft_id IN (' . implode(',', $kesehatan) . ')');
+//                $criteria3 .= ' and jabatan_ft_id IN (' . implode(',', $kesehatan) . ') ';
+            }
+        }
+        $data = new CActiveDataProvider($this, array(
+            'criteria' => $criteria3,
+            'sort' => false,
+        ));
+
+        return $data;
+    }
+
+    /// search untuk rekap eselon
+    public function searchEselon() {
+        $criteria3 = new CDbCriteria();
+        $criteria3->with = array('JabatanStruktural','UnitKerja');
+        $criteria3->together = true;
+        if (!empty($this->unit_kerja_id) && $this->unit_kerja_id > 0)
+            $criteria3->compare('t.unit_kerja_id', $this->unit_kerja_id);
+
+         if (!empty($this->jabatan_struktural_id) && $this->jabatan_struktural_id > 0) {
+            $jbt_id = array();
+            $jbt = JabatanStruktural::model()->findAll(array('condition' => 'eselon_id=' . $_POST['eselon_id']));
+            if (!empty($jbt)) {
+                foreach ($jbt as $a) {
+                    $jbt_id[] = $a->id;
+                }
+                $criteria3->addCondition('t.jabatan_struktural_id IN (' . implode(',', $jbt_id) . ')');
+//                $criteria .= ' and jabatan_struktural_id IN (' . implode(',', $jbt_id) . ') ';
+            }
+        }
+         $data = new CActiveDataProvider($this, array(
+            'criteria' => $criteria3,
             'sort' => false,
         ));
 
@@ -306,6 +389,7 @@ class Pegawai extends CActiveRecord {
     public function getRiwayatTipeJabatan() {
         return (!empty($this->RiwayatJabatan->tipe)) ? $this->RiwayatJabatan->tipe : '-';
     }
+   
 
     public function getRiwayatNamaJabatan() {
         return (!empty($this->RiwayatJabatan->jabatanPegawai)) ? $this->RiwayatJabatan->jabatanPegawai : '-';
@@ -332,7 +416,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getPendidikanTerakhir() {
-        return (!empty($this->Pendidikan->jenjang_pendidikan)) ? $this->Pendidikan->jenjang_pendidikan : '-';
+        return (!empty($this->Pendidikan->Jurusan->tingkat)) ? $this->Pendidikan->Jurusan->tingkat : '-';
     }
 
     public function getPendidikanTahun() {
@@ -426,19 +510,21 @@ class Pegawai extends CActiveRecord {
     public function getMasaKerja() {
         if (empty($this->tmt_cpns)) {
             return '';
-        } else
+        }
+        else
             return landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)));
     }
 
     public function getMasaKerjaTahun() {
-        if (isset($this->perubahan_masa_kerja) and ! empty($this->perubahan_masa_kerja)) {
+        if (isset($this->perubahan_masa_kerja) and !empty($this->perubahan_masa_kerja)) {
             $perubahan = json_decode($this->perubahan_masa_kerja, false);
         }
 
         $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun * -1 : 0;
+        $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan * -1 : 0;
         if ($this->tmt_cpns != NULL and $this->tmt_cpns != "0000-00-00") {
             $date = explode("-", $this->tmt_cpns);
-            $tmt = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $perubahanTahun);
+            $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0] + $perubahanTahun);
             $tmt_cpns = date("Y-m-d", $tmt);
         } else {
             $tmt_cpns = date("Y-m-d");
@@ -446,22 +532,23 @@ class Pegawai extends CActiveRecord {
 
         if (empty($this->tmt_cpns)) {
             $tahun = '';
-        } else
+        }
+        else
             $tahun = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true));
 
         return $tahun;
     }
 
     public function getMasaKerjaBulan() {
-        if (isset($this->perubahan_masa_kerja) and ! empty($this->perubahan_masa_kerja)) {
+        if (isset($this->perubahan_masa_kerja) and !empty($this->perubahan_masa_kerja)) {
             $perubahan = json_decode($this->perubahan_masa_kerja, false);
         }
-
+        $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun * -1 : 0;
         $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan * -1 : 0;
 
         if ($this->tmt_cpns != NULL and $this->tmt_cpns != "0000-00-00") {
             $date = explode("-", $this->tmt_cpns);
-            $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0]);
+            $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0] + $perubahanTahun);
             $tmt_cpns = date("Y-m-d", $tmt);
         } else {
             $tmt_cpns = date("Y-m-d");
@@ -469,7 +556,8 @@ class Pegawai extends CActiveRecord {
 
         if (empty($this->tmt_cpns)) {
             $bulan = '';
-        } else
+        }
+        else
             $bulan = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true));
 
         return $bulan;
