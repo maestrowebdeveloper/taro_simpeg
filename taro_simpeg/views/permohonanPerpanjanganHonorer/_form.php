@@ -131,7 +131,7 @@
             $jenis_kelamin = (!empty($model->Honorer->jenis_kelamin)) ? $model->Honorer->jenis_kelamin : '';
             $tempat_lahir = (!empty($model->Honorer->tempat_lahir)) ? $model->Honorer->tempat_lahir : '';
             $tanggal_lahir = (!empty($model->Honorer->tanggal_lahir)) ? $model->Honorer->tanggal_lahir : '';
-            $pendidikan_terakhir = (!empty($model->Honorer->pendidikan_terakhir)) ? $model->Honorer->pendidikan_terakhir : '';
+            $pendidikan_terakhir = (!empty($model->Honorer->pendidikan)) ? $model->Honorer->pendidikan : '';
             $alamat = (!empty($model->Honorer->alamat)) ? $model->Honorer->alamat : '';
             ?>
             <div class="control-group "><label  class="control-label">Unit Kerja</label><div class="controls">

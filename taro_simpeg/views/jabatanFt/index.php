@@ -90,7 +90,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'name' => 'nama',
-            'value' => '$data->nestedname',
+            'value' => '$data->nama',
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

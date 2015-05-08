@@ -11,7 +11,7 @@
 			<tr>
 				<th>UNIT KERJA</th>							
 				<?php 
-					foreach ($data as $key => $value) {
+					foreach ($arr as $key) {
 						echo '<th>'.strtoupper($key).'</th>';
 					}
 					echo '<th>JUMLAH</th>';
@@ -19,7 +19,22 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php 		
+		<?php 	
+                if($berdasarkan == 'all'){
+                     foreach($unitKerja as $unit => $aa){
+                    	echo '<tr>';
+                           
+			echo '<td>'.$aa->nama.'</td>';	
+                            
+			$total = 0;
+			foreach ($arrAgama as $key => $value) {
+				echo '<td>'.$data[$aa->id][$value].'</td>';	
+				$total += $data[$aa->id][$value];
+			}
+			echo '<td>'.$total.'</td>';	
+		echo '</tr>';
+                     }
+                }else{
 		echo '<tr>';
 			echo '<td>'.$unitKerja.'</td>';	
 			$total = 0;
@@ -29,6 +44,7 @@
 			}
 			echo '<td>'.$total.'</td>';	
 		echo '</tr>';
+                }
 		?>
 		</tbody>
 	</table>

@@ -27,7 +27,7 @@ $this->beginWidget('zii.widgets.CPortlet', array(
 $this->widget('bootstrap.widgets.TbMenu', array(
     'type' => 'pills',
     'items' => array(
-        array('label' => 'Tambah', 'icon' => 'icon-plus', 'url' => Yii::app()->controller->createUrl('create'), 'linkOptions' => array(),'visible'=>landa()->checkAccess('pegawai', 'c')),
+        array('label' => 'Tambah', 'icon' => 'icon-plus', 'url' => Yii::app()->controller->createUrl('create'), 'linkOptions' => array(), 'visible' => landa()->checkAccess('pegawai', 'c')),
         array('label' => 'List Data', 'icon' => 'icon-th-list', 'url' => Yii::app()->controller->createUrl('index'), 'active' => true, 'linkOptions' => array()),
         array('label' => 'Pencarian', 'icon' => 'icon-search', 'url' => '#', 'linkOptions' => array('class' => 'search-button')),
         array('label' => 'Export ke Excel', 'icon' => 'icon-download', 'url' => Yii::app()->controller->createUrl('GenerateExcel'), 'linkOptions' => array('target' => '_blank'), 'visible' => true),
@@ -93,21 +93,31 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'header' => 'Foto',
             'type' => 'raw',
             'value' => '"$data->smallFoto"',
-            'htmlOptions' => array('style' => 'text-align: center; width:180px;text-align:center;width:120px')
+            'htmlOptions' => array('style' => 'text-align: center; width:60px;')
         ),
-        'nip',
+        array(
+            'name' => 'nip',
+            'header' => 'nip',
+            'type' => 'raw',
+            'htmlOptions' => array('style' => 'text-align: center; width:140px;')
+        ),
         'nama',
         array(
             'name' => 'unit_kerja_id',
-            'value' => '$data->unitKerja',
+            'value' => '(isset($data->RiwayatJabatan->JabatanStruktural->nama)) ? $data->RiwayatJabatan->JabatanStruktural->nama : "-"',
         ),
         array(
-            'name' => 'golongan_id',
-            'value' => '$data->golongan',
+            'header' => 'Gol',
+//            'name' => 'riwayat_pangkat_id',
+            'type' => 'raw',
+            'value' => '(isset($data->Pangkat->Golongan->nama)) ? $data->Pangkat->Golongan->nama : "-"',
+            'htmlOptions' => array('style' => 'text-align: center;')
         ),
         array(
+            'header' => 'Tipe',
             'name' => 'tipe_jabatan',
-            'value' => 'ucwords($data->tipe)',
+            'value' => 'ucwords($data->tipe_inisial)',
+            'htmlOptions' => array('style' => 'text-align: center;')
         ),
         array(
             'name' => 'jabatan_struktural_id',

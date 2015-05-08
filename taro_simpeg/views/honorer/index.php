@@ -100,8 +100,8 @@ $this->endWidget();
             'value' => '$data->unitKerja',            
         ),
 		array(
-            'name' => 'jabatan_honorer_id',
-            'value' => '$data->jabatan',            
+            'name' => 'jabatan_struktural_id',
+            'value' => '$data->unitKerja',            
         ),
         'tmt_kontrak',
         'tmt_akhir_kontrak',	

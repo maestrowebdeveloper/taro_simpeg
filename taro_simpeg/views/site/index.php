@@ -54,10 +54,14 @@ foreach ($grafik as $key => $val) {
                     <?php
                     $this->Widget('common.extensions.highcharts.HighchartsWidget', array(
                         'options' => array(
+                            'title' => array('text' => 'Grafik Rekap Jabatan'),
                             'series' => array(array(
                                     'type' => 'pie',
-                                    'data' =>    $data,
-                                ))
+                                    'data' => $data,
+                                )),
+                            'credits' => array(
+                                'enabled' => false
+                            ),
                         )
                     ));
                     ?>

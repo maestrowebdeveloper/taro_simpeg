@@ -27,7 +27,27 @@
         </thead>
         <tbody>
             <?php
+            if($berdasarkan == 'all'){
+                
+            foreach($unitKerja as $aa){
             echo '<tr>';
+            echo '<td>' . $aa->nama . '</td>';
+            $total = 0;
+            foreach ($eselon as $key => $value) {
+                echo '<td>' . $value . '</td>';
+                $total += $value;
+            }
+            foreach ($tertentu as $key => $value) {
+                echo '<td>' . $value . '</td>';
+                $total += $value;
+            }
+            $total += $umum['umum'];
+            echo '<td>' . $umum['umum'] . '</td>';
+            echo '<td>' . $total . '</td>';
+            echo '</tr>';
+            }
+            }else{
+                echo '<tr>';
             echo '<td>' . $unitKerja . '</td>';
             $total = 0;
             foreach ($eselon as $key => $value) {
@@ -42,6 +62,7 @@
             echo '<td>' . $umum['umum'] . '</td>';
             echo '<td>' . $total . '</td>';
             echo '</tr>';
+            }
             ?>
         </tbody>
     </table>

@@ -432,7 +432,7 @@
 
                             <div class="control-group "><label class="control-label" for="Pegawai_bidang_id">Unit Kerja</label>
                                 <div class="controls">                                    
-                                    <input class="span4" disabled value="<?php echo $model->riwayatBidangJabatan; ?>"  id="riwayatBidangJabatan" placeHolder="" type="text">
+                                    <input class="span4" disabled value="<?php echo $model->unitKerjaJabatan; ?>"  id="riwayatBidangJabatan" placeHolder="" type="text">
                                 </div>
                             </div>
 
