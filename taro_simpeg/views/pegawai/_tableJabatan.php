@@ -31,8 +31,8 @@
 
                 $eselon = '-';
                 $tmt_eselon = '-';
+                $jabatan = $value->JabatanStruktural->nama;
                 if ($value->tipe_jabatan == "struktural") {
-                    $jabatan = $value->JabatanStruktural->nama;
                     $tmt_jabatan = $value->tmt_mulai;
                     $eselon = (!empty($value->JabatanStruktural->Eselon->nama)) ? $value->JabatanStruktural->Eselon->nama : '-';
                     $tmt_eselon = $value->tmt_eselon;
@@ -43,12 +43,12 @@
                     $jabatan = (isset($value->JabatanFt->nama)) ? $value->JabatanFt->nama : '';
                     $tmt_jabatan = $value->tmt_mulai;
                 }
-                $bidang = isset($value->Bidang->nama) ? $value->Bidang->nama : "-";
+                
                 echo '
                 <tr>
                 <td>' . $value->nomor_register . '</td>
                 <td>' . ucwords($jabatan) . '</td>
-                <td>' . $bidang . '</td>
+                <td>' . $jabatan . '</td>
                 <td>' . $tmt_jabatan . '</td>
                 <td>' . $eselon . '</td>
                 <td>' . $tmt_eselon . '</td>                            
