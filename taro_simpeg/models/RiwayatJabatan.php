@@ -73,7 +73,7 @@ class RiwayatJabatan extends CActiveRecord {
             'nomor_register' => 'Nomor Register',
             'pegawai_id' => 'Pegawai',
             'tipe_jabatan' => 'Tipe Jabatan',
-            'jabatan_struktural_id' => 'Jabatan Struktural',
+            'jabatan_struktural_id' => 'Unit Kerja',
             'jabatan_fu_id' => 'Fungsional Umum',
             'jabatan_ft_id' => 'Fungsional Tertentu',
 //            'nama_jabatan' => 'Nama Jabatan',
