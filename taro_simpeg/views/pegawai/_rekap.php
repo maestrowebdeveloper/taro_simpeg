@@ -7,7 +7,7 @@ if (!empty($_POST['riwayat_jabatan_id'])) {
 
 
     $unitKerja = (!empty($_POST['riwayat_jabatan_id'])) ? UnitKerja::model()->findByPk($_POST['riwayat_jabatan_id'])->nama : 'Semua Unit Kerja';
-    app()->session['RekapUnitKerjaExcel_records'] = $unitKerja;
+    
 
     if ($model->jabatan_fu_id == "agama") {
 //        $data = Pegawai::model()->findAll(array('condition' => 'id>0' . $criteria, 'group' => 'agama', 'select' => '*,count(id) as id'));
@@ -22,7 +22,7 @@ INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan
 WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AND pegawai.kedudukan_id = 1 AND pegawai.agama ="' . $value . '"')->query());
         }
 
-        app()->session['RekapExcel_records'] = $agama;
+        
         $this->renderPartial('_rekapDetail', array('data' => $agama,'arr'=>$sAgama, 'unitKerja' => $unitKerja, 'header' => 'AGAMA', 'berdasarkan' => $model->jabatan_fu_id));
     } elseif ($model->jabatan_fu_id == "jenis_kelamin") {
         $sjk = Pegawai::model()->arrJenisKelamin();
@@ -34,7 +34,7 @@ INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan
 WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AND pegawai.kedudukan_id = 1 AND pegawai.jenis_kelamin ="' . $value . '"')->query());
         }
 
-        app()->session['RekapExcel_records'] = $jk;
+        
         $this->renderPartial('_rekapDetail', array('data' => $jeniskel,'arr'=>$sjk, 'unitKerja' => $unitKerja, 'header' => 'JENIS KELAMIN', 'berdasarkan' => $model->jabatan_fu_id));
     } elseif ($model->jabatan_fu_id == "jabatan") {
         $criteria = '';
@@ -77,7 +77,7 @@ INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan
 WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AND pegawai.kedudukan_id = 1 AND pegawai.tipe_jabatan="fungsional_umum"')->query());
 
 
-        app()->session['RekapExcel_records'] = '';
+        
         $this->renderPartial('_rekapDetailJabatan', array('eselon' => $eselon, 'tertentu' => $tertentu, 'umum' => $umum,'arrEselon'=>$sEselon,'arrTertentu'=>$sTertentu, 'unitKerja' => $unitKerja, 'header' => 'PANGKAT / GOLONGAN', 'berdasarkan' => $model->jabatan_fu_id));
     } elseif ($model->jabatan_fu_id == "tingkat_pendidikan") {
 
@@ -92,7 +92,7 @@ INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan
 WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AND pegawai.kedudukan_id = 1 AND jurusan.tingkat="' . $value . '" ')->query());
         }
 
-        app()->session['RekapExcel_records'] = $pendidikan;
+        
         $this->renderPartial('_rekapDetail', array('data' => $pendidikan,'arr'=>$sPendidikan, 'unitKerja' => $unitKerja, 'header' => 'TINGKAT PENDIDIKAN', 'berdasarkan' => $model->jabatan_fu_id));
     } elseif ($model->jabatan_fu_id == "golongan") {
 
@@ -108,7 +108,7 @@ INNER JOIN golongan ON riwayat_pangkat.golongan_id = golongan.id
 WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AND pegawai.kedudukan_id = 1 AND golongan.nama="' . $key . '"')->query());
         }
 
-        app()->session['RekapExcel_records'] = $golongan;
+        
         $this->renderPartial('_rekapDetail', array('data' => $golongan,'arr'=>$sGolongan, 'unitKerja' => $unitKerja, 'header' => 'PANGKAT / GOLONGAN', 'berdasarkan' => $model->jabatan_fu_id));
     }
 } else {
@@ -130,7 +130,7 @@ WHERE jabatan_struktural.unit_kerja_id=' . $data->id . ' AND pegawai.kedudukan_i
         }
 
 
-        app()->session['RekapExcel_records'] = $agama;
+        
         $this->renderPartial('_rekapDetail', array('data' => $agama, 'arr' => $arrAgama, 'unitKerja' => $unitKerja, 'header' => 'AGAMA', 'berdasarkan' => 'all'));
     } elseif ($model->jabatan_fu_id == "jenis_kelamin") {
         $unitKerja = UnitKerja::model()->findAll(array('order' => 'id'));
@@ -145,7 +145,7 @@ WHERE jabatan_struktural.unit_kerja_id =' . $data->id . ' AND pegawai.kedudukan_
             }
         }
 
-        app()->session['RekapExcel_records'] = $jk;
+        
         $this->renderPartial('_rekapDetail', array('data' => $jeniskel, 'arr' => $jk, 'unitKerja' => $unitKerja, 'header' => 'JENIS KELAMIN', 'berdasarkan' => 'all'));
     } elseif ($model->jabatan_fu_id == "tingkat_pendidikan") {
         $unitKerja = UnitKerja::model()->findAll(array('order' => 'id'));
@@ -162,7 +162,7 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $data->id . ' AND pegawai.kedudukan
             }
         }
 
-        app()->session['RekapExcel_records'] = $pendidikan;
+        
         $this->renderPartial('_rekapDetail', array('data' => $pendidikan, 'arr' => $sPendidikan, 'unitKerja' => $unitKerja, 'header' => 'TINGKAT PENDIDIKAN', 'berdasarkan' => 'all'));
     } elseif ($model->jabatan_fu_id == "golongan") {
         $unitKerja = UnitKerja::model()->findAll(array('order' => 'id'));
@@ -179,7 +179,7 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $data->id . ' AND pegawai.kedudukan
             }
         }
 
-        app()->session['RekapExcel_records'] = $golongan;
+        
         $this->renderPartial('_rekapDetail', array('data' => $golongan, 'arr' => $sGolongan, 'unitKerja' => $unitKerja, 'header' => 'PANGKAT / GOLONGAN', 'berdasarkan' => 'all'));
     } else {
         $unitKerja = UnitKerja::model()->findAll(array('order' => 'id'));
@@ -217,7 +217,7 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $data->id . ' AND pegawai.kedudukan
         }
 
 
-        app()->session['RekapExcel_records'] = '';
+        
         $this->renderPartial('_rekapDetailJabatan', array('eselon' => $eselon, 'tertentu' => $tertentu, 'umum' => $umum,'arrEselon'=>$sEselon,'arrTertentu'=>$sTertentu, 'unitKerja' => $unitKerja, 'header' => 'PANGKAT / GOLONGAN', 'berdasarkan' => 'all'));
     }
 }
