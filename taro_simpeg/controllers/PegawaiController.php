@@ -1008,10 +1008,10 @@ class PegawaiController extends Controller {
                 unset($model->city_id);
             if ($model->kedudukan_id == 0)
                 unset($model->kedudukan_id);
-            if ($model->unit_kerja_id == 0)
-                unset($model->unit_kerja_id);
-            if ($model->golongan_id == 0)
-                unset($model->golongan_id);
+//            if ($model->unit_kerja_id == 0)
+//                unset($model->unit_kerja_id);
+//            if ($model->golongan_id == 0)
+//                unset($model->golongan_id);
             if ($model->jabatan_struktural_id == 0)
                 unset($model->jabatan_struktural_id);
             if ($model->jabatan_fu_id == 0)
