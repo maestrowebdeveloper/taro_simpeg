@@ -52,6 +52,19 @@ class JabatanStrukturalController extends Controller {
         $_GET['v'] = true;
         $this->actionUpdate($id);
     }
+    public function actionGetUnitKerja() {
+        $name = $_GET["q"];
+        $data = array();
+        $pegawai = JabatanStruktural::model()->findAll(array('condition' => 'nama like "%' . $name . '%"', 'limit' => 15));
+        if (empty($pegawai)) {
+            $data[] = array('id' => '0', 'text' => 'Tidak Ada Nama Yang Cocok');
+        } else {
+            foreach ($pegawai as $val) {
+                $data[] = array('id' => $val->id, 'text' => $val->nama);
+            }
+        }
+        echo json_encode($data);
+    }
 
     /**
      * Creates a new model.

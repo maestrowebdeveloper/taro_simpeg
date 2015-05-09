@@ -28,7 +28,7 @@ if (isset($_GET['nextweek']))
     array(
            'name' => 'STATUS',           
             'type' => 'raw',
-            'value' => '"PNS"',             
+            'value' => '"$data->status"',             
             ),
 		'namaGelar',        
       
@@ -38,7 +38,7 @@ if (isset($_GET['nextweek']))
             'type' => 'raw',
             'value' => '"$data->ttl"',             
             ),
-        'golongan',
+        'Pangkat.golongan',
         'jabatan',
         'unitKerja',
  

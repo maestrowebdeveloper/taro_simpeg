@@ -145,5 +145,5 @@
                             { 
                                  callback({id: <?php echo $idjurusan ?>, text: "<?php echo $jurusan ?>" });
                             }
-        })
+        });
 </script>

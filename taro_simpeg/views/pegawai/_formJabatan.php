@@ -19,7 +19,17 @@
         echo $form->hiddenField($model, 'pegawai_id');
         echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span4', 'maxlength' => 100));
         ?>
+         <?php
+        $idjabatanstruktural = (!empty($model->JabatanStruktural->id)) ? $model->JabatanStruktural->id : 0;
+        $jabstruktural = (!empty($model->JabatanStruktural->nama)) ? $model->JabatanStruktural->nama  : 0;
 
+        $id = 0;
+        $pegawai_id = "hai";
+        echo $form->select2Row($model, 'jabatan_struktural_id', array(
+            'asDropDownList' => false,
+                )
+        );
+        ?>
         <?php echo $form->radioButtonListRow($model, 'tipe_jabatan', Pegawai::model()->arrTipeJabatan()); ?>
 
         <?php
@@ -27,22 +37,12 @@
         $fu = ($model->tipe_jabatan == "fungsional_umum") ? "" : "none";
         $ft = ($model->tipe_jabatan == "fungsional_tertentu") ? "" : "none";
         ?>
+       
+        <div class="struktural" style="display:<?php echo $struktural; ?>"> 
 
-        <div class="struktural" style="display:<?php echo $struktural; ?>">              
-            <div class="control-group "><label class="control-label" for="RiwayatJabatan_jabatan_struktural_id">Unit Kerja</label>
+            <div class="control-group "><label class="control-label" for="RiwayatJabatan_jabatan_struktural_id">Tanggal </label>
                 <div class="controls">
-                    <?php
-                    $data = array('0' => '- Jabatan Struktural -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                    $this->widget(
-                            'bootstrap.widgets.TbSelect2', array(
-                        'name' => 'RiwayatJabatan[jabatan_struktural_id]',
-                        'value' => $model->jabatan_struktural_id,
-                        'data' => $data,
-                        'options' => array(
-                            'width' => '40%;margin:0px;text-align:left',
-                    )));
-                    echo '&nbsp;&nbsp;';
-                    ?>
+                   
                     <div class="input-prepend">
                         <span class="add-on"><i class="icon-calendar"></i></span>
                         <?php
@@ -100,23 +100,7 @@
         </div>
 
         <div class="fungsional_umum" style="display:<?php echo $fu; ?>">   
-            <div class="control-group ">
-                <label class="control-label">Unit Kerja</label>
-                <div class="controls">
-                    <?php
-                    $data = array('0' => '- pilih -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                    $bidang_fu = $model->bidang_id;
-                    $this->widget(
-                            'bootstrap.widgets.TbSelect2', array(
-                        'name' => 'RiwayatJabatan[bidang_fu_id]',
-                        'data' => $data,
-                        'value' => $bidang_fu,
-                        'options' => array(
-                            'width' => '40%;margin:0px;text-align:left',
-                    )));
-                    ?>                
-                </div>
-            </div>
+
             <div class="control-group ">
                 <label class="control-label" for="RiwayatJabatan_jabatan_fu_id">Jabatan</label>
                 <div class="controls">
@@ -146,27 +130,11 @@
                     </div>    
                 </div>
             </div>
-            
+
         </div>
 
         <div class="fungsional_tertentu" style="display:<?php echo $ft; ?>">
-            <div class="control-group ">
-                <label class="control-label">Unit Kerja</label>
-                <div class="controls">
-                    <?php
-                    $data = array('0' => '- pilih -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                    $bidang_ft = $model->bidang_id;
-                    $this->widget(
-                            'bootstrap.widgets.TbSelect2', array(
-                        'name' => 'RiwayatJabatan[bidang_id]',
-                        'data' => $data,
-                        'value' => $bidang_ft,
-                        'options' => array(
-                            'width' => '40%;margin:0px;text-align:left',
-                    )));
-                    ?>                
-                </div>
-            </div>
+            
             <div class="control-group "><label class="control-label" for="RiwayatJabatan_jabatan_fu_id">Jabatan</label>
                 <div class="controls">
                     <?php
@@ -174,7 +142,7 @@
                     $this->widget(
                             'bootstrap.widgets.TbSelect2', array(
                         'name' => 'RiwayatJabatan[jabatan_ft_id]',
-                        'value' => $model->bidang_id,
+                        'value' => $model->jabatan_ft_id,
                         'data' => $data,
                         'options' => array(
                             'width' => '40%;margin:0px;text-align:left',
@@ -240,7 +208,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
         <div class="form-actions">
@@ -262,13 +230,13 @@
 <script>
     jQuery(function($) {
         jQuery('#RiwayatJabatan_tmt_mulai, #RiwayatJabatan_tmt_eselon, #tmt_mulai_ft, #tmt_mulai_fu, #tmt_mulai_struktural,#tanggal_sk_struktural,#tanggal_sk_ft').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
-        jQuery('#RiwayatJabatan_jabatan_struktural_id').select2({'width': '40%'});
+//        jQuery('#RiwayatJabatan_jabatan_struktural_id').select2({'width': '40%'});
         jQuery('#RiwayatJabatan_jabatan_fu_id').select2({'width': '40%'});
         jQuery('#RiwayatJabatan_jabatan_ft_id').select2({'width': '40%'});
-        jQuery('#RiwayatJabatan_bidang_id').select2({'width': '40%'});
+//        jQuery('#RiwayatJabatan_bidang_id').select2({'width': '40%'});
         jQuery('#RiwayatJabatan_type').select2({'width': '40%'});
-        jQuery('#RiwayatJabatan_bidang_id').select2({'width': '40%'});
-        jQuery('#RiwayatJabatan_bidang_ft_id').select2({'width': '40%'});
+//        jQuery('#RiwayatJabatan_jabatan_struktural_fu_id').select2({'width': '40%'});
+//        jQuery('#RiwayatJabatan_jabatan_struktural_ft_id').select2({'width': '40%'});
     });
     $("#RiwayatJabatan_tipe_jabatan_0").click(function(event) {
         $(".struktural").show();
@@ -333,5 +301,37 @@
             }
         });
     });
-
+    jQuery('#RiwayatJabatan_jabatan_struktural_id').select2({
+        'allowClear': true,
+        'minimumInputLength': '3',
+        'width': '50%;margin:0px;text-align:left',
+        'ajax': {
+            'url': '<?php echo Yii::app()->createUrl('jabatanStruktural/getUnitKerja'); ?>',
+            'dataType': 'json',
+            'data': function(term, page) {
+                return {
+                    q: term
+                };
+            },
+            'results': function(data) {
+                return {
+                    results: data
+                };
+            },
+        },
+        'initSelection': function(element, callback)
+        {
+            callback({id: <?php echo $idjabatanstruktural ?>, text: "<?php echo $jabstruktural ?>"});
+        }
+    }).on('change', function () {
+            $.ajax({
+                url: "<?php echo url('pegawai/riwayatStatusJabatan') ?>",
+                type: "post",
+                data: {id: $(this).val()},
+                success: function (data) {
+                    obj = JSON.parse(data);
+                    $("#Riwayateselon").val(obj.eselon);
+                }
+            });
+        });
 </script>

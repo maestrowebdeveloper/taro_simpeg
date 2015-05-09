@@ -88,19 +88,13 @@ class Pegawai extends CActiveRecord {
             'keterangan' => 'Keterangan',
             'no_taspen' => 'No. TASPEN',
             'foto' => 'Foto',
-//            'unit_kerja_id' => 'Unit Kerja',
             'tmt_cpns' => 'Tmt CPNS',
             'tmt_pns' => 'Tmt PNS',
-//            'golongan_id' => 'Pangkat/Golru',
             'tmt_golongan' => 'Tmt Golongan',
             'tipe_jabatan' => 'Tipe Jabatan',
             'jabatan_struktural_id' => 'Jabatan Struktural',
-//            'tmt_jabatan_struktural' => 'Tmt Jabatan Struktural',
             'jabatan_fu_id' => 'Jabatan Fu',
-//            'tmt_jabatan_fu' => 'Tmt Jabatan Fu',
             'jabatan_ft_id' => 'Jabatan Ft',
-//            'tmt_jabatan_ft' => 'Tmt Jabatan Ft',
-//            'gaji' => 'Gaji',
             'tmt_pensiun' => 'Tmt Pensiun',
             'no_sk_cpns' => 'No SK',
             'tanggal_sk_cpns' => 'Tanggal SK',
@@ -150,14 +144,18 @@ class Pegawai extends CActiveRecord {
             $criteria->addCondition('date_format(tanggal_lahir,"%m") = "' . $nextmonth . '"');
         }
 
-        if (isset($_GET['lahir']))
+        if (isset($_GET['lahir'])){
             $criteria->addCondition('tanggal_lahir = "0000-00-00"');
+            $criteria->addCondition('tanggal_lahir = ""');
+        }
         if (isset($_GET['jk']))
             $criteria->addCondition('jenis_kelamin = ""');
         if (isset($_GET['agama']))
             $criteria->addCondition('agama = ""');
         if (isset($_GET['pangkat']))
             $criteria->addCondition('t.riwayat_pangkat_id = ""');
+        if (isset($_GET['pendidikan']))
+            $criteria->addCondition('pendidikan_id = ""');
         if (isset($_GET['jabatan'])) {
             $criteria->addCondition('t.jabatan_struktural_id = ""');
             $criteria->addCondition('t.jabatan_fu_id = ""');
@@ -173,7 +171,6 @@ class Pegawai extends CActiveRecord {
         $criteria->compare('tanggal_lahir', $this->tanggal_lahir, true);
         $criteria->compare('jenis_kelamin', $this->jenis_kelamin, true);
         $criteria->compare('agama', $this->agama, true);
-//        $criteria->compare('pendidikan_terakhir', $this->pendidikan_terakhir, true);
         $criteria->compare('tmt_keterangan_kedudukan', $this->tmt_keterangan_kedudukan, true);
         $criteria->compare('Pangkat.golongan_id', isset($_POST['golongan_id']) ? $_POST['golongan_id'] : "", true);
         $criteria->compare('kedudukan_id', $this->kedudukan_id);
@@ -187,21 +184,16 @@ class Pegawai extends CActiveRecord {
         $criteria->compare('npwp', $this->npwp, true);
         $criteria->compare('kpe', $this->kpe, true);
         $criteria->compare('foto', $this->foto, true);
-//        $criteria->compare('unit_kerja_id', $this->unit_kerja_id);
         $criteria->compare('tmt_cpns', $this->tmt_cpns, true);
         $criteria->compare('tmt_pns', $this->tmt_pns, true);
         $criteria->compare('t.riwayat_pangkat_id', $this->riwayat_pangkat_id);
         if (isset($_POST['Pegawai'])) {
             $criteria->compare('Pangkat.tmt_pangkat', $_POST['Pegawai']['tmt_golongan'], true);
-//            $criteria->compare('RiwayatJabatan.tmt_mulai', $_POST['Pegawai']['tmt_jabatan_struktural'], true);
-//            $criteria->compare('RiwayatJabatan.tmt_jabatan_fu', $_POST['Pegawai']['tmt_jabatan_fu'], true);
-//            $criteria->compare('RiwayatJabatan.tmt_jabatan_ft', $_POST['Pegawai']['tmt_jabatan_ft'], true);
         }
         $criteria->compare('tipe_jabatan', $this->tipe_jabatan, true);
         $criteria->compare('t.jabatan_struktural_id', $this->jabatan_struktural_id);
         $criteria->compare('t.jabatan_fu_id', $this->jabatan_fu_id);
         $criteria->compare('t.jabatan_ft_id', $this->jabatan_ft_id);
-//        $criteria->compare('gaji', $this->gaji);
         $criteria->compare('tmt_pensiun', $this->tmt_pensiun, true);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('created_user_id', $this->created_user_id);
@@ -217,10 +209,10 @@ class Pegawai extends CActiveRecord {
 
     public function search2() {
         $criteria2 = new CDbCriteria();
-        $criteria2->with = array('RiwayatPendidikan');
+        $criteria2->with = array('RiwayatPendidikan','RiwayatJabatan');
         $criteria2->together = true;
-//        if (!empty($this->unit_kerja_id) && $this->unit_kerja_id > 0)
-//            $criteria2->compare('unit_kerja_id', $this->unit_kerja_id);
+        if (!empty($this->riwayat_jabatan_id) && $this->riwayat_jabatan_id > 0)
+            $criteria2->compare('riwayat_jabatan_id', $this->riwayat_jabatan_id);
         if (!empty($this->riwayat_pangkat_id) && $this->riwayat_pangkat_id > 0)
             $criteria2->compare('t.riwayat_pangkat_id', $this->riwayat_pangat_id);
         if (!empty($this->kedudukan_id) && $this->kedudukan_id > 0)
@@ -545,6 +537,14 @@ class Pegawai extends CActiveRecord {
         $belakang = (empty($this->gelar_belakang) || $this->gelar_belakang == "NULL" ) ? '' : ', ' . $this->gelar_belakang . '. ';
 //        $belakang = (empty($this->gelar_belakang)) ? ', ' . $this->gelar_belakang : '';
         return $depan . $this->nama . $belakang;
+    }
+    public function getStatus(){
+        if($this->tmt_pns == "0000-00-00" || $this->tmt_pns == ""){
+            $status = 'CPNS';
+        }else{
+            $status='PNS';
+        }
+        return $status;
     }
 
     public function arrRekapitulasi() {
