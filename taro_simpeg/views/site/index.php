@@ -98,21 +98,39 @@ foreach ($grafik as $key => $val) {
 
             </div>
 
+            <div class="box">
+                <div class="title">
+                    <h4>
+                        <span class="icon16 brocco-icon-grid"></span>
+                        <span>Manual Book</span>
+                    </h4>
+                </div>
+                <div class="content">
+                    <a href="simpeg-v1.pdf" target="_blank"><span class="icon32 cut-icon-download blue" style="float: left;padding: 12px 0px"></span></a>Buku panduan mengoperasikan Sistem Kepegawaian, web base version.
+                </div>
+            </div>
+            <div class="todo">
+                <h4>Latest Logged-in Users
+                    <a href="#" class="icon tip" oldtitle="Configure" title=""><span class="icon16 iconic-icon-cog"></span></a>
 
-            <?php
-            $listUser = User::model()->listUser();
-            $oUserLogs = UserLog::model()->findAll(array('order' => 'created DESC', 'limit' => '5'));
-            foreach ($oUserLogs as $oUserLog) {
-                if (isset($oUserLog->User->Roles->name)) {
-                    echo '<li class="clearfix">' .
-                    $oUserLog->User->name . ' | ' . $oUserLog->User->Roles->name . '
+                </h4>
+                <ul>
+
+                    <?php
+                    $listUser = User::model()->listUser();
+                    $oUserLogs = UserLog::model()->findAll(array('order' => 'created DESC', 'limit' => '5'));
+                    foreach ($oUserLogs as $oUserLog) {
+                        if (isset($oUserLog->User->Roles->name)) {
+                            echo '<li class="clearfix">' .
+                            $oUserLog->User->name . ' | ' . $oUserLog->User->Roles->name . '
                         <span class="label pull-right" style="margin-top: 6px;">' . landa()->ago($oUserLog->created) . '</span>
                         </li> ';
-                };
-            }
-            ?>
+                        };
+                    }
+                    ?>
 
-            </ul>
+                </ul>
+            </div>
         </div> 
     </div>
 </div>
