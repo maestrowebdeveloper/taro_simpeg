@@ -72,21 +72,35 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
     </div>
 </div>
+<script>
 
+function kil() {
+       
+        var nip = $("#Pegawai_nip").val();
+        var nama = $("#Pegawai_nama").val();
+        var gelar_dpn = $("#Pegawai_gelar_depan").val();
+        var gelar_blk = $("#Pegawai_gelar_belakang").val();
+        var hp = $("#Pegawai_hp").val();
+        var agama = $("#Pegawai_agama").val();
+        var type_jabatan = $("#Pegawai_tipe_jabatan").val();
+        var unit_kerja = $("#unit_kerja").val();
+        var Pegawai_tipe_jabatan = $("#Pegawai_tipe_jabatan").val();
+        var jns_kelamin = $('input:radio[name="Pegawai[jenis_kelamin]"]').val();
+        var sts_pernikahan = $('input:radio[name="Pegawai[status_pernikahan]"]').val();
+        
+//        if (data != "") {
+           window.open("<?php echo url('pegawai/generateExcel') ?>?nip="+nip+"&nama="+nama+"&gelar_dpn="+gelar_dpn+"&gelar_blk="+gelar_blk+"&hp="+hp+"&agama="+agama+"&type_jabatan="+type_jabatan+"&unit_kerja="+unit_kerja+"&Pegawai_tipe_jabatan="+Pegawai_tipe_jabatan+"&jns_kelamin="+jns_kelamin+"&sts_pernikahan="+sts_pernikahan);
+//        } 
+    }
+    </script>
 <div class="form-actions">
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'search white', 'label' => 'Pencarian')); ?>
 
-    <?php
-    $this->widget('bootstrap.widgets.TbButton', array(
-        'buttonType' => 'submit',
-        'type' => 'primary',
-        'icon' => 'icon16 icomoon-icon-file-excel  white',
-        'label' => 'Export Excel',
-        'id' => 'export',
+   <?php
+    $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'icon', 'label' => 'Export Excel', 
         'htmlOptions' => array(
-            'name' => 'export'
-        )
-    ));
+            'onclick' => 'kil()'
+    )));
     ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'button', 'icon' => 'icon-remove-sign white', 'label' => 'Reset', 'htmlOptions' => array('class' => 'btnreset btn-small'))); ?>
 </div>
@@ -94,6 +108,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <?php $this->endWidget(); ?>
 
 <script type="text/javascript">
+     
     jQuery(function ($) {
         $(".btnreset").click(function () {
             $(":input", "#search-pegawai-form").each(function () {
@@ -108,5 +123,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             });
         });
     })
+    
+   
 </script>
 
