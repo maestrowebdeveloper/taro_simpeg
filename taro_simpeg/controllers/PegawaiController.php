@@ -1008,8 +1008,8 @@ class PegawaiController extends Controller {
                 unset($model->city_id);
             if ($model->kedudukan_id == 0)
                 unset($model->kedudukan_id);
-            if ($model->unit_kerja_id == 0)
-                unset($model->unit_kerja_id);
+//            if ($model->unit_kerja_id == 0)
+//                unset($model->unit_kerja_id);
             if ($model->golongan_id == 0)
                 unset($model->golongan_id);
             if ($model->jabatan_struktural_id == 0)
@@ -1034,7 +1034,7 @@ class PegawaiController extends Controller {
                 RiwayatHukuman::model()->deleteAll('pegawai_id=' . $id);
             }
         }
-
+        
 
         $this->render('index', array(
             'model' => $model,
@@ -1129,8 +1129,7 @@ class PegawaiController extends Controller {
     public function actionGenerateExcel() {
         $model = Pegawai::model()->findAll();
 
-
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Pegawai -'.date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );

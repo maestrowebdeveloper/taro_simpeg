@@ -9,9 +9,9 @@
  		<th width="80px">TTL</th> 		
  		<th width="80px">AGAMA</th> 		 		 		 	
  		<th width="80px">PENDIDIKAN</th> 		 		 		 	
- 		<th width="80px">TAHUN PENDIDIKAN</th> 		 		 		 	
+ 		<!--<th width="80px">TAHUN PENDIDIKAN</th>--> 		 		 		 	
  		<th width="80px">ALAMAT</th> 		 		 		 	
- 		<th width="80px">KOTA</th> 		 		 		 	
+ 		<!--<th width="80px">KOTA</th>--> 		 		 		 	
  		<th width="80px">KODE POS</th> 		 		 		 	
  		<th width="80px">HP</th> 		 		 		 	
  		<th width="80px">GOLONGAN DARAH</th> 		 		 		 	
@@ -27,7 +27,7 @@
  		<th width="80px">TIPE JABATAN</th> 		 		 		 	
  		<th width="80px">JABATAN</th> 		 		 		 	
  		<th width="80px">TMT JABATAN</th> 		 		 		 	
-        <th width="80px">GAJI</th>                          
+        <!--<th width="80px">GAJI</th>-->                          
  		<th width="80px">MASA KERJA</th> 		 		 		 	
  		<th width="80px">TMT PENSIUN</th> 		 		 		 	
  	</tr>
@@ -38,10 +38,10 @@
         <td><?php echo $row->jenis_kelamin; ?></td>
         <td><?php echo $row->ttl; ?></td>
         <td><?php echo $row->agama; ?></td>
-        <td><?php echo $row->pendidikan_terakhir; ?></td>
-        <td><?php echo $row->tahun_pendidikan; ?></td>
+        <td> <?php echo $row->pendidikanTerakhir; ?></td>
+        <!--<td><?php //echo $row->tahun_pendidikan; ?></td>-->
         <td><?php echo $row->alamat; ?></td>
-        <td><?php echo $row->kota; ?></td>
+        <!--<td><?php// echo $row->kota; ?></td>-->
         <td><?php echo $row->kode_pos; ?></td>
         <td><?php echo $row->hp; ?></td>
         <td><?php echo $row->golongan_darah; ?></td>
@@ -57,7 +57,7 @@
         <td><?php echo $row->tipe; ?></td>
         <td><?php echo $row->jabatan; ?></td>
         <td><?php echo $row->tmtJabatan; ?></td>
-        <td><?php echo landa()->rp($row->gaji); ?></td>
+        <!--<td><?php // echo landa()->rp($row->gaji); ?></td>-->
         <td><?php echo $row->masaKerja; ?></td>               
         <td><?php echo $row->tmt_pensiun; ?></td>       		
        	</tr>

@@ -184,6 +184,10 @@
             $("#RiwayatKeluarga_nomor_karsu").parent().parent().attr("style", "display:none");
             $("#RiwayatKeluarga_nomor_karsi").parent().parent().attr("style", "display:");
             $("#RiwayatKeluarga_tanggal_pernikahan").parent().parent().attr("style", "display:");
+        } else if (id == "anak") {
+            $("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:none");
+            $("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:none");
+            $("#RiwayatKeluarga_tanggal_sk").parent().parent().parent().attr("style", "display:none");
         }
 
         if (id == "cerai") {
@@ -199,5 +203,17 @@
             $("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:none");
             $("#RiwayatKeluarga_tanggal_sk").parent().parent().parent().attr("style", "display:none");
         }
+
     });
+<?php
+if ($model->status == 'cerai') {
+    echo '$("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:");
+            $("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:");
+            $("#RiwayatKeluarga_tanggal_sk").parent().parent().parent().attr("style", "display:");';
+} else {
+    echo '$("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:none");
+            $("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:none");
+            $("#RiwayatKeluarga_tanggal_sk").parent().parent().parent().attr("style", "display:none");';
+}
+?>
 </script>
