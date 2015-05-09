@@ -12,7 +12,7 @@
     <table class="table table-bordered" id="tableJabatan">
         <thead>
         <th>No. Register</th>
-        <th>Jabatan</th>
+        <!--<th>Jabatan</th>-->
         <th>Unit Kerja</th>
         <th>Tmt Jabatan</th>        
         <th>Eselon</th>     
@@ -31,11 +31,13 @@
 
                 $eselon = '-';
                 $tmt_eselon = '-';
-                $jabatan = $value->JabatanStruktural->nama;
+                
                 if ($value->tipe_jabatan == "struktural") {
                     $tmt_jabatan = $value->tmt_mulai;
                     $eselon = (!empty($value->JabatanStruktural->Eselon->nama)) ? $value->JabatanStruktural->Eselon->nama : '-';
                     $tmt_eselon = $value->tmt_eselon;
+                    $jabatan = $value->JabatanStruktural->nama;
+                    
                 } else if ($value->tipe_jabatan == "fungsional_umum") {
                     $jabatan = (isset($value->JabatanFu->nama)) ? $value->JabatanFu->nama : '';
                     $tmt_jabatan = $value->tmt_mulai;
@@ -47,7 +49,6 @@
                 echo '
                 <tr>
                 <td>' . $value->nomor_register . '</td>
-                <td>' . ucwords($jabatan) . '</td>
                 <td>' . $jabatan . '</td>
                 <td>' . $tmt_jabatan . '</td>
                 <td>' . $eselon . '</td>

@@ -20,17 +20,22 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <div class="well">
 
     <div class="row-fluid">
-        <?php
-        $data = array('0'=>'- Unit Kerja -')+CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-        echo $form->select2Row($model, 'unit_kerja_id', array(
-            'asDropDownList' => true,                    
-            'data' => $data,    
-            'options' => array(                        
-                "allowClear" => false,
-                'width' => '50%',
-            ))
-        );
-        ?> 
+       <div class="control-group">
+                <label class="control-label">Satuan Kerja<span class="required">*</span></label>
+                <div class="controls">
+                    <?php
+                    $data = array('0' => '- Satuan Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
+                    $this->widget(
+                            'bootstrap.widgets.TbSelect2', array(
+                        'name' => 'riwayat_jabatan_id',
+                        'data' => $data,
+                        'value' => isset($_POST['riwayat_jabatan_id']) ? $_POST['riwayat_jabatan_id'] : '',
+                        'options' => array(
+                            'width' => '40%;margin:0px;text-align:left',
+                    )));
+                    ?>                 
+                </div>
+            </div>
         </div>
         <div><?php if (!empty($model->unit_kerja_id)) { ?>
                 <a onclick="hide()" class="btn btn-small view" title="Remove Form" rel="tooltip"><i class=" icon-remove-circle"></i></a>

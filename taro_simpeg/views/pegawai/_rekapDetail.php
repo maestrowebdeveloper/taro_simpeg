@@ -11,8 +11,8 @@
 			<tr>
 				<th>UNIT KERJA</th>							
 				<?php 
-					foreach ($arr as $key) {
-						echo '<th>'.strtoupper($key).'</th>';
+					foreach ($arr as $key=>$value) {
+						echo '<th>'.strtoupper($value).'</th>';
 					}
 					echo '<th>JUMLAH</th>';
 				?>
@@ -27,7 +27,7 @@
 			echo '<td>'.$aa->nama.'</td>';	
                             
 			$total = 0;
-			foreach ($arrAgama as $key => $value) {
+			foreach ($arr as $key => $value) {
 				echo '<td>'.$data[$aa->id][$value].'</td>';	
 				$total += $data[$aa->id][$value];
 			}

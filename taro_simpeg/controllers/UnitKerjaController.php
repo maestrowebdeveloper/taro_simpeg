@@ -68,17 +68,11 @@ class UnitKerjaController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['UnitKerja'])) {
-            if ($_POST['UnitKerja']['parent_id']) {
-                $child = new UnitKerja;
-                $child->attributes = $_POST['UnitKerja'];
-                $root = $model->findByPk($_POST['UnitKerja']['parent_id']);
-                if ($child->appendTo($root))
-                    $this->redirect(array('view', 'id' => $child->id));
-            }else {
+           
                 $model->attributes = $_POST['UnitKerja'];
-                if ($model->saveNode())
+                if ($model->save())
                     $this->redirect(array('view', 'id' => $model->id));
-            }
+            
         }
 
         $this->render('create', array(
@@ -92,7 +86,7 @@ class UnitKerjaController extends Controller {
         foreach ($var as $val) {
             $model = new UnitKerja;
             $model->nama = $val;
-            $model->saveNode();
+            $model->save();
         }
     }
 
@@ -108,20 +102,11 @@ class UnitKerjaController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['UnitKerja'])) {
-            if ($_POST['UnitKerja']['parent_id']) {
-                $model->attributes = $_POST['UnitKerja'];
-                $root = $model->findByPk($_POST['UnitKerja']['parent_id']);
-                if ($model->saveNode()) {
-                    $model->moveAsFirst($root);
-                    $this->redirect(array('view', 'id' => $model->id));
-                }
-            } else {
-                $model->attributes = $_POST['UnitKerja'];
-                $model->saveNode();
-                if (!($model->isRoot()))
-                    $model->moveAsRoot();
-                $this->redirect(array('view', 'id' => $model->id));
-            }
+           {
+			$model->attributes=$_POST['UnitKerja'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
         }
 
         $this->render('update', array(
@@ -137,7 +122,7 @@ class UnitKerjaController extends Controller {
     public function actionDelete($id) {
         if (Yii::app()->request->isPostRequest) {
             // we only allow deletion via POST request
-            $this->loadModel($id)->deleteNode();
+            $this->loadModel($id)->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))

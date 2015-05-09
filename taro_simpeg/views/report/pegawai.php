@@ -38,7 +38,7 @@ $this->breadcrumbs = array(
         );
 
 
-        $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+        $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
         echo $form->select2Row($model, 'unit_kerja_id', array(
             'asDropDownList' => true,
             'data' => $data,
