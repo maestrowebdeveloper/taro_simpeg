@@ -75,15 +75,28 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 <div class="form-actions">
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'search white', 'label' => 'Pencarian')); ?>
+
+    <?php
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type' => 'primary',
+        'icon' => 'icon16 icomoon-icon-file-excel  white',
+        'label' => 'Export Excel',
+        'id' => 'export',
+        'htmlOptions' => array(
+            'name' => 'export'
+        )
+    ));
+    ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'button', 'icon' => 'icon-remove-sign white', 'label' => 'Reset', 'htmlOptions' => array('class' => 'btnreset btn-small'))); ?>
 </div>
 
 <?php $this->endWidget(); ?>
 
 <script type="text/javascript">
-    jQuery(function($) {
-        $(".btnreset").click(function() {
-            $(":input", "#search-pegawai-form").each(function() {
+    jQuery(function ($) {
+        $(".btnreset").click(function () {
+            $(":input", "#search-pegawai-form").each(function () {
                 var type = this.type;
                 var tag = this.tagName.toLowerCase(); // normalize case
                 if (type == "text" || type == "password" || tag == "textarea")

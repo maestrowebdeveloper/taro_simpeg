@@ -1020,6 +1020,19 @@ class PegawaiController extends Controller {
             if ($model->jabatan_ft_id == 0)
                 unset($model->jabatan_ft_id);
         }
+        
+        if (isset($_GET['export'])) {
+            
+                $model->attributes = $_GET['Pegawai'];
+            Yii::app()->request->sendFile('Data Pegawai - ' . date('YmdHis') . '.xls', $this->renderPartial('index', array(
+                        'model' => $model,
+                            ))
+            );
+           
+        
+        }
+
+        
 
         $this->cssJs();
         if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
@@ -1036,7 +1049,7 @@ class PegawaiController extends Controller {
             }
         }
         
-
+        
         $this->render('index', array(
             'model' => $model,
         ));
