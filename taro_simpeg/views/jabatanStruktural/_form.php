@@ -36,7 +36,7 @@
             <label class="control-label">Unit Kerja <span class="required">*</span></label>
             <div class="controls">
                 <?php 
-                    $data= array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');                            
+                    $data= array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');                            
                     $this->widget(
                                 'bootstrap.widgets.TbSelect2', array(      
                                     'name' => 'JabatanStruktural[unit_kerja_id]',
