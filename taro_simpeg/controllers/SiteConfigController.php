@@ -65,10 +65,6 @@ class SiteConfigController extends Controller {
                 unset($model->client_logo);
             }
 
-            $settings = array();  
-            $settings['price_sell_persentase']=$_POST['price_sell_persentase']; 
-            $settings['beginingBalance']=$_POST['beginingBalance'];                    
-            $model->settings = json_encode($settings);
 
             if ($model->save()) {
                 if (is_object($file)) {

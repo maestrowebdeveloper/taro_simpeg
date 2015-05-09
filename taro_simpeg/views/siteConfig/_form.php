@@ -1,8 +1,5 @@
 <div class="form">
     <?php
-    $settings = json_decode($model->settings, true);
-    $price_sell_persentase = (!empty($settings['price_sell_persentase'])) ? $settings['price_sell_persentase'] : '';
-    $beginingBalance = (!empty($settings['beginingBalance'])) ? $settings['beginingBalance'] : '';
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id' => 'site-config-form',
         'enableAjaxValidation' => false,
@@ -69,23 +66,8 @@
 
 
             <div class="tab-pane" id="setting">               
-                <div class="control-group "><label class="control-label" for="">Persentase Price Sell</label>
-                    <div class="controls">
-                        <div class="input-append">                         
-                            <input class="span1 angka" maxlength="255" name="price_sell_persentase" value="<?php echo $price_sell_persentase ?>" id="price_sell_persentase" type="text">
-                            <span class="add-on">% From Price Buy</span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="control-group "><label class="control-label" for="">Begining Balance</label>
-                    <div class="controls">
-                        <div class="input-prepend">                         
-                            <span class="add-on">Rp</span>
-                            <input class="span2 angka" maxlength="255" name="beginingBalance" value="<?php echo $beginingBalance ?>" id="beginingBalance" type="text">                            
-                        </div>
-                    </div>
-                </div>
+               
 
             </div>
             <div class="tab-pane" id="ijin_belajar">

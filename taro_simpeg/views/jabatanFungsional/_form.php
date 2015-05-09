@@ -20,7 +20,7 @@
             <label class="control-label" for="JabatanFungsional_jabatan_ft_id">Jabatan</label>
             <div class="controls">
                 <?php
-                $data = array('0' => '- Choose -') + CHtml::listData(JabatanFt::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                $data = array('0' => '- Choose -') + CHtml::listData(JabatanFt::model()->findAll(array('order' => 'nama')), 'id', 'nama');
                 $this->widget(
                         'bootstrap.widgets.TbSelect2', array(
                     'name' => 'JabatanFungsional[jabatan_ft_id]',
