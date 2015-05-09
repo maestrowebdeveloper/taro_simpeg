@@ -1020,6 +1020,19 @@ class PegawaiController extends Controller {
             if ($model->jabatan_ft_id == 0)
                 unset($model->jabatan_ft_id);
         }
+        
+        if (isset($_GET['export'])) {
+            
+                $model->attributes = $_GET['Pegawai'];
+            Yii::app()->request->sendFile('Data Pegawai - ' . date('YmdHis') . '.xls', $this->renderPartial('index', array(
+                        'model' => $model,
+                            ))
+            );
+           
+        
+        }
+
+        
 
         $this->cssJs();
         if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
@@ -1035,8 +1048,8 @@ class PegawaiController extends Controller {
                 RiwayatHukuman::model()->deleteAll('pegawai_id=' . $id);
             }
         }
-
-
+        
+        
         $this->render('index', array(
             'model' => $model,
         ));
@@ -1130,8 +1143,7 @@ class PegawaiController extends Controller {
     public function actionGenerateExcel() {
         $model = Pegawai::model()->findAll();
 
-
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Pegawai -'.date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );
