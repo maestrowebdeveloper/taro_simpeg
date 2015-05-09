@@ -1141,7 +1141,32 @@ class PegawaiController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        $model = Pegawai::model()->findAll();
+        $nip=$_GET['nip'];
+        $nama=$_GET['nama'];
+        $gelar_dpn=$_GET['gelar_dpn'];
+        $gelar_blk=$_GET['gelar_blk'];
+        $hp=$_GET['hp'];
+        $agama=$_GET['agama'];
+        $type_jabatan=$_GET['type_jabatan'];
+        //$satuan_kerja=$_GET['satuan_kerja'];
+        //$unit_kerja=$_GET['unit_kerja'];
+        $Pegawai_tipe_jabatan=$_GET['Pegawai_tipe_jabatan'];
+        $jns_kelamin=$_GET['jns_kelamin'];
+        $sts_pernikahan=$_GET['sts_pernikahan'];
+       
+        $criteria = new CDbCriteria;
+        $criteria->compare('nip', $nip, true);
+        $criteria->addCondition('nama like "%'.$nama.'%"');
+       $criteria->compare('gelar_depan', $gelar_dpn, true);
+        $criteria->compare('gelar_belakang', $gelar_blk, true);
+        $criteria->compare('hp', $hp, true);
+        $criteria->compare('agama', $agama, true);
+        $criteria->compare('tipe_jabatan', $type_jabatan, true);
+//      
+//        $criteria->compare('t.jabatan_struktural_id', $unit_kerja);
+        $criteria->compare('jenis_kelamin', $jns_kelamin, true);
+        // $criteria->compare('status_pernikahan', $sts_pernikahan, true);
+        $model = Pegawai::model()->findAll($criteria);
 
         Yii::app()->request->sendFile('Data Pegawai -'.date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model

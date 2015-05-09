@@ -1,6 +1,6 @@
 <h2>LAPORAN DATA PEGAWAI NEGERI SIPIL (PNS) KABUPATEN SAMPANG</h2>
 <h4>Tanggal : <?php echo date('d F Y');?></h4>
-<?php if ($model !== null):?>
+<?php if (!empty($model)):?>
 <table border="1">
 	<tr>		
  		<th width="80px">NIP</th> 		
