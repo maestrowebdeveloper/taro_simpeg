@@ -89,7 +89,7 @@ $this->endWidget();
             ),	
 		array(
             'name' => 'nama',
-            'value' => '$data->nestedname',
+            'value' => '$data->nama',
             'htmlOptions' => array('style' => 'text-align: left;')
         ), 
 		'keterangan',		

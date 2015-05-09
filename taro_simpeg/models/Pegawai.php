@@ -144,14 +144,18 @@ class Pegawai extends CActiveRecord {
             $criteria->addCondition('date_format(tanggal_lahir,"%m") = "' . $nextmonth . '"');
         }
 
-        if (isset($_GET['lahir']))
+        if (isset($_GET['lahir'])){
             $criteria->addCondition('tanggal_lahir = "0000-00-00"');
+            $criteria->addCondition('tanggal_lahir = ""');
+        }
         if (isset($_GET['jk']))
             $criteria->addCondition('jenis_kelamin = ""');
         if (isset($_GET['agama']))
             $criteria->addCondition('agama = ""');
         if (isset($_GET['pangkat']))
             $criteria->addCondition('t.riwayat_pangkat_id = ""');
+        if (isset($_GET['pendidikan']))
+            $criteria->addCondition('pendidikan_id = ""');
         if (isset($_GET['jabatan'])) {
             $criteria->addCondition('t.jabatan_struktural_id = ""');
             $criteria->addCondition('t.jabatan_fu_id = ""');
@@ -205,10 +209,10 @@ class Pegawai extends CActiveRecord {
 
     public function search2() {
         $criteria2 = new CDbCriteria();
-        $criteria2->with = array('RiwayatPendidikan');
+        $criteria2->with = array('RiwayatPendidikan','RiwayatJabatan');
         $criteria2->together = true;
-//        if (!empty($this->unit_kerja_id) && $this->unit_kerja_id > 0)
-//            $criteria2->compare('unit_kerja_id', $this->unit_kerja_id);
+        if (!empty($this->riwayat_jabatan_id) && $this->riwayat_jabatan_id > 0)
+            $criteria2->compare('riwayat_jabatan_id', $this->riwayat_jabatan_id);
         if (!empty($this->riwayat_pangkat_id) && $this->riwayat_pangkat_id > 0)
             $criteria2->compare('t.riwayat_pangkat_id', $this->riwayat_pangat_id);
         if (!empty($this->kedudukan_id) && $this->kedudukan_id > 0)
@@ -533,6 +537,14 @@ class Pegawai extends CActiveRecord {
         $belakang = (empty($this->gelar_belakang) || $this->gelar_belakang == "NULL" ) ? '' : ', ' . $this->gelar_belakang . '. ';
 //        $belakang = (empty($this->gelar_belakang)) ? ', ' . $this->gelar_belakang : '';
         return $depan . $this->nama . $belakang;
+    }
+    public function getStatus(){
+        if($this->tmt_pns == "0000-00-00" || $this->tmt_pns == ""){
+            $status = 'CPNS';
+        }else{
+            $status='PNS';
+        }
+        return $status;
     }
 
     public function arrRekapitulasi() {

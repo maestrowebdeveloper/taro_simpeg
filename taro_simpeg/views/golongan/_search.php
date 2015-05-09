@@ -4,22 +4,7 @@
 'method'=>'get',
 ));  ?>
 
-   <div class="control-group ">
-            <label class="control-label">Parent</label>
-            <div class="controls">
-                    <?php 
-                        $data= array('0' => '- Parent -') + CHtml::listData(Golongan::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');                            
-                        $this->widget(
-                                    'bootstrap.widgets.TbSelect2', array(      
-                                        'name' => 'Golongan[parent_id]',
-                                        'data' => $data,
-                                        'value'=>$model->parent_id,
-                                        'options' => array(
-                                            'width' => '40%;margin:0px;text-align:left',
-                                            )));
-                    ?>                
-            </div>
-        </div>
+   
 
                                     <?php echo $form->textFieldRow($model,'nama',array('class'=>'span5','maxlength'=>100)); ?>
                                    

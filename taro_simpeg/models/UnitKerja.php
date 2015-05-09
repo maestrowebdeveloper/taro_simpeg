@@ -35,13 +35,13 @@ class UnitKerja extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nama', 'required'),
-			array('nama, keterangan, level, lft, rgt, root, parent_id, created, created_user_id', 'safe'),
-			array('level, lft, rgt, root, parent_id, created_user_id', 'numerical', 'integerOnly'=>true),
+			array('nama, keterangan,  created, created_user_id', 'safe'),
+			array(' created_user_id', 'numerical', 'integerOnly'=>true),
 			array('nama', 'length', 'max'=>255),
 			array('modified', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nama, keterangan, level, lft, rgt, root, parent_id, created, created_user_id, modified', 'safe', 'on'=>'search'),
+			array('id, nama, keterangan,  created, created_user_id, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,11 +66,6 @@ class UnitKerja extends CActiveRecord
 			'id' => 'ID',
 			'nama' => 'Unit Kerja',			
 			'keterangan' => 'Keterangan',
-			'level' => 'Level',
-			'lft' => 'Lft',
-			'rgt' => 'Rgt',
-			'root' => 'Root',
-			'parent_id' => 'Parent',
 			'created' => 'Created',
 			'created_user_id' => 'Created User',
 			'modified' => 'Modified',
@@ -97,19 +92,14 @@ class UnitKerja extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('nama',$this->nama,true);
-		$criteria->compare('keterangan',$this->keterangan,true);		
-		$criteria->compare('level',$this->level);
-		$criteria->compare('lft',$this->lft);
-		$criteria->compare('rgt',$this->rgt);
-		$criteria->compare('root',$this->root);
-		$criteria->compare('parent_id',$this->parent_id);
+		$criteria->compare('keterangan',$this->keterangan,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('created_user_id',$this->created_user_id);
 		$criteria->compare('modified',$this->modified,true);
 
 		$data = new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-                        'sort' => array ('defaultOrder' => 'root,lft',),
+                        'sort' => array ('defaultOrder' => 'id',),
 		));		
 
         //app()->session['UnitKerja_records'] = $this->findAll($criteria); 
@@ -128,22 +118,6 @@ class UnitKerja extends CActiveRecord
 		return parent::model($className);
 	}
 
-	public function behaviors() {
-        return array(
-            'nestedSetBehavior' => array(
-                'class' => 'common.extensions.NestedSetBehavior.NestedSetBehavior',
-                'leftAttribute' => 'lft',
-                'rightAttribute' => 'rgt',
-                'levelAttribute' => 'level',
-                'hasManyRoots' => true,
-            ),
-        );
-    }
-    
-    public function getNestedName() {
-        return ($this->level == 1) ? $this->nama : str_repeat("|— ", $this->level - 1) . $this->nama;
-    }
-    
     protected function beforeValidate() {
         if (empty($this->created_user_id))
             $this->created_user_id = Yii::app()->user->id;

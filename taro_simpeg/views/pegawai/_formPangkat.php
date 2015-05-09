@@ -21,7 +21,7 @@
             echo $form->hiddenField($model, 'id');                   
             echo $form->hiddenField($model, 'pegawai_id');                   
                                         
-            $data = array('0'=>'- Golongan -')+CHtml::listData(Golongan::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedFullName');                                    
+            $data = array('0'=>'- Golongan -')+CHtml::listData(Golongan::model()->findAll(array('order' => 'nama')), 'id', 'nama');                                    
             echo $form->select2Row($model, 'golongan_id', array(
                 'asDropDownList' => true,                    
                 'data' => $data,    

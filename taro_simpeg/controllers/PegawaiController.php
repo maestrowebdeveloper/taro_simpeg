@@ -156,7 +156,7 @@ class PegawaiController extends Controller {
 
             $model->attributes = $_POST['RiwayatPangkat'];
             $golongan = Golongan::model()->findByPk($model->golongan_id);
-            $model->nama_golongan = $golongan->golongan;
+            $model->golongan_id = $golongan->id;
             if ($model->save()) {
                 $pangkat = RiwayatPangkat::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tmt_pangkat DESC'));
                 echo $this->renderPartial('/pegawai/_tablePangkat', array('pangkat' => $pangkat, 'edit' => true, 'pegawai_id' => $model->pegawai_id));

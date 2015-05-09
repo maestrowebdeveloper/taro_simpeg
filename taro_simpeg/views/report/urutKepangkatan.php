@@ -33,8 +33,8 @@ Yii::app()->clientScript->registerScript('search', "
 
         <div class="row-fluid">
             <?php
-            $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-            echo $form->select2Row($model, 'unit_kerja_id', array(
+            $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
+            echo $form->select2Row($model, 'riwayat_jabatan_id', array(
                 'asDropDownList' => true,
                 'data' => $data,
                 'options' => array(
@@ -48,7 +48,7 @@ Yii::app()->clientScript->registerScript('search', "
                 <label class="control-label" for="Pegawai_jabatan_id">Pangkat / Golongan</label>
                 <div class="controls">
                     <?php
-                    $data = array('0' => '- Parent -') + CHtml::listData(Golongan::model()->findAll(array('order' => 'root, lft')), 'tingkat', 'nestedFullName');
+                    $data = array('0' => '- Parent -') + CHtml::listData(Golongan::model()->findAll(array('order' => 'id')), 'tingkat', 'nama');
                     $this->widget(
                             'bootstrap.widgets.TbSelect2', array(
                         'name' => 'Pegawai[jabatan_fu_id]',
@@ -125,7 +125,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array(
             'name' => 'golongan',
             'type' => 'raw',
-            'value' => '$data->golongan',
+            'value' => '$data->Pangkat->golongan',
             'htmlOptions' => array('style' => 'text-align:center'),
         ),
         array(
