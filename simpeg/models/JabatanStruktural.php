@@ -56,7 +56,7 @@ class JabatanStruktural extends CActiveRecord {
         return array(
             'UnitKerja' => array(self::BELONGS_TO, 'UnitKerja', 'unit_kerja_id'),
             'Eselon' => array(self::BELONGS_TO, 'Eselon', 'eselon_id'),
-            'Pegawai' => array(self::HAS_MANY, 'Pegawai', 'jabatan_struktural_id'),
+            'Pegawai' => array(self::HAS_ONE, 'Pegawai', 'jabatan_struktural_id'),
             'Riwayatjabatan' => array(self::HAS_MANY, 'RiwayatJabatan', 'jabatan_struktural_id'),
         );
     }
@@ -159,11 +159,6 @@ class JabatanStruktural extends CActiveRecord {
         if (empty($this->created_user_id))
             $this->created_user_id = Yii::app()->user->id;
         return parent::beforeValidate();
-    }
-
-    function getPegawai() {
-        $pegawai = Pegawai::model()->with('RiwayatJabatan')->find(array('condition' => 'kedudukan_id=1 AND RiwayatJabatan.jabatan_struktural_id = ' . $this->id));
-        return (!empty($pegawai->nama) ? $pegawai->nama : '-');
     }
 
     function getStatus() {

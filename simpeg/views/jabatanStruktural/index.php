@@ -102,7 +102,7 @@ $this->endWidget();
         array(
             'header' => 'Nama Pegawai',
             'name' => 'status',
-            'value' => '$data->pegawai',            
+            'value' => '(isset($data->Pegawai->nama)) ? $data->Pegawai->nama : "-"',            
         ),
        array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
