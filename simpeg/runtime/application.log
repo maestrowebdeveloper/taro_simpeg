@@ -3964,3 +3964,13 @@ Stack trace:
 #5 {main}
 REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/site/images/favicon.ico
 ---
+2015/05/10 10:49:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in /var/www/landa/taro_simpeg/common/lib/yii/web/CController.php:483
+Stack trace:
+#0 /var/www/landa/taro_simpeg/common/lib/yii/web/CController.php(270): CController->missingAction('images')
+#1 /var/www/landa/taro_simpeg/common/lib/yii/web/CWebApplication.php(282): CController->run('images')
+#2 /var/www/landa/taro_simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController('site/images/fav...')
+#3 /var/www/landa/taro_simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/landa/taro_simpeg/simpeg/www/simpeg.sampang/index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/landa/taro_simpeg/simpeg/www/simpeg.sampang/site/images/favicon.ico
+---
