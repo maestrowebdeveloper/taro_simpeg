@@ -1,5 +1,5 @@
 <?php
-if (isset($_GET['v'])) {$this->setPageTitle('Lihat Pegawais | ID : '. $model->id);
+if (isset($_GET['v'])) {$this->setPageTitle('Pegawai | NIP : '. $model->nip . ' | ' . $model->nama);
 $this->breadcrumbs=array(
 	'Pegawais'=>array('index'),
 	$model->id,

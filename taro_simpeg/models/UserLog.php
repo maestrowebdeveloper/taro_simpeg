@@ -48,6 +48,7 @@ class UserLog extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'User' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
@@ -87,5 +88,19 @@ class UserLog extends CActiveRecord {
         return parent::beforeValidate();
     }
     
+    public function getRoles(){
+        $roles = (isset($this->User->Roles->name)) ? $this->User->Roles->name : 'Super User';
+        return $roles;
+    }
+    
+    public function getName(){
+        $name = (isset($this->User->name)) ? $this->User->name : '-';
+        return $name;
+    }
+    
+    public function getTime(){
+        $time = '<span class="label" style="margin-top: 6px;">' . landa()->ago($this->created) . '</span>';
+        return $time;
+    }
 
 }

@@ -796,10 +796,12 @@ class PegawaiController extends Controller {
         $user = (empty(Yii::app()->session['searchPegawai'])) ? Pegawai::model()->findAll(array('condition' => 'nama like "%' . $_POST['queryString'] . '%"')) : Yii::app()->session['searchPegawai'];
         $results = array();
         foreach ($user as $no => $o) {
+            $sGol = (isset($o->Pangkat->Golongan->nama)) ? $o->Pangkat->Golongan->nama : "-";
+            $sJab = (isset($o->RiwayatJabatan->jabatanPegawai)) ? $o->RiwayatJabatan->jabatanPegawai : "-";
             $results[$no]['url'] = url('pegawai/' . $o->id);
             $results[$no]['img'] = $o->imgUrl['small'];
             $results[$no]['title'] = $o->nama;
-            $results[$no]['description'] = $o->golongan . '<br/>' . $o->jabatan;
+            $results[$no]['description'] = $sJab . '<br/>' . $sGol ;
         }
         echo json_encode($results);
     }

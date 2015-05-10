@@ -162,7 +162,7 @@ class JabatanStruktural extends CActiveRecord {
     }
 
     function getPegawai() {
-        $pegawai = Pegawai::model()->find(array('condition' => 'jabatan_struktural_id = ' . $this->id.' and tmt_pensiun > "'.date("Y-m-d").'"'));
+        $pegawai = Pegawai::model()->with('RiwayatJabatan')->find(array('condition' => 'kedudukan_id=1 AND RiwayatJabatan.jabatan_struktural_id = ' . $this->id));
         return (!empty($pegawai->nama) ? $pegawai->nama : '-');
     }
 

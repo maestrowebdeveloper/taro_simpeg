@@ -293,7 +293,12 @@ class ReportController extends Controller {
         }
         $this->render('permohonanPensiun', array('model' => $model));
     }
-
+    
+    public function actionStrukturOrganisasi() {
+        $model = array();
+        $this->render('strukturOrganisasi', array('model' => $model));
+    }
+    
     public function actionPensiun() {
         $model = new Pegawai();
         if (isset($_POST['Pegawai'])) {
