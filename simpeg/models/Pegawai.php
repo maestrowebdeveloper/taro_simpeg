@@ -172,14 +172,14 @@ class Pegawai extends CActiveRecord {
                 foreach ($pegawai as $val) {
                     $id[] = $val->pegawai_id;
                 }
-                $criteria->addCondition('t.id IN ('.implode(",",$id).')');
+                $criteria->addCondition('t.id IN (' . implode(",", $id) . ')');
             }
         }
-        if(isset($_GET['unit_kerja']) and !empty($_GET['unit_kerja'])){
-            $criteria->addCondition("RiwayatJabatan.jabatan_struktural_id = ".$_GET['unit_kerja']);
+        if (isset($_GET['unit_kerja']) and ! empty($_GET['unit_kerja'])) {
+            $criteria->addCondition("RiwayatJabatan.jabatan_struktural_id = " . $_GET['unit_kerja']);
         }
-        if(isset($_GET['satuan_kerja']) and !empty($_GET['satuan_kerja'])){
-            $satuanKerja = JabatanStruktural::model()->findAll(array('condition' => 'unit_kerja_id = '.$_GET['satuan_kerja']));
+        if (isset($_GET['satuan_kerja']) and ! empty($_GET['satuan_kerja'])) {
+            $satuanKerja = JabatanStruktural::model()->findAll(array('condition' => 'unit_kerja_id = ' . $_GET['satuan_kerja']));
             $id = array();
             if (empty($satuanKerja)) {
                 
@@ -188,7 +188,7 @@ class Pegawai extends CActiveRecord {
                     $id[] = $val->id;
                 }
             }
-            $criteria->addCondition('RiwayatJabatan.jabatan_struktural_id IN ('.implode(",",$id).')');
+            $criteria->addCondition('RiwayatJabatan.jabatan_struktural_id IN (' . implode(",", $id) . ')');
         }
         //
 
@@ -891,6 +891,31 @@ class Pegawai extends CActiveRecord {
                 </div>           
                 ';
         return $data;
+    }
+
+    public function actionGetPensiun() {
+        $tgl_lahir = $this->tanggal_lahir;
+        $bup = 0;
+//        if (!empty($this->tipe_jabatan)) {
+//            if ($this->tipe_jabatan == "struktural") {
+//                $eselon = isset($this->RiwayatJabatan->JabatanStruktural->Eselon->nama) ? $this->RiwayatJabatan->JabatanStruktural->Eselon->nama : "-";
+//                $tingkatEselon = substr($eselon, 0, 2);
+//                if ($tingkatEselon == "II") {
+//                    $bup = 60;
+//                } else if ($tingkatEselon == "III" or $tingkatEselon == "IV" or $tingkatEselon == "V") {
+//                    $bup = 58;
+//                }
+//            } else if ($jabatan->tipe_jabatan == "fungsional_umum") {
+//                $bup = 58;
+//            } else if ($jabatan->tipe_jabatan == "fungsional_tertentu") {
+//                $bup = 60;
+//            }
+//        } else {
+//            $bup = 0;
+//        }
+        $date = explode("-", $tgl_lahir);
+        $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $bup);
+        return date("Y-m-d", $tmt_pensiun);
     }
 
 }

@@ -3763,3 +3763,23 @@ Stack trace:
 REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/jabatanStruktural/migration
 in /var/www/simpeg/simpeg/controllers/JabatanStrukturalController.php (136)
 in /var/www/simpeg/simpeg/www/simpeg.sampang/index.php (16)
+2015/05/11 14:46:49 [error] [php] Undefined variable: sGolongan (/var/www/simpeg/simpeg/views/report/strukturOrganisasi.php:33)
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/web/CBaseController.php(93): YiiDebugViewRenderer->renderFile()
+#1 /var/www/simpeg/common/lib/yii/web/CController.php(869): ReportController->renderFile()
+#2 /var/www/simpeg/common/lib/yii/web/CController.php(782): ReportController->renderPartial()
+#3 /var/www/simpeg/simpeg/controllers/ReportController.php(300): ReportController->render()
+#4 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): ReportController->actionStrukturOrganisasi()
+#5 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams()
+#6 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): ReportController->runAction()
+#7 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#8 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CAccessControlFilter->filter()
+#9 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): ReportController->filterAccessControl()
+#10 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#11 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#12 /var/www/simpeg/common/lib/yii/web/CController.php(265): ReportController->runActionWithFilters()
+#13 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): ReportController->run()
+#14 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#15 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CWebApplication->run()
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/report/strukturOrganisasi.html

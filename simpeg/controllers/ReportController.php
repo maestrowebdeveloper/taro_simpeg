@@ -127,7 +127,7 @@ class ReportController extends Controller {
             }
             Yii::app()->request->sendFile('Laporan Riwayat Pelatihan - ' . date('YmdHis') . '.xls', $this->renderPartial('_mengikutiPelatihan', array(
                         'model' => $model,
-                        'post',$post
+                        'post', $post
                             ), true)
             );
         }
@@ -147,7 +147,7 @@ class ReportController extends Controller {
             }
             Yii::app()->request->sendFile('Laporan Penerima Penghargaan - ' . date('YmdHis') . '.xls', $this->renderPartial('_penerimaPenghargaan', array(
                         'model' => $model,
-                        'post',$post
+                        'post', $post
                             ), true)
             );
         }
@@ -167,7 +167,7 @@ class ReportController extends Controller {
             }
             Yii::app()->request->sendFile('Laporan Penerima Hukuman - ' . date('YmdHis') . '.xls', $this->renderPartial('_penerimaHukuman', array(
                         'model' => $model,
-                        'post',$post
+                        'post', $post
                             ), true)
             );
         }
@@ -187,7 +187,7 @@ class ReportController extends Controller {
             }
             Yii::app()->request->sendFile('Laporan Surat Masuk - ' . date('YmdHis') . '.xls', $this->renderPartial('_suratMasuk', array(
                         'model' => $model,
-                        'post',$post
+                        'post', $post
                             ), true)
             );
         }
@@ -207,7 +207,7 @@ class ReportController extends Controller {
             }
             Yii::app()->request->sendFile('Laporan Surat Keluar - ' . date('YmdHis') . '.xls', $this->renderPartial('_suratKeluar', array(
                         'model' => $model,
-                        'post',$post
+                        'post', $post
                             ), true)
             );
         }
@@ -227,7 +227,7 @@ class ReportController extends Controller {
             }
             Yii::app()->request->sendFile('Laporan Permohonan Perpanjangan Honorer - ' . date('YmdHis') . '.xls', $this->renderPartial('_perpanjanganHonorer', array(
                         'model' => $model,
-                        'post',$post
+                        'post', $post
                             ), true)
             );
         }
@@ -247,7 +247,7 @@ class ReportController extends Controller {
             }
             Yii::app()->request->sendFile('Laporan Permohonan Izin Belajar - ' . date('YmdHis') . '.xls', $this->renderPartial('_ijinBelajar', array(
                         'model' => $model,
-                        'post',$post
+                        'post', $post
                             ), true)
             );
         }
@@ -267,7 +267,7 @@ class ReportController extends Controller {
             }
             Yii::app()->request->sendFile('Laporan Permohonan Mutasi - ' . date('YmdHis') . '.xls', $this->renderPartial('_permohonanMutasi', array(
                         'model' => $model,
-                        'post',$post
+                        'post', $post
                             ), true)
             );
         }
@@ -287,18 +287,19 @@ class ReportController extends Controller {
             }
             Yii::app()->request->sendFile('Laporan PermohonanPensiun - ' . date('YmdHis') . '.xls', $this->renderPartial('_permohonanPensiun', array(
                         'model' => $model,
-                        'post',$post
+                        'post', $post
                             ), true)
             );
         }
         $this->render('permohonanPensiun', array('model' => $model));
     }
-    
+
     public function actionStrukturOrganisasi() {
+        $this->layout = "mainWide";
         $model = array();
         $this->render('strukturOrganisasi', array('model' => $model));
     }
-    
+
     public function actionPensiun() {
         $model = new Pegawai();
         if (isset($_POST['Pegawai'])) {
