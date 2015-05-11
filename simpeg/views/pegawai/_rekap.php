@@ -170,12 +170,16 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $data->id . ' AND pegawai.kedudukan
         foreach ($unitKerja as $unit => $data) {
             foreach ($sGolongan as $key => $value) {
 //            $golongan[$key] = intval($value);
-                $golongan[$data->id][$key] = count(cmd('select * from pegawai 
+                $result = cmd('SELECT count(nip) as result from pegawai 
 INNER JOIN riwayat_jabatan ON pegawai.riwayat_jabatan_id = riwayat_jabatan.id
 INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan_struktural.id
 INNER JOIN riwayat_pangkat ON riwayat_pangkat.id = pegawai.riwayat_pangkat_id
 INNER JOIN golongan ON riwayat_pangkat.golongan_id = golongan.id
-WHERE jabatan_struktural.unit_kerja_id = ' . $data->id . ' AND pegawai.kedudukan_id = 1 AND golongan.nama="' . $value . '"')->query());
+WHERE jabatan_struktural.unit_kerja_id = ' . $data->id . ' AND pegawai.kedudukan_id = 1 AND golongan.nama="' . $value . '"')->query();
+                foreach ($result as $a)
+                    $result = $a['result'];
+                
+                $golongan[$data->id][$key] = $result;
             }
         }
 

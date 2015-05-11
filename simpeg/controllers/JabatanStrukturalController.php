@@ -52,6 +52,7 @@ class JabatanStrukturalController extends Controller {
         $_GET['v'] = true;
         $this->actionUpdate($id);
     }
+
     public function actionGetUnitKerja() {
         $name = $_GET["q"];
         $data = array();
@@ -100,10 +101,12 @@ class JabatanStrukturalController extends Controller {
 
     public function actionMigration() {
 //        echo empty(NULL);
-        $var = cmd("SELECT * FROM temp")->query();
+        JabatanStruktural::model()->deleteAll();
+
+        $var = cmd("SELECT * FROM temp ORDER BY ordering")->query();
         foreach ($var as $val) {
-            $model = new JabatanStruktural;
             if (empty($val['maju'])) { //0, null, ''
+                $model = new JabatanStruktural;
                 $model->id = $val['id'];
                 $model->nama = $val['name'];
                 $model->unit_kerja_id = $val['unit_kerja_id'];
@@ -118,9 +121,10 @@ class JabatanStrukturalController extends Controller {
                 $child->unit_kerja_id = $val['unit_kerja_id'];
                 $child->eselon_id = $val['eselon_id'];
                 $child->parent_id = $parent;
-                $root = $model->findByPk($parent);
+                $root = JabatanStruktural::model()->findByPk($parent);
+                echo (empty($root)) ? '-----' . $parent : '';
                 $child->appendTo($root);
-
+////
                 $parent_1 = $val['id'];
             } elseif ($val['maju'] == 2) {
                 $child = new JabatanStruktural;
@@ -129,9 +133,13 @@ class JabatanStrukturalController extends Controller {
                 $child->unit_kerja_id = $val['unit_kerja_id'];
                 $child->eselon_id = $val['eselon_id'];
                 $child->parent_id = $parent_1;
-                $root = $model->findByPk($parent_1);
+                $root = JabatanStruktural::model()->findByPk($parent_1);
+                echo (empty($root)) ? '-----' . $parent_1 : '';
                 $child->appendTo($root);
+            } else {
+//                echo $val['id'] ;
             }
+//            echo "-----" . $val['id'] . "-----" . $val['name'] . '-----' . $val['maju'] . '-----' . $val['ordering'];
         }
     }
 
