@@ -800,7 +800,7 @@ class PegawaiController extends Controller {
             $sJab = (isset($o->RiwayatJabatan->jabatanPegawai)) ? $o->RiwayatJabatan->jabatanPegawai : "-";
             $results[$no]['url'] = url('pegawai/' . $o->id);
             $results[$no]['img'] = $o->imgUrl['small'];
-            $results[$no]['title'] = $o->nama;
+            $results[$no]['title'] = $o->nip . '<br/>' .$o->namaGelar;
             $results[$no]['description'] = $sJab . '<br/>' . $sGol ;
         }
         echo json_encode($results);
