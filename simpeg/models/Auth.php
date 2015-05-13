@@ -176,6 +176,7 @@ class Auth extends CActiveRecord {
 //                    array('visible' => landa()->checkAccess('cariKeluarga', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Keluarga', 'url' => url('/pegawai/cariRiwayatKeluarga'), 'auth_id' => 'cariKeluarga'),
 //                    array('visible' => landa()->checkAccess('cariPendidikan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Pendidikan', 'url' => url('/pegawai/cariRiwayatPendidikan'), 'auth_id' => 'cariPendidikan'),
 //                )),
+            
             array('visible' => landa()->checkAccess('infoUlangTahun', 'r'), 'label' => '<span class="icon16  eco-cog "></span>Tools', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
                     array('visible' => landa()->checkAccess('infoUlangTahun', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Info Ulang Tahun', 'url' => url('/pegawai/ulangTahun'), 'auth_id' => 'infoUlangTahun'),
                     array('visible' => landa()->checkAccess('checkError', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Cek Kelengkapan Data', 'url' => url('/pegawai/checkError'), 'auth_id' => 'checkError'),
