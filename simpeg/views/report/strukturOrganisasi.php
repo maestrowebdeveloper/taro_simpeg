@@ -1,6 +1,15 @@
 <?php
-$this->setPageTitle('Daftar Struktur Organisasi');
 
+$this->setPageTitle('Daftar Struktur Organisasi');
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id' => 'struktur-organisasi',
+    'enableAjaxValidation' => false,
+    'method' => 'post',
+    'type' => 'horizontal',
+    'htmlOptions' => array(
+        'enctype' => 'multipart/form-data'
+    )
+        ));
 //$arrPegawai = Pegawai::model()->with('RiwayatJabatan', 'JabatanStruktural')->findAll(
 //        array('order' => 'JabatanStruktural.root,JabatanStruktural.lft',
 //            'condition' => 'kedudukan_id=1'
@@ -18,8 +27,13 @@ $arrPegawai = cmd('SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabata
         . 'INNER JOIN jurusan ON jurusan.id = riwayat_pendidikan.id_jurusan '
         . 'ORDER BY jabatan_struktural.root,jabatan_struktural.lft')->query();
 ?>
-
-<table class="table table-bordered">
+<br>
+<center><h2>Daftar Struktur Organisasi</h2></center>
+<div style="text-align: right">
+    <input type="submit" name="exportExcel" value="Export Excel" class="btn btn-primary">
+</div>
+<hr>
+<table border='1' class="table table-bordered">
     <thead>
         <tr>
             <th>Unit Kerja</th>
@@ -49,3 +63,4 @@ $arrPegawai = cmd('SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabata
         <?php } ?>
     </tbody>
 </table>
+<?php $this->endWidget();?>
