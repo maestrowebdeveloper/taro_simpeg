@@ -330,11 +330,12 @@
 
                         <h3><?php echo CHtml::encode($this->pageTitle); ?></h3>                    
 
-                       
-
                         <div class="search">
-                            <?php // $this->widget('common.extensions.landa.widgets.LandaSearch', array('url' => url('user/searchJson'), 'class' => 'input-text')); ?>
-                        </div><!-- End search -->
+                            <?php
+                            if (app()->name == 'Sistem Informasi Pegawai')
+                                $this->widget('common.extensions.landa.widgets.LandaSearch', array('url' => url('pegawai/searchJson'), 'class' => 'input-text'));
+                            ?>
+                        </div>
 
                         <?php if (isset($this->breadcrumbs)): ?>
                             <?php

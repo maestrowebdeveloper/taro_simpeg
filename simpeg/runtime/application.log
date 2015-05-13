@@ -4029,3 +4029,376 @@ Stack trace:
 #20 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
 #21 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CWebApplication->run()
 REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/pegawai/rekap.html
+2015/05/12 14:51:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in /var/www/simpeg/common/lib/yii/web/CController.php:483
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/web/CController.php(270): CController->missingAction('images')
+#1 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): CController->run('images')
+#2 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController('site/images/fav...')
+#3 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/site/images/favicon.ico
+---
+2015/05/12 14:51:20 [error] [php] Trying to get property of non-object (/var/www/simpeg/simpeg/models/SiteConfig.php:110)
+Stack trace:
+#0 /var/www/simpeg/simpeg/views/site/index.php(91): SiteConfig->__get()
+#1 /var/www/simpeg/common/lib/yii/web/CBaseController.php(126): require()
+#2 /var/www/simpeg/common/extensions/yii-debug-toolbar/YiiDebugViewRenderer.php(40): SiteController->renderInternal()
+#3 /var/www/simpeg/common/lib/yii/web/CBaseController.php(93): YiiDebugViewRenderer->renderFile()
+#4 /var/www/simpeg/common/lib/yii/web/CController.php(869): SiteController->renderFile()
+#5 /var/www/simpeg/common/lib/yii/web/CController.php(782): SiteController->renderPartial()
+#6 /var/www/simpeg/simpeg/controllers/SiteController.php(39): SiteController->render()
+#7 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#8 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams()
+#9 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): SiteController->runAction()
+#10 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#11 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CAccessControlFilter->filter()
+#12 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): SiteController->filterAccessControl()
+#13 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#14 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#15 /var/www/simpeg/common/lib/yii/web/CController.php(265): SiteController->runActionWithFilters()
+#16 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): SiteController->run()
+#17 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#18 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#19 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CWebApplication->run()
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/
+2015/05/12 15:37:55 [error] [php] Undefined variable: sNip (/var/www/simpeg/simpeg/views/report/strukturOrganisasi.php:36)
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/web/CBaseController.php(93): YiiDebugViewRenderer->renderFile()
+#1 /var/www/simpeg/common/lib/yii/web/CController.php(869): ReportController->renderFile()
+#2 /var/www/simpeg/common/lib/yii/web/CController.php(782): ReportController->renderPartial()
+#3 /var/www/simpeg/simpeg/controllers/ReportController.php(300): ReportController->render()
+#4 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): ReportController->actionStrukturOrganisasi()
+#5 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams()
+#6 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): ReportController->runAction()
+#7 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#8 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CAccessControlFilter->filter()
+#9 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): ReportController->filterAccessControl()
+#10 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#11 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#12 /var/www/simpeg/common/lib/yii/web/CController.php(265): ReportController->runActionWithFilters()
+#13 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): ReportController->run()
+#14 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#15 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CWebApplication->run()
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/report/strukturOrganisasi.html
+2015/05/12 15:44:42 [error] [php] Undefined variable: arrPegawai (/var/www/simpeg/simpeg/views/report/strukturOrganisasi.php:29)
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/web/CBaseController.php(93): YiiDebugViewRenderer->renderFile()
+#1 /var/www/simpeg/common/lib/yii/web/CController.php(869): ReportController->renderFile()
+#2 /var/www/simpeg/common/lib/yii/web/CController.php(782): ReportController->renderPartial()
+#3 /var/www/simpeg/simpeg/controllers/ReportController.php(300): ReportController->render()
+#4 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): ReportController->actionStrukturOrganisasi()
+#5 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams()
+#6 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): ReportController->runAction()
+#7 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#8 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CAccessControlFilter->filter()
+#9 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): ReportController->filterAccessControl()
+#10 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#11 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#12 /var/www/simpeg/common/lib/yii/web/CController.php(265): ReportController->runActionWithFilters()
+#13 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): ReportController->run()
+#14 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#15 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CWebApplication->run()
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/report/strukturOrganisasi.html
+2015/05/12 15:46:52 [error] [php] Undefined index: pegawai.nama (/var/www/simpeg/simpeg/views/report/strukturOrganisasi.php:41)
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/web/CBaseController.php(93): YiiDebugViewRenderer->renderFile()
+#1 /var/www/simpeg/common/lib/yii/web/CController.php(869): ReportController->renderFile()
+#2 /var/www/simpeg/common/lib/yii/web/CController.php(782): ReportController->renderPartial()
+#3 /var/www/simpeg/simpeg/controllers/ReportController.php(300): ReportController->render()
+#4 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): ReportController->actionStrukturOrganisasi()
+#5 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams()
+#6 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): ReportController->runAction()
+#7 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#8 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CAccessControlFilter->filter()
+#9 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): ReportController->filterAccessControl()
+#10 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#11 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#12 /var/www/simpeg/common/lib/yii/web/CController.php(265): ReportController->runActionWithFilters()
+#13 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): ReportController->run()
+#14 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#15 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CWebApplication->run()
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/report/strukturOrganisasi.html
+2015/05/12 16:02:23 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '1RIGHT' in 'on clause'. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id ORDER BY jabatan_struktural.root,jabatan_struktural.lft.
+2015/05/12 16:02:23 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column '1RIGHT' in 'on clause'. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id ORDER BY jabatan_struktural.root,jabatan_struktural.lft' in /var/www/simpeg/common/lib/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /var/www/simpeg/simpeg/views/report/strukturOrganisasi.php(13): CDbCommand->query()
+#2 /var/www/simpeg/common/lib/yii/web/CBaseController.php(126): require('/var/www/simpeg...')
+#3 /var/www/simpeg/common/extensions/yii-debug-toolbar/YiiDebugViewRenderer.php(40): CBaseController->renderInternal('/var/www/simpeg...', Array, true)
+#4 /var/www/simpeg/common/lib/yii/web/CBaseController.php(93): YiiDebugViewRenderer->renderFile(Object(ReportController), '/var/www/simpeg...', Array, true)
+#5 /var/www/simpeg/common/lib/yii/web/CController.php(869): CBaseController->renderFile('/var/www/simpeg...', Array, true)
+#6 /var/www/simpeg/common/lib/yii/web/CController.php(782): CController->renderPartial('strukturOrganis...', Array, true)
+#7 /var/www/simpeg/simpeg/controllers/ReportController.php(300): CController->render('strukturOrganis...', Array)
+#8 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): ReportController->actionStrukturOrganisasi()
+#9 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#10 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#12 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#16 /var/www/simpeg/common/lib/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): CController->run('strukturOrganis...')
+#18 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController('report/struktur...')
+#19 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#20 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/report/strukturOrganisasi.html
+HTTP_REFERER=http://localhost/simpeg/simpeg/www/simpeg.sampang/pegawai/rekapEselon.html
+---
+2015/05/12 17:31:28 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY jabatan_struktural.root,jabatan_struktural.lft' at line 1. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id INNER JOIN riwayat_pangkat ON ORDER BY jabatan_struktural.root,jabatan_struktural.lft.
+2015/05/12 17:31:28 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY jabatan_struktural.root,jabatan_struktural.lft' at line 1. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id INNER JOIN riwayat_pangkat ON ORDER BY jabatan_struktural.root,jabatan_struktural.lft' in /var/www/simpeg/common/lib/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /var/www/simpeg/simpeg/views/report/strukturOrganisasi.php(14): CDbCommand->query()
+#2 /var/www/simpeg/common/lib/yii/web/CBaseController.php(126): require('/var/www/simpeg...')
+#3 /var/www/simpeg/common/extensions/yii-debug-toolbar/YiiDebugViewRenderer.php(40): CBaseController->renderInternal('/var/www/simpeg...', Array, true)
+#4 /var/www/simpeg/common/lib/yii/web/CBaseController.php(93): YiiDebugViewRenderer->renderFile(Object(ReportController), '/var/www/simpeg...', Array, true)
+#5 /var/www/simpeg/common/lib/yii/web/CController.php(869): CBaseController->renderFile('/var/www/simpeg...', Array, true)
+#6 /var/www/simpeg/common/lib/yii/web/CController.php(782): CController->renderPartial('strukturOrganis...', Array, true)
+#7 /var/www/simpeg/simpeg/controllers/ReportController.php(300): CController->render('strukturOrganis...', Array)
+#8 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): ReportController->actionStrukturOrganisasi()
+#9 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#10 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#12 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#16 /var/www/simpeg/common/lib/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): CController->run('strukturOrganis...')
+#18 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController('report/struktur...')
+#19 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#20 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/report/strukturOrganisasi.html
+HTTP_REFERER=http://localhost/simpeg/simpeg/www/simpeg.sampang/
+---
+2015/05/12 17:34:19 [error] [php] Undefined index: namaGelar (/var/www/simpeg/simpeg/views/report/strukturOrganisasi.php:43)
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/web/CBaseController.php(93): YiiDebugViewRenderer->renderFile()
+#1 /var/www/simpeg/common/lib/yii/web/CController.php(869): ReportController->renderFile()
+#2 /var/www/simpeg/common/lib/yii/web/CController.php(782): ReportController->renderPartial()
+#3 /var/www/simpeg/simpeg/controllers/ReportController.php(300): ReportController->render()
+#4 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): ReportController->actionStrukturOrganisasi()
+#5 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams()
+#6 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): ReportController->runAction()
+#7 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#8 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CAccessControlFilter->filter()
+#9 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): ReportController->filterAccessControl()
+#10 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#11 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#12 /var/www/simpeg/common/lib/yii/web/CController.php(265): ReportController->runActionWithFilters()
+#13 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): ReportController->run()
+#14 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#15 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CWebApplication->run()
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/report/strukturOrganisasi.html
+2015/05/12 17:45:39 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'tipe_jabatan' in on clause is ambiguous. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 AND tipe_jabatan="struktural"RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id ORDER BY jabatan_struktural.root,jabatan_struktural.lft.
+2015/05/12 17:45:39 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'tipe_jabatan' in on clause is ambiguous. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 AND tipe_jabatan="struktural"RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id ORDER BY jabatan_struktural.root,jabatan_struktural.lft' in /var/www/simpeg/common/lib/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /var/www/simpeg/simpeg/views/report/strukturOrganisasi.php(13): CDbCommand->query()
+#2 /var/www/simpeg/common/lib/yii/web/CBaseController.php(126): require('/var/www/simpeg...')
+#3 /var/www/simpeg/common/extensions/yii-debug-toolbar/YiiDebugViewRenderer.php(40): CBaseController->renderInternal('/var/www/simpeg...', Array, true)
+#4 /var/www/simpeg/common/lib/yii/web/CBaseController.php(93): YiiDebugViewRenderer->renderFile(Object(ReportController), '/var/www/simpeg...', Array, true)
+#5 /var/www/simpeg/common/lib/yii/web/CController.php(869): CBaseController->renderFile('/var/www/simpeg...', Array, true)
+#6 /var/www/simpeg/common/lib/yii/web/CController.php(782): CController->renderPartial('strukturOrganis...', Array, true)
+#7 /var/www/simpeg/simpeg/controllers/ReportController.php(300): CController->render('strukturOrganis...', Array)
+#8 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): ReportController->actionStrukturOrganisasi()
+#9 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#10 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#12 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#16 /var/www/simpeg/common/lib/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): CController->run('strukturOrganis...')
+#18 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController('report/struktur...')
+#19 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#20 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/report/strukturOrganisasi.html
+HTTP_REFERER=http://localhost/simpeg/simpeg/www/simpeg.sampang/
+---
+2015/05/12 17:54:51 [error] [exception.CException] exception 'CException' with message 'Property "Honorer.jabatan_honorer_id" is not defined.' in /var/www/simpeg/common/lib/yii/base/CComponent.php:130
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/db/ar/CActiveRecord.php(145): CComponent->__get('jabatan_honorer...')
+#1 /var/www/simpeg/simpeg/controllers/HonorerController.php(290): CActiveRecord->__get('jabatan_honorer...')
+#2 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): HonorerController->actionIndex()
+#3 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#10 /var/www/simpeg/common/lib/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): CController->run('')
+#12 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController('honorer')
+#13 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CApplication->run()
+#15 {main}
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/honorer.html?Honorer%5Bnama%5D=agus+mulyono&Honorer%5Btahun_pendidikan%5D=&Honorer%5Bjenis_kelamin%5D=&Honorer%5Btanggal_lahir%5D=&Honorer%5Balamat%5D=&Honorer%5Bkode_pos%5D=&Honorer%5Bhp%5D=&Honorer%5Bagama%5D=&Honorer%5Bgolongan_darah%5D=&Honorer%5Bstatus_pernikahan%5D=&Honorer%5Bnpwp%5D=&Honorer%5Bbpjs%5D=&Honorer%5Bnomor_register%5D=&Honorer%5Btanggal_register%5D=&Honorer%5Bunit_kerja_id%5D=0&Honorer%5Btmt_jabatan%5D=&Honorer%5Bgaji%5D=&Honorer%5Btmt_kontrak%5D=&Honorer%5Btmt_akhir_kontrak%5D=&ajax=honorer-grid&city_id=1101&tempat_lahir=1101
+HTTP_REFERER=http://localhost/simpeg/simpeg/www/simpeg.sampang/honorer.html
+---
+2015/05/12 18:01:34 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabata' at line 1. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 AND pegawai.tipe_jabatan="struktural"INNER JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_id"RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id RIGHT JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id ORDER BY jabatan_struktural.root,jabatan_struktural.lft.
+2015/05/12 18:01:34 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabata' at line 1. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 AND pegawai.tipe_jabatan="struktural"INNER JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_id"RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id RIGHT JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id ORDER BY jabatan_struktural.root,jabatan_struktural.lft' in /var/www/simpeg/common/lib/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /var/www/simpeg/simpeg/views/report/strukturOrganisasi.php(15): CDbCommand->query()
+#2 /var/www/simpeg/common/lib/yii/web/CBaseController.php(126): require('/var/www/simpeg...')
+#3 /var/www/simpeg/common/extensions/yii-debug-toolbar/YiiDebugViewRenderer.php(40): CBaseController->renderInternal('/var/www/simpeg...', Array, true)
+#4 /var/www/simpeg/common/lib/yii/web/CBaseController.php(93): YiiDebugViewRenderer->renderFile(Object(ReportController), '/var/www/simpeg...', Array, true)
+#5 /var/www/simpeg/common/lib/yii/web/CController.php(869): CBaseController->renderFile('/var/www/simpeg...', Array, true)
+#6 /var/www/simpeg/common/lib/yii/web/CController.php(782): CController->renderPartial('strukturOrganis...', Array, true)
+#7 /var/www/simpeg/simpeg/controllers/ReportController.php(300): CController->render('strukturOrganis...', Array)
+#8 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): ReportController->actionStrukturOrganisasi()
+#9 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#10 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#12 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#16 /var/www/simpeg/common/lib/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): CController->run('strukturOrganis...')
+#18 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController('report/struktur...')
+#19 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#20 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/report/strukturOrganisasi.html
+---
+2015/05/12 18:03:29 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'riwayat_pangkat.pegawai_idINNER' in 'on clause'. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 AND pegawai.tipe_jabatan="struktural"RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id INNER JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_idINNER JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id ORDER BY jabatan_struktural.root,jabatan_struktural.lft.
+2015/05/12 18:03:29 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'riwayat_pangkat.pegawai_idINNER' in 'on clause'. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 AND pegawai.tipe_jabatan="struktural"RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id INNER JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_idINNER JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id ORDER BY jabatan_struktural.root,jabatan_struktural.lft' in /var/www/simpeg/common/lib/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /var/www/simpeg/simpeg/views/report/strukturOrganisasi.php(15): CDbCommand->query()
+#2 /var/www/simpeg/common/lib/yii/web/CBaseController.php(126): require('/var/www/simpeg...')
+#3 /var/www/simpeg/common/extensions/yii-debug-toolbar/YiiDebugViewRenderer.php(40): CBaseController->renderInternal('/var/www/simpeg...', Array, true)
+#4 /var/www/simpeg/common/lib/yii/web/CBaseController.php(93): YiiDebugViewRenderer->renderFile(Object(ReportController), '/var/www/simpeg...', Array, true)
+#5 /var/www/simpeg/common/lib/yii/web/CController.php(869): CBaseController->renderFile('/var/www/simpeg...', Array, true)
+#6 /var/www/simpeg/common/lib/yii/web/CController.php(782): CController->renderPartial('strukturOrganis...', Array, true)
+#7 /var/www/simpeg/simpeg/controllers/ReportController.php(300): CController->render('strukturOrganis...', Array)
+#8 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): ReportController->actionStrukturOrganisasi()
+#9 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#10 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#12 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#16 /var/www/simpeg/common/lib/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): CController->run('strukturOrganis...')
+#18 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController('report/struktur...')
+#19 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#20 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/report/strukturOrganisasi.html
+---
+2015/05/12 18:03:38 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'riwayat_pangkat.pegawai_idRIGHT' in 'on clause'. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 AND pegawai.tipe_jabatan="struktural"RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id INNER JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_idRIGHT JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id ORDER BY jabatan_struktural.root,jabatan_struktural.lft.
+2015/05/12 18:03:38 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'riwayat_pangkat.pegawai_idRIGHT' in 'on clause'. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 AND pegawai.tipe_jabatan="struktural"RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id INNER JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_idRIGHT JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id ORDER BY jabatan_struktural.root,jabatan_struktural.lft' in /var/www/simpeg/common/lib/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /var/www/simpeg/simpeg/views/report/strukturOrganisasi.php(15): CDbCommand->query()
+#2 /var/www/simpeg/common/lib/yii/web/CBaseController.php(126): require('/var/www/simpeg...')
+#3 /var/www/simpeg/common/extensions/yii-debug-toolbar/YiiDebugViewRenderer.php(40): CBaseController->renderInternal('/var/www/simpeg...', Array, true)
+#4 /var/www/simpeg/common/lib/yii/web/CBaseController.php(93): YiiDebugViewRenderer->renderFile(Object(ReportController), '/var/www/simpeg...', Array, true)
+#5 /var/www/simpeg/common/lib/yii/web/CController.php(869): CBaseController->renderFile('/var/www/simpeg...', Array, true)
+#6 /var/www/simpeg/common/lib/yii/web/CController.php(782): CController->renderPartial('strukturOrganis...', Array, true)
+#7 /var/www/simpeg/simpeg/controllers/ReportController.php(300): CController->render('strukturOrganis...', Array)
+#8 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): ReportController->actionStrukturOrganisasi()
+#9 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#10 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#12 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#16 /var/www/simpeg/common/lib/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): CController->run('strukturOrganis...')
+#18 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController('report/struktur...')
+#19 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#20 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/report/strukturOrganisasi.html
+---
+2015/05/12 18:04:30 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'riwayat_pangkat.pegawai_idINNER' in 'on clause'. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 AND pegawai.tipe_jabatan="struktural"RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id INNER JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_idINNER JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id ORDER BY jabatan_struktural.root,jabatan_struktural.lft.
+2015/05/12 18:04:30 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'riwayat_pangkat.pegawai_idINNER' in 'on clause'. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 AND pegawai.tipe_jabatan="struktural"RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id INNER JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_idINNER JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id ORDER BY jabatan_struktural.root,jabatan_struktural.lft' in /var/www/simpeg/common/lib/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /var/www/simpeg/simpeg/views/report/strukturOrganisasi.php(15): CDbCommand->query()
+#2 /var/www/simpeg/common/lib/yii/web/CBaseController.php(126): require('/var/www/simpeg...')
+#3 /var/www/simpeg/common/extensions/yii-debug-toolbar/YiiDebugViewRenderer.php(40): CBaseController->renderInternal('/var/www/simpeg...', Array, true)
+#4 /var/www/simpeg/common/lib/yii/web/CBaseController.php(93): YiiDebugViewRenderer->renderFile(Object(ReportController), '/var/www/simpeg...', Array, true)
+#5 /var/www/simpeg/common/lib/yii/web/CController.php(869): CBaseController->renderFile('/var/www/simpeg...', Array, true)
+#6 /var/www/simpeg/common/lib/yii/web/CController.php(782): CController->renderPartial('strukturOrganis...', Array, true)
+#7 /var/www/simpeg/simpeg/controllers/ReportController.php(300): CController->render('strukturOrganis...', Array)
+#8 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): ReportController->actionStrukturOrganisasi()
+#9 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#10 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#12 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#16 /var/www/simpeg/common/lib/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): CController->run('strukturOrganis...')
+#18 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController('report/struktur...')
+#19 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#20 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/report/strukturOrganisasi.html
+---
+2015/05/12 18:10:09 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'jurusan.nama' in 'field list'. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan, eselon.nama as nama_eselon, jurusan.nama as pendidikan FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 AND pegawai.tipe_jabatan="struktural" RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id INNER JOIN eselon ON eselon.id = jabatan_struktural.eselon_id INNER JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_id INNER JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id INNER JOIN riwayat_pendidikan ON pegawai.id = riwayat_pendidikan.pegawai_id INNER JOIN jurusan ON jurusan.id = riwayat_pendidikan.id_jurusan ORDER BY jabatan_struktural.root,jabatan_struktural.lft.
+2015/05/12 18:10:09 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'jurusan.nama' in 'field list'. The SQL statement executed was: SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan, eselon.nama as nama_eselon, jurusan.nama as pendidikan FROM pegawai INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 AND pegawai.tipe_jabatan="struktural" RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id INNER JOIN eselon ON eselon.id = jabatan_struktural.eselon_id INNER JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_id INNER JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id INNER JOIN riwayat_pendidikan ON pegawai.id = riwayat_pendidikan.pegawai_id INNER JOIN jurusan ON jurusan.id = riwayat_pendidikan.id_jurusan ORDER BY jabatan_struktural.root,jabatan_struktural.lft' in /var/www/simpeg/common/lib/yii/db/CDbCommand.php:543
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /var/www/simpeg/simpeg/views/report/strukturOrganisasi.php(19): CDbCommand->query()
+#2 /var/www/simpeg/common/lib/yii/web/CBaseController.php(126): require('/var/www/simpeg...')
+#3 /var/www/simpeg/common/extensions/yii-debug-toolbar/YiiDebugViewRenderer.php(40): CBaseController->renderInternal('/var/www/simpeg...', Array, true)
+#4 /var/www/simpeg/common/lib/yii/web/CBaseController.php(93): YiiDebugViewRenderer->renderFile(Object(ReportController), '/var/www/simpeg...', Array, true)
+#5 /var/www/simpeg/common/lib/yii/web/CController.php(869): CBaseController->renderFile('/var/www/simpeg...', Array, true)
+#6 /var/www/simpeg/common/lib/yii/web/CController.php(782): CController->renderPartial('strukturOrganis...', Array, true)
+#7 /var/www/simpeg/simpeg/controllers/ReportController.php(300): CController->render('strukturOrganis...', Array)
+#8 /var/www/simpeg/common/lib/yii/web/actions/CInlineAction.php(49): ReportController->actionStrukturOrganisasi()
+#9 /var/www/simpeg/common/lib/yii/web/CController.php(308): CInlineAction->runWithParams(Array)
+#10 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 /var/www/simpeg/common/lib/yii/web/filters/CFilter.php(40): CFilterChain->run()
+#12 /var/www/simpeg/common/lib/yii/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 /var/www/simpeg/common/lib/yii/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 /var/www/simpeg/common/lib/yii/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 /var/www/simpeg/common/lib/yii/web/CController.php(291): CFilterChain->run()
+#16 /var/www/simpeg/common/lib/yii/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): CController->run('strukturOrganis...')
+#18 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController('report/struktur...')
+#19 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#20 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/report/strukturOrganisasi.html
+---
+2015/05/12 23:38:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in /var/www/simpeg/common/lib/yii/web/CController.php:483
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/web/CController.php(270): CController->missingAction('images')
+#1 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): CController->run('images')
+#2 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController('site/images/fav...')
+#3 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/site/images/favicon.ico
+---
+2015/05/13 10:59:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in /var/www/simpeg/common/lib/yii/web/CController.php:483
+Stack trace:
+#0 /var/www/simpeg/common/lib/yii/web/CController.php(270): CController->missingAction('images')
+#1 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(282): CController->run('images')
+#2 /var/www/simpeg/common/lib/yii/web/CWebApplication.php(141): CWebApplication->runController('site/images/fav...')
+#3 /var/www/simpeg/common/lib/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /var/www/simpeg/simpeg/www/simpeg.sampang/index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/simpeg/simpeg/www/simpeg.sampang/site/images/favicon.ico
+---
