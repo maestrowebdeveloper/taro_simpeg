@@ -37,7 +37,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 </div>
             </div>
         </div>
-        <div><?php if (!empty($model->unit_kerja_id)) { ?>
+        <div><?php if (!empty($_POST)) { ?>
                 <a onclick="hide()" class="btn btn-small view" title="Remove Form" rel="tooltip"><i class=" icon-remove-circle"></i></a>
             <?php } ?>
         </div>
@@ -56,7 +56,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php $this->endWidget(); ?>
 
 <?php
-if ( !empty($model->unit_kerja_id)) {
+if ( !empty($_POST)) {
     $this->renderPartial('_rekapBatasPensiun', array('model' => $model));
 }
 ?>
