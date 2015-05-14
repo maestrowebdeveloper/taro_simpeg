@@ -220,7 +220,7 @@ class Pegawai extends CActiveRecord {
         if (isset($_POST['Pegawai'])) {
             $criteria->compare('Pangkat.tmt_pangkat', $_POST['Pegawai']['tmt_golongan'], true);
         }
-        $criteria->compare('tipe_jabatan', $this->tipe_jabatan, true);
+        $criteria->compare('t.tipe_jabatan', $this->tipe_jabatan, true);
         $criteria->compare('t.jabatan_struktural_id', $this->jabatan_struktural_id);
         $criteria->compare('t.jabatan_fu_id', $this->jabatan_fu_id);
         $criteria->compare('t.jabatan_ft_id', $this->jabatan_ft_id);
