@@ -53,7 +53,7 @@ $arrPegawai = cmd('SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabata
             ?>
             <tr <?php echo $css?>>
                 <td><?php echo $maju.$arr['unitKerja'] ?></td>
-                <td><?php echo $arr['nip'] ?></td>
+                <td><?php echo $arr['nip']?></td>
                 <td><?php echo $arr['nama'] ?></td>
                 <td><?php echo $arr['nama_golongan'].' - '.$arr['gol_keterangan'] ?></td>
                 <td><?php echo date('d M Y',strtotime($arr['tmt_pensiun']))   ?></td>
