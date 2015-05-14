@@ -1,9 +1,9 @@
-                                                                <?php
+<?php
 
 class PegawaiController extends Controller {
 
     public $breadcrumbs;
-                                                                        
+
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -68,7 +68,7 @@ class PegawaiController extends Controller {
         $return['tempat_lahir'] = $model->tempat_lahir;
         $return['tanggal_lahir'] = $model->tanggal_lahir;
         $return['alamat'] = $model->alamat;
-        $return['pendidikan_terakhir'] = $model->pendidikanTerakhir .' - '. $model->pendidikanJurusan;
+        $return['pendidikan_terakhir'] = $model->pendidikanTerakhir . ' - ' . $model->pendidikanJurusan;
         echo json_encode($return);
     }
 
@@ -99,7 +99,6 @@ class PegawaiController extends Controller {
         }
         echo json_encode($list);
     }
-   
 
     public function actionSelectPangkat() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
@@ -139,10 +138,10 @@ class PegawaiController extends Controller {
         $data['body'] = $this->renderPartial('/pegawai/_tablePangkat', array('pangkat' => $pangkat, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
 //        if (!empty($pegawai_id)) {
 //            $PangkatPegawai = Pegawai::model()->findbyPk($pegawai_id);
-            if ($pangkatPegawai == $id)
-                $data['default'] = 1;
-            else
-                $data['default'] = 0;
+        if ($pangkatPegawai == $id)
+            $data['default'] = 1;
+        else
+            $data['default'] = 0;
 //        }
         echo CJSON::encode($data);
     }
@@ -155,6 +154,8 @@ class PegawaiController extends Controller {
                 $model = RiwayatPangkat::model()->findByPk($_POST['RiwayatPangkat']['id']);
 
             $model->attributes = $_POST['RiwayatPangkat'];
+            $model->no_sk = $_POST['RiwayatPangkat']['no_sk'];
+            $model->tgl_sk = $_POST['RiwayatPangkat']['tgl_sk'];
             $golongan = Golongan::model()->findByPk($model->golongan_id);
             $model->golongan_id = $golongan->id;
             if ($model->save()) {
@@ -223,10 +224,10 @@ class PegawaiController extends Controller {
         $data['body'] = $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
 //        if (!empty($pegawai_id)) {
 //            $JabatanPegawai = Pegawai::model()->findbyPk($pegawai_id);
-            if ($jabatanPegawai == $id)
-                $data['default'] = 1;
-            else
-                $data['default'] = 0;
+        if ($jabatanPegawai == $id)
+            $data['default'] = 1;
+        else
+            $data['default'] = 0;
 //        }
         echo CJSON::encode($data);
     }
@@ -240,7 +241,7 @@ class PegawaiController extends Controller {
 
             $model->attributes = (isset($_POST['RiwayatJabatan'])) ? $_POST['RiwayatJabatan'] : '';
             $model->tipe_jabatan = (isset($_POST['RiwayatJabatan']['tipe_jabatan'])) ? $_POST['RiwayatJabatan']['tipe_jabatan'] : '';
-            
+
             $model->jabatan_fu_id = (isset($_POST['RiwayatJabatan']['jabatan_fu_id'])) ? $_POST['RiwayatJabatan']['jabatan_fu_id'] : '';
             $model->jabatan_ft_id = (isset($_POST['RiwayatJabatan']['jabatan_ft_id'])) ? $_POST['RiwayatJabatan']['jabatan_ft_id'] : '';
             $model->type = (isset($_POST['RiwayatJabatan']['type'])) ? $_POST['RiwayatJabatan']['type'] : '';
@@ -285,10 +286,10 @@ class PegawaiController extends Controller {
         $gaji = RiwayatGaji::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tmt_mulai DESC'));
         $data['body'] = $this->renderPartial('/pegawai/_tableGaji', array('gaji' => $gaji, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
 //        if (!empty($pegawai_id)) {
-            if ($gajiPegawai == $id)
-                $data['default'] = 1;
-            else
-                $data['default'] = 0;
+        if ($gajiPegawai == $id)
+            $data['default'] = 1;
+        else
+            $data['default'] = 0;
 //        }
         echo CJSON::encode($data);
     }
@@ -373,6 +374,7 @@ class PegawaiController extends Controller {
         $pendidikan = RiwayatPendidikan::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tahun DESC'));
         echo $this->renderPartial('/pegawai/_tablePendidikan', array('pendidikan' => $pendidikan, 'edit' => true, 'pegawai_id' => $id));
     }
+
     public function actionGetJurusanTingkat() {
         $name = $_GET["q"];
         $data = array();
@@ -381,7 +383,7 @@ class PegawaiController extends Controller {
             $data[] = array('id' => '0', 'text' => 'Tidak Ada Nama Yang Cocok');
         } else {
             foreach ($pegawai as $val) {
-                $data[] = array('id' => $val->id, 'text' => $val->tingkat .' - '.$val->Name);
+                $data[] = array('id' => $val->id, 'text' => $val->tingkat . ' - ' . $val->Name);
             }
         }
         echo json_encode($data);
@@ -420,10 +422,10 @@ class PegawaiController extends Controller {
         $data['body'] = $this->renderPartial('/pegawai/_tablePendidikan', array('pendidikan' => $pendidikan, 'edit' => true, 'pegawai_id' => $pegawai_id), true);
 //        if (!empty($pegawai_id)) {
 //            $PendidikanPegawai = Pegawai::model()->findbyPk($pegawai_id);
-            if ($pendidikanPegawai == $id)
-                $data['default'] = 1;
-            else
-                $data['default'] = 0;
+        if ($pendidikanPegawai == $id)
+            $data['default'] = 1;
+        else
+            $data['default'] = 0;
 //        }
         echo CJSON::encode($data);
     }
@@ -520,7 +522,7 @@ class PegawaiController extends Controller {
         $date = explode("-", $_POST['tmt_cpns']);
         $tmt = mktime(0, 0, 0, $date[1] + $bulan, $date[2], $date[0] + $tahun);
         $tmt_cpns = date("Y-m-d", $tmt);
-        if (isset($tmt_cpns) or ! empty($tmt_cpns)) {
+        if (isset($tmt_cpns) or !empty($tmt_cpns)) {
             $data = array();
             $data['bulan'] = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true));
             $data['tahun'] = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true));
@@ -657,12 +659,14 @@ class PegawaiController extends Controller {
 
         if (isset($session['Pegawai_records'])) {
             $model = $session['Pegawai_records'];
-        } else
+        }
+        else
             $model = Pegawai::model()->findAll();
 
         if (isset($session['Honorer_records'])) {
             $honorer = $session['Honorer_records'];
-        } else
+        }
+        else
             $honorer = Honorer::model()->findAll();
 
         Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelUlangTahun', array(
@@ -740,7 +744,8 @@ class PegawaiController extends Controller {
 
         if (isset($session['Pegawai_records'])) {
             $model = $session['Pegawai_records'];
-        } else
+        }
+        else
             $model = Pegawai::model()->findAll();
 
         Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelCheckError', array(
@@ -800,8 +805,8 @@ class PegawaiController extends Controller {
             $sJab = (isset($o->RiwayatJabatan->jabatanPegawai)) ? $o->RiwayatJabatan->jabatanPegawai : "-";
             $results[$no]['url'] = url('pegawai/' . $o->id);
             $results[$no]['img'] = $o->imgUrl['small'];
-            $results[$no]['title'] = $o->nip . '<br/>' .$o->namaGelar;
-            $results[$no]['description'] = $sJab . '<br/>' . $sGol ;
+            $results[$no]['title'] = $o->nip . '<br/>' . $o->namaGelar;
+            $results[$no]['description'] = $sJab . '<br/>' . $sGol;
         }
         echo json_encode($results);
     }
@@ -875,7 +880,7 @@ class PegawaiController extends Controller {
             if ($model->save()) {
                 $id = Pegawai::model()->find(array('condition' => 'nip=' . $model->nip, 'order' => 'id DESC'));
                 if (is_object($file)) {
-                    $file->saveAs('images/pegawai/' . $model->foto);
+                    $file->saveAs('images/pegawai/' . $model->foto, 0777);
                     Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
                 }
                 $this->redirect(array('update', 'id' => $id->id));
@@ -959,7 +964,7 @@ class PegawaiController extends Controller {
                 $file = CUploadedFile::getInstance($model, 'foto');
                 if (is_object($file)) {
                     $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
-                    $file->saveAs('images/pegawai/' . $model->foto);
+                    $file->saveAs('images/pegawai/' . $model->foto, 0777);
                     Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
                 }
                 $this->redirect(array('view', 'id' => $model->id));
@@ -992,7 +997,8 @@ class PegawaiController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        } else
+        }
+        else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -1022,19 +1028,17 @@ class PegawaiController extends Controller {
             if ($model->jabatan_ft_id == 0)
                 unset($model->jabatan_ft_id);
         }
-        
+
         if (isset($_GET['export'])) {
-            
-                $model->attributes = $_GET['Pegawai'];
+
+            $model->attributes = $_GET['Pegawai'];
             Yii::app()->request->sendFile('Data Pegawai - ' . date('YmdHis') . '.xls', $this->renderPartial('index', array(
                         'model' => $model,
-                            ))
+                    ))
             );
-           
-        
         }
 
-        
+
 
         $this->cssJs();
         if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
@@ -1050,8 +1054,8 @@ class PegawaiController extends Controller {
                 RiwayatHukuman::model()->deleteAll('pegawai_id=' . $id);
             }
         }
-        
-        
+
+
         $this->render('index', array(
             'model' => $model,
         ));
@@ -1143,23 +1147,23 @@ class PegawaiController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        $nip=$_GET['nip'];
-        $nama=$_GET['nama'];
-        $gelar_dpn=$_GET['gelar_dpn'];
-        $gelar_blk=$_GET['gelar_blk'];
-        $hp=$_GET['hp'];
-        $agama=$_GET['agama'];
-        $type_jabatan=$_GET['type_jabatan'];
+        $nip = $_GET['nip'];
+        $nama = $_GET['nama'];
+        $gelar_dpn = $_GET['gelar_dpn'];
+        $gelar_blk = $_GET['gelar_blk'];
+        $hp = $_GET['hp'];
+        $agama = $_GET['agama'];
+        $type_jabatan = $_GET['type_jabatan'];
         //$satuan_kerja=$_GET['satuan_kerja'];
         //$unit_kerja=$_GET['unit_kerja'];
-        $Pegawai_tipe_jabatan=$_GET['Pegawai_tipe_jabatan'];
-        $jns_kelamin=$_GET['jns_kelamin'];
-        $sts_pernikahan=$_GET['sts_pernikahan'];
-       
+        $Pegawai_tipe_jabatan = $_GET['Pegawai_tipe_jabatan'];
+        $jns_kelamin = $_GET['jns_kelamin'];
+        $sts_pernikahan = $_GET['sts_pernikahan'];
+
         $criteria = new CDbCriteria;
         $criteria->compare('nip', $nip, true);
-        $criteria->addCondition('nama like "%'.$nama.'%"');
-       $criteria->compare('gelar_depan', $gelar_dpn, true);
+        $criteria->addCondition('nama like "%' . $nama . '%"');
+        $criteria->compare('gelar_depan', $gelar_dpn, true);
         $criteria->compare('gelar_belakang', $gelar_blk, true);
         $criteria->compare('hp', $hp, true);
         $criteria->compare('agama', $agama, true);
@@ -1170,7 +1174,7 @@ class PegawaiController extends Controller {
         // $criteria->compare('status_pernikahan', $sts_pernikahan, true);
         $model = Pegawai::model()->findAll($criteria);
 
-        Yii::app()->request->sendFile('Data Pegawai -'.date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Pegawai -' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );
@@ -1194,7 +1198,8 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatPangkat_records'])) {
             $model = $session['RiwayatPangkat_records'];
-        } else
+        }
+        else
             $model = RiwayatPangkat::model()->findAll();
 
 
@@ -1222,7 +1227,8 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatJabatan_records'])) {
             $model = $session['RiwayatJabatan_records'];
-        } else
+        }
+        else
             $model = RiwayatJabatan::model()->findAll();
 
 
@@ -1277,7 +1283,8 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatGaji_records'])) {
             $model = $session['RiwayatGaji_records'];
-        } else
+        }
+        else
             $model = RiwayatGaji::model()->findAll();
 
 
@@ -1305,7 +1312,8 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatKeluarga_records'])) {
             $model = $session['RiwayatKeluarga_records'];
-        } else
+        }
+        else
             $model = RiwayatKeluarga::model()->findAll();
 
 
@@ -1333,7 +1341,8 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatPendidikan_records'])) {
             $model = $session['RiwayatPendidikan_records'];
-        } else
+        }
+        else
             $model = RiwayatPendidikan::model()->findAll();
 
 
@@ -1343,4 +1352,45 @@ class PegawaiController extends Controller {
         );
     }
 
+    public function actionMigrasipensiun() {
+        /// change tmt pensiun struktural
+        $struktural = Pegawai::model()->with('JabatanStruktural.Eselon')->findAll(array('condition' => 'JabatanStruktural.eselon_id = Eselon.id and t.tipe_jabatan="struktural"'));
+        foreach ($struktural as $data) {
+            $tingkatEselon = substr($data->JabatanStruktural->Eselon->nama, 0, 2);
+            if ($tingkatEselon == 'II') {
+                $date = explode("-", $data->tanggal_lahir);
+                $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 60);
+                 $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
+                $data->save();
+            } elseif ($tingkatEselon == 'III' or $tingkatEselon == 'IV' or $tingkatEselon == 'V') {
+                $date = explode("-", $data->tanggal_lahir);
+                $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 58);
+                 $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
+                $data->save();
+            }
+        }
+
+        /// change tmt pensiun tertentu
+        $tertentu = Pegawai::model()->findAll(array('condition' => 'tipe_jabatan="fungsional_tertentu"'));
+        foreach ($tertentu as $data) {
+            $date = explode("-", $data->tanggal_lahir);
+                $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 60);
+                $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
+//                $data->tmt_pensiun = date('Y-m-d',strtotime("2032-11-10"));
+                $data->save();
+        }
+
+//        / change tmt pensiun fungsioanal
+        $tertentu = Pegawai::model()->with('JabatanFu')->findAll(array('condition' => 't.tipe_jabatan="fungsional_umum"'));
+        foreach ($tertentu as $data) {
+            $date = explode("-", $data->tanggal_lahir);
+                $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 58);
+             $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
+//                $data->tmt_pensiun = date('Y-m-d',strtotime("2032-11-10"));
+                $data->save();
+        }
+        echo 'sukses';
+    }
+
 }
+

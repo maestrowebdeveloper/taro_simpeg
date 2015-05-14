@@ -30,19 +30,6 @@ $this->breadcrumbs = array(
         <div class="control-group ">
             <label class="control-label" for="Pegawai_jabatan_id">Tahun / Bulan</label>
             <div class="controls">
-                <select name='bulan'>
-                    <option value=0> Select Month</option>
-                    <?php
-                    $month = landa()->monthly();
-                    foreach ($month as $key => $val) {
-                        $status = '';
-                        if (isset($_POST['bulan']) and $_POST['bulan'] == $key) {
-                            $status = 'selected="selected"';
-                        }
-                        echo '<option value="' . $key . '" ' . $status . '>' . $val . '</option>';
-                    }
-                    ?>
-                </select> - 
                 <select Name='tahun'>
                     <option value="0">Select Year</option>
                     <?php
@@ -55,7 +42,20 @@ $this->breadcrumbs = array(
                         echo'<option value="' . $x . '" ' . $status . '>' . $x . '</option>';
                     }
                     ?> 
-                </select>
+                </select> - 
+                <select name='bulan'>
+                    <option value=0> Select Month</option>
+                    <?php
+                    $month = landa()->monthly();
+                    foreach ($month as $key => $val) {
+                        $status = '';
+                        if (isset($_POST['bulan']) and $_POST['bulan'] == $key) {
+                            $status = 'selected="selected"';
+                        }
+                        echo '<option value="' . $key . '" ' . $status . '>' . $val . '</option>';
+                    }
+                    ?>
+                </select>    
             </div>
         </div>
         <div class="control-group ">
@@ -81,7 +81,7 @@ $this->breadcrumbs = array(
             <label class="control-label">Unit Kerja<span class="required">*</span></label>
             <div class="controls">
                 <?php
-                $data = array('0' => '- Select All -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                $data = array('0' => '- Select All -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
                 $this->widget(
                         'bootstrap.widgets.TbSelect2', array(
                     'name' => 'satuan_kerja_id',
@@ -97,7 +97,7 @@ $this->breadcrumbs = array(
             <label class="control-label">Eselon<span class="required">*</span></label>
             <div class="controls">
                 <?php
-                $data = array('0' => '- Eselon -') + CHtml::listData(Eselon::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                $data = array('0' => '- Eselon -') + CHtml::listData(Eselon::model()->findAll(array('order' => 'id')), 'id', 'nama');
                 $this->widget(
                         'bootstrap.widgets.TbSelect2', array(
                     'name' => 'eselon_id',

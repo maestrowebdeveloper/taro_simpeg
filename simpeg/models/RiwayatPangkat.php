@@ -38,7 +38,7 @@ class RiwayatPangkat extends CActiveRecord {
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, nomor_register, pegawai_id, golongan_id, tmt_pangkat, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, nomor_register, pegawai_id, golongan_id, tmt_pangkat,no_sk,tgl_sk, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -65,6 +65,8 @@ class RiwayatPangkat extends CActiveRecord {
             'golongan_id' => 'Golongan',
 //			'nama_golongan' => 'Nama Golongan',
             'tmt_pangkat' => 'Tmt Pangkat',
+            'tgl_sk' => 'Tanggal SK',
+            'tmt_pangkat' => 'Tanggal',
             'created' => 'Created',
             'created_user_id' => 'Created User',
             'modified' => 'Modified',
@@ -96,6 +98,8 @@ class RiwayatPangkat extends CActiveRecord {
         $criteria->compare('golongan_id', $this->golongan_id);
 //		$criteria->compare('nama_golongan',$this->nama_golongan,true);
         $criteria->compare('tmt_pangkat', $this->tmt_pangkat, true);
+        $criteria->compare('tgl_sk', $this->tgl_sk, true);
+        $criteria->compare('no_sk', $this->no_sk, true);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('created_user_id', $this->created_user_id);
         $criteria->compare('modified', $this->modified, true);

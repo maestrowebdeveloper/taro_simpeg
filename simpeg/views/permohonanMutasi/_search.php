@@ -49,7 +49,7 @@
 
 
             <?php
-        $data = array('0'=>'- Unit Kerja -')+CHtml::listData(UnitKerja::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+        $data = array('0'=>'- Unit Kerja -')+CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
                 echo $form->select2Row($model, 'new_unit_kerja_id', array(
                     'asDropDownList' => true,                    
                     'data' => $data,    
@@ -85,7 +85,7 @@
 
                 <div class="fungsional_umum" style="display:<?php echo $fu;?>">                                 
                     <?php 
-                    $data = array('0'=>'- Jabatan Fungsional Umum -')+CHtml::listData(JabatanFu::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                    $data = array('0'=>'- Jabatan Fungsional Umum -')+CHtml::listData(JabatanFu::model()->findAll(array('order' => 'id')), 'id', 'nama');
                     echo $form->select2Row($model, 'new_jabatan_fu_id', array(
                         'asDropDownList' => true,                    
                         'data' => $data,    
@@ -99,7 +99,7 @@
 
                 <div class="fungsional_tertentu" style="display:<?php echo $ft;?>">                                
                     <?php 
-                    $data = array('0'=>'- Jabatan Fungsional Tertentu -')+CHtml::listData(JabatanFt::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                    $data = array('0'=>'- Jabatan Fungsional Tertentu -')+CHtml::listData(JabatanFt::model()->findAll(array('order' => 'id')), 'id', 'nama');
                     echo $form->select2Row($model, 'new_jabatan_ft_id', array(
                         'asDropDownList' => true,                    
                         'data' => $data,    
