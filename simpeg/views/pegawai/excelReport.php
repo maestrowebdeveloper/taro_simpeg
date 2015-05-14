@@ -5,6 +5,7 @@
 	<tr>		
  		<th width="80px">NIP</th> 		
  		<th width="80px">NAMA</th> 		
+ 				
  		<th width="80px">JENIS KELAMIN</th> 		
  		<th width="80px">TTL</th> 		
  		<th width="80px">AGAMA</th> 		 		 		 	
