@@ -21,7 +21,7 @@
             echo $form->hiddenField($model, 'id');                   
             echo $form->hiddenField($model, 'pegawai_id');                   
                                         
-            $data = array('0'=>'- Golongan -')+CHtml::listData(Golongan::model()->findAll(array('order' => 'nama')), 'id', 'nama');                                    
+            $data = array('0'=>'- Golongan -')+CHtml::listData(Golongan::model()->findAll(array('order' => 'nama')), 'id', 'golongan');                                    
             echo $form->select2Row($model, 'golongan_id', array(
                 'asDropDownList' => true,                    
                 'data' => $data,    
@@ -34,6 +34,13 @@
             echo $form->textFieldRow($model,'nomor_register',array('class'=>'span5','maxlength'=>50));
             echo $form->datepickerRow(
                    $model, 'tmt_pangkat', array(
+               'options' => array('language' => 'id','format'=>'yyyy-mm-dd'),
+               'prepend' => '<i class="icon-calendar"></i>'
+                   )
+            ); 
+            echo $form->textFieldRow($model,'no_sk',array('class'=>'span5','maxlength'=>50));
+            echo $form->datepickerRow(
+                   $model, 'tgl_sk', array(
                'options' => array('language' => 'id','format'=>'yyyy-mm-dd'),
                'prepend' => '<i class="icon-calendar"></i>'
                    )
@@ -56,7 +63,8 @@
 <script>
 jQuery(function($) {
     jQuery('#RiwayatPangkat_tmt_pangkat').datepicker({'language':'id','format':'yyyy-mm-dd','weekStart':0});
-    jQuery('#RiwayatPangkat_golongan_id').select2({'width':'20%'});          
+    jQuery('#RiwayatPangkat_tgl_sk').datepicker({'language':'id','format':'yyyy-mm-dd','weekStart':0});
+    jQuery('#RiwayatPangkat_golongan_id').select2({'width':'30%'});          
 });
 $(".savePangkat").click(function(){
     var postData = $("#pangkat-form").serialize();

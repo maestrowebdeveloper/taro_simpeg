@@ -91,9 +91,8 @@ INNER JOIN riwayat_jabatan ON pegawai.riwayat_jabatan_id = riwayat_jabatan.id
 INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan_struktural.id
 WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AND pegawai.kedudukan_id = 1 AND jurusan.tingkat="' . $value . '" ')->query());
         }
-
-        
         $this->renderPartial('_rekapDetail', array('data' => $pendidikan,'arr'=>$sPendidikan, 'unitKerja' => $unitKerja, 'header' => 'TINGKAT PENDIDIKAN', 'berdasarkan' => $model->jabatan_fu_id));
+        
     } elseif ($model->jabatan_fu_id == "golongan") {
 
         $sGolongan = CHtml::listData(Golongan::model()->findAll(), 'nama', 'nama');
@@ -203,7 +202,6 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $data->id . ' AND pegawai.kedudukan
         $this->renderPartial('_rekapDetail', array('data' => $golongan, 'arr' => $sGolongan, 'unitKerja' => $unitKerja, 'header' => 'PANGKAT / GOLONGAN', 'berdasarkan' => 'all'));
     } else {
         $unitKerja = UnitKerja::model()->findAll(array('order' => 'id'));
-//        =============== ESELON=======
         $sEselon = CHtml::listData(Eselon::model()->findAll(array('order' => 'id ASC')), 'nama', 'nama');
         foreach ($unitKerja as $unit => $data) {
             foreach ($sEselon as $key => $value) {

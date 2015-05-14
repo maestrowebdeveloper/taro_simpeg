@@ -209,7 +209,7 @@
                                         )
                                 ;
                             }
-                            echo '<img src="' . $img['medium'] . '" alt="" class="image img-polaroid" id="my_image"  /> ';
+                            echo '<img src="' . $model->imgUrl['medium'] . '" alt="" class="image img-polaroid" id="my_image"  /> ';
                             if (!isset($_GET['v'])) {
                                 echo $cc;
                                 ?>

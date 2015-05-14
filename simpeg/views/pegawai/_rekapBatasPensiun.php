@@ -1,9 +1,10 @@
 <?php
 $criteria = '1';
-if (!empty($_POST['Pegawai']['unit_kerja_id'])) {
-    $criteria = 'unit_kerja_id=' . $_POST['Pegawai']['unit_kerja_id'];
+if (!empty($_POST['riwayat_jabatan_id'])) {
+    $criteria = 'unit_kerja_id=' . $_POST['riwayat_jabatan_id'];
 }
 $data = JabatanStruktural::model()->findAll(array('condition' => $criteria));
+print_r($_POST);
 ?>
 
 <div style="text-align: right">
