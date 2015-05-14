@@ -297,6 +297,12 @@ class ReportController extends Controller {
     public function actionStrukturOrganisasi() {
         $this->layout = "mainWide";
         $model = array();
+        if(isset($_POST['exportExcel'])){
+            Yii::app()->request->sendFile('Laporan PermohonanPensiun - ' . date('YmdHis') . '.xls', $this->renderPartial('strukturOrganisasi', array(
+                        'model' => $model,
+                            ), true)
+            );
+        }
         $this->render('strukturOrganisasi', array('model' => $model));
     }
 
