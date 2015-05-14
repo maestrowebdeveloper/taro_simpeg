@@ -34,13 +34,13 @@ class JabatanFt extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nama', 'required'),
-            array('keterangan, status, level, lft, rgt, root, parent_id, created, created_user_id', 'safe'),
+            array('keterangan, status,created, created_user_id', 'safe'),
             array('created_user_id', 'numerical', 'integerOnly' => true),
             array('nama', 'length', 'max' => 255),
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, nama, keterangan, status, level, lft, rgt, root, parent_id, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, nama, keterangan, status, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 

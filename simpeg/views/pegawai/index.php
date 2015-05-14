@@ -74,7 +74,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'pegawai-grid',
     'dataProvider' => $model->search(),
     'type' => 'striped bordered condensed',
-    'template' => '{items}{pager}{summary}',
+    'template' => '{summary}{items}{pager}',
     'columns' => array(
         array(
             'class' => 'CCheckBoxColumn',
