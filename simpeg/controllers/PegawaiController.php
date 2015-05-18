@@ -956,14 +956,21 @@ class PegawaiController extends Controller {
                 $model->jabatan_ft_id = "";
                 $model->jabatan_struktural_id = "";
             }
+            
+            $file = CUploadedFile::getInstance($model, 'foto');
+            if (is_object($file)) {
+                $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
+                $file->saveAs('images/pegawai/' . $model->foto);
+                Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
+            }
 
             if ($model->save()) {
-                $file = CUploadedFile::getInstance($model, 'foto');
-                if (is_object($file)) {
-                    $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
-                    $file->saveAs('images/pegawai/' . $model->foto, 0777);
-                    Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
-                }
+//                $file = CUploadedFile::getInstance($model, 'foto');
+//                if (is_object($file)) {
+//                    $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
+//                    $file->saveAs('images/pegawai/' . $model->foto, 0777);
+//                    Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
+//                }
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
