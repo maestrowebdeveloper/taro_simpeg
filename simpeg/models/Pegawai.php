@@ -163,7 +163,7 @@ class Pegawai extends CActiveRecord {
             $criteria->addCondition('t.jabatan_ft_id = ""');
         }
 
-        //tambahan tindik
+        //tambahan tindik jurusan
         if (isset($_GET['jurusan']) and !empty($_GET['jurusan'])) {
             $pegawai = RiwayatPendidikan::model()->with('Jurusan')->findAll(array('condition' => 'Jurusan.Name like "%' . $_GET['jurusan'] . '%"'));
             $id = array();
@@ -179,6 +179,8 @@ class Pegawai extends CActiveRecord {
         if (isset($_GET['unit_kerja']) and !empty($_GET['unit_kerja'])) {
             $criteria->addCondition("RiwayatJabatan.jabatan_struktural_id = " . $_GET['unit_kerja']);
         }
+        
+        // satuan kerja
         if (isset($_GET['satuan_kerja']) and !empty($_GET['satuan_kerja'])) {
             $satuanKerja = JabatanStruktural::model()->findAll(array('condition' => 'unit_kerja_id = ' . $_GET['satuan_kerja']));
             $id = array();
@@ -191,7 +193,19 @@ class Pegawai extends CActiveRecord {
             }
             $criteria->addCondition('RiwayatJabatan.jabatan_struktural_id IN (' . implode(",", $id) . ')');
         }
-        //
+        // jabatan FFT
+         if (isset($_GET['Pegawai']['jabatan_ft_id']) and !empty($_GET['Pegawai']['jabatan_ft_id'])) {
+            $jabFt = JabatanFt::model()->findAll(array('condition' => 'type ="'.$_GET['Pegawai']['jabatan_ft_id'].'"'));
+            $id = array();
+            if (empty($jabFt)) {
+                
+            } else {
+                foreach ($jabFt as $val) {
+                    $id[] = $val->id;
+                }
+            }
+            $criteria->addCondition('RiwayatJabatan.jabatan_ft_id IN (' . implode(",", $id) . ')');
+        }
 
         $criteria->compare('id', $this->id);
         $criteria->compare('nip', $this->nip, true);
@@ -341,8 +355,8 @@ class Pegawai extends CActiveRecord {
                 $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_POST['satuan_kerja_id']);
             }
             if (!empty($_POST['eselon_id'])) {
-            $criteria->addCondition('JabatanStruktural.eselon_id=' . $_POST['eselon_id']);
-        }
+                $criteria->addCondition('JabatanStruktural.eselon_id=' . $_POST['eselon_id']);
+            }
         }
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -538,7 +552,6 @@ class Pegawai extends CActiveRecord {
     public function getMediumFoto() {
         return '<img src="' . $this->imgUrl['medium'] . '" class="img-polaroid"/>';
     }
-    
 
     public function getUsia() {
         return landa()->usia(date('d-m-Y', strtotime($this->tanggal_lahir)));
@@ -627,6 +640,11 @@ class Pegawai extends CActiveRecord {
 
     public function arrRekapitulasiJabfung() {
         $agama = array('ft' => '1 | Fungsional tertentu', 'fu' => '2 | Fungsional Umum', 'guru' => '3 | Kelompok Guru', 'kesehatan' => '4 | Kelompok Kesehatan');
+        return $agama;
+    }
+
+    public function arrJabFt() {
+        $agama = array('guru' => 'Guru', 'kesehatan' => 'Kesehatan', 'teknis' => 'Teknis');
         return $agama;
     }
 
