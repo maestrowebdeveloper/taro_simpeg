@@ -314,7 +314,7 @@ class Pegawai extends CActiveRecord {
         }
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 't.nama ASC')
+            'sort' => array('defaultOrder' => 't.jabatan_struktural_id DESC')
         ));
 
         return $data;

@@ -26,9 +26,9 @@ if (!empty($_POST['type'])) {
 
 
 $data = Pegawai::model()->findAll(array(
-    'with' => array('RiwayatJabatan', 'JabatanStruktural', 'JabatanFt'),
+    'with' => array('RiwayatJabatan', 'JabatanStruktural','UnitKerja', 'JabatanFt'),
     'condition' => 't.kedudukan_id > 0 ' . $criteria,
-    'order' => 't.nama ASC'
+    'order' => 'UnitKerja.nama ASC'
         ));
 ?>
 <div class="report" id="report" style="width: 100%">
