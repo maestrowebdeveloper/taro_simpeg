@@ -19,6 +19,9 @@ if (!empty($_POST['type'])) {
     if ($_POST['type'] == 'kesehatan') {
         $criteria .= ' and JabatanFt.type="kesehatan" ';
     }
+    if ($_POST['type'] == 'teknis') {
+        $criteria .= ' and JabatanFt.type="teknis" ';
+    }
 }
 
 
