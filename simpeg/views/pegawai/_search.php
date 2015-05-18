@@ -70,9 +70,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 ?>
             </div>
         </div>
-        <?php
-        echo $form->radioButtonListRow($model, 'jabatan_ft_id', Pegawai::model()->ArrJabFt());
-        ?>
+        
     </div>
 </div>
 <script>
