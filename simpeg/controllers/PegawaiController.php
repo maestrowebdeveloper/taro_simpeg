@@ -959,14 +959,21 @@ class PegawaiController extends Controller {
                 $model->jabatan_ft_id = "";
                 $model->jabatan_struktural_id = "";
             }
+            
+            $file = CUploadedFile::getInstance($model, 'foto');
+            if (is_object($file)) {
+                $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
+                $file->saveAs('images/pegawai/' . $model->foto);
+                Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
+            }
 
             if ($model->save()) {
-                $file = CUploadedFile::getInstance($model, 'foto');
-                if (is_object($file)) {
-                    $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
-                    $file->saveAs('images/pegawai/' . $model->foto, 0777);
-                    Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
-                }
+//                $file = CUploadedFile::getInstance($model, 'foto');
+//                if (is_object($file)) {
+//                    $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
+//                    $file->saveAs('images/pegawai/' . $model->foto, 0777);
+//                    Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
+//                }
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -1360,12 +1367,12 @@ class PegawaiController extends Controller {
             if ($tingkatEselon == 'II') {
                 $date = explode("-", $data->tanggal_lahir);
                 $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 60);
-                 $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
+                $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
                 $data->save();
             } elseif ($tingkatEselon == 'III' or $tingkatEselon == 'IV' or $tingkatEselon == 'V') {
                 $date = explode("-", $data->tanggal_lahir);
                 $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 58);
-                 $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
+                $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
                 $data->save();
             }
         }
@@ -1374,20 +1381,20 @@ class PegawaiController extends Controller {
         $tertentu = Pegawai::model()->findAll(array('condition' => 'tipe_jabatan="fungsional_tertentu"'));
         foreach ($tertentu as $data) {
             $date = explode("-", $data->tanggal_lahir);
-                $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 60);
-                $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
+            $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 60);
+            $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
 //                $data->tmt_pensiun = date('Y-m-d',strtotime("2032-11-10"));
-                $data->save();
+            $data->save();
         }
 
 //        / change tmt pensiun fungsioanal
         $tertentu = Pegawai::model()->with('JabatanFu')->findAll(array('condition' => 't.tipe_jabatan="fungsional_umum"'));
         foreach ($tertentu as $data) {
             $date = explode("-", $data->tanggal_lahir);
-                $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 58);
-             $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
+            $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 58);
+            $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
 //                $data->tmt_pensiun = date('Y-m-d',strtotime("2032-11-10"));
-                $data->save();
+            $data->save();
         }
         echo 'sukses';
     }
