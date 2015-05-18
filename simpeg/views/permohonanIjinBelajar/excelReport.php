@@ -11,6 +11,9 @@
  		<th width="80px">JABATAN</th> 		 			 		 		 	
  		<th width="80px">UNIT KERJA</th> 		 			 		 		 	
  		<th width="80px">JENJANG PENDIDIKAN</th> 		 			 		 		 	
+ 		<th width="80px">JURUSAN UNIVERSITAS</th> 		 			 		 		 	
+ 		<th width="80px">UNIVERSITAS</th> 		 			 		 		 	
+ 		<th width="80px">JENJANG PENDIDIKAN</th> 		 			 		 		 	
  		<th width="80px">JURUSAN</th> 		 			 		 		 	
  		<th width="80px">NAMA SEKOLAH</th> 		 			 		 		 	
  		<th width="80px">ALAMAT SEKOLAH</th> 		 			 		 		 	 		
@@ -24,6 +27,9 @@
         <td><?php echo $row->golongan; ?></td>        
         <td><?php echo $row->jabatan; ?></td>        
         <td><?php echo $row->unit_kerja; ?></td>        
+        <td><?php echo $row->jenjang_pendidikan; ?></td>        
+        <td><?php echo $row->jurusanUniv; ?></td>        
+        <td><?php echo $row->univ; ?></td>        
         <td><?php echo $row->jenjang_pendidikan; ?></td>        
         <td><?php echo $row->jurusan; ?></td>        
         <td><?php echo $row->nama_sekolah; ?></td>        

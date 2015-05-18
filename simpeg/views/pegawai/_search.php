@@ -71,36 +71,66 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             </div>
         </div>
         <?php
+        $data = array('0' => '- Kedudukan -') + CHtml::listData(Kedudukan::model()->findAll(), 'id', 'nama');
+        echo $form->select2Row($model, 'kedudukan_id', array(
+            'asDropDownList' => true,
+            'data' => $data,
+            'options' => array(
+                "allowClear" => false,
+                'width' => '100%',
+            ))
+        );
         echo $form->radioButtonListRow($model, 'jabatan_ft_id', Pegawai::model()->ArrJabFt());
         ?>
     </div>
 </div>
-<script>
+<script type="text/javascript">
 
-function kil() {
-       
+    function kil() {
+        if (document.getElementById('Pegawai_jenis_kelamin_0').checked) {
+            var jns_kelamin = document.getElementById('Pegawai_jenis_kelamin_0').value;
+        } else
+        if (document.getElementById('Pegawai_jenis_kelamin_1').checked) {
+            var jns_kelamin = document.getElementById('Pegawai_jenis_kelamin_1').value;
+        } else {
+            var jns_kelamin = '';
+        }
+
+        if (document.getElementById('Pegawai_status_pernikahan_0').checked) {
+            var sts_pernikahan = document.getElementById('Pegawai_status_pernikahan_0').value;
+        } else
+        if (document.getElementById('Pegawai_status_pernikahan_1').checked) {
+            var sts_pernikahan = document.getElementById('Pegawai_status_pernikahan_1').value;
+        } else
+        if (document.getElementById('Pegawai_status_pernikahan_2').checked) {
+            var sts_pernikahan = document.getElementById('Pegawai_status_pernikahan_2').value;
+        } else {
+            var sts_pernikahan = '';
+        }
+
+
         var nip = $("#Pegawai_nip").val();
+        var kedudukan_id = $("#Pegawai_kedudukan_id").val();
         var nama = $("#Pegawai_nama").val();
+        var jurusan = $("#Pegawai_jurusan").val();
         var gelar_dpn = $("#Pegawai_gelar_depan").val();
         var gelar_blk = $("#Pegawai_gelar_belakang").val();
         var hp = $("#Pegawai_hp").val();
+        var satuan_kerja = ($("#satuan_kerja").val() != "") ? $("#satuan_kerja").val() : "";
         var agama = $("#Pegawai_agama").val();
         var type_jabatan = $("#Pegawai_tipe_jabatan").val();
         var unit_kerja = $("#unit_kerja").val();
-        var Pegawai_tipe_jabatan = $("#Pegawai_tipe_jabatan").val();
-        var jns_kelamin = $('input:radio[name="Pegawai[jenis_kelamin]"]').val();
-        var sts_pernikahan = $('input:radio[name="Pegawai[status_pernikahan]"]').val();
-        
-//        if (data != "") {
-           window.open("<?php echo url('pegawai/generateExcel') ?>?nip="+nip+"&nama="+nama+"&gelar_dpn="+gelar_dpn+"&gelar_blk="+gelar_blk+"&hp="+hp+"&agama="+agama+"&type_jabatan="+type_jabatan+"&unit_kerja="+unit_kerja+"&Pegawai_tipe_jabatan="+Pegawai_tipe_jabatan+"&jns_kelamin="+jns_kelamin+"&sts_pernikahan="+sts_pernikahan);
+
+        // alert(unit_kerja);
+        window.open("<?php echo url('pegawai/GenerateExcel') ?>?kedudukan_id=" + kedudukan_id + "&nip=" + nip + "&nama=" + nama + "&gelar_depan=" + gelar_dpn + "&gelar_belakang=" + gelar_blk + "&jurusan=" + jurusan + "&hp=" + hp + "&agama=" + agama + "&tipe_jabatan=" + type_jabatan + "&satuan_kerja=" + satuan_kerja + "&unit_kerja=" + unit_kerja + "&jenis_kelamin=" + jns_kelamin + "&status_pernikahan=" + sts_pernikahan);
 //        } 
     }
-    </script>
+</script>
 <div class="form-actions">
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'search white', 'label' => 'Pencarian')); ?>
 
-   <?php
-    $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'icon', 'label' => 'Export Excel', 
+    <?php
+    $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'icon', 'label' => 'Export Excel',
         'htmlOptions' => array(
             'onclick' => 'kil()'
     )));
@@ -111,10 +141,10 @@ function kil() {
 <?php $this->endWidget(); ?>
 
 <script type="text/javascript">
-     
-    jQuery(function ($) {
-        $(".btnreset").click(function () {
-            $(":input", "#search-pegawai-form").each(function () {
+
+    jQuery(function($) {
+        $(".btnreset").click(function() {
+            $(":input", "#search-pegawai-form").each(function() {
                 var type = this.type;
                 var tag = this.tagName.toLowerCase(); // normalize case
                 if (type == "text" || type == "password" || tag == "textarea")
@@ -126,7 +156,7 @@ function kil() {
             });
         });
     })
-    
-   
+
+
 </script>
 

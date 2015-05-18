@@ -57,6 +57,8 @@ class PermohonanIjinBelajar extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'Pegawai' => array(self::BELONGS_TO, 'Pegawai', 'pegawai_id'),
+            'JurusanUniv' => array(self::BELONGS_TO, 'Jurusan', 'id_jurusan'),
+            'Univ' => array(self::BELONGS_TO, 'Universitas', 'id_universitas'),
             'Kota' => array(self::BELONGS_TO, 'City', 'kota'),
         );
     }
@@ -130,6 +132,7 @@ class PermohonanIjinBelajar extends CActiveRecord {
 
         return $data;
     }
+    
 
     public function search2() {
         $criteria2 = new CDbCriteria();
@@ -154,6 +157,12 @@ class PermohonanIjinBelajar extends CActiveRecord {
 
     public function getPegawai() {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
+    }
+    public function getjurusanUniv() {
+        return (!empty($this->JurusanUniv->Name)) ? $this->JurusanUniv->Name : '-';
+    }
+    public function getUniv() {
+        return (!empty($this->Univ->name)) ? $this->Univ->name : '-';
     }
 
     public function getKotaSekolah() {
