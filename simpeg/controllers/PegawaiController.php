@@ -849,7 +849,7 @@ class PegawaiController extends Controller {
             $model->riwayat_gaji_id = $_POST['Pegawai']['riwayat_gaji_id'];
             $model->tmt_keterangan_kedudukan = $_POST['Pegawai']['tmt_keterangan_kedudukan'];
             $model->ket_tmt_cpns = $_POST['Pegawai']['ket_tmt_cpns'];
-
+            
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
             if (!empty($riwayat)) {
                 if (!empty($riwayat)) {
