@@ -287,8 +287,12 @@ class HonorerController extends Controller {
                 unset($model->city_id);
             if ($model->unit_kerja_id == 0)
                 unset($model->unit_kerja_id);
-            if ($model->jabatan_honorer_id == 0)
-                unset($model->jabatan_honorer_id);
+            if ($model->jabatan_struktural_id == 0)
+                unset($model->jabatan_struktural_id);
+            if ($model->jabatan_fu_id == 0)
+                unset($model->jabatan_fu_id);
+            if ($model->id_jurusan == 0)
+                unset($model->id_jurusan);
         }
 
         $this->render('index', array(
