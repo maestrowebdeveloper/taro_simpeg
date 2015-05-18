@@ -1,65 +1,39 @@
 <?php
-
 $criteria = '';
-if (!empty($_POST['unit_kerja_id']))
-    $criteria .= ' and unit_kerja_id="' . $_POST['unit_kerja_id'] . '"';
+if (!empty($_POST['riwayat_jabatan_id']))
+    $criteria .= ' and JabatanStruktural.unit_kerja_id="' . $_POST['riwayat_jabatan_id'] . '"';
 
 if (!empty($_POST['type'])) {
-    if($_POST['type'] == 'ft'){
-        $ft = array();
-        $tertentu = JabatanFt::model()->findAll();
-        foreach($tertentu as $data){
-            $ft[] = $data->id;
-        }
-        $criteria .= ' and jabatan_ft_id IN (' . implode(',', $ft) . ') ';
+    if ($_POST['type'] == 'ft') {
+        $criteria .= ' and t.tipe_jabatan="fungsional_tertentu"';
     }
-    
-    if($_POST['type'] == 'fu'){
-        $fu = array();
-        $umum = JabatanFu::model()->findAll();
-        foreach($umum as $data){
-            $fu[] = $data->id;
-        }
-        $criteria .= ' and jabatan_fu_id IN (' . implode(',', $fu) . ') ';
+
+    if ($_POST['type'] == 'fu') {
+        $criteria .= ' and t.tipe_jabatan="fungsional_umum" ';
     }
-    
-    if($_POST['type'] == 'guru'){
-        $guru = array();
-        $sGuru = JabatanFt::model()->findAll(array('condition'=>'type="guru"'));
-        foreach($sGuru as $data){
-            $guru[] = $data->id;
-        }
-        $criteria .= ' and jabatan_ft_id IN (' . implode(',', $guru) . ') ';
+
+    if ($_POST['type'] == 'guru') {
+        $criteria .= ' and JabatanFt.type="guru" ';
     }
-    
-    if($_POST['type'] == 'kesehatan'){
-        $kesehatan = array();
-        $sKesehatan = JabatanFt::model()->findAll(array('condition'=>'type="kesehatan"'));
-        foreach($sKesehatan as $data){
-            $kesehatan[] = $data->id;
-        }
-//        print_r($kesehatan);
-        $criteria .= ' and jabatan_ft_id IN (' . implode(',', $kesehatan) . ') ';
+
+    if ($_POST['type'] == 'kesehatan') {
+        $criteria .= ' and JabatanFt.type="kesehatan" ';
     }
-   
 }
 
 
-$data = Pegawai::model()->findAll(array('condition' => 'id > 0 ' . $criteria));
-app()->session['SuratMasuk_records'] = $data;
-//print_r($ft);
+$data = Pegawai::model()->findAll(array(
+    'with' => array('RiwayatJabatan', 'JabatanStruktural', 'JabatanFt'),
+    'condition' => 't.kedudukan_id > 0 ' . $criteria,
+    'order' => 't.nama ASC'
+        ));
 ?>
-<div style="text-align: right">
-
-    <button class="print entypo-icon-printer button" onclick="printDiv('report')" type="button">&nbsp;&nbsp;Print Report</button>    
-    <a class="btn btn-info pull-right" href="<?php echo url("/suratMasuk/generateExcel"); ?>" target="_blank"><span class="icon16 icomoon-icon-file-excel  white"></span>Export to Excel</a>
-</div>
 <div class="report" id="report" style="width: 100%">
-    <h3 style="text-align:center">REKAPITULASI DATA ESELON</h3><br>
+    <h3 style="text-align:center">REKAPITULASI JABATAN FUNGSIONAL</h3><br>
     <h6  style="text-align:center">Tangga : <?php echo date('d F Y'); ?></h6>
     <hr>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered" border="1">
         <thead>
             <tr>
                 <th style="width:10px">NO</th>
@@ -72,10 +46,10 @@ app()->session['SuratMasuk_records'] = $data;
             </tr>
         </thead>
         <tbody>
-<?php
-$no = 1;
-foreach ($data as $value) {
-    echo '	
+            <?php
+            $no = 1;
+            foreach ($data as $value) {
+                echo '	
 		<tr>
 			<td>' . $no . '</td>
 			<td>' . $value->nama . '</td>
@@ -83,12 +57,11 @@ foreach ($data as $value) {
 			<td>' . $value->golongan . '</td>			
 			<td>' . $value->jabatanFu . '</td>			
 			<td>' . $value->pangkat . '</td>			
-			<td>' . $value->unitKerja . '</td>			
-									
+			<td>' . $value->unitKerja . '</td>				
 		</tr>';
-    $no++;
-}
-?>
+                $no++;
+            }
+            ?>
         </tbody>
     </table>
 </div>

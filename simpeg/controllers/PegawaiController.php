@@ -522,7 +522,7 @@ class PegawaiController extends Controller {
         $date = explode("-", $_POST['tmt_cpns']);
         $tmt = mktime(0, 0, 0, $date[1] + $bulan, $date[2], $date[0] + $tahun);
         $tmt_cpns = date("Y-m-d", $tmt);
-        if (isset($tmt_cpns) or !empty($tmt_cpns)) {
+        if (isset($tmt_cpns) or ! empty($tmt_cpns)) {
             $data = array();
             $data['bulan'] = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true));
             $data['tahun'] = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true));
@@ -659,14 +659,12 @@ class PegawaiController extends Controller {
 
         if (isset($session['Pegawai_records'])) {
             $model = $session['Pegawai_records'];
-        }
-        else
+        } else
             $model = Pegawai::model()->findAll();
 
         if (isset($session['Honorer_records'])) {
             $honorer = $session['Honorer_records'];
-        }
-        else
+        } else
             $honorer = Honorer::model()->findAll();
 
         Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelUlangTahun', array(
@@ -744,8 +742,7 @@ class PegawaiController extends Controller {
 
         if (isset($session['Pegawai_records'])) {
             $model = $session['Pegawai_records'];
-        }
-        else
+        } else
             $model = Pegawai::model()->findAll();
 
         Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelCheckError', array(
@@ -852,7 +849,7 @@ class PegawaiController extends Controller {
             $model->riwayat_gaji_id = $_POST['Pegawai']['riwayat_gaji_id'];
             $model->tmt_keterangan_kedudukan = $_POST['Pegawai']['tmt_keterangan_kedudukan'];
             $model->ket_tmt_cpns = $_POST['Pegawai']['ket_tmt_cpns'];
-
+            
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
             if (!empty($riwayat)) {
                 if (!empty($riwayat)) {
@@ -959,7 +956,7 @@ class PegawaiController extends Controller {
                 $model->jabatan_ft_id = "";
                 $model->jabatan_struktural_id = "";
             }
-            
+
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {
                 $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
@@ -1004,8 +1001,7 @@ class PegawaiController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -1073,6 +1069,13 @@ class PegawaiController extends Controller {
         $model->unsetAttributes();  // clear any default values  
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
+            if (isset($_POST['export'])) {
+
+                Yii::app()->request->sendFile('Rekap Data Pegawai - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekap', array(
+                            'model' => $model,
+                                ), true)
+                );
+            }
         }
         $this->cssJs();
         $this->render('rekap', array(
@@ -1086,6 +1089,13 @@ class PegawaiController extends Controller {
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
         }
+        if (isset($_POST['export'])) {
+
+            Yii::app()->request->sendFile('Rekap Data Eselon - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapEselon', array(
+                        'model' => $model,
+                            ), true)
+            );
+        }
         $this->cssJs();
         $this->render('rekapEselon', array(
             'model' => $model,
@@ -1098,6 +1108,12 @@ class PegawaiController extends Controller {
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
         }
+        if (isset($_POST['export'])) {
+            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapJabfung', array(
+                        'model' => $model,
+                            ), true)
+            );
+        }
         $this->cssJs();
         $this->render('rekapJabfung', array(
             'model' => $model,
@@ -1109,6 +1125,12 @@ class PegawaiController extends Controller {
         $model->unsetAttributes();  // clear any default values  
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
+        }
+        if (isset($_POST['export'])) {
+            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapBatasPensiun', array(
+                        'model' => $model,
+                            ), true)
+            );
         }
         $this->cssJs();
         $this->render('rekapBatasPensiun', array(
@@ -1205,8 +1227,7 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatPangkat_records'])) {
             $model = $session['RiwayatPangkat_records'];
-        }
-        else
+        } else
             $model = RiwayatPangkat::model()->findAll();
 
 
@@ -1234,8 +1255,7 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatJabatan_records'])) {
             $model = $session['RiwayatJabatan_records'];
-        }
-        else
+        } else
             $model = RiwayatJabatan::model()->findAll();
 
 
@@ -1290,8 +1310,7 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatGaji_records'])) {
             $model = $session['RiwayatGaji_records'];
-        }
-        else
+        } else
             $model = RiwayatGaji::model()->findAll();
 
 
@@ -1319,8 +1338,7 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatKeluarga_records'])) {
             $model = $session['RiwayatKeluarga_records'];
-        }
-        else
+        } else
             $model = RiwayatKeluarga::model()->findAll();
 
 
@@ -1348,8 +1366,7 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatPendidikan_records'])) {
             $model = $session['RiwayatPendidikan_records'];
-        }
-        else
+        } else
             $model = RiwayatPendidikan::model()->findAll();
 
 
@@ -1400,4 +1417,3 @@ class PegawaiController extends Controller {
     }
 
 }
-
