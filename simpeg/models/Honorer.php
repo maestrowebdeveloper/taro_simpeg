@@ -16,8 +16,8 @@ class Honorer extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('nomor_register, nama, unit_kerja_id,tanggal_register, tanggal_lahir', 'required'),
-            array('gelar_depan,gelar_belakang,tempat_lahir,st_peg,status_sk, ket_agama, tanggal_lahir, jenis_kelamin, agama, id_jurusan, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_struktural_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
+            array('nomor_register, nama,tanggal_register, tanggal_lahir', 'required'),
+            array('kode,gelar_depan,gelar_belakang,tempat_lahir,st_peg,status_sk, ket_agama, tanggal_lahir, jenis_kelamin, agama, id_jurusan, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_struktural_id,jabatan_fu_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
             array(' unit_kerja_id, jabatan_struktural_id, gaji, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register, foto', 'length', 'max' => 225),
             array('nama', 'length', 'max' => 100),
@@ -31,7 +31,7 @@ class Honorer extends CActiveRecord {
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id,status_sk, st_peg, nomor_register, nama,gelar_depan,gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, id_jurusan, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto, unit_kerja_id, tmt_kontrak, jabatan_struktural_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id,kode,status_sk, st_peg, nomor_register, nama,gelar_depan,gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, id_jurusan, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto, unit_kerja_id, tmt_kontrak, jabatan_struktural_id,jabatan_fu_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -44,7 +44,8 @@ class Honorer extends CActiveRecord {
         return array(
             'SatuanKerja' => array(self::BELONGS_TO, 'UnitKerja', 'unit_kerja_id'),
             'Jurusan' => array(self::BELONGS_TO, 'Jurusan', 'id_jurusan'),
-            'UnitKerja' => array(self::BELONGS_TO, 'JabatanStruktural', 'jabatan_struktural_id'),
+            'JabatanStruktural' => array(self::BELONGS_TO, 'JabatanStruktural', 'jabatan_struktural_id'),
+            'JabatanFu' => array(self::BELONGS_TO, 'JabatanFu', 'jabatan_fu_id'),
 //			'TempatLahir' => array(self::BELONGS_TO, 'City', 'tempat_lahir'),
             'City' => array(self::BELONGS_TO, 'City', 'city_id'),
         );
@@ -56,6 +57,7 @@ class Honorer extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => 'ID',
+            'kode' => 'Kode',
             'nomor_register' => 'Nomor Register',
             'nama' => 'Nama',
             'tempat_lahir' => 'Tempat Lahir',
@@ -75,9 +77,10 @@ class Honorer extends CActiveRecord {
             'bpjs' => 'Bpjs / Askes / KIS',
             'npwp' => 'No. NPWP',
             'foto' => 'Foto',
-            'unit_kerja_id' => 'Unit Kerja',
+//            'unit_kerja_id' => 'Unit Kerja',
             'tmt_kontrak' => 'Tmt Kontrak',
-            'jabatan_struktural_id' => 'Jabatan',
+            'jabatan_struktural_id' => 'Unit Kerja',
+            'jabatan_fu_id' => 'Jabatan',
             'tmt_jabatan' => 'Tmt Jabatan',
             'tmt_akhir_kontrak' => 'Tmt Akhir Kontrak',
             'gaji' => 'Gaji',
@@ -134,6 +137,7 @@ class Honorer extends CActiveRecord {
         }
 
         $criteria->compare('id', $this->id);
+        $criteria->compare('kode', $this->kode);
         $criteria->compare('nomor_register', $this->nomor_register, true);
         $criteria->compare('nama', $this->nama, true);
         $criteria->compare('tempat_lahir', $this->tempat_lahir);
@@ -153,9 +157,10 @@ class Honorer extends CActiveRecord {
         $criteria->compare('npwp', $this->npwp, true);
         $criteria->compare('st_peg', $this->st_peg, true);
         $criteria->compare('foto', $this->foto, true);
-        $criteria->compare('unit_kerja_id', $this->unit_kerja_id);
+//        $criteria->compare('unit_kerja_id', $this->unit_kerja_id);
         $criteria->compare('tmt_kontrak', $this->tmt_kontrak, true);
         $criteria->compare('jabatan_struktural_id', $this->jabatan_struktural_id);
+        $criteria->compare('jabatan_fu_id', $this->jabatan_fu_id);
         $criteria->compare('tmt_jabatan', $this->tmt_jabatan, true);
         $criteria->compare('tmt_akhir_kontrak', $this->tmt_akhir_kontrak, true);
         $criteria->compare('gaji', $this->gaji);
@@ -175,8 +180,8 @@ class Honorer extends CActiveRecord {
 
     public function search2() {
         $criteria2 = new CDbCriteria();
-        if (!empty($this->unit_kerja_id))
-            $criteria2->compare('unit_kerja_id', $this->unit_kerja_id);
+        if (!empty($this->jabatan_struktural_id))
+            $criteria2->compare('jabatan_struktural_id', $this->jabatan_struktural_id);
         if (!empty($this->tmt_kontrak) && !empty($this->tmt_akhir_kontrak))
             $criteria2->condition = 'tmt_akhir_kontrak between "' . $this->tmt_kontrak . '" and "' . $this->tmt_akhir_kontrak . '"';
 
@@ -470,7 +475,7 @@ class Honorer extends CActiveRecord {
     }
 
     public function getUnitKerja() {
-        return (!empty($this->UnitKerja->nama)) ? $this->UnitKerja->nama : '-';
+        return (!empty($this->JabatanStruktural->nama)) ? $this->JabatanStruktural->nama : '-';
     }
     public function getSatuanKerja() {
         return (!empty($this->SatuanKerja->nama)) ? $this->SatuanKerja->nama : '-';
