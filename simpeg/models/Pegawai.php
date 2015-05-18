@@ -284,7 +284,7 @@ class Pegawai extends CActiveRecord {
             if ($_POST['type'] == 'guru') {
                 $criteria->addCondition('JabatanFt.type="guru"');
             }
-            if ($_POST['type'] == 'keshatan') {
+            if ($_POST['type'] == 'kesehatan') {
                 $criteria->addCondition('JabatanFt.type="kesehatan"');
             }
         }

@@ -73,6 +73,17 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'label' => 'View Rekapitulasi',
         ));
         ?>
+        <?php
+        $this->widget('bootstrap.widgets.TbButton', array(
+            'buttonType' => 'submit',
+            'type' => 'primary',
+            'icon' => 'ok white',
+            'label' => 'Export ke Excel',
+            'htmlOptions' => array(
+                'name' => 'export'
+            )
+        ));
+        ?>
     </div>
 
     <?php $this->endWidget(); ?>

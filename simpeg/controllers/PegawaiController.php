@@ -956,7 +956,7 @@ class PegawaiController extends Controller {
                 $model->jabatan_ft_id = "";
                 $model->jabatan_struktural_id = "";
             }
-            
+
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {
                 $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
@@ -1071,7 +1071,7 @@ class PegawaiController extends Controller {
             $model->attributes = $_POST['Pegawai'];
             if (isset($_POST['export'])) {
 
-                Yii::app()->request->sendFile('Rekap Data Pegawai - '.date('YmdHis') . '.xls', $this->renderPartial('_rekap', array(
+                Yii::app()->request->sendFile('Rekap Data Pegawai - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekap', array(
                             'model' => $model,
                                 ), true)
                 );
@@ -1089,6 +1089,13 @@ class PegawaiController extends Controller {
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
         }
+        if (isset($_POST['export'])) {
+
+            Yii::app()->request->sendFile('Rekap Data Eselon - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapEselon', array(
+                        'model' => $model,
+                            ), true)
+            );
+        }
         $this->cssJs();
         $this->render('rekapEselon', array(
             'model' => $model,
@@ -1101,6 +1108,12 @@ class PegawaiController extends Controller {
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
         }
+        if (isset($_POST['export'])) {
+            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapJabfung', array(
+                        'model' => $model,
+                            ), true)
+            );
+        }
         $this->cssJs();
         $this->render('rekapJabfung', array(
             'model' => $model,
@@ -1112,6 +1125,12 @@ class PegawaiController extends Controller {
         $model->unsetAttributes();  // clear any default values  
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
+        }
+        if (isset($_POST['export'])) {
+            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapBatasPensiun', array(
+                        'model' => $model,
+                            ), true)
+            );
         }
         $this->cssJs();
         $this->render('rekapBatasPensiun', array(
