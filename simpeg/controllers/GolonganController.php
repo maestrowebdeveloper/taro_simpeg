@@ -118,19 +118,17 @@ class GolonganController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-            foreach ($_POST['ceckbox'] as $data) {
-                $a = Golongan::model()->findByPk($data);
-                if (!empty($a))
-                    $a->deleteNode();
-            }
-        }
 
         $model = new Golongan('search');
         $model->unsetAttributes();  // clear any default values
 
         if (isset($_GET['Golongan'])) {
             $model->attributes = $_GET['Golongan'];
+        }
+        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
+            Golongan::model()->deleteAll(array(
+                'condition' => 'id IN(' . implode(',', $_POST['ceckbox']) . ')'
+            ));
         }
 
         $this->render('index', array(

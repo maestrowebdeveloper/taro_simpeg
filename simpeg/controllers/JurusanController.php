@@ -137,7 +137,11 @@ class JurusanController extends Controller {
             if (!empty($model->Name))
                 $criteria->addCondition('Name = "' . $model->Name . '"');
         }
-
+        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
+            Jurusan::model()->deleteAll(array(
+                'condition' => 'id IN(' . implode(',', $_POST['ceckbox']) . ')'
+            ));
+        }
         $this->render('index', array(
             'model' => $model,
         ));
