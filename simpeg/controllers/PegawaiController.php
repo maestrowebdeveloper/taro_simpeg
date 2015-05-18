@@ -522,7 +522,7 @@ class PegawaiController extends Controller {
         $date = explode("-", $_POST['tmt_cpns']);
         $tmt = mktime(0, 0, 0, $date[1] + $bulan, $date[2], $date[0] + $tahun);
         $tmt_cpns = date("Y-m-d", $tmt);
-        if (isset($tmt_cpns) or !empty($tmt_cpns)) {
+        if (isset($tmt_cpns) or ! empty($tmt_cpns)) {
             $data = array();
             $data['bulan'] = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true));
             $data['tahun'] = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true));
@@ -659,14 +659,12 @@ class PegawaiController extends Controller {
 
         if (isset($session['Pegawai_records'])) {
             $model = $session['Pegawai_records'];
-        }
-        else
+        } else
             $model = Pegawai::model()->findAll();
 
         if (isset($session['Honorer_records'])) {
             $honorer = $session['Honorer_records'];
-        }
-        else
+        } else
             $honorer = Honorer::model()->findAll();
 
         Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelUlangTahun', array(
@@ -744,8 +742,7 @@ class PegawaiController extends Controller {
 
         if (isset($session['Pegawai_records'])) {
             $model = $session['Pegawai_records'];
-        }
-        else
+        } else
             $model = Pegawai::model()->findAll();
 
         Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelCheckError', array(
@@ -997,8 +994,7 @@ class PegawaiController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -1066,6 +1062,13 @@ class PegawaiController extends Controller {
         $model->unsetAttributes();  // clear any default values  
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
+            if (isset($_POST['export'])) {
+
+                Yii::app()->request->sendFile('Rekap Data Pegawai - '.date('YmdHis') . '.xls', $this->renderPartial('_rekap', array(
+                            'model' => $model,
+                                ), true)
+                );
+            }
         }
         $this->cssJs();
         $this->render('rekap', array(
@@ -1198,8 +1201,7 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatPangkat_records'])) {
             $model = $session['RiwayatPangkat_records'];
-        }
-        else
+        } else
             $model = RiwayatPangkat::model()->findAll();
 
 
@@ -1227,8 +1229,7 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatJabatan_records'])) {
             $model = $session['RiwayatJabatan_records'];
-        }
-        else
+        } else
             $model = RiwayatJabatan::model()->findAll();
 
 
@@ -1283,8 +1284,7 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatGaji_records'])) {
             $model = $session['RiwayatGaji_records'];
-        }
-        else
+        } else
             $model = RiwayatGaji::model()->findAll();
 
 
@@ -1312,8 +1312,7 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatKeluarga_records'])) {
             $model = $session['RiwayatKeluarga_records'];
-        }
-        else
+        } else
             $model = RiwayatKeluarga::model()->findAll();
 
 
@@ -1341,8 +1340,7 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatPendidikan_records'])) {
             $model = $session['RiwayatPendidikan_records'];
-        }
-        else
+        } else
             $model = RiwayatPendidikan::model()->findAll();
 
 
@@ -1360,12 +1358,12 @@ class PegawaiController extends Controller {
             if ($tingkatEselon == 'II') {
                 $date = explode("-", $data->tanggal_lahir);
                 $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 60);
-                 $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
+                $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
                 $data->save();
             } elseif ($tingkatEselon == 'III' or $tingkatEselon == 'IV' or $tingkatEselon == 'V') {
                 $date = explode("-", $data->tanggal_lahir);
                 $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 58);
-                 $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
+                $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
                 $data->save();
             }
         }
@@ -1374,23 +1372,22 @@ class PegawaiController extends Controller {
         $tertentu = Pegawai::model()->findAll(array('condition' => 'tipe_jabatan="fungsional_tertentu"'));
         foreach ($tertentu as $data) {
             $date = explode("-", $data->tanggal_lahir);
-                $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 60);
-                $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
+            $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 60);
+            $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
 //                $data->tmt_pensiun = date('Y-m-d',strtotime("2032-11-10"));
-                $data->save();
+            $data->save();
         }
 
 //        / change tmt pensiun fungsioanal
         $tertentu = Pegawai::model()->with('JabatanFu')->findAll(array('condition' => 't.tipe_jabatan="fungsional_umum"'));
         foreach ($tertentu as $data) {
             $date = explode("-", $data->tanggal_lahir);
-                $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 58);
-             $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
+            $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 58);
+            $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
 //                $data->tmt_pensiun = date('Y-m-d',strtotime("2032-11-10"));
-                $data->save();
+            $data->save();
         }
         echo 'sukses';
     }
 
 }
-
