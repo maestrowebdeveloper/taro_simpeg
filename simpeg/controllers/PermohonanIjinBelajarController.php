@@ -23,19 +23,19 @@ class PermohonanIjinBelajarController extends Controller {
         return array(
             array('allow', // c
                 'actions' => array('create'),
-                'expression' => 'app()->controller->isValidAccess(1,"c")'
+                'expression' => 'app()->controller->isValidAccess("permohonanIjinBelajar","c")'
             ),
             array('allow', // r
                 'actions' => array('index', 'view'),
-                'expression' => 'app()->controller->isValidAccess(1,"r")'
+                'expression' => 'app()->controller->isValidAccess("permohonanIjinBelajar","r")'
             ),
             array('allow', // u
                 'actions' => array( 'update'),
-                'expression' => 'app()->controller->isValidAccess(1,"u")'
+                'expression' => 'app()->controller->isValidAccess("permohonanIjinBelajar","u")'
             ),
             array('allow', // d
                 'actions' => array( 'delete'),
-                'expression' => 'app()->controller->isValidAccess(1,"d")'
+                'expression' => 'app()->controller->isValidAccess("permohonanIjinBelajar","d")'
             )
         );
     }
