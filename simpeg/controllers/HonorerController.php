@@ -217,7 +217,7 @@ class HonorerController extends Controller {
                 if (is_object($file)) {
                     $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
                     $file->saveAs('images/honorer/' . $model->foto);
-                    Yii::app()->landa->createImg('honorer/', $model->foto, $model->id);
+//                    Yii::app()->landa->createImg('honorer/', $model->foto, $model->id);
                 }
                 $this->redirect(array('view', 'id' => $model->id));
             }
