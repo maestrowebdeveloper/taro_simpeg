@@ -189,11 +189,13 @@ class PermohonanIjinBelajarController extends Controller {
         $jenjang_pendidikan =$_GET['jenjang_pendidikan'];
         $nomor_register =$_GET['nomor_register'];
         $tanggal = $_GET['tanggal'];
+        $pegawai_id = $_GET['pegawai_id'];
         $jurusan = $_GET['jurusan'];
         $nama_sekolah = $_GET['nama_sekolah'];
         
         $criteria = new CDbCriteria;
         $criteria->compare('jenjang_pendidikan', $jenjang_pendidikan, true);
+        $criteria->compare('pegawai_id', $pegawai_id);
         $criteria->compare('nomor_register', $nomor_register, true);
         $criteria->compare('tanggal', $tanggal, true);
         $criteria->compare('jurusan', $jurusan, true);

@@ -28,6 +28,7 @@
             <th width="80px">KEDUDUKAN</th> 		 		 		 	
             <th width="80px">KETERANGAN</th> 		 		 		 	
             <th width="80px">UNIT KERJA</th> 		 		 		 	
+            <th width="80px">SATUAN KERJA</th> 		 		 		 	
             <th width="80px">TMT CPNS</th> 		 		 		 	
             <th width="80px">TMT PNS</th> 	 		 		 	
             <th width="80px">TMT PENSIUN</th> 	 		 		 	
@@ -73,7 +74,8 @@
                 <td><?php echo "'" . $row->no_taspen; ?></td>
                 <td><?php echo $row->kedudukan; ?></td>
                 <td><?php echo $row->keterangan; ?></td>
-                <td><?php echo $row->unitKerja; ?></td>
+                <td><?php echo $row->UnitKerjaJabatan; ?></td>
+                <td><?php echo $row->SatuanKerja; ?></td>
                 <td><?php echo $row->tmt_cpns; ?></td>
                 <td><?php echo $row->tmt_pns; ?></td>
                 <td><?php echo $row->tmt_pensiun; ?></td>

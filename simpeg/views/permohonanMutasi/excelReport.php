@@ -3,9 +3,9 @@
 <?php if ($model !== null):?>
 <table border="1">
 	<tr>		
- 		<th width="80px">NOMOR REGISTER</th> 		
- 		<th width="80px">TANGGAL</th> 		 			 		 		 	
- 		<th width="80px">NIP</th> 		 			 		 		 	
+ 		<th width="80px">OTORITAS</th> 		
+ 		<th width="80px">NOMOR SK</th> 		
+ 		<th width="80px">TANGGAL</th>		 			 		 		 	
         <th width="80px">NAMA PEGAWAI</th>                                      
         <th width="80px">UNIT KERJA LAMA</th>                                       
         <th width="80px">TIPE JABATAN LAMA</th>                                         
@@ -17,9 +17,10 @@
  	</tr>
 	<?php foreach($model as $row): ?>
 	<tr>
+        <td><?php echo $row->statusoto; ?></td>
         <td><?php echo $row->nomor_register; ?></td>
         <td><?php echo $row->tanggal; ?></td>        
-        <td><?php echo "'".$row->Pegawai->nip; ?></td>        
+        <td><?php echo $row->pegawai; ?></td>        
         <td><?php echo $row->Pegawai->namaGelar; ?></td>        
         <td><?php echo $row->unit_kerja_lama; ?></td>        
         <td><?php echo $row->tipe_jabatan_lama; ?></td>        

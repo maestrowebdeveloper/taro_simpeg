@@ -30,7 +30,7 @@ $this->widget('bootstrap.widgets.TbMenu', array(
 	'items'=>array(
 		array('label'=>'Tambah', 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array(),'visible'=>landa()->checkAccess('permohonanIjinBelajar', 'c')),
                 array('label'=>'List Data', 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('index'),'active'=>true, 'linkOptions'=>array()),
-		array('label'=>'Pencarian', 'icon'=>'icon-search', 'url'=>'#', 'linkOptions'=>array('class'=>'search-button')),
+		array('label'=>'Pencarian & Export Excel', 'icon'=>'icon-search', 'url'=>'#', 'linkOptions'=>array('class'=>'search-button')),
 //        array('label' => 'Export ke Excel', 'icon' => 'icon-download', 'url' => Yii::app()->controller->createUrl('RangePrint'), 'linkOptions' => array(), 'visible' => true),
 	),
 ));

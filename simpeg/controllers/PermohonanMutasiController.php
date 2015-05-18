@@ -22,7 +22,7 @@ class PermohonanMutasiController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // c
-                'actions' => array( 'create'),
+                'actions' => array('create'),
                 'expression' => 'app()->controller->isValidAccess(1,"c")'
             ),
             array('allow', // r
@@ -30,7 +30,7 @@ class PermohonanMutasiController extends Controller {
                 'expression' => 'app()->controller->isValidAccess(1,"r")'
             ),
             array('allow', // u
-                'actions' => array( 'update'),
+                'actions' => array('update'),
                 'expression' => 'app()->controller->isValidAccess(1,"u")'
             ),
             array('allow', // d
@@ -208,8 +208,7 @@ class PermohonanMutasiController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -231,10 +230,9 @@ class PermohonanMutasiController extends Controller {
                         'jabatan_fu_id' => $a->new_jabatan_fu_id,
                         'jabatan_ft_id' => $a->new_jabatan_ft_id,
                         'unit_kerja_id' => $a->new_unit_kerja_id,
-                        'tmt_jabatan_struktural'=>$a->tmt,
-                        'tmt_jabatan_fu'=>$a->tmt,
-                        'tmt_jabatan_ft'=>$a->tmt,
-                        
+                        'tmt_jabatan_struktural' => $a->tmt,
+                        'tmt_jabatan_fu' => $a->tmt,
+                        'tmt_jabatan_ft' => $a->tmt,
                             ), 'id=' . $a->pegawai_id);
 
                     // mengkosongi status di table jabatan sturkturall
@@ -255,11 +253,11 @@ class PermohonanMutasiController extends Controller {
             }
         } else {
             if (isset($_POST['otoritasluar'])) {
-                $jumlah=0;
-                $model = PermohonanMutasi::model()->findAll(array('condition'=>'mutasi="luar_daerah" and status=1'));
+                $jumlah = 0;
+                $model = PermohonanMutasi::model()->findAll(array('condition' => 'mutasi="luar_daerah" and status=1'));
                 $jumlah = count($model);
-                foreach($model as $data){
-                    
+                foreach ($model as $data) {
+
                     // ganti jabatan baru
                     Pegawai::model()->updateAll(array(
                         'tipe_jabatan' => $data->new_tipe_jabatan,
@@ -278,20 +276,19 @@ class PermohonanMutasiController extends Controller {
                     $data->status = 2;
                     $data->save();
                 }
-                if($jumlah == 0){
-                 user()->setFlash('danger', 'Data mutasi luar daerah sudah terotoritas semua.');
-                $this->redirect(array('permohonanMutasi/index'));   
-                }else{
-                 user()->setFlash('info', 'Berhasil meng-otoritas luar daerah sebanyak <b>'.$jumlah.'</b> pegawai.');
-                $this->redirect(array('permohonanMutasi/index'));   
+                if ($jumlah == 0) {
+                    user()->setFlash('danger', 'Data mutasi luar daerah sudah terotoritas semua.');
+                    $this->redirect(array('permohonanMutasi/index'));
+                } else {
+                    user()->setFlash('info', 'Berhasil meng-otoritas luar daerah sebanyak <b>' . $jumlah . '</b> pegawai.');
+                    $this->redirect(array('permohonanMutasi/index'));
                 }
-                
             } elseif (isset($_POST['otoritasdalam'])) {
-                $jumlah=0;
-                $model = PermohonanMutasi::model()->findAll(array('condition'=>'mutasi="dalam_daerah" and status=1'));
+                $jumlah = 0;
+                $model = PermohonanMutasi::model()->findAll(array('condition' => 'mutasi="dalam_daerah" and status=1'));
                 $jumlah = count($model);
-                foreach($model as $data){
-                    
+                foreach ($model as $data) {
+
                     // ganti jabatan baru
                     Pegawai::model()->updateAll(array(
                         'tipe_jabatan' => $data->new_tipe_jabatan,
@@ -310,12 +307,12 @@ class PermohonanMutasiController extends Controller {
                     $data->status = 2;
                     $data->save();
                 }
-                if($jumlah == 0){
-                 user()->setFlash('danger', 'Data mutasi dalam daerah sudah terotoritas semua.');
-                $this->redirect(array('permohonanMutasi/index'));   
-                }else{
-                 user()->setFlash('info', 'Berhasil meng-otoritas dalam daerah sebanyak <b>'.$jumlah.'</b> pegawai.');
-                $this->redirect(array('permohonanMutasi/index'));   
+                if ($jumlah == 0) {
+                    user()->setFlash('danger', 'Data mutasi dalam daerah sudah terotoritas semua.');
+                    $this->redirect(array('permohonanMutasi/index'));
+                } else {
+                    user()->setFlash('info', 'Berhasil meng-otoritas dalam daerah sebanyak <b>' . $jumlah . '</b> pegawai.');
+                    $this->redirect(array('permohonanMutasi/index'));
                 }
             } else {
                 user()->setFlash('danger', '<strong>Error! </strong>Please chekked article and then choose the button.');
@@ -403,19 +400,26 @@ class PermohonanMutasiController extends Controller {
     }
 
     public function actionGenerateExcel() {
-//        $session = new CHttpSession;
-//        $session->open();
-//
-//        if (isset($session['PermohonanMutasi_records'])) {
-//            $model = $session['PermohonanMutasi_records'];
-//        } else
-//            $model = PermohonanMutasi::model()->findAll();
-//
-//
-//        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
-//                    'model' => $model
-//                        ), true)
-//        );
+
+        $nomor_register = $_GET['nomor_register'];
+        $pegawai_id = $_GET['pegawai_id'];
+        $unit_kerja_id = $_GET['unit_kerja_id'];
+        $tipe_jabatan = $_GET['tipe_jabatan'];
+        logs($tipe_jabatan);
+        
+        $criteria = new CDbCriteria;
+        //$criteria->compare('nomor_register', $nomor_register, true);
+        $criteria->compare('pegawai_id', $pegawai_id);
+        $criteria->compare('new_unit_kerja_id', $unit_kerja_id);
+        $criteria->compare('new_tipe_jabatan', $tipe_jabatan,true);
+
+        $model = PermohonanMutasi::model()->findAll($criteria);
+
+
+        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+                    'model' => $model
+                        ), true)
+        );
     }
 
 }
