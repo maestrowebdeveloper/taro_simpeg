@@ -42,7 +42,13 @@
             <th width="80px">TMT PENSIUN</th> 		 		 		 	
 
         </tr>
-        <?php foreach ($model as $row): ?>
+        <?php foreach ($model as $row):
+            $issu = RiwayatKeluarga::model()->find(array('condition'=>'pegawai_id='.$row->id.' and (hubungan = "suami" or hubungan="istri")'));
+            $namaIssu = (!empty($issu)) ? $issu->nama : "-";
+            
+            $issu = RiwayatGaji::model()->findByPk($row->riwayat_gaji_id);
+            $gaji = (!empty($issu)) ? $issu->gaji : "";
+        ?>
             <tr>
                 <td><?php echo "'" . $row->nip; ?></td>
                 <td><?php echo "'".$row->nip_lama; ?></td> 
@@ -59,7 +65,7 @@
                 <td><?php echo $row->hp; ?></td>
                 <td><?php echo $row->golongan_darah; ?></td>
                 <td><?php echo $row->status_pernikahan; ?></td>
-                <td><?php echo $row->issu; ?></td>
+                <td><?php echo $namaIssu; ?></td>
                 <td><?php echo "'" . $row->npwp; ?></td>
                 <td><?php echo "'" . $row->bpjs; ?></td>
                 <td><?php echo "'" . $row->karpeg; ?></td>
@@ -77,7 +83,7 @@
                 <td><?php echo $row->tipe; ?></td>
                 <td><?php echo $row->jabatan; ?></td>
                 <td><?php echo $row->tmtJabatan; ?></td>
-                <td><?php echo landa()->rp($row->gajiPegawai); ?></td>
+                <td><?php echo $gaji; ?></td>
                 <td><?php echo $row->masaKerja; ?></td>               
                 <td><?php echo $row->tmt_pensiun; ?></td>       		
                       		

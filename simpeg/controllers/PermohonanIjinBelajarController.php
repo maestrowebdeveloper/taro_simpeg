@@ -185,13 +185,21 @@ class PermohonanIjinBelajarController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
-        if (isset($session['PermohonanIjinBelajar_records'])) {
-            $model = $session['PermohonanIjinBelajar_records'];
-        }
-        else
-            $model = PermohonanIjinBelajar::model()->findAll();
+        
+        $jenjang_pendidikan =$_GET['jenjang_pendidikan'];
+        $nomor_register =$_GET['nomor_register'];
+        $tanggal = $_GET['tanggal'];
+        $jurusan = $_GET['jurusan'];
+        $nama_sekolah = $_GET['nama_sekolah'];
+        
+        $criteria = new CDbCriteria;
+        $criteria->compare('jenjang_pendidikan', $jenjang_pendidikan, true);
+        $criteria->compare('nomor_register', $nomor_register, true);
+        $criteria->compare('tanggal', $tanggal, true);
+        $criteria->compare('jurusan', $jurusan, true);
+        $criteria->compare('nama_sekolah', $nama_sekolah, true);
+        
+            $model = PermohonanIjinBelajar::model()->findAll($criteria);
 
 
         Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(

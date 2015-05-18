@@ -1009,8 +1009,12 @@ class PegawaiController extends Controller {
         $model = new Pegawai('search');
         $model->unsetAttributes();  // clear any default values
         $criteria = new CDbCriteria();
+        //logs($model);
+        $model->kedudukan_id = 1;
         if (isset($_GET['Pegawai'])) {
             $model->attributes = $_GET['Pegawai'];
+          //if ($model->nip == 0 or $model->nip == "")
+           //     unset($model->nip);
             if ($model->tempat_lahir == 0)
                 unset($model->tempat_lahir);
             if ($model->city_id == 0)
@@ -1027,18 +1031,17 @@ class PegawaiController extends Controller {
                 unset($model->jabatan_fu_id);
             if ($model->jabatan_ft_id == 0)
                 unset($model->jabatan_ft_id);
+//            if (isset($_GET['type']) && $_GET['type'] == 'export') {
+//
+//            //$model->attributes = $_GET['Pegawai'];
+//            //logs($model);
+//            Yii::app()->request->sendFile('Data Pegawai - ' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+//                        'model' => $model,
+//                    ),true)
+//            );
+//        }
+            
         }
-
-        if (isset($_GET['export'])) {
-
-            $model->attributes = $_GET['Pegawai'];
-            Yii::app()->request->sendFile('Data Pegawai - ' . date('YmdHis') . '.xls', $this->renderPartial('index', array(
-                        'model' => $model,
-                    ))
-            );
-        }
-
-
 
         $this->cssJs();
         if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
@@ -1149,29 +1152,36 @@ class PegawaiController extends Controller {
     public function actionGenerateExcel() {
         $nip = $_GET['nip'];
         $nama = $_GET['nama'];
-        $gelar_dpn = $_GET['gelar_dpn'];
-        $gelar_blk = $_GET['gelar_blk'];
+        $gelar_dpn = $_GET['gelar_depan'];
+        $gelar_blk = $_GET['gelar_belakang'];
         $hp = $_GET['hp'];
+        $jurusan = $_GET['jurusan'];
         $agama = $_GET['agama'];
-        $type_jabatan = $_GET['type_jabatan'];
-        //$satuan_kerja=$_GET['satuan_kerja'];
-        //$unit_kerja=$_GET['unit_kerja'];
-        $Pegawai_tipe_jabatan = $_GET['Pegawai_tipe_jabatan'];
-        $jns_kelamin = $_GET['jns_kelamin'];
-        $sts_pernikahan = $_GET['sts_pernikahan'];
-
+        $type_jabatan = $_GET['tipe_jabatan'];
+//        $satuan_kerja=$_GET['satuan_kerja'];
+//        $unit_kerja=$_GET['unit_kerja'];
+        
+        $jns_kelamin = $_GET['jenis_kelamin'];
+        $sts_pernikahan = $_GET['status_pernikahan'];
+        
         $criteria = new CDbCriteria;
         $criteria->compare('nip', $nip, true);
         $criteria->addCondition('nama like "%' . $nama . '%"');
         $criteria->compare('gelar_depan', $gelar_dpn, true);
         $criteria->compare('gelar_belakang', $gelar_blk, true);
         $criteria->compare('hp', $hp, true);
+        $criteria->compare('jurusan', $jurusan, true);
+//        if(!empty($agama))
         $criteria->compare('agama', $agama, true);
         $criteria->compare('tipe_jabatan', $type_jabatan, true);
-//      
+      
+//        if(!empty($unit_kerja))
 //        $criteria->compare('t.jabatan_struktural_id', $unit_kerja);
+//        if(!empty($jns_kelamin))
         $criteria->compare('jenis_kelamin', $jns_kelamin, true);
-        // $criteria->compare('status_pernikahan', $sts_pernikahan, true);
+//
+     $criteria->compare('status_pernikahan', $sts_pernikahan, true);
+        
         $model = Pegawai::model()->findAll($criteria);
 
         Yii::app()->request->sendFile('Data Pegawai -' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
