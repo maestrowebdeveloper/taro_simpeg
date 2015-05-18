@@ -22,7 +22,7 @@ class SuratKeluarController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // c
-                'actions' => array( 'create'),
+                'actions' => array('create'),
                 'expression' => 'app()->controller->isValidAccess("suratKeluar","c")'
             ),
             array('allow', // r
@@ -30,11 +30,11 @@ class SuratKeluarController extends Controller {
                 'expression' => 'app()->controller->isValidAccess("suratKeluar","r")'
             ),
             array('allow', // u
-                'actions' => array( 'update'),
+                'actions' => array('update'),
                 'expression' => 'app()->controller->isValidAccess("suratKeluar","u")'
             ),
             array('allow', // d
-                'actions' => array( 'delete'),
+                'actions' => array('delete'),
                 'expression' => 'app()->controller->isValidAccess("suratKeluar","d")'
             )
         );
@@ -67,8 +67,8 @@ class SuratKeluarController extends Controller {
             $model->attributes = $_POST['SuratKeluar'];
             $model->terusan = $_POST['SuratKeluar']['terusan'];
             $model->no_agenda = $_POST['SuratKeluar']['no_agenda'];
-            if($_POST['SuratKeluar']['sifat'] == 'rahasia'){
-                $model->nomor_surat = 'X'.$_POST['SuratKeluar']['nomor_surat'];
+            if ($_POST['SuratKeluar']['sifat'] == 'rahasia') {
+                $model->nomor_surat = 'X' . $_POST['SuratKeluar']['nomor_surat'];
             }
             $file = CUploadedFile::getInstance($model, 'file');
             if (is_object($file)) {
@@ -104,8 +104,8 @@ class SuratKeluarController extends Controller {
             $model->attributes = $_POST['SuratKeluar'];
             $model->terusan = $_POST['SuratKeluar']['terusan'];
             $model->no_agenda = $_POST['SuratKeluar']['no_agenda'];
-            if($_POST['SuratKeluar']['sifat'] == 'rahasia'){
-                $model->nomor_surat = 'X'.$_POST['SuratKeluar']['nomor_surat'];
+            if ($_POST['SuratKeluar']['sifat'] == 'rahasia') {
+                $model->nomor_surat = 'X' . $_POST['SuratKeluar']['nomor_surat'];
             }
             $file = CUploadedFile::getInstance($model, 'file');
             if (is_object($file)) {
@@ -139,8 +139,7 @@ class SuratKeluarController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -242,17 +241,25 @@ class SuratKeluarController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
 
-        if (isset($session['SuratKeluar_records'])) {
-            $model = $session['SuratKeluar_records'];
-        }
-        else
-            $model = SuratKeluar::model()->findAll();
+        $sifat = $_GET['sifat'];
+        $SuratKeluar_penerima = $_GET['SuratKeluar_penerima'];
+        $SuratKeluar_tanggal_kirim = $_GET['SuratKeluar_tanggal_kirim'];
+        $SuratKeluar_nomor_surat = $_GET['SuratKeluar_nomor_surat'];
+        $SuratKeluar_perihal = $_GET['SuratKeluar_perihal'];
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        $criteria = new CDbCriteria;
+        $criteria->compare('penerima', $SuratKeluar_penerima, true);
+        $criteria->compare('tanggal_kirim', $SuratKeluar_tanggal_kirim, true);
+        $criteria->compare('sifat', $sifat, true);
+        $criteria->compare('nomor_surat', $SuratKeluar_nomor_surat, true);
+        $criteria->compare('perihal', $SuratKeluar_perihal, true);
+       
+        $model = SuratKeluar::model()->findAll($criteria);
+
+
+        Yii::app()->request->sendFile('Surat Keluar -'.date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );

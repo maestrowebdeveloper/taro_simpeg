@@ -55,6 +55,9 @@ class Pegawai extends CActiveRecord {
             'Gaji' => array(self::BELONGS_TO, 'RiwayatGaji', 'riwayat_gaji_id'),
             'RiwayatJabatan' => array(self::BELONGS_TO, 'RiwayatJabatan', 'riwayat_jabatan_id'),
             'RiwayatPendidikan' => array(self::HAS_MANY, 'RiwayatPendidikan', 'pegawai_id'),
+            'RiwayatKeluarga' => array(self::HAS_MANY, 'RiwayatKeluarga', 'pegawai_id'),
+            'PermohonanMutasi' => array(self::HAS_MANY, 'PermohonanMutasi', 'pegawai_id'),
+            'UnitKerja' => array(self::BELONGS_TO, 'UnitKerja', 'id'),
         );
     }
 
@@ -228,6 +231,8 @@ class Pegawai extends CActiveRecord {
         $criteria->compare('bpjs', $this->bpjs, true);
         $criteria->compare('npwp', $this->npwp, true);
         $criteria->compare('kpe', $this->kpe, true);
+        $criteria->compare('kpe', $this->karpeg, true);
+        $criteria->compare('kpe', $this->no_taspen, true);
         $criteria->compare('foto', $this->foto, true);
         $criteria->compare('tmt_cpns', $this->tmt_cpns, true);
         $criteria->compare('tmt_pns', $this->tmt_pns, true);
@@ -418,7 +423,14 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getGolongan() {
-        return (!empty($this->Golongan->nama)) ? $this->Golongan->nama . ' - ' . $this->Golongan->keterangan : '-';
+        return (!empty($this->Pangkat->Golongan->nama)) ? $this->Pangkat->Golongan->nama . ' - ' . $this->Pangkat->Golongan->keterangan : '-';
+    }
+   
+    public function getTujuanMutasi() {
+        return (!empty($this->PermohonanMutasi->UnitKerja->nama)) ? $this->PermohonanMutasi->UnitKerja->nama : '-';
+    }
+    public function getTmtTujuanMutasi() {
+        return (!empty($this->PermohonanMutasi->tmt)) ? $this->PermohonanMutasi->tmt : '-';
     }
 
     public function getEselon() {
@@ -427,6 +439,9 @@ class Pegawai extends CActiveRecord {
 
     public function getUnitKerjaJabatan() {
         return (!empty($this->RiwayatJabatan->JabatanStruktural->nama) ? $this->RiwayatJabatan->JabatanStruktural->nama : "-");
+    }
+    public function getSatuanKerja() {
+        return (!empty($this->RiwayatJabatan->JabatanStruktural->UnitKerja->nama) ? $this->RiwayatJabatan->JabatanStruktural->UnitKerja->nama : "-");
     }
 
     public function getRiwayatTipeJabatan() {
@@ -466,7 +481,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getPendidikanJurusan() {
-        return (!empty($this->Pendidikan->jurusanPegawai)) ? $this->Pendidikan->jurusanPegawai : '-';
+        return (!empty($this->Pendidikan->jurusan)) ? $this->Pendidikan->jurusan : '-';
     }
 
     public function getLastEdit() {

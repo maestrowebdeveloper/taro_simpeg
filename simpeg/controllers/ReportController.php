@@ -298,7 +298,7 @@ class ReportController extends Controller {
         $this->layout = "mainWide";
         $model = array();
         if(isset($_POST['exportExcel'])){
-            Yii::app()->request->sendFile('Laporan PermohonanPensiun - ' . date('YmdHis') . '.xls', $this->renderPartial('strukturOrganisasi', array(
+            Yii::app()->request->sendFile('Laporan Struktur Organisasi - ' . date('YmdHis') . '.xls', $this->renderPartial('strukturOrganisasi', array(
                         'model' => $model,
                             ), true)
             );
