@@ -303,6 +303,9 @@ class Pegawai extends CActiveRecord {
             if ($_POST['type'] == 'kesehatan') {
                 $criteria->addCondition('JabatanFt.type="kesehatan"');
             }
+            if ($_POST['type'] == 'teknis') {
+                $criteria->addCondition('JabatanFt.type="teknis"');
+            }
         }
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -639,7 +642,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function arrRekapitulasiJabfung() {
-        $agama = array('ft' => '1 | Fungsional tertentu', 'fu' => '2 | Fungsional Umum', 'guru' => '3 | Kelompok Guru', 'kesehatan' => '4 | Kelompok Kesehatan');
+        $agama = array('ft' => '1 | Fungsional tertentu', 'fu' => '2 | Fungsional Umum', 'guru' => '3 | Kelompok Guru', 'kesehatan' => '4 | Kelompok Kesehatan','teknis' => '5 | Kelompok Teknis');
         return $agama;
     }
 

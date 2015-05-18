@@ -167,6 +167,7 @@ class Honorer extends CActiveRecord {
         $criteria->compare('created', $this->created, true);
         $criteria->compare('created_user_id', $this->created_user_id);
         $criteria->compare('modified', $this->modified, true);
+        $criteria->addCondition('kode IN (20,40)');
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,

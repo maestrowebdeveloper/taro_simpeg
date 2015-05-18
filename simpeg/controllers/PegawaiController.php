@@ -834,6 +834,7 @@ class PegawaiController extends Controller {
 
             $model->attributes = $_POST['Pegawai'];
             $model->tmt_cpns = $_POST['Pegawai']['tmt_cpns'];
+            $model->nip_lama = $_POST['Pegawai']['nip_lama'];
             $perubahan['tahun'] = $_POST['kalkulasiTahun'];
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
@@ -918,6 +919,7 @@ class PegawaiController extends Controller {
             $model->attributes = $_POST['Pegawai'];
             $perubahan['tahun'] = $_POST['kalkulasiTahun'];
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
+            $model->nip_lama = $_POST['Pegawai']['nip_lama'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
             $model->city_id = $_POST['Pegawai']['city_id'];
