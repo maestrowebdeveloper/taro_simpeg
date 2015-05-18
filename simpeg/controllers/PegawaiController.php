@@ -834,6 +834,7 @@ class PegawaiController extends Controller {
 
             $model->attributes = $_POST['Pegawai'];
             $model->tmt_cpns = $_POST['Pegawai']['tmt_cpns'];
+            $model->nip_lama = $_POST['Pegawai']['nip_lama'];
             $perubahan['tahun'] = $_POST['kalkulasiTahun'];
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
@@ -849,7 +850,7 @@ class PegawaiController extends Controller {
             $model->riwayat_gaji_id = $_POST['Pegawai']['riwayat_gaji_id'];
             $model->tmt_keterangan_kedudukan = $_POST['Pegawai']['tmt_keterangan_kedudukan'];
             $model->ket_tmt_cpns = $_POST['Pegawai']['ket_tmt_cpns'];
-
+            
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
             if (!empty($riwayat)) {
                 if (!empty($riwayat)) {
@@ -918,6 +919,7 @@ class PegawaiController extends Controller {
             $model->attributes = $_POST['Pegawai'];
             $perubahan['tahun'] = $_POST['kalkulasiTahun'];
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
+            $model->nip_lama = $_POST['Pegawai']['nip_lama'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
             $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
             $model->city_id = $_POST['Pegawai']['city_id'];
@@ -957,13 +959,20 @@ class PegawaiController extends Controller {
                 $model->jabatan_struktural_id = "";
             }
 
+            $file = CUploadedFile::getInstance($model, 'foto');
+            if (is_object($file)) {
+                $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
+                $file->saveAs('images/pegawai/' . $model->foto);
+                Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
+            }
+
             if ($model->save()) {
-                $file = CUploadedFile::getInstance($model, 'foto');
-                if (is_object($file)) {
-                    $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
-                    $file->saveAs('images/pegawai/' . $model->foto, 0777);
-                    Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
-                }
+//                $file = CUploadedFile::getInstance($model, 'foto');
+//                if (is_object($file)) {
+//                    $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
+//                    $file->saveAs('images/pegawai/' . $model->foto, 0777);
+//                    Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
+//                }
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -1065,6 +1074,13 @@ class PegawaiController extends Controller {
         $model->unsetAttributes();  // clear any default values  
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
+            if (isset($_POST['export'])) {
+
+                Yii::app()->request->sendFile('Rekap Data Pegawai - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekap', array(
+                            'model' => $model,
+                                ), true)
+                );
+            }
         }
         $this->cssJs();
         $this->render('rekap', array(
@@ -1078,6 +1094,13 @@ class PegawaiController extends Controller {
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
         }
+        if (isset($_POST['export'])) {
+
+            Yii::app()->request->sendFile('Rekap Data Eselon - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapEselon', array(
+                        'model' => $model,
+                            ), true)
+            );
+        }
         $this->cssJs();
         $this->render('rekapEselon', array(
             'model' => $model,
@@ -1090,6 +1113,12 @@ class PegawaiController extends Controller {
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
         }
+        if (isset($_POST['export'])) {
+            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapJabfung', array(
+                        'model' => $model,
+                            ), true)
+            );
+        }
         $this->cssJs();
         $this->render('rekapJabfung', array(
             'model' => $model,
@@ -1101,6 +1130,12 @@ class PegawaiController extends Controller {
         $model->unsetAttributes();  // clear any default values  
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
+        }
+        if (isset($_POST['export'])) {
+            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapBatasPensiun', array(
+                        'model' => $model,
+                            ), true)
+            );
         }
         $this->cssJs();
         $this->render('rekapBatasPensiun', array(

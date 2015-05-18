@@ -270,14 +270,9 @@ class HonorerController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-            foreach ($_POST['ceckbox'] as $data) {
-                $this->loadModel($data)->delete();
-            }
-        }
-
         $model = new Honorer('search');
         $model->unsetAttributes();  // clear any default values
+        $model->kode = array(20,40);
 
         if (isset($_GET['Honorer'])) {
             $model->attributes = $_GET['Honorer'];
@@ -287,10 +282,19 @@ class HonorerController extends Controller {
                 unset($model->city_id);
             if ($model->unit_kerja_id == 0)
                 unset($model->unit_kerja_id);
-            if ($model->jabatan_honorer_id == 0)
-                unset($model->jabatan_honorer_id);
+            if ($model->jabatan_struktural_id == 0)
+                unset($model->jabatan_struktural_id);
+            if ($model->jabatan_fu_id == 0)
+                unset($model->jabatan_fu_id);
+            if ($model->id_jurusan == 0)
+                unset($model->id_jurusan);
         }
-
+        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
+            Honorer::model()->deleteAll(array(
+                'condition' => 'id IN(' . implode(',', $_POST['ceckbox']) . ')'
+            ));
+        }
+        
         $this->render('index', array(
             'model' => $model,
         ));

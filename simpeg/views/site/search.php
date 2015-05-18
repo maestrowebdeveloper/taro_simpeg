@@ -88,7 +88,7 @@ if (!isset($_POST['nip'])) {
                         <div class="form-actions" style="margin:0px -20px">
                             <div class="span12 controls" style="padding:0px 20px">
 
-          <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=""> <i class="icon-search"></i></a>-->
+                  <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=""> <i class="icon-search"></i></a>-->
                                 <a href="<?php echo url('site/logout') ?>" style="background:forestgreen" class="btn btn-info" id="loginBtn"><span class="icon16 icomoon-icon-enter white"></span> Login</a>
                                 <button type="submit" style="background:forestgreen" class="btn btn-info right" id="loginBtn"><span class="icon16 icon-search white"></span> Search</button>
                             </div>
@@ -188,8 +188,8 @@ if (isset($_POST['nip'])) {
 
                                 <td style="line-height:10px;vertical-align:top;" class="span2">            
                                     <?php
-                                    $img = Yii::app()->landa->urlImg('pegawai/', $model->foto, $_GET['id']);
-                                    echo '<img style="max-width:250px;max-height:350px;" src="' . $img['medium'] . '" alt="" class="image img-polaroid" id="my_image"  /> ';
+//                                    $img = Yii::app()->landa->urlImg('pegawai/', $model->foto, $_GET['id']);
+                                    echo '<img style="max-width:250px;max-height:350px;" src="' . $model->imgUrl['medium'] . '" alt="" class="image img-polaroid" id="my_image"  /> ';
                                     ?>
 
                                 </td>
@@ -251,11 +251,12 @@ if (isset($_POST['nip'])) {
                         </table>
                     </div>
                     <div class="tab-pane" id="jabatan">
+
                         <table class="table table-bordered" id="tableJabatan">
                             <thead>
                             <th>No. Register</th>
                             <th>Jabatan</th>
-                            <th>Bidang</th>
+
                             <th>Tmt Jabatan</th>        
                             <th>Eselon</th>     
                             <th>Tmt Eselon</th>
@@ -280,12 +281,11 @@ if (isset($_POST['nip'])) {
                                         $jabatan = (isset($value->JabatanFt->nama)) ? $value->JabatanFt->nama : '';
                                         $tmt_jabatan = $value->tmt_mulai;
                                     }
-                                    $bidang = isset($value->Bidang->nama) ? $value->Bidang->nama : "-";
+//                                    $bidang = isset($value->Bidang->nama) ? $value->Bidang->nama : "-";
                                     echo '
                 <tr>
                 <td>' . $value->nomor_register . '</td>
                 <td>' . ucwords($jabatan) . '</td>
-                <td>' . $bidang . '</td>
                 <td>' . $tmt_jabatan . '</td>
                 <td>' . $eselon . '</td>
                 <td>' . $tmt_eselon . '</td>                            
@@ -386,6 +386,7 @@ if (isset($_POST['nip'])) {
                             </thead>
                             <tbody>
                                 <?php
+                                $th = '';
                                 foreach ($pelatihan as $value) {
                                     $action = $action = (!empty($edit)) ? '<td style="width: 85px;text-align:center">
                         <a class="btn btn-small update editPelatihan" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" title="Edit" rel="tooltip" ><i class="icon-pencil"></i></a> 
@@ -447,13 +448,13 @@ if (isset($_POST['nip'])) {
 ?>
 
 <script>
-    function angka(e) {
-        if (!/^[0-9,+,-]+$/.test(e.value)) {
-            e.value = e.value.substring(0, e.value.length - 1);
-        }
-    }
-    $('#myTab a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-    })
+                                function angka(e) {
+                                    if (!/^[0-9,+,-]+$/.test(e.value)) {
+                                        e.value = e.value.substring(0, e.value.length - 1);
+                                    }
+                                }
+                                $('#myTab a').click(function(e) {
+                                    e.preventDefault();
+                                    $(this).tab('show');
+                                })
 </script>

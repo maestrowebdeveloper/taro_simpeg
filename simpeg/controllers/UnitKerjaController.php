@@ -68,11 +68,10 @@ class UnitKerjaController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['UnitKerja'])) {
-           
-                $model->attributes = $_POST['UnitKerja'];
-                if ($model->save())
-                    $this->redirect(array('view', 'id' => $model->id));
-            
+
+            $model->attributes = $_POST['UnitKerja'];
+            if ($model->save())
+                $this->redirect(array('view', 'id' => $model->id));
         }
 
         $this->render('create', array(
@@ -101,12 +100,11 @@ class UnitKerjaController extends Controller {
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['UnitKerja'])) {
-           {
-			$model->attributes=$_POST['UnitKerja'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
+        if (isset($_POST['UnitKerja'])) { {
+                $model->attributes = $_POST['UnitKerja'];
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->id));
+            }
         }
 
         $this->render('update', array(
@@ -135,13 +133,7 @@ class UnitKerjaController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-            foreach ($_POST['ceckbox'] as $data) {
-                $a = UnitKerja::model()->findByPk($data);
-                if (!empty($a))
-                    $a->deleteNode();
-            }
-        }
+
 
 //        $session = new CHttpSession;
 //        $session->open();
@@ -199,7 +191,11 @@ class UnitKerjaController extends Controller {
                 $criteria->addCondition('modified = "' . $model->modified . '"');
         }
 //        $session['UnitKerja_records'] = UnitKerja::model()->findAll($criteria);
-
+        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
+            UnitKerja::model()->deleteAll(array(
+                'condition' => 'id IN(' . implode(',', $_POST['ceckbox']) . ')'
+            ));
+        }
 
         $this->render('index', array(
             'model' => $model,

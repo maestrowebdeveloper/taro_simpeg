@@ -3,8 +3,7 @@ $criteria = '1';
 if (!empty($_POST['riwayat_jabatan_id'])) {
     $criteria = 'unit_kerja_id=' . $_POST['riwayat_jabatan_id'];
 }
-$data = JabatanStruktural::model()->findAll(array('condition' => $criteria));
-print_r($_POST);
+$data = JabatanStruktural::model()->findAll(array('condition' => $criteria,'order' => 'nama'));
 ?>
 
 <div style="text-align: right">
