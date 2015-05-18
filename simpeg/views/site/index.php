@@ -5,37 +5,38 @@ $siteConfig = SiteConfig::model()->listSiteConfig();
 
 $criteria = '';
 
-$struktural = Pegawai::model()->with('JabatanStruktural.Eselon')->findAll(array('condition' => 'JabatanStruktural.eselon_id = Eselon.id and t.tipe_jabatan="struktural" ', 'group' => 'Eselon.nama', 'select' => '*,count(t.id) as id'));
-$eselon = CHtml::listData(Eselon::model()->findAll(array('order' => 'id ASC')), 'nama', 'nama');
+$struktural = Pegawai::model()->with('JabatanStruktural.Eselon')->findAll(array('condition' => 'JabatanStruktural.eselon_id = Eselon.id and t.tipe_jabatan="struktural" and t.kedudukan_id=1 ', 'group' => 'Eselon.nama', 'select' => '*,count(t.id) as id'));
+//$eselon = CHtml::listData(Eselon::model()->findAll(array('order' => 'id ASC')), 'nama', 'nama');
 foreach ($struktural as $value) {
     if (isset($value->JabatanStruktural->Eselon->nama)) {
-        $eselon[$value->JabatanStruktural->Eselon->nama] = $value->id;
+        $sEselon[$value->JabatanStruktural->Eselon->nama] = $value->id;
     }
 }
 
-foreach ($eselon as $key => $value) {
+foreach ($sEselon as $key => $value) {
     $grafik[$key] = intval($value);
 }
-
-$jbtTertentu = Pegawai::model()->with('JabatanFt')->findAll(array('condition' => 't.tipe_jabatan="fungsional_tertentu" ', 'group' => 'JabatanFt.type', 'select' => '*,count(t.id) as id'));
-$tertentu = array('guru' => 'Guru', 'kesehatan' => 'Kesehatan', 'umum' => 'Umum');
+//
+$jbtTertentu = Pegawai::model()->with('JabatanFt')->findAll(array('condition' => 't.jabatan_ft_id = JabatanFt.id and t.tipe_jabatan="fungsional_tertentu" and t.kedudukan_id=1 ', 'group' => 'JabatanFt.type', 'select' => '*,count(t.id) as id'));
+//$tertentu = array('guru' => 'Guru', 'kesehatan' => 'Kesehatan', 'umum' => 'Umum');
 foreach ($jbtTertentu as $value) {
     if (isset($value->JabatanFt->type)) {
-        $grafik[$value->JabatanFt->type] = $value->id;
+        $sgrafik[$value->JabatanFt->type] = $value->id;
     }
 }
 
-foreach ($tertentu as $key => $value) {
+foreach ($sgrafik as $key => $value) {
     $grafik[$key] = intval($value);
 }
 
-$jbtUmum = Pegawai::model()->with('JabatanFu')->find(array('condition' => 't.tipe_jabatan="fungsional_umum" ', 'group' => 'tipe_jabatan', 'select' => '*,count(t.id) as id'));
+$jbtUmum = Pegawai::model()->with('JabatanFu')->find(array('condition' => 't.tipe_jabatan="fungsional_umum" and t.kedudukan_id=1 ', 'group' => 'tipe_jabatan', 'select' => '*,count(t.id) as id'));
 $grafik['fungsional umum'] = isset($jbtUmum->id) ? intval($jbtUmum->id) : 0;
 
 $data = array();
 foreach ($grafik as $key => $val) {
     $data[] = array($key, $val);
 }
+//print_r($data);
 ?>
 <div class="row-fluid">
     <div class="span8">
@@ -57,6 +58,7 @@ foreach ($grafik as $key => $val) {
                             'title' => array('text' => 'Grafik Rekap Jabatan'),
                             'series' => array(array(
                                     'type' => 'pie',
+                                    'name'=>'Jumlah',
                                     'data' => $data,
                                 )),
                             'credits' => array(
