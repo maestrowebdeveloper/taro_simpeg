@@ -107,7 +107,15 @@ class SiteConfig extends CActiveRecord {
     }
 
     public function getFullAddress() {
-        return $this->address . ', ' . $this->City->name . ', ' . $this->City->Province->name;
+        $province='';
+        $city='';
+        if(!empty($this->City->name)){
+           $city = $this->City->name; 
+        }
+        if(!empty($this->City->Province->name)){
+           $province = $this->City->Province->name; 
+        }
+        return $this->address . ', ' . $city . ', ' . $province;
     }
 
     public function listSiteConfig() {

@@ -120,13 +120,6 @@ class HukumanController extends Controller {
 
         $model = new Hukuman('search');
         $model->unsetAttributes();  // clear any default values
-        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-            foreach ($_POST['ceckbox'] as $data) {
-                $a = $this->loadModel($data);
-                if (!empty($a))
-                    $a->delete();
-            }
-        }
 
         if (isset($_GET['Hukuman'])) {
             $criteria = new CDbCriteria();
@@ -155,6 +148,11 @@ class HukumanController extends Controller {
 
             if (!empty($model->modified))
                 $criteria->addCondition('modified = "' . $model->modified . '"');
+        }
+        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
+            Hukuman::model()->deleteAll(array(
+                'condition' => 'id IN(' . implode(',', $_POST['ceckbox']) . ')'
+            ));
         }
 
         $this->render('index', array(

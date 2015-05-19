@@ -121,14 +121,6 @@ class PenghargaanController extends Controller {
         $model = new Penghargaan('search');
         $model->unsetAttributes();  // clear any default values
 
-        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-            foreach ($_POST['ceckbox'] as $data) {
-                $a = $this->loadModel($data);
-                if (!empty($a))
-                    $a->delete();
-            }
-        }
-
         if (isset($_GET['Penghargaan'])) {
             $criteria = new CDbCriteria();
             $model->attributes = $_GET['Penghargaan'];
@@ -156,6 +148,11 @@ class PenghargaanController extends Controller {
 
             if (!empty($model->modified))
                 $criteria->addCondition('modified = "' . $model->modified . '"');
+        }
+        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
+            Penghargaan::model()->deleteAll(array(
+                'condition' => 'id IN(' . implode(',', $_POST['ceckbox']) . ')'
+            ));
         }
 
         $this->render('index', array(

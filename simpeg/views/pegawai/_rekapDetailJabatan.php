@@ -1,11 +1,13 @@
-<div style="text-align: right">
-    <button class="print entypo-icon-printer button" onclick="printDiv('report')" type="button">&nbsp;&nbsp;Print Report</button>    
-</div>
+<?php if (!isset($_POST['report'])) { ?>
+    <div style="text-align: right">
+        <button class="print entypo-icon-printer button btn" onclick="printDiv('report')" type="button">&nbsp;&nbsp;Print Report</button>    
+    </div>
+<?php } ?>
 <div class="report" id="report" style="width: 100%; margin-top: 25px;">
     <h3 style="text-align:center">LAPORAN REKAPITULASI PEGAWAI BERDASARKAN JABATAN</h3><br>
     <h6  style="text-align:center">Tangga : <?php echo date('d F Y'); ?></h6>
     <hr>
-    <table class="table table-bordered">
+    <table class="table table-bordered" border="1">
         <thead>
             <tr>
                 <th rowspan="2">UNIT KERJA</th>	

@@ -34,8 +34,8 @@ if ($model->isNewRecord == true) {
             <tr>
                 <td style="text-align:left" class="span3">            
                     <?php
-                    $img = Yii::app()->landa->urlImg('honorer/', $model->foto, $_GET['id']);
-                    echo '<img style="max-width:300px;max-height:400px" src="' . $img['medium'] . '" alt="" class="image img-polaroid" id="my_image"  /> ';
+//                    $img = Yii::app()->landa->urlImg('honorer/', $model->foto, $_GET['id']);
+                    echo '<img style="max-width:300px;max-height:400px" src="' . $model->imgUrl . '" alt="" class="image img-polaroid" id="my_image"  /> ';
                     ?>
 
                 </td>
@@ -291,7 +291,7 @@ if ($model->isNewRecord == true) {
                                     )
                             ;
                         }
-                        echo '<img src="' . $img['medium'] . '" alt="" class="image img-polaroid" id="my_image"  /> ';
+                        echo '<img src="' . $model->imgUrl . '" alt="" class="image img-polaroid" id="my_image"  /> ';
                         if (!isset($_GET['v'])) {
                             echo $cc;
                             ?>
@@ -325,18 +325,27 @@ if ($model->isNewRecord == true) {
                         'prepend' => '<i class="icon-calendar"></i>'
                             )
                     );
-                    $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
-                    echo $form->select2Row($model, 'unit_kerja_id', array(
-                        'asDropDownList' => true,
-                        'data' => $data,
-                        'options' => array(
-                            "allowClear" => false,
-                            'width' => '50%',
-                        ))
-                    );
+//                    $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
+//                    echo $form->select2Row($model, 'unit_kerja_id', array(
+//                        'asDropDownList' => true,
+//                        'data' => $data,
+//                        'options' => array(
+//                            "allowClear" => false,
+//                            'width' => '50%',
+//                        ))
+//                    );
 
-                $data = array('0' => '- Jabatan  -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                $data = array('0' => '- Unit Kerja  -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
                 echo $form->select2Row($model, 'jabatan_struktural_id', array(
+                    'asDropDownList' => true,
+                    'data' => $data,
+                    'options' => array(
+                        "allowClear" => false,
+                        'width' => '50%',
+                    ))
+                );
+                $data = array('0' => '- Jabatan  -') + CHtml::listData(JabatanFu::model()->findAll(array('order' => 'id')), 'id', 'nama');
+                echo $form->select2Row($model, 'jabatan_fu_id', array(
                     'asDropDownList' => true,
                     'data' => $data,
                     'options' => array(
