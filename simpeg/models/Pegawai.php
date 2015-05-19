@@ -292,6 +292,7 @@ class Pegawai extends CActiveRecord {
         $criteria->with = array('RiwayatJabatan', 'JabatanStruktural', 'JabatanFt');
 //        $criteria->together = true;
         $criteria->addCondition('t.kedudukan_id=1');
+//        $criteria->addCondition('t.tipe_jabatan="jabatan_fungsional"');
         if (!empty($_POST['riwayat_jabatan_id'])) {
             $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_POST['riwayat_jabatan_id']);
         }
@@ -324,7 +325,8 @@ class Pegawai extends CActiveRecord {
     public function searchEselon() {
         $criteria = new CDbCriteria();
         $criteria->with = array('RiwayatJabatan', 'JabatanStruktural');
-        $criteria->addCondition('kedudukan_id=1');
+        $criteria->addCondition('t.kedudukan_id=1');
+        $criteria->addCondition('t.tipe_jabatan="struktural"');
         if (!empty($_POST['riwayat_jabatan_id'])) {
             $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_POST['riwayat_jabatan_id']);
         }

@@ -91,7 +91,7 @@ $this->endWidget();
            'header' => 'Foto',
             'type' => 'raw',
             'value' => '"$data->smallFoto"', 
-            'htmlOptions' => array('style' => 'text-align: center; width:180px;text-align:center;width:120px')
+            'htmlOptions' => array('style' => 'text-align: center; width:60px;')
             ),	
 		
 		'nama',
