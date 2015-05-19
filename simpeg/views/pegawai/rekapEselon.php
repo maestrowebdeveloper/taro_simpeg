@@ -6,18 +6,23 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id' => 'results',
-    'enableAjaxValidation' => false,
-    'method' => 'post',
-    'action' => url("pegawai/rekapEselon?cari=1"),
-    'type' => 'horizontal',
-    'htmlOptions' => array(
-        'enctype' => 'multipart/form-data'
-    )
-        ));
-?>
+<script stype="text/javascript">
+    $('.search-form form').submit(function () {
+        $.fn.yiiGridView.update('results', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
+</script>
+<div class="search-form">
+    <?php
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id' => 'search-pegawai-form',
+        'action' => Yii::app()->createUrl($this->route,array('cari' => 1)),
+        'method' => 'get',
+        'type' => 'horizontal',
+    ));
+    ?>
 <div class="well">
 
     <div class="row-fluid">
@@ -32,7 +37,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                             'bootstrap.widgets.TbSelect2', array(
                         'name' => 'riwayat_jabatan_id',
                         'data' => $data,
-                        'value' => isset($_POST['riwayat_jabatan_id']) ? $_POST['riwayat_jabatan_id'] : '',
+                        'value' => isset($_GET['riwayat_jabatan_id']) ? $_GET['riwayat_jabatan_id'] : '',
                         'options' => array(
                             'width' => '40%;margin:0px;text-align:left',
                     )));
@@ -48,7 +53,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                             'bootstrap.widgets.TbSelect2', array(
                         'name' => 'eselon_id',
                         'data' => $data,
-                        'value' => isset($_POST['eselon_id']) ? $_POST['eselon_id'] : '',
+                        'value' => isset($_GET['eselon_id']) ? $_GET['eselon_id'] : '',
                         'options' => array(
                             'width' => '40%;margin:0px;text-align:left',
                     )));
@@ -143,7 +148,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 ));
 }
 ?>
-
+</div>
 <script>
 function printDiv(divName)
         {                  
