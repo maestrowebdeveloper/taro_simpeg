@@ -292,23 +292,23 @@ class Pegawai extends CActiveRecord {
         $criteria->with = array('RiwayatJabatan', 'JabatanStruktural', 'JabatanFt');
 //        $criteria->together = true;
         $criteria->addCondition('t.kedudukan_id=1');
-        if (!empty($_POST['riwayat_jabatan_id'])) {
-            $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_POST['riwayat_jabatan_id']);
+        if (!empty($_GET['riwayat_jabatan_id'])) {
+            $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_GET['riwayat_jabatan_id']);
         }
-        if (!empty($_POST['type'])) {
-            if ($_POST['type'] == 'ft') {
+        if (!empty($_GET['type'])) {
+            if ($_GET['type'] == 'ft') {
                 $criteria->addCondition('t.tipe_jabatan="fungsional_tertentu"');
             }
-            if ($_POST['type'] == 'fu') {
+            if ($_GET['type'] == 'fu') {
                 $criteria->addCondition('t.tipe_jabatan="fungsional_umum"');
             }
-            if ($_POST['type'] == 'guru') {
+            if ($_GET['type'] == 'guru') {
                 $criteria->addCondition('JabatanFt.type="guru"');
             }
-            if ($_POST['type'] == 'kesehatan') {
+            if ($_GET['type'] == 'kesehatan') {
                 $criteria->addCondition('JabatanFt.type="kesehatan"');
             }
-            if ($_POST['type'] == 'teknis') {
+            if ($_GET['type'] == 'teknis') {
                 $criteria->addCondition('JabatanFt.type="teknis"');
             }
         }
@@ -325,11 +325,11 @@ class Pegawai extends CActiveRecord {
         $criteria = new CDbCriteria();
         $criteria->with = array('RiwayatJabatan', 'JabatanStruktural');
         $criteria->addCondition('kedudukan_id=1');
-        if (!empty($_POST['riwayat_jabatan_id'])) {
-            $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_POST['riwayat_jabatan_id']);
+        if (!empty($_GET['riwayat_jabatan_id'])) {
+            $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_GET['riwayat_jabatan_id']);
         }
-        if (!empty($_POST['eselon_id'])) {
-            $criteria->addCondition('JabatanStruktural.eselon_id=' . $_POST['eselon_id']);
+        if (!empty($_GET['eselon_id'])) {
+            $criteria->addCondition('JabatanStruktural.eselon_id=' . $_GET['eselon_id']);
         }
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -356,14 +356,14 @@ class Pegawai extends CActiveRecord {
     public function searchPensiun() {
         $criteria = new CDbCriteria();
         $criteria->with = array('JabatanStruktural');
-        if (!empty($_POST['tahun']) && !empty($_POST['bulan'])) {
-            $criteria->addCondition('month(t.tmt_pensiun)=' . $_POST['bulan']);
-            $criteria->addCondition('year(t.tmt_pensiun)=' . $_POST['tahun']);
-            if (!empty($_POST['satuan_kerja_id'])) {
-                $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_POST['satuan_kerja_id']);
+        if (!empty($_GET['tahun']) && !empty($_GET['bulan'])) {
+            $criteria->addCondition('month(t.tmt_pensiun)=' . $_GET['bulan']);
+            $criteria->addCondition('year(t.tmt_pensiun)=' . $_GET['tahun']);
+            if (!empty($_GET['satuan_kerja_id'])) {
+                $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_GET['satuan_kerja_id']);
             }
-            if (!empty($_POST['eselon_id'])) {
-                $criteria->addCondition('JabatanStruktural.eselon_id=' . $_POST['eselon_id']);
+            if (!empty($_GET['eselon_id'])) {
+                $criteria->addCondition('JabatanStruktural.eselon_id=' . $_GET['eselon_id']);
             }
         }
         $data = new CActiveDataProvider($this, array(

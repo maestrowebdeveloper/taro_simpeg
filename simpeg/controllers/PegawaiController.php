@@ -1094,7 +1094,7 @@ class PegawaiController extends Controller {
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
         }
-        if (isset($_POST['export'])) {
+        if (isset($_GET['export'])) {
 
             Yii::app()->request->sendFile('Rekap Data Eselon - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapEselon', array(
                         'model' => $model,
@@ -1113,7 +1113,7 @@ class PegawaiController extends Controller {
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
         }
-        if (isset($_POST['export'])) {
+        if (isset($_GET['export'])) {
             Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapJabfung', array(
                         'model' => $model,
                             ), true)
