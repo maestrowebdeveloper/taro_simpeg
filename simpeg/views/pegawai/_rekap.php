@@ -55,11 +55,11 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AN
 INNER JOIN riwayat_jabatan ON pegawai.riwayat_jabatan_id = riwayat_jabatan.id
 INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan_struktural.id
 INNER JOIN eselon ON jabatan_struktural.eselon_id = eselon.id
-WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AND pegawai.kedudukan_id = 1 AND eselon.nama="' . $key . '"')->query());
+WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AND pegawai.kedudukan_id = 1 AND eselon.nama="' . $key . '" AND pegawai.tipe_jabatan="struktural"')->query());
         }
 
         
-        $sTertentu = array('guru' => 'Guru', 'kesehatan' => 'Kesehatan', 'umum' => 'Teknis');
+        $sTertentu = array('guru' => 'Guru', 'kesehatan' => 'Kesehatan', 'teknis' => 'Teknis');
       
 
         foreach ($sTertentu as $key => $value) {
@@ -68,7 +68,7 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AN
 INNER JOIN riwayat_jabatan ON pegawai.riwayat_jabatan_id = riwayat_jabatan.id
 INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan_struktural.id
 INNER JOIN jabatan_ft ON riwayat_jabatan.jabatan_ft_id = jabatan_ft.id
-WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AND pegawai.kedudukan_id = 1 AND jabatan_ft.type="' . $key . '"')->query());
+WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AND pegawai.kedudukan_id =1  AND jabatan_ft.type="' . $key . '" AND pegawai.tipe_jabatan="fungsional_tertentu"')->query());
         }
 
         $umum['umum'] = count(cmd('select * from pegawai 

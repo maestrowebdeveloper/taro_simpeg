@@ -483,7 +483,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getPendidikanJurusan() {
-        return (!empty($this->Pendidikan->jurusan)) ? $this->Pendidikan->jurusan : '-';
+        return (!empty($this->Pendidikan->Jurusan->Name)) ? $this->Pendidikan->Jurusan->Name : '-';
     }
 
     public function getLastEdit() {

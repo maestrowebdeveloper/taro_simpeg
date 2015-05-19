@@ -147,7 +147,8 @@
                                                        url : "' . url('permohonanMutasi/statusJabatan') . '",
                                                        type : "POST",
                                                        data : $("#permohonan-mutasi-form").serialize(),
-                                                       success : function(data){   
+                                                       success : function(data){ 
+                                                      
                                                        obj = JSON.parse(data);
                                                         $("#eselon").val(obj.eselon);
                                                         if(obj.status==1){

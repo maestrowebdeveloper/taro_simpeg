@@ -52,13 +52,13 @@
                 echo '<tr>';
                 echo '<td>' . $unitKerja . '</td>';
                 $total = 0;
-                foreach ($eselon as $key => $value) {
-                    echo '<td>' . $value . '</td>';
-                    $total += $value;
+                foreach ($arrEselon as $key => $value) {
+                    echo '<td>' . $eselon[$key] . '</td>';
+                    $total += $eselon[$key];
                 }
-                foreach ($tertentu as $key => $value) {
-                    echo '<td>' . $value . '</td>';
-                    $total += $value;
+                foreach ($arrTertentu as $key => $value) {
+                    echo '<td>' . $tertentu[$key] . '</td>';
+                    $total += $tertentu[$key];
                 }
                 $total += $umum['umum'];
                 echo '<td>' . $umum['umum'] . '</td>';
