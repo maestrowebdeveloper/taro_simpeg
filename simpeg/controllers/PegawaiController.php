@@ -1460,5 +1460,36 @@ class PegawaiController extends Controller {
         }
         echo 'sukses';
     }
+    public function actionMigrasibup() {
+        /// change bup struktural
+        $struktural = Pegawai::model()->with('JabatanStruktural.Eselon')->findAll(array('condition' => 'JabatanStruktural.eselon_id = Eselon.id and t.tipe_jabatan="struktural"'));
+        foreach ($struktural as $data) {
+            $tingkatEselon = substr($data->JabatanStruktural->Eselon->nama, 0, 2);
+            if ($tingkatEselon == 'II') {
+                $data->bup = 60;
+                $data->save();
+            } elseif ($tingkatEselon == 'III' or $tingkatEselon == 'IV' or $tingkatEselon == 'V') {
+                $data->bup = 58;
+                $data->save();
+            }
+        }
+
+        /// change bup tertentu
+        $tertentu = Pegawai::model()->findAll(array('condition' => 'tipe_jabatan="fungsional_tertentu"'));
+        foreach ($tertentu as $data) {
+            $date = explode("-", $data->tanggal_lahir);
+            $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 60);
+            $data->bup = 60;
+            $data->save();
+        }
+
+//        / change bup fungsioanal
+        $tertentu = Pegawai::model()->with('JabatanFu')->findAll(array('condition' => 't.tipe_jabatan="fungsional_umum"'));
+        foreach ($tertentu as $data) {
+            $data->bup = 58;
+            $data->save();
+        }
+        echo 'sukses';
+    }
 
 }

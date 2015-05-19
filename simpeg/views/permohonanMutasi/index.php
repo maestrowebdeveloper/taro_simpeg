@@ -107,6 +107,13 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => '$data->statusoto',
             'htmlOptions' => array('style' => 'text-align: left;')
         ),
+        array(
+            'name' => 'mutasi',
+            'type'=>'raw',
+            'header' => 'Mutasi',
+            'value' => '$data->statusTempat',
+            'htmlOptions' => array('style' => 'text-align: left;')
+        ),
         'nomor_register',
 //        'tanggal',
         array(

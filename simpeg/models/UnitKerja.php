@@ -64,7 +64,7 @@ class UnitKerja extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'nama' => 'Unit Kerja',			
+			'nama' => 'Satuan Kerja',			
 			'keterangan' => 'Keterangan',
 			'created' => 'Created',
 			'created_user_id' => 'Created User',

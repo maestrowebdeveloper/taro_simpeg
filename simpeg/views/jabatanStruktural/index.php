@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Jabatan Strukturals');
+$this->setPageTitle(' Unit Kerja');
 $this->breadcrumbs=array(
-	'Jabatan Strukturals',
+	'Unit Kerja',
 );
 
 Yii::app()->clientScript->registerScript('search', "
