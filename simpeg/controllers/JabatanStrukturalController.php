@@ -103,7 +103,7 @@ class JabatanStrukturalController extends Controller {
 //        echo empty(NULL);
         JabatanStruktural::model()->deleteAll();
 
-        $var = cmd("SELECT * FROM temp ORDER BY ordering")->query();
+        $var = cmd("SELECT * FROM temp ORDER BY id")->query();
         foreach ($var as $val) {
             if (empty($val['maju'])) { //0, null, ''
                 $model = new JabatanStruktural;
