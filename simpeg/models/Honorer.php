@@ -479,7 +479,7 @@ class Honorer extends CActiveRecord {
     }
 
     public function getSatuanKerja() {
-        return (!empty($this->SatuanKerja->nama)) ? $this->SatuanKerja->nama : '-';
+        return (!empty($this->JabatanStruktural->UnitKerja->nama)) ? $this->JabatanStruktural->UnitKerja->nama : '-';
     }
 
     public function getTempatLahir() {
