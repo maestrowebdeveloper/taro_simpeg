@@ -34,8 +34,8 @@ if ($model->isNewRecord == true) {
             <tr>
                 <td style="text-align:left" class="span3">            
                     <?php
-                    $img = Yii::app()->landa->urlImg('honorer/', $model->foto, $_GET['id']);
-                    echo '<img style="max-width:300px;max-height:400px" src="' . $img['medium'] . '" alt="" class="image img-polaroid" id="my_image"  /> ';
+//                    $img = Yii::app()->landa->urlImg('honorer/', $model->foto, $_GET['id']);
+                    echo '<img style="max-width:300px;max-height:400px" src="' . $model->imgUrl . '" alt="" class="image img-polaroid" id="my_image"  /> ';
                     ?>
 
                 </td>
@@ -291,7 +291,7 @@ if ($model->isNewRecord == true) {
                                     )
                             ;
                         }
-                        echo '<img src="' . $img['medium'] . '" alt="" class="image img-polaroid" id="my_image"  /> ';
+                        echo '<img src="' . $model->imgUrl . '" alt="" class="image img-polaroid" id="my_image"  /> ';
                         if (!isset($_GET['v'])) {
                             echo $cc;
                             ?>

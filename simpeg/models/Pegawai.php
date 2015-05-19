@@ -314,7 +314,7 @@ class Pegawai extends CActiveRecord {
         }
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 't.nama ASC')
+            'sort' => array('defaultOrder' => 't.jabatan_struktural_id DESC')
         ));
 
         return $data;
@@ -556,11 +556,11 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getImgUrl() {
-        return landa()->urlImg('pegawai/', $this->foto, $this->id);
+        return param('pathImg').'pegawai/'.$this->foto;
     }
 
     public function getSmallFoto() {
-        return '<img style="width:40px;height:40px" src="' . $this->imgUrl['small'] . '" class="img-polaroid"/>';
+        return '<img style="width:40px;height:40px" src="' . $this->imgUrl. '" class="img-polaroid"/>';
     }
 
     public function getTinyFoto() {

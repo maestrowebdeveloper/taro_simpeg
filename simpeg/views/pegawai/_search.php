@@ -80,6 +80,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 'width' => '100%',
             ))
         );
+        echo $form->radioButtonListRow($model, 'jabatan_ft_id', Pegawai::model()->ArrJabFt());
         ?>
     </div>
 </div>
@@ -120,8 +121,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         var type_jabatan = $("#Pegawai_tipe_jabatan").val();
         var unit_kerja = $("#unit_kerja").val();
 
-       // alert(unit_kerja);
-         window.open("<?php echo url('pegawai/GenerateExcel') ?>?kedudukan_id="+kedudukan_id+"&nip=" + nip + "&nama=" + nama + "&gelar_depan=" + gelar_dpn + "&gelar_belakang=" + gelar_blk + "&jurusan=" + jurusan + "&hp=" + hp + "&agama=" + agama + "&tipe_jabatan=" + type_jabatan + "&satuan_kerja=" + satuan_kerja + "&unit_kerja=" + unit_kerja + "&jenis_kelamin=" + jns_kelamin + "&status_pernikahan=" + sts_pernikahan);
+        // alert(unit_kerja);
+        window.open("<?php echo url('pegawai/GenerateExcel') ?>?kedudukan_id=" + kedudukan_id + "&nip=" + nip + "&nama=" + nama + "&gelar_depan=" + gelar_dpn + "&gelar_belakang=" + gelar_blk + "&jurusan=" + jurusan + "&hp=" + hp + "&agama=" + agama + "&tipe_jabatan=" + type_jabatan + "&satuan_kerja=" + satuan_kerja + "&unit_kerja=" + unit_kerja + "&jenis_kelamin=" + jns_kelamin + "&status_pernikahan=" + sts_pernikahan);
 //        } 
     }
 </script>
@@ -141,9 +142,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 <script type="text/javascript">
 
-    jQuery(function ($) {
-        $(".btnreset").click(function () {
-            $(":input", "#search-pegawai-form").each(function () {
+    jQuery(function($) {
+        $(".btnreset").click(function() {
+            $(":input", "#search-pegawai-form").each(function() {
                 var type = this.type;
                 var tag = this.tagName.toLowerCase(); // normalize case
                 if (type == "text" || type == "password" || tag == "textarea")

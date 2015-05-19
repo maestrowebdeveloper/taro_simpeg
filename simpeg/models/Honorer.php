@@ -514,11 +514,11 @@ class Honorer extends CActiveRecord {
     }
 
     public function getImgUrl() {
-        return landa()->urlImg('honorer/', $this->foto, $this->id);
+        return param('pathImg').'honorer/'.$this->foto;
     }
 
     public function getSmallFoto() {
-        return '<img style="width:98px;height:98px" src="' . $this->imgUrl['small'] . '" class="img-polaroid"/>';
+        return '<img style="width:98px;height:98px" src="' . $this->imgUrl . '" class="img-polaroid"/>';
     }
 
     public function getTinyFoto() {

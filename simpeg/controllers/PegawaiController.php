@@ -963,7 +963,7 @@ class PegawaiController extends Controller {
             if (is_object($file)) {
                 $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
                 $file->saveAs('images/pegawai/' . $model->foto);
-                Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
+//                Yii::app()->landa->createImg('pegawai/', $model->foto, $model->id);
             }
 
             if ($model->save()) {
