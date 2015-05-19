@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Permohonan Mutasis');
+$this->setPageTitle('Permohonan Mutasi');
 $this->breadcrumbs = array(
-    'Permohonan Mutasis',
+    'Permohonan Mutasi',
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -115,7 +115,11 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'htmlOptions' => array('style' => 'text-align: left;')
         ),
         'nomor_register',
-        'tanggal',
+//        'tanggal',
+        array(
+            'name' => 'tanggal',
+            'value' => '$data->tglMutasi',
+        ),
         array(
             'name' => 'pegawai_id',
             'value' => '$data->pegawai',
@@ -133,7 +137,10 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'header' => 'Jabatan Baru',
             'value' => '$data->jabatan',
         ),
-        'tmt',
+        array(
+            'name' => 'tmt',
+            'value' => '$data->tmtMutasi',
+        ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
             'template' => $button,

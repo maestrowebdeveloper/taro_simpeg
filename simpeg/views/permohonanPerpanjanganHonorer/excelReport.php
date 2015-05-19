@@ -14,12 +14,12 @@
 	<?php foreach($model as $row): ?>
 	<tr>
         <td><?php echo $row->nomor_register; ?></td>
-        <td><?php echo $row->tanggal; ?></td>        
+        <td><?php echo $row->tgl; ?></td>        
         <td><?php echo $row->honorer; ?></td>      
         <td><?php echo $row->masa_kerja; ?></td>        
         <td><?php echo landa()->rp($row->honor_saat_ini); ?></td>        
-        <td><?php echo $row->tmt_mulai; ?></td>        
-        <td><?php echo $row->tmt_selesai; ?></td>        
+        <td><?php echo $row->tmtMulai; ?></td>        
+        <td><?php echo $row->tmtSelesai; ?></td>        
         
        	</tr>
      <?php endforeach; ?>

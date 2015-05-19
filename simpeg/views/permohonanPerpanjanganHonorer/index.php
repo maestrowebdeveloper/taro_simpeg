@@ -90,7 +90,11 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             ),
         ),
         'nomor_register',
-        'tanggal',
+//        'tanggal',
+        array(
+            'name' => 'tanggal',
+            'value' => '$data->tgl',
+        ),
         array(
             'name' => 'honorer_id',
             'value' => '$data->honorer',
@@ -105,11 +109,11 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'name' => 'tmt_mulai',
-            'value' => '$data->tmt_mulai',
+            'value' => '$data->tmtMulai',
         ),
         array(
             'name' => 'tmt_selesai',
-            'value' => '$data->tmt_selesai',
+            'value' => '$data->tmtSelesai',
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

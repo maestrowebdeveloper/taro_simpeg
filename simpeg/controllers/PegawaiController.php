@@ -1094,7 +1094,7 @@ class PegawaiController extends Controller {
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
         }
-        if (isset($_POST['export'])) {
+        if (isset($_GET['export'])) {
 
             Yii::app()->request->sendFile('Rekap Data Eselon - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapEselon', array(
                         'model' => $model,
@@ -1113,7 +1113,7 @@ class PegawaiController extends Controller {
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
         }
-        if (isset($_POST['export'])) {
+        if (isset($_GET['export'])) {
             Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapJabfung', array(
                         'model' => $model,
                             ), true)
@@ -1184,6 +1184,7 @@ class PegawaiController extends Controller {
         $nip = $_GET['nip'];
         $kedudukan_id = $_GET['kedudukan_id'];
         $nama = $_GET['nama'];
+        $pegawai_ft = $_GET['pegawai_ft'];
         $gelar_dpn = $_GET['gelar_depan'];
         $gelar_blk = $_GET['gelar_belakang'];
         $hp = $_GET['hp'];
@@ -1201,14 +1202,17 @@ class PegawaiController extends Controller {
                 $id[] = $val->id;
             }
         }
-//        $riwayatJab = RiwayatJabatan::model()->findAll(array('condition'=>'jabatan_struktural_id IN (' . implode(",", $id) . ')'));
-//         if (empty($riwayatJab)) {
-//            
-//        } else {
-//            foreach ($riwayatJab as $val) {
-//                $satuan[] = $val->id;
-//            }
-//        }
+        //jabatan_ft
+        $jabFt = JabatanFt::model()->findAll(array('condition' => 'type ="'.$_GET['pegawai_ft'].'"'));
+            $id = array();
+            if (empty($jabFt)) {
+                
+            } else {
+                foreach ($jabFt as $val) {
+                    $id[] = $val->id;
+                }
+            }
+            
 
         $unit_kerja = $_GET['unit_kerja'];
 
@@ -1221,7 +1225,9 @@ class PegawaiController extends Controller {
         $criteria->addCondition('nama like "%' . $nama . '%"');
         $criteria->compare('gelar_depan', $gelar_dpn, true);
         $criteria->compare('gelar_belakang', $gelar_blk, true);
-        $criteria->compare('hp', $hp, true);
+        $criteria->compare('hp', $hp, true); 
+        if(!empty($pegawai_ft))
+        $criteria->addCondition('RiwayatJabatan.jabatan_ft_id IN (' . implode(",", $id) . ')');
         $criteria->compare('jurusan', $jurusan, true);
         $criteria->compare('kedudukan_id', $kedudukan_id);
 //        if(!empty($agama))

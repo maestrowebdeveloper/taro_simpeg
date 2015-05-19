@@ -67,7 +67,7 @@ class PermohonanPensiunController extends Controller {
             $model->attributes = $_POST['PermohonanPensiun'];
             $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
             if (!empty($pegawai)) {
-                $model->unit_kerja_id = $pegawai->unit_kerja_id;
+//                $model->unit_kerja_id = $pegawai->unit_kerja_id;
                 $model->tipe_jabatan = $pegawai->tipe_jabatan;
                 $model->jabatan_struktural_id = $pegawai->jabatan_struktural_id;
                 $model->jabatan_fu_id = $pegawai->jabatan_fu_id;

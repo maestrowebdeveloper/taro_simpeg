@@ -101,7 +101,11 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'htmlOptions' => array('style' => 'text-align: left;')
         ),
         'nomor_kesehatan',
-        'tanggal_kesehatan',
+        array(
+            'name' => 'tanggal_kesehatan',
+            'value' => '$data->tgl',
+        ),
+//        'tanggal_kesehatan',
 //        'pelatihan_id',
         'nomor_diklat',
         array(

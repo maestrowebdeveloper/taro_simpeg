@@ -108,35 +108,40 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'name' => 'jabatan_struktural_id',
             'value' => '$data->satuanKerja',
         ),
-        'tmt_kontrak',
-        'tmt_akhir_kontrak',
-        array(
-            'class' => 'bootstrap.widgets.TbButtonColumn',
-            'template' => '{view} {update} {delete}',
-            'buttons' => array(
-                'view' => array(
-                    'label' => 'Lihat',
-                    'options' => array(
-                        'class' => 'btn btn-small view'
-                    )
-                ),
-                'update' => array(
-                    'label' => 'Edit',
-                    'options' => array(
-                        'class' => 'btn btn-small update'
-                    )
-                ),
-                'delete' => array(
-                    'label' => 'Hapus',
-                    'options' => array(
-                        'class' => 'btn btn-small delete'
-                    )
-                )
-            ),
-            'htmlOptions' => array('style' => 'width: 125px;text-align:center'),
-        )
-    ),
-));
-$this->endWidget();
-?>
-
+		array(
+            'name' => 'tmt_kontrak',
+            'value' => '$data->tmtKontrak',            
+        ),
+		array(
+            'name' => 'tmt_akhir_kontrak',
+            'value' => '$data->tmtAkhirKontrak',            
+        ),
+//        'tmt_kontrak',
+//        'tmt_akhir_kontrak',	
+       array(
+            'class'=>'bootstrap.widgets.TbButtonColumn',
+			'template' => '{view} {update} {delete}',
+			'buttons' => array(
+			      'view' => array(
+					'label'=> 'Lihat',
+					'options'=>array(
+						'class'=>'btn btn-small view'
+					)
+				),	
+                              'update' => array(
+					'label'=> 'Edit',
+					'options'=>array(
+						'class'=>'btn btn-small update'
+					)
+				),
+				'delete' => array(
+					'label'=> 'Hapus',
+					'options'=>array(
+						'class'=>'btn btn-small delete'
+					)
+				)
+			),
+            'htmlOptions'=>array('style'=>'width: 125px;text-align:center'),
+           )
+	),
+));$this->endWidget(); ?>

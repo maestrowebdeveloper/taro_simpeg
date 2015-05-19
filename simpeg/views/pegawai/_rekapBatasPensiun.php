@@ -6,9 +6,9 @@ if (!empty($_POST['riwayat_jabatan_id'])) {
 $data = JabatanStruktural::model()->findAll(array('condition' => $criteria,'order' => 'nama'));
 ?>
 
-<div style="text-align: right">
+<!--<div style="text-align: right">
     <button class="print entypo-icon-printer button" onclick="printDiv('report')" type="button">&nbsp;&nbsp;Print Report</button>    
-</div>
+</div>-->
 <div class="report" id="report" style="width: 100%; margin-left: 10px; margin-right: 10px;">
     <h3 style="text-align:center">REKAP BATAS PENSIUN</h3>
     <hr>
