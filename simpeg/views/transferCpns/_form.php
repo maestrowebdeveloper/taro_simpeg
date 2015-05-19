@@ -21,7 +21,7 @@
         </fieldset>
         <div class="row-fluid">
             <div class="span5">
-                <input class="span12" name="TransferCpns[pelatihan_id]" id="TransferCpns_nomor_kesehatan" type="hidden" value="<?php echo (isset($model->pelatihan_id)) ? $odel->pelatihan_id : 2 ?>">
+                <input class="span12" name="TransferCpns[pelatihan_id]" id="TransferCpns_nomor_kesehatan" type="hidden" value="<?php echo (isset($model->pelatihan_id)) ? $model->pelatihan_id : 2 ?>">
                 <?php
                 $idpegawai = isset($model->pegawai_id) ? $model->pegawai_id : 0;
                 $pegawaiName = isset($model->Pegawai->nama) ? $model->Pegawai->nama : '';
@@ -63,13 +63,16 @@
                 $nip = (!empty($model->Pegawai->nip)) ? $model->Pegawai->nip : '';
                 $tempat_lahir = (!empty($model->Pegawai->tempatLahir)) ? $model->Pegawai->tempatLahir : '';
                 $tanggal_lahir = (!empty($model->Pegawai->tanggal_lahir)) ? $model->Pegawai->tanggal_lahir : '';
-                $pendidikan_terakhir = (!empty($model->Pegawai->pendidikan_terakhir)) ? $model->Pegawai->pendidikan_terakhir : '';
-                $tahun_pendidikan = (!empty($model->Pegawai->tahun_pendidikan)) ? $model->Pegawai->tahun_pendidikan : '';
+                $jenpen_terakhir =(!empty($model->Pegawai->Pendidikan->jenjang_pendidikan)) ? $model->Pegawai->Pendidikan->jenjang_pendidikan : '' ;
+                $jurusan_pendidikan=(!empty($model->Pegawai->Pendidikan->Jurusan->Name)) ? $model->Pegawai->Pendidikan->Jurusan->Name : '';
+                $pendidikan_terakhir =  $jenpen_terakhir.' - '.$jurusan_pendidikan;
+                
+                $tahun_pendidikan = (!empty($model->Pegawai->Pendidikan->tahun)) ? $model->Pegawai->Pendidikan->tahun : '';
+                
                 $jabatan = (!empty($model->Pegawai->jabatan)) ? $model->Pegawai->jabatan : '';
                 $golongan = (!empty($model->Pegawai->golongan)) ? $model->Pegawai->golongan : '';
                 $tmt = (!empty($model->Pegawai->tmt_cpns)) ? $model->Pegawai->tmt_cpns : '';
-                $mkTahun = (!empty($model->Pegawai->masaKerjaTahun)) ? $model->Pegawai->masaKerjaTahun : '';
-                $mkBulan = (!empty($model->Pegawai->masaKerjaBulan)) ? $model->Pegawai->masaKerjaBulan : '';
+                $mkTahun = (!empty($model->Pegawai->masaKerja)) ? $model->Pegawai->masaKerja : '';
                 ?>
 
                 <div class="control-group ">
@@ -137,9 +140,8 @@
                 <div class="control-group ">
                     <label class="control-label" for="TransferCpns_nomor_kesehatan">Masa Kerja</label>
                     <div class="controls">
-                        <input class="span6" name="" disabled id="masa_kerja_tahun" value="<?php echo $mkTahun ?>" type="text"><br><br>
-                        <input class="span6" name="" disabled id="masa_kerja_bulan" value="<?php echo $mkBulan ?>" type="text">
-
+                        <input class="span12" name="" disabled id="masa_kerja" value="<?php echo $mkTahun ?>" type="text"><br><br>
+                        
                     </div>
                 </div>
                 
@@ -150,7 +152,7 @@
         <fieldset>
             <legend>Form Transfer CPNS</legend>
         </fieldset>
-        <?php echo $form->textFieldRow($model, 'nomor_kesehatan', array('class' => 'span5')); ?>
+        <?php echo $form->textFieldRow($model, 'nomor_kesehatan', array('class' => 'span3')); ?>
 
                 <?php
                 echo $form->datepickerRow(
@@ -163,7 +165,7 @@
 
 
 
-                <?php echo $form->textFieldRow($model, 'nomor_diklat', array('class' => 'span5')); ?>
+                <?php echo $form->textFieldRow($model, 'nomor_diklat', array('class' => 'span3')); ?>
 
                 <?php
                 echo $form->datepickerRow(
@@ -214,11 +216,12 @@
                 $("#unit_kerja").val(obj.unit_kerja);
                 $("#jenis_kelamin").val(obj.jenis_kelamin);
                 $("#tempat_lahir").val(obj.tempat_lahir);
-                $("#tanggal_lahir").val(obj.tanggal_lahir);
+                $("#tanggal_lahit").val(obj.tanggal_lahir);
                 $("#pendidikan_terakhir").val(obj.pendidikan_terakhir);
-                $("#tahun_pendidikan").val(obj.tahun_pendidikan);
+                $("#tahun_pendidikan").val(obj.tahun_pendidikan); 
+                $("#jabatan").val(obj.jabatan);
                 $("#golru").val(obj.golru);
-                $("#mas_kerja").val(obj.masa_kerja);
+                $("#masa_kerja").val(obj.masa_kerja);
                 $("#tmt").val(obj.tmt);
             }
         });

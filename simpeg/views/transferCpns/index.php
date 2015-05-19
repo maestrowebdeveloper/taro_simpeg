@@ -29,7 +29,7 @@ $this->widget('bootstrap.widgets.TbMenu', array(
     'items' => array(
         array('label' => 'Tambah', 'icon' => 'icon-plus', 'url' => Yii::app()->controller->createUrl('create'), 'linkOptions' => array(),'visible'=>landa()->checkAccess('transferCpns', 'c')),
         array('label' => 'List Data', 'icon' => 'icon-th-list', 'url' => Yii::app()->controller->createUrl('index'), 'active' => true, 'linkOptions' => array()),
-        array('label' => 'Pencarian', 'icon' => 'icon-search', 'url' => '#', 'linkOptions' => array('class' => 'search-button')),
+        array('label' => 'Pencarian & Export Excel', 'icon' => 'icon-search', 'url' => '#', 'linkOptions' => array('class' => 'search-button')),
     ),
 ));
 $this->endWidget();
@@ -92,7 +92,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                 'value' => '$data->id',
             ),
         ),
-        'id',
+//        'id',
          array(
             'name' => 'pegawai_id',
             'type' => 'raw',
