@@ -109,7 +109,7 @@ $this->endWidget();
         ), 
         array(
             'name' => 'tanggal',
-            'value' => '$data->tanggal',            
+            'value' => '$data->tglIjnBelajar',            
         ),
 
        array(

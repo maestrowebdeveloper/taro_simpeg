@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Permohonan Mutasis');
+$this->setPageTitle('Permohonan Mutasi');
 $this->breadcrumbs = array(
-    'Permohonan Mutasis',
+    'Permohonan Mutasi',
 );
 
 Yii::app()->clientScript->registerScript('search', "

@@ -163,6 +163,9 @@ class PermohonanPensiun extends CActiveRecord {
     public function getUnitKerja() {
         return (!empty($this->UnitKerja->nama)) ? $this->UnitKerja->nama : '-';
     }
+    public function getSatuanKerja() {
+        return (!empty($this->JabatanStruktural->UnitKerja->nama)) ? $this->JabatanStruktural->UnitKerja->nama : '-';
+    }
 
     public function getTipeJabatan() {
         return ucwords(str_replace("_", " ", $this->tipe_jabatan));

@@ -132,7 +132,6 @@ class PermohonanIjinBelajar extends CActiveRecord {
 
         return $data;
     }
-    
 
     public function search2() {
         $criteria2 = new CDbCriteria();
@@ -155,12 +154,18 @@ class PermohonanIjinBelajar extends CActiveRecord {
         return parent::beforeValidate();
     }
 
+    public function getTglIjnBelajar() {
+        return (!empty(date('d-m-Y', strtotime($this->tanggal)))) ? date('d-m-Y', strtotime($this->tanggal)) : '-';
+    }
+
     public function getPegawai() {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
     }
+
     public function getjurusanUniv() {
         return (!empty($this->JurusanUniv->Name)) ? $this->JurusanUniv->Name : '-';
     }
+
     public function getUniv() {
         return (!empty($this->Univ->name)) ? $this->Univ->name : '-';
     }
