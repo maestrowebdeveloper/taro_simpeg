@@ -56,10 +56,10 @@ class TransferCpnsController extends Controller {
     public function actionTransfer() {
 //        logs(implode(',', $_POST['id']));
         if (isset($_POST['ceckbox'])) {
-            
+
             if (isset($_POST['transfer'])) {
                 $id = $_POST['ceckbox'];
-                $jumlah=0;
+                $jumlah = 0;
                 $model = TransferCpns::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ') and status=1'));
                 $jumlah = count($model);
                 foreach ($model as $data) {
@@ -76,22 +76,21 @@ class TransferCpnsController extends Controller {
                     $diklat->tanggal = $data->tanggal_diklat;
                     $diklat->pegawai_id = $data->pegawai_id;
                     $diklat->save();
-                    
+
                     TransferCpns::model()->updateAll(array(
                         'status' => 2,
                             ), 'id=' . $data->id);
-                    
                 }
-                user()->setFlash('danger', ''.$jumlah.' Pegawai CPNS sudah berhasil d trasnfer ke PNS');
-                    $this->redirect(array('transferCpns/index'));
+                user()->setFlash('danger', '' . $jumlah . ' Pegawai CPNS sudah berhasil d trasnfer ke PNS');
+                $this->redirect(array('transferCpns/index'));
             } else {
                 TransferCpns::model()->deleteAll('id IN (' . implode(',', $_POST['ceckbox']) . ')');
                 user()->setFlash('danger', 'Data berhasil di hapus.');
                 $this->redirect(array('transferCpns/index'));
             }
-        }else{
-          user()->setFlash('danger', 'Tidak ada yang terpilih.');
-                $this->redirect(array('transferCpns/index'));  
+        } else {
+            user()->setFlash('danger', 'Tidak ada yang terpilih.');
+            $this->redirect(array('transferCpns/index'));
         }
     }
 
@@ -106,7 +105,7 @@ class TransferCpnsController extends Controller {
         $return['masa_kerja'] = $model->masaKerja;
         $return['tempat_lahir'] = $model->tempatLahir;
         $return['tanggal_lahir'] = $model->tanggal_lahir;
-        $return['pendidikan_terakhir'] = $model->Pendidikan->jenjang_pendidikan.' - '.$model->Pendidikan->Jurusan->Name;
+        $return['pendidikan_terakhir'] = $model->Pendidikan->jenjang_pendidikan . ' - ' . $model->Pendidikan->Jurusan->Name;
         $return['tahun_pendidikan'] = $model->Pendidikan->tahun;
         $return['golru'] = $model->golongan;
         $return['tmt'] = $model->tmt_cpns;
@@ -170,8 +169,7 @@ class TransferCpnsController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -185,38 +183,6 @@ class TransferCpnsController extends Controller {
 
         if (isset($_GET['TransferCpns'])) {
             $model->attributes = $_GET['TransferCpns'];
-
-
-            if (!empty($model->id))
-                $criteria->addCondition('id = "' . $model->id . '"');
-
-
-            if (!empty($model->pegawai_id))
-                $criteria->addCondition('pegawai_id = "' . $model->pegawai_id . '"');
-
-
-            if (!empty($model->nomor_kesehatan))
-                $criteria->addCondition('nomor_kesehatan = "' . $model->nomor_kesehatan . '"');
-
-
-            if (!empty($model->tanggal_kesehatan))
-                $criteria->addCondition('tanggal_kesehatan = "' . $model->tanggal_kesehatan . '"');
-
-
-            if (!empty($model->pelatihan_id))
-                $criteria->addCondition('pelatihan_id = "' . $model->pelatihan_id . '"');
-
-
-            if (!empty($model->nomor_diklat))
-                $criteria->addCondition('nomor_diklat = "' . $model->nomor_diklat . '"');
-
-
-            if (!empty($model->tanggal_diklat))
-                $criteria->addCondition('tanggal_diklat = "' . $model->tanggal_diklat . '"');
-
-
-            if (!empty($model->status))
-                $criteria->addCondition('status = "' . $model->status . '"');
         }
 
         $this->render('index', array(
@@ -234,6 +200,35 @@ class TransferCpnsController extends Controller {
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
+    }
+
+    public function actionGenerateExcel() {
+
+        $pegawai_id = $_GET['pegawai_id'];
+        $nomor_kesehatan = $_GET['nomor_kesehatan'];
+        $tanggal_kesehatan = $_GET['tanggal_kesehatan'];
+        $nomor_diklat = $_GET['nomor_diklat'];
+        $tanggal_diklat = $_GET['tanggal_diklat'];
+
+        $criteria = new CDbCriteria;
+        if (!empty($pegawai_id))
+            $criteria->compare('pegawai_id', $pegawai_id);
+        if (!empty($nomor_kesehatan))
+            $criteria->compare('nomor_kesehatan', $nomor_kesehatan);
+        if (!empty($tanggal_kesehatan))
+            $criteria->compare('tanggal_kesehatan', $tanggal_kesehatan, true);
+        if (!empty($nomor_diklat))
+            $criteria->compare('nomor_diklat', $nomor_diklat);
+        if (!empty($tanggal_diklat))
+            $criteria->compare('tanggal_diklat', $tanggal_diklat, true);
+
+        $model = TransferCpns::model()->findAll($criteria);
+
+
+        Yii::app()->request->sendFile('Data Transfer CPNS - ' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+                    'model' => $model
+                        ), true)
+        );
     }
 
     /**

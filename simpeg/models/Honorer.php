@@ -258,7 +258,6 @@ class Honorer extends CActiveRecord {
 
         return $bulan;
     }
-     
 
     public function getTagProfil() {
         $data = '
@@ -478,12 +477,24 @@ class Honorer extends CActiveRecord {
     public function getUnitKerja() {
         return (!empty($this->JabatanStruktural->nama)) ? $this->JabatanStruktural->nama : '-';
     }
+
     public function getSatuanKerja() {
         return (!empty($this->SatuanKerja->nama)) ? $this->SatuanKerja->nama : '-';
     }
 
     public function getTempatLahir() {
         return (!empty($this->TempatLahir->name)) ? $this->TempatLahir->name : '-';
+    }
+
+    public function getStatusSK() {
+        if ($this->status_sk == '40') {
+            $status = "SK Bupati non Database";
+        } elseif ($this->status_sk == '20') {
+            $status = "SK Bupati non Database Lulus";
+        } elseif ($this->status_sk == '21') {
+            $status = "SK Bupati non Database Pensiun";
+        }else{ $status='-';}
+        return $status;
     }
 
     public function getKota() {
@@ -494,9 +505,9 @@ class Honorer extends CActiveRecord {
         return (!empty($this->City->name)) ? $this->City->name : '-';
     }
 
-//    public function getJabatan() {
-//        return (!empty($this->JabatanHonorer->nama)) ? $this->JabatanHonorer->nama : '-';
-//    }
+    public function getJabatan() {
+        return (!empty($this->JabatanFu->nama)) ? $this->JabatanFu->nama : '-';
+    }
 
     public function getTmtJabatan() {
         return date('d M Y', strtotime($this->tmt_jabatan));
@@ -529,9 +540,12 @@ class Honorer extends CActiveRecord {
     public function getTtl() {
         return ucwords(strtolower($this->tempat_lahir)) . ', ' . date('d M Y', strtotime($this->tanggal_lahir));
     }
-    public function getPendidikan() {'';
-        return (!empty($this->Jurusan->Name)) ? $this->Jurusan->tingkat .' - '. $this->Jurusan->Name : '-';
+
+    public function getPendidikan() {
+        '';
+        return (!empty($this->Jurusan->Name)) ? $this->Jurusan->tingkat . ' - ' . $this->Jurusan->Name : '-';
     }
+
     public function getNamaGelar() {
         $depan = !empty($this->gelar_depan) ? $this->gelar_depan . '. ' : '';
         $belakang = !empty($this->gelar_belakang) ? ', ' . $this->gelar_belakang : '';

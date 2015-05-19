@@ -402,21 +402,26 @@ class PermohonanMutasiController extends Controller {
     public function actionGenerateExcel() {
 
         $nomor_register = $_GET['nomor_register'];
-        $pegawai_id = $_GET['pegawai_id'];
+        $pegawai_id = $_GET['pegawai'];
         $unit_kerja_id = $_GET['unit_kerja_id'];
         $tipe_jabatan = $_GET['tipe_jabatan'];
-        logs($tipe_jabatan);
-        
+        logs($pegawai_id);
+
         $criteria = new CDbCriteria;
-        //$criteria->compare('nomor_register', $nomor_register, true);
-        $criteria->compare('pegawai_id', $pegawai_id);
-        $criteria->compare('new_unit_kerja_id', $unit_kerja_id);
-        $criteria->compare('new_tipe_jabatan', $tipe_jabatan,true);
+        if (!empty($nomor_register))
+        $criteria->compare('nomor_register', $nomor_register, true);
+        if (!empty($pegawai_id))
+            $criteria->compare('pegawai_id', $pegawai_id);
+        
+        if (!empty($unit_kerja_id))
+            $criteria->compare('new_unit_kerja_id', $unit_kerja_id);
+        if (!empty($tipe_jabatan))
+            $criteria->compare('new_tipe_jabatan', $tipe_jabatan, true);
 
         $model = PermohonanMutasi::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Permohonan Mutasi '.date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );
