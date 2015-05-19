@@ -13,7 +13,7 @@
 	<tr>
         <td><?php echo $row->namaPegawai; ?></td>
         <td><?php echo $row->nomor_kesehatan; ?></td>        
-        <td><?php echo $row->tanggal_kesehatan; ?></td>      
+        <td><?php echo $row->tgl; ?></td>      
         <td><?php echo $row->nomor_diklat; ?></td>       
         <td><?php echo $row->statusname; ?></td>       
         

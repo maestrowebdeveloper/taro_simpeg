@@ -94,9 +94,15 @@
             ),
                 )
         );
+//        echo ;
         ?>
-
-        <?php echo $form->textFieldRow($model, 'unit_kerja_id', array('class' => 'span5', 'readOnly' => true)); ?>
+        <div class="control-group ">
+            <label class="control-label " for="PermohonanPensiun_unit_kerja_id">Unit Kerja</label>
+            <div class="controls">
+                <input class="span5 " readonly="1" name="" id="unit_kerja_id" type="text" value="<?php echo $model->unit_kerja_id ?>">
+            </div>
+        </div>
+        <?php // echo $form->textFieldRow($model, 'unit_kerja_id', array('class' => 'span5', 'readOnly' => true)); ?>
 
         <?php echo $form->textFieldRow($model, 'tipe_jabatan', array('class' => 'span5', 'maxlength' => 19, 'readOnly' => true)); ?>
 
@@ -179,7 +185,7 @@
             success: function(data) {
 
                 obj = JSON.parse(data);
-                $("#PermohonanPensiun_unit_kerja_id").val(obj.unit_kerja);
+                $("#unit_kerja_id").val(obj.unit_kerja);
                 $("#PermohonanPensiun_tipe_jabatan").val(obj.tipe_jabatan);
                 $("#PermohonanPensiun_jabatan_struktural_id").val(obj.jabatan);
                 $("#PermohonanPensiun_masa_kerja").val(obj.masa_kerja);

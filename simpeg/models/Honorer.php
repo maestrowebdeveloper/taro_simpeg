@@ -479,7 +479,7 @@ class Honorer extends CActiveRecord {
     }
 
     public function getSatuanKerja() {
-        return (!empty($this->SatuanKerja->nama)) ? $this->SatuanKerja->nama : '-';
+        return (!empty($this->JabatanStruktural->UnitKerja->nama)) ? $this->JabatanStruktural->UnitKerja->nama : '-';
     }
 
     public function getTempatLahir() {
@@ -511,6 +511,12 @@ class Honorer extends CActiveRecord {
 
     public function getTmtJabatan() {
         return date('d M Y', strtotime($this->tmt_jabatan));
+    }
+    public function getTmtKontrak() {
+        return date('d M Y', strtotime($this->tmt_kontrak));
+    }
+    public function getTmtAkhirKontrak() {
+        return date('d M Y', strtotime($this->tmt_akhir_kontrak));
     }
 
     public function getImgUrl() {

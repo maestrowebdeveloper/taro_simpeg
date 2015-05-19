@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Tambah Unit Kerjas');
+$this->setPageTitle('Tambah Satuan Kerja');
 $this->breadcrumbs=array(
-	'Unit Kerjas'=>array('index'),
+	'Satuan Kerja'=>array('index'),
 	'Create',
 );
 

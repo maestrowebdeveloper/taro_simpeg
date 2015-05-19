@@ -1184,6 +1184,7 @@ class PegawaiController extends Controller {
         $nip = $_GET['nip'];
         $kedudukan_id = $_GET['kedudukan_id'];
         $nama = $_GET['nama'];
+        $pegawai_ft = $_GET['pegawai_ft'];
         $gelar_dpn = $_GET['gelar_depan'];
         $gelar_blk = $_GET['gelar_belakang'];
         $hp = $_GET['hp'];
@@ -1201,14 +1202,17 @@ class PegawaiController extends Controller {
                 $id[] = $val->id;
             }
         }
-//        $riwayatJab = RiwayatJabatan::model()->findAll(array('condition'=>'jabatan_struktural_id IN (' . implode(",", $id) . ')'));
-//         if (empty($riwayatJab)) {
-//            
-//        } else {
-//            foreach ($riwayatJab as $val) {
-//                $satuan[] = $val->id;
-//            }
-//        }
+        //jabatan_ft
+        $jabFt = JabatanFt::model()->findAll(array('condition' => 'type ="'.$_GET['pegawai_ft'].'"'));
+            $id = array();
+            if (empty($jabFt)) {
+                
+            } else {
+                foreach ($jabFt as $val) {
+                    $id[] = $val->id;
+                }
+            }
+            
 
         $unit_kerja = $_GET['unit_kerja'];
 
@@ -1221,7 +1225,9 @@ class PegawaiController extends Controller {
         $criteria->addCondition('nama like "%' . $nama . '%"');
         $criteria->compare('gelar_depan', $gelar_dpn, true);
         $criteria->compare('gelar_belakang', $gelar_blk, true);
-        $criteria->compare('hp', $hp, true);
+        $criteria->compare('hp', $hp, true); 
+        if(!empty($pegawai_ft))
+        $criteria->addCondition('RiwayatJabatan.jabatan_ft_id IN (' . implode(",", $id) . ')');
         $criteria->compare('jurusan', $jurusan, true);
         $criteria->compare('kedudukan_id', $kedudukan_id);
 //        if(!empty($agama))
@@ -1450,6 +1456,37 @@ class PegawaiController extends Controller {
             $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 58);
             $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
 //                $data->tmt_pensiun = date('Y-m-d',strtotime("2032-11-10"));
+            $data->save();
+        }
+        echo 'sukses';
+    }
+    public function actionMigrasibup() {
+        /// change bup struktural
+        $struktural = Pegawai::model()->with('JabatanStruktural.Eselon')->findAll(array('condition' => 'JabatanStruktural.eselon_id = Eselon.id and t.tipe_jabatan="struktural"'));
+        foreach ($struktural as $data) {
+            $tingkatEselon = substr($data->JabatanStruktural->Eselon->nama, 0, 2);
+            if ($tingkatEselon == 'II') {
+                $data->bup = 60;
+                $data->save();
+            } elseif ($tingkatEselon == 'III' or $tingkatEselon == 'IV' or $tingkatEselon == 'V') {
+                $data->bup = 58;
+                $data->save();
+            }
+        }
+
+        /// change bup tertentu
+        $tertentu = Pegawai::model()->findAll(array('condition' => 'tipe_jabatan="fungsional_tertentu"'));
+        foreach ($tertentu as $data) {
+            $date = explode("-", $data->tanggal_lahir);
+            $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 60);
+            $data->bup = 60;
+            $data->save();
+        }
+
+//        / change bup fungsioanal
+        $tertentu = Pegawai::model()->with('JabatanFu')->findAll(array('condition' => 't.tipe_jabatan="fungsional_umum"'));
+        foreach ($tertentu as $data) {
+            $data->bup = 58;
             $data->save();
         }
         echo 'sukses';

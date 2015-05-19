@@ -1,12 +1,12 @@
 <?php
-if (isset($_GET['v'])) {$this->setPageTitle('Lihat Jabatan Strukturals | ID : '. $model->id);
+if (isset($_GET['v'])) {$this->setPageTitle('Lihat Unit Kerja | ID : '. $model->id);
 $this->breadcrumbs=array(
-	'Jabatan Strukturals'=>array('index'),
+	'Unit Kerja'=>array('index'),
 	$model->id,
 );
-}else{$this->setPageTitle('Edit Jabatan Strukturals | ID : '. $model->id);
+}else{$this->setPageTitle('Edit Unit Kerja| ID : '. $model->id);
 $this->breadcrumbs=array(
-	'Jabatan Strukturals'=>array('index'),
+	'Unit Kerja'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Update',
 );
