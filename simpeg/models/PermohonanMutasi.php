@@ -144,6 +144,12 @@ class PermohonanMutasi extends CActiveRecord {
         return parent::model($className);
     }
 
+    public function getTglMutasi() {
+        return (!empty(date('d-m-Y', strtotime($this->tanggal)))) ? date('d-m-Y', strtotime($this->tanggal)) : '-';
+    }
+    public function getTmtMutasi() {
+        return (!empty(date('d-m-Y', strtotime($this->tmt)))) ? date('d-m-Y', strtotime($this->tmt)) : '-';
+    }
     public function getPegawai() {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
     }

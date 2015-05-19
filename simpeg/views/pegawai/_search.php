@@ -87,6 +87,17 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <script type="text/javascript">
 
     function kil() {
+
+        if (document.getElementById('Pegawai_jabatan_ft_id_0').checked) {
+            var pegawai_ft = document.getElementById('Pegawai_jabatan_ft_id_0').value;
+        } else if (document.getElementById('Pegawai_jabatan_ft_id_1').checked) {
+            var pegawai_ft = document.getElementById('Pegawai_jabatan_ft_id_1').value;
+        } else if (document.getElementById('Pegawai_jabatan_ft_id_2').checked) {
+            var pegawai_ft = document.getElementById('Pegawai_jabatan_ft_id_2').value;
+        } else {
+            var pegawai_ft = '';
+        }
+
         if (document.getElementById('Pegawai_jenis_kelamin_0').checked) {
             var jns_kelamin = document.getElementById('Pegawai_jenis_kelamin_0').value;
         } else
@@ -122,7 +133,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         var unit_kerja = $("#unit_kerja").val();
 
         // alert(unit_kerja);
-        window.open("<?php echo url('pegawai/GenerateExcel') ?>?kedudukan_id=" + kedudukan_id + "&nip=" + nip + "&nama=" + nama + "&gelar_depan=" + gelar_dpn + "&gelar_belakang=" + gelar_blk + "&jurusan=" + jurusan + "&hp=" + hp + "&agama=" + agama + "&tipe_jabatan=" + type_jabatan + "&satuan_kerja=" + satuan_kerja + "&unit_kerja=" + unit_kerja + "&jenis_kelamin=" + jns_kelamin + "&status_pernikahan=" + sts_pernikahan);
+        window.open("<?php echo url('pegawai/GenerateExcel') ?>?pegawai_ft="+pegawai_ft+"&kedudukan_id=" + kedudukan_id + "&nip=" + nip + "&nama=" + nama + "&gelar_depan=" + gelar_dpn + "&gelar_belakang=" + gelar_blk + "&jurusan=" + jurusan + "&hp=" + hp + "&agama=" + agama + "&tipe_jabatan=" + type_jabatan + "&satuan_kerja=" + satuan_kerja + "&unit_kerja=" + unit_kerja + "&jenis_kelamin=" + jns_kelamin + "&status_pernikahan=" + sts_pernikahan);
 //        } 
     }
 </script>
@@ -142,9 +153,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 <script type="text/javascript">
 
-    jQuery(function($) {
-        $(".btnreset").click(function() {
-            $(":input", "#search-pegawai-form").each(function() {
+    jQuery(function ($) {
+        $(".btnreset").click(function () {
+            $(":input", "#search-pegawai-form").each(function () {
                 var type = this.type;
                 var tag = this.tagName.toLowerCase(); // normalize case
                 if (type == "text" || type == "password" || tag == "textarea")

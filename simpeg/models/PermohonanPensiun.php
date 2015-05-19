@@ -151,6 +151,14 @@ class PermohonanPensiun extends CActiveRecord {
     public function getPegawai() {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
     }
+    
+    public function getTglPensiun() {
+        return (!empty(date('d-m-Y', strtotime($this->tanggal)))) ? date('d-m-Y', strtotime($this->tanggal)) : '-';
+    }
+    
+    public function getTmtPensiun() {
+        return (!empty(date('d-m-Y', strtotime($this->tmt)))) ? date('d-m-Y', strtotime($this->tmt)) : '-';
+    }
 
     public function getUnitKerja() {
         return (!empty($this->UnitKerja->nama)) ? $this->UnitKerja->nama : '-';

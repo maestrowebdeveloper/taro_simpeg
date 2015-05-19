@@ -117,6 +117,9 @@ class TransferCpns extends CActiveRecord
             $this->created_user_id = Yii::app()->user->id;
         return parent::beforeValidate();
     }
+    public function getTgl() {
+        return (!empty(date('d-m-Y', strtotime($this->tanggal_kesehatan)))) ? date('d-m-Y', strtotime($this->tanggal_kesehatan)) : '-';
+    }
     
     public function getStatusname(){
         $status = '';

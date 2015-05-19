@@ -103,8 +103,16 @@ $this->endWidget();
             'name' => 'jabatan_struktural_id',
             'value' => '$data->unitKerja',            
         ),
-        'tmt_kontrak',
-        'tmt_akhir_kontrak',	
+		array(
+            'name' => 'tmt_kontrak',
+            'value' => '$data->tmtKontrak',            
+        ),
+		array(
+            'name' => 'tmt_akhir_kontrak',
+            'value' => '$data->tmtAkhirKontrak',            
+        ),
+//        'tmt_kontrak',
+//        'tmt_akhir_kontrak',	
        array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
 			'template' => '{view} {update} {delete}',
