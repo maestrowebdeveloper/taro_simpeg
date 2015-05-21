@@ -405,7 +405,7 @@ class PermohonanMutasiController extends Controller {
         $pegawai_id = $_GET['pegawai'];
         $unit_kerja_id = $_GET['unit_kerja_id'];
         $tipe_jabatan = $_GET['tipe_jabatan'];
-        logs($pegawai_id);
+        //logs($pegawai_id);
 
         $criteria = new CDbCriteria;
         if (!empty($nomor_register))

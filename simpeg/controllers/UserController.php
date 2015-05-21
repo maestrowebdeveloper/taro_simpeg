@@ -17,30 +17,30 @@ class UserController extends Controller {
     }
 
     public function accessRules() {
-        return array(          
-           array('allow', // c
+        return array(
+            array('allow', // c
                 'actions' => array('create'),
                 'expression' => 'app()->controller->isValidAccess("user","c")',
                 'expression' => 'app()->controller->isValidAccess("vendor","c")',
-                'expression' => 'app()->controller->isValidAccess("supplier","c")',                
+                'expression' => 'app()->controller->isValidAccess("supplier","c")',
             ),
             array('allow', // r
                 'actions' => array('index', 'view'),
                 'expression' => 'app()->controller->isValidAccess("user","r")',
                 'expression' => 'app()->controller->isValidAccess("vendor","r")',
-                'expression' => 'app()->controller->isValidAccess("supplier","r")',                
+                'expression' => 'app()->controller->isValidAccess("supplier","r")',
             ),
             array('allow', // u
                 'actions' => array('update'),
                 'expression' => 'app()->controller->isValidAccess("user","u")',
                 'expression' => 'app()->controller->isValidAccess("vendor","u")',
-                'expression' => 'app()->controller->isValidAccess("supplier","u")',                
+                'expression' => 'app()->controller->isValidAccess("supplier","u")',
             ),
             array('allow', // d
                 'actions' => array('delete'),
                 'expression' => 'app()->controller->isValidAccess("user","d")',
                 'expression' => 'app()->controller->isValidAccess("vendor","d")',
-                'expression' => 'app()->controller->isValidAccess("supplier","d")',                
+                'expression' => 'app()->controller->isValidAccess("supplier","d")',
             )
         );
     }
@@ -229,7 +229,7 @@ class UserController extends Controller {
         $id = user()->id;
         $listRoles = Roles::model()->listRoles();
         $model = $this->loadModel($id);
-        $_GET['id'] = user()->id;        
+        $_GET['id'] = user()->id;
         $type = 'user';
         $model->scenario == 'allow';
         if (!empty($_GET['type']))
@@ -300,8 +300,7 @@ class UserController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -329,10 +328,10 @@ class UserController extends Controller {
     }
 
     public function actionIndex() {
-         if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-                foreach ($_POST['ceckbox'] as $data) {
-                    $this->loadModel($data)->delete();        
-                }
+        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
+            foreach ($_POST['ceckbox'] as $data) {
+                $this->loadModel($data)->delete();
+            }
         }
 
         $session = new CHttpSession;
@@ -344,7 +343,7 @@ class UserController extends Controller {
         $roles = "";
         if (isset($_GET['User'])) {
             $model->attributes = $_GET['User'];
-            $model->city_id = $_GET['city_id'];
+//            $model->city_id = $_GET['city_id'];
             $roles = (isset($_GET['User']['roles'])) ? $_GET['User']['roles'] : '';
 
             if (!empty($model->id))
@@ -465,10 +464,10 @@ class UserController extends Controller {
     }
 
     public function actionUser() {
-         if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-                foreach ($_POST['ceckbox'] as $data) {
-                    $this->loadModel($data)->delete();        
-                }
+        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
+            foreach ($_POST['ceckbox'] as $data) {
+                $this->loadModel($data)->delete();
+            }
         }
         $session = new CHttpSession;
         $session->open();
@@ -613,12 +612,11 @@ class UserController extends Controller {
         ));
     }
 
-
     public function actionSupplier() {
-         if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-                foreach ($_POST['ceckbox'] as $data) {
-                    $this->loadModel($data)->delete();        
-                }
+        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
+            foreach ($_POST['ceckbox'] as $data) {
+                $this->loadModel($data)->delete();
+            }
         }
         $session = new CHttpSession;
         $session->open();
@@ -693,10 +691,10 @@ class UserController extends Controller {
     }
 
     public function actionVendor() {
-         if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-                foreach ($_POST['ceckbox'] as $data) {
-                    $this->loadModel($data)->delete();        
-                }
+        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
+            foreach ($_POST['ceckbox'] as $data) {
+                $this->loadModel($data)->delete();
+            }
         }
         $session = new CHttpSession;
         $session->open();
@@ -769,6 +767,7 @@ class UserController extends Controller {
             'roles' => $roles,
         ));
     }
+
     /**
      * Manages all models.
      */
@@ -807,17 +806,27 @@ class UserController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
 
-        if (isset($session['User_records'])) {
-            $model = $session['User_records'];
-        }
-        else
-            $model = User::model()->findAll();
+        $nip = $_GET['code'];
+        $nama = $_GET['name'];
+        $email = $_GET['email'];
+        $city_id = $_GET['city_id'];
+        $phone = $_GET['phone'];
+
+        $criteria = new CDbCriteria;
+        if (!empty($nip))
+            $criteria->compare('code', $nip, true);
+        if (!empty($nama))
+            $criteria->compare('t.name', $nama, true);
+        if (!empty($email))
+            $criteria->compare('email', $email, true);
+        if (!empty($phone))
+            $criteria->compare('phone', $phone, true);
+
+        $model = User::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data User - ' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );
@@ -833,8 +842,7 @@ class UserController extends Controller {
 
         if (isset($session['User_records'])) {
             $model = $session['User_records'];
-        }
-        else
+        } else
             $model = User::model()->findAll();
 
 
