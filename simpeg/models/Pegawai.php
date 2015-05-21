@@ -541,7 +541,7 @@ class Pegawai extends CActiveRecord {
 
     public function getJabatan() {
         if ($this->tipe_jabatan == "struktural") {
-            return (!empty($this->JabatanStruktural->nama)) ? $this->JabatanStruktural->nama : '-';
+            return (!empty($this->JabatanStruktural->jabatan)) ? $this->JabatanStruktural->jabatan : '-';
         } elseif ($this->tipe_jabatan == "fungsional_umum") {
             return (!empty($this->JabatanFu->nama)) ? $this->JabatanFu->nama : '-';
         } elseif ($this->tipe_jabatan == "fungsional_tertentu") {

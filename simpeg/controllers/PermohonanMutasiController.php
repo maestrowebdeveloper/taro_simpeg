@@ -75,10 +75,12 @@ class PermohonanMutasiController extends Controller {
 
     public function actionStatusJabatan() {
         $data['eselon'] = '';
+        $data['jabatan'] = '';
         $tipe = (!empty($_POST['PermohonanMutasi']['new_tipe_jabatan'])) ? $_POST['PermohonanMutasi']['new_tipe_jabatan'] : '';
         if ($tipe == "struktural") {
             $model = JabatanStruktural::model()->findByPk($_POST['PermohonanMutasi']['new_jabatan_struktural_id']);
             $data['eselon'] = isset($model->Eselon->nama) ? $model->Eselon->nama : '-';
+            $data['jabatan'] = isset($model->jabatan) ? $model->jabatan : '-';
         } elseif ($tipe == "fungsional_umum") {
             $model = JabatanFu::model()->findByPk($_POST['PermohonanMutasi']['new_jabatan_fu_id']);
         } elseif ($tipe == "fungsional_tertentu") {
@@ -117,6 +119,7 @@ class PermohonanMutasiController extends Controller {
             $model->attributes = $_POST['PermohonanMutasi'];
             $model->mutasi = $_POST['PermohonanMutasi']['mutasi'];
             $model->pejabat = $_POST['PermohonanMutasi']['pejabat'];
+            $model->new_jabatan_struktural_id = $_POST['PermohonanMutasi']['new_jabatan_struktural_id'];
             if ($model->save()) {
 //                $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
 //                if ($pegawai->jabatan_struktural_id != 0) {
