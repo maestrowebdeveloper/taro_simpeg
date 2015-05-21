@@ -28,12 +28,12 @@ class JabatanFungsional extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('jabatan_ft_id', 'numerical', 'integerOnly' => true),
+            array('jabatan_ft_id, max_golongan_id, min_golongan_id', 'numerical', 'integerOnly' => true),
             array('nama', 'length', 'max' => 30),
             array('keterangan, created, modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, nama, keterangan, jabatan_ft_id, created, modified', 'safe', 'on' => 'search'),
+            array('id, nama, keterangan, jabatan_ft_id, max_golongan_id, min_golongan_id, created, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -60,6 +60,8 @@ class JabatanFungsional extends CActiveRecord {
             'jabatan_ft_id' => 'Jabatan Ft',
             'created' => 'Created',
             'modified' => 'Modified',
+            'min_golongan_id' => 'Golongan Terendah',
+            'max_golongan_id' => 'Golongan Tertinggi'
         );
     }
 
