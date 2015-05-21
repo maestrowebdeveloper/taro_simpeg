@@ -171,7 +171,7 @@ class PegawaiController extends Controller {
         if (!empty($model)) {
             $data['id'] = $model->id;
             $data['tipe'] = $model->tipe;
-            $data['jabatan'] = $model->jabatanPegawai;
+            $data['jabatan'] = isset($model->JabatanStruktural->jabatan) ? $model->JabatanStruktural->jabatan : "-";;
             $data['tmt'] = $model->tmt_mulai;
             $data['bidang'] = isset($model->JabatanStruktural->nama) ? $model->JabatanStruktural->nama : "-";
             $data['status'] = $model->statusjabatan;
@@ -252,12 +252,14 @@ class PegawaiController extends Controller {
                 $model->jabatan_struktural_id = (isset($_POST['RiwayatJabatan']['jabatan_struktural_id'])) ? $_POST['RiwayatJabatan']['jabatan_struktural_id'] : '';
             } else if ($model->tipe_jabatan == "fungsional_umum") {
                 $model->tmt_mulai = $_POST['tmt_mulai_fu'];
-                $model->jabatan_struktural_id = $_POST['RiwayatJabatan']['jabatan_struktural_fu_id'];
+                $model->jabatan_fu_id = $_POST['RiwayatJabatan']['jabatan_fu_id'];
+                $model->jabatan_struktural_id = (isset($_POST['RiwayatJabatan']['jabatan_struktural_id'])) ? $_POST['RiwayatJabatan']['jabatan_struktural_id'] : '';
             } else if ($model->tipe_jabatan == "fungsional_tertentu") {
                 $model->tmt_mulai = $_POST['tmt_mulai_ft'];
                 $model->no_sk_struktural = $_POST['RiwayatJabatan']['no_sk_ft'];
                 $model->tanggal_sk_ft = $_POST['tanggal_sk_ft'];
-                $model->jabatan_struktural_id = $_POST['RiwayatJabatan']['jabatan_struktural_ft_id'];
+                $model->jabatan_ft_id = $_POST['RiwayatJabatan']['jabatan_ft_id'];
+                $model->jabatan_struktural_id = (isset($_POST['RiwayatJabatan']['jabatan_struktural_id'])) ? $_POST['RiwayatJabatan']['jabatan_struktural_id'] : '';
             }
             if ($model->save()) {
                 $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tmt_mulai DESC'));
@@ -779,10 +781,12 @@ class PegawaiController extends Controller {
     public function actionRiwayatStatusJabatan() {
         $data['masa_kerja'] = 0;
         $data['eselon'] = '';
+        $data['jabatan'] = '';
         $tipe = (!empty($_POST['RiwayatJabatan']['tipe_jabatan'])) ? $_POST['RiwayatJabatan']['tipe_jabatan'] : '';
         if ($tipe == "struktural") {
             $model = JabatanStruktural::model()->findByPk($_POST['RiwayatJabatan']['jabatan_struktural_id']);
             $data['eselon'] = isset($model->Eselon->nama) ? $model->Eselon->nama : '-';
+            $data['jabatan'] = $model->jabatan;
         } elseif ($tipe == "fungsional_umum") {
             $model = JabatanFu::model()->findByPk($_POST['RiwayatJabatan']['jabatan_fu_id']);
         } elseif ($tipe == "fungsional_tertentu") {

@@ -33,7 +33,7 @@
         </div>
         
         <div class="control-group ">
-            <label class="control-label">Unit Kerja <span class="required">*</span></label>
+            <label class="control-label">Satuan Kerja <span class="required">*</span></label>
             <div class="controls">
                 <?php 
                     $data= array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');                            
@@ -66,6 +66,7 @@
         </div>
 
                         <?php echo $form->textFieldRow($model,'nama',array('class'=>'span5','maxlength'=>150)); ?>
+                        <?php echo $form->textFieldRow($model,'jabatan',array('class'=>'span5','maxlength'=>150)); ?>
 
                             <?php echo $form->textAreaRow($model,'keterangan',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
