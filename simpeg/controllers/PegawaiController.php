@@ -75,7 +75,7 @@ class PegawaiController extends Controller {
     public function actionGetListPegawai() {
         $name = $_GET["q"];
         $list = array();
-        $data = Pegawai::model()->findAll(array('condition' => 'nama like "%' . $name . '%"', 'limit' => '10'));
+        $data = Pegawai::model()->findAll(array('condition' => 'nama like "%' . $name . '%" and kedudukan_id="1"', 'limit' => '10'));
         if (empty($data)) {
             $list[] = array("id" => "0", "text" => "No Results Found..");
         } else {
@@ -89,7 +89,7 @@ class PegawaiController extends Controller {
     public function actionGetListPegawaicpns() {
         $name = $_GET["q"];
         $list = array();
-        $data = Pegawai::model()->findAll(array('condition' => 'nama like "%' . $name . '%" and (tmt_pns is null or tmt_pns="0000-00-00") and kedudukan_id=1', 'limit' => '10'));
+        $data = Pegawai::model()->findAll(array('condition' => 'nama like "%' . $name . '%" and (tmt_pns is null or tmt_pns="0000-00-00") and kedudukan_id="1"', 'limit' => '10'));
         if (empty($data)) {
             $list[] = array("id" => "0", "text" => "No Results Found..");
         } else {

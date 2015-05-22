@@ -100,7 +100,7 @@ class HonorerController extends Controller {
     public function actionGetListHonorer() {
         $name = $_GET["q"];
         $list = array();
-        $data = Honorer::model()->findAll(array('condition' => 'nama like "%' . $name . '%"', 'limit' => '10'));
+        $data = Honorer::model()->findAll(array('condition' => 'nama like "%' . $name . '%" and kode in (20,40)', 'limit' => '10'));
         if (empty($data)) {
             $list[] = array("id" => "0", "text" => "No Results Found..");
         } else {
