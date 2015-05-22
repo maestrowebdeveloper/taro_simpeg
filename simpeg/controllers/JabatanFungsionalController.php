@@ -137,6 +137,13 @@ class JabatanFungsionalController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
+        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
+            foreach ($_POST['ceckbox'] as $data) {
+                $a = JabatanFungsional::model()->findByPk($data);
+                if (!empty($a))
+                    $a->delete();
+            }
+        }
         $criteria = new CDbCriteria();
         $model = new JabatanFungsional('search');
         $model->unsetAttributes();  // clear any default values
@@ -171,11 +178,6 @@ class JabatanFungsionalController extends Controller {
 
             if (!empty($model->modified))
                 $criteria->addCondition('modified = "' . $model->modified . '"');
-        }
-        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-            JabatanFungsional::model()->deleteAll(array(
-                'condition' => 'id IN(' . implode(',', $_POST['ceckbox']) . ')'
-            ));
         }
 
         $this->render('index', array(
