@@ -66,16 +66,15 @@ class JabatanFungsionalController extends Controller {
         if (isset($_POST['JabatanFungsional'])) {
             $model->attributes = $_POST['JabatanFungsional'];
             if ($model->save()) {
-//                if (isset($_POST['golongan_id'])) {
-//                    for ($i = 0; $i < count($_POST['golongan_id']); $i++) {
-//                        $det = new DetailJf;
-//                        $det->jabatan_fungsional_id = $model->id;
-//                        $det->golongan_id = $_POST['golongan_id'][$i];
-//                        $det->save();
-//                    }
-//                    
-//                }
-                $this->redirect(array('view', 'id' => $model->id));
+                if (isset($_POST['golongan_id'])) {
+                    for ($i = 0; $i < count($_POST['golongan_id']); $i++) {
+                        $det = new DetailJf;
+                        $det->jabatan_fungsional_id = $model->id;
+                        $det->golongan_id = $_POST['golongan_id'][$i];
+                        $det->save();
+                    }
+                    $this->redirect(array('view', 'id' => $model->id));
+                }
             }
         }
 
@@ -98,6 +97,16 @@ class JabatanFungsionalController extends Controller {
         if (isset($_POST['JabatanFungsional'])) {
             $model->attributes = $_POST['JabatanFungsional'];
             if ($model->save()) {
+                DetailJf::model()->deleteAll('jabatan_fungsional_id=' . $model->id);
+                if (isset($_POST['golongan_id'])) {
+                    for ($i = 0; $i < count($_POST['golongan_id']); $i++) {
+                        $det = new DetailJf;
+                        $det->jabatan_fungsional_id = $model->id;
+                        $det->golongan_id = $_POST['golongan_id'][$i];
+                        $det->save();
+                    }
+                    $this->redirect(array('view', 'id' => $model->id));
+                }
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -128,6 +137,13 @@ class JabatanFungsionalController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
+        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
+            foreach ($_POST['ceckbox'] as $data) {
+                $a = JabatanFungsional::model()->findByPk($data);
+                if (!empty($a))
+                    $a->delete();
+            }
+        }
         $criteria = new CDbCriteria();
         $model = new JabatanFungsional('search');
         $model->unsetAttributes();  // clear any default values
@@ -162,11 +178,6 @@ class JabatanFungsionalController extends Controller {
 
             if (!empty($model->modified))
                 $criteria->addCondition('modified = "' . $model->modified . '"');
-        }
-        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-            JabatanFungsional::model()->deleteAll(array(
-                'condition' => 'id IN(' . implode(',', $_POST['ceckbox']) . ')'
-            ));
         }
 
         $this->render('index', array(
