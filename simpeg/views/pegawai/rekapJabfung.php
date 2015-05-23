@@ -86,7 +86,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         ?>
     </div>
 
-    <?php $this->endWidget(); ?>
 <?php
 if ( isset($_GET['cari'])) {
 $this->widget('bootstrap.widgets.TbGridView', array(
@@ -143,7 +142,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 ));
 }
 ?>
-
+<?php $this->endWidget(); ?>
 <script>
 function printDiv(divName)
         {                  
