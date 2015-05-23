@@ -36,7 +36,7 @@
                     $tmt_jabatan = $value->tmt_mulai;
                     $eselon = (!empty($value->JabatanStruktural->Eselon->nama)) ? $value->JabatanStruktural->Eselon->nama : '-';
                     $tmt_eselon = $value->tmt_eselon;
-                    $jabatan = $value->JabatanStruktural->nama;
+                    $jabatan = (isset($value->JabatanStruktural->nama)) ? $value->JabatanStruktural->nama : '-';
                 } else if ($value->tipe_jabatan == "fungsional_umum") {
                     $jabatan = (isset($value->JabatanFu->nama)) ? $value->JabatanFu->nama : '';
                     $tmt_jabatan = $value->tmt_mulai;
