@@ -288,7 +288,8 @@
                 obj = JSON.parse(data);
                  $("#Riwayateselon").val(obj.eselon);
                 $("#Riwayatjabatanasli").val(obj.jabatan);
-//                if(obj.status==1){
+//                   alert("jabatan sudah di emban orang lain");
+//                }if(obj.status==1){
 //                    alert("jabatan sudah di emban orang lain");
 //                }
             }

@@ -790,19 +790,15 @@ class PegawaiController extends Controller {
         $data['masa_kerja'] = 0;
         $data['eselon'] = '';
         $data['jabatan'] = '';
-        $data['status'] = 0;
+        
         $tipe = (!empty($_POST['RiwayatJabatan']['tipe_jabatan'])) ? $_POST['RiwayatJabatan']['tipe_jabatan'] : '';
         if ($tipe == "struktural") {
-            $pegawai = Pegawai::model()->findAll(array('condition' => 'jabatan_struktural_id=' . $_POST['RiwayatJabatan']['jabatan_struktural_id'] . ' and tipe_jabtan="struktural and kedudukan_id=1"'));
-            if (count($pegawai) == 0) {
+//            $pegawai = Pegawai::model()->findAll(array('condition' => 'jabatan_struktural_id=' . $_POST['RiwayatJabatan']['jabatan_struktural_id'] . ' and tipe_jabtan="struktural and kedudukan_id=1"'));
+            
                 $model = JabatanStruktural::model()->findByPk($_POST['RiwayatJabatan']['jabatan_struktural_id']);
                 $data['eselon'] = isset($model->Eselon->nama) ? $model->Eselon->nama : '-';
                 $data['jabatan'] = $model->jabatan;
-            } else {
-                $data['eselon'] = '-';
-                $data['jabatan'] = '-';
-                $data['status'] = 1;
-            }
+           
         } elseif ($tipe == "fungsional_umum") {
             $model = JabatanFu::model()->findByPk($_POST['RiwayatJabatan']['jabatan_fu_id']);
         } elseif ($tipe == "fungsional_tertentu") {
