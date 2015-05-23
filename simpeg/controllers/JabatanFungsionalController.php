@@ -66,15 +66,16 @@ class JabatanFungsionalController extends Controller {
         if (isset($_POST['JabatanFungsional'])) {
             $model->attributes = $_POST['JabatanFungsional'];
             if ($model->save()) {
-                if (isset($_POST['golongan_id'])) {
-                    for ($i = 0; $i < count($_POST['golongan_id']); $i++) {
-                        $det = new DetailJf;
-                        $det->jabatan_fungsional_id = $model->id;
-                        $det->golongan_id = $_POST['golongan_id'][$i];
-                        $det->save();
-                    }
-                    $this->redirect(array('view', 'id' => $model->id));
-                }
+//                if (isset($_POST['golongan_id'])) {
+//                    for ($i = 0; $i < count($_POST['golongan_id']); $i++) {
+//                        $det = new DetailJf;
+//                        $det->jabatan_fungsional_id = $model->id;
+//                        $det->golongan_id = $_POST['golongan_id'][$i];
+//                        $det->save();
+//                    }
+//                    
+//                }
+                $this->redirect(array('view', 'id' => $model->id));
             }
         }
 
@@ -97,16 +98,6 @@ class JabatanFungsionalController extends Controller {
         if (isset($_POST['JabatanFungsional'])) {
             $model->attributes = $_POST['JabatanFungsional'];
             if ($model->save()) {
-                DetailJf::model()->deleteAll('jabatan_fungsional_id=' . $model->id);
-                if (isset($_POST['golongan_id'])) {
-                    for ($i = 0; $i < count($_POST['golongan_id']); $i++) {
-                        $det = new DetailJf;
-                        $det->jabatan_fungsional_id = $model->id;
-                        $det->golongan_id = $_POST['golongan_id'][$i];
-                        $det->save();
-                    }
-                    $this->redirect(array('view', 'id' => $model->id));
-                }
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }

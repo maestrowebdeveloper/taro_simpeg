@@ -29,8 +29,8 @@ $this->widget('bootstrap.widgets.TbMenu', array(
     'items' => array(
         array('label' => 'Tambah', 'icon' => 'icon-plus', 'url' => Yii::app()->controller->createUrl('create'), 'linkOptions' => array(), 'visible' => landa()->checkAccess('permohonanPerpanjanganHonorer', 'c')),
         array('label' => 'List Data', 'icon' => 'icon-th-list', 'url' => Yii::app()->controller->createUrl('index'), 'active' => true, 'linkOptions' => array()),
-        array('label' => 'Pencarian', 'icon' => 'icon-search', 'url' => '#', 'linkOptions' => array('class' => 'search-button')),
-        array('label' => 'Export ke Excel', 'icon' => 'icon-download', 'url' => Yii::app()->controller->createUrl('GenerateExcel'), 'linkOptions' => array('target' => '_blank'), 'visible' => true),
+        array('label' => 'Pencarian & Export Excel', 'icon' => 'icon-search', 'url' => '#', 'linkOptions' => array('class' => 'search-button')),
+//        array('label' => 'Export ke Excel', 'icon' => 'icon-download', 'url' => Yii::app()->controller->createUrl('GenerateExcel'), 'linkOptions' => array('target' => '_blank'), 'visible' => true),
     ),
 ));
 $this->endWidget();
@@ -90,7 +90,11 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             ),
         ),
         'nomor_register',
-        'tanggal',
+//        'tanggal',
+        array(
+            'name' => 'tanggal',
+            'value' => '$data->tgl',
+        ),
         array(
             'name' => 'honorer_id',
             'value' => '$data->honorer',
@@ -105,11 +109,11 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'name' => 'tmt_mulai',
-            'value' => '$data->tmt_mulai',
+            'value' => '$data->tmtMulai',
         ),
         array(
             'name' => 'tmt_selesai',
-            'value' => '$data->tmt_selesai',
+            'value' => '$data->tmtSelesai',
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

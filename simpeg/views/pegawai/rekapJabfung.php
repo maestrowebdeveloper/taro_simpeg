@@ -1,27 +1,31 @@
 <?php
 $this->setPageTitle('Rekapitulasi Data Jabatan Fungsional');
-$this->breadcrumbs=array(
-	'Pegawai'=>array('index'),
-	'Rekapitulasi Data Jabatan Fungsional',
+$this->breadcrumbs = array(
+    'Pegawai' => array('index'),
+    'Rekapitulasi Data Jabatan Fungsional',
 );
 ?>
+<script stype="text/javascript">
+    $('.search-form form').submit(function () {
+        $.fn.yiiGridView.update('results', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
+</script>
+<div class="search-form">
+    <?php
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id' => 'search-pegawai-form',
+        'action' => Yii::app()->createUrl($this->route,array('cari' => 1)),
+        'method' => 'get',
+        'type' => 'horizontal',
+    ));
+    ?>
+    <div class="well">
 
-<?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id' => 'results',
-    'enableAjaxValidation' => false,
-    'method' => 'post',
-    'action' => url("pegawai/rekapJabfung?cari=1"),
-    'type' => 'horizontal',
-    'htmlOptions' => array(
-        'enctype' => 'multipart/form-data'
-    )
-        ));
-?>
-<div class="well">
-
-    <div class="row-fluid">
-       <div class="control-group">
+        <div class="row-fluid">
+            <div class="control-group">
                 <label class="control-label">Satuan Kerja<span class="required">*</span></label>
                 <div class="controls">
                     <?php
@@ -30,7 +34,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                             'bootstrap.widgets.TbSelect2', array(
                         'name' => 'riwayat_jabatan_id',
                         'data' => $data,
-                        'value' => isset($_POST['riwayat_jabatan_id']) ? $_POST['riwayat_jabatan_id'] : '',
+                        'value' => isset($_GET['riwayat_jabatan_id']) ? $_GET['riwayat_jabatan_id'] : '',
                         'options' => array(
                             'width' => '40%;margin:0px;text-align:left',
                     )));
@@ -38,27 +42,26 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 </div>
             </div>
 
-        <div class="control-group ">
-        <label class="control-label" for="Pegawai_jabatan_id">Berdasarkan</label>
-        <div class="controls">
-            <?php
-            $data= array('0' => '- Berdasarkan -') + Pegawai::model()->arrRekapitulasiJabfung();                            
-            $this->widget(
-                        'bootstrap.widgets.TbSelect2', array(      
-                            'name' => 'type',
-                            'data' => $data,
-                            'value' => isset($_POST['type']) ? $_POST['type'] : '',
-                            'options' => array(
-                                'width' => '25%;margin:0px;text-align:left',
-                                )));
-                                     
-           ?>
+            <div class="control-group ">
+                <label class="control-label" for="Pegawai_jabatan_id">Berdasarkan</label>
+                <div class="controls">
+                    <?php
+                    $data = array('0' => '- Berdasarkan -') + Pegawai::model()->arrRekapitulasiJabfung();
+                    $this->widget(
+                            'bootstrap.widgets.TbSelect2', array(
+                        'name' => 'type',
+                        'data' => $data,
+                        'value' => isset($_GET['type']) ? $_GET['type'] : '',
+                        'options' => array(
+                            'width' => '25%;margin:0px;text-align:left',
+                    )));
+                    ?>
+                </div>
+            </div>
+
+
         </div>
-        </div>
-        
-           
-        </div>
-        <div><?php if (!empty($_POST)) { ?>
+        <div><?php if (!empty($_GET)) { ?>
                 <a onclick="hide()" class="btn btn-small view" title="Remove Form" rel="tooltip"><i class=" icon-remove-circle"></i></a>
             <?php } ?>
         </div>
@@ -86,79 +89,78 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         ?>
     </div>
 
-<?php
-if ( isset($_GET['cari'])) {
-$this->widget('bootstrap.widgets.TbGridView', array(
-    'id' => 'daftar-pegawai-grid',
-    'dataProvider' => $model->searchJabFung(),
-    'type' => 'striped bordered condensed',
-    'template' => '{summary}{pager}{items}{pager}',
-    'columns' => array(
+    <?php $this->endWidget(); ?>
+    <?php
+    if (isset($_GET['cari'])) {
+        $this->widget('bootstrap.widgets.TbGridView', array(
+            'id' => 'daftar-pegawai-grid',
+            'dataProvider' => $model->searchJabFung(),
+            'type' => 'striped bordered condensed',
+            'template' => '{summary}{pager}{items}{pager}',
+            'columns' => array(
 //        'nama',
-        array(
-            'name' => 'nama',
-            'header' => 'Nama',
-            'type' => 'raw',
-            'value' => '$data->namaGelar',
+                array(
+                    'name' => 'nama',
+                    'header' => 'Nama',
+                    'type' => 'raw',
+                    'value' => '$data->namaGelar',
 //            'htmlOptions' => array('style' => 'text-align:center'),
-        ),
-        array(
-            'name' => 'nip',
-            'type' => 'raw',
-            'value' => '$data->nip',
+                ),
+                array(
+                    'name' => 'nip',
+                    'type' => 'raw',
+                    'value' => '$data->nip',
 //            'htmlOptions' => array('style' => 'text-align:center'),
-        ),
-        
-        array(
-            'name' => 'riwayat_pangkat_id',
-            'type' => 'raw',
-            'header'=>'Golongan',
-            'value' => '$data->Pangkat->golongan',
+                ),
+                array(
+                    'name' => 'riwayat_pangkat_id',
+                    'type' => 'raw',
+                    'header' => 'Golongan',
+                    'value' => '$data->Pangkat->golongan',
 //            'htmlOptions' => array('style' => 'text-align:center'),
-        ),
-        array(
-            'name' => 'riwayat_jabatan_id',
-            'type' => 'raw',
-            'header'=>'Jabatan ',
-            'value' => '$data->RiwayatJabatan->jabatanStruktural',
-            'htmlOptions' => array('style' => 'text-align:center'),
-        ),
-        array(
-            'name' => 'riwayat_pangkat_id',
-            'header' => 'Jabatan Fungsional',
-            'type' => 'raw',
-            'value' => '$data->pangkat',
-            'htmlOptions' => array('style' => 'text-align:center'),
-        ),
-        array(
-            'name' => 'riwayat_jabatan_id',
-            'type' => 'raw',
-            'header'=>'Satuan Kerja',
-            'value' => '$data->unitKerja',
-            'htmlOptions' => array('style' => 'text-align:center'),
-        ),
-        
-    ),
-));
-}
-?>
-<?php $this->endWidget(); ?>
+                ),
+                array(
+                    'name' => 'riwayat_jabatan_id',
+                    'type' => 'raw',
+                    'header' => 'Jabatan ',
+                    'value' => '$data->RiwayatJabatan->jabatanStruktural',
+                    'htmlOptions' => array('style' => 'text-align:center'),
+                ),
+                array(
+                    'name' => 'riwayat_pangkat_id',
+                    'header' => 'Jabatan Fungsional',
+                    'type' => 'raw',
+                    'value' => '$data->pangkat',
+                    'htmlOptions' => array('style' => 'text-align:center'),
+                ),
+                array(
+                    'name' => 'riwayat_jabatan_id',
+                    'type' => 'raw',
+                    'header' => 'Satuan Kerja',
+                    'value' => '$data->unitKerja',
+                    'htmlOptions' => array('style' => 'text-align:center'),
+                ),
+            ),
+        ));
+    }
+    ?>
+</div>
 <script>
-function printDiv(divName)
-        {                  
-            var printContents = document.getElementById(divName).innerHTML;
-            var originalContents = document.body.innerHTML;               
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents ;            
-        }   
-function hide() {
+    function printDiv(divName)
+    {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+    function hide() {
         $(".well").hide();
         $(".form-horizontal").hide();
-    }        
+    }
 </script>
 <style>
-.form-horizontal .control-group{
-    margin-bottom: 5px !important;
-}
+    .form-horizontal .control-group{
+        margin-bottom: 5px !important;
+    }
 </style>

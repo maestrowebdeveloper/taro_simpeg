@@ -36,14 +36,14 @@ class JabatanStruktural extends CActiveRecord {
         // will receive user inputs.
         return array(
 //            array('nama,  unit_kerja_id, eselon_id', 'required'),
-            array('nama', 'required'),
-            array('keterangan,   status, level, lft, rgt, root, parent_id, created, created_user_id', 'safe'),
+            array('nama, unit_kerja_id, ', 'required'),
+            array('jabatan,keterangan,   status, level, lft, rgt, root, parent_id, created, created_user_id', 'safe'),
             array('unit_kerja_id, eselon_id, status, level, lft, rgt, root, parent_id, created_user_id', 'numerical', 'integerOnly' => true),
             array('nama', 'length', 'max' => 150),
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, nama, keterangan, unit_kerja_id, eselon_id, status, level, lft, rgt, root, parent_id, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, nama,jabatan, keterangan, unit_kerja_id, eselon_id, status, level, lft, rgt, root, parent_id, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -67,9 +67,9 @@ class JabatanStruktural extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'nama' => 'Jabatan',
+            'nama' => 'Unit kerja',
             'keterangan' => 'Keterangan',
-            'unit_kerja_id' => 'Unit Kerja',
+            'unit_kerja_id' => 'Satuan Kerja',
             'eselon_id' => 'Eselon',
             'status' => 'Status',
             'level' => 'Level',
@@ -103,6 +103,7 @@ class JabatanStruktural extends CActiveRecord {
 
         $criteria->compare('id', $this->id);
         $criteria->compare('t.nama', $this->nama, true);
+        $criteria->compare('t.jabatan', $this->jabatan, true);
         $criteria->compare('keterangan', $this->keterangan, true);
         $criteria->compare('t.unit_kerja_id', $this->unit_kerja_id, true);
         $criteria->compare('eselon_id', $this->eselon_id,true);

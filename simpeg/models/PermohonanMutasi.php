@@ -17,7 +17,7 @@ class PermohonanMutasi extends CActiveRecord {
 // will receive user inputs.
         return array(
             array(' created,pejabat,mutasi,status,tipe_jabatan_lama,unit_kerja_lama,jabatan_lama, created_user_id, modified,unit_kerja_id, tipe_jabatan, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id', 'safe'),
-            array('nomor_register, tanggal, pegawai_id, new_unit_kerja_id, new_tipe_jabatan, new_jabatan_struktural_id, new_jabatan_fu_id, new_jabatan_ft_id, tmt', 'required'),
+            array('nomor_register, tanggal, pegawai_id, new_tipe_jabatan, new_jabatan_struktural_id, new_jabatan_fu_id, new_jabatan_ft_id, tmt', 'required'),
             array('pegawai_id, unit_kerja_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, new_unit_kerja_id, new_jabatan_struktural_id, new_jabatan_fu_id, new_jabatan_ft_id, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register', 'length', 'max' => 100),
             array('tipe_jabatan, new_tipe_jabatan', 'length', 'max' => 19),
@@ -53,12 +53,12 @@ class PermohonanMutasi extends CActiveRecord {
             'pegawai_id' => 'Pegawai',
             'unit_kerja_id' => 'Unit Kerja Lama',
             'tipe_jabatan' => 'Tipe Jabatan Lama',
-            'jabatan_struktural_id' => 'Jabatan Lama',
+            'jabatan_struktural_id' => 'Unit Kerja',
             'jabatan_fu_id' => 'Jabatan Lama',
             'jabatan_ft_id' => 'Jabatan Lama',
             'new_unit_kerja_id' => 'Unit Kerja Baru',
             'new_tipe_jabatan' => 'Tipe Jabatan Baru',
-            'new_jabatan_struktural_id' => 'Jabatan Baru',
+            'new_jabatan_struktural_id' => 'Unit Kerja',
             'new_jabatan_fu_id' => 'Jabatan Baru',
             'new_jabatan_ft_id' => 'Jabatan Baru',
             'tmt' => 'Tmt',
@@ -144,6 +144,12 @@ class PermohonanMutasi extends CActiveRecord {
         return parent::model($className);
     }
 
+    public function getTglMutasi() {
+        return (!empty(date('d-m-Y', strtotime($this->tanggal)))) ? date('d-m-Y', strtotime($this->tanggal)) : '-';
+    }
+    public function getTmtMutasi() {
+        return (!empty(date('d-m-Y', strtotime($this->tmt)))) ? date('d-m-Y', strtotime($this->tmt)) : '-';
+    }
     public function getPegawai() {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
     }
@@ -176,6 +182,16 @@ class PermohonanMutasi extends CActiveRecord {
         }
         return $status;
     }
+    
+    public function getStatusTempat() {
+        if ($this->mutasi == "luar_daerah") {
+            $status = '<span class="label label-info">Luar Daerah</span>';
+        } else {
+            $status = '<span class="label label-warning">Dalam Daerah</span>';
+        }
+        return $status;
+    }
+    
 
     public function arrMutasi() {
         $agama = array('luar_daerah' => '1 | Luar Daerah', 'dalam_daerah' => '2 | Dalam Daerah');

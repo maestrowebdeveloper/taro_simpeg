@@ -152,6 +152,15 @@ class PermohonanPerpanjanganHonorer extends CActiveRecord {
     public function getTmtPengangkatan() {
         return (!empty($this->Honorer->tmt_kontrak)) ? $this->Honorer->tmt_kontrak : '-';
     }
+    public function getTmtMulai() {
+        return (!empty(date('d-m-Y', strtotime($this->tmt_mulai)))) ? date('d-m-Y', strtotime($this->tmt_mulai)) : '-';
+    }
+    public function getTgl() {
+        return (!empty(date('d-m-Y', strtotime($this->tanggal)))) ? date('d-m-Y', strtotime($this->tanggal)) : '-';
+    }
+    public function getTmtSelesai() {
+        return (!empty(date('d-m-Y', strtotime($this->tmt_selesai)))) ? date('d-m-Y', strtotime($this->tmt_selesai)) : '-';
+    }
 
     public function getTtl() {
         return (!empty($this->Honorer->ttl)) ? $this->Honorer->ttl : '-';

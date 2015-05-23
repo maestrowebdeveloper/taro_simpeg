@@ -101,12 +101,13 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         'nama',
         array(
-            'name' => 'unit_kerja_id',
+            'name' => 'jabatan_struktural_id',
+            'header'=>'Unit Kerja',
             'value' => '(isset($data->RiwayatJabatan->JabatanStruktural->nama)) ? $data->RiwayatJabatan->JabatanStruktural->nama : "-"',
         ),
         array(
             'header' => 'Gol',
-//            'name' => 'riwayat_pangkat_id',
+            'name' => 'riwayat_pangkat_id',
             'type' => 'raw',
             'value' => '(isset($data->Pangkat->Golongan->nama)) ? $data->Pangkat->Golongan->nama : "-"',
             'htmlOptions' => array('style' => 'text-align: center;')

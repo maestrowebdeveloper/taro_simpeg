@@ -100,7 +100,7 @@ class HonorerController extends Controller {
     public function actionGetListHonorer() {
         $name = $_GET["q"];
         $list = array();
-        $data = Honorer::model()->findAll(array('condition' => 'nama like "%' . $name . '%"', 'limit' => '10'));
+        $data = Honorer::model()->findAll(array('condition' => 'nama like "%' . $name . '%" and kode in (20,40)', 'limit' => '10'));
         if (empty($data)) {
             $list[] = array("id" => "0", "text" => "No Results Found..");
         } else {
@@ -272,7 +272,7 @@ class HonorerController extends Controller {
     public function actionIndex() {
         $model = new Honorer('search');
         $model->unsetAttributes();  // clear any default values
-        $model->kode = array(20,40);
+        $model->kode = array(20, 40);
 
         if (isset($_GET['Honorer'])) {
             $model->attributes = $_GET['Honorer'];
@@ -294,7 +294,7 @@ class HonorerController extends Controller {
                 'condition' => 'id IN(' . implode(',', $_POST['ceckbox']) . ')'
             ));
         }
-        
+
         $this->render('index', array(
             'model' => $model,
         ));
@@ -324,16 +324,43 @@ class HonorerController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
 
-        if (isset($session['Honorer_records'])) {
-            $model = $session['Honorer_records'];
-        } else
-            $model = Honorer::model()->findAll();
+        $jns_kelamin = $_GET['jns_kelamin'];
+        $nama = $_GET['nama'];
+        $sts_pernikahan = $_GET['sts_pernikahan'];
+        $id_jurusan = $_GET['id_jurusan'];
+        $tahun_pendidikan = $_GET['tahun_pendidikan'];
+        $agama = $_GET['agama'];
+        $nomor_register = $_GET['nomor_register'];
+        $jabatan_struktural_id = $_GET['jabatan_struktural_id'];
+        $jabatan_fu_id = $_GET['jabatan_fu_id'];
+
+        $criteria = new CDbCriteria;
+        if (!empty($nama))
+            $criteria->compare('nama', $nama, true);
+        if (!empty($jns_kelamin))
+            $criteria->compare('jenis_kelamin', $jns_kelamin, true);
+        if (!empty($sts_pernikahan))
+            $criteria->compare('status_pernikahan', $sts_pernikahan, true);
+        if (!empty($id_jurusan))
+            $criteria->compare('id_jurusan', $id_jurusan, true);
+        if (!empty($tahun_pendidikan))
+            $criteria->compare('tahun_pendidikan', $tahun_pendidikan, true);
+        if (!empty($agama))
+            $criteria->compare('agama', $agama, true);
+        if (!empty($nomor_register))
+            $criteria->compare('nomor_register', $nomor_register, true);
+        if (!empty($jabatan_struktural_id))
+            $criteria->compare('jabatan_struktural_id', $jabatan_struktural_id);
+        if (!empty($jabatan_fu_id))
+            $criteria->compare('jabatan_fu_id', $jabatan_fu_id);
+        
+        $criteria->addCondition('kode IN (20,40)');
+
+        $model = Honorer::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Pegawai Honorer - ' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );

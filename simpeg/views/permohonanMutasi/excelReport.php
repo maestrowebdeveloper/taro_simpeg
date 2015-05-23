@@ -19,16 +19,16 @@
 	<tr>
         <td><?php echo $row->statusoto; ?></td>
         <td><?php echo $row->nomor_register; ?></td>
-        <td><?php echo $row->tanggal; ?></td>        
+        <td><?php echo $row->tglMutasi; ?></td>        
         <td><?php echo $row->pegawai; ?></td>        
-        <td><?php echo $row->Pegawai->namaGelar; ?></td>        
+<!--        <td><?php // echo $row->Pegawai->namaGelar; ?></td>        -->
         <td><?php echo $row->unit_kerja_lama; ?></td>        
         <td><?php echo $row->tipe_jabatan_lama; ?></td>        
         <td><?php echo $row->jabatan_lama; ?></td>        
         <td><?php echo $row->unitKerja; ?></td>        
         <td><?php echo $row->tipeJabatan; ?></td>        
         <td><?php echo $row->jabatan; ?></td>        
-        <td><?php echo $row->tmt; ?></td>        
+        <td><?php echo $row->tmtMutasi; ?></td>        
        	</tr>
      <?php endforeach; ?>
 </table>

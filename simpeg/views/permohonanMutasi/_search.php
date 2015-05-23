@@ -149,6 +149,10 @@ $ft = ($model->tipe_jabatan == "fungsional_tertentu") ? "" : "none";
         });
     })
 
+    
+</script>
+
+<script type="text/javascript">
     function excel() {
         if (document.getElementById('PermohonanMutasi_new_tipe_jabatan_0').checked) {
             var tipe_jabatan = document.getElementById('PermohonanMutasi_new_tipe_jabatan_0').value;
@@ -161,11 +165,10 @@ $ft = ($model->tipe_jabatan == "fungsional_tertentu") ? "" : "none";
 
         }
 
-        var nomor_register = $('#PermohonanMutasi_nomor_register').val();
-        var pegawai_id = $('#PermohonanMutasi_pegawai_id').val();
-        var unit_kerja_id = $('#PermohonanMutasi_new_unit_kerja_id').val();
+        var noregister = $('#PermohonanMutasi_nomor_register').val();
+        var pegawai = $('#PermohonanMutasi_pegawai_id').val();
+        var unit_kerja = $('#PermohonanMutasi_new_unit_kerja_id').val();
        // alert(tipe_jabatan);
-        window.open("<?php echo url('permohonanMutasi/GenerateExcel')?>?nomor_register="+nomor_register+"&pegawai_id="+pegawai_id+"&tipe_jabatan="+tipe_jabatan+"&unit_kerja_id="+unit_kerja_id);
+        window.open("<?php echo url('permohonanMutasi/GenerateExcel')?>?unit_kerja_id="+unit_kerja+"&nomor_register="+noregister+"&pegawai="+pegawai+"&tipe_jabatan="+tipe_jabatan);
     }
-</script>
-
+    </script>

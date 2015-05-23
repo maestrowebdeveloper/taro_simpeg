@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Permohonan Mutasis');
+$this->setPageTitle('Permohonan Mutasi');
 $this->breadcrumbs = array(
-    'Permohonan Mutasis',
+    'Permohonan Mutasi',
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -29,8 +29,8 @@ $this->widget('bootstrap.widgets.TbMenu', array(
     'items' => array(
         array('label' => 'Tambah', 'icon' => 'icon-plus', 'url' => Yii::app()->controller->createUrl('create'), 'linkOptions' => array(),'visible'=>landa()->checkAccess('permohonanMutasi', 'u')),
         array('label' => 'List Data', 'icon' => 'icon-th-list', 'url' => Yii::app()->controller->createUrl('index'), 'active' => true, 'linkOptions' => array()),
-        array('label' => 'Pencarian', 'icon' => 'icon-search', 'url' => '#', 'linkOptions' => array('class' => 'search-button')),
-        array('label' => 'Export ke Excel', 'icon' => 'icon-download', 'url' => Yii::app()->controller->createUrl('GenerateExcel'), 'linkOptions' => array('target' => '_blank'), 'visible' => true),
+        array('label' => 'Pencarian & Export Excel', 'icon' => 'icon-search', 'url' => '#', 'linkOptions' => array('class' => 'search-button')),
+//        array('label' => 'Export ke Excel', 'icon' => 'icon-download', 'url' => Yii::app()->controller->createUrl('GenerateExcel'), 'linkOptions' => array('target' => '_blank'), 'visible' => true),
     ),
 ));
 $this->endWidget();
@@ -107,8 +107,19 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => '$data->statusoto',
             'htmlOptions' => array('style' => 'text-align: left;')
         ),
+        array(
+            'name' => 'mutasi',
+            'type'=>'raw',
+            'header' => 'Mutasi',
+            'value' => '$data->statusTempat',
+            'htmlOptions' => array('style' => 'text-align: left;')
+        ),
         'nomor_register',
-        'tanggal',
+//        'tanggal',
+        array(
+            'name' => 'tanggal',
+            'value' => '$data->tglMutasi',
+        ),
         array(
             'name' => 'pegawai_id',
             'value' => '$data->pegawai',
@@ -126,7 +137,10 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'header' => 'Jabatan Baru',
             'value' => '$data->jabatan',
         ),
-        'tmt',
+        array(
+            'name' => 'tmt',
+            'value' => '$data->tmtMutasi',
+        ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
             'template' => $button,

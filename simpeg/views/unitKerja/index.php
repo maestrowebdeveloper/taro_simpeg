@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Unit Kerjas');
+$this->setPageTitle('Satuan Kerja');
 $this->breadcrumbs = array(
-    'Unit Kerjas',
+    'Satuan Kerja',
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -89,6 +89,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'name' => 'nama',
+            'header'=>'Satuan Kerja',
             'value' => '$data->nama',
         ),
         array(

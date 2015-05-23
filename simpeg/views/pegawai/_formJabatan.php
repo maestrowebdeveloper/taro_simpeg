@@ -40,9 +40,9 @@
        
         <div class="struktural" style="display:<?php echo $struktural; ?>"> 
 
-            <div class="control-group "><label class="control-label" for="RiwayatJabatan_jabatan_struktural_id">Tanggal </label>
+            <div class="control-group "><label class="control-label" for="RiwayatJabatan_jabatan_struktural_id">Jabatan / Tanggal </label>
                 <div class="controls">
-                   
+                    <input type="text" id="Riwayatjabatanasli" readonly="true" class="span4" value="<?php echo isset($model->JabatanStruktural->jabatan) ? $model->JabatanStruktural->jabatan : '-'; ?>">
                     <div class="input-prepend">
                         <span class="add-on"><i class="icon-calendar"></i></span>
                         <?php
@@ -175,7 +175,7 @@
                     echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
                     ?>   
                     <?php
-                    $data = array('0' => '- Berdasarkan -') + RiwayatJabatan::model()->arrType();
+                    $data = array('0' => '- Ahli / Terampil -') + RiwayatJabatan::model()->arrType();
                     $this->widget(
                             'bootstrap.widgets.TbSelect2', array(
                         'name' => 'RiwayatJabatan[type]',
@@ -286,7 +286,11 @@
             type: "post",
             success: function(data) {
                 obj = JSON.parse(data);
-                $("#Riwayateselon").val(obj.eselon);
+                 $("#Riwayateselon").val(obj.eselon);
+                $("#Riwayatjabatanasli").val(obj.jabatan);
+//                if(obj.status==1){
+//                    alert("jabatan sudah di emban orang lain");
+//                }
             }
         });
     });
@@ -323,15 +327,5 @@
         {
             callback({id: <?php echo $idjabatanstruktural ?>, text: "<?php echo $jabstruktural ?>"});
         }
-    }).on('change', function () {
-            $.ajax({
-                url: "<?php echo url('pegawai/riwayatStatusJabatan') ?>",
-                type: "post",
-                data: {id: $(this).val()},
-                success: function (data) {
-                    obj = JSON.parse(data);
-                    $("#Riwayateselon").val(obj.eselon);
-                }
-            });
-        });
+    });
 </script>

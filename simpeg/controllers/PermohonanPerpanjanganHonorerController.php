@@ -22,7 +22,7 @@ class PermohonanPerpanjanganHonorerController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // c
-                'actions' => array( 'create'),
+                'actions' => array('create'),
                 'expression' => 'app()->controller->isValidAccess("permohonanPerpanjanganHonorer","c")'
             ),
             array('allow', // r
@@ -30,11 +30,11 @@ class PermohonanPerpanjanganHonorerController extends Controller {
                 'expression' => 'app()->controller->isValidAccess("permohonanPerpanjanganHonorer","r")'
             ),
             array('allow', // u
-                'actions' => array( 'update'),
+                'actions' => array('update'),
                 'expression' => 'app()->controller->isValidAccess("permohonanPerpanjanganHonorer","u")'
             ),
             array('allow', // d
-                'actions' => array( 'delete'),
+                'actions' => array('delete'),
                 'expression' => 'app()->controller->isValidAccess("permohonanPerpanjanganHonorer","d")'
             )
         );
@@ -86,21 +86,21 @@ class PermohonanPerpanjanganHonorerController extends Controller {
         }
         $table .= '</tbody>
                     </table>';
-        $return['table']=$table;
+        $return['table'] = $table;
 
         $model = Honorer::model()->findByPk($id);
         $return['id'] = $id;
         $return['nama'] = $model->nama;
-        $return['jenis_kelamin'] = $model->jenis_kelamin;        
+        $return['jenis_kelamin'] = $model->jenis_kelamin;
         $return['unit_kerja'] = $model->unitKerja;
         $return['masa_kerja'] = $model->masaKerja;
         $return['tempat_lahir'] = $model->tempat_lahir;
         $return['tanggal_lahir'] = $model->tanggal_lahir;
         $return['kota'] = $model->kota;
-        $return['alamat'] =$model->alamat;
-        $return['pendidikan_terakhir'] = $model->pendidikan_terakhir;
+        $return['alamat'] = $model->alamat;
+        $return['pendidikan_terakhir'] = $model->pendidikan;
+//        $return['pendidikan_terakhir'] = "";
         echo json_encode($return);
-        
     }
 
     public function actionView($id) {
@@ -231,16 +231,29 @@ class PermohonanPerpanjanganHonorerController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        $session = new CHttpSession;
-        $session->open();
+        
+        $noregister = $_GET['noregister'];
+        $tanggal = $_GET['tanggal'];
+        $honorer_id = $_GET['honorer_id'];
+        $tmt_mulai = $_GET['tmt_mulai'];
+        $tmt_selesai = $_GET['tmt_selesai'];
 
-        if (isset($session['PermohonanPerpanjanganHonorer_records'])) {
-            $model = $session['PermohonanPerpanjanganHonorer_records'];
-        } else
-            $model = PermohonanPerpanjanganHonorer::model()->findAll();
+        $criteria = new CDbCriteria;
+        if (!empty($noregister))
+            $criteria->compare('nomor_register', $noregister, true);
+        if (!empty($tanggal))
+            $criteria->compare('tanggal', $tanggal, true);
+        if (!empty($honorer_id))
+            $criteria->compare('honorer_id', $honorer_id);
+        if (!empty($tmt_mulai))
+            $criteria->compare('tmt_mulai', $tmt_mulai, true);
+        if (!empty($tmt_selesai))
+            $criteria->compare('tmt_selesai', $tmt_selesai, true);
+
+        $model = PermohonanPerpanjanganHonorer::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Permohonan Perpanjangan Honorer - '.date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );
