@@ -96,9 +96,9 @@
             type: "post",
             success: function(data) {
                 obj = JSON.parse(data);
-//                if (obj.isi == 1) {
-//                    alert("jabatan sudah di emban orang lain");
-//                } else {
+                if (obj.isi == 1) {
+                    alert("jabatan sudah di emban oleh "+obj.pegawai+" dengan NIP : "+obj.nip);
+                } else {
                     $("#Pegawai_riwayat_jabatan_id").val(obj.id);
                     $("#riwayatTipeJabatan").val(obj.tipe);
                     $("#riwayatNamaJabatan").val(obj.jabatan);
@@ -106,7 +106,7 @@
                     $("#riwayatBidangJabatan").val(obj.bidang);
                     $("#modalForm").modal("hide");
                     pensiun($("#Pegawai_tanggal_lahir").val(), obj.id);
-//                }
+                }
             }
         });
     });

@@ -168,20 +168,28 @@ class PegawaiController extends Controller {
     public function actionSelectJabatan() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $model = RiwayatJabatan::model()->findByPk($id);
-        $data['isi'] =0;
         $pegawai = Pegawai::model()->findAll(array('condition' => 'jabatan_struktural_id=' . $model->jabatan_struktural_id . ' and kedudukan_id=1 and tipe_jabatan="struktural"'));
-        if(!empty($pegawai)) {
+//        logs($pegawai);
+        if (count($pegawai) != 0) {
             if (!empty($model)) {
-                $data['id'] = $model->id;
-                $data['tipe'] = $model->tipe;
-                $data['jabatan'] = isset($model->JabatanStruktural->jabatan) ? $model->JabatanStruktural->jabatan : "-";
-                $data['tmt'] = $model->tmt_mulai;
-                $data['bidang'] = isset($model->JabatanStruktural->nama) ? $model->JabatanStruktural->nama : "-";
-                $data['status'] = $model->statusjabatan;
-                $data['isi']=1;
-                echo json_encode($data);
+                foreach($pegawai as $as){
+                    $data['pegawai']= $as->nama;
+                    $data['nip']= $as->nip;
+                }
+                $data['isi'] = 1;
             }
+        } else {
+            $data['id'] = $model->id;
+            $data['tipe'] = $model->tipe;
+            $data['jabatan'] = isset($model->JabatanStruktural->jabatan) ? $model->JabatanStruktural->jabatan : "-";
+            $data['tmt'] = $model->tmt_mulai;
+            $data['bidang'] = isset($model->JabatanStruktural->nama) ? $model->JabatanStruktural->nama : "-";
+            $data['status'] = $model->statusjabatan;
+            $data['isi'] = 0;
+
+            logs($data);
         }
+        echo json_encode($data);
     }
 
     public function actionSelectGaji() {
@@ -790,15 +798,14 @@ class PegawaiController extends Controller {
         $data['masa_kerja'] = 0;
         $data['eselon'] = '';
         $data['jabatan'] = '';
-        
+
         $tipe = (!empty($_POST['RiwayatJabatan']['tipe_jabatan'])) ? $_POST['RiwayatJabatan']['tipe_jabatan'] : '';
         if ($tipe == "struktural") {
 //            $pegawai = Pegawai::model()->findAll(array('condition' => 'jabatan_struktural_id=' . $_POST['RiwayatJabatan']['jabatan_struktural_id'] . ' and tipe_jabtan="struktural and kedudukan_id=1"'));
-            
-                $model = JabatanStruktural::model()->findByPk($_POST['RiwayatJabatan']['jabatan_struktural_id']);
-                $data['eselon'] = isset($model->Eselon->nama) ? $model->Eselon->nama : '-';
-                $data['jabatan'] = $model->jabatan;
-           
+
+            $model = JabatanStruktural::model()->findByPk($_POST['RiwayatJabatan']['jabatan_struktural_id']);
+            $data['eselon'] = isset($model->Eselon->nama) ? $model->Eselon->nama : '-';
+            $data['jabatan'] = $model->jabatan;
         } elseif ($tipe == "fungsional_umum") {
             $model = JabatanFu::model()->findByPk($_POST['RiwayatJabatan']['jabatan_fu_id']);
         } elseif ($tipe == "fungsional_tertentu") {
