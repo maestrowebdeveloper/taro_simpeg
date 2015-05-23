@@ -175,7 +175,7 @@
                     echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
                     ?>   
                     <?php
-                    $data = array('0' => '- Berdasarkan -') + RiwayatJabatan::model()->arrType();
+                    $data = array('0' => '- Ahli / Terampil -') + RiwayatJabatan::model()->arrType();
                     $this->widget(
                             'bootstrap.widgets.TbSelect2', array(
                         'name' => 'RiwayatJabatan[type]',
@@ -286,8 +286,11 @@
             type: "post",
             success: function(data) {
                 obj = JSON.parse(data);
-                $("#Riwayateselon").val(obj.eselon);
+                 $("#Riwayateselon").val(obj.eselon);
                 $("#Riwayatjabatanasli").val(obj.jabatan);
+//                if(obj.status==1){
+//                    alert("jabatan sudah di emban orang lain");
+//                }
             }
         });
     });
