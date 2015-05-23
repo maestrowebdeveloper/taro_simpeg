@@ -74,7 +74,7 @@
                 ),
                 'initSelection' => 'js:function(element, callback) 
                             { 
-                               callback({id: '.$idpegawai.', text: "'.$pegawaiName.'" });
+                               callback({id: ' . $idpegawai . ', text: "' . $pegawaiName . '" });
                             
                                   
                             }',
@@ -116,22 +116,20 @@
         echo $form->radioButtonListRow($model, 'jenjang_pendidikan', Pegawai::model()->ArrJenjangPendidikan());
         ?>
 
-      <?php
-          echo $form->textFieldRow($model, 'jurusan', array(
-              'class' => 'span5',
-              'maxlength' => 225,
-             
-              ));
-     // }
-    ?>
-        
-        <?php echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span5', 'maxlength' => 225)); ?>
-      <?php
-//    if(isset($model->jenjang_pendidikan != 'SMA/SMK') && ($model->jenjang_pendidikan != 'SD') && ($model->jenjang_pendidikan != 'SMP'){
-    
-      ?>
         <?php
-         echo' <div class="control-group "><label class="control-label">Universitas</label><div class="controls">';
+        echo $form->textFieldRow($model, 'jurusan', array(
+            'class' => 'span5',
+            'maxlength' => 225,
+        ));
+        // }
+        ?>
+
+        <?php echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span5', 'maxlength' => 225)); ?>
+        <?php
+//    if(isset($model->jenjang_pendidikan != 'SMA/SMK') && ($model->jenjang_pendidikan != 'SD') && ($model->jenjang_pendidikan != 'SMP'){
+        ?>
+        <?php
+        echo' <div class="control-group "><label class="control-label">Universitas</label><div class="controls">';
         $data = array('0' => '- Universitas -') + CHtml::listData(Universitas::model()->findAll(array('order' => 'name')), 'id', 'name');
         $this->widget(
                 'bootstrap.widgets.TbSelect2', array(
@@ -156,12 +154,12 @@
         echo "</div></div>";
 //    }
         ?>
-        
+
         <?php
 //        $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'PermohonanIjinBelajar[kota]', 'cityValue' => $model->kota, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
 
         $idkota = isset($model->kota) ? $model->kota : 0;
-        $kotaName = isset($model->Kota->name) ? $model->Kota->Province->name.' - '.$model->Kota->name : '';
+        $kotaName = isset($model->Kota->name) ? $model->Kota->Province->name . ' - ' . $model->Kota->name : '';
         echo $form->select2Row($model, 'kota', array(
             'asDropDownList' => false,
 //                    'data' => $data,
@@ -188,7 +186,7 @@
                 ),
                 'initSelection' => 'js:function(element, callback) 
                             { 
-                            callback({id: '.$idkota.', text: "'.$kotaName.'" });
+                            callback({id: ' . $idkota . ', text: "' . $kotaName . '" });
                              
                                   callback(data);
                                   
@@ -202,7 +200,7 @@
 
 
 
-        <?php if (!isset($_GET['v'])) { ?>        <div class="form-actions">
+<?php if (!isset($_GET['v'])) { ?>        <div class="form-actions">
             <?php
             $this->widget('bootstrap.widgets.TbButton', array(
                 'buttonType' => 'submit',
@@ -221,33 +219,33 @@
             </div>
         <?php } ?>    </fieldset>
 
-    <?php $this->endWidget(); ?>
+        <?php $this->endWidget(); ?>
 
 </div>
 
 <?php if (isset($_GET['v'])) { ?>
     <div class="surat" id="surat" style="display:none">
-        <?php
-        $siteConfig = SiteConfig::model()->listSiteConfig();
-        $content = $siteConfig->format_ijin_belajar;
+    <?php
+    $siteConfig = SiteConfig::model()->listSiteConfig();
+    $content = $siteConfig->format_ijin_belajar;
 
-        $content = str_replace('{nomor}', $model->nomor_register, $content);
-        $content = str_replace('{nama}', $model->nama, $content);
-        $content = str_replace('{nip}', $model->nip, $content);
-        $content = str_replace('{pangkat}', $model->golongan, $content);
-        $content = str_replace('{unit_kerja}', $model->unit_kerja, $content);
-        $content = str_replace('{jabatan}', $model->jabatan, $content);
-        $content = str_replace('{jenjang_pendidikan}', $model->jenjang_pendidikan, $content);
-        $content = str_replace('{jurusan}', $model->jurusan, $content);
-        $content = str_replace('{id_jurusan}', $model->jurusan, $content);
-        $content = str_replace('{id_universitas}', $model->jurusan, $content);
-        $content = str_replace('{nama_sekolah}', $model->nama_sekolah, $content);
-        $content = str_replace('{kota_sekolah}', $model->kotaSekolah, $content);
-        $content = str_replace('{tanggal}', date('d F Y', strtotime($model->created)), $content);
-        echo $content;
-        ?>
+    $content = str_replace('{nomor}', $model->nomor_register, $content);
+    $content = str_replace('{nama}', $model->nama, $content);
+    $content = str_replace('{nip}', $model->nip, $content);
+    $content = str_replace('{pangkat}', $model->golongan, $content);
+    $content = str_replace('{unit_kerja}', $model->unit_kerja, $content);
+    $content = str_replace('{jabatan}', $model->jabatan, $content);
+    $content = str_replace('{jenjang_pendidikan}', $model->jenjang_pendidikan, $content);
+    $content = str_replace('{jurusan}', $model->jurusan, $content);
+    $content = str_replace('{id_jurusan}', $model->jurusan, $content);
+    $content = str_replace('{id_universitas}', $model->jurusan, $content);
+    $content = str_replace('{nama_sekolah}', $model->nama_sekolah, $content);
+    $content = str_replace('{kota_sekolah}', $model->kotaSekolah, $content);
+    $content = str_replace('{tanggal}', date('d F Y', strtotime($model->created)), $content);
+    echo $content;
+    ?>
     </div>
-<?php } ?>
+    <?php } ?>
 
 <style type="text/css">
     td{
@@ -255,7 +253,7 @@
     }
 </style>
 <script type="text/javascript">
-    $("#PermohonanIjinBelajar_pegawai_id").on("change", function() {
+    $("#PermohonanIjinBelajar_pegawai_id").on("change", function () {
         //var name = $("#Registration_guest_user_id").val();
         //  alert(name);
 
@@ -263,7 +261,7 @@
             url: "<?php echo url('pegawai/getDetail'); ?>",
             type: "POST",
             data: {id: $(this).val()},
-            success: function(data) {
+            success: function (data) {
 
                 obj = JSON.parse(data);
                 $("#unit_kerja").val(obj.unit_kerja);
@@ -276,12 +274,12 @@
         });
     })
 
-    $("#viewTab").click(function() {
+    $("#viewTab").click(function () {
         $(".surat").hide();
         $(".form").show();
     });
 
-    $("#viewFull").click(function() {
+    $("#viewFull").click(function () {
         $(".surat").show();
         $(".form").hide();
     });
@@ -295,25 +293,25 @@
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
-        $("#myTab a").click(function(e) {
+        $("#myTab a").click(function (e) {
             e.preventDefault();
             $(this).tab("show");
         })
-        $("#viewTab").click(function() {
+        $("#viewTab").click(function () {
             $(".surat").hide();
             $(".form").show();
         });
 
-        $("#viewFull").click(function() {
+        $("#viewFull").click(function () {
             $(".surat").show();
             $(".form").hide();
         });
 
 
     }
-        $("body").on("click", ".radio", function () {
+    $("body").on("click", ".radio", function () {
         var id = $(this).find("input").val();
-        
+
         if (id == "SLTA/SMK") {
             $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none")
             $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
@@ -338,31 +336,31 @@
             $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:");
             $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:");
         }
-       
+
     });
-    <?php
-    if ($model->jenjang_pendidikan == "SD") {
+<?php
+if ($model->jenjang_pendidikan == "SD") {
     echo '$("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
             $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
             $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
             $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
 } else
-    if ($model->jenjang_pendidikan == "SLTP"){
-       echo ' $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
+if ($model->jenjang_pendidikan == "SLTP") {
+    echo ' $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
             $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
             $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
             $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
-}else
-    if ($model->jenjang_pendidikan == "SLTA/SMK"){
-        echo'$("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none")
+} else
+if ($model->jenjang_pendidikan == "SLTA/SMK") {
+    echo'$("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none")
             $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
             $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:");
             $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
-    }else{
-        echo'$("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
+} else {
+    echo'$("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
             $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:none");
             $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:");
             $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:");';
-    }
+}
 ?>
 </script>
