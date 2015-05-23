@@ -52,11 +52,11 @@ class HonorerController extends Controller {
     }
 
     public function actionGetMasaKerja() {
-        $bulan = !empty($_POST['bulan']) ? ($_POST['bulan'] * -1) : 0;
-        $tahun = !empty($_POST['tahun']) ? ($_POST['tahun'] * -1) : 0;
+        $bulan = !empty($_POST['bulan']) ? ($_POST['bulan']) : 0;
+        $tahun = !empty($_POST['tahun']) ? ($_POST['tahun']) : 0;
         $date = explode("-", $_POST['tmt_kontrak']);
         $tmt = mktime(0, 0, 0, $date[1] + $bulan, $date[2], $date[0] + $tahun);
-        $tmt_kontrak = date("Y-m-d", $tmt);
+        $tmt_kontrak = date("d-m-Y", $tmt);
         if (isset($tmt_kontrak) or ! empty($tmt_kontrak)) {
             $data = array();
             $data['bulan'] = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_kontrak)), false, true));

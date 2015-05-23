@@ -152,7 +152,7 @@
         $content = $siteConfig->format_pensiun;
 
         $content = str_replace('{nomor}', $model->nomor_register, $content);
-        $content = str_replace('{tanggal}', $model->tanggal, $content);
+        $content = str_replace('{tanggal}', date('d F Y',  strtotime($model->tanggal)), $content);
         $content = str_replace('{nip}', $model->Pegawai->nip, $content);
         $content = str_replace('{pangkat}', $model->Pegawai->golongan, $content);
         $content = str_replace('{ttl}', $model->Pegawai->ttl, $content);

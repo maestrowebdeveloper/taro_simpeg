@@ -72,7 +72,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </td>
         <td style="width:50%;vertical-align:top">
             <?php
-            echo $form->radioButtonListRow($model, 'status_pernikahan', Pegawai::model()->arrStatusPernikahan());
+//            echo $form->radioButtonListRow($model, 'status_pernikahan', Pegawai::model()->arrStatusPernikahan());
 //            echo $form->textFieldRow($model, 'npwp', array('class' => 'span3', 'maxlength' => 50));
 //            echo $form->textFieldRow($model, 'bpjs', array('class' => 'span3', 'maxlength' => 50));
             echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span4 angka', 'style' => 'max-width:500px;width:300px', 'maxlength' => 18));

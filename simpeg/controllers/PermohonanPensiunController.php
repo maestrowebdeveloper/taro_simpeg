@@ -65,18 +65,16 @@ class PermohonanPensiunController extends Controller {
 
         if (isset($_POST['PermohonanPensiun'])) {
             $model->attributes = $_POST['PermohonanPensiun'];
-            $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
+//            $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
             if (!empty($pegawai)) {
-//                $model->unit_kerja_id = $pegawai->unit_kerja_id;
                 $model->tipe_jabatan = $pegawai->tipe_jabatan;
                 $model->jabatan_struktural_id = $pegawai->jabatan_struktural_id;
                 $model->jabatan_fu_id = $pegawai->jabatan_fu_id;
                 $model->jabatan_ft_id = $pegawai->jabatan_ft_id;
+                $model->status = 'belum';
             }
             if ($model->save()) {
-                $pegawai->kedudukan_id = 14;
-                $pegawai->tmt_pensiun = $model->tmt;
-                $pegawai->save();
+//            
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -99,7 +97,7 @@ class PermohonanPensiunController extends Controller {
 
         if (isset($_POST['PermohonanPensiun'])) {
             $model->attributes = $_POST['PermohonanPensiun'];
-            $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
+//            $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
             if (!empty($pegawai)) {
 //                $model->unit_kerja_id = $pegawai->unit_kerja_id;
                 $model->tipe_jabatan = $pegawai->tipe_jabatan;
@@ -108,9 +106,6 @@ class PermohonanPensiunController extends Controller {
                 $model->jabatan_ft_id = $pegawai->jabatan_ft_id;
             }
             if ($model->save()) {
-                $pegawai->kedudukan_id = 14;
-                $pegawai->tmt_pensiun = $model->tmt;
-                $pegawai->save();
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -142,6 +137,25 @@ class PermohonanPensiunController extends Controller {
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
+    public function actionPensiunConfirm() {
+        if (isset($_POST['ceckbox'])) {
+            $id = $_POST['ceckbox'];
+            if (isset($_POST['pensiun_confirm'])) {
+                $model = PermohonanPensiun::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ')'));
+                foreach ($model as $a) {
+
+                    //update kedudukan id
+                    Pegawai::model()->updateAll(array(
+                        'kedudukan_id'=>14,'tmt_pensiun'=>$a->tmt), 'id=' . $a->pegawai_id);
+                    $a->status='sudah';
+                    $a->save();
+                }
+            }
+            user()->setFlash('info', 'Data is update now.');
+            $this->redirect(array('permohonanPensiun/index'));
+        }
+    }
+
     /**
      * Lists all models.
      */
@@ -157,6 +171,7 @@ class PermohonanPensiunController extends Controller {
                     $a->delete();
             }
         }
+
         $criteria = new CDbCriteria();
 
         if (isset($_GET['PermohonanPensiun'])) {
@@ -174,9 +189,12 @@ class PermohonanPensiunController extends Controller {
             if (!empty($model->tanggal))
                 $criteria->addCondition('tanggal = "' . $model->tanggal . '"');
 
+            if (!empty($model->status))
+                $criteria->addCondition('status = "' . $model->status . '"');
+
 
             if (!empty($model->pegawai_id))
-                $criteria->addCondition('pegawai_id = "' . $model->pegawai_id . '"');
+                $criteria->compare('pegawai_id', $model->pegawai_id);
 
 
             if (!empty($model->unit_kerja_id))
@@ -250,25 +268,28 @@ class PermohonanPensiunController extends Controller {
     public function actionGenerateExcel() {
 
         $noregister = $_GET['noregister'];
+        $status = $_GET['status'];
         $tanggal = $_GET['tanggal'];
         $pegawai_id = $_GET['pegawai_id'];
         $tmt = $_GET['tmt'];
 
         $criteria = new CDbCriteria;
         if (!empty($noregister))
-        $criteria->compare('nomor_register', $noregister, true);
+            $criteria->compare('nomor_register', $noregister, true);
+        if (!empty($status))
+            $criteria->compare('status', $status, true);
         if (!empty($tanggal))
-        $criteria->compare('tanggal', $tanggal, true);
+            $criteria->compare('tanggal', $tanggal, true);
         if (!empty($pegawai_id))
-        $criteria->compare('pegawai_id', $pegawai_id);
+            $criteria->compare('pegawai_id', $pegawai_id);
         if (!empty($tmt))
-        $criteria->compare('tmt',  $tmt, true);
+            $criteria->compare('tmt', $tmt, true);
 
 
         $model = PermohonanPensiun::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile('Data Permohonan Pensiun '.date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Permohonan Pensiun ' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );

@@ -74,7 +74,7 @@
                 ),
                 'initSelection' => 'js:function(element, callback) 
                             { 
-                               callback({id: '.$idpegawai.', text: "'.$pegawaiName.'" });
+                               callback({id: ' . $idpegawai . ', text: "' . $pegawaiName . '" });
                             
                                   
                             }',
@@ -160,7 +160,19 @@
     
       ?>
         <?php
-         echo' <div class="control-group "><label class="control-label">Universitas</label><div class="controls">';
+        echo $form->textFieldRow($model, 'jurusan', array(
+            'class' => 'span5',
+            'maxlength' => 225,
+        ));
+        // }
+        ?>
+
+        <?php echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span5', 'maxlength' => 225)); ?>
+        <?php
+//    if(isset($model->jenjang_pendidikan != 'SMA/SMK') && ($model->jenjang_pendidikan != 'SD') && ($model->jenjang_pendidikan != 'SMP'){
+        ?>
+        <?php
+        echo' <div class="control-group "><label class="control-label">Universitas</label><div class="controls">';
         $data = array('0' => '- Universitas -') + CHtml::listData(Universitas::model()->findAll(array('order' => 'name')), 'id', 'name');
         $this->widget(
                 'bootstrap.widgets.TbSelect2', array(
@@ -174,7 +186,7 @@
        
 //    }
         ?>
-        
+
         <?php
 //        $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'PermohonanIjinBelajar[kota]', 'cityValue' => $model->kota, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
 
@@ -220,7 +232,7 @@
 
 
 
-        <?php if (!isset($_GET['v'])) { ?>        <div class="form-actions">
+<?php if (!isset($_GET['v'])) { ?>        <div class="form-actions">
             <?php
             $this->widget('bootstrap.widgets.TbButton', array(
                 'buttonType' => 'submit',
@@ -239,7 +251,7 @@
             </div>
         <?php } ?>    </fieldset>
 
-    <?php $this->endWidget(); ?>
+        <?php $this->endWidget(); ?>
 
 </div>
 
@@ -265,7 +277,7 @@
         echo $content;
         ?>
     </div>
-<?php } ?>
+    <?php } ?>
 
 <style type="text/css">
     td{
@@ -273,7 +285,7 @@
     }
 </style>
 <script type="text/javascript">
-    $("#PermohonanIjinBelajar_pegawai_id").on("change", function() {
+    $("#PermohonanIjinBelajar_pegawai_id").on("change", function () {
         //var name = $("#Registration_guest_user_id").val();
         //  alert(name);
 
@@ -281,7 +293,7 @@
             url: "<?php echo url('pegawai/getDetail'); ?>",
             type: "POST",
             data: {id: $(this).val()},
-            success: function(data) {
+            success: function (data) {
 
                 obj = JSON.parse(data);
                 $("#unit_kerja").val(obj.unit_kerja);
@@ -294,12 +306,12 @@
         });
     })
 
-    $("#viewTab").click(function() {
+    $("#viewTab").click(function () {
         $(".surat").hide();
         $(".form").show();
     });
 
-    $("#viewFull").click(function() {
+    $("#viewFull").click(function () {
         $(".surat").show();
         $(".form").hide();
     });
@@ -313,16 +325,16 @@
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
-        $("#myTab a").click(function(e) {
+        $("#myTab a").click(function (e) {
             e.preventDefault();
             $(this).tab("show");
         })
-        $("#viewTab").click(function() {
+        $("#viewTab").click(function () {
             $(".surat").hide();
             $(".form").show();
         });
 
-        $("#viewFull").click(function() {
+        $("#viewFull").click(function () {
             $(".surat").show();
             $(".form").hide();
         });

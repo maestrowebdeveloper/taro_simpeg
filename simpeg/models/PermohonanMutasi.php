@@ -182,12 +182,28 @@ class PermohonanMutasi extends CActiveRecord {
         }
         return $status;
     }
+    public function getStatuExel() {
+        if ($this->status == 2) {
+            $status = 'Sudah';
+        } else {
+            $status = 'Belum';
+        }
+        return $status;
+    }
     
     public function getStatusTempat() {
         if ($this->mutasi == "luar_daerah") {
             $status = '<span class="label label-info">Luar Daerah</span>';
         } else {
             $status = '<span class="label label-warning">Dalam Daerah</span>';
+        }
+        return $status;
+    }
+    public function getStatusTempatExl() {
+        if ($this->mutasi == "luar_daerah") {
+            $status = 'Luar Daerah';
+        } else {
+            $status = 'Dalam Daerah';
         }
         return $status;
     }
