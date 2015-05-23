@@ -98,7 +98,8 @@ class PermohonanPerpanjanganHonorerController extends Controller {
         $return['tanggal_lahir'] = $model->tanggal_lahir;
         $return['kota'] = $model->kota;
         $return['alamat'] = $model->alamat;
-        $return['pendidikan_terakhir'] = $model->pendidikan_terakhir;
+        $return['pendidikan_terakhir'] = $model->pendidikan;
+//        $return['pendidikan_terakhir'] = "";
         echo json_encode($return);
     }
 

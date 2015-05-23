@@ -32,33 +32,26 @@
                 ?>    
             </div>
         </div>
-        <div class="control-group ">
-                <label class="control-label" for="Pegawai_jabatan_id">Pangkat / Golongan</label>
-                <div class="controls">
-                    <?php
-                    $data = array('0' => '- Parent -') + CHtml::listData(Golongan::model()->findAll(array('order' => 'id')), 'tingkat', 'nama');
-                    $this->widget(
-                            'bootstrap.widgets.TbSelect2', array(
-                        'name' => 'JabatanFungsional[min_golongan_id]',
-                        'data' => $data,
-                        'value' => $model->min_golongan_id,
-                        'options' => array(
-                            'width' => '25%;margin:0px;text-align:left',
-                    )));
+        <?php
+        //echo $form->checkBoxListRow($model, 'golongan_id', CHtml::listData(Golongan::model()->findAll(array('order' => 'root, lft')), 'id', 'nama'));
+        ?>
+        <div class="control-group "><label class="control-label" for="JabatanFungsional_golongan_id">Golongan</label>
+            <div class="controls">
 
-                    echo '  s/d ';
-
-                    $this->widget(
-                            'bootstrap.widgets.TbSelect2', array(
-                        'name' => 'JabatanFungsional[max_golongan_id]',
-                        'data' => $data,
-                        'value' => $model->max_golongan_id,
-                        'options' => array(
-                            'width' => '25%;margin:0px;text-align:left',
-                    )));
-                    ?>
-                </div>
+                <?php
+                $radio = array();
+                if (isset($model->id)) {
+                    $check = DetailJf::model()->findAll(array('condition' => 'jabatan_fungsional_id=' . $model->id));
+                    foreach ($check as $a) {
+                        $radio[] = $a->golongan_id;
+                    }
+                }
+//                print_r($radio);
+                echo CHtml::checkBoxList('golongan_id', (isset($radio)) ? $radio : '', CHtml::listData(Golongan::model()->findAll(array()), 'id', 'nama'), array('class' => 'radio', 'separator' => '', 'style' => 'margin-bottom:5px;'));
+                ?>
             </div>
+        </div>
+
         <?php echo $form->textFieldRow($model, 'nama', array('class' => 'span5', 'maxlength' => 30)); ?>
 
         <?php echo $form->textAreaRow($model, 'keterangan', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
