@@ -244,8 +244,8 @@
 
         $content = str_replace('{nomor}', $model->nomor_register, $content);
         $content = str_replace('{nomor_pengangkatan}', $model->nomorPengangkatan, $content);
-        $content = str_replace('{tanggal_pengangkatan}', $model->tanggalPengangkatan, $content);
-        $content = str_replace('{tmt_pengangkatan}', $model->tmtPengangkatan, $content);
+        $content = str_replace('{tanggal_pengangkatan}', date('d F Y',  strtotime($model->tanggalPengangkatan)), $content);
+        $content = str_replace('{tmt_pengangkatan}', date('d F Y',  strtotime($model->tmtPengangkatan)), $content);
         $content = str_replace('{jenis_kelamin}', $model->jenisKelamin, $content);
         $content = str_replace('{pendidikan}', $model->pendidikan, $content);
         $content = str_replace('{masa_kerja}', $model->masa_kerja, $content);
