@@ -65,7 +65,7 @@
 
                 <table>
                     <tr>
-                        <td width="300">
+                        <td width="150">
 
                             <?php
 //                          $imgs = '';

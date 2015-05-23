@@ -117,7 +117,7 @@ class Pegawai extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-        $criteria->with = array('Pangkat', 'RiwayatJabatan');
+        $criteria->with = array('Pangkat', 'RiwayatJabatan', 'JabatanStruktural');
 
         if (isset($_GET['today'])) {
             $today = date('m/d');
@@ -252,7 +252,7 @@ class Pegawai extends CActiveRecord {
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'nama')
+            'sort' => array('defaultOrder' => 'JabatanStruktural.id')
         ));
 
         return $data;

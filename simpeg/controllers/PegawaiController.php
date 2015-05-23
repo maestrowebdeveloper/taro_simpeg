@@ -824,7 +824,7 @@ class PegawaiController extends Controller {
             $sGol = (isset($o->Pangkat->Golongan->nama)) ? $o->Pangkat->Golongan->nama : "-";
             $sJab = (isset($o->RiwayatJabatan->jabatanPegawai)) ? $o->RiwayatJabatan->jabatanPegawai : "-";
             $results[$no]['url'] = url('pegawai/' . $o->id);
-            $results[$no]['img'] = $o->imgUrl['small'];
+            $results[$no]['img'] = $o->imgUrl;
             $results[$no]['title'] = $o->nip . '<br/>' . $o->namaGelar;
             $results[$no]['description'] = $sJab . '<br/>' . $sGol;
         }
