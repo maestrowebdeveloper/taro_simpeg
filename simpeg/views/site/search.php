@@ -202,6 +202,9 @@ if (isset($_POST['nip'])) {
                                             <tr><td>Nama</td><td>:</td><td><?php echo $model->namaGelar; ?></td></tr>
                                             <tr><td>Pendidikan</td><td>:</td><td><?php echo ucwords(strtolower($model->pendidikanTerakhir)) . ', Tahun : ' . $model->pendidikanTahun; ?></td></tr>
                                             <tr><td>Jurusan</td><td>:</td><td><?php echo ucwords(strtolower($model->pendidikanJurusan)); ?></td></tr>
+                                            <tr><td>Pangkat / Tmt Pangkat</td><td>:</td><td><?php echo (!empty($model->Pangkat->golongan)) ? $model->Pangkat->golongan : ''; ?> / <?php echo date('d-m-Y', strtotime($model->tmtPangkat)); ?></td></tr>
+                                            <tr><td>Unit Kerja / Tipe</td><td>:</td><td><?php echo $model->unitKerjaJabatan; ?> / <?php echo $model->riwayatTipeJabatan; ?></td></tr>
+                                            <tr><td>Jabatan / Tmt Jabatan</td><td>:</td><td><?php echo $model->riwayatNamaJabatan; ?> / <?php echo date('d-m-Y', strtotime($model->riwayatTmtJabatan)); ?></td></tr>
                                             <tr><td>Jenis Kelamin</td><td>:</td><td><?php echo $model->jenis_kelamin; ?></td></tr>
                                             <tr><td>TTL</td><td>:</td><td><?php echo $model->ttl; ?></td></tr>
                                             <tr><td>Kode Pos</td><td>:</td><td><?php echo $model->kode_pos; ?></td></tr>
@@ -209,11 +212,10 @@ if (isset($_POST['nip'])) {
                                             <tr><td>Agama</td><td>:</td><td><?php echo $model->agama; ?></td></tr>
                                             <tr><td>Golongan Darah</td><td>:</td><td><?php echo $model->golongan_darah; ?></td></tr>
                                             <tr><td>Status Pernikahan</td><td>:</td><td><?php echo $model->status_pernikahan; ?></td></tr>
-                                            <tr><td>NPWP</td><td>:</td><td><?php echo $model->npwp; ?></td></tr>
-                                            <tr><td>Karpeg</td><td>:</td><td><?php echo $model->karpeg; ?></td></tr>
-                                            <tr><td>KPE</td><td>:</td><td><?php echo $model->kpe; ?></td></tr>
-                                            <tr><td>Taspen</td><td>:</td><td><?php echo $model->no_taspen; ?></td></tr>
+                                            <tr><td>NPWP / Karpeg</td><td>:</td><td><?php echo $model->npwp; ?> / <?php echo $model->karpeg; ?></td></tr>
+                                            <tr><td>KPE / Taspen</td><td>:</td><td><?php echo $model->kpe; ?> / <?php echo $model->no_taspen; ?></td></tr>
                                             <tr><td>BPJS/ASKES/KIS</td><td>:</td><td><?php echo $model->bpjs; ?></td></tr>
+                                            
 
                                         </table>
                                     </div>
@@ -270,7 +272,7 @@ if (isset($_POST['nip'])) {
                                     $eselon = '-';
                                     $tmt_eselon = '-';
                                     if ($value->tipe_jabatan == "struktural") {
-                                        $jabatan = $value->JabatanStruktural->nama;
+                                        $jabatan = (isset($value->JabatanStruktural->nama)) ? $value->JabatanStruktural->nama : '-';
                                         $tmt_jabatan = $value->tmt_mulai;
                                         $eselon = (!empty($value->JabatanStruktural->Eselon->nama)) ? $value->JabatanStruktural->Eselon->nama : '-';
                                         $tmt_eselon = $value->tmt_eselon;

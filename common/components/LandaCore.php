@@ -123,7 +123,7 @@ class LandaCore extends CApplicationComponent {
     public function rp($price = 0, $prefix = true, $decimal = 0) {
         if (isset($_GET['xls'])) //jika export excel ada, landa rp tidak berlaku
             return $price;
-        
+
         if ($price === '-') {
             return '';
         } else {
@@ -479,13 +479,12 @@ class LandaCore extends CApplicationComponent {
     function loginRequired() {
         if (!isset(user()->id))
             app()->request->redirect(url('site/login'));
-            
     }
-    
-    public function usia($dob,$hanyaTahun=false,$hanyaBulan=false)
-    {
+
+    public function usia($dob, $hanyaTahun = false, $hanyaBulan = false) {
         $localtime = getdate();
-        $today = $localtime['mday']."-".$localtime['mon']."-".$localtime['year'];
+//        $today = $localtime['mday'] . "-" . $localtime['mon'] . "-" . $localtime['year'];
+        $today = date("d-m-Y");
         $dob_a = explode("-", $dob);
         $today_a = explode("-", $today);
         $dob_d = $dob_a[0];
@@ -494,52 +493,68 @@ class LandaCore extends CApplicationComponent {
         $today_d = $today_a[0];
         $today_m = $today_a[1];
         $today_y = $today_a[2];
-        $years = $today_y - $dob_y;
-        $months = $today_m - $dob_m;
-        if ($today_m < $dob_m && $today_d < $dob_d) 
-        {
-            $years--;
-            $months = 12 + $today_m - $dob_m;
-        }
 
-        if ($today_d < $dob_d) 
-        {
-            $months--;
-        }
+        $startDate = gregoriantojd($dob_m, $dob_d, $dob_y);
+        $todayDate = gregoriantojd($today_m, $today_d, $today_y);
 
-        $firstMonths=array(1,3,5,7,8,10,12);
-        $secondMonths=array(4,6,9,11);
-        $thirdMonths=array(2);
+        $lama = $todayDate - $startDate;
 
-        if($today_m - $dob_m == 1) 
-        {
-            if(in_array($dob_m, $firstMonths)) 
-            {
-                array_push($firstMonths, 0);
-            }
-            elseif(in_array($dob_m, $secondMonths)) 
-            {
-                array_push($secondMonths, 0);
-            }elseif(in_array($dob_m, $thirdMonths)) 
-            {
-                array_push($thirdMonths, 0);
-            }
+        $tahun = $lama / 365; //menghitung usia tahun
+
+        $sisa = $lama % 365; //sisa pembagian dari tahun untuk menghitung bulan
+
+        $bulan = $sisa / 30; //menghitung usia bulan
+
+        $hari = $sisa % 30; //menghitung sisa hari
+
+        if ($hanyaTahun == true) {
+            return floor($tahun) . ' Tahun';
+        } elseif ($hanyaBulan == true) {
+            return floor($bulan) . ' Bulan';
+        } else {
+            return floor($tahun)." Tahun ". floor($bulan) ." Bulan";
         }
-        /*$tahun = ($years>0)?"$years Tahun ":"";
-        $tahun = ($years>0)?"$years Bulan ":"";
-        $tahun = ($years>0)?"$years Hari ":"";
-        if ($months>0)*/
-            if($hanyaTahun==true){
-                return $years.' Tahun';
-            }elseif ($hanyaBulan==true) {
-                return $months.' Bulan';
-            }else{
-                return "$years Tahun $months Bulan";
-            }
-            
-      /*  else
-            return "$years Tahun";*/
-    } 
+        
+//         $years = $today_y - $dob_y;
+//        $months = $today_m - $dob_m;
+//        if ($today_m < $dob_m && $today_d < $dob_d) {
+//            $years--;
+//            $months = 12 + $today_m - $dob_m;
+//        }
+//
+//        if ($today_d < $dob_d) {
+//            $months--;
+//        }
+//
+//        $firstMonths = array(1, 3, 5, 7, 8, 10, 12);
+//        $secondMonths = array(4, 6, 9, 11);
+//        $thirdMonths = array(2);
+//
+//        if ($today_m - $dob_m == 1) {
+//            if (in_array($dob_m, $firstMonths)) {
+//                array_push($firstMonths, 0);
+//            } elseif (in_array($dob_m, $secondMonths)) {
+//                array_push($secondMonths, 0);
+//            } elseif (in_array($dob_m, $thirdMonths)) {
+//                array_push($thirdMonths, 0);
+//            }
+//        }
+//        /* $tahun = ($years>0)?"$years Tahun ":"";
+//          $tahun = ($years>0)?"$years Bulan ":"";
+//          $tahun = ($years>0)?"$years Hari ":"";
+//          if ($months>0) */
+//        if ($hanyaTahun == true) {
+//            return $years . ' Tahun';
+//        } elseif ($hanyaBulan == true) {
+//            return $months . ' Bulan';
+//        } else {
+//            return "$years Tahun $months Bulan";
+//        }
+//
+//        /*  else
+//          return "$years Tahun"; */
+    }
+
 }
 
 ?>

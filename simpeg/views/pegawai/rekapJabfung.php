@@ -145,6 +145,7 @@ $this->breadcrumbs = array(
     }
     ?>
 </div>
+
 <script>
     function printDiv(divName)
     {

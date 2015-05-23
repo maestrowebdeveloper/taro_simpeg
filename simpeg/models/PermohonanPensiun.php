@@ -43,7 +43,7 @@ class PermohonanPensiun extends CActiveRecord {
             array('masa_kerja', 'length', 'max' => 50),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, nomor_register, tanggal, pegawai_id, unit_kerja_id, tipe_jabatan, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, masa_kerja, tmt, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, nomor_register, status,tanggal, pegawai_id, unit_kerja_id, tipe_jabatan, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, masa_kerja, tmt, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -78,6 +78,7 @@ class PermohonanPensiun extends CActiveRecord {
             'jabatan_ft_id' => 'Jabatan Ft',
             'masa_kerja' => 'Masa Kerja',
             'tmt' => 'Tmt',
+            'status' => 'Status Pensiun',
             'created' => 'Created',
             'created_user_id' => 'Created User',
             'modified' => 'Modified',
@@ -104,13 +105,14 @@ class PermohonanPensiun extends CActiveRecord {
         $criteria->compare('id', $this->id);
         $criteria->compare('nomor_register', $this->nomor_register, true);
         $criteria->compare('tanggal', $this->tanggal, true);
-        $criteria->compare('pegawai_id', $this->pegawai_id);
+        $criteria->compare('pegawai_id', $this->pegawai_id,true);
         $criteria->compare('unit_kerja_id', $this->unit_kerja_id);
         $criteria->compare('tipe_jabatan', $this->tipe_jabatan, true);
         $criteria->compare('jabatan_struktural_id', $this->jabatan_struktural_id);
         $criteria->compare('jabatan_fu_id', $this->jabatan_fu_id);
         $criteria->compare('jabatan_ft_id', $this->jabatan_ft_id);
         $criteria->compare('masa_kerja', $this->masa_kerja, true);
+        $criteria->compare('status', $this->status, true);
         $criteria->compare('tmt', $this->tmt, true);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('created_user_id', $this->created_user_id);
@@ -147,6 +149,15 @@ class PermohonanPensiun extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
+    
+    public function getStatusPensiun() {
+        if ($this->status == 'sudah') {
+            $status = '<span class="label label-success">Sudah</span>';
+        } else {
+            $status = '<span class="label label-warning">Belum</span>';
+        }
+        return $status;
+    }
 
     public function getPegawai() {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
@@ -169,6 +180,10 @@ class PermohonanPensiun extends CActiveRecord {
 
     public function getTipeJabatan() {
         return ucwords(str_replace("_", " ", $this->tipe_jabatan));
+    }
+    public function arrStatus() {
+        $agama = array('sudah' => 'Sudah', 'belum' => 'Belum');
+        return $agama;
     }
 
     public function getJabatan() {

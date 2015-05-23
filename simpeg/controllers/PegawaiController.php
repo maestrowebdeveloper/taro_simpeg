@@ -532,12 +532,12 @@ class PegawaiController extends Controller {
     }
 
     public function actionGetMasaKerja() {
-        $bulan = !empty($_POST['bulan']) ? ($_POST['bulan'] * -1) : 0;
-        $tahun = !empty($_POST['tahun']) ? ($_POST['tahun'] * -1) : 0;
+        $bulan = !empty($_POST['bulan']) ? ($_POST['bulan']) : 0;
+        $tahun = !empty($_POST['tahun']) ? ($_POST['tahun']) : 0;
         $date = explode("-", $_POST['tmt_cpns']);
         $tmt = mktime(0, 0, 0, $date[1] + $bulan, $date[2], $date[0] + $tahun);
-        $tmt_cpns = date("Y-m-d", $tmt);
-        if (isset($tmt_cpns) or !empty($tmt_cpns)) {
+        $tmt_cpns = date("d-m-Y", $tmt);
+        if (isset($tmt_cpns) or ! empty($tmt_cpns)) {
             $data = array();
             $data['bulan'] = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true));
             $data['tahun'] = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true));
@@ -824,7 +824,7 @@ class PegawaiController extends Controller {
             $sGol = (isset($o->Pangkat->Golongan->nama)) ? $o->Pangkat->Golongan->nama : "-";
             $sJab = (isset($o->RiwayatJabatan->jabatanPegawai)) ? $o->RiwayatJabatan->jabatanPegawai : "-";
             $results[$no]['url'] = url('pegawai/' . $o->id);
-            $results[$no]['img'] = $o->imgUrl['small'];
+            $results[$no]['img'] = $o->imgUrl;
             $results[$no]['title'] = $o->nip . '<br/>' . $o->namaGelar;
             $results[$no]['description'] = $sJab . '<br/>' . $sGol;
         }
