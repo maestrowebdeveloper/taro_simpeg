@@ -37,15 +37,15 @@ class PermohonanIjinBelajar extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('nomor_register, tanggal, pegawai_id, jenjang_pendidikan, jenjang_pendidikan_asal,  tanggal_usul', 'required'),
-            array('nip, golongan, nama,jabatan, unit_kerja, id_jurusan, id_universitas, kota, alamat, nama_sekolah, jurusan, created, created_user_id, modified', 'safe'),
+            array('nomor_register, tanggal, pegawai_id, jenjang_pendidikan,id_jurusan,  tanggal_usul', 'required'),
+            array('nip, golongan, nama,jabatan, unit_kerja, id_jurusan, id_universitas, kota, alamat, nama_sekolah, created, created_user_id, modified', 'safe'),
             array('pegawai_id, kota, created_user_id', 'numerical', 'integerOnly' => true),
-            array('nomor_register, nip, jabatan, unit_kerja, jurusan, nama_sekolah', 'length', 'max' => 225),
+            array('nomor_register, nip, jabatan, unit_kerja, nama_sekolah', 'length', 'max' => 225),
             array('golongan', 'length', 'max' => 100),
             array('jenjang_pendidikan', 'length', 'max' => 9),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, nomor_register, tanggal, pegawai_id, nip, golongan, jabatan, unit_kerja, jenjang_pendidikan, jurusan, nama_sekolah, kota, alamat, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, nomor_register, tanggal, pegawai_id, nip, golongan, jabatan, unit_kerja, jenjang_pendidikan, id_jurusan, nama_sekolah, kota, alamat, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -57,7 +57,8 @@ class PermohonanIjinBelajar extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'Pegawai' => array(self::BELONGS_TO, 'Pegawai', 'pegawai_id'),
-            'JurusanUniv' => array(self::BELONGS_TO, 'Jurusan', 'id_jurusan'),
+            'Jurusan' => array(self::BELONGS_TO, 'Jurusan', 'id_jurusan'),
+//            'JurusanUniv' => array(self::BELONGS_TO, 'Jurusan', 'id_jurusan'),
             'Univ' => array(self::BELONGS_TO, 'Universitas', 'id_universitas'),
             'Kota' => array(self::BELONGS_TO, 'City', 'kota'),
         );
@@ -79,7 +80,7 @@ class PermohonanIjinBelajar extends CActiveRecord {
             'unit_kerja' => 'Unit Kerja',
             'jenjang_pendidikan' => 'Jenjang Pendidikan',
             'jenjang_pendidikan_asal' => 'Pendidikan Asal',
-            'jurusan' => 'Jurusan',
+            'id_jurusan' => 'Jurusan',
             'nama_sekolah' => 'Nama Sekolah',
             'kota' => 'Kota',
             'alamat' => 'Alamat',
@@ -115,7 +116,7 @@ class PermohonanIjinBelajar extends CActiveRecord {
         $criteria->compare('jabatan', $this->jabatan, true);
         $criteria->compare('unit_kerja', $this->unit_kerja, true);
         $criteria->compare('jenjang_pendidikan', $this->jenjang_pendidikan, true);
-        $criteria->compare('jurusan', $this->jurusan, true);
+        $criteria->compare('id_jurusan', $this->id_jurusan, true);
         $criteria->compare('nama_sekolah', $this->nama_sekolah, true);
         $criteria->compare('kota', $this->kota);
         $criteria->compare('alamat', $this->alamat, true);

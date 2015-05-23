@@ -110,22 +110,51 @@
             </div></div>
 
         <?php
-        echo $form->radioButtonListRow($model, 'jenjang_pendidikan_asal', Pegawai::model()->ArrJenjangPendidikan());
+//        echo $form->radioButtonListRow($model, 'jenjang_pendidikan_asal', Pegawai::model()->ArrJenjangPendidikan());
 
 
         echo $form->radioButtonListRow($model, 'jenjang_pendidikan', Pegawai::model()->ArrJenjangPendidikan());
         ?>
 
       <?php
-          echo $form->textFieldRow($model, 'jurusan', array(
-              'class' => 'span5',
-              'maxlength' => 225,
-             
-              ));
-     // }
+        $idjurusan = isset($model->id_jurusan) ? $model->id_jurusan : 0;
+        $jurusanName = isset($model->Jurusan->Name) ? $model->Jurusan->Name : '';
+        echo $form->select2Row($model, 'id_jurusan', array(
+            'asDropDownList' => false,
+//                    'data' => $data,
+//                    'value' => $model->Pegawai->nama,
+            'options' => array(
+                'placeholder' => t('choose', 'global'),
+                'allowClear' => true,
+                'width' => '400px',
+                'minimumInputLength' => '3',
+                'ajax' => array(
+                    'url' => Yii::app()->createUrl('pegawai/getJurusanTingkat'),
+                    'dataType' => 'json',
+                    'data' => 'js:function(term, page) { 
+                                                        return {
+                                                            q: term 
+                                                        }; 
+                                                    }',
+                    'results' => 'js:function(data) { 
+                                                        return {
+                                                            results: data
+                                                            
+                                                        };
+                                                    }',
+                ),
+                'initSelection' => 'js:function(element, callback) 
+                            { 
+                               callback({id: ' . $idjurusan . ', text: "' . $jurusanName . '" });
+                            
+                                  
+                            }',
+            ),
+                )
+        );
     ?>
         
-        <?php echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span5', 'maxlength' => 225)); ?>
+        <?php // echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span5', 'maxlength' => 225)); ?>
       <?php
 //    if(isset($model->jenjang_pendidikan != 'SMA/SMK') && ($model->jenjang_pendidikan != 'SD') && ($model->jenjang_pendidikan != 'SMP'){
     
@@ -142,60 +171,49 @@
                 'width' => '40%;margin:0px;text-align:left',
         )));
         echo "</div></div>";
-        echo' <div class="control-group "><label class="control-label">Jurusan</label><div class="controls">';
-        $data = array('0' => '- jurusan -') + CHtml::listData(Jurusan::model()->findAll(array('order' => 'Name')), 'id', 'Name');
-        $this->widget(
-                'bootstrap.widgets.TbSelect2', array(
-            'name' => 'PermohonanIjinBelajar[id_jurusan]',
-            'id' => 'jurusan_kuliah',
-            'data' => $data,
-            'value' => $model->id_jurusan,
-            'options' => array(
-                'width' => '40%;margin:0px;text-align:left',
-        )));
-        echo "</div></div>";
+       
 //    }
         ?>
         
         <?php
 //        $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'PermohonanIjinBelajar[kota]', 'cityValue' => $model->kota, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
 
-        $idkota = isset($model->kota) ? $model->kota : 0;
-        $kotaName = isset($model->Kota->name) ? $model->Kota->Province->name.' - '.$model->Kota->name : '';
-        echo $form->select2Row($model, 'kota', array(
-            'asDropDownList' => false,
-//                    'data' => $data,
-//                    'value' => $model->Kota->name,
-            'options' => array(
-                'placeholder' => t('choose', 'global'),
-                'allowClear' => true,
-                'width' => '400px',
-                'minimumInputLength' => '3',
-                'ajax' => array(
-                    'url' => Yii::app()->createUrl('city/getListKota'),
-                    'dataType' => 'json',
-                    'data' => 'js:function(term, page) { 
-                                                        return {
-                                                            q: term 
-                                                        }; 
-                                                    }',
-                    'results' => 'js:function(data) { 
-                                                        return {
-                                                            results: data
-                                                            
-                                                        };
-                                                    }',
-                ),
-                'initSelection' => 'js:function(element, callback) 
-                            { 
-                            callback({id: '.$idkota.', text: "'.$kotaName.'" });
-                             
-                                  callback(data);
-                                  
-                            }',
-            ),
-                )
-        );
+//        $idkota = isset($model->kota) ? $model->kota : 0;
+//        $kotaName = isset($model->Kota->name) ? $model->Kota->Province->name.' - '.$model->Kota->name : '';
+//        echo $form->select2Row($model, 'kota', array(
+//            'asDropDownList' => false,
+////                    'data' => $data,
+////                    'value' => $model->Kota->name,
+//            'options' => array(
+//                'placeholder' => t('choose', 'global'),
+//                'allowClear' => true,
+//                'width' => '400px',
+//                'minimumInputLength' => '3',
+//                'ajax' => array(
+//                    'url' => Yii::app()->createUrl('city/getListKota'),
+//                    'dataType' => 'json',
+//                    'data' => 'js:function(term, page) { 
+//                                                        return {
+//                                                            q: term 
+//                                                        }; 
+//                                                    }',
+//                    'results' => 'js:function(data) { 
+//                                                        return {
+//                                                            results: data
+//                                                            
+//                                                        };
+//                                                    }',
+//                ),
+//                'initSelection' => 'js:function(element, callback) 
+//                            { 
+//                            callback({id: '.$idkota.', text: "'.$kotaName.'" });
+//                             
+//                                  callback(data);
+//                                  
+//                            }',
+//            ),
+//                )
+//        );
         ?>
 
         <?php echo $form->textAreaRow($model, 'alamat', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
@@ -230,7 +248,7 @@
         <?php
         $siteConfig = SiteConfig::model()->listSiteConfig();
         $content = $siteConfig->format_ijin_belajar;
-
+        $universitas = (isset($model->Univ->name)) ? $model->Univ->name :'-';
         $content = str_replace('{nomor}', $model->nomor_register, $content);
         $content = str_replace('{nama}', $model->nama, $content);
         $content = str_replace('{nip}', $model->nip, $content);
@@ -238,9 +256,9 @@
         $content = str_replace('{unit_kerja}', $model->unit_kerja, $content);
         $content = str_replace('{jabatan}', $model->jabatan, $content);
         $content = str_replace('{jenjang_pendidikan}', $model->jenjang_pendidikan, $content);
-        $content = str_replace('{jurusan}', $model->jurusan, $content);
-        $content = str_replace('{id_jurusan}', $model->jurusan, $content);
-        $content = str_replace('{id_universitas}', $model->jurusan, $content);
+//        $content = str_replace('{jurusan}', $model->jurusan, $content);
+        $content = str_replace('{id_jurusan}', $model->Jurusan->Name, $content);
+        $content = str_replace('{id_universitas}', $universitas, $content);
         $content = str_replace('{nama_sekolah}', $model->nama_sekolah, $content);
         $content = str_replace('{kota_sekolah}', $model->kotaSekolah, $content);
         $content = str_replace('{tanggal}', date('d F Y', strtotime($model->created)), $content);
@@ -311,58 +329,30 @@
 
 
     }
-        $("body").on("click", ".radio", function () {
-        var id = $(this).find("input").val();
-        
-        if (id == "SLTA/SMK") {
-            $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none")
-            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:");
-            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");
-        }
-        else if (id == "SLTP") {
-            $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");
-        }
-        else if (id == "SD") {
-            $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");
-        }
-        else {
-            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:");
-            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:");
-        }
        
-    });
     <?php
-    if ($model->jenjang_pendidikan == "SD") {
-    echo '$("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
-} else
-    if ($model->jenjang_pendidikan == "SLTP"){
-       echo ' $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
-}else
-    if ($model->jenjang_pendidikan == "SLTA/SMK"){
-        echo'$("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none")
-            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:");
-            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
-    }else{
-        echo'$("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:none");
-            $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:");
-            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:");';
-    }
+//    if ($model->jenjang_pendidikan == "SD") {
+//    echo '$("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
+//} else
+//    if ($model->jenjang_pendidikan == "SLTP"){
+//       echo ' $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
+//}else
+//    if ($model->jenjang_pendidikan == "SLTA/SMK"){
+//        echo'$("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none")
+//            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:");
+//            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
+//    }else{
+//        echo'$("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:");
+//            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:");';
+//    }
 ?>
 </script>

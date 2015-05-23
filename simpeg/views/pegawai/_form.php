@@ -87,7 +87,7 @@
                                     <input class="span3" disabled value="<?php echo $model->pendidikanTerakhir; ?>"  id="pendidikanTerakhir" placeHolder="Pendidikan Terakhir" type="text">
                                     <input class="span1 angka"  disabled maxlength="4" value="<?php echo $model->pendidikanTahun; ?>" id="pendidikanTahun" placeHolder="Tahun" type="text">
                                     <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
-                                        <a class="btn blue pilihPendidikan" pegawai="<?php echo $model->id; ?>;" id="pilihPendidikan"><i class="wpzoom-search blue"></i> Riwayat Pendidikan</a>
+                                        <a class="btn blue pilihPendidikan" pegawai="<?php echo $model->id; ?>;" judulpendidikan="Riwayat Pendidikan" id="pilihPendidikan"><i class="wpzoom-search blue"></i> Riwayat Pendidikan</a>
                                     <?php } ?>
 
                                 </div>
@@ -403,7 +403,7 @@
                                     </div>                                    
 
                                     <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
-                                        <a class="btn blue pilihPangkat" pegawai="<?php echo $model->id; ?>;" id="pilihPangkat"><i class="wpzoom-search blue"></i> Riwayat Pangkat</a>
+                                        <a class="btn blue pilihPangkat" pegawai="<?php echo $model->id; ?>;" judulPangkat="Riwayat Pangkat" id="pilihPangkat"><i class="wpzoom-search blue"></i> Riwayat Pangkat</a>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -415,7 +415,7 @@
                                     ?>
                                     <input class="span4" disabled value="<?php echo $model->riwayatTipeJabatan; ?>"  id="riwayatTipeJabatan" placeHolder="" type="text">                                    
                                     <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
-                                        <a class="btn blue pilihJabatan" pegawai="<?php echo $model->id; ?>;" id="pilihJabatan"><i class="wpzoom-search blue"></i> Riwayat Jabatan</a>
+                                        <a class="btn blue pilihJabatan" pegawai="<?php echo $model->id; ?>;" judulJabatan="Riwayat Jabatan" id="pilihJabatan"><i class="wpzoom-search blue"></i> Riwayat Jabatan</a>
                                         <a class="btn blue hapusJabatan" pegawai="<?php echo $model->id; ?>;" id="hapusJabatan" title="hapus jabatan"><i class="brocco-icon-cancel blue"></i></a>
                                     <?php } ?>
                                 </div>
@@ -492,7 +492,7 @@
                                         <input class="span10"  disabled maxlength="4" id="tmtMulai" value="<?php echo $model->tmtGaji; ?>"  type="text">
                                     </div> 
                                     <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
-                                        <a class="btn blue pilihGaji" pegawai="<?php echo $model->id; ?>;" id="pilihGaji"><i class="wpzoom-search blue"></i> Riwayat Gaji</a>
+                                        <a class="btn blue pilihGaji" pegawai="<?php echo $model->id; ?>;" judulGaji="Riwayat Gaji" id="pilihGaji"><i class="wpzoom-search blue"></i> Riwayat Gaji</a>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -750,7 +750,8 @@ $this->beginWidget(
 ?>
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
-    <h3 style="text-align:center">RIWAYAT PEGAWAI</h3>
+    <h3 style="text-align:center"><span id="judul"></span></h3>
+
 </div>
 <div class="modal-body form-horizontal">
 
@@ -854,6 +855,7 @@ $this->beginWidget(
         });
     }
     $(".pilihPendidikan").click(function() {
+    var judul = $(this).attr('judulPendidikan');
         $.ajax({
             url: "<?php echo url('pegawai/getTablePendidikan'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
@@ -863,9 +865,11 @@ $this->beginWidget(
             }
         });
         $("#modalForm").modal("show");
+        $("#judul").html(judul);
     });
 
     $(".pilihPangkat").click(function() {
+    var judul = $(this).attr('judulPangkat');
         $.ajax({
             url: "<?php echo url('pegawai/getTablePangkat'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
@@ -875,9 +879,11 @@ $this->beginWidget(
             }
         });
         $("#modalForm").modal("show");
+        $("#judul").html(judul);
     });
 
     $(".pilihJabatan").click(function() {
+        var judul = $(this).attr('judulJabatan');
         $.ajax({
             url: "<?php echo url('pegawai/getTableJabatan'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
@@ -887,6 +893,8 @@ $this->beginWidget(
             }
         });
         $("#modalForm").modal("show");
+        $("#judul").html(judul);
+
     });
     $(".hapusJabatan").click(function() {
         $("#Pegawai_riwayat_jabatan_id").val(0);
@@ -896,6 +904,7 @@ $this->beginWidget(
         $("#riwayatBidangJabatan").val('-');
     });
     $(".pilihGaji").click(function() {
+         var judul = $(this).attr('judulGaji');
         $.ajax({
             url: "<?php echo url('pegawai/getTableGaji'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
@@ -905,6 +914,7 @@ $this->beginWidget(
             }
         });
         $("#modalForm").modal("show");
+        $("#judul").html(judul);
     });
     $(function() {
 
