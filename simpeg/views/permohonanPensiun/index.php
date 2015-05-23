@@ -63,6 +63,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'enableAjaxValidation' => false,
     'method' => 'post',
     'type' => 'horizontal',
+    'action' => url('permohonanPensiun/pensiunConfirm'),
     'htmlOptions' => array(
         'enctype' => 'multipart/form-data'
     )
@@ -70,6 +71,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 ?>
 
 <button type="submit" name="delete" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-danger pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Delete Checked</button>    
+<button type="submit" name="pensiun_confirm" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-success pull-right"><span class="icon16 entypo-icon-publish white"></span> Confirm Pensiun</button>
 <br>
 <br>
 <?php
@@ -97,6 +99,12 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array(
             'name' => 'pegawai_id',
             'value' => '$data->pegawai',
+        ),
+        array(
+            'name' => 'status',
+            'type'=>'raw',
+            'header' => 'Status',
+            'value' => '$data->statusPensiun',
         ),
         array(
             'name' => 'unit_kerja_id',
