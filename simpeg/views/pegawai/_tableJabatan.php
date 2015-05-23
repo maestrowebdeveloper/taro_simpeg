@@ -31,13 +31,12 @@
 
                 $eselon = '-';
                 $tmt_eselon = '-';
-                
+
                 if ($value->tipe_jabatan == "struktural") {
                     $tmt_jabatan = $value->tmt_mulai;
                     $eselon = (!empty($value->JabatanStruktural->Eselon->nama)) ? $value->JabatanStruktural->Eselon->nama : '-';
                     $tmt_eselon = $value->tmt_eselon;
-                    $jabatan = $value->JabatanStruktural->nama;
-                    
+                    $jabatan = (isset($value->JabatanStruktural->nama)) ? $value->JabatanStruktural->nama : '-';
                 } else if ($value->tipe_jabatan == "fungsional_umum") {
                     $jabatan = (isset($value->JabatanFu->nama)) ? $value->JabatanFu->nama : '';
                     $tmt_jabatan = $value->tmt_mulai;
@@ -45,7 +44,7 @@
                     $jabatan = (isset($value->JabatanFt->nama)) ? $value->JabatanFt->nama : '';
                     $tmt_jabatan = $value->tmt_mulai;
                 }
-                
+
                 echo '
                 <tr>
                 <td>' . $value->nomor_register . '</td>
@@ -63,23 +62,23 @@
 </div>
 
 <script>
-    $(".editJabatan,.addJabatan").click(function () {
+    $(".editJabatan,.addJabatan").click(function() {
         $.ajax({
             url: "<?php echo url('pegawai/getJabatan'); ?>",
             data: "id=" + $(this).attr("id") + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function (data) {
+            success: function(data) {
                 $(".modal-body").html(data);
             }
         });
         $("#modalForm").modal("show");
     });
-    $(".deleteJabatan").click(function () {
+    $(".deleteJabatan").click(function() {
         $.ajax({
             url: "<?php echo url('pegawai/deleteJabatan'); ?>",
             data: "id=" + $(this).attr("id") + "&pegawai=" + $(this).attr("pegawai") + "&riwayat_jabatan_pegawai=" + $("#Pegawai_riwayat_jabatan_id").val(),
             type: "post",
-            success: function (data) {
+            success: function(data) {
                 obj = JSON.parse(data);
                 $(".modal-body").html(obj.body);
                 if (obj.default == 1) {
@@ -90,20 +89,24 @@
             }
         });
     });
-    $(".selectJabatan").click(function () {
+    $(".selectJabatan").click(function() {
         $.ajax({
             url: "<?php echo url('pegawai/selectJabatan'); ?>",
             data: "id=" + $(this).attr("id") + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function (data) {
+            success: function(data) {
                 obj = JSON.parse(data);
-                $("#Pegawai_riwayat_jabatan_id").val(obj.id);
-                $("#riwayatTipeJabatan").val(obj.tipe);
-                $("#riwayatNamaJabatan").val(obj.jabatan);
-                $("#riwayatTmtJabatan").val(obj.tmt);
-                $("#riwayatBidangJabatan").val(obj.bidang);
-                $("#modalForm").modal("hide");
-                pensiun($("#Pegawai_tanggal_lahir").val(), obj.id);
+                if (obj.isi == 1) {
+                    alert("jabatan sudah di emban oleh "+obj.pegawai+" dengan NIP : "+obj.nip);
+                } else {
+                    $("#Pegawai_riwayat_jabatan_id").val(obj.id);
+                    $("#riwayatTipeJabatan").val(obj.tipe);
+                    $("#riwayatNamaJabatan").val(obj.jabatan);
+                    $("#riwayatTmtJabatan").val(obj.tmt);
+                    $("#riwayatBidangJabatan").val(obj.bidang);
+                    $("#modalForm").modal("hide");
+                    pensiun($("#Pegawai_tanggal_lahir").val(), obj.id);
+                }
             }
         });
     });

@@ -103,12 +103,13 @@ class JabatanStrukturalController extends Controller {
 //        echo empty(NULL);
         JabatanStruktural::model()->deleteAll();
 
-        $var = cmd("SELECT * FROM temp ORDER BY ordering")->query();
+        $var = cmd("SELECT * FROM temp ORDER BY id")->query();
         foreach ($var as $val) {
             if (empty($val['maju'])) { //0, null, ''
                 $model = new JabatanStruktural;
                 $model->id = $val['id'];
                 $model->nama = $val['name'];
+                $model->jabatan = $val['jabatan'];
                 $model->unit_kerja_id = $val['unit_kerja_id'];
                 $model->eselon_id = $val['eselon_id'];
                 $model->parent_id = 0;
@@ -118,6 +119,7 @@ class JabatanStrukturalController extends Controller {
                 $child = new JabatanStruktural;
                 $child->id = $val['id'];
                 $child->nama = $val['name'];
+                $model->jabatan = $val['jabatan'];
                 $child->unit_kerja_id = $val['unit_kerja_id'];
                 $child->eselon_id = $val['eselon_id'];
                 $child->parent_id = $parent;
@@ -130,6 +132,7 @@ class JabatanStrukturalController extends Controller {
                 $child = new JabatanStruktural;
                 $child->id = $val['id'];
                 $child->nama = $val['name'];
+                $child->jabatan = $val['jabatan'];
                 $child->unit_kerja_id = $val['unit_kerja_id'];
                 $child->eselon_id = $val['eselon_id'];
                 $child->parent_id = $parent_1;
