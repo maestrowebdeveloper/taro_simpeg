@@ -494,8 +494,8 @@ class LandaCore extends CApplicationComponent {
         $today_m = $today_a[1];
         $today_y = $today_a[2];
 
-        $startDate = gregoriantojd($dob_m, $dob_d, $dob_y);
-        $todayDate = gregoriantojd($today_m, $today_d, $today_y);
+        $startDate = gregoriantojd((int) $dob_m,(int) $dob_d, (int) $dob_y);
+        $todayDate = gregoriantojd((int) $today_m,(int) $today_d,(int) $today_y);
 
         $lama = $todayDate - $startDate;
 

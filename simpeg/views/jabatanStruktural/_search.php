@@ -7,23 +7,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 ?>
 
 <div class="control-group ">
-    <label class="control-label">Parent</label>
-    <div class="controls">
-        <?php
-        $data = array('0' => '- Parent -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-        $this->widget(
-                'bootstrap.widgets.TbSelect2', array(
-            'name' => 'JabatanStruktural[parent_id]',
-            'data' => $data,
-            'value' => $model->parent_id,
-            'options' => array(
-                'width' => '40%;margin:0px;text-align:left',
-        )));
-        ?>                
-    </div>
-</div>
-<div class="control-group ">
-    <label class="control-label">Unit Kerja <span class="required">*</span></label>
+    <label class="control-label">Satuan Kerja <span class="required">*</span></label>
     <div class="controls">
         <?php
         $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
