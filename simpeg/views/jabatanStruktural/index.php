@@ -104,6 +104,9 @@ $this->endWidget();
             'name' => 'status',
             'value' => '(isset($data->Pegawai->nama)) ? $data->Pegawai->nama : "-"',            
         ),
+        array(
+            'name' => 'jabatan',
+        ),
        array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
 			'template' => '{view} {update} {delete}',
