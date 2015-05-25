@@ -149,37 +149,14 @@ class GajiController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-
-        $model = new Gaji('search');
-        $model->unsetAttributes();  // clear any default values
-
-        if (isset($_GET['Gaji'])) {
-            $model->attributes = $_GET['Gaji'];
-
-
-            if (!empty($model->id))
-                $criteria->addCondition('id = "' . $model->id . '"');
-
-
-            if (!empty($model->tahun))
-                $criteria->addCondition('tahun = "' . $model->tahun . '"');
-
-
-            if (!empty($model->gaji))
-                $criteria->addCondition('gaji = "' . $model->gaji . '"');
-
-
-            if (!empty($model->created))
-                $criteria->addCondition('created = "' . $model->created . '"');
-
-
-            if (!empty($model->modified))
-                $criteria->addCondition('modified = "' . $model->modified . '"');
-        }
-
-        $this->render('index', array(
-            'model' => $model,
-        ));
+        $id = 1;
+        $this->layout = 'mainWide';
+        cs()->registerScript('read', '
+                    $("form input, form textarea, form select").each(function(){
+                    $(this).prop("disabled", true);
+                });');
+        $_GET['v'] = true;
+        $this->actionUpdate($id);
     }
 
     /**

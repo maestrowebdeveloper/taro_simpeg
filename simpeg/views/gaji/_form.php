@@ -22,10 +22,7 @@ foreach (Yii::app()->user->getFlashes() as $key => $message) {
 
         <?php echo $form->errorSummary($model, 'Opps!!!', null, array('class' => 'alert alert-error span12')); ?>
 
-        <?php echo $form->dropDownListRow($model, 'tahun', landa()->yearly(), array('class' => 'span3')); ?>
-
-        <?php echo $form->textFieldRow($model, 'dasar_perubahan', array('class' => 'span3')); ?>
-        <br>
+         <br>
         <table class="table table-bordered" id="table-1">
             <thead>
                 <tr>

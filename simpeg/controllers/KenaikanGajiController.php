@@ -66,9 +66,17 @@ class KenaikanGajiController extends Controller
 
 		if(isset($_POST['KenaikanGaji']))
 		{
-			$model->attributes=$_POST['KenaikanGaji'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+                        $tanggalKenaikan = "01-".$_POST['bulan']."-".$_POST['tahun'];
+                        $pegawai = Pegawai::model()->findAll(array('condition'=>'kedudukan_id = 1'));
+                        $kenaikanGaji = Gaji::model()->findByPk(1);
+                        $gajiBaru = json_decode($kenaikanGaji, true);
+                        foreach ($pegawai as $valPegawai){
+                            
+                        }
+                        
+//			$model->attributes=$_POST['KenaikanGaji'];
+//			if($model->save())
+//				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
