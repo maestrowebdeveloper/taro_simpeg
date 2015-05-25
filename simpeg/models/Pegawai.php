@@ -212,7 +212,7 @@ class Pegawai extends CActiveRecord {
 
         $criteria->compare('id', $this->id);
         $criteria->compare('nip', $this->nip, true);
-        $criteria->compare('nama', $this->nama, true);
+        $criteria->compare('t.nama', $this->nama, true);
         $criteria->compare('gelar_depan', $this->gelar_depan, true);
         $criteria->compare('gelar_belakang', $this->gelar_belakang, true);
         $criteria->compare('tempat_lahir', $this->tempat_lahir);
@@ -541,11 +541,11 @@ class Pegawai extends CActiveRecord {
 
     public function getJabatan() {
         if ($this->tipe_jabatan == "struktural") {
-            return (!empty($this->JabatanStruktural->jabatan)) ? $this->JabatanStruktural->jabatan : '-';
+            return (!empty($this->JabatanStruktural->jabatan)) ? $this->JabatanStruktural->jabatan : '';
         } elseif ($this->tipe_jabatan == "fungsional_umum") {
-            return (!empty($this->JabatanFu->nama)) ? $this->JabatanFu->nama : '-';
+            return (!empty($this->JabatanFu->nama)) ? $this->JabatanFu->nama : '';
         } elseif ($this->tipe_jabatan == "fungsional_tertentu") {
-            return (!empty($this->JabatanFt->nama)) ? $this->JabatanFt->nama : '-';
+            return (!empty($this->JabatanFt->nama)) ? $this->JabatanFt->nama : '';
         } else {
             return '-';
         }

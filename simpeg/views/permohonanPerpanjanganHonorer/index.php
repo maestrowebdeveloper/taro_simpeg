@@ -62,6 +62,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'enableAjaxValidation' => false,
     'method' => 'post',
     'type' => 'horizontal',
+    'action' => url('permohonanPerpanjangHonorer/perpanjang'),
     'htmlOptions' => array(
         'enctype' => 'multipart/form-data'
     )
@@ -69,6 +70,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 ?>
 
 <button type="submit" name="delete" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-danger pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Delete Checked</button>    
+<button type="submit" name="perpanjang" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-warning pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Perpanjang Checked</button>    
 <br>
 <br>
 

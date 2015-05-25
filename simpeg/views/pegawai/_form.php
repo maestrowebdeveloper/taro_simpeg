@@ -424,7 +424,7 @@
 
                             <div class="control-group "><label class="control-label" for="Pegawai_golongan_id">Jabatan</label>
                                 <div class="controls">                                    
-                                    <input class="span4" disabled value="<?php echo $model->riwayatNamaJabatan; ?>"  id="riwayatNamaJabatan" placeHolder="" type="text">
+                                    <input class="span4" disabled value="<?php echo $model->jabatan; ?>"  id="riwayatNamaJabatan" placeHolder="" type="text">
                                     <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
                                         <input class="span10"  disabled maxlength="4" id="riwayatTmtJabatan" value="<?php echo $model->riwayatTmtJabatan; ?>"  type="text">
                                     </div>                                                                                                            
