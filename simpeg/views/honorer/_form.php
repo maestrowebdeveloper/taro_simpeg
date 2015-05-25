@@ -378,6 +378,12 @@ if ($model->isNewRecord == true) {
                             )
                     );
                     echo $form->datepickerRow(
+                            $model, 'tmt_mulai_kontrak', array(
+                        'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                        'prepend' => '<i class="icon-calendar"></i>'
+                            )
+                    );
+                    echo $form->datepickerRow(
                             $model, 'tmt_akhir_kontrak', array(
                         'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                         'prepend' => '<i class="icon-calendar"></i>'

@@ -17,7 +17,7 @@ class Honorer extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nomor_register, nama,tanggal_register, tanggal_lahir', 'required'),
-            array('kode,gelar_depan,gelar_belakang,tempat_lahir,st_peg,status_sk, ket_agama, tanggal_lahir, jenis_kelamin, agama, id_jurusan, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_struktural_id,jabatan_fu_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
+            array('kode,gelar_depan,gelar_belakang,tempat_lahir,st_peg,status_sk, ket_agama, tanggal_lahir, jenis_kelamin, agama, id_jurusan, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_struktural_id,jabatan_fu_id, tmt_jabatan, tmt_mulai_kontrak, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
             array(' unit_kerja_id, jabatan_struktural_id, gaji, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register, foto', 'length', 'max' => 225),
             array('nama', 'length', 'max' => 100),
@@ -31,7 +31,7 @@ class Honorer extends CActiveRecord {
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id,kode,status_sk, st_peg, nomor_register, nama,gelar_depan,gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, id_jurusan, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto, unit_kerja_id, tmt_kontrak, jabatan_struktural_id,jabatan_fu_id, tmt_jabatan, tmt_akhir_kontrak, gaji, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id,kode,status_sk, st_peg, nomor_register, nama,gelar_depan,gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, id_jurusan, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto, unit_kerja_id, tmt_kontrak, jabatan_struktural_id,jabatan_fu_id, tmt_jabatan, tmt_mulai_kontrak, tmt_akhir_kontrak, gaji, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -78,11 +78,12 @@ class Honorer extends CActiveRecord {
             'npwp' => 'No. NPWP',
             'foto' => 'Foto',
 //            'unit_kerja_id' => 'Unit Kerja',
-            'tmt_kontrak' => 'Tmt Kontrak',
+            'tmt_kontrak' => 'Tmt Kontrak Pertama',
             'jabatan_struktural_id' => 'Unit Kerja',
             'jabatan_fu_id' => 'Jabatan',
             'tmt_jabatan' => 'Tmt Jabatan',
             'tmt_akhir_kontrak' => 'Tmt Akhir Kontrak',
+            'tmt_mulai_kontrak' => 'Tmt Mulai Kontrak',
             'gaji' => 'Gaji',
             'created' => 'Created',
             'created_user_id' => 'Created User',
@@ -163,6 +164,7 @@ class Honorer extends CActiveRecord {
         $criteria->compare('jabatan_fu_id', $this->jabatan_fu_id);
         $criteria->compare('tmt_jabatan', $this->tmt_jabatan, true);
         $criteria->compare('tmt_akhir_kontrak', $this->tmt_akhir_kontrak, true);
+        $criteria->compare('tmt_mulai_kontrak', $this->tmt_mulai_kontrak, true);
         $criteria->compare('gaji', $this->gaji);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('created_user_id', $this->created_user_id);
@@ -451,6 +453,15 @@ class Honorer extends CActiveRecord {
                         ' . date('d M Y', strtotime($this->tmt_kontrak)) . '
                     </div>
                 </div>      
+                <div class="row-fluid">
+                    <div class="span3" style="text-align:left">
+                        <b>TMT Mulai Kontrak</b>
+                    </div>
+                    <div class="span1">:</div>
+                    <div class="span8" style="text-align:left">
+                        ' . date('d M Y', strtotime($this->tmt_mulai_kontrak)) . '
+                    </div>
+                </div>      
                  <div class="row-fluid">
                     <div class="span3" style="text-align:left">
                         <b>TMT Akhir Kontrak</b>
@@ -514,6 +525,9 @@ class Honorer extends CActiveRecord {
     }
     public function getTmtKontrak() {
         return date('d M Y', strtotime($this->tmt_kontrak));
+    }
+    public function getTmtMulaiKontrak() {
+        return date('d M Y', strtotime($this->tmt_mulai_kontrak));
     }
     public function getTmtAkhirKontrak() {
         return date('d M Y', strtotime($this->tmt_akhir_kontrak));

@@ -47,7 +47,11 @@ $this->endWidget();
 </div><!-- search-form -->
 
 
-
+<?php
+foreach (Yii::app()->user->getFlashes() as $key => $message) {
+    echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
+}
+?>
 <?php
 $display = (landa()->checkAccess("permohonanPensiun", "d") == 0) ? 'none' : '';
 $button = "";

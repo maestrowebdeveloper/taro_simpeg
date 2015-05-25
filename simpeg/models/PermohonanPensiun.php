@@ -164,11 +164,11 @@ class PermohonanPensiun extends CActiveRecord {
     }
     
     public function getTglPensiun() {
-        return (!empty(date('d-m-Y', strtotime($this->tanggal)))) ? date('d-m-Y', strtotime($this->tanggal)) : '-';
+        return (!empty($this->tanggal)) ? date('d-m-Y', strtotime($this->tanggal)) : '-';
     }
     
     public function getTmtPensiun() {
-        return (!empty(date('d-m-Y', strtotime($this->tmt)))) ? date('d-m-Y', strtotime($this->tmt)) : '-';
+        return (!empty($this->tmt)) ? date('d-m-Y', strtotime($this->tmt)) : '-';
     }
 
     public function getUnitKerja() {

@@ -156,7 +156,7 @@ class PermohonanIjinBelajar extends CActiveRecord {
     }
 
     public function getTglIjnBelajar() {
-        return (!empty(date('d-m-Y', strtotime($this->tanggal)))) ? date('d-m-Y', strtotime($this->tanggal)) : '-';
+        return (!empty($this->tanggal)) ? date('d-m-Y', strtotime($this->tanggal)) : '-';
     }
 
     public function getPegawai() {

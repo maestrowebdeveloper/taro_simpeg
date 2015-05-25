@@ -71,6 +71,7 @@ class PegawaiController extends Controller {
         $return['pendidikan_terakhir'] = $model->pendidikanTerakhir . ' - ' . $model->pendidikanJurusan;
         echo json_encode($return);
     }
+ 
 
     public function actionGetListPegawai() {
         $name = $_GET["q"];

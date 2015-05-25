@@ -109,12 +109,12 @@ class PermohonanPensiunController extends Controller {
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-        $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
-        if (!empty($pegawai)) {
-            $model->unit_kerja_id = $pegawai->unitKerja;
-            $model->tipe_jabatan = $pegawai->tipe;
-            $model->jabatan_struktural_id = $pegawai->jabatan;
-        }
+//        $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
+//        if (!empty($pegawai)) {
+//            $model->unit_kerja_id = $pegawai->unitKerja;
+//            $model->tipe_jabatan = $pegawai->tipe;
+//            $model->jabatan_struktural_id = $pegawai->jabatan;
+//        }
         $this->render('update', array(
             'model' => $model,
         ));
@@ -133,7 +133,8 @@ class PermohonanPensiunController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        } else
+        }
+        else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -146,13 +147,17 @@ class PermohonanPensiunController extends Controller {
 
                     //update kedudukan id
                     Pegawai::model()->updateAll(array(
-                        'kedudukan_id'=>14,'tmt_pensiun'=>$a->tmt), 'id=' . $a->pegawai_id);
-                    $a->status='sudah';
+                        'kedudukan_id' => 14, 'tmt_pensiun' => $a->tmt), 'id=' . $a->pegawai_id);
+                    $a->status = 'sudah';
                     $a->save();
                 }
+                user()->setFlash('info', 'Data is update now.');
+                $this->redirect(array('permohonanPensiun/index'));
+            }else{
+                PermohonanPensiun::model()->deleteAll('id IN (' . implode(',', $_POST['ceckbox']) . ')');
+                user()->setFlash('info', 'Data is delete now.');
+                $this->redirect(array('permohonanPensiun/index'));
             }
-            user()->setFlash('info', 'Data is update now.');
-            $this->redirect(array('permohonanPensiun/index'));
         }
     }
 
