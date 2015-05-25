@@ -56,7 +56,7 @@ class JabatanStruktural extends CActiveRecord {
         return array(
             'UnitKerja' => array(self::BELONGS_TO, 'UnitKerja', 'unit_kerja_id'),
             'Eselon' => array(self::BELONGS_TO, 'Eselon', 'eselon_id'),
-            'Pegawai' => array(self::HAS_ONE, 'Pegawai', 'jabatan_struktural_id', 'condition'=>'kedudukan_id="1" AND tipe_jabatan="struktural"'),
+            'Pegawai' => array(self::HAS_ONE, 'Pegawai', 'jabatan_struktural_id', 'condition' => 'kedudukan_id="1" AND tipe_jabatan="struktural"'),
             'Riwayatjabatan' => array(self::HAS_MANY, 'RiwayatJabatan', 'jabatan_struktural_id'),
         );
     }
@@ -68,6 +68,7 @@ class JabatanStruktural extends CActiveRecord {
         return array(
             'id' => 'ID',
             'nama' => 'Unit kerja',
+            'jabatan' => 'Nama Jabatan',
             'keterangan' => 'Keterangan',
             'unit_kerja_id' => 'Satuan Kerja',
             'eselon_id' => 'Eselon',
@@ -105,19 +106,11 @@ class JabatanStruktural extends CActiveRecord {
         $criteria->compare('t.nama', $this->nama, true);
         $criteria->compare('t.jabatan', $this->jabatan, true);
         $criteria->compare('keterangan', $this->keterangan, true);
-        $criteria->compare('t.unit_kerja_id', $this->unit_kerja_id, true);
-        $criteria->compare('eselon_id', $this->eselon_id,true);
-        $criteria->compare('status', $this->status,true);
-        $criteria->compare('level', $this->level, true);
-        $criteria->compare('t.lft', $this->lft,true);
-        $criteria->compare('t.rgt', $this->rgt,true);
-        $criteria->compare('t.root', $this->root, true);
-       if(!empty($_POST['JabatanStruktural']['parent_id'])){
-         $criteria->compare('parent_id', $this->parent_id, true);   
-       }
-        $criteria->compare('created', $this->created, true);
-        $criteria->compare('created_user_id', $this->created_user_id, true);
-        $criteria->compare('modified', $this->modified, true);
+        if (!empty($this->unit_kerja_id))
+            $criteria->compare('t.unit_kerja_id', $this->unit_kerja_id, true);
+        if (!empty($this->eselon_id))
+            $criteria->compare('eselon_id', $this->eselon_id, true);
+        $criteria->compare('status', $this->status, true);
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,

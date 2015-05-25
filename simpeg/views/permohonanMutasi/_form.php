@@ -120,26 +120,6 @@
         echo $form->select2Row($model, 'new_jabatan_struktural_id', array(
             'asDropDownList' => true,
             'data' => $data,
-            'events' => array('change' => 'js: function() {
-                                                    $.ajax({
-                                                       url : "' . url('permohonanMutasi/statusJabatan') . '",
-                                                       type : "POST",
-                                                       data : $("#permohonan-mutasi-form").serialize(),
-                                                       success : function(data){ 
-                                                      
-                                                       obj = JSON.parse(data);
-                                                        $("#eselon").val(obj.eselon);
-                                                        $("#jabatan").val(obj.jabatan);
-                                                        if(obj.status==1){
-                                                            if($("#Pegawai_jabatan_struktural_id").val()!="' . $model->jabatan_struktural_id . '"){
-                                                                alert("Jabatan Telah Diemban Orang Lain");
-                                                                $("#s2id_Pegawai_jabatan_struktural_id").select2("val", "' . $model->jabatan_struktural_id . '") ;  
-                                                            }        
-                                                        }
-                                                        
-                                                    }
-                                                });
-                                            }'),
             'options' => array(
                 "allowClear" => false,
                 'width' => '40%',
@@ -310,7 +290,7 @@
 <script>
 
     // get detail pegawai
-    $("#PermohonanMutasi_pegawai_id").on("change", function() {
+    $("#PermohonanMutasi_pegawai_id").on("change", function () {
         //var name = $("#Registration_guest_user_id").val();
         //  alert(name);
 
@@ -318,7 +298,7 @@
             url: "<?php echo url('pegawai/getDetail'); ?>",
             type: "POST",
             data: {id: $(this).val()},
-            success: function(data) {
+            success: function (data) {
 
                 obj = JSON.parse(data);
                 $("#PermohonanMutasi_unit_kerja_lama").val(obj.unit_kerja);
@@ -328,15 +308,37 @@
             }
         });
     })
+    $("#PermohonanMutasi_new_jabatan_struktural_id, #PermohonanMutasi_new_tipe_jabatan_0").on("change", function(){
+        getJabatan();
+    });
+    function getJabatan() {
+        $.ajax({
+            url: "<?php echo url('permohonanMutasi/statusJabatan') ?>",
+            type: "POST",
+            data: $("#permohonan-mutasi-form").serialize(),
+            success: function (data) {
 
+                obj = JSON.parse(data);
+                $("#eselon").val(obj.eselon);
+                $("#jabatan").val(obj.jabatan);
+                if (obj.status == 1) {
+                    if ($("#Pegawai_jabatan_struktural_id").val() != "<?php echo $model->jabatan_struktural_id ?>") {
+                        alert("Jabatan Telah Diemban Orang Lain");
+                        $("#s2id_Pegawai_jabatan_struktural_id").select2("val", "<?php echo $model->jabatan_struktural_id ?>");
+                    }
+                }
+
+            }
+        });
+    }
     //get detail eselon
 
-    $("#viewTab").click(function() {
+    $("#viewTab").click(function () {
         $(".surat").hide();
         $(".form").show();
     });
 
-    $("#viewFull").click(function() {
+    $("#viewFull").click(function () {
         $(".surat").show();
         $(".form").hide();
     });
@@ -350,16 +352,16 @@
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
-        $("#myTab a").click(function(e) {
+        $("#myTab a").click(function (e) {
             e.preventDefault();
             $(this).tab("show");
         })
-        $("#viewTab").click(function() {
+        $("#viewTab").click(function () {
             $(".surat").hide();
             $(".form").show();
         });
 
-        $("#viewFull").click(function() {
+        $("#viewFull").click(function () {
             $(".surat").show();
             $(".form").hide();
         });

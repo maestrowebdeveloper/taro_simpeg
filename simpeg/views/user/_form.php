@@ -65,36 +65,7 @@
 
                 <table>
                     <tr>
-                        <td width="150">
-
-                            <?php
-//                          $imgs = '';
-                            $cc = '';
-                            if ($model->isNewRecord) {
-                                $img = Yii::app()->landa->urlImg('', '', '');
-                            } else {
-                                $img = Yii::app()->landa->urlImg('avatar/', $model->avatar_img, $_GET['id']);
-                                $del = '<div class="btn-group photo-det-btn">';
-                                $imgs = param('urlImg') . '350x350-noimage.jpg';
-                                $cc = CHtml::ajaxLink(
-                                                '<i class="icon-trash"></i>', url('user/removephoto', array('id' => $model->id)), array(
-                                            'type' => 'POST',
-                                            'success' => 'function( data )
-                                                    {
-                                                           $("#my_image").attr("src","' . $imgs . '");
-                                                           $("#yt0").fadeOut();
-                                                    }'), array('class' => 'btn btn-large btn-block btn-primary', 'style' => 'width: 360px;font-size: 15px;')
-                                        )
-                                        . '</div>';
-                            }
-                            echo '<img src="' . $img['medium'] . '" alt="" class="image img-polaroid" id="my_image"  /><br><br> ';
-                            echo $cc;
-                            ?>
-                            <br><br><div style="margin-left: -90px;"> <?php echo $form->fileFieldRow($model, 'avatar_img', array('class' => 'span3')); ?></div>
-
-                        </td>
                         <td style="vertical-align: top;">                                
-                            
                             <h3 style="text-align:center; border-bottom: solid 1px #ccc">Informasi Login</h3>
                                      <?php echo $form->textFieldRow($model, 'username', array('class' => 'span5', 'maxlength' => 20)); ?>
 
@@ -157,6 +128,31 @@
 
                             <?php $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'city_id', 'cityValue' => $model->city_id, 'disabled' => false, 'width' => '80%', 'label' => 'Kota')); ?>
                             <?php echo $form->textAreaRow($model, 'address', array('class' => 'span5', 'maxlength' => 255)); ?>
+                            <hr/>
+                             <?php
+//                          $imgs = '';
+                            $cc = '';
+                            if ($model->isNewRecord) {
+                                $img = Yii::app()->landa->urlImg('', '', '');
+                            } else {
+                                $img = Yii::app()->landa->urlImg('avatar/', $model->avatar_img, $_GET['id']);
+                                $del = '<div class="btn-group photo-det-btn">';
+                                $imgs = param('urlImg') . '150x150-noimage.jpg';
+                                $cc = CHtml::ajaxLink(
+                                                '<i class="icon-trash"></i>', url('user/removephoto', array('id' => $model->id)), array(
+                                            'type' => 'POST',
+                                            'success' => 'function( data )
+                                                    {
+                                                           $("#my_image").attr("src","' . $imgs . '");
+                                                           $("#yt0").fadeOut();
+                                                    }'), array('class' => 'btn btn-large btn-block btn-primary', 'style' => 'width: 360px;font-size: 15px;')
+                                        )
+                                        . '</div>';
+                            }
+                            echo '<img src="' . $img['small'] . '" alt="" class="image img-polaroid" id="my_image"  /><br><br> ';
+                            echo $cc;
+                            ?>
+                            <div style="margin-left: -90px;"> <?php echo $form->fileFieldRow($model, 'avatar_img', array('class' => '')); ?></div>
 
 
                         </td>
