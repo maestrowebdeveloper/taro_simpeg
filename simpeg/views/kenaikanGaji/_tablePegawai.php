@@ -11,6 +11,8 @@
             <th>Gaji Baru</th>
             <th>Tmt Lama</th>
             <th>Tmt Baru</th>
+            <th>No SK Akhir</th>
+            <th>Tgl SK Akhir</th>
         </tr>
     </thead>
     <tbody>
@@ -28,8 +30,10 @@
                 echo '<td>' . (isset($val->Pegawai->unitKerja) ? $val->Pegawai->unitKerja : "-") . '</td>';
                 echo '<td>' . landa()->rp($val->gaji_pokok_lama) . '</td>';
                 echo '<td>' . landa()->rp($val->gaji_pokok_baru) . '</td>';
-                echo '<td>' . date("d-m-Y", strtotime($val->tmt_lama)) . '</td>';
+                echo '<td>' . (($val->tmt_lama != '0000-00-00') ? date("d-m-Y", strtotime($val->tmt_lama)) : "-") . '</td>';
                 echo '<td>' . date("d-m-Y", strtotime($val->tmt_baru)) . '</td>';
+                echo '<td>'.$val['no_sk_akhir'].'</td>';
+                echo '<td>'.$val['tanggal_sk_akhir'].'</td>';
                 echo '</tr>';
             }
         }

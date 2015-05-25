@@ -18,8 +18,8 @@
             echo '</tr>';
         } else {
             $bulan = substr("0" . $_POST['bulan'], -2, 2);
-            $jumHari = cal_days_in_month(CAL_GREGORIAN, $bulan, $_POST['tahun']);
-            $tanggalKenaikan = $jumHari . "-" . $bulan . "-" . $_POST['tahun'];
+//            $jumHari = cal_days_in_month(CAL_GREGORIAN, $bulan, $_POST['tahun']);
+            $tanggalKenaikan = "01-" . $bulan . "-" . $_POST['tahun'];
             $gajiBaru = Gaji::model()->findByPk(1);
             $kenaikanGaji = json_decode($gajiBaru->gaji, true);
             foreach ($query as $valPegawai) {
@@ -27,7 +27,9 @@
                 if (isset($kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai]) and $kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai] > 0) {
                     echo '<tr>';
                     echo '<td>';
-                    echo '<input type="hidden" name="tmt_lama[]" value="' . (isset($valPegawai->Gaji->tmt_mulai) ? $valPegawai->Gaji->tmt_mulai : "-"). '">';
+                    echo '<input type="hidden" name="tanggal_sk_akhir[]" value="' . (isset($valPegawai->Pangkat->tanggal_sk_akhir) ? $valPegawai->Gaji->tanggal_sk_akhir : "-") . '">';
+                    echo '<input type="hidden" name="no_sk_akhir[]" value="' . (isset($valPegawai->Pangkat->no_sk_akhir) ? $valPegawai->Pangkat->no_sk_akhir : "-") . '">';
+                    echo '<input type="hidden" name="tmt_lama[]" value="' . (isset($valPegawai->Gaji->tmt_mulai) ? $valPegawai->Gaji->tmt_mulai : "-") . '">';
                     echo '<input type="hidden" name="tmt_mulai[]" value="' . date("Y-m-d", strtotime($tanggalKenaikan)) . '">';
                     echo '<input type="hidden" name="pegawai_id[]" value="' . $valPegawai->id . '">';
                     echo '<input type="hidden" name="gaji_lama[]" value="' . (isset($valPegawai->Gaji->gaji) ? $valPegawai->Gaji->gaji : 0) . '">';

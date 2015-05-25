@@ -108,6 +108,8 @@ class KenaikanGajiController extends Controller {
                 $kgb->perihal = '';
                 $kgb->pejabat = '';
                 $kgb->tanggal = $_POST['tmt_mulai'][$i];
+                $kgb->no_sk_akhiir = $_POST['no_sk_akhir'][$i];
+                $kgb->tanggal_sk_akhir = $_POST['tanggal_sk_akhir'][$i];
                 $kgb->save();
 
                 $valPegawai->riwayat_gaji_id = $riwayatGaji->id;
