@@ -928,17 +928,17 @@ class PegawaiController extends Controller {
 
         if (isset($_POST['Pegawai'])) {
             $jabatanStruktural = 0;
-            if (isset($model->RiwayatJabatan->id)) {
-                if ($model->RiwayatJabatan->tipe_jabatan == "struktural") {
-                    $jabatan = JabatanStruktural::model()->findByPk($model->RiwayatJabatan->jabatan_struktural_id);
-                    $jabatanStruktural = $jabatan->id;
-                }
-                if (!empty($jabatan)) {
-                    $jabatan->status = 0;
-                    $jabatan->saveNode();
-                    $jabatan = "";
-                }
-            }
+//            if (isset($model->RiwayatJabatan->id)) {
+//                if ($model->RiwayatJabatan->tipe_jabatan == "struktural") {
+//                    $jabatan = JabatanStruktural::model()->findByPk($model->RiwayatJabatan->jabatan_struktural_id);
+////                    $jabatanStruktural = $jabatan->id;
+//                }
+//                if (!empty($jabatan)) {
+//                    $jabatan->status = 0;
+//                    $jabatan->saveNode();
+//                    $jabatan = "";
+//                }
+//            }
 
             $model->attributes = $_POST['Pegawai'];
             $perubahan['tahun'] = $_POST['kalkulasiTahun'];
@@ -972,11 +972,11 @@ class PegawaiController extends Controller {
                 $model->jabatan_fu_id = $riwayat->jabatan_fu_id;
                 $model->jabatan_ft_id = $riwayat->jabatan_ft_id;
                 $model->tipe_jabatan = $riwayat->tipe_jabatan;
-                if ($riwayat->tipe_jabatan == "struktural") {
-                    $jabatan = JabatanStruktural::model()->findByPk($riwayat->jabatan_struktural_id);
-                    $jabatan->status = 1;
-                    $jabatan->saveNode();
-                }
+//                if ($riwayat->tipe_jabatan == "struktural") {
+//                    $jabatan = JabatanStruktural::model()->findByPk($riwayat->jabatan_struktural_id);
+//                    $jabatan->status = 1;
+//                    $jabatan->saveNode();
+//                }
             } else {
                 $model->jabatan_fu_id = "";
                 $model->jabatan_ft_id = "";
