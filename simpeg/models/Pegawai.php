@@ -212,7 +212,7 @@ class Pegawai extends CActiveRecord {
 
         $criteria->compare('id', $this->id);
         $criteria->compare('nip', $this->nip, true);
-        $criteria->compare('nama', $this->nama, true);
+        $criteria->compare('t.nama', $this->nama, true);
         $criteria->compare('gelar_depan', $this->gelar_depan, true);
         $criteria->compare('gelar_belakang', $this->gelar_belakang, true);
         $criteria->compare('tempat_lahir', $this->tempat_lahir);
