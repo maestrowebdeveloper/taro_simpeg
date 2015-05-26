@@ -261,6 +261,7 @@ class Pegawai extends CActiveRecord {
     public function searchUrutKepangkatan() {
         $criteria2 = new CDbCriteria();
         $criteria2->together = true;
+        $criteria2->addCondition('t.kedudukan_id=1');
         $criteria2->with = array('RiwayatPendidikan', 'RiwayatJabatan', 'Pangkat.Golongan');
         if(!empty($this->unit_kerja_id) && $this->unit_kerja_id >0)
             $criteria2->compare('unit_kerja_id',$this->unit_kerja_id);
