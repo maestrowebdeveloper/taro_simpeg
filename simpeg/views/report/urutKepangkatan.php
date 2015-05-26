@@ -99,40 +99,86 @@ Yii::app()->clientScript->registerScript('search', "
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'daftar-pegawai-grid',
-    'dataProvider' => $model->search2(),
+    'dataProvider' => $model->searchUrutKepangkatan(),
     'type' => 'striped bordered condensed',
-    'template' => '{summary}{pager}{items}{pager}',
+    'template' => '{items}{pager}{summary}',
     'columns' => array(
         array(
-            'name' => 'id',
+            'name' => 'No',
             'type' => 'raw',
             'value' => '$data->id',
             'htmlOptions' => array('style' => 'text-align:center'),
         ),
+//       'nama',
         array(
-            'name' => 'nip',
+            'header' => 'Nama <br>Nip',
+            'name' => 'Nama Nip',
             'type' => 'raw',
-            'value' => '$data->nip',
-            'htmlOptions' => array('style' => 'text-align:center'),
+            'value' => '$data->NamaNip',
+            'htmlOptions' => array('style' => 'text-align:left'),
         ),
-        'nama',
+        
         array(
-            'name' => 'unitKerja',
+            'header' => 'Tempat <br>Tgl Lahir',
+            'name' => 'Tempat Tgl Lahir',
             'type' => 'raw',
-            'value' => '$data->unitKerja',
+            'value' => '$data->TtlLahir',
             'htmlOptions' => array('style' => 'text-align:center'),
         ),
+        
+//       'karpeg',
         array(
-            'name' => 'golongan',
+            'header' => 'Gol <br> Tmt',
+            'name' => 'riwayat_pangkat_id',
             'type' => 'raw',
-            'value' => '$data->Pangkat->golongan',
-            'htmlOptions' => array('style' => 'text-align:center'),
+            'value' => '$data->GolTmt',
+            'htmlOptions' => array('style' => 'text-align: center;')
+        ),
+      
+        array(
+            'header' => 'Esl <br> TMT',
+            'name' => 'jabatan_struktural_id',
+            'type' => 'raw',
+            'value' => '$data->EslonTmt',
+            'htmlOptions' => array('style' => 'text-align: center;')
+        ),
+        
+        array(
+            'header' => 'Jabatan <br> TMT',
+            'name' => 'jabatan_struktural_id',
+            'type' => 'raw',
+            'value' => '$data->JabatanTmt',
+            'htmlOptions' => array('style' => 'text-align:left'),
         ),
         array(
-            'name' => 'tipe',
-            'value' => '$data->tipe',
+            'name' => 'MKTahun',
+            'type' => 'raw',
+            'value' => '$data->MasaKerjaTahun',
             'htmlOptions' => array('style' => 'text-align:center'),
         ),
+        
+        array(
+            'name' => 'MKBulan',
+            'value' => '$data->MasaKerjaBulan',
+            'htmlOptions' => array('style' => 'text-align:center'),
+        ),
+        
+         array(
+            'header' => 'Diklat <br> Tahun',
+//            'name' => 'jabatan_struktural_id',
+            'type' => 'raw',
+            'value' => '$data->DiklatThn',
+            'htmlOptions' => array('style' => 'text-align: left;')
+        ),
+         array(
+            'header' => 'Pendidikan <br> Tahun',
+//            'name' => 'jabatan_struktural_id',
+            'type' => 'raw',
+            'value' => '$data->PendidikanThn',
+            'htmlOptions' => array('style' => 'text-align: left;')
+        ),
+        
+        ////
     ),
 ));
 ?>
