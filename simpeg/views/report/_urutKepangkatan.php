@@ -20,13 +20,15 @@
         <thead>
             <tr>
                 <th style="width:10px">NO</th>
-                <th class="span1">NIP</th>
-                <th class="span1">NAMA</th>			
-                <th class="span1">UNIT KERJA</th>
-                <th class="span1">GOLONGAN</th>			
-                <th class="span1">TIPE JABATAN</th>
-                <th class="span1">JABATAN</th>						
-                <th class="span1">MASA KERJA</th>
+                <th class="span1">NAMA <br>NIP</th>
+                <th class="span1">TEMPAT <br>TGL LAHIR</th>			
+                <th class="span1">GOL <br> TMT</th>
+                <th class="span1">Esl <br> TMT</th>			
+                <th class="span1">JABATAN <br> TMT</th>
+                <th class="span1">MK TAHUN</th>						
+                <th class="span1">MK bULAN</th>
+                <th class="span1">DIKLAT <br> TAHUN</th>
+                <th class="span1">PENDIDIKAN <br> TAHUN</th>
             </tr>
         </thead>
         <tbody>
@@ -36,13 +38,15 @@
                 echo '	
 		<tr>
 			<td>' . $no . '</td>
-			<td>' . $value->nip . '</td>
-			<td>' . $value->nama . '</td>			
-			<td>' . $value->unitKerja . '</td>
-			<td>' . $value->golongan . '</td>			
-			<td>' . $value->tipe . '</td>
-			<td>' . $value->jabatan . '</td>			
-			<td>' . $value->masaKerja . '</td>
+			<td>' . $value->NamaNip . '</td>
+			<td>' . $value->TtlLahir . '</td>			
+			<td>' . $value->GolTmt . '</td>
+			<td>' . $value->EslonTmt . '</td>			
+			<td>' . $value->JabatanTmt . '</td>
+			<td>' . $value->MasaKerjaTahun . '</td>			
+			<td>' . $value->MasaKerjaBulan . '</td>
+			<td>' . $value->DiklatThn . '</td>
+			<td>' . $value->PendidikanThn . '</td>
 			
 		</tr>';
                 $no++;
