@@ -16,7 +16,7 @@ if(!empty($edit)){
         <th>Pendidikan</th>
         <th>Pekerjaan</th>
         <th>No Karsu</th>
-        <th>No Karsi</th>
+        <th>No Karis</th>
         <th>Tanggal Pernikahan</th>
         <th>Status</th>
         <?php echo $th;?>
@@ -29,7 +29,7 @@ if(!empty($edit)){
                         <a class="btn btn-small update editKeluarga" pegawai="'.$value->pegawai_id.'" id="'.$value->id.'" title="Edit" rel="tooltip" ><i class="icon-pencil"></i></a> 
                         <a class="btn btn-small delete deleteKeluarga" title="Hapus" pegawai="'.$value->pegawai_id.'" id="'.$value->id.'" rel="tooltip" ><i class="icon-trash"></i></a>
                         </td>':'';  
-            $nama = ($value->keluarga_pegawai_id!=0)?'<a href="'.url("pegawai/".$value->keluarga_pegawai_id).'">' .$value->nama.'</a>':$value->nama;  
+            $nama = ($value->keluarga_pegawai_id != 0) ? '<a href="'.url("pegawai/".$value->keluarga_pegawai_id).'">' .$value->nama.'</a>' : $value->nama;  
             echo '
                 <tr>                
                 <td>'.$nama.'</td>
