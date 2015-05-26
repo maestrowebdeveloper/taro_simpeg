@@ -204,7 +204,7 @@ if (isset($_POST['nip'])) {
                                             <tr><td>Jurusan</td><td>:</td><td><?php echo ucwords(strtolower($model->pendidikanJurusan)); ?></td></tr>
                                             <tr><td>Pangkat / Tmt Pangkat</td><td>:</td><td><?php echo (!empty($model->Pangkat->golongan)) ? $model->Pangkat->golongan : ''; ?> / <?php echo date('d-m-Y', strtotime($model->tmtPangkat)); ?></td></tr>
                                             <tr><td>Unit Kerja / Tipe</td><td>:</td><td><?php echo $model->unitKerjaJabatan; ?> / <?php echo $model->riwayatTipeJabatan; ?></td></tr>
-                                            <tr><td>Jabatan / Tmt Jabatan</td><td>:</td><td><?php echo $model->riwayatNamaJabatan; ?> / <?php echo date('d-m-Y', strtotime($model->riwayatTmtJabatan)); ?></td></tr>
+                                            <tr><td>Jabatan / Tmt Jabatan</td><td>:</td><td><?php echo $model->jabatan; ?> / <?php echo date('d-m-Y', strtotime($model->riwayatTmtJabatan)); ?></td></tr>
                                             <tr><td>Jenis Kelamin</td><td>:</td><td><?php echo $model->jenis_kelamin; ?></td></tr>
                                             <tr><td>TTL</td><td>:</td><td><?php echo $model->ttl; ?></td></tr>
                                             <tr><td>Kode Pos</td><td>:</td><td><?php echo $model->kode_pos; ?></td></tr>
@@ -344,7 +344,7 @@ if (isset($_POST['nip'])) {
                             <th>Jurusan</th>
                             <th>Nama Sekolah</th>
                             <th>Alamat</th>
-                            <th>Tahun</th>        
+                            <th>Tahun Lulus</th>        
 
                             </thead>
                             <tbody>
