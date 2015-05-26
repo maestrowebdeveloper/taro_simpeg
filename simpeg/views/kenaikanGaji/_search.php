@@ -31,15 +31,7 @@
                 );
                 ?>
 
-                <?php
-                echo $form->datepickerRow(
-                        $model, 'tmt', array(
-                    'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                    'prepend' => '<i class="icon-calendar"></i>'
-                        )
-                );
-                ?>
-            </div></div>
+                            </div></div>
 
 <div class="form-actions">
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'search white', 'label'=>'Pencarian')); ?>

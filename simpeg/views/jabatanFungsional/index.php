@@ -84,7 +84,7 @@ $this->endWidget();
                     'value' => '$data->id',
                 ),
             ),
-		'id',
+//		'id',
 		'nama',
 		'keterangan',
 		array(

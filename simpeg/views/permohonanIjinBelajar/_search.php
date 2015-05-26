@@ -59,9 +59,9 @@ echo $form->radioButtonListRow($model, 'jenjang_pendidikan', Pegawai::model()->A
 
 
 
-<?php echo $form->textFieldRow($model, 'jurusan', array('class' => 'span5', 'maxlength' => 225)); ?>
+<?php // echo $form->textFieldRow($model, 'jurusan', array('class' => 'span5', 'maxlength' => 225)); ?>
 
-<?php echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span5', 'maxlength' => 225)); ?>
+<?php // echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span5', 'maxlength' => 225)); ?>
 
 
 <div class="form-actions">

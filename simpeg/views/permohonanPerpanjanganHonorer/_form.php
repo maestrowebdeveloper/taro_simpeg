@@ -73,6 +73,28 @@
 //            ))
 //        );
 
+            
+            ?>
+            <?php
+            echo $form->textFieldRow($model, 'honor_saat_ini', array('class' => 'span10 angka', 'prepend' => 'Rp'));
+
+            echo $form->datepickerRow(
+                    $model, 'tmt_mulai', array(
+                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                'prepend' => '<i class="icon-calendar"></i>'
+                    )
+            );
+
+            echo $form->datepickerRow(
+                    $model, 'tmt_selesai', array(
+                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                'prepend' => '<i class="icon-calendar"></i>'
+                    )
+            );
+            ?>
+        </div>
+        <div class="span5">
+            <?php
             $idpegawai = isset($model->honorer_id) ? $model->honorer_id : 0;
             $pegawaiName = isset($model->Honorer->nama) ? $model->Honorer->nama : 0;
             echo $form->select2Row($model, 'honorer_id', array(
@@ -106,27 +128,7 @@
                 ),
                     )
             );
-            ?>
-            <?php
-            echo $form->textFieldRow($model, 'honor_saat_ini', array('class' => 'span10 angka', 'prepend' => 'Rp'));
-
-            echo $form->datepickerRow(
-                    $model, 'tmt_mulai', array(
-                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                'prepend' => '<i class="icon-calendar"></i>'
-                    )
-            );
-
-            echo $form->datepickerRow(
-                    $model, 'tmt_selesai', array(
-                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                'prepend' => '<i class="icon-calendar"></i>'
-                    )
-            );
-            ?>
-        </div>
-        <div class="span5">
-            <?php
+            
             $unit_kerja = (!empty($model->Honorer->unitKerja)) ? $model->Honorer->unitKerja : '';
             $jenis_kelamin = (!empty($model->Honorer->jenis_kelamin)) ? $model->Honorer->jenis_kelamin : '';
             $tempat_lahir = (!empty($model->Honorer->tempat_lahir)) ? $model->Honorer->tempat_lahir : '';
@@ -244,8 +246,8 @@
 
         $content = str_replace('{nomor}', $model->nomor_register, $content);
         $content = str_replace('{nomor_pengangkatan}', $model->nomorPengangkatan, $content);
-        $content = str_replace('{tanggal_pengangkatan}', $model->tanggalPengangkatan, $content);
-        $content = str_replace('{tmt_pengangkatan}', $model->tmtPengangkatan, $content);
+        $content = str_replace('{tanggal_pengangkatan}', date('d F Y',  strtotime($model->tanggalPengangkatan)), $content);
+        $content = str_replace('{tmt_pengangkatan}', date('d F Y',  strtotime($model->tmtPengangkatan)), $content);
         $content = str_replace('{jenis_kelamin}', $model->jenisKelamin, $content);
         $content = str_replace('{pendidikan}', $model->pendidikan, $content);
         $content = str_replace('{masa_kerja}', $model->masa_kerja, $content);

@@ -30,7 +30,7 @@ $this->widget('bootstrap.widgets.TbMenu', array(
 	'items'=>array(
 		array('label'=>'Tambah', 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
                 array('label'=>'List Data', 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('index'),'active'=>true, 'linkOptions'=>array()),
-		array('label'=>'Pencarian', 'icon'=>'icon-search', 'url'=>'#', 'linkOptions'=>array('class'=>'search-button')),
+//		array('label'=>'Pencarian', 'icon'=>'icon-search', 'url'=>'#', 'linkOptions'=>array('class'=>'search-button')),
 	),
 ));
 $this->endWidget();
@@ -38,11 +38,13 @@ $this->endWidget();
 
 
 
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+<!--<div class="search-form" style="display:none">-->
+<?php
+//$this->renderPartial('_search',array(
+//	'model'=>$model,
+//)); 
+?>
+<!--</div> search-form -->
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'results',
@@ -69,43 +71,36 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <div class="control-group ">
             <label class="control-label" for="Pegawai_jabatan_id">Bulan / Tahun</label>
             <div class="controls">
-                <select name='bulan'>
-                    <option value=0> Select Month</option>
-                    <?php
-                    $month = landa()->monthly();
-                    foreach ($month as $key => $val) {
-                        $status = '';
-                        if (isset($_POST['bulan']) and $_POST['bulan'] == $key) {
-                            $status = 'selected="selected"';
+                    <select name='bulan' id="bulan">
+                        <option value=0> Select Month</option>
+                        <?php
+                        $month = landa()->monthly();
+                        foreach ($month as $key => $val) {
+                            $status = '';
+                            if (isset($_POST['bulan']) and $_POST['bulan'] == $key) {
+                                $status = 'selected="selected"';
+                            }
+                            echo '<option value="' . $key . '" ' . $status . '>' . $val . '</option>';
                         }
-                        echo '<option value="' . $key . '" ' . $status . '>' . $val . '</option>';
-                    }
-                    ?>
-                </select> - 
-                <select Name='tahun'>
-                    <option value="0">Select Year</option>
-                    <?php
-                    $th = date('Y');
-                    for ($x = ($th - 5); $x <= ($th + 5); $x++) {
-                        $status = '';
-                        if (isset($_POST['tahun']) and $_POST['tahun'] == $x) {
-                            $status = 'selected="selected"';
+                        ?>
+                    </select> - 
+                    <select Name='tahun' id="tahun">
+                        <option value="0">Select Year</option>
+                        <?php
+                        $th = date('Y');
+                        for ($x = ($th - 5); $x <= ($th + 5); $x++) {
+                            $status = '';
+                            if (isset($_POST['tahun']) and $_POST['tahun'] == $x) {
+                                $status = 'selected="selected"';
+                            }
+                            echo'<option value="' . $x . '" ' . $status . '>' . $x . '</option>';
                         }
-                        echo'<option value="' . $x . '" '.$status.'>' . $x . '</option>';
-                    }
-                    ?> 
-                </select> &nbsp;&nbsp;&nbsp;&nbsp;
-                <button class="btn btn-primary" id="yw2" type="submit" name="yt0" onclick="return validat()"><i class="icon-ok icon-white"></i> View Pegawai</button>
-            </div>
+                        ?> 
+                    </select> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-primary" id="viewPegawai" type="button" name="yt0" ><i class="icon-ok icon-white"></i> View Pegawai</button>
+                </div>
         </div>
-        
-
-
-
-
-
-
-
+        <div id="listPegawai"></div>
     </div>
     <div class="span1"><?php if (!empty($model->id)) { ?>
             <a onclick="hide()" class="btn btn-small view" title="Remove Form" rel="tooltip"><i class=" icon-remove-circle"></i></a>
@@ -176,3 +171,17 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 //)); 
 ?>
 
+<script>
+    $("#viewPegawai").click(function() {
+        var bulan = $("#bulan").val();
+        var tahun = $("#tahun").val();
+        $.ajax({
+            url: "<?php echo url('kenaikanGaji/getPegawai'); ?>",
+            data: "bulan=" + bulan + "&tahun=" + tahun,
+            type: "post",
+            success: function(data) {
+                $("#listPegawai").html(data);
+            }
+        });
+    });
+</script>

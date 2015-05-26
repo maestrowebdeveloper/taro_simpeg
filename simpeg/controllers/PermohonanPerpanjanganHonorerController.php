@@ -112,10 +112,35 @@ class PermohonanPerpanjanganHonorerController extends Controller {
         $this->actionUpdate($id);
     }
 
-    /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     */
+    public function actionPerpanjang() {
+        if (isset($_POST['ceckbox'])) {
+            $id = $_POST['ceckbox'];
+            if (isset($_POST['perpanjang'])) {
+                $model = PermohonanPerpanjanganHonorer::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ') and status=0'));
+                foreach ($model as $data) {
+
+                    //di honorer tmt mulai dan akhir
+                    Honorer::model()->updateAll(array(
+                        'tmt_mulai_kontrak' => $data->tmt_mulai,
+                        'tmt_akhir_kontrak' => $data->tmt_selesai
+                            ), 'id=' . $data->honorer_id);
+                    // update statusnya
+                    $data->status = 1;
+                    $data->save();
+                }
+                user()->setFlash('confirm', 'Data succes.');
+                $this->redirect(array('permohonanPerpanjangHonorer/index'));
+            } else {
+                PermohonanPerpanjanganHonorer::model()->deleteAll('id IN (' . implode(',', $_POST['ceckbox']) . ')');
+                user()->setFlash('danger', '<strong>Attention! </strong>Data is deleted.');
+                $this->redirect(array('permohonanPerpanjangHonorer/index'));
+            }
+        } else {
+            user()->setFlash('danger', 'Data not selected.');
+            $this->redirect(array('permohonanPerpanjangHonorer/index'));
+        }
+    }
+
     public function actionCreate() {
         $model = new PermohonanPerpanjanganHonorer;
 
@@ -124,9 +149,9 @@ class PermohonanPerpanjanganHonorerController extends Controller {
 
         if (isset($_POST['PermohonanPerpanjanganHonorer'])) {
             $model->attributes = $_POST['PermohonanPerpanjanganHonorer'];
-            $honorer = Honorer::model()->findByPk($model->honorer_id);
-            $model->unit_kerja_id = $honorer->unit_kerja_id;
-            $model->masa_kerja = $honorer->masaKerja;
+//            $honorer = Honorer::model()->findByPk($model->honorer_id);
+//            $model->unit_kerja_id = $honorer->unit_kerja_id;
+//            $model->masa_kerja = $honorer->masaKerja;
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }
@@ -149,9 +174,9 @@ class PermohonanPerpanjanganHonorerController extends Controller {
 
         if (isset($_POST['PermohonanPerpanjanganHonorer'])) {
             $model->attributes = $_POST['PermohonanPerpanjanganHonorer'];
-            $honorer = Honorer::model()->findByPk($model->honorer_id);
-            $model->unit_kerja_id = $honorer->unit_kerja_id;
-            $model->masa_kerja = $honorer->masaKerja;
+//            $honorer = Honorer::model()->findByPk($model->honorer_id);
+//            $model->unit_kerja_id = $honorer->unit_kerja_id;
+//            $model->masa_kerja = $honorer->masaKerja;
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }
@@ -174,7 +199,8 @@ class PermohonanPerpanjanganHonorerController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        } else
+        }
+        else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -231,7 +257,7 @@ class PermohonanPerpanjanganHonorerController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        
+
         $noregister = $_GET['noregister'];
         $tanggal = $_GET['tanggal'];
         $honorer_id = $_GET['honorer_id'];
@@ -253,7 +279,7 @@ class PermohonanPerpanjanganHonorerController extends Controller {
         $model = PermohonanPerpanjanganHonorer::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile('Data Permohonan Perpanjangan Honorer - '.date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Permohonan Perpanjangan Honorer - ' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );

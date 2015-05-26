@@ -68,7 +68,7 @@ class PermohonanIjinBelajarController extends Controller {
             $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
             $model->nip = $pegawai->nip;
             $model->nama = $pegawai->namaGelar;
-            $model->jabatan = $pegawai->jabatan;
+            $model->jabatan = $pegawai->JabatanStruktural->jabatan;
             $model->unit_kerja = $pegawai->unitKerja;
             $model->golongan = $pegawai->golongan;
 //            $model->pegawai_id = $_POST['id'];
