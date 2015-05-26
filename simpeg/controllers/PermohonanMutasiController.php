@@ -429,5 +429,18 @@ class PermohonanMutasiController extends Controller {
                         ), true)
         );
     }
+    public function actionGetJabatanStruktural() {
+        $name = $_GET["q"];
+        $list = array();
+        $data = JabatanStruktural::model()->findAll(array('condition' => 'nama like "%' . $name . '%"', 'limit' => '10'));
+        if (empty($data)) {
+            $list[] = array("id" => "0", "text" => "No Results Found..");
+        } else {
+            foreach ($data as $val) {
+                $list[] = array("id" => $val->id, "text" => $val->nama);
+            }
+        }
+        echo json_encode($list);
+    }
 
 }

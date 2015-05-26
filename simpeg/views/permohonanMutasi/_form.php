@@ -111,25 +111,51 @@
             ))
         );
         ?>
-
-
-
-
         <?php
-        $data = array('0' => '- Jabatan Struktural -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+//        $data = array('0' => '- Jabatan Struktural -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+//        echo $form->select2Row($model, 'new_jabatan_struktural_id', array(
+//            'asDropDownList' => true,
+//            'data' => $data,
+//            'options' => array(
+//                "allowClear" => false,
+//                'width' => '40%',
+//            ))
+//        );
+        ?>
+        <?php
+        $idJabatanStruktural = isset($model->new_jabatan_struktural_id) ? $model->new_jabatan_struktural_id : 0;
+        $jabatanStrukturalName = isset($model->JabatanStruktural->nama) ? $model->JabatanStruktural->nama : 0;
         echo $form->select2Row($model, 'new_jabatan_struktural_id', array(
-            'asDropDownList' => true,
-            'data' => $data,
+            'asDropDownList' => false,
             'options' => array(
-                "allowClear" => false,
-                'width' => '40%',
-            ))
+                'placeholder' => t('choose', 'global'),
+                'allowClear' => true,
+                'width' => '400px',
+                'minimumInputLength' => '3',
+                'ajax' => array(
+                    'url' => Yii::app()->createUrl('permohonanMutasi/getJabatanStruktural'),
+                    'dataType' => 'json',
+                    'data' => 'js:function(term, page) { 
+                                                        return {
+                                                            q: term 
+                                                        }; 
+                                                    }',
+                    'results' => 'js:function(data) { 
+                                                        return {
+                                                            results: data
+                                                            
+                                                        };
+                                                    }',
+                ),
+                'initSelection' => 'js:function(element, callback) 
+                            { 
+                                 callback({id: ' . $idJabatanStruktural . ', text: "' . $jabatanStrukturalName . '" });
+                            }',
+            ),
+                )
         );
         ?>
         <?php echo $form->radioButtonListRow($model, 'new_tipe_jabatan', Pegawai::model()->arrTipeJabatan()); ?>
-
-
-
         <?php
         $struktural = ($model->tipe_jabatan == "struktural") ? "" : "none";
         $fu = ($model->tipe_jabatan == "fungsional_umum") ? "" : "none";
@@ -183,7 +209,6 @@
                 </div>
             </div>
         </div>
-
         <div class="fungsional_umum" style="display:<?php echo $fu; ?>">                                 
             <?php
             $data = array('0' => '- Jabatan Fungsional Umum -') + CHtml::listData(JabatanFu::model()->findAll(array('order' => 'id')), 'id', 'nama');
@@ -197,8 +222,6 @@
             );
             ?>     
         </div>
-
-
         <div class="fungsional_tertentu" style="display:<?php echo $ft; ?>">                                
             <?php
             $data = array('0' => '- Jabatan Fungsional Tertentu -') + CHtml::listData(JabatanFt::model()->findAll(array('order' => 'id')), 'id', 'nama');
@@ -212,9 +235,6 @@
             );
             ?>                         
         </div>
-
-
-
         <?php
         echo $form->datepickerRow(
                 $model, 'tmt', array(
@@ -223,38 +243,29 @@
                 )
         );
         ?>
-
-
-
-
-
-
-
-
-        <?php if (!isset($_GET['v'])) { ?>        <div class="form-actions">
-            <?php
-            $this->widget('bootstrap.widgets.TbButton', array(
-                'buttonType' => 'submit',
-                'type' => 'primary',
-                'icon' => 'ok white',
-                'label' => $model->isNewRecord ? 'Tambah' : 'Simpan',
-            ));
-            ?>
-            <?php
-            $this->widget('bootstrap.widgets.TbButton', array(
-                'buttonType' => 'reset',
-                'icon' => 'remove',
-                'label' => 'Reset',
-            ));
-            ?>
+        <?php if (!isset($_GET['v'])) { ?>
+            <div class="form-actions">
+                <?php
+                $this->widget('bootstrap.widgets.TbButton', array(
+                    'buttonType' => 'submit',
+                    'type' => 'primary',
+                    'icon' => 'ok white',
+                    'label' => $model->isNewRecord ? 'Tambah' : 'Simpan',
+                ));
+                ?>
+                <?php
+                $this->widget('bootstrap.widgets.TbButton', array(
+                    'buttonType' => 'reset',
+                    'icon' => 'remove',
+                    'label' => 'Reset',
+                ));
+                ?>
             </div>
         <?php } ?>    </fieldset>
 
     <?php $this->endWidget(); ?>
 
 </div>
-
-
 
 <?php if (isset($_GET['v'])) { ?>
     <div class="surat" id="surat" style="display:none">
@@ -308,7 +319,7 @@
             }
         });
     })
-    $("#PermohonanMutasi_new_jabatan_struktural_id, #PermohonanMutasi_new_tipe_jabatan_0").on("change", function(){
+    $("#PermohonanMutasi_new_jabatan_struktural_id, #PermohonanMutasi_new_tipe_jabatan_0").on("change", function () {
         getJabatan();
     });
     function getJabatan() {
