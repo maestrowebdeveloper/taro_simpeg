@@ -264,13 +264,13 @@ class Pegawai extends CActiveRecord {
         $criteria2->together = true;
         $criteria2->addCondition('t.kedudukan_id="1"');
 //        $criteria2->with = array('RiwayatPendidikan', 'RiwayatJabatan', 'Pangkat.Golongan');
-        $criteria2->with = array('JabatanFt', 'Pangkat.Golongan');
+        $criteria2->with = array('JabatanFt', 'Pangkat.Golongan','RiwayatJabatan.JabatanStruktural.Eselon');
 
         if (!empty($this->tipe_jabatan)) {
             if ($this->tipe_jabatan == "guru") {
                 $criteria2->addCondition('JabatanFt.type = "guru"');
             } else{
-                $criteria2->addCondition('JabatanFt.type != "guru" OR tipe_jabatan="struktural" OR tipe_jabatan="fungsional_umum" ');
+                $criteria2->addCondition('JabatanFt.type != "guru" OR t.tipe_jabatan="struktural" OR t.tipe_jabatan="fungsional_umum" ');
             }
         }
 
@@ -283,7 +283,7 @@ class Pegawai extends CActiveRecord {
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria2,
-            'sort' => array('defaultOrder' => 'Golongan.nama DESC'),
+            'sort' => array('defaultOrder' => 'Golongan.nama DESC, Eselon.id ASC'),
         ));
         return $data;
     }
