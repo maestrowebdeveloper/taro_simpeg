@@ -191,6 +191,7 @@ class PegawaiController extends Controller {
             $data['status'] = $model->statusjabatan;
             $data['isi'] = 0;
 
+//            logs($data);
         }
         } elseif ($model->tipe_jabatan == "fungsional_tertentu") {
             $jabatan = isset($model->JabatanFt->nama) ? $model->JabatanFt->nama : "-";
@@ -555,8 +556,8 @@ class PegawaiController extends Controller {
     }
 
     public function actionGetMasaKerja() {
-        $bulan = !empty($_POST['bulan']) ? ($_POST['bulan']) : 0;
-        $tahun = !empty($_POST['tahun']) ? ($_POST['tahun']) : 0;
+        $bulan = (!empty($_POST['bulan']) ? ($_POST['bulan']) : 0) * -1;
+        $tahun = (!empty($_POST['tahun']) ? ($_POST['tahun']) : 0) * -1;
         $date = explode("-", $_POST['tmt_cpns']);
         $tmt = mktime(0, 0, 0, $date[1] + $bulan, $date[2], $date[0] + $tahun);
         $tmt_cpns = date("d-m-Y", $tmt);
