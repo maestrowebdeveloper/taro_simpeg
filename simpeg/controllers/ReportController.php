@@ -45,10 +45,10 @@ class ReportController extends Controller {
     }
 
     public function actionUrutKepangkatan() {
-        $model = new Pegawai('search');
+        $model = new Pegawai('searchUrutKepangkatan');
         $model->unsetAttributes();
-        if (isset($_POST['Pegawai'])) {
-            $model->attributes = $_POST['Pegawai'];
+        if (isset($_GET['Pegawai'])) {
+            $model->attributes = $_GET['Pegawai'];
         }
 
         $this->render('urutKepangkatan', array('model' => $model));
@@ -327,22 +327,24 @@ class ReportController extends Controller {
     }
 
     public function actionExcelKepangkatan() {
-        $unit_id = $_GET['unit_id'];
-        $fu_id = $_GET['fu_id'];
-        $ft_id = $_GET['ft_id'];
+        $tipe_jabatan = $_GET['tipe_jabatan'];
 
-        $criteria = new CDbCriteria();
-        if (!empty($unit_id) && $unit_id != 0) {
-            $criteria->addCondition('unit_kerja_id=' . $unit_id);
-        }
-        if (!empty($fu_id) && $fu_id != 0) {
-            $criteria->addCondition('jabatan_fu_id=' . $fu_id);
-        }
-        if (!empty($ft_id) && $ft_id != 0) {
-            $criteria->addCondition('jabatan_ft_id=' . $ft_id);
+        $criteria2 = new CDbCriteria();
+        
+        $criteria2->together = true;
+        $criteria2->addCondition('t.kedudukan_id="1"');
+//        $criteria2->with = array('RiwayatPendidikan', 'RiwayatJabatan', 'Pangkat.Golongan');
+        $criteria2->with = array('JabatanFt', 'Pangkat.Golongan');
+
+        if (!empty($tipe_jabatan)) {
+            if ($tipe_jabatan == "guru") {
+                $criteria2->addCondition('JabatanFt.type = "guru"');
+            } else{
+                $criteria2->addCondition('JabatanFt.type != "guru" OR tipe_jabatan="struktural" OR tipe_jabatan="fungsional_umum" ');
+            }
         }
 
-        $model = Pegawai::model()->findAll($criteria);
+        $model = Pegawai::model()->findAll($criteria2);
 
         return Yii::app()->request->sendFile('Laporan Daftar Urutan Kepangkatan Pegawai.xls', $this->renderPartial('_urutKepangkatan', array(
                             'model' => $model,

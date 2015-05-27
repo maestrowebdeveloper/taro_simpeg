@@ -33,46 +33,8 @@ Yii::app()->clientScript->registerScript('search', "
 
         <div class="row-fluid">
             <?php
-            $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
-            echo $form->select2Row($model, 'riwayat_jabatan_id', array(
-                'asDropDownList' => true,
-                'data' => $data,
-                'options' => array(
-                    "allowClear" => false,
-                    'width' => '50%',
-                ))
-            );
+            echo $form->radioButtonListRow($model, 'tipe_jabatan', Pegawai::model()->ArrTypeJabatan());
             ?>
-
-            <div class="control-group ">
-                <label class="control-label" for="Pegawai_jabatan_id">Pangkat / Golongan</label>
-                <div class="controls">
-                    <?php
-                    $data = array('0' => '- Parent -') + CHtml::listData(Golongan::model()->findAll(array('order' => 'id')), 'tingkat', 'nama');
-                    $this->widget(
-                            'bootstrap.widgets.TbSelect2', array(
-                        'name' => 'Pegawai[jabatan_fu_id]',
-                        'data' => $data,
-                        'value' => $model->jabatan_fu_id,
-                        'options' => array(
-                            'width' => '25%;margin:0px;text-align:left',
-                    )));
-
-                    echo '  s/d ';
-
-                    $this->widget(
-                            'bootstrap.widgets.TbSelect2', array(
-                        'name' => 'Pegawai[jabatan_ft_id]',
-                        'data' => $data,
-                        'value' => $model->jabatan_ft_id,
-                        'options' => array(
-                            'width' => '25%;margin:0px;text-align:left',
-                    )));
-                    ?>
-                </div>
-            </div>
-
-
         </div>
         <div><?php if (!empty($model->jabatan_ft_id) && !empty($model->jabatan_fu_id)) { ?>
                 <a onclick="hide()" class="btn btn-small view" title="Remove Form" rel="tooltip"><i class=" icon-remove-circle"></i></a>
@@ -95,7 +57,7 @@ Yii::app()->clientScript->registerScript('search', "
     <?php $this->endWidget(); ?>
 </div>
 <h3 style="text-align:center">LAPORAN PEGAWAI BERDASARKAN URUTAN KEPANGKATAN PEGAWAI</h3><br>
-    <h6  style="text-align:center">Tanggal : <?php echo date('d F Y'); ?></h6>
+<h6  style="text-align:center">Tanggal : <?php echo date('d F Y'); ?></h6>
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'daftar-pegawai-grid',
@@ -117,7 +79,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => '$data->NamaNip',
             'htmlOptions' => array('style' => 'text-align:left'),
         ),
-        
         array(
             'header' => 'Tempat <br>Tgl Lahir',
             'name' => 'Tempat Tgl Lahir',
@@ -125,7 +86,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => '$data->TtlLahir',
             'htmlOptions' => array('style' => 'text-align:center'),
         ),
-        
 //       'karpeg',
         array(
             'header' => 'Gol <br> Tmt',
@@ -134,7 +94,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => '$data->GolTmt',
             'htmlOptions' => array('style' => 'text-align: center;')
         ),
-      
         array(
             'header' => 'Esl <br> TMT',
             'name' => 'jabatan_struktural_id',
@@ -142,7 +101,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => '$data->EslonTmt',
             'htmlOptions' => array('style' => 'text-align: center;')
         ),
-        
         array(
             'header' => 'Jabatan <br> TMT',
             'name' => 'jabatan_struktural_id',
@@ -156,29 +114,26 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => '$data->MasaKerjaTahun',
             'htmlOptions' => array('style' => 'text-align:center'),
         ),
-        
         array(
             'name' => 'MKBulan',
             'value' => '$data->MasaKerjaBulan',
             'htmlOptions' => array('style' => 'text-align:center'),
         ),
-        
-         array(
+        array(
             'header' => 'Diklat <br> Tahun',
 //            'name' => 'jabatan_struktural_id',
             'type' => 'raw',
             'value' => '$data->DiklatThn',
             'htmlOptions' => array('style' => 'text-align: left;')
         ),
-         array(
+        array(
             'header' => 'Pendidikan <br> Tahun',
 //            'name' => 'jabatan_struktural_id',
             'type' => 'raw',
             'value' => '$data->PendidikanThn',
             'htmlOptions' => array('style' => 'text-align: left;')
         ),
-        
-        ////
+    ////
     ),
 ));
 ?>
@@ -191,14 +146,18 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         window.print();
         document.body.innerHTML = originalContents;
     }
-    function exportExcel(){
-        var unit_id = $("#Pegawai_unit_kerja_id").val();
-        var fu_id = $("#Pegawai_jabatan_fu_id").val();
-        var ft_id = $("#Pegawai_jabatan_ft_id").val();
-        if(unit_id != 0){
-            window.open('<?php echo url('report/excelKepangkatan')?>?unit_id='+unit_id+'&fu_id='+fu_id+'&ft_id='+ft_id);
-        }else{
-            alert('Pilih Unit Kerja terlebih dahulu!');
+    function exportExcel() {
+       if (document.getElementById('Pegawai_tipe_jabatan_0').checked) {
+            var tipe_jabatan = document.getElementById('Pegawai_tipe_jabatan_0').value;
+        } else if (document.getElementById('Pegawai_tipe_jabatan_1').checked) {
+            var tipe_jabatan = document.getElementById('Pegawai_tipe_jabatan_1').value;
+        } else{
+            var tipe_jabatan = '';
+        }
+        if (tipe_jabatan != '') {
+            window.open('<?php echo url('report/excelKepangkatan') ?>?tipe_jabatan=' + tipe_jabatan);
+        } else {
+            alert('Pilih Tipe Jabatan terlebih dahulu!');
         }
     }
 </script>
