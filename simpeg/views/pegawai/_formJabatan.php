@@ -37,7 +37,7 @@
         $fu = ($model->tipe_jabatan == "fungsional_umum") ? "" : "none";
         $ft = ($model->tipe_jabatan == "fungsional_tertentu") ? "" : "none";
         ?>
-
+        
         <div class="struktural" style="display:<?php echo $struktural; ?>"> 
 
             <div class="control-group "><label class="control-label" for="RiwayatJabatan_jabatan_struktural_id">Jabatan / Tanggal </label>
@@ -151,6 +151,7 @@
                     );
                     echo '&nbsp;&nbsp;';
                     ?>
+                    <input type="hidden" id="golongan_id" value="<?php echo $model->Pegawai->Pangkat->golongan_id?>">
                     <div class="input-prepend">
                         <span class="add-on"><i class="icon-calendar"></i></span>
                         <?php
@@ -302,7 +303,7 @@
     $("#RiwayatJabatan_jabatan_ft_id").change(function () {
         $.ajax({
             url: "<?php echo url('pegawai/fungsionalTertentu'); ?>",
-            data: {golongan_id: $("#RiwayatPangkat_golongan_id").val(), jabatan_ft_id: $(this).val()},
+            data: {golongan_id: $("#golongan_id").val(), jabatan_ft_id: $(this).val()},
             type: "POST",
             success: function (data) {
                 $("#jabatan_fungsional_tertentu").val(data);

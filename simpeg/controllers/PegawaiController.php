@@ -813,9 +813,13 @@ class PegawaiController extends Controller {
 
     public function actionFungsionalTertentu() {
         $gol_id = isset($_POST['golongan_id']) ? $_POST['golongan_id'] : 0;
-        $data = JabatanFungsional::model()->with('DetailJf')->find(array('condition' => 't.jabatan_ft_id = ' . $_POST['jabatan_ft_id']));
-        $tmp = isset($data->nama) ? $data->nama : '-';
-        echo $tmp;
+        $jabatanFungsional = JabatanFungsional::model()->find(array('condition'=>'jabatan_ft_id = ' . $_POST['jabatan_ft_id'].' and (min_golongan_id <= '.$gol_id.' and max_golongan_id >= '.$gol_id.' ) '));
+        echo !empty($jabatanFungsional) ? $jabatanFungsional->nama : "-";
+//        echo $gol_id;
+//        $data = JabatanFungsional::model()->with('DetailJf')->find(array('condition' => 't.jabatan_ft_id = ' . $_POST['jabatan_ft_id']));
+//        $tmp = isset($data->nama) ? $data->nama : '-';
+//        echo $tmp;
+//        logs(print_r($jabatanFungsional));
     }
 
     public function actionRiwayatStatusJabatan() {
