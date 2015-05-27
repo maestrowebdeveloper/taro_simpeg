@@ -45,7 +45,11 @@ $this->endWidget();
     ));
     ?>
 </div><!-- search-form -->
-
+<?php
+foreach (Yii::app()->user->getFlashes() as $key => $message) {
+    echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
+}
+?>
 
 <?php
 $display = (landa()->checkAccess("permohonanPerpanjanganHonorer", "d") == 0) ? 'none' : '';
@@ -62,7 +66,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'enableAjaxValidation' => false,
     'method' => 'post',
     'type' => 'horizontal',
-    'action' => url('permohonanPerpanjangHonorer/perpanjang'),
+    'action' => url('permohonanPerpanjanganHonorer/perpanjang'),
     'htmlOptions' => array(
         'enctype' => 'multipart/form-data'
     )

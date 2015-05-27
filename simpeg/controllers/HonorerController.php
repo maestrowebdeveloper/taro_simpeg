@@ -202,9 +202,9 @@ class HonorerController extends Controller {
             $model->city_id = $_POST['Honorer']['city_id'];
 //            $model->kota = $_POST['id'];
             $model->tempat_lahir = $_POST['Honorer']['tempat_lahir'];
-            $perubahan['tahun'] = $_POST['kalkulasiTahun'];
-            $perubahan['bulan'] = $_POST['kalkulasiBulan'];
-            $model->perubahan_masa_kerja = json_encode($perubahan);
+//            $perubahan['tahun'] = $_POST['kalkulasiTahun'];
+//            $perubahan['bulan'] = $_POST['kalkulasiBulan'];
+//            $model->perubahan_masa_kerja = json_encode($perubahan);
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {
                 $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;

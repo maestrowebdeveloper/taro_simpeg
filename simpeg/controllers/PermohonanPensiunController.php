@@ -158,6 +158,9 @@ class PermohonanPensiunController extends Controller {
                 user()->setFlash('info', 'Data is delete now.');
                 $this->redirect(array('permohonanPensiun/index'));
             }
+        }else{
+           user()->setFlash('danger', 'Data not selected.');
+                $this->redirect(array('permohonanPensiun/index')); 
         }
     }
 

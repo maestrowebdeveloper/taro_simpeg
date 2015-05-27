@@ -129,15 +129,15 @@ class PermohonanPerpanjanganHonorerController extends Controller {
                     $data->save();
                 }
                 user()->setFlash('confirm', 'Data succes.');
-                $this->redirect(array('permohonanPerpanjangHonorer/index'));
+                $this->redirect(array('permohonanPerpanjanganHonorer/index'));
             } else {
                 PermohonanPerpanjanganHonorer::model()->deleteAll('id IN (' . implode(',', $_POST['ceckbox']) . ')');
                 user()->setFlash('danger', '<strong>Attention! </strong>Data is deleted.');
-                $this->redirect(array('permohonanPerpanjangHonorer/index'));
+                $this->redirect(array('permohonanPerpanjanganHonorer/index'));
             }
         } else {
             user()->setFlash('danger', 'Data not selected.');
-            $this->redirect(array('permohonanPerpanjangHonorer/index'));
+            $this->redirect(array('permohonanPerpanjanganHonorer/index'));
         }
     }
 
