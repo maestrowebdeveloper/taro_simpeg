@@ -704,7 +704,7 @@ class Pegawai extends CActiveRecord {
 
 //===========================//
     public function getNamaNip() {
-        return $this->nama . '<br> ' . $this->nip;
+        return $this->namaGelar . '<br> ' . $this->nip;
     }
 
     public function getGolTmt() {
