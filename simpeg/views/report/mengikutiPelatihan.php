@@ -40,31 +40,16 @@ $this->breadcrumbs = array(
                 ))
             );
             ?>
-            <div class="control-group "><label class="control-label" for="Honorer_tmt_akhir_kontrak">Tanggal</label>
+            <div class="control-group "><label class="control-label" for="Honorer_tmt_akhir_kontrak">Tahun</label>
                 <div class="controls">
-                    <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
-                        <?php
-                        $this->widget(
-                                'bootstrap.widgets.TbDatePicker', array(
-                            'name' => 'RiwayatPelatihan[tanggal]',
-                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                            'value' => $model->tanggal,
-                                )
-                        );
-                        ?>
-                    </div>
+                    
+                     <?php // echo $form->textFieldRow($model, 'tahun', array('class' => 'span5', 'maxlength' => 255)); ?>
+                        <input class="angka span5" maxlength="255" name="RiwayatPelatihan[tahun]" id="RiwayatPelatihan_tahun" type="text">
+                    
                     S/D
-                    <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
-                        <?php
-                        $this->widget(
-                                'bootstrap.widgets.TbDatePicker', array(
-                            'name' => 'RiwayatPelatihan[created]',
-                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                            'value' => $model->created,
-                                )
-                        );
-                        ?>
-                    </div>
+                    
+                        <input class="angka span5" maxlength="255" name="RiwayatPelatihan[created]" id="RiwayatPelatihan_created" type="text">
+                    
 
                 </div>
             </div>
@@ -132,9 +117,9 @@ if (isset($_GET['cari'])) {
                 'pelatihan',
                 'nomor_register',
                 array(
-                    'name' => 'tanggal',
+                    'name' => 'Tahun',
                     'type' => 'raw',
-                    'value' => 'date("d F Y",strtotime($data->tanggal))',
+                    'value' => '$data->tahun',
                     'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 'lokasi',

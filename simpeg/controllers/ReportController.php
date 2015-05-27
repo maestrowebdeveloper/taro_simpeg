@@ -117,8 +117,12 @@ class ReportController extends Controller {
     public function actionMengikutiPelatihan() {
         $model = new RiwayatPelatihan();
         if (isset($_POST['RiwayatPelatihan'])) {
+            $criteria2 = new CDbCriteria();
             $model->attributes = $_POST['RiwayatPelatihan'];
             $model->id = '1';
+
+            if (!empty($model->tahun) && !empty($model->created))
+                $criteria2->condition = 'tahun between "' . $model->tahun . '" and "' . $model->created . '"';
         }
         if (isset($_POST['export'])) {
             if (isset($_POST['RiwayatPelatihan'])) {
@@ -297,7 +301,7 @@ class ReportController extends Controller {
     public function actionStrukturOrganisasi() {
         $this->layout = "mainWide";
         $model = array();
-        if(isset($_POST['exportExcel'])){
+        if (isset($_POST['exportExcel'])) {
             Yii::app()->request->sendFile('Laporan Struktur Organisasi - ' . date('YmdHis') . '.xls', $this->renderPartial('strukturOrganisasi', array(
                         'model' => $model,
                             ), true)
@@ -330,7 +334,7 @@ class ReportController extends Controller {
         $tipe_jabatan = $_GET['tipe_jabatan'];
 
         $criteria2 = new CDbCriteria();
-        
+
         $criteria2->together = true;
         $criteria2->addCondition('t.kedudukan_id="1"');
 //        $criteria2->with = array('RiwayatPendidikan', 'RiwayatJabatan', 'Pangkat.Golongan');
@@ -339,7 +343,7 @@ class ReportController extends Controller {
         if (!empty($tipe_jabatan)) {
             if ($tipe_jabatan == "guru") {
                 $criteria2->addCondition('JabatanFt.type = "guru"');
-            } else{
+            } else {
                 $criteria2->addCondition('JabatanFt.type != "guru" OR tipe_jabatan="struktural" OR tipe_jabatan="fungsional_umum" ');
             }
         }
