@@ -71,7 +71,6 @@ class PegawaiController extends Controller {
         $return['pendidikan_terakhir'] = $model->pendidikanTerakhir . ' - ' . $model->pendidikanJurusan;
         echo json_encode($return);
     }
- 
 
     public function actionGetListPegawai() {
         $name = $_GET["q"];
@@ -167,29 +166,52 @@ class PegawaiController extends Controller {
     }
 
     public function actionSelectJabatan() {
+        $jabatan = '';
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $model = RiwayatJabatan::model()->findByPk($id);
-        $pegawai = Pegawai::model()->findAll(array('condition' => 'jabatan_struktural_id=' . $model->jabatan_struktural_id . ' and kedudukan_id=1 and tipe_jabatan="struktural"'));
-//        logs($pegawai);
-        if (count($pegawai) != 0) {
+
+        if ($model->tipe_jabatan == "struktural") {
+            $pegawai = Pegawai::model()->findAll(array('condition' => 'jabatan_struktural_id=' . $model->jabatan_struktural_id . ' and kedudukan_id=1 and tipe_jabatan="struktural"'));
+            $jabatan = isset($model->JabatanStruktural->jabatan) ? $model->JabatanStruktural->jabatan : "-";
+             if (count($pegawai) != 0) {
             if (!empty($model)) {
-                foreach($pegawai as $as){
-                    $data['pegawai']= $as->nama;
-                    $data['nip']= $as->nip;
+                foreach ($pegawai as $as) {
+                    $data['pegawai'] = $as->nama;
+                    $data['nip'] = $as->nip;
                 }
                 $data['isi'] = 1;
             }
         } else {
+
             $data['id'] = $model->id;
             $data['tipe'] = $model->tipe;
-            $data['jabatan'] = isset($model->JabatanStruktural->jabatan) ? $model->JabatanStruktural->jabatan : "-";
+            $data['jabatan'] = $jabatan;
             $data['tmt'] = $model->tmt_mulai;
             $data['bidang'] = isset($model->JabatanStruktural->nama) ? $model->JabatanStruktural->nama : "-";
             $data['status'] = $model->statusjabatan;
             $data['isi'] = 0;
 
-            logs($data);
         }
+        } elseif ($model->tipe_jabatan == "fungsional_tertentu") {
+            $jabatan = isset($model->JabatanFt->nama) ? $model->JabatanFt->nama : "-";
+            $data['id'] = $model->id;
+            $data['tipe'] = $model->tipe;
+            $data['jabatan'] = $jabatan;
+            $data['tmt'] = $model->tmt_mulai;
+            $data['bidang'] = isset($model->JabatanStruktural->nama) ? $model->JabatanStruktural->nama : "-";
+            $data['status'] = $model->statusjabatan;
+            $data['isi'] = 0;
+        } else {
+            $jabatan = isset($model->JabatanFu->nama) ? $model->JabatanFu->nama : "-";
+            $data['id'] = $model->id;
+            $data['tipe'] = $model->tipe;
+            $data['jabatan'] = $jabatan;
+            $data['tmt'] = $model->tmt_mulai;
+            $data['bidang'] = isset($model->JabatanStruktural->nama) ? $model->JabatanStruktural->nama : "-";
+            $data['status'] = $model->statusjabatan;
+            $data['isi'] = 0;
+        }
+       
         echo json_encode($data);
     }
 
@@ -538,7 +560,7 @@ class PegawaiController extends Controller {
         $date = explode("-", $_POST['tmt_cpns']);
         $tmt = mktime(0, 0, 0, $date[1] + $bulan, $date[2], $date[0] + $tahun);
         $tmt_cpns = date("d-m-Y", $tmt);
-        if (isset($tmt_cpns) or ! empty($tmt_cpns)) {
+        if (isset($tmt_cpns) or !empty($tmt_cpns)) {
             $data = array();
             $data['bulan'] = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true));
             $data['tahun'] = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true));

@@ -39,7 +39,7 @@
                     if (!isset($_GET['v'])) {
                         echo '                                           
                             <li><a href="#keluarga"> R. Keluarga</a></li>                                                                       
-                            <li><a href="#pelatihan"> R. Diklat</a></li>       
+                            <li><a href="#pelatihan"> R. Diklat & Pelatihan</a></li>       
                             <li><a href="#penghargaan"> R. Penghargaan</a></li>       
                             <li><a href="#hukuman"> R. Hukuman</a></li> 
                             <li><a href="#cuti"> R. Cuti</a></li> 
@@ -52,7 +52,7 @@
                             <li><a href="#gaji"> R. Gaji</a></li>       
                             <li><a href="#keluarga"> R. Keluarga</a></li>                                           
                             <li><a href="#pendidikan"> R. Pendidikan</a></li>                                           
-                            <li><a href="#pelatihan"> R. Diklat</a></li>       
+                            <li><a href="#pelatihan"> R. Diklat & Pelatihan</a></li>       
                             <li><a href="#penghargaan"> R. Penghargaan</a></li>       
                             <li><a href="#hukuman"> R. Hukuman</a></li> 
                             <li><a href="#cuti"> R. Cuti</a></li> 
