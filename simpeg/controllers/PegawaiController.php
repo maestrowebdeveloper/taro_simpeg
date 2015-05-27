@@ -188,7 +188,7 @@ class PegawaiController extends Controller {
             $data['status'] = $model->statusjabatan;
             $data['isi'] = 0;
 
-            logs($data);
+//            logs($data);
         }
         echo json_encode($data);
     }
