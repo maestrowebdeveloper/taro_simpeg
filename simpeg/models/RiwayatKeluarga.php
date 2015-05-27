@@ -38,14 +38,14 @@ class RiwayatKeluarga extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('pegawai_id, hubungan, nama', 'required'),
-			array('jenis_kelamin,no_sk,tanggal_sk,jns_masalah,no_karsi,keluarga_pegawai_id,anak_ke,status_anak, tempat_lahir, tanggal_lahir, pendidikan_terakhir, pekerjaan, nomor_karsu, tanggal_pernikahan, status, created, created_user_id, modified', 'safe'),
+			array('jenis_kelamin,no_sk,tanggal_sk,jns_masalah,no_karsi,keluarga_pegawai_id,anak_ke,status_anak, tempat_lahir, tanggal_lahir, pendidikan_terakhir, pekerjaan, nomor_karsu, no_akte_nikah,tanggal_pernikahan, status, created, created_user_id, modified', 'safe'),
 			array('pegawai_id, tempat_lahir, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('hubungan', 'length', 'max'=>11),
 			array('nama, pekerjaan, nomor_karsu', 'length', 'max'=>225),
 			array('pendidikan_terakhir, status', 'length', 'max'=>9),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pegawai_id,no_karsi, hubungan, nama, tempat_lahir, tanggal_lahir, pendidikan_terakhir, pekerjaan, nomor_karsu, tanggal_pernikahan, status, created, created_user_id, modified', 'safe', 'on'=>'search'),
+			array('id, pegawai_id,no_karsi, hubungan, nama, tempat_lahir, tanggal_lahir, pendidikan_terakhir, pekerjaan, nomor_karsu, no_akte_nikah, tanggal_pernikahan, status, created, created_user_id, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -85,6 +85,7 @@ class RiwayatKeluarga extends CActiveRecord
 			'tanggal_sk' => 'Tanggal SK',
 			'nomor_karsu' => 'No. Karsu',
 			'nomor_karsi' => 'No. Karsi',
+			'no_akte_nikah' => 'No Akte Nikah',
 			'tanggal_pernikahan' => 'Tgl. Nikah',
 			'status' => 'Status',
 			'created' => 'Created',
@@ -126,6 +127,7 @@ class RiwayatKeluarga extends CActiveRecord
 		$criteria->compare('pekerjaan',$this->pekerjaan,true);
 		$criteria->compare('nomor_karsu',$this->nomor_karsu,true);
 		$criteria->compare('nomor_karsi',$this->nomor_karsi,true);
+		$criteria->compare('no_akte_nikah',$this->no_akte_nikah,true);
 		$criteria->compare('tanggal_pernikahan',$this->tanggal_pernikahan,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('status_anak',$this->status_anak,true);
