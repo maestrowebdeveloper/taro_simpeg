@@ -500,7 +500,7 @@ class PegawaiController extends Controller {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $pegawai_id = (!empty($_POST['pegawai'])) ? $_POST['pegawai'] : '';
         RiwayatPelatihan::model()->findByPk($id)->delete();
-        $pelatihan = RiwayatPelatihan::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tanggal DESC'));
+        $pelatihan = RiwayatPelatihan::model()->findAll(array('condition' => 'pegawai_id=' . $pegawai_id, 'order' => 'tahun DESC'));
         echo $this->renderPartial('/pegawai/_tablePelatihan', array('pelatihan' => $pelatihan, 'edit' => true, 'pegawai_id' => $pegawai_id));
     }
 
@@ -514,7 +514,7 @@ class PegawaiController extends Controller {
             $model->attributes = $_POST['RiwayatPelatihan'];
 
             if ($model->save()) {
-                $pelatihan = RiwayatPelatihan::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tanggal DESC'));
+                $pelatihan = RiwayatPelatihan::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tahun DESC'));
                 echo $this->renderPartial('/pegawai/_tablePelatihan', array('pelatihan' => $pelatihan, 'edit' => true, 'pegawai_id' => $model->pegawai_id));
             }
         }

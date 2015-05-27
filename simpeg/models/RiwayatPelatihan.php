@@ -31,14 +31,14 @@ class RiwayatPelatihan extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('pegawai_id, nomor_sttpl', 'required'),
-            array('nomor_register, nama, tanggal, lokasi, penyelenggara, created, created_user_id, modified', 'safe'),
+            array('pegawai_id', 'required'),
+            array('nomor_register, nama, tahun, lokasi, penyelenggara, created, created_user_id, modified', 'safe'),
             array('pegawai_id, pelatihan_id, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register', 'length', 'max' => 225),
             array('lokasi, penyelenggara', 'length', 'max' => 100),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, pegawai_id, pelatihan_id,nama, nomor_register, tanggal, lokasi, penyelenggara, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, pegawai_id, pelatihan_id,nama, nomor_register, tahun, lokasi, penyelenggara, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -65,7 +65,7 @@ class RiwayatPelatihan extends CActiveRecord {
             'nama' => 'Nama',
             'nomor_register' => 'Nomor Register',
             'nomor_sttpl' => 'Nomor STTPL',
-            'tanggal' => 'Tanggal',
+            'tahun' => 'Tahun',
             'lokasi' => 'Lokasi',
             'penyelenggara' => 'Penyelenggara',
             'created' => 'Created',
@@ -96,7 +96,7 @@ class RiwayatPelatihan extends CActiveRecord {
         $criteria->compare('pelatihan_id', $this->pelatihan_id);
         $criteria->compare('nama', $this->nama);
         $criteria->compare('nomor_register', $this->nomor_register, true);
-        $criteria->compare('tanggal', $this->tanggal, true);
+        $criteria->compare('tahun', $this->tahun, true);
         $criteria->compare('lokasi', $this->lokasi, true);
         $criteria->compare('penyelenggara', $this->penyelenggara, true);
         $criteria->compare('created', $this->created, true);
@@ -105,7 +105,7 @@ class RiwayatPelatihan extends CActiveRecord {
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'tanggal DESC')
+            'sort' => array('defaultOrder' => 'tahun DESC')
         ));
     }
 
@@ -114,8 +114,8 @@ class RiwayatPelatihan extends CActiveRecord {
         if (!empty($this->pelatihan_id))//as pelatihan id
             $criteria2->compare('pelatihan_id', $this->pelatihan_id);
 
-        if (!empty($this->tanggal) && !empty($this->created))
-            $criteria2->condition = 'tanggal between "' . $this->tanggal . '" and "' . $this->created . '"';
+        if (!empty($this->tahun) && !empty($this->created))
+            $criteria2->condition = 'tahun between "' . $this->tahun . '" and "' . $this->created . '"';
 
 
         $isi = new CActiveDataProvider($this, array(
