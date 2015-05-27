@@ -48,6 +48,7 @@
             <?php
             echo $form->textFieldRow($model, 'nomor_karsu', array('class' => 'span3', 'maxlength' => 100));
             echo $form->textFieldRow($model, 'nomor_karsi', array('class' => 'span3', 'maxlength' => 100));
+            echo $form->textFieldRow($model, 'no_akte_nikah', array('class' => 'span3'));
             echo $form->datepickerRow(
                     $model, 'tanggal_pernikahan', array(
                 'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
