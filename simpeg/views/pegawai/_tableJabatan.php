@@ -97,7 +97,7 @@
             success: function(data) {
                 obj = JSON.parse(data);
                 if (obj.isi == 1) {
-                    alert("jabatan sudah di emban oleh "+obj.pegawai+" dengan NIP : "+obj.nip);
+                    alert("Jabatan sudah di emban oleh "+obj.pegawai+" dengan NIP : "+obj.nip);
                 } else {
                     $("#Pegawai_riwayat_jabatan_id").val(obj.id);
                     $("#riwayatTipeJabatan").val(obj.tipe);

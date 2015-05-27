@@ -39,7 +39,7 @@
                     if (!isset($_GET['v'])) {
                         echo '                                           
                             <li><a href="#keluarga"> R. Keluarga</a></li>                                                                       
-                            <li><a href="#pelatihan"> R. Diklat</a></li>       
+                            <li><a href="#pelatihan"> R. Diklat & Pelatihan</a></li>       
                             <li><a href="#penghargaan"> R. Penghargaan</a></li>       
                             <li><a href="#hukuman"> R. Hukuman</a></li> 
                             <li><a href="#cuti"> R. Cuti</a></li> 
@@ -52,7 +52,7 @@
                             <li><a href="#gaji"> R. Gaji</a></li>       
                             <li><a href="#keluarga"> R. Keluarga</a></li>                                           
                             <li><a href="#pendidikan"> R. Pendidikan</a></li>                                           
-                            <li><a href="#pelatihan"> R. Diklat</a></li>       
+                            <li><a href="#pelatihan"> R. Diklat & Pelatihan</a></li>       
                             <li><a href="#penghargaan"> R. Penghargaan</a></li>       
                             <li><a href="#hukuman"> R. Hukuman</a></li> 
                             <li><a href="#cuti"> R. Cuti</a></li> 
@@ -511,7 +511,7 @@
                     $pendidikan = RiwayatPendidikan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tahun DESC'));
                     $hukuman = RiwayatHukuman::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_pemberian DESC'));
                     $cuti = RiwayatCuti::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_sk DESC'));
-                    $pelatihan = RiwayatPelatihan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal DESC'));
+                    $pelatihan = RiwayatPelatihan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tahun DESC'));
                     $penghargaan = RiwayatPenghargaan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_pemberian DESC'));
                     $file = File::model()->findAll(array('condition' => 'pegawai_id=' . $model->id));
 

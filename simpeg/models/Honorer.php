@@ -17,7 +17,7 @@ class Honorer extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nomor_register, nama,tanggal_register, tanggal_lahir', 'required'),
-            array('kode,gelar_depan,gelar_belakang,tempat_lahir,st_peg,status_sk, ket_agama, tanggal_lahir, jenis_kelamin, agama, id_jurusan, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_struktural_id,jabatan_fu_id, tmt_jabatan, tmt_mulai_kontrak, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
+            array('kode,gelar_depan,gelar_belakang,tempat_lahir,st_peg,pengesahan,status_sk, ket_agama, tanggal_lahir, jenis_kelamin, agama, id_jurusan, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto,  tmt_kontrak, jabatan_struktural_id,jabatan_fu_id, tmt_jabatan, tmt_mulai_kontrak, tmt_akhir_kontrak, gaji, created, created_user_id', 'safe'),
             array(' unit_kerja_id, jabatan_struktural_id, gaji, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register, foto', 'length', 'max' => 225),
             array('nama', 'length', 'max' => 100),
@@ -31,7 +31,7 @@ class Honorer extends CActiveRecord {
             array('modified', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id,kode,status_sk, st_peg, nomor_register, nama,gelar_depan,gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, id_jurusan, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto, unit_kerja_id, tmt_kontrak, jabatan_struktural_id,jabatan_fu_id, tmt_jabatan, tmt_mulai_kontrak, tmt_akhir_kontrak, gaji, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id,kode,status_sk, st_peg,pengesahan, nomor_register, nama,gelar_depan,gelar_belakang, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, id_jurusan, tahun_pendidikan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp, foto, unit_kerja_id, tmt_kontrak, jabatan_struktural_id,jabatan_fu_id, tmt_jabatan, tmt_mulai_kontrak, tmt_akhir_kontrak, gaji, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -58,13 +58,15 @@ class Honorer extends CActiveRecord {
         return array(
             'id' => 'ID',
             'kode' => 'Kode',
-            'nomor_register' => 'Nomor Register',
+            'nomor_register' => 'No SK Pertama',
+            'tanggal_register' => 'Tanggal SK Pertama',
             'nama' => 'Nama',
             'tempat_lahir' => 'Tempat Lahir',
             'tanggal_lahir' => 'Tanggal Lahir',
             'jenis_kelamin' => 'Jenis Kelamin',
             'agama' => 'Agama',
             'st_peg' => 'Status',
+            'pengesahan' => 'Disahkan Oleh',
             'ket_agama' => 'Keterangan Agama',
             'id_jurusan' => 'Pendidikan Terakhir',
             'tahun_pendidikan' => 'Tahun Pendidikan',
@@ -157,6 +159,7 @@ class Honorer extends CActiveRecord {
         $criteria->compare('bpjs', $this->bpjs, true);
         $criteria->compare('npwp', $this->npwp, true);
         $criteria->compare('st_peg', $this->st_peg, true);
+        $criteria->compare('pengesahan', $this->pengesahan, true);
         $criteria->compare('foto', $this->foto, true);
 //        $criteria->compare('unit_kerja_id', $this->unit_kerja_id);
         $criteria->compare('tmt_kontrak', $this->tmt_kontrak, true);

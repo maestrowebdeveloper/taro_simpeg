@@ -354,15 +354,16 @@ if ($model->isNewRecord == true) {
                     ))
                 );
                 echo $form->textFieldRow($model, 'st_peg', array('class' => 'span5'));
+                echo $form->textFieldRow($model, 'pengesahan', array('class' => 'span5'));
                 ?>
                 
                 <?php
-                echo $form->datepickerRow(
-                        $model, 'tmt_jabatan', array(
-                    'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                    'prepend' => '<i class="icon-calendar"></i>'
-                        )
-                );
+//                echo $form->datepickerRow(
+//                        $model, 'tmt_jabatan', array(
+//                    'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+//                    'prepend' => '<i class="icon-calendar"></i>'
+//                        )
+//                );
                 ?>
 
 
@@ -412,26 +413,26 @@ if ($model->isNewRecord == true) {
                             </div>    
                         </div>
                     </div>
-                    <div class="control-group">
+<!--                    <div class="control-group">
                         <label class="control-label" for="perubahanMasaKerja">Penambahan / Pengurangan Masa Kerja</label>
                         <div class="controls">
                             <div class="input-append" style="margin-right: 5px;">
-                                <?php echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();')); ?>
+                                <?php // echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();')); ?>
                                 <span class="add-on">
                                     Tahun
                                 </span>
                             </div>
                             <div class="input-append">
-                                <?php echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();')); ?>    
+                                <?php // echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();')); ?>    
                                 <span class="add-on">
                                     Bulan
                                 </span>
                             </div>
-                            <input type="hidden" name="Pegawai[id]" value="<?php echo isset($model->id) ? $model->id : ''; ?>">
+                            <input type="hidden" name="Pegawai[id]" value="<?php // echo isset($model->id) ? $model->id : ''; ?>">
                             <br><br>
                             Gunakan tanda (<b>-</b>) untuk mengurangi tahun maupun bulan
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <div class="tab-pane" id="nilaiSkp">

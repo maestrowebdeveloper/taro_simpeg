@@ -14,7 +14,7 @@
         <th>Pelatihan</th>
         <th>Nomor Register</th>
         <th>Nomor STTPL</th>
-        <th>Tanggal</th>
+        <th>Tahun</th>
         <th>Lokasi</th>
         <th>Penyelenggara</th>    
         <?php echo $th; ?>         
@@ -31,7 +31,7 @@
                 <td>' . $value->pelatihan . '</td>
                 <td>' . $value->nomor_register . '</td>
                 <td>' . $value->nomor_sttpl . '</td>
-                <td>' . $value->tanggal . '</td>
+                <td>' . $value->tahun . '</td>
                 <td>' . $value->lokasi . '</td>
                 <td>' . $value->penyelenggara . '</td>
                 ' . $action . '
