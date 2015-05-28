@@ -20,7 +20,7 @@ $data = RiwayatPelatihan::model()->findAll(array('condition' => 'id>0 ' . $crite
                 <th style="width:20px">NO</th>
                 <th class="span1">PELATIHAN</th>
                 <th class="span1">NOMOR REGISTER</th>
-                <th class="span1">TANGGAL</th>
+                <th class="span1">TAHUN</th>
                 <th class="span1">LOKASI</th>			
                 <th class="span1">PENYELENGGARA</th>			
                 <th class="span2">NIP</th>
@@ -39,7 +39,7 @@ $data = RiwayatPelatihan::model()->findAll(array('condition' => 'id>0 ' . $crite
 			<td>' . $no . '</td>
 			<td>' . $value->pelatihan . '</td>			
 			<td>' . $value->nomor_register . '</td>
-			<td>' . $value->tanggal . '</td>
+			<td>' . $value->tahun . '</td>
 			<td>' . $value->lokasi . '</td>
 			<td>' . $value->penyelenggara . '</td>
 			<td>' . $value->Pegawai->nip . '</td>
