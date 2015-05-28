@@ -2,7 +2,7 @@
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'results',
     'enableAjaxValidation' => false,
-    'method' => 'post',
+    'method' => 'get',
     'action' => url('report/pensiun?tampil=1'),
     'type' => 'horizontal',
     'htmlOptions' => array(
@@ -36,7 +36,7 @@ $this->breadcrumbs = array(
                     $th = date('Y');
                     for ($x = ($th - 5); $x <= ($th + 5); $x++) {
                         $status = '';
-                        if (isset($_POST['tahun']) and $_POST['tahun'] == $x) {
+                        if (isset($_GET['tahun']) and $_GET['tahun'] == $x) {
                             $status = 'selected="selected"';
                         }
                         echo'<option value="' . $x . '" ' . $status . '>' . $x . '</option>';
@@ -49,7 +49,7 @@ $this->breadcrumbs = array(
                     $month = landa()->monthly();
                     foreach ($month as $key => $val) {
                         $status = '';
-                        if (isset($_POST['bulan']) and $_POST['bulan'] == $key) {
+                        if (isset($_GET['bulan']) and $_GET['bulan'] == $key) {
                             $status = 'selected="selected"';
                         }
                         echo '<option value="' . $key . '" ' . $status . '>' . $val . '</option>';
@@ -64,12 +64,12 @@ $this->breadcrumbs = array(
                 <select name='bup'>
                     <option value=1> ---Select---</option>
                     <option value="58" <?php
-                    if (isset($_POST['bup']) and $_POST['bup'] == "58") {
+                    if (isset($_GET['bup']) and $_GET['bup'] == "58") {
                         echo 'selected="selected"';
                     }
                     ?>> 58</option>
                     <option value="60" <?php
-                    if (isset($_POST['bup']) and $_POST['bup'] == "60") {
+                    if (isset($_GET['bup']) and $_GET['bup'] == "60") {
                         echo 'selected="selected"';
                     }
                     ?>> 60</option>
@@ -143,22 +143,23 @@ if ($tampil == "1") {
     $criteria = new CDbCriteria();
     $criteria->with = array('RiwayatJabatan');
     $criteria->together = true;
+    $criteria->addCondition('kedudukan_id=1');
 
-    if (!empty($_POST['tahun']) && !empty($_POST['bup'])) {
-        $tgl_lahir = $_POST['tahun'] - $_POST['bup'];
-        $criteria->addCondition('date_format(tanggal_lahir,"%y") = "' . date("y", strtotime($tgl_lahir)) . '"');
+    if (!empty($_GET['tahun']) && !empty($_GET['bup'])) {
+        $tgl_lahir = $_GET['tahun'] ;
+        $criteria->addCondition('date_format(tmt_pensiun,"%y") = "' . date("y", strtotime($tgl_lahir)) . '"');
     }
 
-    if (!empty($_POST['bulan']))
-        $criteria->addCondition('month(tanggal_lahir) = "' . substr("0" . $_POST['bulan'], -2, 2) . '"');
+    if (!empty($_GET['bulan']))
+        $criteria->addCondition('month(tmt_pensiun) = "' . substr("0" . $_GET['bulan'], -2, 2) . '"');
 
-    if (!empty($_POST['unit_kerja_id']))
-        $criteria->addCondition('unit_kerja_id = ' . $_POST['unit_kerja_id']);
+    if (!empty($_GET['unit_kerja_id']))
+        $criteria->addCondition('unit_kerja_id = ' . $_GET['unit_kerja_id']);
 
-    if (!empty($_POST['eselon_id'])) {
+    if (!empty($_GET['eselon_id'])) {
         $jbt_id = array();
 
-        $jbt = JabatanStruktural::model()->findAll(array('condition' => 'eselon_id=' . $_POST['eselon_id']));
+        $jbt = JabatanStruktural::model()->findAll(array('condition' => 'eselon_id=' . $_GET['eselon_id']));
         if (!empty($jbt)) {
             foreach ($jbt as $a) {
                 $jbt_id[] = $a->id;
@@ -190,13 +191,7 @@ if ($tampil == "1") {
             'type' => 'striped bordered condensed',
             'template' => '{summary}{pager}{items}{pager}',
             'columns' => array(
-                array(
-                    'name' => 'bup',
-                    'header' => 'BUP',
-                    'type' => 'raw',
-                    'value' => '$data->bup',
-                    'htmlOptions' => array('style' => 'text-align:left'),
-                ),
+                'bup',
                 array(
                     'name' => 'tmt_pensiun',
                     'header' => 'Proyeksi Pensiun',

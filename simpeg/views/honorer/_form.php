@@ -120,11 +120,11 @@ if ($model->isNewRecord == true) {
                         echo $form->textFieldRow($model, 'nama', array('class' => 'span5', 'maxlength' => 100));
                         ?> 
                         <div class="control-group "><label class="control-label" for="Pegawai_gelar_depan">Gelar</label>
-                                <div class="controls">
-                                    <input class="span2" maxlength="25" value="<?php echo $model->gelar_depan; ?>" name="Honorer[gelar_depan]" id="Honorer_gelar_depan" placeHolder="Depan" type="text">
-                                    <input class="span2" maxlength="25" value="<?php echo $model->gelar_belakang; ?>" name="Honorer[gelar_belakang]" id="Honorer_gelar_belakang" placeHolder="Belakang" type="text">
-                                </div>
+                            <div class="controls">
+                                <input class="span2" maxlength="25" value="<?php echo $model->gelar_depan; ?>" name="Honorer[gelar_depan]" id="Honorer_gelar_depan" placeHolder="Depan" type="text">
+                                <input class="span2" maxlength="25" value="<?php echo $model->gelar_belakang; ?>" name="Honorer[gelar_belakang]" id="Honorer_gelar_belakang" placeHolder="Belakang" type="text">
                             </div>
+                        </div>
                         <?php
                         $idpendidikan = isset($model->Jurusan->id) ? $model->Jurusan->id : 0;
                         $pendidikan = isset($model->Jurusan->Name) ? $model->Jurusan->Name : '';
@@ -154,7 +154,7 @@ if ($model->isNewRecord == true) {
                                 ),
                                 'initSelection' => 'js:function(element, callback) 
                             { 
-                            callback({id: '.$idpendidikan.', text: "' . $pendidikan . '" });
+                            callback({id: ' . $idpendidikan . ', text: "' . $pendidikan . '" });
                              
                                   
                                   
@@ -165,7 +165,7 @@ if ($model->isNewRecord == true) {
                         ?>
                         <div class="control-group "><label class="control-label" for="Honorer_pendidikan_terakhir">Tahun</label>
                             <div class="controls">
-                                
+
                                 <input class="span2 angka" maxlength="4" value="<?php echo $model->tahun_pendidikan; ?>" name="Honorer[tahun_pendidikan]" id="Honorer_tahun_pendidikan" placeHolder="Tahun" type="text">
                             </div>
                         </div>
@@ -230,10 +230,10 @@ if ($model->isNewRecord == true) {
                                 )
                         );
 //                        $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'kota', 'cityValue' => $model->kota, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
-                         $id_city='';
-                                $id_city = (!empty($model->city_id)) ? $model->city_id : 0;
-                                $city = (isset($model->City)) ? $model->City->Province->name.' - '.$model->City->name :'Ketik kotas disini';
-                                
+                        $id_city = '';
+                        $id_city = (!empty($model->city_id)) ? $model->city_id : 0;
+                        $city = (isset($model->City)) ? $model->City->Province->name . ' - ' . $model->City->name : 'Ketik kotas disini';
+
                         echo $form->select2Row($model, 'city_id', array(
                             'asDropDownList' => false,
 //                    'data' => $data,
@@ -260,7 +260,7 @@ if ($model->isNewRecord == true) {
                                 ),
                                 'initSelection' => 'js:function(element, callback) 
                             { 
-                            callback({id: '.$id_city.', text: "' . $city . '" });
+                            callback({id: ' . $id_city . ', text: "' . $city . '" });
                              
                                   
                             }',
@@ -335,36 +335,36 @@ if ($model->isNewRecord == true) {
 //                        ))
 //                    );
 
-                $data = array('0' => '- Unit Kerja  -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                echo $form->select2Row($model, 'jabatan_struktural_id', array(
-                    'asDropDownList' => true,
-                    'data' => $data,
-                    'options' => array(
-                        "allowClear" => false,
-                        'width' => '50%',
-                    ))
-                );
-                $data = array('0' => '- Jabatan  -') + CHtml::listData(JabatanFu::model()->findAll(array('order' => 'id')), 'id', 'nama');
-                echo $form->select2Row($model, 'jabatan_fu_id', array(
-                    'asDropDownList' => true,
-                    'data' => $data,
-                    'options' => array(
-                        "allowClear" => false,
-                        'width' => '50%',
-                    ))
-                );
-                echo $form->textFieldRow($model, 'st_peg', array('class' => 'span5'));
-                echo $form->textFieldRow($model, 'pengesahan', array('class' => 'span5'));
-                ?>
-                
-                <?php
+                    $data = array('0' => '- Unit Kerja  -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                    echo $form->select2Row($model, 'jabatan_struktural_id', array(
+                        'asDropDownList' => true,
+                        'data' => $data,
+                        'options' => array(
+                            "allowClear" => false,
+                            'width' => '50%',
+                        ))
+                    );
+                    $data = array('0' => '- Jabatan  -') + CHtml::listData(JabatanFu::model()->findAll(array('order' => 'id')), 'id', 'nama');
+                    echo $form->select2Row($model, 'jabatan_fu_id', array(
+                        'asDropDownList' => true,
+                        'data' => $data,
+                        'options' => array(
+                            "allowClear" => false,
+                            'width' => '50%',
+                        ))
+                    );
+                    echo $form->textFieldRow($model, 'st_peg', array('class' => 'span5'));
+                    echo $form->textFieldRow($model, 'pengesahan', array('class' => 'span5'));
+                    ?>
+
+                    <?php
 //                echo $form->datepickerRow(
 //                        $model, 'tmt_jabatan', array(
 //                    'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
 //                    'prepend' => '<i class="icon-calendar"></i>'
 //                        )
 //                );
-                ?>
+                    ?>
 
 
                     <?php echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp')); ?>
@@ -373,15 +373,15 @@ if ($model->isNewRecord == true) {
                             $model, 'tmt_kontrak', array(
                         'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                         'prepend' => '<i class="icon-calendar"></i>',
-                        'events' => array('changeDate' => 'js:function(){
-                                                                getMasaKerja();
-                                                         }'),
                             )
                     );
                     echo $form->datepickerRow(
                             $model, 'tmt_mulai_kontrak', array(
                         'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                        'prepend' => '<i class="icon-calendar"></i>'
+                        'prepend' => '<i class="icon-calendar"></i>',
+                        'events' => array('changeDate' => 'js:function(){
+                                                                getMasaKerja();
+                                                         }'),
                             )
                     );
                     echo $form->datepickerRow(
@@ -392,7 +392,7 @@ if ($model->isNewRecord == true) {
                     );
                     ?>
                     <?php
-                    if (isset($model->perubahan_masa_kerja) and ! empty($model->perubahan_masa_kerja)) {
+                    if (isset($model->perubahan_masa_kerja) and !empty($model->perubahan_masa_kerja)) {
                         $perubahan = json_decode($model->perubahan_masa_kerja, false);
                     }
                     ?>
@@ -413,26 +413,26 @@ if ($model->isNewRecord == true) {
                             </div>    
                         </div>
                     </div>
-<!--                    <div class="control-group">
-                        <label class="control-label" for="perubahanMasaKerja">Penambahan / Pengurangan Masa Kerja</label>
-                        <div class="controls">
-                            <div class="input-append" style="margin-right: 5px;">
-                                <?php // echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();')); ?>
-                                <span class="add-on">
-                                    Tahun
-                                </span>
-                            </div>
-                            <div class="input-append">
-                                <?php // echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();')); ?>    
-                                <span class="add-on">
-                                    Bulan
-                                </span>
-                            </div>
-                            <input type="hidden" name="Pegawai[id]" value="<?php // echo isset($model->id) ? $model->id : ''; ?>">
-                            <br><br>
-                            Gunakan tanda (<b>-</b>) untuk mengurangi tahun maupun bulan
-                        </div>
-                    </div>-->
+                    <!--                    <div class="control-group">
+                                            <label class="control-label" for="perubahanMasaKerja">Penambahan / Pengurangan Masa Kerja</label>
+                                            <div class="controls">
+                                                <div class="input-append" style="margin-right: 5px;">
+                    <?php // echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();'));  ?>
+                                                    <span class="add-on">
+                                                        Tahun
+                                                    </span>
+                                                </div>
+                                                <div class="input-append">
+                    <?php // echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();'));  ?>    
+                                                    <span class="add-on">
+                                                        Bulan
+                                                    </span>
+                                                </div>
+                                                <input type="hidden" name="Pegawai[id]" value="<?php // echo isset($model->id) ? $model->id : '';  ?>">
+                                                <br><br>
+                                                Gunakan tanda (<b>-</b>) untuk mengurangi tahun maupun bulan
+                                            </div>
+                                        </div>-->
                 </div>
             </div>
             <div class="tab-pane" id="nilaiSkp">
@@ -515,8 +515,9 @@ $this->beginWidget(
         $.ajax({
             url: "<?php echo url('honorer/getMasaKerja') ?> ",
             type: "POST",
-            data: {tmt_kontrak: $("#Honorer_tmt_kontrak").val(), tahun: $("#kalkulasiTahun").val(), bulan: $("#kalkulasiBulan").val()},
-            success: function (data) {
+            data: {tmt_kontrak: $("#Honorer_tmt_kontrak").val(), tmt_mulai_kontrak: $("#Honorer_tmt_mulai_kontrak").val()},
+            success: function(data) {
+                alert(data);
                 obj = JSON.parse(data);
                 $("#masaKerjaTahun").val(obj.tahun);
                 $("#masaKerjaBulan").val(obj.bulan);
@@ -524,17 +525,17 @@ $this->beginWidget(
         });
     }
 
-    $("#viewTab").click(function () {
+    $("#viewTab").click(function() {
         $("#report").hide();
         $("#tabView").show();
     });
 
-    $("#viewFull").click(function () {
+    $("#viewFull").click(function() {
         $("#report").show();
         $("#tabView").hide();
     });
 
-    $("#Pegawai_nip").focusout(function () {
+    $("#Pegawai_nip").focusout(function() {
         var value = $(this).val();
         if (value.length < 18) {
             $(".nipError").show();
@@ -552,16 +553,16 @@ $this->beginWidget(
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
-        $("#myTab a").click(function (e) {
+        $("#myTab a").click(function(e) {
             e.preventDefault();
             $(this).tab("show");
         });
-        $("#viewTab").click(function () {
+        $("#viewTab").click(function() {
             $("#report").hide();
             $("#tabView").show();
         });
 
-        $("#viewFull").click(function () {
+        $("#viewFull").click(function() {
             $("#report").show();
             $("#tabView").hide();
         });
@@ -570,7 +571,7 @@ $this->beginWidget(
 
 </script>
 <script>
-    $("body").on("click", ".radio", function () {
+    $("body").on("click", ".radio", function() {
 
         var id = $(this).find("input").val();
         if (id == "Lainnya") {
@@ -593,11 +594,11 @@ $this->beginWidget(
             $('#Honorer_ket_agama').attr("value", "");
         }
     });
-        <?php 
-        if($model->agama == "Lainnya"){
-            echo '$("#Honorer_ket_agama").parent().parent().attr("style", "display:");';
-        }else{
-            echo '$("#Honorer_ket_agama").parent().parent().attr("style", "display:none");';
-        }
-    ?>
+<?php
+if ($model->agama == "Lainnya") {
+    echo '$("#Honorer_ket_agama").parent().parent().attr("style", "display:");';
+} else {
+    echo '$("#Honorer_ket_agama").parent().parent().attr("style", "display:none");';
+}
+?>
 </script>
