@@ -758,7 +758,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function arrTypeJabatan() {
-        $agama = array('guru' => 'Guru', 'nonguru' => 'Non Guru');
+        $agama = array('guru' => 'Fungsional Guru', 'nonguru' => 'Struktural & Fungsional Non Guru');
         return $agama;
     }
 

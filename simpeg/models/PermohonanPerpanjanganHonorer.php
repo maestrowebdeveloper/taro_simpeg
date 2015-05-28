@@ -141,6 +141,9 @@ class PermohonanPerpanjanganHonorer extends CActiveRecord {
     public function getUnitKerja() {
         return (!empty($this->Honorer->JabatanStruktural->nama)) ? $this->Honorer->JabatanStruktural->nama : '-';
     }
+    public function getSatuanKerja() {
+        return (!empty($this->Honorer->JabatanStruktural->UnitKerja->nama)) ? $this->Honorer->JabatanStruktural->UnitKerja->nama : '-';
+    }
 
     public function getNomorPengangkatan() {
         return (!empty($this->Honorer->nomor_register)) ? $this->Honorer->nomor_register : '-';

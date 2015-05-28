@@ -257,6 +257,7 @@
         $content = str_replace('{tmt_selesai}', $model->tmt_selesai, $content);
         $content = str_replace('{nama}', $model->honorer, $content);
         $content = str_replace('{unit_kerja}', $model->unitKerja, $content);
+        $content = str_replace('{satuan_kerja}', $model->satuanKerja, $content);
         $content = str_replace('{tanggal}', date('d F Y', strtotime($model->created)), $content);
         echo $content;
         ?>

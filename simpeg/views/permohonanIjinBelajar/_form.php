@@ -261,19 +261,20 @@
         $siteConfig = SiteConfig::model()->listSiteConfig();
         $content = $siteConfig->format_ijin_belajar;
         $universitas = (isset($model->Univ->name)) ? $model->Univ->name :'-';
-        $content = str_replace('{nomor}', $model->nomor_register, $content);
+        $content = str_replace('{no_usul}', $model->nomor_register, $content);
         $content = str_replace('{nama}', $model->nama, $content);
         $content = str_replace('{nip}', $model->nip, $content);
         $content = str_replace('{pangkat}', $model->golongan, $content);
         $content = str_replace('{unit_kerja}', $model->unit_kerja, $content);
-        $content = str_replace('{jabatan}', $model->Pegawai->JabatanStruktural->jabatan, $content);
+        $content = str_replace('{satuan_kerja}', $model->satuanKerja, $content);
+        $content = str_replace('{jabatan}', $model->jabatan, $content);
         $content = str_replace('{jenjang_pendidikan}', $model->jenjang_pendidikan, $content);
 //        $content = str_replace('{jurusan}', $model->jurusan, $content);
-        $content = str_replace('{id_jurusan}', $model->Jurusan->Name, $content);
-        $content = str_replace('{id_universitas}', (isset($model->Univ->name)) ? $model->Univ->name : '-', $content);
-        $content = str_replace('{nama_sekolah}', $model->nama_sekolah, $content);
+        $content = str_replace('{jurusan}', $model->Jurusan->Name, $content);
+        $content = str_replace('{nama_sekolah}', (isset($model->Univ->name)) ? $model->Univ->name : '-', $content);
+        
         $content = str_replace('{kota_sekolah}', $model->kotaSekolah, $content);
-        $content = str_replace('{tanggal}', date('d F Y', strtotime($model->created)), $content);
+        $content = str_replace('{tanggal}', date('d F Y', strtotime($model->tanggal)), $content);
         echo $content;
         ?>
     </div>

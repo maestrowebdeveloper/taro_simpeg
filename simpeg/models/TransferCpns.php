@@ -118,7 +118,7 @@ class TransferCpns extends CActiveRecord
         return parent::beforeValidate();
     }
     public function getTgl() {
-        return (!empty(date('d-m-Y', strtotime($this->tanggal_kesehatan)))) ? date('d-m-Y', strtotime($this->tanggal_kesehatan)) : '-';
+        return date('d-m-Y', strtotime($this->tanggal_kesehatan));
     }
     
     public function getStatusname(){
