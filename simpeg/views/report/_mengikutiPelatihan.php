@@ -4,8 +4,9 @@ $criteria = '';
 if (!empty($model->pelatihan_id))//as pelatihan id
     $criteria .= ' and pelatihan_id=' . $model->pelatihan_id;
 
-if (!empty($model->tanggal) && !empty($model->created))
-    $criteria .= ' and tanggal between "' . $model->tanggal . '" and "' . $model->created . '"';
+
+if (!empty($model->tahun) && !empty($model->created))
+    $criteria .= 'tahun between "' . $model->tahun . '" and "' . $model->created . '"';
 
 $data = RiwayatPelatihan::model()->findAll(array('condition' => 'id>0 ' . $criteria));
 //app()->session['RiwayatPelatihan_records'] = $data; 

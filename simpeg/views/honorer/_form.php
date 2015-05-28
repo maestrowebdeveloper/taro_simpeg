@@ -316,7 +316,8 @@ if ($model->isNewRecord == true) {
                 </div>
             </div>
             <div class="tab-pane" id="jabatan">
-                <div class="span12">
+                  <div class="form-row row-fluid">
+                    <div class="span9" style="margin-left: 0px;">        
                     <?php
                     echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span4', 'style' => 'max-width:500px;width:300px', 'maxlength' => 18));
                     echo $form->datepickerRow(
@@ -399,18 +400,18 @@ if ($model->isNewRecord == true) {
                     <div class="control-group ">
                         <label class="control-label" for="masaKerja">Masa Kerja</label>
                         <div class="controls">
-                            <div class="input-append" style="margin-right: 5px;">
-                                <?php echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerjaTahun', 'class' => 'span1', 'disabled' => true)); ?>    
+                                <div class="input-append span2" style="margin-right: 5px;">
+                                <?php echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerjaTahun', 'class' => 'span8', 'disabled' => true)); ?>    
                                 <span class="add-on">
                                     Tahun
                                 </span>
                             </div>
-                            <div class="input-append" style="margin-right: 5px;">
-                                <?php echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerjaBulan', 'class' => 'span1', 'disabled' => true)); ?>    
+                         <div class="input-append span2" style="margin-right: 5px;">
+                                <?php echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerjaBulan', 'class' => 'span8  ', 'disabled' => true)); ?>    
                                 <span class="add-on">
                                     Bulan
                                 </span>
-                            </div>    
+                            </div> 
                         </div>
                     </div>
                     <!--                    <div class="control-group">
@@ -433,6 +434,7 @@ if ($model->isNewRecord == true) {
                                                 Gunakan tanda (<b>-</b>) untuk mengurangi tahun maupun bulan
                                             </div>
                                         </div>-->
+                </div>
                 </div>
             </div>
             <div class="tab-pane" id="nilaiSkp">

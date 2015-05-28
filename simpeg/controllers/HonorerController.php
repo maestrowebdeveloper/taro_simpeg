@@ -52,15 +52,21 @@ class HonorerController extends Controller {
     }
 
     public function actionGetMasaKerja() {
-        $bulan = (!empty($_POST['bulan']) ? ($_POST['bulan']) : 0) * -1;
-        $tahun = (!empty($_POST['tahun']) ? ($_POST['tahun']) : 0) * -1;
-        $date = explode("-", $_POST['tmt_kontrak']);
-        $tmt = mktime(0, 0, 0, $date[1] + $bulan, $date[2], $date[0] + $tahun);
-        $tmt_kontrak = date("d-m-Y", $tmt);
+//        $bulan = (!empty($_POST['bulan']) ? ($_POST['bulan']) : 0) * -1;
+//        $tahun = (!empty($_POST['tahun']) ? ($_POST['tahun']) : 0) * -1;
+        $date1 = explode("-", $_POST['tmt_kontrak']);
+        $tmt1 = mktime(0, 0, 0, $date1[1], $date1[2], $date1[0]);
+        
+        $date2 = explode("-", $_POST['tmt_mulai_kontrak']);
+        $tmt2 = mktime(0, 0, 0, $date2[1], $date2[2], $date2[0]);
+        
+        $tmt_kontrak = date("d-m-Y", $tmt1);
+        $tmt_mulai_kontrak = date("d-m-Y", $tmt2);
+        
         if (isset($tmt_kontrak) or ! empty($tmt_kontrak)) {
             $data = array();
-            $data['bulan'] = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_kontrak)), false, true));
-            $data['tahun'] = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_kontrak)), true));
+            $data['bulan'] = str_replace(" Bulan", "", KenaikanGaji::model()->masaKerja($tmt_mulai_kontrak, $tmt_kontrak, false, true));
+            $data['tahun'] = str_replace(" Tahun", "", KenaikanGaji::model()->masaKerja($tmt_mulai_kontrak, $tmt_kontrak, true));
             echo json_encode($data);
         }
     }
