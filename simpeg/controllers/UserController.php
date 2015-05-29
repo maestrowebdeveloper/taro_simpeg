@@ -21,26 +21,18 @@ class UserController extends Controller {
             array('allow', // c
                 'actions' => array('create'),
                 'expression' => 'app()->controller->isValidAccess("user","c")',
-                'expression' => 'app()->controller->isValidAccess("vendor","c")',
-                'expression' => 'app()->controller->isValidAccess("supplier","c")',
             ),
             array('allow', // r
-                'actions' => array('index', 'view'),
+                'actions' => array('index'),
                 'expression' => 'app()->controller->isValidAccess("user","r")',
-                'expression' => 'app()->controller->isValidAccess("vendor","r")',
-                'expression' => 'app()->controller->isValidAccess("supplier","r")',
             ),
             array('allow', // u
                 'actions' => array('update'),
                 'expression' => 'app()->controller->isValidAccess("user","u")',
-                'expression' => 'app()->controller->isValidAccess("vendor","u")',
-                'expression' => 'app()->controller->isValidAccess("supplier","u")',
             ),
             array('allow', // d
                 'actions' => array('delete'),
                 'expression' => 'app()->controller->isValidAccess("user","d")',
-                'expression' => 'app()->controller->isValidAccess("vendor","d")',
-                'expression' => 'app()->controller->isValidAccess("supplier","d")',
             )
         );
     }
@@ -94,7 +86,6 @@ class UserController extends Controller {
                                     })');
 
         $type = 'user';
-        $model->scenario = 'allow';
 
         if (!empty($_GET['type']))
             $type = $_GET['type'];
@@ -108,6 +99,7 @@ class UserController extends Controller {
                 $model->username = '';
                 $model->password = '';
             }
+            $model->roles_id = $_POST['User']['roles_id'];
             $model->birth = (!empty($_POST['User']['birth'])) ? date('Y/m/d', strtotime($_POST['User']['birth'])) : '';
             $model->password = sha1($model->password);
 
@@ -149,12 +141,6 @@ class UserController extends Controller {
     public function actionUpdate($id) {
         $listRoles = Roles::model()->listRoles();
         $model = $this->loadModel($id);
-        $type = 'user';
-        $model->scenario == 'allow';
-        if (!empty($_GET['type']))
-            $type = $_GET['type'];
-        if ($type != 'user')
-            $model->scenario == 'notAllow';
 
         $tempRoles = $model->roles_id;
         $tempPass = $model->password;
@@ -165,25 +151,12 @@ class UserController extends Controller {
                                         $(this).tab("show");
                                     })');
 
-        if (isset($listRoles[$model->roles_id])) {
-            if ($listRoles[$model->roles_id]['is_allow_login'] == '0')
-                $model->scenario = 'notAllow';
-            else
-                $model->scenario = 'allow';
-        }
-
 
         if (isset($_POST['User'])) {
-            if (!empty($_POST['User']['roles_id'])) {
-                $model->scenario = 'allow';
-                if (isset($listRoles[$_POST['User']['roles_id']])) {
-                    if ($listRoles[$_POST['User']['roles_id']]['is_allow_login'] == '0')
-                        $model->scenario = 'notAllow';
-                }
-            }
 
             $model->attributes = $_POST['User'];
             $model->city_id = $_POST['city_id'];
+            $model->roles_id = $_POST['User']['roles_id'];
             $model->birth = (!empty($_POST['User']['birth'])) ? date('Y/m/d', strtotime($_POST['User']['birth'])) : '';
             $company = (!empty($_POST['company'])) ? $_POST['company'] : '';
             $other = json_encode(array('company' => $company));

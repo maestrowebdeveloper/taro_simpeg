@@ -317,10 +317,48 @@ class ReportController extends Controller {
             $model->id = '1';
         }
         if (isset($_POST['export'])) {
-            if (isset($_POST['Pegawai'])) {
-                $model->attributes = $_POST['Pegawai'];
-                $model->id = '1';
+            $criteria = new CDbCriteria();
+            $criteria->with = array('RiwayatJabatan');
+            $criteria->together = true;
+            $criteria->addCondition('kedudukan_id="1"');
+
+            if (!empty($_POST['tahun']) && !empty($_POST['bup'])) {
+                $tgl_lahir = $_POST['tahun'];
+                $criteria->addCondition('date_format(tmt_pensiun,"%y") = "' . date("y", strtotime($tgl_lahir)) . '"');
             }
+
+            if (!empty($_POST['bulan']))
+                $criteria->addCondition('month(tmt_pensiun) = "' . substr("0" . $_POST['bulan'], -2, 2) . '"');
+
+            if (!empty($_POST['unit_kerja_id']))
+                $criteria->addCondition('unit_kerja_id = ' . $_POST['unit_kerja_id']);
+
+            if (!empty($_POST['eselon_id'])) {
+                $jbt_id = array();
+
+                $jbt = JabatanStruktural::model()->findAll(array('condition' => 'eselon_id=' . $_POST['eselon_id']));
+                if (!empty($jbt)) {
+                    foreach ($jbt as $a) {
+                        $jbt_id[] = $a->id;
+                    }
+                    $criteria->addCondition('jabatan_struktural_id IN ("' . implode(',', $jbt_id) . '")');
+                }
+            }
+            //jabatan_ft
+            if (isset($_POST['Pegawai']['jabatan_ft_id']) and ! empty($_POST['Pegawai']['jabatan_ft_id'])) {
+                $jabFt = JabatanFt::model()->findAll(array('condition' => 'type ="' . $_POST['Pegawai']['jabatan_ft_id'] . '"'));
+                $id = array();
+                if (empty($jabFt)) {
+                    
+                } else {
+                    foreach ($jabFt as $val) {
+                        $id[] = $val->id;
+                    }
+                }
+                $criteria->addCondition('RiwayatJabatan.jabatan_ft_id IN (' . implode(",", $id) . ')');
+            }
+
+            $model = Pegawai::model()->findAll($criteria);
             Yii::app()->request->sendFile('Laporan Pensiun - ' . date('YmdHis') . '.xls', $this->renderPartial('_pensiun', array(
                         'model' => $model,
 //                        'post',$post
@@ -351,6 +389,56 @@ class ReportController extends Controller {
         $model = Pegawai::model()->findAll($criteria2);
 
         return Yii::app()->request->sendFile('Laporan Daftar Urutan Kepangkatan Pegawai.xls', $this->renderPartial('_urutKepangkatan', array(
+                            'model' => $model,
+                                ), true)
+        );
+    }
+
+    public function actionExcelPensiun() {
+        $criteria = new CDbCriteria();
+        $criteria->with = array('RiwayatJabatan');
+        $criteria->together = true;
+        $criteria->addCondition('kedudukan_id="1"');
+
+        if (!empty($_GET['tahun']) && !empty($_GET['bup'])) {
+            $tgl_lahir = $_GET['tahun'];
+            $criteria->addCondition('date_format(tmt_pensiun,"%y") = "' . date("y", strtotime($tgl_lahir)) . '"');
+        }
+
+        if (!empty($_GET['bulan']))
+            $criteria->addCondition('month(tmt_pensiun) = "' . substr("0" . $_GET['bulan'], -2, 2) . '"');
+
+        if (!empty($_GET['unit_kerja_id']))
+            $criteria->addCondition('unit_kerja_id = ' . $_GET['unit_kerja_id']);
+
+        if (!empty($_GET['eselon_id'])) {
+            $jbt_id = array();
+
+            $jbt = JabatanStruktural::model()->findAll(array('condition' => 'eselon_id=' . $_GET['eselon_id']));
+            if (!empty($jbt)) {
+                foreach ($jbt as $a) {
+                    $jbt_id[] = $a->id;
+                }
+                $criteria->addCondition('jabatan_struktural_id IN ("' . implode(',', $jbt_id) . '")');
+            }
+        }
+        //jabatan_ft
+        if (isset($_GET['Pegawai']['jabatan_ft_id']) and ! empty($_GET['Pegawai']['jabatan_ft_id'])) {
+            $jabFt = JabatanFt::model()->findAll(array('condition' => 'type ="' . $_GET['Pegawai']['jabatan_ft_id'] . '"'));
+            $id = array();
+            if (empty($jabFt)) {
+                
+            } else {
+                foreach ($jabFt as $val) {
+                    $id[] = $val->id;
+                }
+            }
+            $criteria->addCondition('RiwayatJabatan.jabatan_ft_id IN (' . implode(",", $id) . ')');
+        }
+
+        $model = Pegawai::model()->findAll($criteria2);
+
+        return Yii::app()->request->sendFile('Laporan Daftar Urutan Kepangkatan Pegawai.xls', $this->renderPartial('_pensiun', array(
                             'model' => $model,
                                 ), true)
         );
