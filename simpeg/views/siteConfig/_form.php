@@ -25,6 +25,7 @@
             <li><a href="#permohonan_mutasi">Format Surat Mutasi</a></li>
             <li><a href="#permohonan_pensiun">Format Surat Pensiun</a></li>           
             <li><a href="#surat_masuk">Format Surat Masuk</a></li>           
+            <li><a href="#transfer_cpns">Format Transfer Cpns</a></li>           
 
         </ul>
 
@@ -217,6 +218,38 @@
                 <?php
                 echo $form->ckEditorRow(
                         $model, 'format_surat_masuk', array(
+                    'options' => array(
+                        'fullpage' => 'js:true',
+                        'filebrowserBrowseUrl' => $this->createUrl("fileManager/indexBlank"),
+                        'resize_maxWidth' => '1007',
+                        'resize_minWidth' => '320'
+                    ), 'label' => false,
+                        )
+                );
+                //echo $form->textAreaRow($model, 'report_sell', array('class' => 'span8', 'rows' => 8)); 
+                ?> 
+                <div class="well">
+                    Gunakan format berikut untuk men-generate sebuah field.
+                    <hr>
+                    <ul>                      
+                        <li><b>{pengirim}</b>  : Mengembalikan Nama Pengirim</li>                          
+                        <li><b>{tanggal}</b> : Mengembalikan tanggal di kirim</li>                                                                   
+                        <li><b>{no_surat}</b> : Mengembalikan Nomor Surat</li>
+                        <li><b>{perihal}</b> : Mengembalikan Perihal Surat</li>
+                        <li><b>{ttl_terima}</b> : Mengembalikan Tanggal terima Surat</li>
+                        <li><b>{no_agenda}</b> : Mengembalikan Nomor Agenda</li>
+                        <li><b>{terusan}</b> : Mengembalikan di Teruskan Kepada</li>
+
+
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane" id="transfer_cpns">
+                <center><h4>FORMAT TRANSFER CPNS</h4></center>
+                <hr>
+                <?php
+                echo $form->ckEditorRow(
+                        $model, 'format_transfer_cpns', array(
                     'options' => array(
                         'fullpage' => 'js:true',
                         'filebrowserBrowseUrl' => $this->createUrl("fileManager/indexBlank"),
