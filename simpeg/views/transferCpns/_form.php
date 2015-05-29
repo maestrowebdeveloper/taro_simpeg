@@ -166,15 +166,9 @@
 
 
                 <?php echo $form->textFieldRow($model, 'nomor_diklat', array('class' => 'span3')); ?>
+                <?php echo $form->textFieldRow($model, 'tanggal_diklat', array('class' => 'angka span3')); ?>
 
-                <?php
-                echo $form->datepickerRow(
-                        $model, 'tanggal_diklat', array(
-                    'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                    'prepend' => '<i class="icon-calendar"></i>'
-                        )
-                );
-                ?>
+             
 
     <?php if (!isset($_GET['v'])) { ?>        <div class="form-actions">
                     <?php
