@@ -115,6 +115,13 @@ if (isset($_GET['cari'])) {
                     'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 'pelatihan',
+                 array(
+                    'name' => 'nama',
+                     'header'=>'Diklat',
+                    'type' => 'raw',
+                    'value' => '$data->nama',
+                    'htmlOptions' => array('style' => 'text-align:center'),
+                ),
                 'nomor_register',
                 array(
                     'name' => 'Tahun',

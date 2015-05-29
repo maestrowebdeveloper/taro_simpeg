@@ -1,3 +1,13 @@
+<?php if (isset($_GET['v'])) { ?>
+    <div class="alert alert-info">
+        <label class="radio">
+            <input id="viewTab" value="PNS" checked="checked" name="view" type="radio">
+            <label for="viewTab">View Form</label></label>
+        <label class="radio"><input id="viewFull" name="view" type="radio">
+            <label for="viewFull">View Print Out</label></label>
+    </div>
+
+<?php } ?>
 <div class="form">
     <?php
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -194,6 +204,29 @@
     <?php $this->endWidget(); ?>
 
 </div>
+<?php if (isset($_GET['v'])) { ?>
+    <div class="surat" id="surat" style="display:none">
+        <?php
+//        $siteConfig = SiteConfig::model()->listSiteConfig();
+//        $content = $siteConfig->format_mutasi;
+//
+//        $content = str_replace('{nomor}', $model->nomor_register, $content);
+//        $content = str_replace('{tanggal}', $model->tanggal, $content);
+//        $content = str_replace('{nip}', $model->Pegawai->nip, $content);
+//        $content = str_replace('{golru}', $model->Pegawai->golongan, $content);
+//        $content = str_replace('{ttl}', $model->Pegawai->ttl, $content);
+//        $content = str_replace('{nama}', $model->pegawai, $content);
+//        $content = str_replace('{unit_kerja_lama}', $model->unit_kerja_lama, $content);
+//        $content = str_replace('{unit_kerja_baru}', $model->unitKerja, $content);
+//        $content = str_replace('{tipe_jabatan_lama}', $model->tipe_jabatan_lama, $content);
+//        $content = str_replace('{tipe_jabatan_baru}', $model->tipeJabatan, $content);
+//        $content = str_replace('{jabatan_lama}', $model->jabatan_lama, $content);
+//        $content = str_replace('{jabatan_baru}', $model->jabatan, $content);
+//        $content = str_replace('{tmt}', date('d F Y', strtotime($model->tmt)), $content);
+//        echo $content;
+        ?>
+    </div>
+<?php } ?>
 <script>
     $("#TransferCpns_pegawai_id").on("change", function() {
         //var name = $("#Registration_guest_user_id").val();
@@ -219,5 +252,14 @@
                 $("#tmt").val(obj.tmt);
             }
         });
-    })
+    });
+     $("#viewTab").click(function () {
+        $(".surat").hide();
+        $(".form").show();
+    });
+
+    $("#viewFull").click(function () {
+        $(".surat").show();
+        $(".form").hide();
+    });
 </script>

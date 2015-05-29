@@ -111,7 +111,7 @@ class PegawaiController extends Controller {
             $list[] = array("id" => "0", "text" => "No Results Found..");
         } else {
             foreach ($data as $val) {
-                $list[] = array("id" => $val->id, "text" => $val->nama);
+                $list[] = array("id" => $val->id, "text" => $val->nip.' - '.$val->nama);
             }
         }
         echo json_encode($list);

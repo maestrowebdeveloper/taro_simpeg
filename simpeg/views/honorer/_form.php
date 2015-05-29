@@ -316,16 +316,25 @@ if ($model->isNewRecord == true) {
                 </div>
             </div>
             <div class="tab-pane" id="jabatan">
-                  <div class="form-row row-fluid">
+                <div class="form-row row-fluid">
                     <div class="span9" style="margin-left: 0px;">        
-                    <?php
-                    echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span4', 'style' => 'max-width:500px;width:300px', 'maxlength' => 18));
-                    echo $form->datepickerRow(
-                            $model, 'tanggal_register', array(
-                        'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                        'prepend' => '<i class="icon-calendar"></i>'
-                            )
-                    );
+                        <?php
+                        echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span4', 'style' => 'max-width:500px;width:300px', 'maxlength' => 18));
+                        echo $form->datepickerRow(
+                                $model, 'tanggal_register', array(
+                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                            'prepend' => '<i class="icon-calendar"></i>'
+                                )
+                        );
+                        echo $form->datepickerRow(
+                                $model, 'tmt_kontrak', array(
+                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                            'prepend' => '<i class="icon-calendar"></i>',
+                            'events' => array('changeDate' => 'js:function(){
+                                                                getMasaKerja();
+                                                         }'),
+                                )
+                        );
 //                    $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
 //                    echo $form->select2Row($model, 'unit_kerja_id', array(
 //                        'asDropDownList' => true,
@@ -336,105 +345,100 @@ if ($model->isNewRecord == true) {
 //                        ))
 //                    );
 
-                    $data = array('0' => '- Unit Kerja  -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
-                    echo $form->select2Row($model, 'jabatan_struktural_id', array(
-                        'asDropDownList' => true,
-                        'data' => $data,
-                        'options' => array(
-                            "allowClear" => false,
-                            'width' => '50%',
-                        ))
-                    );
-                    $data = array('0' => '- Jabatan  -') + CHtml::listData(JabatanFu::model()->findAll(array('order' => 'id')), 'id', 'nama');
-                    echo $form->select2Row($model, 'jabatan_fu_id', array(
-                        'asDropDownList' => true,
-                        'data' => $data,
-                        'options' => array(
-                            "allowClear" => false,
-                            'width' => '50%',
-                        ))
-                    );
-                    echo $form->textFieldRow($model, 'st_peg', array('class' => 'span5'));
-                    echo $form->textFieldRow($model, 'pengesahan', array('class' => 'span5'));
-                    ?>
+                        $data = array('0' => '- Unit Kerja  -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                        echo $form->select2Row($model, 'jabatan_struktural_id', array(
+                            'asDropDownList' => true,
+                            'data' => $data,
+                            'options' => array(
+                                "allowClear" => false,
+                                'width' => '50%',
+                            ))
+                        );
+                        $data = array('0' => '- Jabatan  -') + CHtml::listData(JabatanFu::model()->findAll(array('order' => 'id')), 'id', 'nama');
+                        echo $form->select2Row($model, 'jabatan_fu_id', array(
+                            'asDropDownList' => true,
+                            'data' => $data,
+                            'options' => array(
+                                "allowClear" => false,
+                                'width' => '50%',
+                            ))
+                        );
+                        echo $form->textFieldRow($model, 'st_peg', array('class' => 'span5'));
+                        echo $form->textFieldRow($model, 'pengesahan', array('class' => 'span5'));
+                        ?>
 
-                    <?php
+                        <?php
 //                echo $form->datepickerRow(
 //                        $model, 'tmt_jabatan', array(
 //                    'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
 //                    'prepend' => '<i class="icon-calendar"></i>'
 //                        )
 //                );
-                    ?>
+                        ?>
 
 
-                    <?php echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp')); ?>
-                    <?php
-                    echo $form->datepickerRow(
-                            $model, 'tmt_kontrak', array(
-                        'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                        'prepend' => '<i class="icon-calendar"></i>',
-                            )
-                    );
-                    echo $form->datepickerRow(
-                            $model, 'tmt_mulai_kontrak', array(
-                        'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                        'prepend' => '<i class="icon-calendar"></i>',
-                        'events' => array('changeDate' => 'js:function(){
+                        <?php echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp')); ?>
+                        <?php
+                        
+                        echo $form->datepickerRow(
+                                $model, 'tmt_mulai_kontrak', array(
+                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                            'prepend' => '<i class="icon-calendar"></i>',
+                            'events' => array('changeDate' => 'js:function(){
                                                                 getMasaKerja();
                                                          }'),
-                            )
-                    );
-                    echo $form->datepickerRow(
-                            $model, 'tmt_akhir_kontrak', array(
-                        'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                        'prepend' => '<i class="icon-calendar"></i>'
-                            )
-                    );
-                    ?>
-                    <?php
-                    if (isset($model->perubahan_masa_kerja) and !empty($model->perubahan_masa_kerja)) {
-                        $perubahan = json_decode($model->perubahan_masa_kerja, false);
-                    }
-                    ?>
-                    <div class="control-group ">
-                        <label class="control-label" for="masaKerja">Masa Kerja</label>
-                        <div class="controls">
+                                )
+                        );
+                        echo $form->datepickerRow(
+                                $model, 'tmt_akhir_kontrak', array(
+                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                            'prepend' => '<i class="icon-calendar"></i>'
+                                )
+                        );
+                        ?>
+                        <?php
+                        if (isset($model->perubahan_masa_kerja) and !empty($model->perubahan_masa_kerja)) {
+                            $perubahan = json_decode($model->perubahan_masa_kerja, false);
+                        }
+                        ?>
+                        <div class="control-group ">
+                            <label class="control-label" for="masaKerja">Masa Kerja</label>
+                            <div class="controls">
                                 <div class="input-append span2" style="margin-right: 5px;">
-                                <?php echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerjaTahun', 'class' => 'span8', 'disabled' => true)); ?>    
-                                <span class="add-on">
-                                    Tahun
-                                </span>
+                                    <?php echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerjaTahun', 'class' => 'span8', 'disabled' => true)); ?>    
+                                    <span class="add-on">
+                                        Tahun
+                                    </span>
+                                </div>
+                                <div class="input-append span2" style="margin-right: 5px;">
+                                    <?php echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerjaBulan', 'class' => 'span8  ', 'disabled' => true)); ?>    
+                                    <span class="add-on">
+                                        Bulan
+                                    </span>
+                                </div> 
                             </div>
-                         <div class="input-append span2" style="margin-right: 5px;">
-                                <?php echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerjaBulan', 'class' => 'span8  ', 'disabled' => true)); ?>    
-                                <span class="add-on">
-                                    Bulan
-                                </span>
-                            </div> 
                         </div>
+                        <!--                    <div class="control-group">
+                                                <label class="control-label" for="perubahanMasaKerja">Penambahan / Pengurangan Masa Kerja</label>
+                                                <div class="controls">
+                                                    <div class="input-append" style="margin-right: 5px;">
+                        <?php // echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();'));  ?>
+                                                        <span class="add-on">
+                                                            Tahun
+                                                        </span>
+                                                    </div>
+                                                    <div class="input-append">
+                        <?php // echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();'));  ?>    
+                                                        <span class="add-on">
+                                                            Bulan
+                                                        </span>
+                                                    </div>
+                                                    <input type="hidden" name="Pegawai[id]" value="<?php // echo isset($model->id) ? $model->id : '';   ?>">
+                                                    <br><br>
+                                                    Gunakan tanda (<b>-</b>) untuk mengurangi tahun maupun bulan
+                                                </div>
+                                            </div>-->
                     </div>
-                    <!--                    <div class="control-group">
-                                            <label class="control-label" for="perubahanMasaKerja">Penambahan / Pengurangan Masa Kerja</label>
-                                            <div class="controls">
-                                                <div class="input-append" style="margin-right: 5px;">
-                    <?php // echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();'));  ?>
-                                                    <span class="add-on">
-                                                        Tahun
-                                                    </span>
-                                                </div>
-                                                <div class="input-append">
-                    <?php // echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();'));  ?>    
-                                                    <span class="add-on">
-                                                        Bulan
-                                                    </span>
-                                                </div>
-                                                <input type="hidden" name="Pegawai[id]" value="<?php // echo isset($model->id) ? $model->id : '';  ?>">
-                                                <br><br>
-                                                Gunakan tanda (<b>-</b>) untuk mengurangi tahun maupun bulan
-                                            </div>
-                                        </div>-->
-                </div>
                 </div>
             </div>
             <div class="tab-pane" id="nilaiSkp">
@@ -519,7 +523,6 @@ $this->beginWidget(
             type: "POST",
             data: {tmt_kontrak: $("#Honorer_tmt_kontrak").val(), tmt_mulai_kontrak: $("#Honorer_tmt_mulai_kontrak").val()},
             success: function(data) {
-                alert(data);
                 obj = JSON.parse(data);
                 $("#masaKerjaTahun").val(obj.tahun);
                 $("#masaKerjaBulan").val(obj.bulan);

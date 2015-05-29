@@ -167,7 +167,7 @@ if ($tampil == "1") {
             foreach ($jbt as $a) {
                 $jbt_id[] = $a->id;
             }
-            $criteria->addCondition('jabatan_struktural_id IN ("' . implode(',', $jbt_id) . '")');
+            $criteria->addCondition('t.jabatan_struktural_id IN ("' . implode(',', $jbt_id) . '")');
         }
     }
     //jabatan_ft

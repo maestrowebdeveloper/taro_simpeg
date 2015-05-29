@@ -46,7 +46,7 @@ class SiteConfig extends CActiveRecord {
             array('city_id', 'numerical', 'integerOnly' => true),
             array('client_name, client_logo, address', 'length', 'max' => 255),
             array('phone, email', 'length', 'max' => 45),
-            array('format_cpns,format_perpanjangan_honorer,format_mutasi,format_pensiun,format_ijin_belajar,format_surat_masuk,format_surat_keluar', 'safe'),
+            array('format_cpns,format_perpanjangan_honorer,format_mutasi,format_pensiun,format_ijin_belajar,format_surat_masuk,format_transfer_cpns', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, client_name, city_id, address, phone, email', 'safe', 'on' => 'search'),

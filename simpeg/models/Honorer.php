@@ -223,45 +223,35 @@ class Honorer extends CActiveRecord {
     }
 
     public function getMasaKerjaTahun() {
-        if (isset($this->perubahan_masa_kerja) and ! empty($this->perubahan_masa_kerja)) {
-            $perubahan = json_decode($this->perubahan_masa_kerja, false);
-        }
+        $date1 = explode("-", $this->tmt_kontrak);
+        $tmt1 = mktime(0, 0, 0, $date1[1], $date1[2], $date1[0]);
 
-        $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun * -1 : 0;
-        if ($this->tmt_kontrak != NULL and $this->tmt_kontrak != "0000-00-00") {
-            $date = explode("-", $this->tmt_kontrak);
-            $tmt = mktime(0, 0, 0, $date[1], $date[2], $date[0] + $perubahanTahun);
-            $tmt_kontrak = date("Y-m-d", $tmt);
-        } else {
-            $tmt_kontrak = date("Y-m-d");
-        }
-        if (empty($this->tmt_kontrak)) {
-            $tahun = '';
-        } else
-            $tahun = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_kontrak)), true));
+        $date2 = explode("-", $this->tmt_mulai_kontrak);
+        $tmt2 = mktime(0, 0, 0, $date2[1], $date2[2], $date2[0]);
 
-        return $tahun;
+        $tmt_kontrak = date("d-m-Y", $tmt1);
+        $tmt_mulai_kontrak = date("d-m-Y", $tmt2);
+
+        if (isset($tmt_kontrak) or !empty($tmt_kontrak)) {
+            $tahun = str_replace(" Tahun", "", KenaikanGaji::model()->masaKerja($tmt_kontrak,$tmt_mulai_kontrak, true));
+            return $tahun;
+        }
     }
 
     public function getMasaKerjaBulan() {
-        if (isset($this->perubahan_masa_kerja) and ! empty($this->perubahan_masa_kerja)) {
-            $perubahan = json_decode($this->perubahan_masa_kerja, false);
-        }
+        $date1 = explode("-", $this->tmt_kontrak);
+        $tmt1 = mktime(0, 0, 0, $date1[1], $date1[2], $date1[0]);
 
-        $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan * -1 : 0;
-        if ($this->tmt_kontrak != NULL and $this->tmt_kontrak != "0000-00-00") {
-            $date = explode("-", $this->tmt_kontrak);
-            $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0]);
-            $tmt_kontrak = date("Y-m-d", $tmt);
-        } else {
-            $tmt_kontrak = date("Y-m-d");
-        }
-        if (empty($this->tmt_kontrak)) {
-            $bulan = '';
-        } else
-            $bulan = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_kontrak)), false, true));
+        $date2 = explode("-", $this->tmt_mulai_kontrak);
+        $tmt2 = mktime(0, 0, 0, $date2[1], $date2[2], $date2[0]);
 
-        return $bulan;
+        $tmt_kontrak = date("d-m-Y", $tmt1);
+        $tmt_mulai_kontrak = date("d-m-Y", $tmt2);
+
+        if (isset($tmt_kontrak) or !empty($tmt_kontrak)) {
+            $bulan = str_replace(" Bulan", "", KenaikanGaji::model()->masaKerja($tmt_kontrak,$tmt_mulai_kontrak, false, true));
+            return $bulan;
+        }
     }
 
     public function getTagProfil() {
@@ -507,7 +497,9 @@ class Honorer extends CActiveRecord {
             $status = "SK Bupati non Database Lulus";
         } elseif ($this->status_sk == '21') {
             $status = "SK Bupati non Database Pensiun";
-        }else{ $status='-';}
+        } else {
+            $status = '-';
+        }
         return $status;
     }
 
@@ -526,18 +518,21 @@ class Honorer extends CActiveRecord {
     public function getTmtJabatan() {
         return date('d M Y', strtotime($this->tmt_jabatan));
     }
+
     public function getTmtKontrak() {
         return date('d M Y', strtotime($this->tmt_kontrak));
     }
+
     public function getTmtMulaiKontrak() {
         return date('d M Y', strtotime($this->tmt_mulai_kontrak));
     }
+
     public function getTmtAkhirKontrak() {
         return date('d M Y', strtotime($this->tmt_akhir_kontrak));
     }
 
     public function getImgUrl() {
-        return param('pathImg').'honorer/'.$this->foto;
+        return param('pathImg') . 'honorer/' . $this->foto;
     }
 
     public function getSmallFoto() {
