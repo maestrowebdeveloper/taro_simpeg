@@ -326,6 +326,15 @@ if ($model->isNewRecord == true) {
                             'prepend' => '<i class="icon-calendar"></i>'
                                 )
                         );
+                        echo $form->datepickerRow(
+                                $model, 'tmt_kontrak', array(
+                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                            'prepend' => '<i class="icon-calendar"></i>',
+                            'events' => array('changeDate' => 'js:function(){
+                                                                getMasaKerja();
+                                                         }'),
+                                )
+                        );
 //                    $data = array('0' => '- Unit Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
 //                    echo $form->select2Row($model, 'unit_kerja_id', array(
 //                        'asDropDownList' => true,
@@ -370,15 +379,7 @@ if ($model->isNewRecord == true) {
 
                         <?php echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp')); ?>
                         <?php
-                        echo $form->datepickerRow(
-                                $model, 'tmt_kontrak', array(
-                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-                            'prepend' => '<i class="icon-calendar"></i>',
-                            'events' => array('changeDate' => 'js:function(){
-                                                                getMasaKerja();
-                                                         }'),
-                                )
-                        );
+                        
                         echo $form->datepickerRow(
                                 $model, 'tmt_mulai_kontrak', array(
                             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
