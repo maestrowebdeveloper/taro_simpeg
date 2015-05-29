@@ -65,8 +65,8 @@ class HonorerController extends Controller {
         
         if (isset($tmt_kontrak) or ! empty($tmt_kontrak)) {
             $data = array();
-            $data['bulan'] = str_replace(" Bulan", "", KenaikanGaji::model()->masaKerja($tmt_mulai_kontrak, $tmt_kontrak, false, true));
-            $data['tahun'] = str_replace(" Tahun", "", KenaikanGaji::model()->masaKerja($tmt_mulai_kontrak, $tmt_kontrak, true));
+            $data['bulan'] = str_replace(" Bulan", "", KenaikanGaji::model()->masaKerja($tmt_kontrak,$tmt_mulai_kontrak, false, true));
+            $data['tahun'] = str_replace(" Tahun", "", KenaikanGaji::model()->masaKerja($tmt_kontrak,$tmt_mulai_kontrak, true));
             echo json_encode($data);
         }
     }
