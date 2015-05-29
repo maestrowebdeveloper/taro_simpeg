@@ -37,15 +37,20 @@ class PegawaiController extends Controller {
                 'actions' => array('delete'),
                 'expression' => 'app()->controller->isValidAccess("pegawai","d")'
             ),
-            array('allow', // d
+            array('allow', //hak akses rekap pegawai
                 'actions' => array('rekap'),
                 'expression' => 'app()->controller->isValidAccess("rekapPegawai","r")'
             ),
-            array('allow', // d
+            array('allow', //hak akses rekap eselon
                 'actions' => array('rekapEselon'),
                 'expression' => 'app()->controller->isValidAccess("rekapEselon","r")'
             ),
-            array('allow', // d
+            array('allow', 
+                'actions' => array('importData'),
+                'expression' => 'app()->controller->isValidAccess("importData","r")'
+            ),
+            
+            array('allow', 
                 'actions' => array('rekapJabfung'),
                 'expression' => 'app()->controller->isValidAccess("rekapJabfung","r")'
             )
