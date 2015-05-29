@@ -64,7 +64,7 @@ class TransferCpns extends CActiveRecord
 			'tanggal_kesehatan' => 'Tanggal Kesehatan',
 			'pelatihan_id' => 'Pelatihan',
 			'nomor_diklat' => 'Nomor Diklat',
-			'tanggal_diklat' => 'Tanggal Diklat',
+			'tanggal_diklat' => 'Tahun Diklat',
 			'status' => 'Status',
 		);
 	}

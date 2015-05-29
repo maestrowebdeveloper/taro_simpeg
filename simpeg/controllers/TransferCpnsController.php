@@ -73,7 +73,7 @@ class TransferCpnsController extends Controller {
                     $diklat = new RiwayatPelatihan;
                     $diklat->nomor_sttpl = $data->nomor_diklat;
                     $diklat->pelatihan_id = $data->pelatihan_id;
-                    $diklat->tanggal = $data->tanggal_diklat;
+                    $diklat->tahun = $data->tanggal_diklat;
                     $diklat->pegawai_id = $data->pegawai_id;
                     $diklat->save();
 
