@@ -34,12 +34,13 @@ if(!empty($edit)){
 </div>
 <script>
         $(".deleteFile").click(function(){
+            var tr = $(this).parent().parent();
             $.ajax({                                  
                 url:"<?php echo url('pegawai/deleteFile');?>",
                 data:"id="+$(this).attr("id")+"&pegawai="+$(this).attr("pegawai"),
                 type:"post",
-                success:function(data){                             
-                    $("#"+data).parent().parent().remove();                                     
+                success:function(data){   
+                    tr.remove();                                     
                 }
             });            
         }); 
