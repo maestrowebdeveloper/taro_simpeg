@@ -593,7 +593,8 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getImgUrl() {
-        return param('pathImg') . 'pegawai/' . $this->foto;
+        
+        return(!empty($this->foto)) ?  param('pathImg') . 'pegawai/' . $this->foto : param('pathImg') . '350x350-noimage.jpg';
     }
 
     public function getSmallFoto() {
