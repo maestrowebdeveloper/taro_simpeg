@@ -235,7 +235,7 @@ class UnitKerjaController extends Controller {
 //            $model = UnitKerja::model()->findAll();
 //
 //
-//        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+//        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
 //                    'model' => $model
 //                        ), true)
 //        );

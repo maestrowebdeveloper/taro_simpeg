@@ -19,7 +19,7 @@
         <?php
         if (empty($query)) {
             echo '<tr>';
-            echo '<td colspan="7">Tida ada data pegawai</td>';
+            echo '<td colspan="10">Tidak ada data pegawai</td>';
             echo '</tr>';
         } else {
             foreach ($query as $val) {
@@ -32,7 +32,7 @@
                 echo '<td>' . landa()->rp($val->gaji_pokok_baru) . '</td>';
                 echo '<td>' . (($val->tmt_lama != '0000-00-00') ? date("d-m-Y", strtotime($val->tmt_lama)) : "-") . '</td>';
                 echo '<td>' . date("d-m-Y", strtotime($val->tmt_baru)) . '</td>';
-                echo '<td>'.$val['no_sk_akhir'].'</td>';
+                echo '<td>' . $val['no_sk_akhir'].'</td>';
                 echo '<td>'.$val['tanggal_sk_akhir'].'</td>';
                 echo '</tr>';
             }

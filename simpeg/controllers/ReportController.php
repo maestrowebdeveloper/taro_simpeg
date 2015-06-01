@@ -86,7 +86,7 @@ class ReportController extends Controller {
             if (!empty($model->tmt_pns) && !empty($model->tmt_pensiun))
                 $criteria2->addInCondition('tmt_pensiun between "' . $model->tmt_pns . '" and "' . $model->tmt_pensiun . '"');
             $data = Pegawai::model()->findAll($criteria2);
-            Yii::app()->request->sendFile('Laporan PNS - ' . date('YmdHis') . '.xls', $this->renderPartial('_pegawai', array(
+            Yii::app()->request->sendFile('Laporan PNS - ' . date('YmdHi') . '.xls', $this->renderPartial('_pegawai', array(
                         'model' => $data,
                             ), true)
             );
@@ -106,7 +106,7 @@ class ReportController extends Controller {
                 $model->attributes = $_POST['Honorer'];
                 $post = "1";
             }
-            Yii::app()->request->sendFile('Laporan Honorer - ' . date('YmdHis') . '.xls', $this->renderPartial('_honorer', array(
+            Yii::app()->request->sendFile('Laporan Honorer - ' . date('YmdHi') . '.xls', $this->renderPartial('_honorer', array(
                         'model' => $model,
                             ), true)
             );
@@ -129,7 +129,7 @@ class ReportController extends Controller {
                 $model->attributes = $_POST['RiwayatPelatihan'];
                 $post = "1";
             }
-            Yii::app()->request->sendFile('Laporan Riwayat Pelatihan - ' . date('YmdHis') . '.xls', $this->renderPartial('_mengikutiPelatihan', array(
+            Yii::app()->request->sendFile('Laporan Riwayat Pelatihan - ' . date('YmdHi') . '.xls', $this->renderPartial('_mengikutiPelatihan', array(
                         'model' => $model,
                         'post', $post
                             ), true)
@@ -149,7 +149,7 @@ class ReportController extends Controller {
                 $model->attributes = $_POST['RiwayatPenghargaan'];
                 $post = "1";
             }
-            Yii::app()->request->sendFile('Laporan Penerima Penghargaan - ' . date('YmdHis') . '.xls', $this->renderPartial('_penerimaPenghargaan', array(
+            Yii::app()->request->sendFile('Laporan Penerima Penghargaan - ' . date('YmdHi') . '.xls', $this->renderPartial('_penerimaPenghargaan', array(
                         'model' => $model,
                         'post', $post
                             ), true)
@@ -169,7 +169,7 @@ class ReportController extends Controller {
                 $model->attributes = $_POST['RiwayatHukuman'];
                 $post = "1";
             }
-            Yii::app()->request->sendFile('Laporan Penerima Hukuman - ' . date('YmdHis') . '.xls', $this->renderPartial('_penerimaHukuman', array(
+            Yii::app()->request->sendFile('Laporan Penerima Hukuman - ' . date('YmdHi') . '.xls', $this->renderPartial('_penerimaHukuman', array(
                         'model' => $model,
                         'post', $post
                             ), true)
@@ -189,7 +189,7 @@ class ReportController extends Controller {
                 $model->attributes = $_POST['SuratMasuk'];
                 $post = "1";
             }
-            Yii::app()->request->sendFile('Laporan Surat Masuk - ' . date('YmdHis') . '.xls', $this->renderPartial('_suratMasuk', array(
+            Yii::app()->request->sendFile('Laporan Surat Masuk - ' . date('YmdHi') . '.xls', $this->renderPartial('_suratMasuk', array(
                         'model' => $model,
                         'post', $post
                             ), true)
@@ -209,7 +209,7 @@ class ReportController extends Controller {
                 $model->attributes = $_POST['SuratKeluar'];
                 $post = "1";
             }
-            Yii::app()->request->sendFile('Laporan Surat Keluar - ' . date('YmdHis') . '.xls', $this->renderPartial('_suratKeluar', array(
+            Yii::app()->request->sendFile('Laporan Surat Keluar - ' . date('YmdHi') . '.xls', $this->renderPartial('_suratKeluar', array(
                         'model' => $model,
                         'post', $post
                             ), true)
@@ -229,7 +229,7 @@ class ReportController extends Controller {
                 $model->attributes = $_POST['PermohonanPerpanjanganHonorer'];
                 $post = "1";
             }
-            Yii::app()->request->sendFile('Laporan Permohonan Perpanjangan Honorer - ' . date('YmdHis') . '.xls', $this->renderPartial('_perpanjanganHonorer', array(
+            Yii::app()->request->sendFile('Laporan Permohonan Perpanjangan Honorer - ' . date('YmdHi') . '.xls', $this->renderPartial('_perpanjanganHonorer', array(
                         'model' => $model,
                         'post', $post
                             ), true)
@@ -249,7 +249,7 @@ class ReportController extends Controller {
                 $model->attributes = $_POST['PermohonanIjinBelajar'];
                 $post = "1";
             }
-            Yii::app()->request->sendFile('Laporan Permohonan Izin Belajar - ' . date('YmdHis') . '.xls', $this->renderPartial('_ijinBelajar', array(
+            Yii::app()->request->sendFile('Laporan Permohonan Izin Belajar - ' . date('YmdHi') . '.xls', $this->renderPartial('_ijinBelajar', array(
                         'model' => $model,
                         'post', $post
                             ), true)
@@ -269,7 +269,7 @@ class ReportController extends Controller {
                 $model->attributes = $_POST['PermohonanMutasi'];
                 $post = "1";
             }
-            Yii::app()->request->sendFile('Laporan Permohonan Mutasi - ' . date('YmdHis') . '.xls', $this->renderPartial('_permohonanMutasi', array(
+            Yii::app()->request->sendFile('Laporan Permohonan Mutasi - ' . date('YmdHi') . '.xls', $this->renderPartial('_permohonanMutasi', array(
                         'model' => $model,
                         'post', $post
                             ), true)
@@ -289,7 +289,7 @@ class ReportController extends Controller {
                 $model->attributes = $_POST['PermohonanPensiun'];
                 $post = "1";
             }
-            Yii::app()->request->sendFile('Laporan PermohonanPensiun - ' . date('YmdHis') . '.xls', $this->renderPartial('_permohonanPensiun', array(
+            Yii::app()->request->sendFile('Laporan PermohonanPensiun - ' . date('YmdHi') . '.xls', $this->renderPartial('_permohonanPensiun', array(
                         'model' => $model,
                         'post', $post
                             ), true)
@@ -302,7 +302,7 @@ class ReportController extends Controller {
         $this->layout = "mainWide";
         $model = array();
         if (isset($_POST['exportExcel'])) {
-            Yii::app()->request->sendFile('Laporan Struktur Organisasi - ' . date('YmdHis') . '.xls', $this->renderPartial('strukturOrganisasi', array(
+            Yii::app()->request->sendFile('Laporan Struktur Organisasi - ' . date('YmdHi') . '.xls', $this->renderPartial('strukturOrganisasi', array(
                         'model' => $model,
                             ), true)
             );
@@ -359,7 +359,7 @@ class ReportController extends Controller {
             }
 
             $model = Pegawai::model()->findAll($criteria);
-            Yii::app()->request->sendFile('Laporan Pensiun - ' . date('YmdHis') . '.xls', $this->renderPartial('_pensiun', array(
+            Yii::app()->request->sendFile('Laporan Pensiun - ' . date('YmdHi') . '.xls', $this->renderPartial('_pensiun', array(
                         'model' => $model,
 //                        'post',$post
                             ), true)

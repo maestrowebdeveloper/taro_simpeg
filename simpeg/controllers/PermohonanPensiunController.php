@@ -23,19 +23,19 @@ class PermohonanPensiunController extends Controller {
         return array(
             array('allow', // c
                 'actions' => array('create'),
-                'expression' => 'app()->controller->isValidAccess(1,"c")'
+                'expression' => 'app()->controller->isValidAccess("permohonanPensiun","c")'
             ),
             array('allow', // r
                 'actions' => array('index', 'view'),
-                'expression' => 'app()->controller->isValidAccess(1,"r")'
+                'expression' => 'app()->controller->isValidAccess("permohonanPensiun","r")'
             ),
             array('allow', // u
                 'actions' => array('update'),
-                'expression' => 'app()->controller->isValidAccess(1,"u")'
+                'expression' => 'app()->controller->isValidAccess("permohonanPensiun","u")'
             ),
             array('allow', // d
                 'actions' => array('delete'),
-                'expression' => 'app()->controller->isValidAccess(1,"d")'
+                'expression' => 'app()->controller->isValidAccess("permohonanPensiun","d")'
             )
         );
     }
@@ -297,7 +297,7 @@ class PermohonanPensiunController extends Controller {
         $model = PermohonanPensiun::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile('Data Permohonan Pensiun ' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Permohonan Pensiun ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );

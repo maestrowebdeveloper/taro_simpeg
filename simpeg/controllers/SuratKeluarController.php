@@ -259,7 +259,7 @@ class SuratKeluarController extends Controller {
         $model = SuratKeluar::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile('Surat Keluar -'.date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Surat Keluar -'.date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );

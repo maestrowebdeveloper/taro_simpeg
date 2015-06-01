@@ -92,7 +92,7 @@ class PegawaiController extends Controller {
             $list[] = array("id" => "0", "text" => "No Results Found..");
         } else {
             foreach ($data as $val) {
-                $list[] = array("id" => $val->id, "text" => $val->nip.' - '.$val->namaGelar);
+                $list[] = array("id" => $val->id, "text" => $val->nip . ' - ' . $val->namaGelar);
             }
         }
         echo json_encode($list);
@@ -106,7 +106,7 @@ class PegawaiController extends Controller {
             $list[] = array("id" => "0", "text" => "No Results Found..");
         } else {
             foreach ($data as $val) {
-                $list[] = array("id" => $val->id, "text" => $val->nip.' - '.$val->nama);
+                $list[] = array("id" => $val->id, "text" => $val->nip . ' - ' . $val->nama);
             }
         }
         echo json_encode($list);
@@ -185,26 +185,26 @@ class PegawaiController extends Controller {
         if ($model->tipe_jabatan == "struktural") {
             $pegawai = Pegawai::model()->findAll(array('condition' => 'jabatan_struktural_id=' . $model->jabatan_struktural_id . ' and kedudukan_id=1 and tipe_jabatan="struktural"'));
             $jabatan = isset($model->JabatanStruktural->jabatan) ? $model->JabatanStruktural->jabatan : "-";
-             if (count($pegawai) != 0) {
-            if (!empty($model)) {
-                foreach ($pegawai as $as) {
-                    $data['pegawai'] = $as->nama;
-                    $data['nip'] = $as->nip;
+            if (count($pegawai) != 0) {
+                if (!empty($model)) {
+                    foreach ($pegawai as $as) {
+                        $data['pegawai'] = $as->nama;
+                        $data['nip'] = $as->nip;
+                    }
+                    $data['isi'] = 1;
                 }
-                $data['isi'] = 1;
-            }
-        } else {
+            } else {
 
-            $data['id'] = $model->id;
-            $data['tipe'] = $model->tipe;
-            $data['jabatan'] = $jabatan;
-            $data['tmt'] = $model->tmt_mulai;
-            $data['bidang'] = isset($model->JabatanStruktural->nama) ? $model->JabatanStruktural->nama : "-";
-            $data['status'] = $model->statusjabatan;
-            $data['isi'] = 0;
+                $data['id'] = $model->id;
+                $data['tipe'] = $model->tipe;
+                $data['jabatan'] = $jabatan;
+                $data['tmt'] = $model->tmt_mulai;
+                $data['bidang'] = isset($model->JabatanStruktural->nama) ? $model->JabatanStruktural->nama : "-";
+                $data['status'] = $model->statusjabatan;
+                $data['isi'] = 0;
 
 //            logs($data);
-        }
+            }
         } elseif ($model->tipe_jabatan == "fungsional_tertentu") {
             $jabatan = isset($model->JabatanFt->nama) ? $model->JabatanFt->nama : "-";
             $data['id'] = $model->id;
@@ -224,7 +224,7 @@ class PegawaiController extends Controller {
             $data['status'] = $model->statusjabatan;
             $data['isi'] = 0;
         }
-       
+
         echo json_encode($data);
     }
 
@@ -573,7 +573,7 @@ class PegawaiController extends Controller {
         $date = explode("-", $_POST['tmt_cpns']);
         $tmt = mktime(0, 0, 0, $date[1] + $bulan, $date[2], $date[0] + $tahun);
         $tmt_cpns = date("d-m-Y", $tmt);
-        if (isset($tmt_cpns) or !empty($tmt_cpns)) {
+        if (isset($tmt_cpns) or ! empty($tmt_cpns)) {
             $data = array();
             $data['bulan'] = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true));
             $data['tahun'] = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true));
@@ -660,7 +660,7 @@ class PegawaiController extends Controller {
         Yii::import("common.extensions.EAjaxUpload.qqFileUploader");
 
         $folder = 'images/file/' . $id . '/'; // folder for uploaded files             
-        if (!file_exists($folder)){
+        if (!file_exists($folder)) {
             mkdir($folder, 0777);
         }
         $allowedExtensions = array("jpg", "jpeg", "gif", "png", "gif", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "pdf", "zip", "rar"); //array("jpg","jpeg","gif","exe","mov" and etc...
@@ -710,17 +710,15 @@ class PegawaiController extends Controller {
 
         if (isset($session['Pegawai_records'])) {
             $model = $session['Pegawai_records'];
-        }
-        else
+        } else
             $model = Pegawai::model()->findAll();
 
         if (isset($session['Honorer_records'])) {
             $honorer = $session['Honorer_records'];
-        }
-        else
+        } else
             $honorer = Honorer::model()->findAll();
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelUlangTahun', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelUlangTahun', array(
                     'model' => $model,
                     'honorer' => $honorer,
                         ), true)
@@ -795,11 +793,10 @@ class PegawaiController extends Controller {
 
         if (isset($session['Pegawai_records'])) {
             $model = $session['Pegawai_records'];
-        }
-        else
+        } else
             $model = Pegawai::model()->findAll();
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelCheckError', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelCheckError', array(
                     'model' => $model,
                         ), true)
         );
@@ -825,8 +822,8 @@ class PegawaiController extends Controller {
 
     public function actionFungsionalTertentu() {
         $gol_id = isset($_POST['golongan_id']) ? $_POST['golongan_id'] : 0;
-        $jabatanFungsional = JabatanFungsional::model()->find(array('condition'=>'jabatan_ft_id = ' . $_POST['jabatan_ft_id'].' and (min_golongan_id <= '.$gol_id.' and max_golongan_id >= '.$gol_id.' ) '));
-        echo !empty($jabatanFungsional) ? $jabatanFungsional->nama : "-";
+        $jabatanFungsional = JabatanFungsional::model()->find(array('condition' => 'jabatan_ft_id = ' . $_POST['jabatan_ft_id'] . ' and (min_golongan_id <= ' . $gol_id . ' and max_golongan_id >= ' . $gol_id . ' ) '));
+        echo!empty($jabatanFungsional) ? $jabatanFungsional->nama : "-";
 //        echo $gol_id;
 //        $data = JabatanFungsional::model()->with('DetailJf')->find(array('condition' => 't.jabatan_ft_id = ' . $_POST['jabatan_ft_id']));
 //        $tmp = isset($data->nama) ? $data->nama : '-';
@@ -1066,8 +1063,7 @@ class PegawaiController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -1104,7 +1100,7 @@ class PegawaiController extends Controller {
 //
 //            //$model->attributes = $_GET['Pegawai'];
 //            //logs($model);
-//            Yii::app()->request->sendFile('Data Pegawai - ' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+//            Yii::app()->request->sendFile('Data Pegawai - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
 //                        'model' => $model,
 //                    ),true)
 //            );
@@ -1140,7 +1136,7 @@ class PegawaiController extends Controller {
             $model->attributes = $_POST['Pegawai'];
             if (isset($_POST['export'])) {
 
-                Yii::app()->request->sendFile('Rekap Data Pegawai - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekap', array(
+                Yii::app()->request->sendFile('Rekap Data Pegawai - ' . date('YmdHi') . '.xls', $this->renderPartial('_rekap', array(
                             'model' => $model,
                                 ), true)
                 );
@@ -1160,7 +1156,7 @@ class PegawaiController extends Controller {
         }
         if (isset($_GET['export'])) {
 
-            Yii::app()->request->sendFile('Rekap Data Eselon - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapEselon', array(
+            Yii::app()->request->sendFile('Rekap Data Eselon - ' . date('YmdHi') . '.xls', $this->renderPartial('_rekapEselon', array(
                         'model' => $model,
                             ), true)
             );
@@ -1178,7 +1174,7 @@ class PegawaiController extends Controller {
             $model->attributes = $_POST['Pegawai'];
         }
         if (isset($_GET['export'])) {
-            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapJabfung', array(
+            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHi') . '.xls', $this->renderPartial('_rekapJabfung', array(
                         'model' => $model,
                             ), true)
             );
@@ -1196,7 +1192,7 @@ class PegawaiController extends Controller {
             $model->attributes = $_POST['Pegawai'];
         }
         if (isset($_POST['export'])) {
-            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapBatasPensiun', array(
+            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHi') . '.xls', $this->renderPartial('_rekapBatasPensiun', array(
                         'model' => $model,
                             ), true)
             );
@@ -1215,7 +1211,7 @@ class PegawaiController extends Controller {
         $unit_kerja = (isset($session['RekapUnitKerjaExcel_records'])) ? $session['RekapUnitKerjaExcel_records'] : "-";
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('rekapExcel', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('rekapExcel', array(
                     'model' => $model, 'unit_kerja' => $unit_kerja,
                         ), true)
         );
@@ -1283,36 +1279,40 @@ class PegawaiController extends Controller {
         $jns_kelamin = $_GET['jenis_kelamin'];
         $sts_pernikahan = $_GET['status_pernikahan'];
 
-        $criteria = new CDbCriteria;
-        $criteria->with = array('RiwayatJabatan');
-        $criteria->compare('nip', $nip, true);
-        $criteria->addCondition('nama like "%' . $nama . '%"');
-        $criteria->compare('gelar_depan', $gelar_dpn, true);
-        $criteria->compare('gelar_belakang', $gelar_blk, true);
-        $criteria->compare('hp', $hp, true);
-        if (!empty($pegawai_ft))
-            $criteria->addCondition('RiwayatJabatan.jabatan_ft_id IN (' . implode(",", $id) . ')');
-        $criteria->compare('jurusan', $jurusan, true);
-        $criteria->compare('kedudukan_id', $kedudukan_id);
-//        if(!empty($agama))
-        $criteria->compare('agama', $agama, true);
-        $criteria->compare('tipe_jabatan', $type_jabatan, true);
-
-        if (!empty($satuan_kerja))
-            $criteria->addCondition('RiwayatJabatan.jabatan_struktural_id IN (' . implode(",", $id) . ') ');
-
-//        $criteria->compare('t.jabatan_stru', $unit_kerja);
-        if (!empty($unit_kerja)) {
-            $criteria->compare('t.jabatan_struktural_id', $unit_kerja);
-        }
-//        if(!empty($jns_kelamin))
-        $criteria->compare('jenis_kelamin', $jns_kelamin, true);
+//        $criteria = new CDbCriteria;
+//        $criteria->with = array('RiwayatJabatan', 'RiwayatPangkat', 'RiwayatKeluarga', 'JabatanStruktural', 'UnitKerja');
+//        $criteria->compare('nip', $nip, true);
+//        $criteria->addCondition('nama like "%' . $nama . '%"');
+//        $criteria->compare('gelar_depan', $gelar_dpn, true);
+//        $criteria->compare('gelar_belakang', $gelar_blk, true);
+//        $criteria->compare('hp', $hp, true);
+//        if (!empty($pegawai_ft))
+//            $criteria->addCondition('RiwayatJabatan.jabatan_ft_id IN (' . implode(",", $id) . ')');
+//        $criteria->compare('jurusan', $jurusan, true);
+//        $criteria->compare('kedudukan_id', $kedudukan_id);
+//        $criteria->compare('agama', $agama, true);
+//        $criteria->compare('tipe_jabatan', $type_jabatan, true);
+//        if (!empty($satuan_kerja))
+//            $criteria->addCondition('RiwayatJabatan.jabatan_struktural_id IN (' . implode(",", $id) . ') ');
+//        if (!empty($unit_kerja)) {
+//            $criteria->compare('t.jabatan_struktural_id', $unit_kerja);
+//        }
+//        $criteria->compare('jenis_kelamin', $jns_kelamin, true);
+//        $criteria->compare('status_pernikahan', $sts_pernikahan, true);
 //
-        $criteria->compare('status_pernikahan', $sts_pernikahan, true);
+//        $model = Pegawai::model()->findAll($criteria);
+        $model = cmd('SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, '
+        . 'golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan, eselon.nama as nama_eselon, jurusan.Name as pendidikan FROM pegawai '
+        . 'LEFT JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id '
+        . 'LEFT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id '
+        . 'LEFT JOIN eselon ON eselon.id = jabatan_struktural.eselon_id '
+        . 'LEFT JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_id '
+        . 'LEFT JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id '
+        . 'LEFT JOIN riwayat_pendidikan ON pegawai.id = riwayat_pendidikan.pegawai_id '
+        . 'LEFT JOIN jurusan ON jurusan.id = riwayat_pendidikan.id_jurusan '
+        . 'ORDER BY jabatan_struktural.root,jabatan_struktural.lft')->query();
 
-        $model = Pegawai::model()->findAll($criteria);
-
-        Yii::app()->request->sendFile('Data Pegawai -' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Pegawai -' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );
@@ -1336,12 +1336,11 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatPangkat_records'])) {
             $model = $session['RiwayatPangkat_records'];
-        }
-        else
+        } else
             $model = RiwayatPangkat::model()->findAll();
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelRiwayatPangkat', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelRiwayatPangkat', array(
                     'model' => $model
                         ), true)
         );
@@ -1365,12 +1364,11 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatJabatan_records'])) {
             $model = $session['RiwayatJabatan_records'];
-        }
-        else
+        } else
             $model = RiwayatJabatan::model()->findAll();
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelRiwayatJabatan', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelRiwayatJabatan', array(
                     'model' => $model
                         ), true)
         );
@@ -1421,12 +1419,11 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatGaji_records'])) {
             $model = $session['RiwayatGaji_records'];
-        }
-        else
+        } else
             $model = RiwayatGaji::model()->findAll();
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelRiwayatGaji', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelRiwayatGaji', array(
                     'model' => $model
                         ), true)
         );
@@ -1450,12 +1447,11 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatKeluarga_records'])) {
             $model = $session['RiwayatKeluarga_records'];
-        }
-        else
+        } else
             $model = RiwayatKeluarga::model()->findAll();
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelRiwayatKeluarga', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelRiwayatKeluarga', array(
                     'model' => $model
                         ), true)
         );
@@ -1479,12 +1475,11 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatPendidikan_records'])) {
             $model = $session['RiwayatPendidikan_records'];
-        }
-        else
+        } else
             $model = RiwayatPendidikan::model()->findAll();
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelRiwayatPendidikan', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelRiwayatPendidikan', array(
                     'model' => $model
                         ), true)
         );
@@ -1560,6 +1555,28 @@ class PegawaiController extends Controller {
             $data->save();
         }
         echo 'sukses';
+    }
+
+    public function actionCoba() {
+//        $criteria = new CDbCriteria;
+//        $criteria->with = array('RiwayatJabatan', 'Pangkat', 'RiwayatKeluarga', 'JabatanStruktural', 'UnitKerja');
+//        $model = Pegawai::model()->findAll($criteria);
+//        
+//        $aa = cmd('SELECT * FROM pegawai')->query();
+//        foreach($aa as $a){
+//            echo $a['id'].'<br/>';
+//        }
+        
+        cmd('SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, '
+        . 'golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan, eselon.nama as nama_eselon, jurusan.Name as pendidikan FROM pegawai '
+        . 'INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id '
+        . 'RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id '
+        . 'INNER JOIN eselon ON eselon.id = jabatan_struktural.eselon_id '
+        . 'INNER JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_id '
+        . 'INNER JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id '
+        . 'INNER JOIN riwayat_pendidikan ON pegawai.id = riwayat_pendidikan.pegawai_id '
+        . 'INNER JOIN jurusan ON jurusan.id = riwayat_pendidikan.id_jurusan '
+        . 'ORDER BY jabatan_struktural.root,jabatan_struktural.lft')->query();
     }
 
 }

@@ -225,7 +225,7 @@ class TransferCpnsController extends Controller {
         $model = TransferCpns::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile('Data Transfer CPNS - ' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Transfer CPNS - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );

@@ -279,7 +279,7 @@ class PermohonanPerpanjanganHonorerController extends Controller {
         $model = PermohonanPerpanjanganHonorer::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile('Data Permohonan Perpanjangan Honorer - ' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Permohonan Perpanjangan Honorer - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );

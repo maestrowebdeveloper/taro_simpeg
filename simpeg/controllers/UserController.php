@@ -799,7 +799,7 @@ class UserController extends Controller {
         $model = User::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile('Data User - ' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data User - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );
