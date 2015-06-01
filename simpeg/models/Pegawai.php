@@ -310,8 +310,8 @@ class Pegawai extends CActiveRecord {
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria2,
-            'sort' => false,
-//            'sort' => array('defaultOrder'=>'t.id DESC')
+//            'sort' => false,
+            'sort' => array('defaultOrder' => 'Golongan.nama DESC, Eselon.id ASC'),
         ));
 //array('condition'=>'pegawai_id='.$this->id,'order'=>'id DESC'));
         return $data;
@@ -470,7 +470,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getUnitKerjaJabatan() {
-        return (!empty($this->RiwayatJabatan->JabatanStruktural->nama) ? $this->RiwayatJabatan->JabatanStruktural->nama : "-");
+        return (!empty($this->JabatanStruktural->nama) ? $this->JabatanStruktural->nama : "-");
     }
 
     public function getSatuanKerja() {
@@ -593,7 +593,8 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getImgUrl() {
-        return param('pathImg') . 'pegawai/' . $this->foto;
+        
+        return(!empty($this->foto)) ?  param('pathImg') . 'pegawai/' . $this->foto : param('pathImg') . '350x350-noimage.jpg';
     }
 
     public function getSmallFoto() {

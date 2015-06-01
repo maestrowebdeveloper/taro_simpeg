@@ -99,49 +99,64 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array(
             'name' => 'jabatan_fu_id',
             'value' => '$data->jabatan',
+            'type' => 'raw',
+            'htmlOptions' => array('style' => 'text-align: center; width:140px;')
         ),
         array(
             'name' => 'jabatan_struktural_id',
             'value' => '$data->unitKerja',
+            'type' => 'raw',
+            'htmlOptions' => array('style' => 'text-align: center; width:140px;')
         ),
         array(
             'name' => 'jabatan_struktural_id',
             'value' => '$data->satuanKerja',
+            'type' => 'raw',
+            'htmlOptions' => array('style' => 'text-align: center; width:140px;')
         ),
-		array(
+        array(
             'name' => 'tmt_kontrak',
-            'value' => '$data->tmtKontrak',            
+            'header' => 'Kontrak pertama',
+            'value' => '$data->tmtKontrak',
         ),
-		array(
+        array(
+            'name' => 'tmt_mulai_kontrak',
+            'header' => 'Tmt Mulai Kontrak',
+            'value' => '$data->tmtMulaiKontrak',
+        ),
+        array(
             'name' => 'tmt_akhir_kontrak',
-            'value' => '$data->tmtAkhirKontrak',            
+            'header' => 'Tmt Akhir Kontrak',
+            'value' => '$data->tmtAkhirKontrak',
         ),
 //        'tmt_kontrak',
 //        'tmt_akhir_kontrak',	
-       array(
-            'class'=>'bootstrap.widgets.TbButtonColumn',
-			'template' => '{view} {update} {delete}',
-			'buttons' => array(
-			      'view' => array(
-					'label'=> 'Lihat',
-					'options'=>array(
-						'class'=>'btn btn-small view'
-					)
-				),	
-                              'update' => array(
-					'label'=> 'Edit',
-					'options'=>array(
-						'class'=>'btn btn-small update'
-					)
-				),
-				'delete' => array(
-					'label'=> 'Hapus',
-					'options'=>array(
-						'class'=>'btn btn-small delete'
-					)
-				)
-			),
-            'htmlOptions'=>array('style'=>'width: 125px;text-align:center'),
-           )
-	),
-));$this->endWidget(); ?>
+        array(
+            'class' => 'bootstrap.widgets.TbButtonColumn',
+            'template' => '{view} {update} {delete}',
+            'buttons' => array(
+                'view' => array(
+                    'label' => 'Lihat',
+                    'options' => array(
+                        'class' => 'btn btn-small view'
+                    )
+                ),
+                'update' => array(
+                    'label' => 'Edit',
+                    'options' => array(
+                        'class' => 'btn btn-small update'
+                    )
+                ),
+                'delete' => array(
+                    'label' => 'Hapus',
+                    'options' => array(
+                        'class' => 'btn btn-small delete'
+                    )
+                )
+            ),
+            'htmlOptions' => array('style' => 'width: 125px;text-align:center'),
+        )
+    ),
+));
+$this->endWidget();
+?>

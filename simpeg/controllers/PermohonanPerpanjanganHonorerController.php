@@ -120,10 +120,43 @@ class PermohonanPerpanjanganHonorerController extends Controller {
                 foreach ($model as $data) {
 
                     //di honorer tmt mulai dan akhir
-                    Honorer::model()->updateAll(array(
-                        'tmt_mulai_kontrak' => $data->tmt_mulai,
-                        'tmt_akhir_kontrak' => $data->tmt_selesai
-                            ), 'id=' . $data->honorer_id);
+//                    Honorer::model()->updateAll(array(
+//                        'tmt_mulai_kontrak' => $data->tmt_mulai,
+//                        'tmt_akhir_kontrak' => $data->tmt_selesai
+//                            ), 'id=' . $data->honorer_id);
+                    $honorer = Honorer::model()->findByPk($data->honorer_id);
+                    //save tmt mulai dan akhir
+                    $honorer->tmt_mulai_kontrak = $data->tmt_mulai;
+                    $honorer->tmt_akhir_kontrak = $data->tmt_selesai;
+
+                    //masa kerja
+                    $date1 = explode("-", $honorer->tmt_kontrak);
+                    $tmt1 = mktime(0, 0, 0, $date1[1], $date1[2], $date1[0]);
+
+                    $date2 = explode("-", $data->tmt_mulai);
+                    $tmt2 = mktime(0, 0, 0, $date2[1], $date2[2], $date2[0]);
+
+                    $tmt_kontrak = date("d-m-Y", $tmt1);
+                    $tmt_mulai_kontrak = date("d-m-Y", $tmt2);
+
+                    if (isset($tmt_kontrak) or !empty($tmt_kontrak)) {
+                        $perubahan = array();
+                        $perubahan['bulan'] = str_replace(" Bulan", "", KenaikanGaji::model()->masaKerja($tmt_kontrak, $tmt_mulai_kontrak, false, true));
+                        $perubahan['tahun'] = str_replace(" Tahun", "", KenaikanGaji::model()->masaKerja($tmt_kontrak, $tmt_mulai_kontrak, true));
+                        if($perubahan['tahun'] > 10 || $perubahan['bulan'] > 1){
+                            $honorer->gaji = 750000;
+                            $data->honor_saat_ini = 750000;
+                        }else{
+                            $honorer->gaji = 725000;
+                            $data->honor_saat_ini = 725000;
+                        }
+                        $honorer->perubahan_masa_kerja = json_encode($perubahan);
+                       
+                    }
+//                    logs($perubahan['tahun']);
+                    $honorer->save();
+
+
                     // update statusnya
                     $data->status = 1;
                     $data->save();

@@ -532,11 +532,12 @@ class Honorer extends CActiveRecord {
     }
 
     public function getImgUrl() {
-        return param('pathImg') . 'honorer/' . $this->foto;
+//        return param('pathImg') . 'honorer/' . $this->foto;
+         return(!empty($this->foto)) ?  param('pathImg') . 'honorer/' . $this->foto : param('pathImg') . '350x350-noimage.jpg';
     }
 
     public function getSmallFoto() {
-        return '<img style="width:98px;height:98px" src="' . $this->imgUrl . '" class="img-polaroid"/>';
+        return '<img style="width:40px;height:40px" src="' . $this->imgUrl . '" class="img-polaroid"/>';
     }
 
     public function getTinyFoto() {

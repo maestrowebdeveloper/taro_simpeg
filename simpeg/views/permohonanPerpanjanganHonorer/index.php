@@ -106,8 +106,9 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => '$data->honorer',
         ),
         array(
-            'name' => 'masa_kerja',
-            'value' => '$data->masa_kerja',
+            'name' => 'status',
+            'type' => 'raw',
+            'value' => '$data->statusPerpanjang',
         ),
         array(
             'name' => 'honor_saat_ini',

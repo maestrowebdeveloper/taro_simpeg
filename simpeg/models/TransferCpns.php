@@ -32,10 +32,10 @@ class TransferCpns extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('pegawai_id, nomor_kesehatan, pelatihan_id, nomor_diklat, status', 'numerical', 'integerOnly'=>true),
-			array('tanggal_kesehatan, tanggal_diklat', 'safe'),
+			array('nomor,tmt,tanggal_kesehatan, tanggal_diklat', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pegawai_id, nomor_kesehatan, tanggal_kesehatan, pelatihan_id, nomor_diklat, tanggal_diklat, status,created,created_user_id', 'safe', 'on'=>'search'),
+			array('id, pegawai_id,nomor,tmt, nomor_kesehatan, tanggal_kesehatan, pelatihan_id, nomor_diklat, tanggal_diklat, status,created,created_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,6 +60,8 @@ class TransferCpns extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'pegawai_id' => 'Pegawai',
+			'nomor' => 'Nomor',
+			'tmt' => 'Tmt',
 			'nomor_kesehatan' => 'Nomor Kesehatan',
 			'tanggal_kesehatan' => 'Tanggal Kesehatan',
 			'pelatihan_id' => 'Pelatihan',
@@ -89,6 +91,8 @@ class TransferCpns extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('pegawai_id',$this->pegawai_id);
+		$criteria->compare('nomor',$this->nomor);
+		$criteria->compare('tmt',$this->tmt);
 		$criteria->compare('nomor_kesehatan',$this->nomor_kesehatan);
 		$criteria->compare('tanggal_kesehatan',$this->tanggal_kesehatan,true);
 		$criteria->compare('pelatihan_id',$this->pelatihan_id);
