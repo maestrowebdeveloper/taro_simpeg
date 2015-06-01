@@ -24,7 +24,7 @@
             $kenaikanGaji = json_decode($gajiBaru->gaji, true);
             foreach ($query as $valPegawai) {
                 $masakerjaPegawai = KenaikanGaji::model()->masaKerja(date("d-m-Y", strtotime($valPegawai->tmt_cpns)), $tanggalKenaikan, true, false);
-                if (isset($kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai]) and $kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai] > 0) {
+//                if (isset($kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai]) and $kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai] > 0) {
                     echo '<tr>';
                     echo '<td>';
                     echo '<input type="hidden" name="tanggal_sk_akhir[]" value="' . (isset($valPegawai->Pangkat->tanggal_sk_akhir) ? $valPegawai->Gaji->tanggal_sk_akhir : "-") . '">';
@@ -41,7 +41,7 @@
                     echo '<td>' . (landa()->rp(isset($valPegawai->Gaji->gaji) ? $valPegawai->Gaji->gaji : 0)) . '</td>';
                     echo '<td>' . (landa()->rp(isset($kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai]) ? $kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai] : 0)) . '</td>';
                     echo '</tr>';
-                }
+//                }
             }
         }
         ?>
