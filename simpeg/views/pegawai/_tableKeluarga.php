@@ -17,6 +17,7 @@ if(!empty($edit)){
         <th>Pekerjaan</th>
         <th>No Karsu</th>
         <th>No Karis</th>
+        <th>Akte Nikah</th>
         <th>Tanggal Pernikahan</th>
         <th>Status</th>
         <?php echo $th;?>
@@ -38,6 +39,7 @@ if(!empty($edit)){
                 <td>'.$value->pekerjaan.'</td>
                 <td>'.$value->nomor_karsu.'</td>
                 <td>'.$value->nomor_karsi.'</td>
+                <td>'.$value->no_akte_nikah.'</td>
                 <td>'.$value->tanggal_pernikahan.'</td>
                 <td>'.$value->status.'</td>
                 '.$action.'

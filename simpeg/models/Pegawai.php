@@ -310,8 +310,8 @@ class Pegawai extends CActiveRecord {
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria2,
-            'sort' => false,
-//            'sort' => array('defaultOrder'=>'t.id DESC')
+//            'sort' => false,
+            'sort' => array('defaultOrder' => 'Golongan.nama DESC, Eselon.id ASC'),
         ));
 //array('condition'=>'pegawai_id='.$this->id,'order'=>'id DESC'));
         return $data;
