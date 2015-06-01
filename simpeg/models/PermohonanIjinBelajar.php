@@ -38,14 +38,14 @@ class PermohonanIjinBelajar extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nomor_register, tanggal, pegawai_id, jenjang_pendidikan,id_jurusan,  tanggal_usul', 'required'),
-            array('nip, golongan, nama,jabatan, unit_kerja, id_jurusan, id_universitas, kota, alamat, nama_sekolah, created, created_user_id, modified', 'safe'),
+            array('nip, golongan,tanggal, tanggal_usul, nama,jabatan, unit_kerja, id_jurusan, id_universitas, kota, alamat, nama_sekolah, created, created_user_id, modified', 'safe'),
             array('pegawai_id, kota, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register, nip, jabatan, unit_kerja, nama_sekolah', 'length', 'max' => 225),
             array('golongan', 'length', 'max' => 100),
             array('jenjang_pendidikan', 'length', 'max' => 9),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, nomor_register, tanggal, pegawai_id, nip, golongan, jabatan, unit_kerja, jenjang_pendidikan, id_jurusan, nama_sekolah, kota, alamat, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, nomor_register, tanggal,tanggal_usul, pegawai_id, nip, golongan, jabatan, unit_kerja, jenjang_pendidikan, id_jurusan, nama_sekolah, kota, alamat, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 

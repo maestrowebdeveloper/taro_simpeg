@@ -322,21 +322,21 @@ class ReportController extends Controller {
             $criteria->together = true;
             $criteria->addCondition('kedudukan_id="1"');
 
-            if (!empty($_POST['tahun']) && !empty($_POST['bup'])) {
-                $tgl_lahir = $_POST['tahun'];
+            if (!empty($_GET['tahun']) && !empty($_GET['bup'])) {
+                $tgl_lahir = $_GET['tahun'];
                 $criteria->addCondition('date_format(tmt_pensiun,"%y") = "' . date("y", strtotime($tgl_lahir)) . '"');
             }
 
-            if (!empty($_POST['bulan']))
-                $criteria->addCondition('month(tmt_pensiun) = "' . substr("0" . $_POST['bulan'], -2, 2) . '"');
+            if (!empty($_GET['bulan']))
+                $criteria->addCondition('month(tmt_pensiun) = "' . substr("0" . $_GET['bulan'], -2, 2) . '"');
 
-            if (!empty($_POST['unit_kerja_id']))
-                $criteria->addCondition('unit_kerja_id = ' . $_POST['unit_kerja_id']);
+            if (!empty($_GET['unit_kerja_id']))
+                $criteria->addCondition('unit_kerja_id = ' . $_GET['unit_kerja_id']);
 
-            if (!empty($_POST['eselon_id'])) {
+            if (!empty($_GET['eselon_id'])) {
                 $jbt_id = array();
 
-                $jbt = JabatanStruktural::model()->findAll(array('condition' => 'eselon_id=' . $_POST['eselon_id']));
+                $jbt = JabatanStruktural::model()->findAll(array('condition' => 'eselon_id=' . $_GET['eselon_id']));
                 if (!empty($jbt)) {
                     foreach ($jbt as $a) {
                         $jbt_id[] = $a->id;

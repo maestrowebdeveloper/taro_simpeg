@@ -470,7 +470,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getUnitKerjaJabatan() {
-        return (!empty($this->RiwayatJabatan->JabatanStruktural->nama) ? $this->RiwayatJabatan->JabatanStruktural->nama : "-");
+        return (!empty($this->JabatanStruktural->nama) ? $this->JabatanStruktural->nama : "-");
     }
 
     public function getSatuanKerja() {

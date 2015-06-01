@@ -139,6 +139,7 @@ class UserController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
+        $type='';
         $listRoles = Roles::model()->listRoles();
         $model = $this->loadModel($id);
 

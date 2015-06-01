@@ -377,7 +377,7 @@ if ($model->isNewRecord == true) {
                         ?>
 
 
-                        <?php echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp')); ?>
+                        <?php echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp','style'=>'width:300px')); ?>
                         <?php
                         
                         echo $form->datepickerRow(
