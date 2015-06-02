@@ -51,43 +51,43 @@
 //            $gaji = (!empty($issu)) ? $issu->gaji : "";
         ?>
             <tr>
-                <td><?php echo "'" . $row['nip']; ?></td>
-                <td><?php echo "'".$row['nip_lama']; ?></td> 
-                <td><?php // echo $row->namaGelar; ?></td>
-                <td><?php // echo $row->jenis_kelamin; ?></td>
-                <td><?php // echo $row->ttl; ?></td>
-                <td><?php // echo $row->agama; ?></td>
-                <td> <?php // echo $row->pendidikanTerakhir; ?></td>
-                <td> <?php // echo $row->pendidikanJurusan; ?></td>
-                <td> <?php // echo $row->pendidikanTahun; ?></td>
-                <td><?php // echo $row->alamat; ?></td>
-                <td><?php // echo $row->city; ?></td>
-                <td><?php // echo $row->kode_pos; ?></td>
-                <td><?php // echo $row->hp; ?></td>
-                <td><?php // echo $row->golongan_darah; ?></td>
-                <td><?php // echo $row->status_pernikahan; ?></td>
+                <td><?php echo "'" . $row->nip; ?></td>
+                <td><?php echo "'".$row->nip_lama; ?></td> 
+                <td><?php echo $row->namaGelar; ?></td>
+                <td><?php echo $row->jenis_kelamin; ?></td>
+                <td><?php echo $row->ttl; ?></td>
+                <td><?php echo $row->agama; ?></td>
+                <td> <?php echo $row->pendidikanTerakhir; ?></td>
+                <td> <?php echo $row->pendidikanJurusan; ?></td>
+                <td> <?php echo $row->pendidikanTahun; ?></td>
+                <td><?php echo $row->alamat; ?></td>
+                <td><?php echo $row->city; ?></td>
+                <td><?php echo $row->kode_pos; ?></td>
+                <td><?php echo $row->hp; ?></td>
+                <td><?php echo $row->golongan_darah; ?></td>
+                <td><?php echo $row->status_pernikahan; ?></td>
                 <td><?php // echo $namaIssu; ?></td>
-                <td><?php // echo "'" . $row->npwp; ?></td>
-                <td><?php // echo "'" . $row->bpjs; ?></td>
-                <td><?php // echo "'" . $row->karpeg; ?></td>
-                <td><?php // echo "'" . $row->kpe; ?></td>
-                <td><?php // echo "'" . $row->no_taspen; ?></td>
-                <td><?php // echo $row->kedudukan; ?></td>
-                <td><?php // echo $row->keterangan; ?></td>
-                <td><?php // echo $row->UnitKerjaJabatan; ?></td>
-                <td><?php // echo $row->SatuanKerja; ?></td>
-                <td><?php // echo $row->tmt_cpns; ?></td>
-                <td><?php // echo $row->tmt_pns; ?></td>
-                <td><?php // echo $row->tmt_pensiun; ?></td>
-                <td><?php // echo $row->bup; ?></td>
-                <td><?php // echo $row->golongan; ?></td>
-                <td><?php // echo $row->tmtPangkat; ?></td>
-                <td><?php // echo $row->tipe; ?></td>
-                <td><?php // echo $row->jabatan; ?></td>
-                <td><?php // echo $row->tmtJabatan; ?></td>
+                <td><?php echo "'" . $row->npwp; ?></td>
+                <td><?php echo "'" . $row->bpjs; ?></td>
+                <td><?php echo "'" . $row->karpeg; ?></td>
+                <td><?php echo "'" . $row->kpe; ?></td>
+                <td><?php echo "'" . $row->no_taspen; ?></td>
+                <td><?php echo $row->kedudukan; ?></td>
+                <td><?php echo $row->keterangan; ?></td>
+                <td><?php echo $row->UnitKerjaJabatan; ?></td>
+                <td><?php echo $row->SatuanKerja; ?></td>
+                <td><?php echo $row->tmt_cpns; ?></td>
+                <td><?php echo $row->tmt_pns; ?></td>
+                <td><?php echo $row->tmt_pensiun; ?></td>
+                <td><?php echo $row->bup; ?></td>
+                <td><?php echo $row->golongan; ?></td>
+                <td><?php echo $row->tmtPangkat; ?></td>
+                <td><?php echo $row->tipe; ?></td>
+                <td><?php echo $row->jabatan; ?></td>
+                <td><?php echo $row->tmtJabatan; ?></td>
                 <td><?php // echo $gaji; ?></td>
-                <td><?php // echo $row->masaKerja; ?></td>               
-                <td><?php // echo $row->tmt_pensiun; ?></td>       		
+                <td><?php echo $row->masaKerja; ?></td>               
+                <td><?php echo $row->tmt_pensiun; ?></td>       		
                       		
             </tr>
         <?php endforeach; ?>
