@@ -1,7 +1,7 @@
 <?php
 $this->setPageTitle('Data PNS');
 $this->breadcrumbs = array(
-    'PNS',
+    'Data PNS',
 );
 
 Yii::app()->clientScript->registerScript('search', "

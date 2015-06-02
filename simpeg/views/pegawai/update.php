@@ -1,12 +1,12 @@
 <?php
-if (isset($_GET['v'])) {$this->setPageTitle('Pegawai | NIP : '. $model->nip . ' | ' . $model->nama);
+if (isset($_GET['v'])) {$this->setPageTitle('Data PNS | NIP : '. $model->nip . ' | ' . $model->nama);
 $this->breadcrumbs=array(
-	'Pegawais'=>array('index'),
+	'Data PNS'=>array('index'),
 	$model->id,
 );
-}else{$this->setPageTitle('Edit Pegawais | ID : '. $model->id);
+}else{$this->setPageTitle('Edit Data PNS | ID : '. $model->id);
 $this->breadcrumbs=array(
-	'Pegawais'=>array('index'),
+	'Data PNS'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Update',
 );

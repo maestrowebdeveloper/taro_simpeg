@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Eselons');
+$this->setPageTitle('Eselon');
 $this->breadcrumbs=array(
-	'Eselons',
+	'Eselon',
 );
 
 Yii::app()->clientScript->registerScript('search', "

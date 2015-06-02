@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Permohonan Ijin Belajars');
+$this->setPageTitle('Permohonan Ijin Belajar');
 $this->breadcrumbs=array(
-	'Permohonan Ijin Belajars',
+	'Permohonan Ijin Belajar',
 );
 
 Yii::app()->clientScript->registerScript('search', "

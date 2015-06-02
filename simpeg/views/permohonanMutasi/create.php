@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Tambah Permohonan Mutasis');
+$this->setPageTitle('Tambah Permohonan Mutasi');
 $this->breadcrumbs=array(
-	'Permohonan Mutasis'=>array('index'),
+	'Permohonan Mutasi'=>array('index'),
 	'Create',
 );
 

@@ -1,5 +1,5 @@
 <?php
-$this->setPageTitle('Surat Masuks');
+$this->setPageTitle('Surat Masuk');
 $this->breadcrumbs=array(
 	'Surat Masuk',
 );

@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Tambah Eselons');
+$this->setPageTitle('Tambah Eselon');
 $this->breadcrumbs=array(
-	'Eselons'=>array('index'),
+	'Eselon'=>array('index'),
 	'Create',
 );
 

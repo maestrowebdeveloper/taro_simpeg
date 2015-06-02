@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Permohonan Perpanjangan Honorers');
+$this->setPageTitle('Permohonan Perpanjangan Honorer');
 $this->breadcrumbs = array(
-    'Permohonan Perpanjangan Honorers',
+    'Permohonan Perpanjangan Honorer',
 );
 
 Yii::app()->clientScript->registerScript('search', "
