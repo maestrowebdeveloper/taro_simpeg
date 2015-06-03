@@ -177,6 +177,9 @@ class PermohonanPerpanjanganHonorer extends CActiveRecord {
     public function getPendidikan() {
         return (!empty($this->Honorer->Jurusan->Name)) ? $this->Honorer->Jurusan->Name : '-';
     }
+    public function getPendidikanTahun() {
+        return (!empty($this->Honorer->tahun_pendidikan)) ? $this->Honorer->tahun_pendidikan : '-';
+    }
     
     public function getStatusPerpanjang(){
         $status='';

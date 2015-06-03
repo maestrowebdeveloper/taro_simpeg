@@ -252,6 +252,7 @@
         $content = str_replace('{tmt_pengangkatan}', date('d F Y',  strtotime($model->tmtPengangkatan)), $content);
         $content = str_replace('{jenis_kelamin}', $model->jenisKelamin, $content);
         $content = str_replace('{pendidikan}', $model->pendidikan, $content);
+        $content = str_replace('{tahun}', $model->pendidikanTahun, $content);
         $content = str_replace('{masa_kerja}', $model->Honorer->masaKerjaTahun.' Tahun '.$model->Honorer->masaKerjaBulan.' Bulan' , $content);
         $content = str_replace('{gaji}', landa()->rp($model->honor_saat_ini), $content);
         $content = str_replace('{ttl}', $model->ttl, $content);

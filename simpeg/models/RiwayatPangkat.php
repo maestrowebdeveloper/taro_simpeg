@@ -30,7 +30,7 @@ class RiwayatPangkat extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('nomor_register, pegawai_id, golongan_id,  tmt_pangkat', 'required'),
+            array('nomor_register, pegawai_id, golongan_id', 'required'),
             array('', 'safe'),
             array('pegawai_id, golongan_id, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register', 'length', 'max' => 225),
