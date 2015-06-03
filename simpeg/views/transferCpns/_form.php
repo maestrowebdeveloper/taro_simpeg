@@ -226,7 +226,7 @@
         
         $content = str_replace('{nip}', $model->Pegawai->nip, $content);
         $content = str_replace('{nomor}', $model->nomor, $content);
-        $content = str_replace('{tmt}', date('d M Y', strtotime($model->tmt)), $content);
+        $content = str_replace('{tmt}', landa()->date2Ind($model->tmt), $content);
         $content = str_replace('{nama}', $model->Pegawai->nama, $content);
         $content = str_replace('{ttl}', $ttl, $content);
         $content = str_replace('{jk}', $model->Pegawai->jenis_kelamin, $content);

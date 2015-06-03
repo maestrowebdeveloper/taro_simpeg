@@ -248,19 +248,19 @@
         $content = str_replace('{nomor_pengangkatan}', $model->nomorPengangkatan, $content);
         $content = str_replace('{status}', $model->Honorer->st_peg, $content);
         $content = str_replace('{disahkan}', $model->Honorer->pengesahan, $content);
-        $content = str_replace('{tanggal_pengangkatan}', date('d F Y',  strtotime($model->tanggalPengangkatan)), $content);
-        $content = str_replace('{tmt_pengangkatan}', date('d F Y',  strtotime($model->tmtPengangkatan)), $content);
+        $content = str_replace('{tanggal_pengangkatan}', landa()->date2Ind($model->tanggalPengangkatan), $content);
+        $content = str_replace('{tmt_pengangkatan}', landa()->date2Ind($model->tmtPengangkatan), $content);
         $content = str_replace('{jenis_kelamin}', $model->jenisKelamin, $content);
         $content = str_replace('{pendidikan}', $model->pendidikan, $content);
         $content = str_replace('{masa_kerja}', $model->Honorer->masaKerjaTahun.' Tahun '.$model->Honorer->masaKerjaBulan.' Bulan' , $content);
         $content = str_replace('{gaji}', landa()->rp($model->honor_saat_ini), $content);
         $content = str_replace('{ttl}', $model->ttl, $content);
-        $content = str_replace('{tmt_mulai}', date('d F Y', strtotime($model->tmt_mulai)), $content);
-        $content = str_replace('{tmt_selesai}', date('d F Y', strtotime($model->tmt_selesai)), $content);
+        $content = str_replace('{tmt_mulai}', landa()->date2Ind($model->tmt_mulai), $content);
+        $content = str_replace('{tmt_selesai}', landa()->date2Ind($model->tmt_selesai), $content);
         $content = str_replace('{nama}', $model->honorer, $content);
         $content = str_replace('{unit_kerja}', $model->unitKerja, $content);
         $content = str_replace('{satuan_kerja}', $model->satuanKerja, $content);
-        $content = str_replace('{tanggal}', date('d F Y', strtotime($model->created)), $content);
+        $content = str_replace('{tanggal}', landa()->date2Ind($model->created), $content);
         echo $content;
         ?>
     </div>

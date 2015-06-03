@@ -494,8 +494,8 @@ class LandaCore extends CApplicationComponent {
         $today_m = $today_a[1];
         $today_y = $today_a[2];
 
-        $startDate = gregoriantojd((int) $dob_m,(int) $dob_d, (int) $dob_y);
-        $todayDate = gregoriantojd((int) $today_m,(int) $today_d,(int) $today_y);
+        $startDate = gregoriantojd((int) $dob_m, (int) $dob_d, (int) $dob_y);
+        $todayDate = gregoriantojd((int) $today_m, (int) $today_d, (int) $today_y);
 
         $lama = $todayDate - $startDate;
 
@@ -512,9 +512,9 @@ class LandaCore extends CApplicationComponent {
         } elseif ($hanyaBulan == true) {
             return floor($bulan) . ' Bulan';
         } else {
-            return floor($tahun)." Tahun ". floor($bulan) ." Bulan";
+            return floor($tahun) . " Tahun " . floor($bulan) . " Bulan";
         }
-        
+
 //         $years = $today_y - $dob_y;
 //        $months = $today_m - $dob_m;
 //        if ($today_m < $dob_m && $today_d < $dob_d) {
@@ -553,6 +553,12 @@ class LandaCore extends CApplicationComponent {
 //
 //        /*  else
 //          return "$years Tahun"; */
+    }
+
+    function date2Ind($str) {
+        setlocale(LC_TIME, 'id_ID');
+        $date = strftime("%d %B %Y", time());
+        return $date;
     }
 
 }

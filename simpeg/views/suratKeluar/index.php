@@ -96,7 +96,7 @@ $this->endWidget();
 		'perihal',		
 		array(
             'name' => 'tanggal_kirim',
-            'value' => 'date("d M Y",strtotime($data->tanggal_kirim))',            
+            'value' => 'landa()->date2Ind($data->tanggal_kirim)',            
         ), 			
        array(
             'class'=>'bootstrap.widgets.TbButtonColumn',

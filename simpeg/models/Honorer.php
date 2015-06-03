@@ -443,7 +443,7 @@ class Honorer extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . date('d M Y', strtotime($this->tmt_kontrak)) . '
+                        ' . landa()->date2Ind($this->tmt_kontrak) . '
                     </div>
                 </div>      
                 <div class="row-fluid">
@@ -452,7 +452,7 @@ class Honorer extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . date('d M Y', strtotime($this->tmt_mulai_kontrak)) . '
+                        ' . landa()->date2Ind($this->tmt_mulai_kontrak) . '
                     </div>
                 </div>      
                  <div class="row-fluid">
@@ -461,7 +461,7 @@ class Honorer extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . date('d M Y', strtotime($this->tmt_akhir_kontrak)) . '
+                        ' . landa()->date2Ind($this->tmt_akhir_kontrak) . '
                     </div>
                 </div>        
                 ';
@@ -516,19 +516,19 @@ class Honorer extends CActiveRecord {
     }
 
     public function getTmtJabatan() {
-        return date('d M Y', strtotime($this->tmt_jabatan));
+        return landa()->date2Ind($this->tmt_jabatan);
     }
 
     public function getTmtKontrak() {
-        return date('d M Y', strtotime($this->tmt_kontrak));
+        return landa()->date2Ind($this->tmt_kontrak);
     }
 
     public function getTmtMulaiKontrak() {
-        return date('d M Y', strtotime($this->tmt_mulai_kontrak));
+        return landa()->date2Ind($this->tmt_mulai_kontrak);
     }
 
     public function getTmtAkhirKontrak() {
-        return date('d M Y', strtotime($this->tmt_akhir_kontrak));
+        return landa()->date2Ind($this->tmt_akhir_kontrak);
     }
 
     public function getImgUrl() {
@@ -557,7 +557,7 @@ class Honorer extends CActiveRecord {
     }
 
     public function getTtl() {
-        return ucwords(strtolower($this->tempat_lahir)) . ', ' . date('d M Y', strtotime($this->tanggal_lahir));
+        return ucwords(strtolower($this->tempat_lahir)) . ', ' . landa()->date2Ind($this->tanggal_lahir);
     }
 
     public function getPendidikan() {

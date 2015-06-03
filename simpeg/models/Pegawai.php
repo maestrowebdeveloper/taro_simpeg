@@ -667,7 +667,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getTtl() {
-        return ucwords(strtolower($this->tempatLahir)) . ', ' . date('d M Y', strtotime($this->tanggal_lahir));
+        return ucwords(strtolower($this->tempatLahir)) . ', ' . landa()->date2Ind($this->tanggal_lahir);
     }
 
     public function getNamaGelar() {
@@ -998,7 +998,7 @@ class Pegawai extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . date('d M Y', strtotime($this->tmt_cpns)) . '
+                        ' . landa()->date2Ind($this->tmt_cpns) . '
                     </div>
                 </div> 
 
@@ -1008,7 +1008,7 @@ class Pegawai extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . date('d M Y', strtotime($this->tmt_pns)) . '
+                        ' . landa()->date2Ind($this->tmt_pns) . '
                     </div>
                 </div> 
 
@@ -1018,7 +1018,7 @@ class Pegawai extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . $this->golongan . ' TMT : ' . date('d M Y', strtotime($this->tmt_golongan)) . '
+                        ' . $this->golongan . ' TMT : ' . landa()->date2Ind($this->tmt_golongan) . '
                     </div>
                 </div>   
 
@@ -1068,7 +1068,7 @@ class Pegawai extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . date('d M Y', strtotime($this->tmt_pensiun)) . '
+                        ' . landa()->date2Ind($this->tmt_pensiun) . '
                     </div>
                 </div>           
                 ';
