@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Tambah Permohonan Perpanjangan Honorers');
+$this->setPageTitle('Tambah Permohonan Perpanjangan Honorer');
 $this->breadcrumbs=array(
-	'Permohonan Perpanjangan Honorers'=>array('index'),
+	'Permohonan Perpanjangan Honorer'=>array('index'),
 	'Create',
 );
 

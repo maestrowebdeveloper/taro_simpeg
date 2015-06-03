@@ -893,7 +893,7 @@ class PegawaiController extends Controller {
     }
 
     public function actionSearchJson() {
-        $user = (empty(Yii::app()->session['searchPegawai'])) ? Pegawai::model()->findAll(array('condition' => 'nama like "%' . $_POST['queryString'] . '%"')) : Yii::app()->session['searchPegawai'];
+        $user = Pegawai::model()->findAll(array('condition' => 'nama like "%' . $_POST['queryString'] . '%" OR nip like "%' . $_POST['queryString'] . '%"'));
         $results = array();
         foreach ($user as $no => $o) {
             $sGol = (isset($o->Pangkat->Golongan->nama)) ? $o->Pangkat->Golongan->nama : "-";
@@ -1318,38 +1318,39 @@ class PegawaiController extends Controller {
         $jns_kelamin = $_GET['jenis_kelamin'];
         $sts_pernikahan = $_GET['status_pernikahan'];
 
-//        $criteria = new CDbCriteria;
-//        $criteria->with = array('RiwayatJabatan', 'RiwayatPangkat', 'RiwayatKeluarga', 'JabatanStruktural', 'UnitKerja');
-//        $criteria->compare('nip', $nip, true);
-//        $criteria->addCondition('nama like "%' . $nama . '%"');
-//        $criteria->compare('gelar_depan', $gelar_dpn, true);
-//        $criteria->compare('gelar_belakang', $gelar_blk, true);
-//        $criteria->compare('hp', $hp, true);
-//        if (!empty($pegawai_ft))
-//            $criteria->addCondition('RiwayatJabatan.jabatan_ft_id IN (' . implode(",", $id) . ')');
-//        $criteria->compare('jurusan', $jurusan, true);
-//        $criteria->compare('kedudukan_id', $kedudukan_id);
-//        $criteria->compare('agama', $agama, true);
-//        $criteria->compare('tipe_jabatan', $type_jabatan, true);
-//        if (!empty($satuan_kerja))
-//            $criteria->addCondition('RiwayatJabatan.jabatan_struktural_id IN (' . implode(",", $id) . ') ');
-//        if (!empty($unit_kerja)) {
-//            $criteria->compare('t.jabatan_struktural_id', $unit_kerja);
-//        }
-//        $criteria->compare('jenis_kelamin', $jns_kelamin, true);
-//        $criteria->compare('status_pernikahan', $sts_pernikahan, true);
-//
-//        $model = Pegawai::model()->findAll($criteria);
-        $model = cmd('SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, '
-                . 'golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan, eselon.nama as nama_eselon, jurusan.Name as pendidikan FROM pegawai '
-                . 'LEFT JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id '
-                . 'LEFT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id '
-                . 'LEFT JOIN eselon ON eselon.id = jabatan_struktural.eselon_id '
-                . 'LEFT JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_id '
-                . 'LEFT JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id '
-                . 'LEFT JOIN riwayat_pendidikan ON pegawai.id = riwayat_pendidikan.pegawai_id '
-                . 'LEFT JOIN jurusan ON jurusan.id = riwayat_pendidikan.id_jurusan '
-                . 'ORDER BY jabatan_struktural.root,jabatan_struktural.lft')->query();
+        $criteria = new CDbCriteria;
+        $criteria->with = array('RiwayatJabatan', 'RiwayatPangkat', 'RiwayatKeluarga', 'JabatanStruktural', 'UnitKerja');
+        $criteria->compare('nip', $nip, true);
+        $criteria->addCondition('nama like "%' . $nama . '%"');
+        $criteria->compare('gelar_depan', $gelar_dpn, true);
+        $criteria->compare('gelar_belakang', $gelar_blk, true);
+        $criteria->compare('hp', $hp, true);
+        if (!empty($pegawai_ft))
+            $criteria->addCondition('RiwayatJabatan.jabatan_ft_id IN (' . implode(",", $id) . ')');
+        $criteria->compare('jurusan', $jurusan, true);
+        $criteria->compare('kedudukan_id', $kedudukan_id);
+        $criteria->compare('agama', $agama, true);
+        $criteria->compare('tipe_jabatan', $type_jabatan, true);
+        if (!empty($satuan_kerja))
+            $criteria->addCondition('RiwayatJabatan.jabatan_struktural_id IN (' . implode(",", $id) . ') ');
+        if (!empty($unit_kerja)) {
+            $criteria->compare('t.jabatan_struktural_id', $unit_kerja);
+        }
+        $criteria->compare('jenis_kelamin', $jns_kelamin, true);
+        $criteria->compare('status_pernikahan', $sts_pernikahan, true);
+
+        $model = Pegawai::model()->findAll($criteria);
+        
+//        $model = cmd('SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, '
+//        . 'golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan, eselon.nama as nama_eselon, jurusan.Name as pendidikan FROM pegawai '
+//        . 'LEFT JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id '
+//        . 'LEFT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id '
+//        . 'LEFT JOIN eselon ON eselon.id = jabatan_struktural.eselon_id '
+//        . 'LEFT JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_id '
+//        . 'LEFT JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id '
+//        . 'LEFT JOIN riwayat_pendidikan ON pegawai.id = riwayat_pendidikan.pegawai_id '
+//        . 'LEFT JOIN jurusan ON jurusan.id = riwayat_pendidikan.id_jurusan '
+//        . 'ORDER BY jabatan_struktural.root,jabatan_struktural.lft')->query();
 
         Yii::app()->request->sendFile('Data Pegawai -' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model

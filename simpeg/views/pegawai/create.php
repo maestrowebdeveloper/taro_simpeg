@@ -1,8 +1,8 @@
 <?php
-$this->setPageTitle('Tambah Pegawais');
+$this->setPageTitle('Tambah Data PNS');
 $this->breadcrumbs=array(
-	'Pegawais'=>array('index'),
-	'Create',
+	'Data PNS'=>array('index'),
+	'Tambah',
 );
 
 ?>

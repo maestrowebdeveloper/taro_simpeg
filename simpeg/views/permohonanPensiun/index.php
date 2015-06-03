@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Permohonan Pensiuns');
+$this->setPageTitle('Permohonan Pensiun');
 $this->breadcrumbs = array(
-    'Permohonan Pensiuns',
+    'Permohonan Pensiun',
 );
 
 Yii::app()->clientScript->registerScript('search', "

@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Surat Keluars');
+$this->setPageTitle('Surat Keluar');
 $this->breadcrumbs=array(
-	'Surat Keluars',
+	'Surat Keluar',
 );
 
 Yii::app()->clientScript->registerScript('search', "

@@ -1,12 +1,12 @@
 <?php
-if (isset($_GET['v'])) {$this->setPageTitle('Lihat Kenaikan Gajis | ID : '. $model->id);
+if (isset($_GET['v'])) {$this->setPageTitle('Lihat Kenaikan Gaji | ID : '. $model->id);
 $this->breadcrumbs=array(
-	'Kenaikan Gajis'=>array('index'),
+	'Kenaikan Gaji'=>array('index'),
 	$model->id,
 );
-}else{$this->setPageTitle('Edit Kenaikan Gajis | ID : '. $model->id);
+}else{$this->setPageTitle('Edit Kenaikan Gaji | ID : '. $model->id);
 $this->breadcrumbs=array(
-	'Kenaikan Gajis'=>array('index'),
+	'Kenaikan Gaji'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Update',
 );

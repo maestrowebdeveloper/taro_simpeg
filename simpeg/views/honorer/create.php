@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Tambah Honorers');
+$this->setPageTitle('Tambah Honorer');
 $this->breadcrumbs=array(
-	'Honorers'=>array('index'),
+	'Honorer'=>array('index'),
 	'Create',
 );
 
