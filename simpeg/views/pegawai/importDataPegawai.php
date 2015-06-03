@@ -24,7 +24,8 @@ foreach (Yii::app()->user->getFlashes() as $key => $message) {
                     )
                 ));
                 echo $form->fileFieldRow($model, 'modified', array('class' => 'span12'));
-                echo '<a href="" class="btn btn-success">Download Format</a>&nbsp;&nbsp;&nbsp;';
+                echo '<a href="'.param('pathImg').'contoh_import_pangkat.xls" class="btn btn-success">Download Format</a>&nbsp;&nbsp;&nbsp;';
+                echo '<input type="hidden" name="kenaikan">';
                 $this->widget('bootstrap.widgets.TbButton', array(
                     'buttonType' => 'submit',
                     'type' => 'primary',
@@ -65,7 +66,8 @@ foreach (Yii::app()->user->getFlashes() as $key => $message) {
                     )
                 ));
                 echo $form->fileFieldRow($model, 'modified', array('class' => 'span12'));
-                echo '<a href="" class="btn btn-success">Download Format</a>&nbsp;&nbsp;&nbsp;';
+                echo '<a href="'.param('pathImg').'contoh_import_pegawai.xls" class="btn btn-success">Download Format</a>&nbsp;&nbsp;&nbsp;';
+                echo '<input type="hidden" name="pegawai" value="pegawai">';
                 $this->widget('bootstrap.widgets.TbButton', array(
                     'buttonType' => 'submit',
                     'type' => 'primary',
