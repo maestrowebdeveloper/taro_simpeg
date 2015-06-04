@@ -333,7 +333,7 @@ class HonorerController extends Controller {
 
         $jns_kelamin = $_GET['jns_kelamin'];
         $nama = $_GET['nama'];
-        $sts_pernikahan = $_GET['sts_pernikahan'];
+//        $sts_pernikahan = $_GET['sts_pernikahan'];
         $id_jurusan = $_GET['id_jurusan'];
         $tahun_pendidikan = $_GET['tahun_pendidikan'];
         $agama = $_GET['agama'];
@@ -346,8 +346,8 @@ class HonorerController extends Controller {
             $criteria->compare('nama', $nama, true);
         if (!empty($jns_kelamin))
             $criteria->compare('jenis_kelamin', $jns_kelamin, true);
-        if (!empty($sts_pernikahan))
-            $criteria->compare('status_pernikahan', $sts_pernikahan, true);
+//        if (!empty($sts_pernikahan))
+//            $criteria->compare('status_pernikahan', $sts_pernikahan, true);
         if (!empty($id_jurusan))
             $criteria->compare('id_jurusan', $id_jurusan, true);
         if (!empty($tahun_pendidikan))
