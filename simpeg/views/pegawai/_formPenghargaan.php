@@ -45,11 +45,7 @@
            
         <div class="form-actions">
             <a class="btn btn-primary savePenghargaan"><i class="icon-ok icon-white"></i> Simpan</a>
-            <?php $this->widget('bootstrap.widgets.TbButton', array(
-			'buttonType'=>'reset',
-                        'icon'=>'remove',  
-			'label'=>'Reset',
-		)); ?>
+           <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
         </div>
     </fieldset>
 

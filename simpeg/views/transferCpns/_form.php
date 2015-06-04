@@ -69,7 +69,7 @@
                         )
                 );
 
-                $unit_kerja = (!empty($model->Pegawai->unitKerja)) ? $model->Pegawai->unitKerja : '';
+                $unit_kerja = (!empty($model->Pegawai->JabatanStruktural->nama)) ? $model->Pegawai->JabatanStruktural->nama : '';
                 $nip = (!empty($model->Pegawai->nip)) ? $model->Pegawai->nip : '';
                 $tempat_lahir = (!empty($model->Pegawai->tempatLahir)) ? $model->Pegawai->tempatLahir : '';
                 $tanggal_lahir = (!empty($model->Pegawai->tanggal_lahir)) ? $model->Pegawai->tanggal_lahir : '';
@@ -82,7 +82,8 @@
                 $jabatan = (!empty($model->Pegawai->jabatan)) ? $model->Pegawai->jabatan : '';
                 $golongan = (!empty($model->Pegawai->golongan)) ? $model->Pegawai->golongan : '';
                 $tmt = (!empty($model->Pegawai->tmt_cpns)) ? $model->Pegawai->tmt_cpns : '';
-                $mkTahun = (!empty($model->Pegawai->masaKerja)) ? $model->Pegawai->masaKerja : '';
+                $mkTahun = (!empty($model->Pegawai->masaKerjaTahun)) ? $model->Pegawai->masaKerjaTahun .' Tahun' : '';
+                $mkBulan = (!empty($model->Pegawai->masaKerjaBulan)) ? $model->Pegawai->masaKerjaBulan .' Bulan' : '';
                 ?>
 
                 <div class="control-group ">
@@ -150,7 +151,7 @@
                 <div class="control-group ">
                     <label class="control-label" for="TransferCpns_nomor_kesehatan">Masa Kerja</label>
                     <div class="controls">
-                        <input class="span12" name="" disabled id="masa_kerja" value="<?php echo $mkTahun ?>" type="text"><br><br>
+                        <input class="span12" name="" disabled id="masa_kerja" value="<?php echo $mkTahun.$mkBulan ?>" type="text"><br><br>
                         
                     </div>
                 </div>
@@ -162,6 +163,16 @@
         <fieldset>
             <legend>Form Transfer CPNS</legend>
         </fieldset>
+        <?php echo $form->textFieldRow($model, 'nomor', array('class' => 'span3')); ?>
+        <?php
+                echo $form->datepickerRow(
+                        $model, 'tmt', array(
+                    'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                    'prepend' => '<i class="icon-calendar"></i>'
+                        )
+                );
+                ?>
+
         <?php echo $form->textFieldRow($model, 'nomor_kesehatan', array('class' => 'span3')); ?>
 
                 <?php
@@ -207,23 +218,27 @@
 <?php if (isset($_GET['v'])) { ?>
     <div class="surat" id="surat" style="display:none">
         <?php
-//        $siteConfig = SiteConfig::model()->listSiteConfig();
-//        $content = $siteConfig->format_mutasi;
-//
-//        $content = str_replace('{nomor}', $model->nomor_register, $content);
-//        $content = str_replace('{tanggal}', $model->tanggal, $content);
-//        $content = str_replace('{nip}', $model->Pegawai->nip, $content);
-//        $content = str_replace('{golru}', $model->Pegawai->golongan, $content);
-//        $content = str_replace('{ttl}', $model->Pegawai->ttl, $content);
-//        $content = str_replace('{nama}', $model->pegawai, $content);
-//        $content = str_replace('{unit_kerja_lama}', $model->unit_kerja_lama, $content);
-//        $content = str_replace('{unit_kerja_baru}', $model->unitKerja, $content);
-//        $content = str_replace('{tipe_jabatan_lama}', $model->tipe_jabatan_lama, $content);
-//        $content = str_replace('{tipe_jabatan_baru}', $model->tipeJabatan, $content);
-//        $content = str_replace('{jabatan_lama}', $model->jabatan_lama, $content);
-//        $content = str_replace('{jabatan_baru}', $model->jabatan, $content);
-//        $content = str_replace('{tmt}', date('d F Y', strtotime($model->tmt)), $content);
-//        echo $content;
+        $siteConfig = SiteConfig::model()->listSiteConfig();
+        $content = $siteConfig->format_transfer_cpns;
+        
+        $ttl = $model->Pegawai->tempat_lahir.','.$model->Pegawai->tanggal_lahir;
+        $masa_kerja = $model->Pegawai->masaKerjaTahun.' Tahun'. $model->Pegawai->masaKerjaBulan.' Bulan';
+        
+        $content = str_replace('{nip}', $model->Pegawai->nip, $content);
+        $content = str_replace('{nomor}', $model->nomor, $content);
+        $content = str_replace('{tmt}', landa()->date2Ind($model->tmt), $content);
+        $content = str_replace('{nama}', $model->Pegawai->nama, $content);
+        $content = str_replace('{ttl}', $ttl, $content);
+        $content = str_replace('{jk}', $model->Pegawai->jenis_kelamin, $content);
+        $content = str_replace('{pendidikan}', $model->Pegawai->pendidikanJurusan, $content);
+        $content = str_replace('{tahun}', $model->Pegawai->pendidikanTahun, $content);
+        $content = str_replace('{pangkat}', $model->Pegawai->Pangkat->golongan, $content);
+        $content = str_replace('{gaji}', $model->Pegawai->gajiPegawai, $content);
+        $content = str_replace('{jabatan}', $model->Pegawai->jabatan, $content);
+        $content = str_replace('{unit_kerja}', $model->Pegawai->JabatanStruktural->nama, $content);
+        $content = str_replace('{satuan_kerja}', $model->Pegawai->unitKerja, $content);
+        $content = str_replace('{masa_kerja}', $masa_kerja, $content);
+        echo $content;
         ?>
     </div>
 <?php } ?>
@@ -262,4 +277,28 @@
         $(".surat").show();
         $(".form").hide();
     });
+    
+    function printDiv(divName)
+    {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        $("#myTab a").click(function (e) {
+            e.preventDefault();
+            $(this).tab("show");
+        })
+        $("#viewTab").click(function () {
+            $(".surat").hide();
+            $(".form").show();
+        });
+
+        $("#viewFull").click(function () {
+            $(".surat").show();
+            $(".form").hide();
+        });
+
+
+    }
 </script>

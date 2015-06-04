@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Tambah Jabatan Honorers');
+$this->setPageTitle('Tambah Jabatan Honorer');
 $this->breadcrumbs=array(
-	'Jabatan Honorers'=>array('index'),
+	'Jabatan Honorer'=>array('index'),
 	'Create',
 );
 

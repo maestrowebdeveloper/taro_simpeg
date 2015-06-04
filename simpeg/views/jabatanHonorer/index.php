@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Jabatan Honorers');
+$this->setPageTitle('Jabatan Honorer');
 $this->breadcrumbs=array(
-	'Jabatan Honorers',
+	'Jabatan Honorer',
 );
 
 Yii::app()->clientScript->registerScript('search', "

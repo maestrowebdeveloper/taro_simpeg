@@ -9,12 +9,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 <table>
     <tr>
-        <td style="width:50%;vertical-align:top">
-            
-                        
+        <td style="vertical-align:top">
+
+
             <?php
             echo $form->textFieldRow($model, 'nama', array('class' => 'span4', 'maxlength' => 100));
-            
+
             $idpendidikan = isset($model->Jurusan->id) ? $model->Jurusan->id : 0;
             $pendidikan = isset($model->Jurusan->Name) ? $model->Jurusan->Name : '';
             echo $form->select2Row($model, 'id_jurusan', array(
@@ -51,6 +51,15 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 ),
                     )
             );
+            $data = array('0' => '- Kedudukan -') + array('20' => 20, '40' => 40, '21' => 21, '22' => 22);
+            echo $form->select2Row($model, 'kode', array(
+                'asDropDownList' => true,
+                'data' => $data,
+                'options' => array(
+                    "allowClear" => false,
+                    'width' => '40%',
+                ))
+            );
             ?>              
             <div class="control-group "><label class="control-label" for="Honorer_pendidikan_terakhir">Pendidikan</label>
                 <div class="controls">
@@ -76,14 +85,14 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 //            echo $form->textFieldRow($model, 'npwp', array('class' => 'span3', 'maxlength' => 50));
 //            echo $form->textFieldRow($model, 'bpjs', array('class' => 'span3', 'maxlength' => 50));
             echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span4 angka', 'style' => 'max-width:500px;width:300px', 'maxlength' => 18));
-          
+
             $data = array('0' => '- Unit Kerja -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
             echo $form->select2Row($model, 'jabatan_struktural_id', array(
                 'asDropDownList' => true,
                 'data' => $data,
                 'options' => array(
                     "allowClear" => false,
-                    'width' => '100%',
+                    'width' => '40%',
                 ))
             );
             $data = array('0' => '- Jabatan -') + CHtml::listData(JabatanFu::model()->findAll(array('order' => 'id')), 'id', 'nama');
@@ -92,7 +101,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 'data' => $data,
                 'options' => array(
                     "allowClear" => false,
-                    'width' => '100%',
+                    'width' => '40%',
                 ))
             );
 
@@ -132,6 +141,44 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 </table>
 
 
+<script type="text/javascript">
+    function excel() {
+
+
+        if (document.getElementById('Honorer_jenis_kelamin_0').checked) {
+            var jns_kelamin = document.getElementById('Honorer_jenis_kelamin_0').value;
+        } else
+        if (document.getElementById('Honorer_jenis_kelamin_1').checked) {
+            var jns_kelamin = document.getElementById('Honorer_jenis_kelamin_1').value;
+        } else {
+            var jns_kelamin = '';
+        }
+
+        if (document.getElementById('Honorer_status_pernikahan_0').checked) {
+            var sts_pernikahan = document.getElementById('Honorer_status_pernikahan_0').value;
+        } else
+        if (document.getElementById('Honorer_status_pernikahan_1').checked) {
+            var sts_pernikahan = document.getElementById('Honorer_status_pernikahan_1').value;
+        } else
+        if (document.getElementById('Honorer_status_pernikahan_2').checked) {
+            var sts_pernikahan = document.getElementById('Honorer_status_pernikahan_2').value;
+        } else {
+            var sts_pernikahan = '';
+        }
+
+        var id_jurusan = $('#Honorer_id_jurusan').val();
+        var nama = $('#Honorer_nama').val();
+        var tahun_pendidikan = $('#Honorer_tahun_pendidikan').val();
+        var agama = $('#Honorer_agama').val();
+        var nomor_register = $('#Honorer_nomor_register').val();
+        var jabatan_struktural_id = $('#Honorer_jabatan_struktural_id').val();
+        var jabatan_fu_id = $('#Honorer_jabatan_fu_id').val();
+//        alert('nama');
+        window.open("<?php echo url('honorer/GenerateExcel') ?>?jns_kelamin=" + jns_kelamin + "&nama=" + nama + "&sts_pernikahan=" + sts_pernikahan + "&id_jurusan=" + id_jurusan + "&tahun_pendidikan=" + tahun_pendidikan + "&agama=" + agama + "&nomor_register=" + nomor_register + "&jabatan_struktural_id=" + jabatan_struktural_id + "&jabatan_fu_id=" + jabatan_fu_id);
+
+    }
+</script>
+
 
 
 <div class="form-actions">
@@ -150,9 +197,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <?php $this->endWidget(); ?>
 
 <script type="text/javascript">
-    jQuery(function ($) {
-        $(".btnreset").click(function () {
-            $(":input", "#search-honorer-form").each(function () {
+    jQuery(function($) {
+        $(".btnreset").click(function() {
+            $(":input", "#search-honorer-form").each(function() {
                 var type = this.type;
                 var tag = this.tagName.toLowerCase(); // normalize case
                 if (type == "text" || type == "password" || tag == "textarea")

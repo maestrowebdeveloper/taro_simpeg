@@ -611,8 +611,7 @@
 
                 <td style="line-height:10px;vertical-align:top;" class="span2">            
                     <?php
-                    $img = Yii::app()->landa->urlImg('pegawai/', $model->foto, $_GET['id']);
-                    echo '<img style="max-width:250px;max-height:350px;" src="' . $img['medium'] . '" alt="" class="image img-polaroid" id="my_image"  /> ';
+                    echo '<img style="max-width:250px;max-height:350px;" src="' . $model->imgUrl . '" alt="" class="image img-polaroid" id="my_image"  /> ';
                     ?>
 
                 </td>
@@ -652,14 +651,14 @@
                             <tr>
                             <tr><td>Kedudukan</td><td>:</td><td><?php echo $model->kedudukan; ?></td></tr>
                             <tr><td>Unit Kerja</td><td>:</td><td><?php echo $model->unitKerja; ?></td></tr>
-                            <tr><td>TMT CPNS</td><td>:</td><td><?php echo date('d M Y', strtotime($model->tmt_cpns)); ?></td></tr>
-                            <tr><td>TMT PNS</td><td>:</td><td><?php echo date('d M Y', strtotime($model->tmt_pns)); ?></td></tr>
-                            <tr><td>Pangkat / Golru</td><td>:</td><td><?php echo isset($model->Pangkat->golongan) ? $model->Pangkat->golongan : "-" . ' TMT : ' . date('d M Y', strtotime(isset($model->Pangkat->tmt_golongan) ? $model->Pangkat->tmt_golongan : "-")); ?></td></tr>
+                            <tr><td>TMT CPNS</td><td>:</td><td><?php echo landa()->date2Ind($model->tmt_cpns); ?></td></tr>
+                            <tr><td>TMT PNS</td><td>:</td><td><?php echo landa()->date2Ind($model->tmt_pns); ?></td></tr>
+                            <tr><td>Pangkat / Golru</td><td>:</td><td><?php echo isset($model->Pangkat->golongan) ? $model->Pangkat->golongan : "-" . ' TMT : ' . landa()->date2Ind($model->Pangkat->tmt_golongan); ?></td></tr>
                             <tr><td>Tipe Jabatan</td><td>:</td><td><?php echo ucwords(str_replace("_", " ", $model->tipe_jabatan)); ?></td></tr>
                             <tr><td>Jabatan</td><td>:</td><td><?php echo $model->jabatan . ', TMT :  ' . $model->tmtJabatan; ?></td></tr>
                             <tr><td>Masa Kerja</td><td>:</td><td><?php echo $model->masaKerja; ?></td></tr>
                             <tr><td>Gaji</td><td>:</td><td><?php echo landa()->rp(isset($model->Gaji->gaji) ? $model->Gaji->gaji : 0); ?></td></tr>
-                            <tr><td>TMT Pensiun</td><td>:</td><td><?php echo date('d M Y', strtotime($model->tmt_pensiun)); ?></td></tr>
+                            <tr><td>TMT Pensiun</td><td>:</td><td><?php echo landa()->date2Ind($model->tmt_pensiun); ?></td></tr>
                             </tr>
                         </table>
                     </div>

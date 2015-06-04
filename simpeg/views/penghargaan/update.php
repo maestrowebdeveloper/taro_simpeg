@@ -1,12 +1,12 @@
 <?php
-if (isset($_GET['v'])) {$this->setPageTitle('Lihat Penghargaans | ID : '. $model->id);
+if (isset($_GET['v'])) {$this->setPageTitle('Lihat Penghargaan | ID : '. $model->id);
 $this->breadcrumbs=array(
-	'Penghargaans'=>array('index'),
+	'Penghargaan'=>array('index'),
 	$model->id,
 );
-}else{$this->setPageTitle('Edit Penghargaans | ID : '. $model->id);
+}else{$this->setPageTitle('Edit Penghargaan | ID : '. $model->id);
 $this->breadcrumbs=array(
-	'Penghargaans'=>array('index'),
+	'Penghargaan'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Update',
 );

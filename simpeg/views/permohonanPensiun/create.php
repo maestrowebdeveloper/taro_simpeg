@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Tambah Permohonan Pensiuns');
+$this->setPageTitle('Tambah Permohonan Pensiun');
 $this->breadcrumbs=array(
-	'Permohonan Pensiuns'=>array('index'),
+	'Permohonan Pensiun'=>array('index'),
 	'Create',
 );
 

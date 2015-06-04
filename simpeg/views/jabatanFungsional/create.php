@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Tambah Jabatan Fungsionals');
+$this->setPageTitle('Tambah Jabatan Fungsional');
 $this->breadcrumbs=array(
-	'Jabatan Fungsionals'=>array('index'),
+	'Jabatan Fungsional'=>array('index'),
 	'Create',
 );
 

@@ -139,6 +139,7 @@ class UserController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
+        $type='';
         $listRoles = Roles::model()->listRoles();
         $model = $this->loadModel($id);
 
@@ -799,7 +800,7 @@ class UserController extends Controller {
         $model = User::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile('Data User - ' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data User - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );

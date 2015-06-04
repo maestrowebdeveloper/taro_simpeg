@@ -214,13 +214,7 @@
 
         <div class="form-actions">
             <a class="btn btn-primary saveJabatan"><i class="icon-ok icon-white"></i> Simpan</a>
-            <?php
-            $this->widget('bootstrap.widgets.TbButton', array(
-                'buttonType' => 'reset',
-                'icon' => 'remove',
-                'label' => 'Reset',
-            ));
-            ?>
+            <button class="btn back "id="yw10" type="reset" ><i class="icon-remove"></i> Back</button>
         </div>
     </fieldset>
 
@@ -257,7 +251,35 @@
         $(".fungsional_umum").hide();
         $(".fungsional_tertentu").show();
     });
+    
+     $(".back").click(function() {
+        var judul = $(this).attr('judulJabatan');
+        $.ajax({
+            url: "<?php echo url('pegawai/getTableJabatan'); ?>",
+            data: "id=<?php echo $model->pegawai_id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
+            type: "post",
+            success: function(data) {
+                $(".modal-body").html(data);
+            }
+        });
+        $("#modalForm").modal("show");
+        $("#judul").html(judul);
 
+    });
+$(".back").click(function() {
+        var judul = $(this).attr('judulJabatan');
+        $.ajax({
+            url: "<?php echo url('pegawai/getTableJabatan'); ?>",
+            data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
+            type: "post",
+            success: function(data) {
+                $(".modal-body").html(data);
+            }
+        });
+        $("#modalForm").modal("show");
+        $("#judul").html(judul);
+
+    });
     $(".saveJabatan").click(function () {
         var postData = $("#jabatan-form").serialize();
         $.ajax({

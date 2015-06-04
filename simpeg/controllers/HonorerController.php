@@ -278,10 +278,12 @@ class HonorerController extends Controller {
     public function actionIndex() {
         $model = new Honorer('search');
         $model->unsetAttributes();  // clear any default values
-        $model->kode = array(20, 40);
+        $model->kode = array(20,40);
 
         if (isset($_GET['Honorer'])) {
             $model->attributes = $_GET['Honorer'];
+            if ($model->kode == 0)
+                unset($model->kode);
             if ($model->tempat_lahir == 0)
                 unset($model->tempat_lahir);
             if ($model->city_id == 0)
@@ -366,7 +368,7 @@ class HonorerController extends Controller {
         $model = Honorer::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile('Data Pegawai Honorer - ' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Pegawai Honorer - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );

@@ -68,7 +68,8 @@ class KenaikanGajiController extends Controller {
     public function actionGetListPegawai() {
         if (!empty($_POST['bulan']) and !empty($_POST['tahun'])) {
             $bulan = substr("0" . $_POST['bulan'], -2, 2);
-            $query = Pegawai::model()->with('Pangkat')->findAll(array('condition' => 't.kedudukan_id = 1 and month(t.tmt_cpns) = "' . $bulan . '" ', 'order' => 'Pangkat.golongan_id ASC'));
+            
+            $query = Pegawai::model()->with('Pangkat')->findAll(array('condition' => 't.kedudukan_id = 1 and month(t.tmt_cpns) <= "' . $bulan . '" ', 'order' => 'Pangkat.golongan_id ASC'));
             echo $this->renderPartial('/kenaikanGaji/_tableListPegawai', array('query' => $query, 'bulan' => $bulan, 'tahun' => $_POST['tahun']));
         }
     }

@@ -185,6 +185,17 @@ if ($model->isNewRecord == true) {
                                 ?>
                             </div>
                         </div>
+                          <?php
+                                    $data = array('0' => '- Kedudukan -') + array('20' => 20, '40' => 40, '21' => 21, '22' => 22);
+                        echo $form->select2Row($model, 'kode', array(
+                            'asDropDownList' => true,
+                            'data' => $data,
+                            'options' => array(
+                                "allowClear" => false,
+                                'width' => '40%',
+                            ))
+                        );
+                                ?>
                         <?php
                         echo $form->radioButtonListRow($model, 'jenis_kelamin', Pegawai::model()->ArrJenisKelamin());
                         $kotaName = isset($model->tempat_lahir) ? $model->tempat_lahir : '';
@@ -319,7 +330,7 @@ if ($model->isNewRecord == true) {
                 <div class="form-row row-fluid">
                     <div class="span9" style="margin-left: 0px;">        
                         <?php
-                        echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span4', 'style' => 'max-width:500px;width:300px', 'maxlength' => 18));
+                        echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span4', 'style' => 'max-width:500px;width:300px'));
                         echo $form->datepickerRow(
                                 $model, 'tanggal_register', array(
                             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
@@ -377,7 +388,7 @@ if ($model->isNewRecord == true) {
                         ?>
 
 
-                        <?php echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp')); ?>
+                        <?php echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp','style'=>'width:300px')); ?>
                         <?php
                         
                         echo $form->datepickerRow(

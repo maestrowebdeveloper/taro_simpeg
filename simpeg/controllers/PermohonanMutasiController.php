@@ -23,19 +23,19 @@ class PermohonanMutasiController extends Controller {
         return array(
             array('allow', // c
                 'actions' => array('create'),
-                'expression' => 'app()->controller->isValidAccess(1,"c")'
+                'expression' => 'app()->controller->isValidAccess("permohonanMutasi","c")'
             ),
             array('allow', // r
                 'actions' => array('index', 'view'),
-                'expression' => 'app()->controller->isValidAccess(1,"r")'
+                'expression' => 'app()->controller->isValidAccess("permohonanMutasi","r")'
             ),
             array('allow', // u
                 'actions' => array('update'),
-                'expression' => 'app()->controller->isValidAccess(1,"u")'
+                'expression' => 'app()->controller->isValidAccess("permohonanMutasi","u")'
             ),
             array('allow', // d
                 'actions' => array('delete'),
-                'expression' => 'app()->controller->isValidAccess(1,"d")'
+                'expression' => 'app()->controller->isValidAccess("permohonanMutasi","d")'
             )
         );
     }
@@ -424,7 +424,7 @@ class PermohonanMutasiController extends Controller {
         $model = PermohonanMutasi::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile('Data Permohonan Mutasi '.date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Permohonan Mutasi '.date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );

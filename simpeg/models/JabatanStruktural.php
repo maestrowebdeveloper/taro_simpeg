@@ -67,7 +67,7 @@ class JabatanStruktural extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'nama' => 'Unit kerja',
+            'nama' => 'Unor/ Subid/ Seksi',
             'jabatan' => 'Nama Jabatan',
             'keterangan' => 'Keterangan',
             'unit_kerja_id' => 'Satuan Kerja',

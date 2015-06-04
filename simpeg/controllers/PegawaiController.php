@@ -97,7 +97,7 @@ class PegawaiController extends Controller {
             $list[] = array("id" => "0", "text" => "No Results Found..");
         } else {
             foreach ($data as $val) {
-                $list[] = array("id" => $val->id, "text" => $val->nip.' - '.$val->namaGelar);
+                $list[] = array("id" => $val->id, "text" => $val->nip . ' - ' . $val->namaGelar);
             }
         }
         echo json_encode($list);
@@ -111,7 +111,7 @@ class PegawaiController extends Controller {
             $list[] = array("id" => "0", "text" => "No Results Found..");
         } else {
             foreach ($data as $val) {
-                $list[] = array("id" => $val->id, "text" => $val->nip.' - '.$val->nama);
+                $list[] = array("id" => $val->id, "text" => $val->nip . ' - ' . $val->nama);
             }
         }
         echo json_encode($list);
@@ -190,26 +190,26 @@ class PegawaiController extends Controller {
         if ($model->tipe_jabatan == "struktural") {
             $pegawai = Pegawai::model()->findAll(array('condition' => 'jabatan_struktural_id=' . $model->jabatan_struktural_id . ' and kedudukan_id=1 and tipe_jabatan="struktural"'));
             $jabatan = isset($model->JabatanStruktural->jabatan) ? $model->JabatanStruktural->jabatan : "-";
-             if (count($pegawai) != 0) {
-            if (!empty($model)) {
-                foreach ($pegawai as $as) {
-                    $data['pegawai'] = $as->nama;
-                    $data['nip'] = $as->nip;
+            if (count($pegawai) != 0) {
+                if (!empty($model)) {
+                    foreach ($pegawai as $as) {
+                        $data['pegawai'] = $as->nama;
+                        $data['nip'] = $as->nip;
+                    }
+                    $data['isi'] = 1;
                 }
-                $data['isi'] = 1;
-            }
-        } else {
+            } else {
 
-            $data['id'] = $model->id;
-            $data['tipe'] = $model->tipe;
-            $data['jabatan'] = $jabatan;
-            $data['tmt'] = $model->tmt_mulai;
-            $data['bidang'] = isset($model->JabatanStruktural->nama) ? $model->JabatanStruktural->nama : "-";
-            $data['status'] = $model->statusjabatan;
-            $data['isi'] = 0;
+                $data['id'] = $model->id;
+                $data['tipe'] = $model->tipe;
+                $data['jabatan'] = $jabatan;
+                $data['tmt'] = $model->tmt_mulai;
+                $data['bidang'] = isset($model->JabatanStruktural->nama) ? $model->JabatanStruktural->nama : "-";
+                $data['status'] = $model->statusjabatan;
+                $data['isi'] = 0;
 
 //            logs($data);
-        }
+            }
         } elseif ($model->tipe_jabatan == "fungsional_tertentu") {
             $jabatan = isset($model->JabatanFt->nama) ? $model->JabatanFt->nama : "-";
             $data['id'] = $model->id;
@@ -229,7 +229,7 @@ class PegawaiController extends Controller {
             $data['status'] = $model->statusjabatan;
             $data['isi'] = 0;
         }
-       
+
         echo json_encode($data);
     }
 
@@ -665,8 +665,9 @@ class PegawaiController extends Controller {
         Yii::import("common.extensions.EAjaxUpload.qqFileUploader");
 
         $folder = 'images/file/' . $id . '/'; // folder for uploaded files             
-        if (!file_exists($folder))
-            mkdir($folder, '777');
+        if (!file_exists($folder)) {
+            mkdir($folder, 0777);
+        }
         $allowedExtensions = array("jpg", "jpeg", "gif", "png", "gif", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "pdf", "zip", "rar"); //array("jpg","jpeg","gif","exe","mov" and etc...
         $sizeLimit = 7 * 1024 * 1024;
 
@@ -682,7 +683,6 @@ class PegawaiController extends Controller {
     }
 
     public function actionDeleteFile() {
-
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $model = File::model()->findByPk($id);
         if (!empty($model)) {
@@ -725,7 +725,7 @@ class PegawaiController extends Controller {
         else
             $honorer = Honorer::model()->findAll();
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelUlangTahun', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelUlangTahun', array(
                     'model' => $model,
                     'honorer' => $honorer,
                         ), true)
@@ -744,49 +744,164 @@ class PegawaiController extends Controller {
         $model = new Pegawai('search');
         $model->unsetAttributes();  // clear any default values  
         if (isset($_POST['Pegawai'])) {
-            $file = CUploadedFile::getInstance($model, 'modified');
-            if (is_object($file)) { //jika filenya valid
-                $file->saveAs('images/file/' . $file->name);
-                $data = new Spreadsheet_Excel_Reader('images/file/' . $file->name);
-                $total_pegawai = $gagal = $sukses = 0;
-                for ($j = 2; $j <= $data->sheets[0]['numRows']; $j++) {
-                    if (!empty($data->sheets[0]['cells'][$j][1])) {
-                        $nip = (isset($data->sheets[0]['cells'][$j][1])) ? $data->sheets[0]['cells'][$j][1] : '';
-                        $pegawai = Pegawai::model()->find(array('condition' => 'nip=' . $nip));
-                        if (empty($pegawai)) {
-                            $pegawai = new Pegawai;
-                        }
-                        $pegawai->nip = $nip;
-                        $pegawai->nip_lama = (isset($data->sheets[0]['cells'][$j][2])) ? $data->sheets[0]['cells'][$j][2] : '';
-                        $pegawai->nama = (isset($data->sheets[0]['cells'][$j][3])) ? $data->sheets[0]['cells'][$j][3] : '';
-                        $pegawai->gelar_depan = (isset($data->sheets[0]['cells'][$j][4])) ? $data->sheets[0]['cells'][$j][4] : '';
-                        $pegawai->gelar_belakang = (isset($data->sheets[0]['cells'][$j][5])) ? $data->sheets[0]['cells'][$j][5] : '';
-                        $pegawai->jenis_kelamin = (isset($data->sheets[0]['cells'][$j][6])) ? $data->sheets[0]['cells'][$j][6] : '';
-                        $pegawai->tanggal_lahir = (isset($data->sheets[0]['cells'][$j][7])) ? $data->sheets[0]['cells'][$j][7] : '';
-                        $pegawai->alamat = (isset($data->sheets[0]['cells'][$j][8])) ? $data->sheets[0]['cells'][$j][8] : '';
-                        $pegawai->kode_pos = (isset($data->sheets[0]['cells'][$j][9])) ? $data->sheets[0]['cells'][$j][9] : '';
-                        $pegawai->hp = (isset($data->sheets[0]['cells'][$j][10])) ? $data->sheets[0]['cells'][$j][10] : '';
-                        $pegawai->email = (isset($data->sheets[0]['cells'][$j][11])) ? $data->sheets[0]['cells'][$j][11] : '';
-                        $pegawai->golongan_darah = (isset($data->sheets[0]['cells'][$j][12])) ? $data->sheets[0]['cells'][$j][12] : '';
-                        $pegawai->agama = (isset($data->sheets[0]['cells'][$j][13])) ? $data->sheets[0]['cells'][$j][13] : '';
-                        $pegawai->status_pernikahan = (isset($data->sheets[0]['cells'][$j][14])) ? $data->sheets[0]['cells'][$j][14] : '';
-                        $pegawai->npwp = (isset($data->sheets[0]['cells'][$j][15])) ? $data->sheets[0]['cells'][$j][15] : '';
-                        $pegawai->kpe = (isset($data->sheets[0]['cells'][$j][16])) ? $data->sheets[0]['cells'][$j][16] : '';
-                        $pegawai->no_taspen = (isset($data->sheets[0]['cells'][$j][17])) ? $data->sheets[0]['cells'][$j][17] : '';
-                        $pegawai->bpjs = (isset($data->sheets[0]['cells'][$j][18])) ? $data->sheets[0]['cells'][$j][18] : '';
-                        $pegawai->tmt_cpns = (isset($data->sheets[0]['cells'][$j][19])) ? $data->sheets[0]['cells'][$j][19] : '';
-                        $pegawai->tmt_pns = (isset($data->sheets[0]['cells'][$j][20])) ? $data->sheets[0]['cells'][$j][20] : '';
-                        $pegawai->tmt_pensiun = (isset($data->sheets[0]['cells'][$j][21])) ? $data->sheets[0]['cells'][$j][21] : '';
-                        if ($pegawai->save()) {
-                            $sukses++;
-                        } else {
-                            $gagal++;
-                        }
-                        $total_pegawai++;
-                    }
-                }
+            if (isset($_POST['pegawai'])) {
 
-                user()->setFlash('info', '<strong>Berhasil! </strong>Total Pegawai : ' . $total_pegawai . ', Berhasil : ' . $sukses . ', Gagal : ' . $gagal);
+                $file = CUploadedFile::getInstance($model, 'modified');
+                if (is_object($file)) { //jika filenya valid
+                    $file->saveAs('images/file/' . $file->name);
+                    $data = new Spreadsheet_Excel_Reader('images/file/' . $file->name);
+                    $total_pegawai = $gagal = $sukses = 0;
+                    for ($j = 2; $j <= $data->sheets[0]['numRows']; $j++) {
+                        if (!empty($data->sheets[0]['cells'][$j][1])) {
+                            $id = array();
+                            $pagawai_id = array();
+                            $riwayat_pangkat_id =array();
+                            $riwayat_gaji_id =array();
+                            
+                            $modelPangkat = new RiwayatPangkat;
+                            $modelGaji = new RiwayatGaji;
+                            $pegawai = new Pegawai;
+                            
+                            $pegawai->nip = (isset($data->sheets[0]['cells'][$j][1])) ? $data->sheets[0]['cells'][$j][1] : '';
+                            $pegawai->nip_lama = (isset($data->sheets[0]['cells'][$j][2])) ? $data->sheets[0]['cells'][$j][2] : '';
+                            $pegawai->nama = (isset($data->sheets[0]['cells'][$j][3])) ? $data->sheets[0]['cells'][$j][3] : '';
+                            $pegawai->gelar_depan = (isset($data->sheets[0]['cells'][$j][4])) ? $data->sheets[0]['cells'][$j][4] : '';
+                            $pegawai->gelar_belakang = (isset($data->sheets[0]['cells'][$j][5])) ? $data->sheets[0]['cells'][$j][5] : '';
+                            $pegawai->tempat_lahir = (isset($data->sheets[0]['cells'][$j][6])) ? $data->sheets[0]['cells'][$j][6] : '';
+                            $lahir = (isset($data->sheets[0]['cells'][$j][7])) ? $data->sheets[0]['cells'][$j][7] : '';
+                                $tgl_lahir = date('Y-m-d', strtotime($lahir));
+                                $pegawai->tanggal_lahir = $tgl_lahir;
+                            $pegawai->jenis_kelamin = (isset($data->sheets[0]['cells'][$j][8])) ? $data->sheets[0]['cells'][$j][8] : '';
+                            $pegawai->agama = (isset($data->sheets[0]['cells'][$j][9])) ? $data->sheets[0]['cells'][$j][9] : '';
+                            $pegawai->status_pernikahan = (isset($data->sheets[0]['cells'][$j][10])) ? $data->sheets[0]['cells'][$j][10] : '';
+                            $pegawai->alamat = (isset($data->sheets[0]['cells'][$j][11])) ? $data->sheets[0]['cells'][$j][11] : '';
+                            $pegawai->kode_pos = (isset($data->sheets[0]['cells'][$j][12])) ? $data->sheets[0]['cells'][$j][12] : '';
+                            $pegawai->hp = (isset($data->sheets[0]['cells'][$j][13])) ? $data->sheets[0]['cells'][$j][13] : '';
+                            $pegawai->email = (isset($data->sheets[0]['cells'][$j][14])) ? $data->sheets[0]['cells'][$j][14] : '';
+                            $pegawai->golongan_darah = (isset($data->sheets[0]['cells'][$j][15])) ? $data->sheets[0]['cells'][$j][15] : '';
+                            $pegawai->bpjs = (isset($data->sheets[0]['cells'][$j][16])) ? $data->sheets[0]['cells'][$j][16] : '';
+                            $pegawai->kpe = (isset($data->sheets[0]['cells'][$j][17])) ? $data->sheets[0]['cells'][$j][17] : '';
+                            $pegawai->npwp = (isset($data->sheets[0]['cells'][$j][18])) ? $data->sheets[0]['cells'][$j][18] : '';
+                            $pegawai->no_taspen = (isset($data->sheets[0]['cells'][$j][19])) ? $data->sheets[0]['cells'][$j][19] : '';
+                            $pegawai->karpeg = (isset($data->sheets[0]['cells'][$j][20])) ? $data->sheets[0]['cells'][$j][20] : '';
+                            $cpns = (isset($data->sheets[0]['cells'][$j][21])) ? $data->sheets[0]['cells'][$j][21] : '';
+                                $tgl_cpns = date('Y-m-d', strtotime($cpns));
+                                $pegawai->tmt_cpns = $tgl_cpns;
+                            $pegawai->no_sk_cpns = (isset($data->sheets[0]['cells'][$j][22])) ? $data->sheets[0]['cells'][$j][22] : '';
+                            $pegawai->tanggal_sk_cpns = (isset($data->sheets[0]['cells'][$j][23])) ? $data->sheets[0]['cells'][$j][23] : '';
+                            $pegawai->tmt_pns = (isset($data->sheets[0]['cells'][$j][24])) ? $data->sheets[0]['cells'][$j][24] : '';
+                            $pegawai->no_sk_pns = (isset($data->sheets[0]['cells'][$j][25])) ? $data->sheets[0]['cells'][$j][25] : '';
+                            $pegawai->tanggal_sk_pns = (isset($data->sheets[0]['cells'][$j][26])) ? $data->sheets[0]['cells'][$j][26] : '';
+                            if ($pegawai->save()) {
+                                $pegawai_id[] = $pegawai->id;
+                            }
+                            // save riwayat pangkat
+                            foreach ($pegawai_id as $key => $value) {
+                                $modelPangkat->nomor_register = (isset($data->sheets[0]['cells'][$j][27])) ? $data->sheets[0]['cells'][$j][27] : '';
+                                $tcg = (isset($data->sheets[0]['cells'][$j][28])) ? $data->sheets[0]['cells'][$j][28] : '';
+                                $tgl_cg = date('Y-m-d', strtotime($tcg));
+                                $modelPangkat->tanggal_cg = $tgl_cg;
+                                $modelPangkat->pegawai_id = $value;
+                                $modelPangkat->golongan_id = (isset($data->sheets[0]['cells'][$j][29])) ? $data->sheets[0]['cells'][$j][29] : '';
+                                $tg = (isset($data->sheets[0]['cells'][$j][30])) ? $data->sheets[0]['cells'][$j][30] : '';
+                                $tmt = date('Y-m-d', strtotime($tg));
+                                $modelPangkat->tmt_pangkat = "$tmt";
+                                $modelPangkat->no_sk = (isset($data->sheets[0]['cells'][$j][31])) ? $data->sheets[0]['cells'][$j][31] : '';
+                             $sk = (isset($data->sheets[0]['cells'][$j][32])) ? $data->sheets[0]['cells'][$j][32] : '';
+                            $tgl_sk = date('Y-m-d', strtotime($sk));
+                            $modelPangkat->tgl_sk = $tgl_sk;
+                                if($modelPangkat->save()){
+                                    $riwayat_pangkat_id[$modelPangkat->id] = $modelPangkat->pegawai_id;
+                                    
+                                }
+                                
+                                
+                            }
+                            // update riwayat pankat id
+                            foreach($riwayat_pangkat_id as $key=>$value){
+                                    Pegawai::model()->updateAll(array(
+                                    'riwayat_pangkat_id' => $key,), 'id=' . $value);
+                                }
+                            // save ke riwayat gajii
+                            foreach ($pegawai_id as $key => $value) {
+                             $modelGaji->nomor_register = (isset($data->sheets[0]['cells'][$j][33])) ? $data->sheets[0]['cells'][$j][33] : '';
+                            $modelGaji->pegawai_id = $value;
+                            $modelGaji->gaji = (isset($data->sheets[0]['cells'][$j][34])) ? $data->sheets[0]['cells'][$j][34] : '';
+                            $modelGaji->dasar_perubahan = (isset($data->sheets[0]['cells'][$j][35])) ? $data->sheets[0]['cells'][$j][35] : '';
+                            if ($modelGaji->save()) {
+                               $riwayat_gaji_id[$modelGaji->id] = $modelGaji->pegawai_id;
+                                
+                            }
+                            }
+                             // update riwayat gaji id
+                             foreach($riwayat_gaji_id as $key=>$value){
+                                    Pegawai::model()->updateAll(array(
+                                    'riwayat_gaji_id' => $key,), 'id=' . $value);
+                                }
+                        }
+                    }
+                    user()->setFlash('info', '<strong>Berhasil! </strong>Total Pegawai : ' . $total_pegawai . ', Berhasil : ' . $sukses . ', Gagal : ' . $gagal);
+                }
+            } else {
+                $file = CUploadedFile::getInstance($model, 'modified');
+                if (is_object($file)) { //jika filenya valid
+                    $file->saveAs('images/file/' . $file->name);
+                    $data = new Spreadsheet_Excel_Reader('images/file/' . $file->name);
+                    $total_pegawai = $gagal = $sukses = 0;
+                    for ($j = 2; $j <= $data->sheets[0]['numRows']; $j++) {
+                        if (!empty($data->sheets[0]['cells'][$j][1])) {
+                            $riwayat_id = array();
+                            $model = new RiwayatPangkat;
+                            $modelGaji = new RiwayatGaji;
+                            // cari pegawai
+                            $nip = (isset($data->sheets[0]['cells'][$j][1])) ? $data->sheets[0]['cells'][$j][1] : '';
+                            $cariPegawai = Pegawai::model()->find(array('condition' => 'nip=' . $nip));
+                            // save riwayat pangkat update pegawai
+                            $model->nomor_register = (isset($data->sheets[0]['cells'][$j][2])) ? $data->sheets[0]['cells'][$j][2] : '';
+                            $tcg = (isset($data->sheets[0]['cells'][$j][5])) ? $data->sheets[0]['cells'][$j][5] : '';
+                            $tgl_cg = date('Y-m-d', strtotime($tcg));
+                            echo $tgl_cg;
+                            $model->tanggal_cg = $tgl_cg;
+                            $model->pegawai_id = $cariPegawai->id;
+                            $model->golongan_id = (isset($data->sheets[0]['cells'][$j][4])) ? $data->sheets[0]['cells'][$j][4] : '';
+                            $tg = (isset($data->sheets[0]['cells'][$j][5])) ? $data->sheets[0]['cells'][$j][5] : '';
+                            $tmt = date('Y-m-d', strtotime($tg));
+                            $model->tmt_pangkat = "$tmt";
+                            $model->no_sk = (isset($data->sheets[0]['cells'][$j][6])) ? $data->sheets[0]['cells'][$j][6] : '';
+                             $sk = (isset($data->sheets[0]['cells'][$j][7])) ? $data->sheets[0]['cells'][$j][7] : '';
+                            $tgl_sk = date('Y-m-d', strtotime($sk));
+                            $model->gl_sk = $tgl_sk;
+                            if ($model->save()) {
+                                // update ke pegawai dan update gelar depan dan belakang
+                                Pegawai::model()->updateAll(array(
+                                    'riwayat_pangkat_id' => $model->id,
+                                    'gelar_depan' => (isset($data->sheets[0]['cells'][$j][11])) ? $data->sheets[0]['cells'][$j][11] : '',
+                                    'gelar_belakang' => (isset($data->sheets[0]['cells'][$j][12])) ? $data->sheets[0]['cells'][$j][12] : '',
+                                        ), 'id=' . $model->pegawai_id);
+                            }
+
+
+
+                            // SAVE GAJI dan update pegawai
+                            $modelGaji->nomor_register = (isset($data->sheets[0]['cells'][$j][8])) ? $data->sheets[0]['cells'][$j][8] : '';
+                            $modelGaji->pegawai_id = $cariPegawai->id;
+                            $modelGaji->gaji = (isset($data->sheets[0]['cells'][$j][9])) ? $data->sheets[0]['cells'][$j][9] : '';
+                            $modelGaji->dasar_perubahan = (isset($data->sheets[0]['cells'][$j][10])) ? $data->sheets[0]['cells'][$j][10] : '';
+                            if ($modelGaji->save()) {
+                                Pegawai::model()->updateAll(array(
+                                    'riwayat_gaji_id' => $modelGaji->id,
+                                        ), 'id=' . $modelGaji->pegawai_id);
+                                $sukses++;
+                            } else {
+                                $gagal++;
+                            }
+
+                            $total_pegawai++;
+                        }
+                    }
+
+                    user()->setFlash('info', '<strong>Berhasil! </strong>Total Pegawai : ' . $total_pegawai . ', Berhasil : ' . $sukses . ', Gagal : ' . $gagal);
+                }
             }
         }
         $this->render('importDataPegawai', array(
@@ -804,7 +919,7 @@ class PegawaiController extends Controller {
         else
             $model = Pegawai::model()->findAll();
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelCheckError', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelCheckError', array(
                     'model' => $model,
                         ), true)
         );
@@ -830,8 +945,8 @@ class PegawaiController extends Controller {
 
     public function actionFungsionalTertentu() {
         $gol_id = isset($_POST['golongan_id']) ? $_POST['golongan_id'] : 0;
-        $jabatanFungsional = JabatanFungsional::model()->find(array('condition'=>'jabatan_ft_id = ' . $_POST['jabatan_ft_id'].' and (min_golongan_id <= '.$gol_id.' and max_golongan_id >= '.$gol_id.' ) '));
-        echo !empty($jabatanFungsional) ? $jabatanFungsional->nama : "-";
+        $jabatanFungsional = JabatanFungsional::model()->find(array('condition' => 'jabatan_ft_id = ' . $_POST['jabatan_ft_id'] . ' and (min_golongan_id <= ' . $gol_id . ' and max_golongan_id >= ' . $gol_id . ' ) '));
+        echo!empty($jabatanFungsional) ? $jabatanFungsional->nama : "-";
 //        echo $gol_id;
 //        $data = JabatanFungsional::model()->with('DetailJf')->find(array('condition' => 't.jabatan_ft_id = ' . $_POST['jabatan_ft_id']));
 //        $tmp = isset($data->nama) ? $data->nama : '-';
@@ -863,7 +978,7 @@ class PegawaiController extends Controller {
     }
 
     public function actionSearchJson() {
-        $user = (empty(Yii::app()->session['searchPegawai'])) ? Pegawai::model()->findAll(array('condition' => 'nama like "%' . $_POST['queryString'] . '%"')) : Yii::app()->session['searchPegawai'];
+        $user = Pegawai::model()->findAll(array('condition' => 'nama like "%' . $_POST['queryString'] . '%" OR nip like "%' . $_POST['queryString'] . '%"'));
         $results = array();
         foreach ($user as $no => $o) {
             $sGol = (isset($o->Pangkat->Golongan->nama)) ? $o->Pangkat->Golongan->nama : "-";
@@ -1109,7 +1224,7 @@ class PegawaiController extends Controller {
 //
 //            //$model->attributes = $_GET['Pegawai'];
 //            //logs($model);
-//            Yii::app()->request->sendFile('Data Pegawai - ' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+//            Yii::app()->request->sendFile('Data Pegawai - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
 //                        'model' => $model,
 //                    ),true)
 //            );
@@ -1145,7 +1260,7 @@ class PegawaiController extends Controller {
             $model->attributes = $_POST['Pegawai'];
             if (isset($_POST['export'])) {
 
-                Yii::app()->request->sendFile('Rekap Data Pegawai - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekap', array(
+                Yii::app()->request->sendFile('Rekap Data Pegawai - ' . date('YmdHi') . '.xls', $this->renderPartial('_rekap', array(
                             'model' => $model,
                                 ), true)
                 );
@@ -1158,6 +1273,7 @@ class PegawaiController extends Controller {
     }
 
     public function actionRekapEselon() {
+        $this->layout = "mainWide";
         $model = new Pegawai;
         $model->unsetAttributes();  // clear any default values  
         if (isset($_POST['Pegawai'])) {
@@ -1165,7 +1281,7 @@ class PegawaiController extends Controller {
         }
         if (isset($_GET['export'])) {
 
-            Yii::app()->request->sendFile('Rekap Data Eselon - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapEselon', array(
+            Yii::app()->request->sendFile('Rekap Data Eselon - ' . date('YmdHi') . '.xls', $this->renderPartial('_rekapEselon', array(
                         'model' => $model,
                             ), true)
             );
@@ -1183,7 +1299,7 @@ class PegawaiController extends Controller {
             $model->attributes = $_POST['Pegawai'];
         }
         if (isset($_GET['export'])) {
-            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapJabfung', array(
+            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHi') . '.xls', $this->renderPartial('_rekapJabfung', array(
                         'model' => $model,
                             ), true)
             );
@@ -1201,7 +1317,7 @@ class PegawaiController extends Controller {
             $model->attributes = $_POST['Pegawai'];
         }
         if (isset($_POST['export'])) {
-            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHis') . '.xls', $this->renderPartial('_rekapBatasPensiun', array(
+            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHi') . '.xls', $this->renderPartial('_rekapBatasPensiun', array(
                         'model' => $model,
                             ), true)
             );
@@ -1220,7 +1336,7 @@ class PegawaiController extends Controller {
         $unit_kerja = (isset($session['RekapUnitKerjaExcel_records'])) ? $session['RekapUnitKerjaExcel_records'] : "-";
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('rekapExcel', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('rekapExcel', array(
                     'model' => $model, 'unit_kerja' => $unit_kerja,
                         ), true)
         );
@@ -1289,7 +1405,7 @@ class PegawaiController extends Controller {
         $sts_pernikahan = $_GET['status_pernikahan'];
 
         $criteria = new CDbCriteria;
-        $criteria->with = array('RiwayatJabatan');
+        $criteria->with = array('RiwayatJabatan', 'RiwayatPangkat', 'RiwayatKeluarga', 'JabatanStruktural', 'UnitKerja');
         $criteria->compare('nip', $nip, true);
         $criteria->addCondition('nama like "%' . $nama . '%"');
         $criteria->compare('gelar_depan', $gelar_dpn, true);
@@ -1299,25 +1415,30 @@ class PegawaiController extends Controller {
             $criteria->addCondition('RiwayatJabatan.jabatan_ft_id IN (' . implode(",", $id) . ')');
         $criteria->compare('jurusan', $jurusan, true);
         $criteria->compare('kedudukan_id', $kedudukan_id);
-//        if(!empty($agama))
         $criteria->compare('agama', $agama, true);
         $criteria->compare('tipe_jabatan', $type_jabatan, true);
-
         if (!empty($satuan_kerja))
             $criteria->addCondition('RiwayatJabatan.jabatan_struktural_id IN (' . implode(",", $id) . ') ');
-
-//        $criteria->compare('t.jabatan_stru', $unit_kerja);
         if (!empty($unit_kerja)) {
             $criteria->compare('t.jabatan_struktural_id', $unit_kerja);
         }
-//        if(!empty($jns_kelamin))
         $criteria->compare('jenis_kelamin', $jns_kelamin, true);
-//
         $criteria->compare('status_pernikahan', $sts_pernikahan, true);
 
         $model = Pegawai::model()->findAll($criteria);
 
-        Yii::app()->request->sendFile('Data Pegawai -' . date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+//        $model = cmd('SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, '
+//        . 'golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan, eselon.nama as nama_eselon, jurusan.Name as pendidikan FROM pegawai '
+//        . 'LEFT JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id '
+//        . 'LEFT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id '
+//        . 'LEFT JOIN eselon ON eselon.id = jabatan_struktural.eselon_id '
+//        . 'LEFT JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_id '
+//        . 'LEFT JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id '
+//        . 'LEFT JOIN riwayat_pendidikan ON pegawai.id = riwayat_pendidikan.pegawai_id '
+//        . 'LEFT JOIN jurusan ON jurusan.id = riwayat_pendidikan.id_jurusan '
+//        . 'ORDER BY jabatan_struktural.root,jabatan_struktural.lft')->query();
+
+        Yii::app()->request->sendFile('Data Pegawai -' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );
@@ -1346,7 +1467,7 @@ class PegawaiController extends Controller {
             $model = RiwayatPangkat::model()->findAll();
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelRiwayatPangkat', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelRiwayatPangkat', array(
                     'model' => $model
                         ), true)
         );
@@ -1375,7 +1496,7 @@ class PegawaiController extends Controller {
             $model = RiwayatJabatan::model()->findAll();
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelRiwayatJabatan', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelRiwayatJabatan', array(
                     'model' => $model
                         ), true)
         );
@@ -1431,7 +1552,7 @@ class PegawaiController extends Controller {
             $model = RiwayatGaji::model()->findAll();
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelRiwayatGaji', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelRiwayatGaji', array(
                     'model' => $model
                         ), true)
         );
@@ -1460,7 +1581,7 @@ class PegawaiController extends Controller {
             $model = RiwayatKeluarga::model()->findAll();
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelRiwayatKeluarga', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelRiwayatKeluarga', array(
                     'model' => $model
                         ), true)
         );
@@ -1489,7 +1610,7 @@ class PegawaiController extends Controller {
             $model = RiwayatPendidikan::model()->findAll();
 
 
-        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelRiwayatPendidikan', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelRiwayatPendidikan', array(
                     'model' => $model
                         ), true)
         );
@@ -1565,6 +1686,28 @@ class PegawaiController extends Controller {
             $data->save();
         }
         echo 'sukses';
+    }
+
+    public function actionCoba() {
+//        $criteria = new CDbCriteria;
+//        $criteria->with = array('RiwayatJabatan', 'Pangkat', 'RiwayatKeluarga', 'JabatanStruktural', 'UnitKerja');
+//        $model = Pegawai::model()->findAll($criteria);
+//        
+//        $aa = cmd('SELECT * FROM pegawai')->query();
+//        foreach($aa as $a){
+//            echo $a['id'].'<br/>';
+//        }
+
+        cmd('SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, '
+                . 'golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan, eselon.nama as nama_eselon, jurusan.Name as pendidikan FROM pegawai '
+                . 'INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id '
+                . 'RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id '
+                . 'INNER JOIN eselon ON eselon.id = jabatan_struktural.eselon_id '
+                . 'INNER JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_id '
+                . 'INNER JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id '
+                . 'INNER JOIN riwayat_pendidikan ON pegawai.id = riwayat_pendidikan.pegawai_id '
+                . 'INNER JOIN jurusan ON jurusan.id = riwayat_pendidikan.id_jurusan '
+                . 'ORDER BY jabatan_struktural.root,jabatan_struktural.lft')->query();
     }
 
 }

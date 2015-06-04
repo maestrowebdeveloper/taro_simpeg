@@ -138,11 +138,14 @@ class Honorer extends CActiveRecord {
             $nextmonth = date('m', strtotime("+1 month", strtotime($today)));
             $criteria->addCondition('date_format(tanggal_lahir,"%m") = "' . $nextmonth . '"');
         }
-
+//        if (!empty($this->kode)){
+//            $criteria->addCondition('kode IN (20,40)');
+//        }
+        
         $criteria->compare('id', $this->id);
         $criteria->compare('kode', $this->kode);
         $criteria->compare('nomor_register', $this->nomor_register, true);
-        $criteria->compare('nama', $this->nama, true);
+        $criteria->compare('t.nama', $this->nama, true);
         $criteria->compare('tempat_lahir', $this->tempat_lahir);
         $criteria->compare('status_sk', $this->status_sk);
         $criteria->compare('tanggal_lahir', $this->tanggal_lahir, true);
@@ -172,7 +175,7 @@ class Honorer extends CActiveRecord {
         $criteria->compare('created', $this->created, true);
         $criteria->compare('created_user_id', $this->created_user_id);
         $criteria->compare('modified', $this->modified, true);
-        $criteria->addCondition('kode IN (20,40)');
+//        $criteria->addCondition('kode IN (20,40)');
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -443,7 +446,7 @@ class Honorer extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . date('d M Y', strtotime($this->tmt_kontrak)) . '
+                        ' . landa()->date2Ind($this->tmt_kontrak) . '
                     </div>
                 </div>      
                 <div class="row-fluid">
@@ -452,7 +455,7 @@ class Honorer extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . date('d M Y', strtotime($this->tmt_mulai_kontrak)) . '
+                        ' . landa()->date2Ind($this->tmt_mulai_kontrak) . '
                     </div>
                 </div>      
                  <div class="row-fluid">
@@ -461,7 +464,7 @@ class Honorer extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . date('d M Y', strtotime($this->tmt_akhir_kontrak)) . '
+                        ' . landa()->date2Ind($this->tmt_akhir_kontrak) . '
                     </div>
                 </div>        
                 ';
@@ -516,27 +519,31 @@ class Honorer extends CActiveRecord {
     }
 
     public function getTmtJabatan() {
-        return date('d M Y', strtotime($this->tmt_jabatan));
+        return landa()->date2Ind($this->tmt_jabatan);
     }
 
     public function getTmtKontrak() {
-        return date('d M Y', strtotime($this->tmt_kontrak));
+        return landa()->date2Ind($this->tmt_kontrak);
     }
 
     public function getTmtMulaiKontrak() {
-        return date('d M Y', strtotime($this->tmt_mulai_kontrak));
+        return landa()->date2Ind($this->tmt_mulai_kontrak);
+    }
+    public function getTglLahir() {
+        return landa()->date2Ind($this->tanggal_lahir);
     }
 
     public function getTmtAkhirKontrak() {
-        return date('d M Y', strtotime($this->tmt_akhir_kontrak));
+        return landa()->date2Ind($this->tmt_akhir_kontrak);
     }
 
     public function getImgUrl() {
-        return param('pathImg') . 'honorer/' . $this->foto;
+//        return param('pathImg') . 'honorer/' . $this->foto;
+         return(!empty($this->foto)) ?  param('pathImg') . 'honorer/' . $this->foto : param('pathImg') . '350x350-noimage.jpg';
     }
 
     public function getSmallFoto() {
-        return '<img style="width:98px;height:98px" src="' . $this->imgUrl . '" class="img-polaroid"/>';
+        return '<img style="width:40px;height:40px" src="' . $this->imgUrl . '" class="img-polaroid"/>';
     }
 
     public function getTinyFoto() {
@@ -556,7 +563,7 @@ class Honorer extends CActiveRecord {
     }
 
     public function getTtl() {
-        return ucwords(strtolower($this->tempat_lahir)) . ', ' . date('d M Y', strtotime($this->tanggal_lahir));
+        return ucwords(strtolower($this->tempat_lahir)) . ', ' . landa()->date2Ind($this->tanggal_lahir);
     }
 
     public function getPendidikan() {

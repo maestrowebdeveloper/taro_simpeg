@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Tambah Jurusans');
+$this->setPageTitle('Tambah Jurusan');
 $this->breadcrumbs=array(
-	'Jurusans'=>array('index'),
+	'Jurusan'=>array('index'),
 	'Create',
 );
 

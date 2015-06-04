@@ -16,7 +16,7 @@ class Pegawai extends CActiveRecord {
 // NOTE: you should only define rules for those attributes that
 // will receive user inputs.
         return array(
-            array('nip, nama, tanggal_lahir, jenis_kelamin,  kedudukan_id', 'required'),
+            array('nip, nama, tanggal_lahir, jenis_kelamin', 'required'),
             array('gelar_depan, bup, ketarangan, ket_agama, riwayat_jabatan_id,riwayat_pangkat_id,riwayat_gaji_id,pendidikan_id,gelar_belakang,modified_user_id, tempat_lahir,agama, kedudukan_id,tmt_keterangan_kedudukan, status_pernikahan, alamat, city_id, kode_pos, hp, golongan_darah, bpjs, npwp,karpeg, foto, tmt_cpns, tmt_pns, tmt_golongan, tipe_jabatan, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, tmt_pensiun,no_sk_cpns,tanggal_sk_cpns,no_sk_pns,tanggal_sk_pns, created, created_user_id, id, no_taspen', 'safe'),
             array('kedudukan_id, jabatan_struktural_id, jabatan_fu_id, jabatan_ft_id, created_user_id, id', 'numerical', 'integerOnly' => true),
             array('nip, gelar_depan, gelar_belakang, keterangan, bpjs, kpe, npwp', 'length', 'max' => 50),
@@ -310,8 +310,8 @@ class Pegawai extends CActiveRecord {
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria2,
-            'sort' => false,
-//            'sort' => array('defaultOrder'=>'t.id DESC')
+//            'sort' => false,
+            'sort' => array('defaultOrder' => 'Golongan.nama DESC, Eselon.id ASC'),
         ));
 //array('condition'=>'pegawai_id='.$this->id,'order'=>'id DESC'));
         return $data;
@@ -345,7 +345,7 @@ class Pegawai extends CActiveRecord {
         }
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 't.jabatan_struktural_id DESC')
+            'sort' => array('defaultOrder' => 't.jabatan_struktural_id')
         ));
 
         return $data;
@@ -360,11 +360,11 @@ class Pegawai extends CActiveRecord {
             $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_GET['riwayat_jabatan_id']);
         }
         if (!empty($_GET['eselon_id'])) {
-            $criteria->addCondition('JabatanStruktural.eselon_id=' . $_GET['eselon_id']);
+            $criteria->addInCondition('JabatanStruktural.eselon_id', $_GET['eselon_id']);
         }
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => false,
+            'sort' => array('defaultOrder' => 't.jabatan_struktural_id')
         ));
 
         return $data;
@@ -377,7 +377,7 @@ class Pegawai extends CActiveRecord {
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => false,
+            'sort' => array('defaultOrder' => 't.jabatan_struktural_id')
         ));
 
         return $data;
@@ -399,7 +399,7 @@ class Pegawai extends CActiveRecord {
         }
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => false,
+            'sort' => array('defaultOrder' => 't.jabatan_struktural_id')
         ));
 
         return $data;
@@ -470,7 +470,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getUnitKerjaJabatan() {
-        return (!empty($this->RiwayatJabatan->JabatanStruktural->nama) ? $this->RiwayatJabatan->JabatanStruktural->nama : "-");
+        return (!empty($this->JabatanStruktural->nama) ? $this->JabatanStruktural->nama : "-");
     }
 
     public function getSatuanKerja() {
@@ -593,7 +593,8 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getImgUrl() {
-        return param('pathImg') . 'pegawai/' . $this->foto;
+        
+        return(!empty($this->foto)) ?  param('pathImg') . 'pegawai/' . $this->foto : param('pathImg') . '350x350-noimage.jpg';
     }
 
     public function getSmallFoto() {
@@ -666,7 +667,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getTtl() {
-        return ucwords(strtolower($this->tempatLahir)) . ', ' . date('d M Y', strtotime($this->tanggal_lahir));
+        return ucwords(strtolower($this->tempatLahir)) . ', ' . landa()->date2Ind($this->tanggal_lahir);
     }
 
     public function getNamaGelar() {
@@ -997,7 +998,7 @@ class Pegawai extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . date('d M Y', strtotime($this->tmt_cpns)) . '
+                        ' . landa()->date2Ind($this->tmt_cpns) . '
                     </div>
                 </div> 
 
@@ -1007,7 +1008,7 @@ class Pegawai extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . date('d M Y', strtotime($this->tmt_pns)) . '
+                        ' . landa()->date2Ind($this->tmt_pns) . '
                     </div>
                 </div> 
 
@@ -1017,7 +1018,7 @@ class Pegawai extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . $this->golongan . ' TMT : ' . date('d M Y', strtotime($this->tmt_golongan)) . '
+                        ' . $this->golongan . ' TMT : ' . landa()->date2Ind($this->tmt_golongan) . '
                     </div>
                 </div>   
 
@@ -1067,7 +1068,7 @@ class Pegawai extends CActiveRecord {
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
-                        ' . date('d M Y', strtotime($this->tmt_pensiun)) . '
+                        ' . landa()->date2Ind($this->tmt_pensiun) . '
                     </div>
                 </div>           
                 ';

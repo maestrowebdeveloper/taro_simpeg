@@ -56,13 +56,7 @@
 
         <div class="form-actions">
             <a class="btn btn-primary savePendidikan"><i class="icon-ok icon-white"></i> Simpan</a>
-            <?php
-            $this->widget('bootstrap.widgets.TbButton', array(
-                'buttonType' => 'reset',
-                'icon' => 'remove',
-                'label' => 'Reset',
-            ));
-            ?>
+            <button class="btn back "id="yw10" type="reset" ><i class="entypo-icon-back"></i> Back</button>
         </div>
     </fieldset>
 
@@ -73,6 +67,19 @@
     jQuery(function ($) {
         jQuery('#Pendidikan_tanggal_sttb').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
         jQuery('#Pendidikan_tanggal_lulus').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
+    });
+       $(".back").click(function() {
+    var judul = $(this).attr('judulPendidikan');
+        $.ajax({
+            url: "<?php echo url('pegawai/getTablePendidikan'); ?>",
+            data: "id=<?php echo $model->pegawai_id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
+            type: "post",
+            success: function(data) {
+                $(".modal-body").html(data);
+            }
+        });
+        $("#modalForm").modal("show");
+        $("#judul").html(judul);
     });
     $(".savePendidikan").click(function () {
         var postData = $("#pendidikan-form").serialize();

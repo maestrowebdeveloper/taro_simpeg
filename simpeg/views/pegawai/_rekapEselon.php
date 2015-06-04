@@ -4,7 +4,7 @@ if (!empty($_GET['riwayat_jabatan_id']))
     $criteria .= ' AND JabatanStruktural.unit_kerja_id=' . $_GET['riwayat_jabatan_id'];
 
 if (!empty($_GET['eselon_id'])) {
-    $criteria .= ' AND JabatanStruktural.eselon_id=' . $_GET['eselon_id'];
+    $criteria .= ' AND JabatanStruktural.eselon_id IN ('.  implode(',', $_GET['eselon_id']).')' ;
 }
 
 $data = Pegawai::model()->findAll(array(

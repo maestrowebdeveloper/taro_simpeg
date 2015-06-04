@@ -118,7 +118,7 @@ class Auth extends CActiveRecord {
                     array('visible' => landa()->checkAccess('user', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>User', 'url' => url('/user'), 'auth_id' => 'user'),
                 )),
             array('visible' => landa()->checkAccess('golongan', 'r'), 'label' => '<span class="icon16  eco-archive-2 "></span>Data Master', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
-                    array('visible' => landa()->checkAccess('golongan', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Pangkat / Golru', 'url' => url('/golongan'), 'auth_id' => 'golongan'),
+//                    array('visible' => landa()->checkAccess('golongan', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Pangkat / Golru', 'url' => url('/golongan'), 'auth_id' => 'golongan'),
                     array('visible' => landa()->checkAccess('unitKerja', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Satuan Kerja', 'url' => url('/unitKerja'), 'auth_id' => 'unitKerja'),
                     array('visible' => landa()->checkAccess('jabatanStruktural', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Unit Kerja', 'url' => url('/jabatanStruktural'), 'auth_id' => 'jabatanStruktural'),
                     array('visible' => landa()->checkAccess('jabatanFu', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Jab. Fung. Umum', 'url' => url('/jabatanFu'), 'auth_id' => 'jabatanFu'),

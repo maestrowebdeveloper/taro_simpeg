@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Tambah Permohonan Ijin Belajars');
+$this->setPageTitle('Tambah Permohonan Ijin Belajar');
 $this->breadcrumbs=array(
-	'Permohonan Ijin Belajars'=>array('index'),
+	'Permohonan Ijin Belajar'=>array('index'),
 	'Create',
 );
 

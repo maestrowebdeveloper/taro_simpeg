@@ -44,11 +44,7 @@
         <br>
         <div class="form-actions">
          <a class="btn btn-primary saveGajiPokok"><i class="icon-ok icon-white"></i> Simpan</a>
-            <?php $this->widget('bootstrap.widgets.TbButton', array(
-			'buttonType'=>'reset',
-                        'icon'=>'remove',  
-			'label'=>'Reset',
-		)); ?>
+           <button class="btn back "id="yw10" type="reset" ><i class="entypo-icon-back"></i> Back</button>
         </div>
     </fieldset>
 
@@ -84,5 +80,18 @@ $(".saveGajiPokok").click(function(){
      
     
 });
+$(".back").click(function() {
+         var judul = $(this).attr('judulGaji');
+        $.ajax({
+            url: "<?php echo url('pegawai/getTableGaji'); ?>",
+            data: "id=<?php echo $model->pegawai_id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
+            type: "post",
+            success: function(data) {
+                $(".modal-body").html(data);
+            }
+        });
+        $("#modalForm").modal("show");
+        $("#judul").html(judul);
+    });
 
 </script>

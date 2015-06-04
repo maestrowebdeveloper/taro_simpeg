@@ -193,7 +193,7 @@ class HukumanController extends Controller {
 //            $model = Hukuman::model()->findAll();
 //
 //
-//        Yii::app()->request->sendFile(date('YmdHis') . '.xls', $this->renderPartial('excelReport', array(
+//        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
 //                    'model' => $model
 //                        ), true)
 //        );

@@ -119,7 +119,7 @@ if (isset($_GET['cari'])) {
                 array(
                     'name' => 'tanggal',
                     'type' => 'raw',
-                    'value' => 'date("d m Y",strtotime($data->tanggal))',
+                    'value' => 'landa()->date2Ind($data->tanggal)',
                     'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 array(

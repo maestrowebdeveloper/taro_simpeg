@@ -1,5 +1,5 @@
 <?php
-$this->setPageTitle('Surat Masuks');
+$this->setPageTitle('Surat Masuk');
 $this->breadcrumbs=array(
 	'Surat Masuk',
 );
@@ -97,7 +97,7 @@ $this->endWidget();
 		
 		array(
             'name' => 'tanggal_terima',
-            'value' => 'date("d M Y",strtotime($data->tanggal_terima))',            
+            'value' => 'landa()->date2Ind($data->tanggal_terima)',            
         ), 			
        array(
             'class'=>'bootstrap.widgets.TbButtonColumn',

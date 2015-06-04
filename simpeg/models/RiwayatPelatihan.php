@@ -146,7 +146,7 @@ class RiwayatPelatihan extends CActiveRecord {
     }
 
     public function getPelatihan() {
-        return (!empty($this->Pelatihan->nama)) ? $this->Pelatihan->nama : $this->nama;
+        return (!empty($this->Pelatihan->nama)) ? $this->Pelatihan->nama : '-';
     }
 
 }

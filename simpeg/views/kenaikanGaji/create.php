@@ -1,7 +1,7 @@
 <?php
-$this->setPageTitle('Tambah Kenaikan Gajis');
+$this->setPageTitle('Tambah Kenaikan Gaji');
 $this->breadcrumbs=array(
-	'Kenaikan Gajis'=>array('index'),
+	'Kenaikan Gaji'=>array('index'),
 	'Create',
 );
 
