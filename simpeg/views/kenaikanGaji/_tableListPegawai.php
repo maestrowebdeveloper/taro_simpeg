@@ -5,6 +5,7 @@
         <tr>
             <th>NIP</th>
             <th>Nama</th>
+            <th>Unit Kerja</th>
             <th>Golongan</th>
             <th>TMT Cpns</th>
             <th>Masa Kerja</th>
@@ -39,6 +40,7 @@
                 echo (isset($valPegawai->nip) ? $valPegawai->nip : "-");
                 echo '</td>';
                 echo '<td>' . (isset($valPegawai->nama) ? $valPegawai->nama : "-") . '</td>';
+                echo '<td>' . (isset($valPegawai->JabatanStruktural->nama) ? $valPegawai->JabatanStruktural->nama : "-") . '</td>';
                 echo '<td>' . (isset($valPegawai->Pangkat->Golongan->nama) ? $valPegawai->Pangkat->Golongan->nama : "-" ) . '</td>';
                 echo '<td>' . (isset($valPegawai->tmt_cpns) ? $valPegawai->tmt_cpns : "-" ) . '</td>';
                 echo '<td>' . $valPegawai->masaKerjaTahun." Tahun ".$valPegawai->masaKerjaBulan." Bulan" . '</td>';

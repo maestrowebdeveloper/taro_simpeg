@@ -67,6 +67,7 @@
 jQuery(function($) {
     jQuery('#RiwayatPangkat_tmt_pangkat').datepicker({'language':'id','format':'yyyy-mm-dd','weekStart':0});
     jQuery('#RiwayatPangkat_tgl_sk').datepicker({'language':'id','format':'yyyy-mm-dd','weekStart':0});
+    jQuery('#RiwayatPangkat_tanggal_cg').datepicker({'language':'id','format':'yyyy-mm-dd','weekStart':0});
     jQuery('#RiwayatPangkat_golongan_id').select2({'width':'30%'});          
 });
 $(".savePangkat").click(function(){

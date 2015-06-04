@@ -18,6 +18,22 @@
         <?php echo $form->errorSummary($model, 'Opps!!!', null, array('class' => 'alert alert-error span12')); ?>
         <div class="well">
             <div class="row-fluid">
+                <div class="control-group">
+                <label class="control-label">Satuan Kerja</label>
+                <div class="controls">
+                    <?php
+                    $data = array('0' => '- Satuan Kerja -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                    $this->widget(
+                            'bootstrap.widgets.TbSelect2', array(
+                        'name' => 'unit_kerja',
+                        'data' => $data,
+                        'value' => isset($_POST['unit_kerja']) ? $_POST['unit_kerja'] : '',
+                        'options' => array(
+                            'width' => '38%;margin:0px;text-align:left',
+                    )));
+                    ?>                 
+                </div>
+            </div>
                 <div class="control-group ">
                     <label class="control-label" for="Pegawai_jabatan_id">Bulan / Tahun</label>
                     <div class="controls">
@@ -48,6 +64,7 @@
                             ?> 
                         </select> &nbsp;&nbsp;&nbsp;&nbsp;
                         <button class="btn btn-primary" id="viewPegawai" type="button" name="yt0" onclick="return validat()"><i class="icon-ok icon-white"></i> View Pegawai</button>
+                        <button class="btn btn-primary export" id="export" type="button" name="yt0" onclick=""><i class="icon-ok icon-print"></i> Export</button>
                     </div>
                 </div>
                 <div id="listPegawai"></div>
@@ -81,9 +98,10 @@
     $("#viewPegawai").click(function() {
         var bulan = $("#bulan").val();
         var tahun = $("#tahun").val();
+        var unit_kerja = $("#unit_kerja").val();
         $.ajax({
             url: "<?php echo url('kenaikanGaji/getListPegawai'); ?>",
-            data: "bulan=" + bulan + "&tahun=" + tahun,
+            data: "bulan=" + bulan + "&tahun=" + tahun + "&unit_kerja=" + unit_kerja,
             type: "post",
             success: function(data) {
                 $("#listPegawai").html(data);
