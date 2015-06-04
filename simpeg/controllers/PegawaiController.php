@@ -1188,6 +1188,7 @@ class PegawaiController extends Controller {
     }
 
     public function actionRekapEselon() {
+        $this->layout = "mainWide";
         $model = new Pegawai;
         $model->unsetAttributes();  // clear any default values  
         if (isset($_POST['Pegawai'])) {

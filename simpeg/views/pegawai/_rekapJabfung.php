@@ -28,7 +28,7 @@ if (!empty($_GET['type'])) {
 $data = Pegawai::model()->findAll(array(
     'with' => array('RiwayatJabatan', 'JabatanStruktural','UnitKerja', 'JabatanFt'),
     'condition' => 't.kedudukan_id > 0 ' . $criteria,
-    'order' => 'UnitKerja.nama ASC'
+    'order' => 'JabatanStruktural.id ASC'
         ));
 ?>
 <div class="report" id="report" style="width: 100%">
