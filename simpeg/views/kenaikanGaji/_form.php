@@ -22,7 +22,7 @@
                 <label class="control-label">Satuan Kerja</label>
                 <div class="controls">
                     <?php
-                    $data = array('0' => '- Satuan Kerja -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                    $data = array('0' => '- Satuan Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
                     $this->widget(
                             'bootstrap.widgets.TbSelect2', array(
                         'name' => 'unit_kerja',
