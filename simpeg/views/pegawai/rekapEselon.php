@@ -127,7 +127,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'name' => 'riwayat_jabatan',
             'type' => 'raw',
             'header'=>'Jabatan',
-            'value' => '$data->RiwayatJabatan->jabatanStruktural',
+            'value' => '$data->jabatan',
 //            'htmlOptions' => array('style' => 'text-align:center'),
         ),
         array(

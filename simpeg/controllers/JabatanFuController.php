@@ -64,18 +64,9 @@ class JabatanFuController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['JabatanFu'])) {
-            if ($_POST['JabatanFu']['parent_id']) {
-                $child = new JabatanFu;
-                $child->attributes = $_POST['JabatanFu'];
-
-                $root = $model->findByPk($_POST['JabatanFu']['parent_id']);
-                if ($child->appendTo($root))
-                    $this->redirect(array('view', 'id' => $child->id));
-            }else {
-                $model->attributes = $_POST['JabatanFu'];
-                if ($model->saveNode())
-                    $this->redirect(array('view', 'id' => $model->id));
-            }
+              $model->attributes = $_POST['JabatanFu'];
+            if ($model->save())
+                $this->redirect(array('view', 'id' => $model->id));
         }
 
         $this->render('create', array(
@@ -97,18 +88,10 @@ class JabatanFuController extends Controller {
         if (isset($_POST['JabatanFu'])) {
             if ($_POST['JabatanFu']['parent_id']) {
                 $model->attributes = $_POST['JabatanFu'];
-                if ($model->saveNode()) {
-                    $root = $model->findByPk($_POST['JabatanFu']['parent_id']);
-                    $model->moveAsFirst($root);
+                
                     $this->redirect(array('view', 'id' => $model->id));
-                }
-            } else {
-                $model->attributes = $_POST['JabatanFu'];
-                $model->saveNode();
-                if (!($model->isRoot()))
-                    $model->moveAsRoot();
-                $this->redirect(array('view', 'id' => $model->id));
-            }
+                
+        }
         }
 
         $this->render('update', array(

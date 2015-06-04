@@ -38,14 +38,14 @@ class PermohonanIjinBelajar extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nomor_register, tanggal, pegawai_id, jenjang_pendidikan,id_jurusan,  tanggal_usul', 'required'),
-            array('nip, golongan,tanggal, tanggal_usul, nama,jabatan, unit_kerja, id_jurusan, id_universitas, kota, alamat, nama_sekolah, created, created_user_id, modified', 'safe'),
+            array('nip,status, golongan,tanggal, tanggal_usul, nama,jabatan, unit_kerja, id_jurusan, id_universitas, kota, alamat, nama_sekolah, created, created_user_id, modified', 'safe'),
             array('pegawai_id, kota, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register, nip, jabatan, unit_kerja, nama_sekolah', 'length', 'max' => 225),
             array('golongan', 'length', 'max' => 100),
             array('jenjang_pendidikan', 'length', 'max' => 9),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, nomor_register, tanggal,tanggal_usul, pegawai_id, nip, golongan, jabatan, unit_kerja, jenjang_pendidikan, id_jurusan, nama_sekolah, kota, alamat, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, nomor_register, tanggal,tanggal_usul, pegawai_id, nip, golongan,status, jabatan, unit_kerja, jenjang_pendidikan, id_jurusan, nama_sekolah, kota, alamat, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -73,6 +73,7 @@ class PermohonanIjinBelajar extends CActiveRecord {
             'nomor_register' => 'Nomor Usul',
             'tanggal' => 'Tanggal Input',
             'pegawai_id' => 'Pegawai',
+            'status' => 'Status',
             'nip' => 'Nip',
             'nama' => 'Nama Pegawai',
             'golongan' => 'Golongan',
@@ -111,6 +112,7 @@ class PermohonanIjinBelajar extends CActiveRecord {
         $criteria->compare('nomor_register', $this->nomor_register, true);
         $criteria->compare('tanggal', $this->tanggal, true);
         $criteria->compare('pegawai_id', $this->pegawai_id);
+        $criteria->compare('status', $this->status);
         $criteria->compare('nip', $this->nip, true);
         $criteria->compare('golongan', $this->golongan, true);
         $criteria->compare('jabatan', $this->jabatan, true);
@@ -180,6 +182,20 @@ class PermohonanIjinBelajar extends CActiveRecord {
 
     public function getKotaSekolah() {
         return (!empty($this->Kota->name)) ? $this->Kota->name : '-';
+    }
+    public function arrStatuspros() {
+        $agama = array('0' => 'Proses', '1' => 'Selesai');
+        return $agama;
+    }
+    
+    public function getStat(){
+        $status='';
+        if($this->status == 1){
+             $status = '<span class="label label-info">Sudah</span>';
+        }else{
+             $status = '<span class="label label-warning">Belum</span>';
+        }
+        return $status;
     }
 
 }

@@ -138,11 +138,14 @@ class Honorer extends CActiveRecord {
             $nextmonth = date('m', strtotime("+1 month", strtotime($today)));
             $criteria->addCondition('date_format(tanggal_lahir,"%m") = "' . $nextmonth . '"');
         }
-
+//        if (!empty($this->kode)){
+//            $criteria->addCondition('kode IN (20,40)');
+//        }
+        
         $criteria->compare('id', $this->id);
         $criteria->compare('kode', $this->kode);
         $criteria->compare('nomor_register', $this->nomor_register, true);
-        $criteria->compare('nama', $this->nama, true);
+        $criteria->compare('t.nama', $this->nama, true);
         $criteria->compare('tempat_lahir', $this->tempat_lahir);
         $criteria->compare('status_sk', $this->status_sk);
         $criteria->compare('tanggal_lahir', $this->tanggal_lahir, true);
@@ -172,7 +175,7 @@ class Honorer extends CActiveRecord {
         $criteria->compare('created', $this->created, true);
         $criteria->compare('created_user_id', $this->created_user_id);
         $criteria->compare('modified', $this->modified, true);
-        $criteria->addCondition('kode IN (20,40)');
+//        $criteria->addCondition('kode IN (20,40)');
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -525,6 +528,9 @@ class Honorer extends CActiveRecord {
 
     public function getTmtMulaiKontrak() {
         return landa()->date2Ind($this->tmt_mulai_kontrak);
+    }
+    public function getTglLahir() {
+        return landa()->date2Ind($this->tanggal_lahir);
     }
 
     public function getTmtAkhirKontrak() {

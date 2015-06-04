@@ -97,8 +97,8 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         'nama',
         array(
-            'name' => 'jabatan_fu_id',
-            'value' => '$data->jabatan',
+            'name' => 'tanggal_lahir',
+            'value' => '$data->tglLahir',
             'type' => 'raw',
             'htmlOptions' => array('style' => 'text-align: center; width:140px;')
         ),

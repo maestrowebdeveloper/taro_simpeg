@@ -30,11 +30,11 @@ class PermohonanIjinBelajarController extends Controller {
                 'expression' => 'app()->controller->isValidAccess("permohonanIjinBelajar","r")'
             ),
             array('allow', // u
-                'actions' => array( 'update'),
+                'actions' => array('update'),
                 'expression' => 'app()->controller->isValidAccess("permohonanIjinBelajar","u")'
             ),
             array('allow', // d
-                'actions' => array( 'delete'),
+                'actions' => array('delete'),
                 'expression' => 'app()->controller->isValidAccess("permohonanIjinBelajar","d")'
             )
         );
@@ -53,6 +53,28 @@ class PermohonanIjinBelajarController extends Controller {
         $this->actionUpdate($id);
     }
 
+    public function actionProses() {
+        if (isset($_POST['ceckbox'])) {
+            $id = $_POST['ceckbox'];
+            if (isset($_POST['proses'])) {
+                $model = PermohonanIjinBelajar::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ') and status=0'));
+                foreach ($model as $data) {
+                    $data->status = 1;
+                    $data->save();
+                    user()->setFlash('info', '<strong>Attention! </strong>Data is processed.');
+                $this->redirect(array('permohonanIjinBelajar/index'));
+                }
+            } else {
+                PermohonanIjinBelajar::model()->deleteAll('id IN (' . implode(',', $_POST['ceckbox']) . ')');
+                user()->setFlash('danger', '<strong>Attention! </strong>Data is deleted.');
+                $this->redirect(array('permohonanIjinBelajar/index'));
+            }
+        }else{
+            user()->setFlash('warning', '<strong>Attention! </strong> Please Checked..');
+                $this->redirect(array('permohonanIjinBelajar/index'));
+        }
+    }
+
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -60,8 +82,8 @@ class PermohonanIjinBelajarController extends Controller {
     public function actionCreate() {
         $model = new PermohonanIjinBelajar;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+// Uncomment the following line if AJAX validation is needed
+// $this->performAjaxValidation($model);
 
         if (isset($_POST['PermohonanIjinBelajar'])) {
             $model->attributes = $_POST['PermohonanIjinBelajar'];
@@ -91,8 +113,8 @@ class PermohonanIjinBelajarController extends Controller {
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+// Uncomment the following line if AJAX validation is needed
+// $this->performAjaxValidation($model);
 
         if (isset($_POST['PermohonanIjinBelajar'])) {
             $model->attributes = $_POST['PermohonanIjinBelajar'];
@@ -122,10 +144,10 @@ class PermohonanIjinBelajarController extends Controller {
      */
     public function actionDelete($id) {
         if (Yii::app()->request->isPostRequest) {
-            // we only allow deletion via POST request
+// we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
@@ -185,14 +207,14 @@ class PermohonanIjinBelajarController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        
-        $jenjang_pendidikan =$_GET['jenjang_pendidikan'];
-        $nomor_register =$_GET['nomor_register'];
+
+        $jenjang_pendidikan = $_GET['jenjang_pendidikan'];
+        $nomor_register = $_GET['nomor_register'];
         $tanggal = $_GET['tanggal'];
         $pegawai_id = $_GET['pegawai_id'];
         $jurusan = $_GET['jurusan'];
         $nama_sekolah = $_GET['nama_sekolah'];
-        
+
         $criteria = new CDbCriteria;
         $criteria->compare('jenjang_pendidikan', $jenjang_pendidikan, true);
         $criteria->compare('pegawai_id', $pegawai_id);
@@ -200,18 +222,18 @@ class PermohonanIjinBelajarController extends Controller {
         $criteria->compare('tanggal', $tanggal, true);
         $criteria->compare('jurusan', $jurusan, true);
         $criteria->compare('nama_sekolah', $nama_sekolah, true);
-        
-            $model = PermohonanIjinBelajar::model()->findAll($criteria);
+
+        $model = PermohonanIjinBelajar::model()->findAll($criteria);
 
 
-        Yii::app()->request->sendFile('Data Permohonan Ijin Belajar -'.date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data Permohonan Ijin Belajar -' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $model
                         ), true)
         );
     }
-    
-    public function actionRangePrint(){
-         $model = new PermohonanIjinBelajar;
+
+    public function actionRangePrint() {
+        $model = new PermohonanIjinBelajar;
         $model->unsetAttributes();  // clear any default values  
         if (isset($_POST['PermohonanIjinBelajar'])) {
             $model->attributes = $_POST['PermohonanIjinBelajar'];

@@ -804,7 +804,7 @@ class PegawaiController extends Controller {
                                 $modelPangkat->no_sk = (isset($data->sheets[0]['cells'][$j][31])) ? $data->sheets[0]['cells'][$j][31] : '';
                              $sk = (isset($data->sheets[0]['cells'][$j][32])) ? $data->sheets[0]['cells'][$j][32] : '';
                             $tgl_sk = date('Y-m-d', strtotime($sk));
-                            $modelPangkat->gl_sk = $tgl_sk;
+                            $modelPangkat->tgl_sk = $tgl_sk;
                                 if($modelPangkat->save()){
                                     $riwayat_pangkat_id[$modelPangkat->id] = $modelPangkat->pegawai_id;
                                     

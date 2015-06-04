@@ -123,7 +123,7 @@ $this->breadcrumbs = array(
                     'name' => 'riwayat_jabatan_id',
                     'type' => 'raw',
                     'header' => 'Jabatan ',
-                    'value' => '$data->RiwayatJabatan->jabatanStruktural',
+                    'value' => '$data->jabatan',
                     'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 array(
