@@ -611,8 +611,7 @@
 
                 <td style="line-height:10px;vertical-align:top;" class="span2">            
                     <?php
-                    $img = Yii::app()->landa->urlImg('pegawai/', $model->foto, $_GET['id']);
-                    echo '<img style="max-width:250px;max-height:350px;" src="' . $img['medium'] . '" alt="" class="image img-polaroid" id="my_image"  /> ';
+                    echo '<img style="max-width:250px;max-height:350px;" src="' . $model->imgUrl . '" alt="" class="image img-polaroid" id="my_image"  /> ';
                     ?>
 
                 </td>

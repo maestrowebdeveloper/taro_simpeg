@@ -345,7 +345,7 @@ class Pegawai extends CActiveRecord {
         }
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 't.jabatan_struktural_id DESC')
+            'sort' => array('defaultOrder' => 't.jabatan_struktural_id')
         ));
 
         return $data;
@@ -360,11 +360,11 @@ class Pegawai extends CActiveRecord {
             $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_GET['riwayat_jabatan_id']);
         }
         if (!empty($_GET['eselon_id'])) {
-            $criteria->addCondition('JabatanStruktural.eselon_id=' . $_GET['eselon_id']);
+            $criteria->addInCondition('JabatanStruktural.eselon_id', $_GET['eselon_id']);
         }
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => false,
+            'sort' => array('defaultOrder' => 't.jabatan_struktural_id')
         ));
 
         return $data;
@@ -377,7 +377,7 @@ class Pegawai extends CActiveRecord {
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => false,
+            'sort' => array('defaultOrder' => 't.jabatan_struktural_id')
         ));
 
         return $data;
@@ -399,7 +399,7 @@ class Pegawai extends CActiveRecord {
         }
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'sort' => false,
+            'sort' => array('defaultOrder' => 't.jabatan_struktural_id')
         ));
 
         return $data;

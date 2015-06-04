@@ -102,7 +102,7 @@ class TransferCpnsController extends Controller {
         $return['nama'] = $model->nama;
         $return['jenis_kelamin'] = $model->jenis_kelamin;
         $return['unit_kerja'] = $model->unitKerjaJabatan;
-        $return['masa_kerja'] = $model->masaKerjaTahun.' Tahun'. $model->masaKerjaBulan.' Bulan';
+        $return['masa_kerja'] = $model->masaKerjaTahun.' Tahun, '. $model->masaKerjaBulan.' Bulan';
         $return['tempat_lahir'] = $model->tempatLahir;
         $return['tanggal_lahir'] = $model->tanggal_lahir;
         $return['pendidikan_terakhir'] = $model->Pendidikan->jenjang_pendidikan . ' - ' . $model->Pendidikan->Jurusan->Name;
