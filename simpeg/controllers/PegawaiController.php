@@ -749,14 +749,23 @@ class PegawaiController extends Controller {
                     for ($j = 2; $j <= $data->sheets[0]['numRows']; $j++) {
                         if (!empty($data->sheets[0]['cells'][$j][1])) {
                             $id = array();
+                            $pagawai_id = array();
+                            $riwayat_pangkat_id =array();
+                            $riwayat_gaji_id =array();
+                            
+                            $modelPangkat = new RiwayatPangkat;
+                            $modelGaji = new RiwayatGaji;
                             $pegawai = new Pegawai;
+                            
                             $pegawai->nip = (isset($data->sheets[0]['cells'][$j][1])) ? $data->sheets[0]['cells'][$j][1] : '';
                             $pegawai->nip_lama = (isset($data->sheets[0]['cells'][$j][2])) ? $data->sheets[0]['cells'][$j][2] : '';
                             $pegawai->nama = (isset($data->sheets[0]['cells'][$j][3])) ? $data->sheets[0]['cells'][$j][3] : '';
                             $pegawai->gelar_depan = (isset($data->sheets[0]['cells'][$j][4])) ? $data->sheets[0]['cells'][$j][4] : '';
                             $pegawai->gelar_belakang = (isset($data->sheets[0]['cells'][$j][5])) ? $data->sheets[0]['cells'][$j][5] : '';
                             $pegawai->tempat_lahir = (isset($data->sheets[0]['cells'][$j][6])) ? $data->sheets[0]['cells'][$j][6] : '';
-                            $pegawai->tanggal_lahir = (isset($data->sheets[0]['cells'][$j][7])) ? $data->sheets[0]['cells'][$j][7] : '';
+                            $lahir = (isset($data->sheets[0]['cells'][$j][7])) ? $data->sheets[0]['cells'][$j][7] : '';
+                                $tgl_lahir = date('Y-m-d', strtotime($lahir));
+                                $pegawai->tanggal_lahir = $tgl_lahir;
                             $pegawai->jenis_kelamin = (isset($data->sheets[0]['cells'][$j][8])) ? $data->sheets[0]['cells'][$j][8] : '';
                             $pegawai->agama = (isset($data->sheets[0]['cells'][$j][9])) ? $data->sheets[0]['cells'][$j][9] : '';
                             $pegawai->status_pernikahan = (isset($data->sheets[0]['cells'][$j][10])) ? $data->sheets[0]['cells'][$j][10] : '';
@@ -770,18 +779,60 @@ class PegawaiController extends Controller {
                             $pegawai->npwp = (isset($data->sheets[0]['cells'][$j][18])) ? $data->sheets[0]['cells'][$j][18] : '';
                             $pegawai->no_taspen = (isset($data->sheets[0]['cells'][$j][19])) ? $data->sheets[0]['cells'][$j][19] : '';
                             $pegawai->karpeg = (isset($data->sheets[0]['cells'][$j][20])) ? $data->sheets[0]['cells'][$j][20] : '';
-                            $pegawai->tmt_cpns = (isset($data->sheets[0]['cells'][$j][21])) ? $data->sheets[0]['cells'][$j][21] : '';
+                            $cpns = (isset($data->sheets[0]['cells'][$j][21])) ? $data->sheets[0]['cells'][$j][21] : '';
+                                $tgl_cpns = date('Y-m-d', strtotime($cpns));
+                                $pegawai->tmt_cpns = $tgl_cpns;
                             $pegawai->no_sk_cpns = (isset($data->sheets[0]['cells'][$j][22])) ? $data->sheets[0]['cells'][$j][22] : '';
                             $pegawai->tanggal_sk_cpns = (isset($data->sheets[0]['cells'][$j][23])) ? $data->sheets[0]['cells'][$j][23] : '';
                             $pegawai->tmt_pns = (isset($data->sheets[0]['cells'][$j][24])) ? $data->sheets[0]['cells'][$j][24] : '';
                             $pegawai->no_sk_pns = (isset($data->sheets[0]['cells'][$j][25])) ? $data->sheets[0]['cells'][$j][25] : '';
                             $pegawai->tanggal_sk_pns = (isset($data->sheets[0]['cells'][$j][26])) ? $data->sheets[0]['cells'][$j][26] : '';
                             if ($pegawai->save()) {
-                                $sukses++;
-                            } else {
-                                $gagal++;
+                                $pegawai_id[] = $pegawai->id;
                             }
-                            $total_pegawai++;
+                            // save riwayat pangkat
+                            foreach ($pegawai_id as $key => $value) {
+                                $modelPangkat->nomor_register = (isset($data->sheets[0]['cells'][$j][27])) ? $data->sheets[0]['cells'][$j][27] : '';
+                                $tcg = (isset($data->sheets[0]['cells'][$j][28])) ? $data->sheets[0]['cells'][$j][28] : '';
+                                $tgl_cg = date('Y-m-d', strtotime($tcg));
+                                $modelPangkat->tanggal_cg = $tgl_cg;
+                                $modelPangkat->pegawai_id = $value;
+                                $modelPangkat->golongan_id = (isset($data->sheets[0]['cells'][$j][29])) ? $data->sheets[0]['cells'][$j][29] : '';
+                                $tg = (isset($data->sheets[0]['cells'][$j][30])) ? $data->sheets[0]['cells'][$j][30] : '';
+                                $tmt = date('Y-m-d', strtotime($tg));
+                                $modelPangkat->tmt_pangkat = "$tmt";
+                                $modelPangkat->no_sk = (isset($data->sheets[0]['cells'][$j][31])) ? $data->sheets[0]['cells'][$j][31] : '';
+                             $sk = (isset($data->sheets[0]['cells'][$j][32])) ? $data->sheets[0]['cells'][$j][32] : '';
+                            $tgl_sk = date('Y-m-d', strtotime($sk));
+                            $modelPangkat->gl_sk = $tgl_sk;
+                                if($modelPangkat->save()){
+                                    $riwayat_pangkat_id[$modelPangkat->id] = $modelPangkat->pegawai_id;
+                                    
+                                }
+                                
+                                
+                            }
+                            // update riwayat pankat id
+                            foreach($riwayat_pangkat_id as $key=>$value){
+                                    Pegawai::model()->updateAll(array(
+                                    'riwayat_pangkat_id' => $key,), 'id=' . $value);
+                                }
+                            // save ke riwayat gajii
+                            foreach ($pegawai_id as $key => $value) {
+                             $modelGaji->nomor_register = (isset($data->sheets[0]['cells'][$j][33])) ? $data->sheets[0]['cells'][$j][33] : '';
+                            $modelGaji->pegawai_id = $value;
+                            $modelGaji->gaji = (isset($data->sheets[0]['cells'][$j][34])) ? $data->sheets[0]['cells'][$j][34] : '';
+                            $modelGaji->dasar_perubahan = (isset($data->sheets[0]['cells'][$j][35])) ? $data->sheets[0]['cells'][$j][35] : '';
+                            if ($modelGaji->save()) {
+                               $riwayat_gaji_id[$modelGaji->id] = $modelGaji->pegawai_id;
+                                
+                            }
+                            }
+                             // update riwayat gaji id
+                             foreach($riwayat_gaji_id as $key=>$value){
+                                    Pegawai::model()->updateAll(array(
+                                    'riwayat_gaji_id' => $key,), 'id=' . $value);
+                                }
                         }
                     }
                     user()->setFlash('info', '<strong>Berhasil! </strong>Total Pegawai : ' . $total_pegawai . ', Berhasil : ' . $sukses . ', Gagal : ' . $gagal);
@@ -796,26 +847,55 @@ class PegawaiController extends Controller {
                         if (!empty($data->sheets[0]['cells'][$j][1])) {
                             $riwayat_id = array();
                             $model = new RiwayatPangkat;
+                            $modelGaji = new RiwayatGaji;
                             // cari pegawai
                             $nip = (isset($data->sheets[0]['cells'][$j][1])) ? $data->sheets[0]['cells'][$j][1] : '';
                             $cariPegawai = Pegawai::model()->find(array('condition' => 'nip=' . $nip));
-                            // save riwayat pangkat
+                            // save riwayat pangkat update pegawai
                             $model->nomor_register = (isset($data->sheets[0]['cells'][$j][2])) ? $data->sheets[0]['cells'][$j][2] : '';
+                            $tcg = (isset($data->sheets[0]['cells'][$j][5])) ? $data->sheets[0]['cells'][$j][5] : '';
+                            $tgl_cg = date('Y-m-d', strtotime($tcg));
+                            echo $tgl_cg;
+                            $model->tanggal_cg = $tgl_cg;
                             $model->pegawai_id = $cariPegawai->id;
-                            $model->golongan_id = (isset($data->sheets[0]['cells'][$j][3])) ? $data->sheets[0]['cells'][$j][3] : '';
+                            $model->golongan_id = (isset($data->sheets[0]['cells'][$j][4])) ? $data->sheets[0]['cells'][$j][4] : '';
+                            $tg = (isset($data->sheets[0]['cells'][$j][5])) ? $data->sheets[0]['cells'][$j][5] : '';
+                            $tmt = date('Y-m-d', strtotime($tg));
+                            $model->tmt_pangkat = "$tmt";
+                            $model->no_sk = (isset($data->sheets[0]['cells'][$j][6])) ? $data->sheets[0]['cells'][$j][6] : '';
+                             $sk = (isset($data->sheets[0]['cells'][$j][7])) ? $data->sheets[0]['cells'][$j][7] : '';
+                            $tgl_sk = date('Y-m-d', strtotime($sk));
+                            $model->gl_sk = $tgl_sk;
                             if ($model->save()) {
+                                // update ke pegawai dan update gelar depan dan belakang
                                 Pegawai::model()->updateAll(array(
-                                        'riwayat_pangkat_id' => $model->id,
-                                            ), 'id=' . $model->pegawai_id);
+                                    'riwayat_pangkat_id' => $model->id,
+                                    'gelar_depan' => (isset($data->sheets[0]['cells'][$j][11])) ? $data->sheets[0]['cells'][$j][11] : '',
+                                    'gelar_belakang' => (isset($data->sheets[0]['cells'][$j][12])) ? $data->sheets[0]['cells'][$j][12] : '',
+                                        ), 'id=' . $model->pegawai_id);
+                            }
+
+
+
+                            // SAVE GAJI dan update pegawai
+                            $modelGaji->nomor_register = (isset($data->sheets[0]['cells'][$j][8])) ? $data->sheets[0]['cells'][$j][8] : '';
+                            $modelGaji->pegawai_id = $cariPegawai->id;
+                            $modelGaji->gaji = (isset($data->sheets[0]['cells'][$j][9])) ? $data->sheets[0]['cells'][$j][9] : '';
+                            $modelGaji->dasar_perubahan = (isset($data->sheets[0]['cells'][$j][10])) ? $data->sheets[0]['cells'][$j][10] : '';
+                            if ($modelGaji->save()) {
+                                Pegawai::model()->updateAll(array(
+                                    'riwayat_gaji_id' => $modelGaji->id,
+                                        ), 'id=' . $modelGaji->pegawai_id);
                                 $sukses++;
                             } else {
                                 $gagal++;
                             }
+
                             $total_pegawai++;
                         }
                     }
 
-                    user()->setFlash('info', '<strong>Berhasil! </strong>Total Riwata : ' . $total_pegawai . ', Berhasil : ' . $sukses . ', Gagal : ' . $gagal);
+                    user()->setFlash('info', '<strong>Berhasil! </strong>Total Pegawai : ' . $total_pegawai . ', Berhasil : ' . $sukses . ', Gagal : ' . $gagal);
                 }
             }
         }
@@ -1341,7 +1421,7 @@ class PegawaiController extends Controller {
         $criteria->compare('status_pernikahan', $sts_pernikahan, true);
 
         $model = Pegawai::model()->findAll($criteria);
-        
+
 //        $model = cmd('SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, '
 //        . 'golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan, eselon.nama as nama_eselon, jurusan.Name as pendidikan FROM pegawai '
 //        . 'LEFT JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id '

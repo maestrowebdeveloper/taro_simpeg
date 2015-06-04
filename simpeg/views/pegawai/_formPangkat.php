@@ -32,6 +32,13 @@
             );
 
             echo $form->textFieldRow($model,'nomor_register',array('class'=>'span5','maxlength'=>50));
+            
+            echo $form->datepickerRow(
+                   $model, 'tanggal_cg', array(
+               'options' => array('language' => 'id','format'=>'yyyy-mm-dd'),
+               'prepend' => '<i class="icon-calendar"></i>'
+                   )
+            ); 
             echo $form->datepickerRow(
                    $model, 'tmt_pangkat', array(
                'options' => array('language' => 'id','format'=>'yyyy-mm-dd'),

@@ -32,7 +32,7 @@ class RiwayatGaji extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nomor_register, pegawai_id, gaji, dasar_perubahan, tmt_mulai', 'required'),
+			array('nomor_register, pegawai_id, gaji, dasar_perubahan', 'required'),
 			array('created, created_user_id, modified,tmt_selesai', 'safe'),
 			array('pegawai_id, gaji, created_user_id', 'numerical', 'integerOnly'=>true),
 			array('nomor_register', 'length', 'max'=>225),
