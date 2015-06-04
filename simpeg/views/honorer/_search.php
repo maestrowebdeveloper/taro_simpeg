@@ -213,3 +213,41 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     })
 </script>
 
+<script type="text/javascript">
+    function excel() {
+        
+        
+        if (document.getElementById('Honorer_jenis_kelamin_0').checked) {
+            var jns_kelamin = document.getElementById('Honorer_jenis_kelamin_0').value;
+        } else
+        if (document.getElementById('Honorer_jenis_kelamin_1').checked) {
+            var jns_kelamin = document.getElementById('Honorer_jenis_kelamin_1').value;
+        } else {
+            var jns_kelamin = '';
+        }
+//        
+//        if (document.getElementById('Honorer_status_pernikahan_0').checked) {
+//            var sts_pernikahan = document.getElementById('Honorer_status_pernikahan_0').value;
+//        } else
+//        if (document.getElementById('Honorer_status_pernikahan_1').checked) {
+//            var sts_pernikahan = document.getElementById('Honorer_status_pernikahan_1').value;
+//        } else
+//        if (document.getElementById('Honorer_status_pernikahan_2').checked) {
+//            var sts_pernikahan = document.getElementById('Honorer_status_pernikahan_2').value;
+//        } else {
+//            var sts_pernikahan = '';
+//        }
+        
+        var id_jurusan = $('#Honorer_id_jurusan').val();
+        var nama = $('#Honorer_nama').val();
+        var tahun_pendidikan = $('#Honorer_tahun_pendidikan').val(); 
+        var agama = $('#Honorer_agama').val();
+        var nomor_register = $('#Honorer_nomor_register').val();
+        var jabatan_struktural_id = $('#Honorer_jabatan_struktural_id').val();
+        var jabatan_fu_id = $('#Honorer_jabatan_fu_id').val();
+//       alert('nama');
+        window.open("<?php echo url('honorer/GenerateExcel') ?>?jns_kelamin="+jns_kelamin+"&nama="+nama+"&id_jurusan="+id_jurusan+"&tahun_pendidikan="+tahun_pendidikan+"&agama="+agama+"&nomor_register="+nomor_register+"&jabatan_struktural_id="+jabatan_struktural_id+"&jabatan_fu_id="+jabatan_fu_id);
+
+    }
+</script>
+
