@@ -247,6 +247,7 @@
                                     <?php
                                     echo $form->textFieldRow($model, 'no_taspen', array('class' => 'span6', 'maxlength' => 50));
                                     echo $form->textFieldRow($model, 'bpjs', array('class' => 'span6', 'maxlength' => 50));
+                                    echo $form->textFieldRow($model, 'sttpl', array('class' => 'span6', 'maxlength' => 50));
                                     ?>        
                                 </div>
                             </div>
