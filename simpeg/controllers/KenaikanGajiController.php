@@ -71,7 +71,7 @@ class KenaikanGajiController extends Controller {
                 $bulan = substr("0" . $_POST['bulan'], -2, 2);
                 logs($_POST);
 
-                $query = Pegawai::model()->with('Pangkat','JabatanStruktural')->findAll(array('condition' => 't.kedudukan_id = 1 and (JabatanStruktural.parent_id = '.$_POST['unit_kerja'].' or t.jabatan_struktural_id= '.$_POST['unit_kerja'].') and month(t.tmt_cpns) <= "' . $bulan . '" ', 'order' => 'Pangkat.golongan_id ASC'));
+                $query = Pegawai::model()->with('Pangkat','JabatanStruktural')->findAll(array('condition' => 't.kedudukan_id = 1 and JabatanStruktural.unit_kerja_id = '.$_POST['unit_kerja'].' and month(t.tmt_cpns) <= "' . $bulan . '" ', 'order' => 'Pangkat.golongan_id ASC'));
                 echo $this->renderPartial('/kenaikanGaji/_tableListPegawai', array('query' => $query, 'bulan' => $bulan, 'tahun' => $_POST['tahun']));
             }
            
@@ -206,6 +206,45 @@ class KenaikanGajiController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+    
+    public function actionGenerateExcel(){
+        $tahun = $_GET['tahun'];
+        $bulan = $_GET['bulan'];
+        $unit_kerja = $_GET['unit_kerja'];
+        
+        $criteria = new CDbCriteria;
+        if (!empty($nama))
+            $criteria->compare('nama', $nama, true);
+        if (!empty($jns_kelamin))
+            $criteria->compare('jenis_kelamin', $jns_kelamin, true);
+//        if (!empty($sts_pernikahan))
+//            $criteria->compare('status_pernikahan', $sts_pernikahan, true);
+        if (!empty($id_jurusan))
+            $criteria->compare('id_jurusan', $id_jurusan, true);
+        if (!empty($tahun_pendidikan))
+            $criteria->compare('tahun_pendidikan', $tahun_pendidikan, true);
+        if (!empty($agama))
+            $criteria->compare('agama', $agama, true);
+        if (!empty($nomor_register))
+            $criteria->compare('nomor_register', $nomor_register, true);
+        if (!empty($jabatan_struktural_id))
+            $criteria->compare('jabatan_struktural_id', $jabatan_struktural_id);
+        if (!empty($jabatan_fu_id))
+            $criteria->compare('jabatan_fu_id', $jabatan_fu_id);
+        if (!empty($kode))
+            $criteria->compare('kode', $kode);
+        
+//        $criteria->addCondition('kode IN (20,40)');
+
+        $model = Honorer::model()->findAll($criteria);
+
+
+        Yii::app()->request->sendFile('Data Pegawai Honorer - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
+                    'model' => $model
+                        ), true)
+        );
+
     }
 
 }

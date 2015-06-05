@@ -342,6 +342,7 @@ class HonorerController extends Controller {
         $nomor_register = $_GET['nomor_register'];
         $jabatan_struktural_id = $_GET['jabatan_struktural_id'];
         $jabatan_fu_id = $_GET['jabatan_fu_id'];
+        $kode = $_GET['kode'];
 
         $criteria = new CDbCriteria;
         if (!empty($nama))
@@ -362,8 +363,10 @@ class HonorerController extends Controller {
             $criteria->compare('jabatan_struktural_id', $jabatan_struktural_id);
         if (!empty($jabatan_fu_id))
             $criteria->compare('jabatan_fu_id', $jabatan_fu_id);
+        if (!empty($kode))
+            $criteria->compare('kode', $kode);
         
-        $criteria->addCondition('kode IN (20,40)');
+//        $criteria->addCondition('kode IN (20,40)');
 
         $model = Honorer::model()->findAll($criteria);
 

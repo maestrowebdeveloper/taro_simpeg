@@ -22,7 +22,7 @@
                 <label class="control-label">Satuan Kerja</label>
                 <div class="controls">
                     <?php
-                    $data = array('0' => '- Satuan Kerja -') + CHtml::listData(JabatanStruktural::model()->findAll(array('order' => 'root, lft')), 'id', 'nestedname');
+                    $data = array('0' => '- Satuan Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
                     $this->widget(
                             'bootstrap.widgets.TbSelect2', array(
                         'name' => 'unit_kerja',
@@ -108,4 +108,35 @@
             }
         });
     });
+    function excel() {
+        
+        
+        if (document.getElementById('Honorer_jenis_kelamin_0').checked) {
+            var jns_kelamin = document.getElementById('Honorer_jenis_kelamin_0').value;
+        } else
+        if (document.getElementById('Honorer_jenis_kelamin_1').checked) {
+            var jns_kelamin = document.getElementById('Honorer_jenis_kelamin_1').value;
+        } else {
+            var jns_kelamin = '';
+        }
+//        
+//        if (document.getElementById('Honorer_status_pernikahan_0').checked) {
+//            var sts_pernikahan = document.getElementById('Honorer_status_pernikahan_0').value;
+//        } else
+//        if (document.getElementById('Honorer_status_pernikahan_1').checked) {
+//            var sts_pernikahan = document.getElementById('Honorer_status_pernikahan_1').value;
+//        } else
+//        if (document.getElementById('Honorer_status_pernikahan_2').checked) {
+//            var sts_pernikahan = document.getElementById('Honorer_status_pernikahan_2').value;
+//        } else {
+//            var sts_pernikahan = '';
+//        }
+        
+        var bulan = $("#bulan").val();
+        var tahun = $("#tahun").val();
+        var unit_kerja = $("#unit_kerja").val();
+//       alert('nama');
+        window.open("<?php echo url('kenaikanGaji/GenerateExcel') ?>?bulan="+bulan+"&tahun="+tahun+"&unit_kerja="+unit_kerja);
+
+    }
 </script>
