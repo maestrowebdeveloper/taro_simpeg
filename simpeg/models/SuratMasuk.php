@@ -71,30 +71,34 @@ class SuratMasuk extends CActiveRecord {
      * @return CActiveDataProvider the data provider that can return the models
      * based on the search/filter conditions.
      */
-    public function search() {
+    public function search($export = null) {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+        $criteria->order = 'id DESC';
 
         $criteria->compare('id', $this->id);
         $criteria->compare('pengirim', $this->pengirim, true);
         $criteria->compare('penerima', $this->penerima, true);
-        $criteria->compare('tanggal_kirim', $this->tanggal_kirim, true);
+//        $criteria->compare('tanggal_kirim', $this->tanggal_kirim, true);
         $criteria->compare('tanggal_terima', $this->tanggal_terima, true);
         $criteria->compare('sifat', $this->sifat, true);
         $criteria->compare('nomor_surat', $this->nomor_surat, true);
         $criteria->compare('perihal', $this->perihal, true);
-        $criteria->compare('isi', $this->isi, true);
-        $criteria->compare('file', $this->file, true);
-        $criteria->compare('created', $this->created, true);
-        $criteria->compare('created_user_id', $this->created_user_id);
-        $criteria->compare('modified', $this->modified, true);
-        $criteria->compare('terusan', $this->terusan, true);
-
-        $data = new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'id DESC')
-        ));
+//        $criteria->compare('isi', $this->isi, true);
+//        $criteria->compare('file', $this->file, true);
+//        $criteria->compare('created', $this->created, true);
+//        $criteria->compare('created_user_id', $this->created_user_id);
+//        $criteria->compare('modified', $this->modified, true);
+//        $criteria->compare('terusan', $this->terusan, true);
+        if (empty($export)) {
+            $data = new CActiveDataProvider($this, array(
+                'criteria' => $criteria,
+                'sort' => array('defaultOrder' => 'id DESC')
+            ));
+        } else {
+            $data = SuratMasuk::model()->findAll($criteria);
+        }
 
         //app()->session['SuratMasuk_records'] = $this->findAll($criteria); 
 

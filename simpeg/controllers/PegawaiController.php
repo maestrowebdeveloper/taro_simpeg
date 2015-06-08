@@ -708,26 +708,26 @@ class PegawaiController extends Controller {
         ));
     }
 
-    public function actionUlangTahunExcel() {
-        $session = new CHttpSession;
-        $session->open();
-
-        if (isset($session['Pegawai_records'])) {
-            $model = $session['Pegawai_records'];
-        } else
-            $model = Pegawai::model()->findAll();
-
-        if (isset($session['Honorer_records'])) {
-            $honorer = $session['Honorer_records'];
-        } else
-            $honorer = Honorer::model()->findAll();
-
-        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelUlangTahun', array(
-                    'model' => $model,
-                    'honorer' => $honorer,
-                        ), true)
-        );
-    }
+//    public function actionUlangTahunExcel() {
+//        $session = new CHttpSession;
+//        $session->open();
+//
+//        if (isset($session['Pegawai_records'])) {
+//            $model = $session['Pegawai_records'];
+//        } else
+//            $model = Pegawai::model()->findAll();
+//
+//        if (isset($session['Honorer_records'])) {
+//            $honorer = $session['Honorer_records'];
+//        } else
+//            $honorer = Honorer::model()->findAll();
+//
+//        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelUlangTahun', array(
+//                    'model' => $model,
+//                    'honorer' => $honorer,
+//                        ), true)
+//        );
+//    }
 
     public function actionCheckError() {
         $model = new Pegawai('search');

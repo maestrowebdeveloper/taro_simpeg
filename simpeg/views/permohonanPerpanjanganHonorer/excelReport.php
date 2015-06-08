@@ -13,7 +13,7 @@
  	</tr>
 	<?php foreach($model as $row): ?>
 	<tr>
-        <td><?php echo $row->nomor_register; ?></td>
+        <td><?php echo $row->nomor_register."&nbsp;"; ?></td>
         <td><?php echo $row->tgl; ?></td>        
         <td><?php echo $row->honorer; ?></td>      
         <td><?php echo $row->statusPerpanjangExcel; ?></td>      

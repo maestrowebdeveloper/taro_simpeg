@@ -13,7 +13,7 @@
 	<?php foreach($model as $row): ?>
 	<tr>
         <td><?php echo $row->pengirim; ?></td>
-        <td><?php echo $row->tanggal_terima; ?></td>        
+        <td><?php echo landa()->date2Ind($row->tanggal_terima); ?></td>        
         <td><?php echo $row->sifat; ?></td>        
         <td><?php echo $row->nomor_surat; ?></td>        
         <td><?php echo $row->perihal; ?></td>        
