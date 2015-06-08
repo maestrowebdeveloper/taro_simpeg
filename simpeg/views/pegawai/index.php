@@ -103,7 +103,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array(
             'name' => 'jabatan_struktural_id',
             'header'=>'Unit Kerja',
-            'value' => '(isset($data->RiwayatJabatan->JabatanStruktural->nama)) ? $data->RiwayatJabatan->JabatanStruktural->nama : "-"',
+            'value' => '(isset($data->RiwayatJabatan->Struktural->nama)) ? $data->RiwayatJabatan->Struktural->nama : "-"',
         ),
         array(
             'header' => 'Gol',

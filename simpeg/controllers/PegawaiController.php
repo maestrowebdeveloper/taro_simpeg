@@ -1329,12 +1329,9 @@ class PegawaiController extends Controller {
         $model = new Pegawai;
         $model->attributes = $_GET['Pegawai'];
         $data = $model->search(true);
-        $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $data,
-                        ));
-//        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
-//                    'model' => $data,
-//                        ), true));
+                        ), true));
     }
 
     //-----------------------------------------------------------------------------------
@@ -1538,14 +1535,13 @@ class PegawaiController extends Controller {
             $date = explode("-", $data->tanggal_lahir);
             $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 58);
             $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
-//                $data->tmt_pensiun = date('Y-m-d',strtotime("2032-11-10"));
             $data->save();
         }
         echo 'sukses';
     }
 
     public function actionMigrasibup() {
-        /// change bup struktural
+        // change bup struktural
         $struktural = Pegawai::model()->with('JabatanStruktural.Eselon')->findAll(array('condition' => 'JabatanStruktural.eselon_id = Eselon.id and t.tipe_jabatan="struktural" and kedudukan_id=1'));
         foreach ($struktural as $data) {
             $tingkatEselon = substr($data->JabatanStruktural->Eselon->nama, 0, 2);
@@ -1558,7 +1554,7 @@ class PegawaiController extends Controller {
             }
         }
 
-        /// change bup tertentu
+        // change bup tertentu
         $tertentu = Pegawai::model()->findAll(array('condition' => 'tipe_jabatan="fungsional_tertentu" and kedudukan_id=1'));
         foreach ($tertentu as $data) {
             $date = explode("-", $data->tanggal_lahir);
@@ -1567,7 +1563,7 @@ class PegawaiController extends Controller {
             $data->save();
         }
 
-//        / change bup fungsioanal
+        // change bup fungsioanal
         $tertentu = Pegawai::model()->with('JabatanFu')->findAll(array('condition' => 't.tipe_jabatan="fungsional_umum" and kedudukan_id=1'));
         foreach ($tertentu as $data) {
             $data->bup = 58;

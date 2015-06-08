@@ -119,7 +119,7 @@ class Pegawai extends CActiveRecord {
 // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-        $criteria->with = array('JabatanStruktural.UnitKerja','City', 'JabatanFu', 'JabatanFt', 'Kedudukan', 'Pangkat', 'RiwayatJabatan', 'Pendidikan.Jurusan', 'RiwayatJabatan.Struktural', 'Pangkat.Golongan');
+        $criteria->with = array('JabatanStruktural','JabatanStruktural.UnitKerja','City', 'JabatanFu', 'JabatanFt', 'Kedudukan', 'Pangkat', 'RiwayatJabatan', 'Pendidikan.Jurusan', 'RiwayatJabatan.Struktural', 'Pangkat.Golongan');
 
         if (isset($_GET['jk']))
             $criteria->addCondition('jenis_kelamin = ""');
@@ -352,13 +352,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function listPegawai() {
-//        if (!app()->session['listPegawai']) {
-//            $result = array();
-//            $users = $this->findAll(array('index' => 'id'));
-//            app()->session['listPegawai'] = $users;
-//        }
         $users = $this->findAll(array('index' => 'id'));
-//        return app()->session['listPegawai'];
         return $users;
     }
 
@@ -372,7 +366,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getBup() {
-        $eselon = isset($this->RiwayatJabatan->JabatanStruktural->Eselon->nama) ? $this->RiwayatJabatan->JabatanStruktural->Eselon->nama : "-";
+        $eselon = isset($this->RiwayatJabatan->Struktural->Eselon->nama) ? $this->RiwayatJabatan->Struktural->Eselon->nama : "-";
         $tingkatEselon = substr($eselon, 0, 2);
         $bup = '-';
         if (isset($this->RiwayatJabatan)) {
@@ -410,7 +404,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getSatuanKerja() {
-        return (!empty($this->RiwayatJabatan->JabatanStruktural->UnitKerja->nama) ? $this->RiwayatJabatan->JabatanStruktural->UnitKerja->nama : "-");
+        return (!empty($this->RiwayatJabatan->Struktural->UnitKerja->nama) ? $this->RiwayatJabatan->Struktural->UnitKerja->nama : "-");
     }
 
     public function getRiwayatTipeJabatan() {
@@ -470,7 +464,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getUnitKerja() {
-        return (!empty($this->RiwayatJabatan->JabatanStruktural->UnitKerja->nama)) ? $this->RiwayatJabatan->JabatanStruktural->UnitKerja->nama : '-';
+        return (!empty($this->RiwayatJabatan->Struktural->UnitKerja->nama)) ? $this->RiwayatJabatan->Struktural->UnitKerja->nama : '-';
     }
 
     public function getKedudukan() {
@@ -1016,7 +1010,7 @@ class Pegawai extends CActiveRecord {
         $bup = 0;
 //        if (!empty($this->tipe_jabatan)) {
 //            if ($this->tipe_jabatan == "struktural") {
-//                $eselon = isset($this->RiwayatJabatan->JabatanStruktural->Eselon->nama) ? $this->RiwayatJabatan->JabatanStruktural->Eselon->nama : "-";
+//                $eselon = isset($this->RiwayatJabatan->Struktural->Eselon->nama) ? $this->RiwayatJabatan->Struktural->Eselon->nama : "-";
 //                $tingkatEselon = substr($eselon, 0, 2);
 //                if ($tingkatEselon == "II") {
 //                    $bup = 60;
