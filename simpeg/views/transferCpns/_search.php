@@ -49,7 +49,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         ?>
 
         <?php echo $form->textFieldRow($model, 'nomor_kesehatan', array('class' => 'span7')); ?>
-
         <?php
         echo $form->datepickerRow(
                 $model, 'tanggal_kesehatan', array(
@@ -58,30 +57,30 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 )
         );
         ?>
+
     </div><div class="span5">
 
-        <?php echo $form->textFieldRow($model, 'nomor_diklat', array('class' => 'span7')); ?>
 
-        <?php
-        echo $form->datepickerRow(
-                $model, 'tanggal_diklat', array(
-            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
-            'prepend' => '<i class="icon-calendar"></i>'
-                )
-        );
-        ?>
+        <?php echo $form->textFieldRow($model, 'nomor_diklat', array('class' => 'span7')); ?>
+        <?php echo $form->textFieldRow($model, 'tanggal_diklat', array('class' => 'angka span3')); ?>
+
     </div></div>
 <div class="form-actions">
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'search white', 'label' => 'Pencarian')); ?>
 
     <?php
-    $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'icon', 'label' => 'Export Excel',
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'button',
+        'type' => 'primary',
+        'icon' => 'ok white',
+        'label' => 'Export ke Excel',
         'htmlOptions' => array(
-            'onclick' => 'excel()'
-    )));
-    ?> 
+            'name' => 'export',
+            'onClick' => 'chgAction()',
+        )
+    ));
+    ?>   
 
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'button', 'icon' => 'icon-remove-sign white', 'label' => 'Reset', 'htmlOptions' => array('class' => 'btnreset btn-small'))); ?>
 </div>
 
 <?php $this->endWidget(); ?>
@@ -101,18 +100,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             });
         });
     })
-    </script>
-    <script type="text/javascript">
-    function excel(){
-        
-        var pegawai_id = $('#TransferCpns_pegawai_id').val();
-        var nomor_kesehatan = $('#TransferCpns_nomor_kesehatan').val();
-        var tanggal_kesehatan = $('#TransferCpns_tanggal_kesehatan').val();
-        var nomor_diklat = $('#TransferCpns_nomor_diklat').val();
-        var tanggal_diklat = $('#TransferCpns_tanggal_diklat').val(); 
-        //alert('pegawai_id');
-        window.open("<?php echo url('transferCpns/GenerateExcel') ?>?pegawai_id="+pegawai_id+"&nomor_kesehatan="+nomor_kesehatan+"&tanggal_kesehatan="+tanggal_kesehatan+"&nomor_diklat="+nomor_diklat+"&tanggal_diklat="+tanggal_diklat);
+</script>
+<script type="text/javascript">
+    function chgAction()
+    {
+        document.getElementById("search-transfer-cpns-form").action = "<?php echo Yii::app()->createUrl('tansferCpns/GenerateExcel'); ?>";
+        document.getElementById("search-transfer-cpns-form").submit();
 
-}
-    </script>
+    }
+</script>
 

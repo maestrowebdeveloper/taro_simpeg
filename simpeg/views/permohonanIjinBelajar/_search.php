@@ -68,12 +68,18 @@ echo $form->radioButtonListRow($model, 'jenjang_pendidikan', Pegawai::model()->A
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'search white', 'label' => 'Pencarian')); ?>
 
     <?php
-    $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'icon', 'label' => 'Export Excel',
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'button',
+        'type' => 'primary',
+        'icon' => 'ok white',
+        'label' => 'Export ke Excel',
         'htmlOptions' => array(
-            'onclick' => 'excel()'
-    )));
+            'name' => 'export',
+            'onClick' => 'chgAction()',
+        )
+    ));
     ?>
-<?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'button', 'icon' => 'icon-remove-sign white', 'label' => 'Reset', 'htmlOptions' => array('class' => 'btnreset btn-small'))); ?>
+    
 </div>
 
 <?php $this->endWidget(); ?>
@@ -95,39 +101,10 @@ echo $form->radioButtonListRow($model, 'jenjang_pendidikan', Pegawai::model()->A
     })
 </script>
 <script type="text/javascript">
-    function excel(){
-        
-        if (document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_0').checked) {
-            var jenjang_pendidikan = document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_0').value;
-        }else if (document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_1').checked) {
-            var jenjang_pendidikan = document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_1').value;
-        }else if (document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_2').checked) {
-            var jenjang_pendidikan = document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_2').value;
-        }else if (document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_3').checked) {
-            var jenjang_pendidikan = document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_3').value;
-        }else if (document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_4').checked) {
-            var jenjang_pendidikan = document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_4').value;
-        }else if (document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_5').checked) {
-            var jenjang_pendidikan = document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_5').value;
-        }else if (document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_6').checked) {
-            var jenjang_pendidikan = document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_6').value;
-        }else if (document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_7').checked) {
-            var jenjang_pendidikan = document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_7').value;
-        }else if (document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_8').checked) {
-            var jenjang_pendidikan = document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_8').value;
-        }else if (document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_9').checked) {
-            var jenjang_pendidikan = document.getElementById('PermohonanIjinBelajar_jenjang_pendidikan_9').value;
-        }else{
-            var jenjang_pendidikan = '';
-        }
-        
-        var nomor_register = $('#PermohonanIjinBelajar_nomor_register').val();
-        var pegawai_id = $('#PermohonanIjinBelajar_pegawai_id').val();
-        var tanggal = $('#PermohonanIjinBelajar_tanggal').val();
-        var jurusan = $('#PermohonanIjinBelajar_jurusan').val();
-        var nama_sekolah = $('#PermohonanIjinBelajar_nama_sekolah').val();
-        
-        window.open("<?php echo url('permohonanIjinBelajar/GenerateExcel') ?>?pegawai_id="+pegawai_id+"&jenjang_pendidikan="+jenjang_pendidikan+"&nomor_register=" + nomor_register + "&tanggal=" + tanggal + "&jurusan=" + jurusan + "&nama_sekolah=" + nama_sekolah);
-    
+     function chgAction()
+    {
+        document.getElementById("search-permohonan-ijin-belajar-form").action = "<?php echo Yii::app()->createUrl('permohonanIjinBelajar/GenerateExcel'); ?>";
+        document.getElementById("search-permohonan-ijin-belajar-form").submit();
+
     }
 </script>

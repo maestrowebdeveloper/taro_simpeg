@@ -97,15 +97,15 @@ class PermohonanPensiun extends CActiveRecord {
      * @return CActiveDataProvider the data provider that can return the models
      * based on the search/filter conditions.
      */
-    public function search() {
+    public function search($export = null) {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-
+         $criteria->order = 'id DESC';
         $criteria->compare('id', $this->id);
         $criteria->compare('nomor_register', $this->nomor_register, true);
         $criteria->compare('tanggal', $this->tanggal, true);
-        $criteria->compare('pegawai_id', $this->pegawai_id,true);
+        $criteria->compare('pegawai_id', $this->pegawai_id, true);
         $criteria->compare('unit_kerja_id', $this->unit_kerja_id);
         $criteria->compare('tipe_jabatan', $this->tipe_jabatan, true);
         $criteria->compare('jabatan_struktural_id', $this->jabatan_struktural_id);
@@ -118,10 +118,14 @@ class PermohonanPensiun extends CActiveRecord {
         $criteria->compare('created_user_id', $this->created_user_id);
         $criteria->compare('modified', $this->modified, true);
 
-        $data = new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'id DESC')
-        ));
+        if (empty($export)) {
+            $data = new CActiveDataProvider($this, array(
+                'criteria' => $criteria,
+                'sort' => array('defaultOrder' => 'id DESC')
+            ));
+        } else {
+            $data = PermohonanPensiun::model()->findAll($criteria);
+        }
 
         //app()->session['PermohonanMutasi_records'] = $this->findAll($criteria); 
 
@@ -149,7 +153,7 @@ class PermohonanPensiun extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
-    
+
     public function getStatusPensiun() {
         if ($this->status == 'sudah') {
             $status = '<span class="label label-success">Sudah</span>';
@@ -162,18 +166,19 @@ class PermohonanPensiun extends CActiveRecord {
     public function getPegawai() {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
     }
-    
+
     public function getTglPensiun() {
-        return (!empty($this->tanggal)) ? date('d-m-Y', strtotime($this->tanggal)) : '-';
+        return (!empty($this->tanggal)) ? landa()->date2Ind($this->tanggal) : '-';
     }
-    
+
     public function getTmtPensiun() {
-        return (!empty($this->tmt)) ? date('d-m-Y', strtotime($this->tmt)) : '-';
+        return (!empty($this->tmt)) ? landa()->date2Ind($this->tmt) : '-';
     }
 
     public function getUnitKerja() {
         return (!empty($this->UnitKerja->nama)) ? $this->UnitKerja->nama : '-';
     }
+
     public function getSatuanKerja() {
         return (!empty($this->JabatanStruktural->UnitKerja->nama)) ? $this->JabatanStruktural->UnitKerja->nama : '-';
     }
@@ -181,6 +186,7 @@ class PermohonanPensiun extends CActiveRecord {
     public function getTipeJabatan() {
         return ucwords(str_replace("_", " ", $this->tipe_jabatan));
     }
+
     public function arrStatus() {
         $agama = array('sudah' => 'Sudah', 'belum' => 'Belum');
         return $agama;

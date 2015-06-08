@@ -119,7 +119,8 @@ class Pegawai extends CActiveRecord {
 // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-        $criteria->with = array('JabatanStruktural','JabatanStruktural.UnitKerja','City', 'JabatanFu', 'JabatanFt', 'Kedudukan', 'Pangkat', 'RiwayatJabatan', 'Pendidikan.Jurusan', 'RiwayatJabatan.Struktural', 'Pangkat.Golongan');
+        $criteria->with = array('JabatanStruktural', 'JabatanStruktural.UnitKerja', 'City', 'JabatanFu', 'JabatanFt', 'Kedudukan', 'Pangkat', 'RiwayatJabatan', 'Pendidikan.Jurusan', 'RiwayatJabatan.Struktural', 'Pangkat.Golongan');
+        $criteria->order = 'JabatanStruktural.id';
 
         if (isset($_GET['jk']))
             $criteria->addCondition('jenis_kelamin = ""');
@@ -138,16 +139,9 @@ class Pegawai extends CActiveRecord {
 //tambahan tindik jurusan
         if (isset($_GET['jurusan']) and !empty($_GET['jurusan'])) {
             $pegawai = RiwayatPendidikan::model()->with('Jurusan')->findAll(array('condition' => 'Jurusan.Name like "%' . $_GET['jurusan'] . '%"'));
-            $id = array();
-            if (empty($pegawai)) {
-                
-            } else {
-                foreach ($pegawai as $val) {
-                    $id[] = $val->pegawai_id;
-                }
-                $criteria->addCondition('t.id IN (' . implode(",", $id) . ')');
-            }
+            $criteria->addInCondition("t.id", $pegawai->pegawai_id);
         }
+
         if (isset($_GET['unit_kerja']) and !empty($_GET['unit_kerja'])) {
             $criteria->addCondition("RiwayatJabatan.jabatan_struktural_id = " . $_GET['unit_kerja']);
         }
@@ -155,28 +149,12 @@ class Pegawai extends CActiveRecord {
 // satuan kerja
         if (isset($_GET['satuan_kerja']) and !empty($_GET['satuan_kerja'])) {
             $satuanKerja = JabatanStruktural::model()->findAll(array('condition' => 'unit_kerja_id = ' . $_GET['satuan_kerja']));
-            $id = array();
-            if (empty($satuanKerja)) {
-                
-            } else {
-                foreach ($satuanKerja as $val) {
-                    $id[] = $val->id;
-                }
-            }
-            $criteria->addCondition('RiwayatJabatan.jabatan_struktural_id IN (' . implode(",", $id) . ')');
+            $criteria->addInCondition("RiwayatJabatan.jabatan_struktural_id", $satuanKerja->id);
         }
 // jabatan FT
         if (isset($_GET['Pegawai']['jabatan_ft_id']) and !empty($_GET['Pegawai']['jabatan_ft_id'])) {
             $jabFt = JabatanFt::model()->findAll(array('condition' => 'type ="' . $_GET['Pegawai']['jabatan_ft_id'] . '"'));
-            $id = array();
-            if (empty($jabFt)) {
-                
-            } else {
-                foreach ($jabFt as $val) {
-                    $id[] = $val->id;
-                }
-            }
-            $criteria->addCondition('RiwayatJabatan.jabatan_ft_id IN (' . implode(",", $id) . ')');
+            $criteria->addInCondition('RiwayatJabatan.jabatan_ft_id', $jabFt->id);
         }
 
         $criteria->compare('nip', $this->nip, true);
@@ -203,12 +181,13 @@ class Pegawai extends CActiveRecord {
         return $data;
     }
 
-    public function searchUrutKepangkatan() {
+    public function searchUrutKepangkatan($export = null) {
         $criteria2 = new CDbCriteria();
         $criteria2->together = true;
-        $criteria2->addCondition('t.kedudukan_id="1"');
-        $criteria2->with = array('JabatanFt', 'Pangkat.Golongan', 'RiwayatJabatan.Struktural.Eselon');
+        $criteria2->with = array('JabatanFt', 'Pangkat.Golongan', 'JabatanStruktural.Eselon', 'RiwayatJabatan', 'Pendidikan.Jurusan');
+        $criteria2->order = "Golongan.nama DESC, Eselon.id ASC";
 
+        $criteria2->addCondition('t.kedudukan_id="1"');
         if (!empty($this->tipe_jabatan)) {
             if ($this->tipe_jabatan == "guru") {
                 $criteria2->addCondition('JabatanFt.type = "guru"');
@@ -216,10 +195,16 @@ class Pegawai extends CActiveRecord {
                 $criteria2->addCondition('JabatanFt.type != "guru" OR t.tipe_jabatan="struktural" OR t.tipe_jabatan="fungsional_umum" ');
             }
         }
-        $data = new CActiveDataProvider($this, array(
-            'criteria' => $criteria2,
-            'sort' => array('defaultOrder' => 'Golongan.nama DESC, Eselon.id ASC'),
-        ));
+
+        if (empty($export)) {
+            $data = new CActiveDataProvider($this, array(
+                'criteria' => $criteria2,
+                'sort' => array('defaultOrder' => 'Golongan.nama DESC, Eselon.id ASC'),
+            ));
+        } else {
+            $data = Pegawai::model()->findAll($criteria2);
+        }
+
         return $data;
     }
 
@@ -251,9 +236,11 @@ class Pegawai extends CActiveRecord {
     }
 
 //// untuk rekap jabatan fungsional
-    public function searchJabFung() {
+    public function searchJabFung($export = null) {
         $criteria = new CDbCriteria();
-        $criteria->with = array('RiwayatJabatan', 'JabatanStruktural', 'JabatanFt');
+        $criteria->with = array('RiwayatJabatan', 'JabatanStruktural', 'JabatanFt', 'Pangkat.Golongan', 'JabatanFu', 'Pangkat', 'RiwayatJabatan.Struktural.UnitKerja');
+        $criteria->order = 't.jabatan_struktural_id';
+
         $criteria->addCondition('t.kedudukan_id=1');
         if (!empty($_GET['riwayat_jabatan_id'])) {
             $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_GET['riwayat_jabatan_id']);
@@ -275,10 +262,15 @@ class Pegawai extends CActiveRecord {
                 $criteria->addCondition('JabatanFt.type="teknis"');
             }
         }
-        $data = new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 't.jabatan_struktural_id')
-        ));
+
+        if (empty($export)) {
+            $data = new CActiveDataProvider($this, array(
+                'criteria' => $criteria,
+                'sort' => array('defaultOrder' => 't.jabatan_struktural_id')
+            ));
+        } else {
+            $data = Pegawai::model()->findAll($criteria);
+        }
 
         return $data;
     }
@@ -286,7 +278,7 @@ class Pegawai extends CActiveRecord {
 /// search untuk rekap eselon
     public function searchEselon($export = null) {
         $criteria = new CDbCriteria();
-        $criteria->with = array('RiwayatJabatan', 'JabatanStruktural');
+        $criteria->with = array('RiwayatJabatan', 'JabatanStruktural.Eselon', 'Pangkat', 'JabatanStruktural', 'JabatanFt', 'JabatanFu');
         $criteria->addCondition('kedudukan_id=1');
         if (!empty($_GET['riwayat_jabatan_id'])) {
             $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_GET['riwayat_jabatan_id']);
@@ -674,6 +666,7 @@ class Pegawai extends CActiveRecord {
 
     public function getDiklatThn() {
         return $this->PelatihanTerakhir . '<br/>' . $this->ThnPelatihanTerakhir;
+//        return "-";
     }
 
 ////

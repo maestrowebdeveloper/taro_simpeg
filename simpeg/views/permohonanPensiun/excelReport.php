@@ -16,14 +16,14 @@
         <?php foreach ($model as $row): ?>
             <tr>
                 <td><?php echo $row->nomor_register; ?></td>
-                <td><?php echo $row->tanggal; ?></td>        
+                <td><?php echo landa()->date2Ind($row->tanggal); ?></td>        
                 <td><?php echo $row->pegawai; ?></td>       
                 <td><?php echo $row->status; ?></td>       
                 <td><?php echo $row->unitKerja; ?></td>        
                 <td><?php echo $row->tipeJabatan; ?></td>        
                 <td><?php echo $row->jabatan; ?></td>        
                 <td><?php echo $row->masa_kerja; ?></td>        
-                <td><?php echo $row->tmt; ?></td>                
+                <td><?php echo landa()->date2Ind($row->tmt); ?></td>                
             </tr>
         <?php endforeach; ?>
     </table>
