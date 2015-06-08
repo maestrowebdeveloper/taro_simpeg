@@ -22,6 +22,7 @@
             <th width="80px">JABATAN</th> 	 		 		 	
             <th width="80px">TMT JABATAN</th> 		 		 	
             <th width="80px">GAJI</th> 		 		 		 	
+            <th width="80px">KONTRAK PERTAMA</th>		 		 		 	
             <th width="80px">TMT KONTRAK</th>                             
             <th width="80px">TMT AKHIR KONTRAK</th> 		 		 		 	
             <th width="80px">MASA KERJA</th> 		 		 		 	 		
@@ -37,18 +38,19 @@
                 <td><?php echo $row->alamat; ?></td>
                 <td><?php echo $row->kota; ?></td>
                 <td><?php echo $row->kode_pos; ?></td>
-                <td><?php echo "'" . $row->hp; ?></td>
+                <td><?php echo $row->hp."&nbsp;"; ?></td>
                 <td><?php echo $row->golongan_darah; ?></td>
                 <td><?php echo $row->status_pernikahan; ?></td>
-                <td><?php echo "'" . $row->nomor_register; ?></td>
+                <td><?php echo $row->nomor_register."&nbsp;"; ?></td>
                 <td><?php echo $row->tanggal_register; ?></td>
                 <td><?php echo $row->unitKerja; ?></td>
                 <td><?php echo $row->st_peg; ?></td>
                 <td><?php echo $row->jabatan; ?></td>
-                <td><?php echo $row->tmt_jabatan; ?></td>
+                <td><?php echo $row->tmtJabatan; ?></td>
                 <td><?php echo $row->gaji; ?></td>
-                <td><?php echo $row->tmt_kontrak; ?></td>
-                <td><?php echo $row->tmt_akhir_kontrak; ?></td>
+                <td><?php echo $row->tmtKontrak; ?></td>
+                <td><?php echo $row->tmtMulaiKontrak; ?></td>
+                <td><?php echo $row->tmtAkhirKontrak; ?></td>
                 <td><?php echo $row->masaKerja; ?></td>        
             </tr>
         <?php endforeach; ?>

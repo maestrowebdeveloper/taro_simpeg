@@ -242,25 +242,17 @@ class SuratKeluarController extends Controller {
 
     public function actionGenerateExcel() {
 
-        $sifat = $_GET['sifat'];
-        $SuratKeluar_penerima = $_GET['SuratKeluar_penerima'];
-        $SuratKeluar_tanggal_kirim = $_GET['SuratKeluar_tanggal_kirim'];
-        $SuratKeluar_nomor_surat = $_GET['SuratKeluar_nomor_surat'];
-        $SuratKeluar_perihal = $_GET['SuratKeluar_perihal'];
-
-
-        $criteria = new CDbCriteria;
-        $criteria->compare('penerima', $SuratKeluar_penerima, true);
-        $criteria->compare('tanggal_kirim', $SuratKeluar_tanggal_kirim, true);
-        $criteria->compare('sifat', $sifat, true);
-        $criteria->compare('nomor_surat', $SuratKeluar_nomor_surat, true);
-        $criteria->compare('perihal', $SuratKeluar_perihal, true);
        
-        $model = SuratKeluar::model()->findAll($criteria);
+        $model = new SuratKeluar;
+        
+         $model->attributes = $_GET['SuratKeluar'];
+//    
+        
+        $data = $model->search(true);
 
 
         Yii::app()->request->sendFile('Surat Keluar -'.date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
+                    'model' => $data
                         ), true)
         );
     }

@@ -109,7 +109,7 @@ if (isset($_GET['cari'])) {
             'id' => 'surat-masuk-grid',
             'dataProvider' => $model->search2(),
             'type' => 'striped bordered condensed',
-            'template' => '{summary}{pager}{items}{pager}',
+            'template' => '{summary}{items}{pager}',
             'columns' => array(
                 array(
                     'name' => 'id',
