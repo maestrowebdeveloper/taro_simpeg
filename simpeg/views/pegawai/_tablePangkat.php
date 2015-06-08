@@ -5,7 +5,7 @@
     if (!empty($edit)) {
         $pegawai_id = (!empty($pegawai_id)) ? $pegawai_id : '';
         $pegawai_id = (!empty($_GET['id'])) ? $_GET['id'] : $pegawai_id;
-        echo '<a class="btn blue addPangkat" pegawai="' . $pegawai_id . '" id=""><i class="minia-icon-file-add blue"></i>Tambah Riwayat Pangkat</a>';
+        echo '<a class="btn blue addPangkat" pegawai="' . $pegawai_id . '"  id=""><i class="minia-icon-file-add blue"></i>Tambah Riwayat Pangkat</a>';
         $th = '<th style="width:125px"></th>';
     }
     ?>

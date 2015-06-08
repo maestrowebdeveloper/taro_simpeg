@@ -44,29 +44,24 @@
 
         </tr>
         <?php foreach ($model as $row):
-//            $issu = RiwayatKeluarga::model()->find(array('condition'=>'pegawai_id='.$row->id.' and (hubungan = "suami" or hubungan="istri")'));
-//            $namaIssu = (!empty($issu)) ? $issu->nama : "-";
-//            
-//            $issu = RiwayatGaji::model()->findByPk($row->riwayat_gaji_id);
-//            $gaji = (!empty($issu)) ? $issu->gaji : "";
-        ?>
+            ?>
             <tr>
-                <td><?php echo "'" . $row->nip; ?></td>
-                <td><?php echo "'".$row->nip_lama; ?></td> 
+                <td><?php echo "\'" . $row->nip; ?></td>
+                <td><?php echo "\'" . $row->nip_lama; ?></td> 
                 <td><?php echo $row->namaGelar; ?></td>
                 <td><?php echo $row->jenis_kelamin; ?></td>
                 <td><?php echo landa()->date2Ind($row->ttl); ?></td>
                 <td><?php echo $row->agama; ?></td>
-                <td> <?php echo $row->pendidikanTerakhir; ?></td>
-                <td> <?php echo $row->pendidikanJurusan; ?></td>
-                <td> <?php echo $row->pendidikanTahun; ?></td>
+                <td><?php echo $row->pendidikanTerakhir; ?></td>
+                <td><?php echo $row->pendidikanJurusan; ?></td>
+                <td><?php echo $row->pendidikanTahun; ?></td>
                 <td><?php echo $row->alamat; ?></td>
                 <td><?php echo $row->city; ?></td>
                 <td><?php echo $row->kode_pos; ?></td>
                 <td><?php echo $row->hp; ?></td>
                 <td><?php echo $row->golongan_darah; ?></td>
                 <td><?php echo $row->status_pernikahan; ?></td>
-                <td><?php // echo $namaIssu; ?></td>
+                <td><?php // echo $namaIssu;  ?></td>
                 <td><?php echo "'" . $row->npwp; ?></td>
                 <td><?php echo "'" . $row->bpjs; ?></td>
                 <td><?php echo "'" . $row->karpeg; ?></td>

@@ -1,18 +1,3 @@
-<?php
-$criteria = '';
-if (!empty($_GET['riwayat_jabatan_id']))
-    $criteria .= ' AND JabatanStruktural.unit_kerja_id=' . $_GET['riwayat_jabatan_id'];
-
-if (!empty($_GET['eselon_id'])) {
-    $criteria .= ' AND JabatanStruktural.eselon_id IN ('.  implode(',', $_GET['eselon_id']).')' ;
-}
-
-$data = Pegawai::model()->findAll(array(
-    'with' => array('RiwayatJabatan', 'JabatanStruktural'),
-    'condition' => 'kedudukan_id=1'.$criteria
-    ));
-?>
-
 <div class="report" id="report" style="width: 100%">
     <h3 style="text-align:center">REKAPITULASI DATA ESELON</h3>
     <h6  style="text-align:center">Tangga : <?php echo date('d F Y'); ?></h6>
@@ -33,8 +18,8 @@ $data = Pegawai::model()->findAll(array(
         <tbody>
             <?php
             $no = 1;
-            if (!empty($data)) {
-                foreach ($data as $value) {
+            if (!empty($model)) {
+                foreach ($model as $value) {
                     $eselon = isset($value->JabatanStruktural->Eselon->nama) ? $value->JabatanStruktural->Eselon->nama : "-";
                     echo '	
 		<tr>

@@ -5,7 +5,7 @@ $th ='';
 if(!empty($edit)){
     $pegawai_id = (!empty($pegawai_id))?$pegawai_id:'';
     $pegawai_id = (!empty($_GET['id']))?$_GET['id']:$pegawai_id;
-   echo '<a class="btn blue addKeluarga" pegawai="'.$pegawai_id.'" id=""><i class="minia-icon-file-add blue"></i>Tambah Riwayat Keluarga</a>';
+   echo '<a class="btn blue addKeluarga" pegawai="'.$pegawai_id.'" judulkeluarga="Riwayat Keluarga" id=""><i class="minia-icon-file-add blue"></i>Tambah Riwayat Keluarga</a>';
    $th ='<th></th>';
 }
 ?>
@@ -92,7 +92,8 @@ if(!empty($edit)){
 
 <script>
 $(".editKeluarga,.addKeluarga").click(function(){
-            $.ajax({                  
+        var judul = $(this).attr('judulkeluarga');   
+        $.ajax({                  
                 url:"<?php echo url('pegawai/getKeluarga');?>",
                 data:"id="+$(this).attr("id")+"&pegawai="+$(this).attr("pegawai"),
                 type:"post",
@@ -101,6 +102,7 @@ $(".editKeluarga,.addKeluarga").click(function(){
                 }
             });
             $("#modalForm").modal("show");
+            $("#judul").html(judul);
         }); 
         $(".deleteKeluarga").click(function(){
             $.ajax({                                  
