@@ -1191,18 +1191,6 @@ class PegawaiController extends Controller {
         $model->kedudukan_id = 1;
         if (isset($_GET['Pegawai'])) {
             $model->attributes = $_GET['Pegawai'];
-//            if ($model->tempat_lahir == 0)
-//                unset($model->tempat_lahir);
-//            if ($model->city_id == 0)
-//                unset($model->city_id);
-//            if ($model->kedudukan_id == 0)
-//                unset($model->kedudukan_id);
-//            if ($model->jabatan_struktural_id == 0)
-//                unset($model->jabatan_struktural_id);
-//            if ($model->jabatan_fu_id == 0)
-//                unset($model->jabatan_fu_id);
-//            if ($model->jabatan_ft_id == 0)
-//                unset($model->jabatan_ft_id);
         }
 
         $this->cssJs();
@@ -1341,9 +1329,12 @@ class PegawaiController extends Controller {
         $model = new Pegawai;
         $model->attributes = $_GET['Pegawai'];
         $data = $model->search(true);
-        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
+        $this->renderPartial('excelReport', array(
                     'model' => $data,
-                        ), true));
+                        ));
+//        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
+//                    'model' => $data,
+//                        ), true));
     }
 
     //-----------------------------------------------------------------------------------
