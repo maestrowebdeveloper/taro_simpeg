@@ -11,14 +11,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     )
         ));
 $arrPegawai = cmd('SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabatan_struktural.level as level, '
-        . 'golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan, eselon.nama as nama_eselon, jurusan.Name as pendidikan FROM pegawai '
-        . 'INNER JOIN riwayat_jabatan ON pegawai.id = riwayat_jabatan.pegawai_id AND pegawai.kedudukan_id=1 AND pegawai.tipe_jabatan="struktural" '
-        . 'RIGHT JOIN jabatan_struktural ON jabatan_struktural.id = riwayat_jabatan.jabatan_struktural_id '
-        . 'INNER JOIN eselon ON eselon.id = jabatan_struktural.eselon_id '
-        . 'INNER JOIN riwayat_pangkat ON pegawai.id = riwayat_pangkat.pegawai_id '
-        . 'INNER JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id '
-        . 'INNER JOIN riwayat_pendidikan ON pegawai.id = riwayat_pendidikan.pegawai_id '
-        . 'INNER JOIN jurusan ON jurusan.id = riwayat_pendidikan.id_jurusan '
+        . 'golongan.nama as nama_golongan, golongan.keterangan as gol_keterangan, eselon.nama as nama_eselon, jurusan.Name as pendidikan FROM jabatan_struktural '
+        . 'LEFT JOIN pegawai ON pegawai.jabatan_struktural_id = jabatan_struktural.id AND pegawai.kedudukan_id=1 AND pegawai.tipe_jabatan="struktural"'
+        . 'LEFT JOIN eselon ON eselon.id = jabatan_struktural.eselon_id '
+        . 'LEFT JOIN riwayat_pangkat ON pegawai.riwayat_pangkat_id = riwayat_pangkat.id '
+        . 'LEFT JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id '
+        . 'LEFT JOIN riwayat_pendidikan ON pegawai.pendidikan_id = riwayat_pendidikan.id '
+        . 'LEFT JOIN jurusan ON jurusan.id = riwayat_pendidikan.id_jurusan '
         . 'ORDER BY jabatan_struktural.root,jabatan_struktural.lft')->query();
 ?>
 <br>
@@ -47,7 +46,7 @@ $arrPegawai = cmd('SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabata
             ?>
             <tr <?php echo $css?>>
                 <td><?php echo $maju.$arr['unitKerja'] ?></td>
-                <td><?php echo $arr['nip']?></td>
+                <td><?php echo $arr['nip'].'&nbsp;'?></td>
                 <td><?php echo $arr['nama'] ?></td>
                 <td><?php echo $arr['nama_golongan'].' - '.$arr['gol_keterangan'] ?></td>
                 <td><?php echo landa()->date2Ind($arr['tmt_pensiun'])   ?></td>

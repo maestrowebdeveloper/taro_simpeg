@@ -62,7 +62,7 @@ class RiwayatPelatihan extends CActiveRecord {
             'id' => 'ID',
             'pegawai_id' => 'Pegawai',
             'pelatihan_id' => 'Pelatihan',
-            'nama' => 'Nama',
+            'nama' => 'Nama Diklat',
             'nomor_register' => 'Nomor Register',
             'nomor_sttpl' => 'Nomor STTPL',
             'tahun' => 'Tahun',

@@ -56,7 +56,8 @@ class RiwayatJabatan extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'Pegawai' => array(self::BELONGS_TO, 'Pegawai', 'pegawai_id'),
-            'JabatanStruktural' => array(self::BELONGS_TO, 'JabatanStruktural', 'jabatan_struktural_id'),
+            'Struktural' => array(self::BELONGS_TO, 'JabatanStruktural', 'jabatan_struktural_id'),
+//            'JabatanStruktural' => array(self::BELONGS_TO, 'JabatanStruktural', 'jabatan_struktural_id'),
             'JabatanFu' => array(self::BELONGS_TO, 'JabatanFu', 'jabatan_fu_id'),
             'JabatanFt' => array(self::BELONGS_TO, 'JabatanFt', 'jabatan_ft_id'),
             'Eselon' => array(self::BELONGS_TO, 'Eselon', 'eselon_id'),
@@ -102,7 +103,7 @@ class RiwayatJabatan extends CActiveRecord {
 
         $criteria = new CDbCriteria;
 //        $criteria->select = new CDbExpression('nomor_register, tipe_jabatan, Pegawai.nip, Pegawai.nama, CONCAT(JabatanStruktural.nama,"",JabatanFu.nama,"",JabatanFt.nama) jabatan');
-        $criteria->with = array('Pegawai', 'JabatanStruktural', 'JabatanFt', 'JabatanFu');
+        $criteria->with = array('Pegawai', 'Struktural', 'JabatanFt', 'JabatanFu');
         $criteria->together = true;
 
         $criteria->compare('Pegawai.nip', $this->id, true);
@@ -112,7 +113,7 @@ class RiwayatJabatan extends CActiveRecord {
         $criteria->compare('JabatanFt.type', $this->tipe_jabatan, true, 'OR');
 
 //        if ($this->tipe_jabatan == "struktural") {
-        $criteria->compare('JabatanStruktural.nama', $this->jabatan, true, 'OR');
+        $criteria->compare('Struktural.nama', $this->jabatan, true, 'OR');
 //        } else if ($this->tipe_jabatan == "fungsional_umum") {
         $criteria->compare('JabatanFu.nama', $this->jabatan, true, 'OR');
 //        } else if ($this->tipe_jabatan == "fungsional_tertentu") {
@@ -145,7 +146,7 @@ class RiwayatJabatan extends CActiveRecord {
 
     public function getStatusjabatan() {
         if ($this->tipe_jabatan == "struktural") {
-            $status = (!empty($this->JabatanStruktural->status)) ? $this->JabatanStruktural->status : '0';
+            $status = (!empty($this->Struktural->status)) ? $this->Struktural->status : '0';
         } else {
             $status = 0;
         }
@@ -159,14 +160,14 @@ class RiwayatJabatan extends CActiveRecord {
     public function getTipeJabatan() {
         if ($this->tipe_jabatan == "fungsional_tertentu") {
             return (!empty($this->JabatanFt->type)) ? $this->JabatanFt->type : '-';
-        }else{
+        } else {
             return str_replace("_", " ", $this->tipe_jabatan);
         }
     }
 
     public function getJabatanPegawai() {
         if ($this->tipe_jabatan == "struktural") {
-            return (!empty($this->JabatanStruktural->nama)) ? $this->JabatanStruktural->nama : '-';
+            return (!empty($this->Struktural->nama)) ? $this->Struktural->nama : '-';
         } elseif ($this->tipe_jabatan == "fungsional_umum") {
             return (!empty($this->JabatanFu->nama)) ? $this->JabatanFu->nama : '-';
         } elseif ($this->tipe_jabatan == "fungsional_tertentu") {
@@ -176,9 +177,9 @@ class RiwayatJabatan extends CActiveRecord {
         }
     }
 
-    public function getJabatanStruktural() {
+    public function getStruktural() {
 //        if ($this->tipe_jabatan == "struktural") {
-            return (!empty($this->JabatanStruktural->nama)) ? $this->JabatanStruktural->nama : '-';
+        return (!empty($this->Struktural->nama)) ? $this->Struktural->nama : '-';
 //        } else {
 //            return '-';
 //        }
@@ -203,6 +204,7 @@ class RiwayatJabatan extends CActiveRecord {
     public function getTipe() {
         return ucwords(str_replace("_", " ", $this->tipe_jabatan));
     }
+
     public function arrType() {
         $type = array('Terampil' => 'Terampil', 'Ahli' => 'Ahli');
         return $type;

@@ -84,7 +84,7 @@ class RiwayatKeluarga extends CActiveRecord
 			'no_sk' => 'No. SK',
 			'tanggal_sk' => 'Tanggal SK',
 			'nomor_karsu' => 'No. Karsu',
-			'nomor_karsi' => 'No. Karsi',
+			'nomor_karsi' => 'No. Karis',
 			'no_akte_nikah' => 'No Akte Nikah',
 			'tanggal_pernikahan' => 'Tgl. Nikah',
 			'status' => 'Status',

@@ -65,18 +65,18 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'template' => '{items}{pager}{summary}',
     'columns' => array(
-        array(
-            'name' => 'No',
-            'type' => 'raw',
-            'value' => '$data->id',
-            'htmlOptions' => array('style' => 'text-align:center'),
-        ),
-        array(
-            'name' => '',
-            'type' => 'raw',
-            'value' => '$data->gol',
-            'htmlOptions' => array('style' => 'text-align:center'),
-        ),
+//        array(
+//            'name' => 'No',
+//            'type' => 'raw',
+//            'value' => '$data->id',
+//            'htmlOptions' => array('style' => 'text-align:center'),
+//        ),
+//        array(
+//            'name' => 'Gol',
+//            'type' => 'raw',
+//            'value' => '$data->gol',
+//            'htmlOptions' => array('style' => 'text-align:center'),
+//        ),
 //       'nama',
         array(
             'header' => 'Nama <br>Nip',
@@ -115,13 +115,13 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'htmlOptions' => array('style' => 'text-align:left'),
         ),
         array(
-            'name' => 'MKTahun',
+            'name' => 'MK Thn',
             'type' => 'raw',
             'value' => '$data->MasaKerjaTahun',
             'htmlOptions' => array('style' => 'text-align:center'),
         ),
         array(
-            'name' => 'MKBulan',
+            'name' => 'MK Bulan',
             'value' => '$data->MasaKerjaBulan',
             'htmlOptions' => array('style' => 'text-align:center'),
         ),

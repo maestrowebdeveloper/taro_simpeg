@@ -577,7 +577,7 @@ class PegawaiController extends Controller {
         $date = explode("-", $_POST['tmt_cpns']);
         $tmt = mktime(0, 0, 0, $date[1] + $bulan, $date[2], $date[0] + $tahun);
         $tmt_cpns = date("d-m-Y", $tmt);
-        if (isset($tmt_cpns) or !empty($tmt_cpns)) {
+        if (isset($tmt_cpns) or ! empty($tmt_cpns)) {
             $data = array();
             $data['bulan'] = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true));
             $data['tahun'] = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true));
@@ -768,6 +768,7 @@ class PegawaiController extends Controller {
                             $lahir = (isset($data->sheets[0]['cells'][$j][7])) ? $data->sheets[0]['cells'][$j][7] : '';
                             $tgl_lahir = date('Y-m-d', strtotime($lahir));
                             $pegawai->tanggal_lahir = $tgl_lahir;
+                            $pegawai->kedudukan_id=1;
                             $pegawai->jenis_kelamin = (isset($data->sheets[0]['cells'][$j][8])) ? $data->sheets[0]['cells'][$j][8] : '';
                             $pegawai->agama = (isset($data->sheets[0]['cells'][$j][9])) ? $data->sheets[0]['cells'][$j][9] : '';
                             $pegawai->status_pernikahan = (isset($data->sheets[0]['cells'][$j][10])) ? $data->sheets[0]['cells'][$j][10] : '';
@@ -791,7 +792,12 @@ class PegawaiController extends Controller {
                             $pegawai->tanggal_sk_pns = (isset($data->sheets[0]['cells'][$j][26])) ? $data->sheets[0]['cells'][$j][26] : '';
                             if ($pegawai->save()) {
                                 $pegawai_id[] = $pegawai->id;
+                                   $sukses++;
+                            } else {
+                                $gagal++;
                             }
+
+                            $total_pegawai++;
                             // save riwayat pangkat
                             foreach ($pegawai_id as $key => $value) {
                                 $modelPangkat->nomor_register = (isset($data->sheets[0]['cells'][$j][27])) ? $data->sheets[0]['cells'][$j][27] : '';
@@ -853,7 +859,7 @@ class PegawaiController extends Controller {
                             $model->nomor_register = (isset($data->sheets[0]['cells'][$j][2])) ? $data->sheets[0]['cells'][$j][2] : '';
                             $tcg = (isset($data->sheets[0]['cells'][$j][5])) ? $data->sheets[0]['cells'][$j][5] : '';
                             $tgl_cg = date('Y-m-d', strtotime($tcg));
-                            echo $tgl_cg;
+//                            echo $tgl_cg;
                             $model->tanggal_cg = $tgl_cg;
                             $model->pegawai_id = $cariPegawai->id;
                             $model->golongan_id = (isset($data->sheets[0]['cells'][$j][4])) ? $data->sheets[0]['cells'][$j][4] : '';
@@ -863,7 +869,7 @@ class PegawaiController extends Controller {
                             $model->no_sk = (isset($data->sheets[0]['cells'][$j][6])) ? $data->sheets[0]['cells'][$j][6] : '';
                             $sk = (isset($data->sheets[0]['cells'][$j][7])) ? $data->sheets[0]['cells'][$j][7] : '';
                             $tgl_sk = date('Y-m-d', strtotime($sk));
-                            $model->gl_sk = $tgl_sk;
+                            $model->tgl_sk = $tgl_sk;
                             if ($model->save()) {
                                 // update ke pegawai dan update gelar depan dan belakang
                                 Pegawai::model()->updateAll(array(
@@ -1151,9 +1157,15 @@ class PegawaiController extends Controller {
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $jabFung = RiwayatJabatan::model()->findByAttributes(array('pegawai_id' => $id));
+        $pangkatGolongan = RiwayatPangkat::model()->findByAttributes(array('pegawai_id' => $id));
+        
+//        $jabatanFungsional = Golongan::model()->getJabatan();
+        
         $this->render('update', array(
             'model' => $model,
+            'jabFung' => $jabFung,
+            'pangkatGolongan' => $pangkatGolongan
         ));
     }
 
@@ -1329,12 +1341,9 @@ class PegawaiController extends Controller {
         $model = new Pegawai;
         $model->attributes = $_GET['Pegawai'];
         $data = $model->search(true);
-        $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $data,
-                        ));
-//        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
-//                    'model' => $data,
-//                        ), true));
+                        ), true));
     }
 
     //-----------------------------------------------------------------------------------
@@ -1538,14 +1547,13 @@ class PegawaiController extends Controller {
             $date = explode("-", $data->tanggal_lahir);
             $tmt_pensiun = mktime(0, 0, 0, $date[1], $date[2], $date[0] + 58);
             $data->tmt_pensiun = date("Y-m-d", $tmt_pensiun);
-//                $data->tmt_pensiun = date('Y-m-d',strtotime("2032-11-10"));
             $data->save();
         }
         echo 'sukses';
     }
 
     public function actionMigrasibup() {
-        /// change bup struktural
+        // change bup struktural
         $struktural = Pegawai::model()->with('JabatanStruktural.Eselon')->findAll(array('condition' => 'JabatanStruktural.eselon_id = Eselon.id and t.tipe_jabatan="struktural" and kedudukan_id=1'));
         foreach ($struktural as $data) {
             $tingkatEselon = substr($data->JabatanStruktural->Eselon->nama, 0, 2);
@@ -1558,7 +1566,7 @@ class PegawaiController extends Controller {
             }
         }
 
-        /// change bup tertentu
+        // change bup tertentu
         $tertentu = Pegawai::model()->findAll(array('condition' => 'tipe_jabatan="fungsional_tertentu" and kedudukan_id=1'));
         foreach ($tertentu as $data) {
             $date = explode("-", $data->tanggal_lahir);
@@ -1567,7 +1575,7 @@ class PegawaiController extends Controller {
             $data->save();
         }
 
-//        / change bup fungsioanal
+        // change bup fungsioanal
         $tertentu = Pegawai::model()->with('JabatanFu')->findAll(array('condition' => 't.tipe_jabatan="fungsional_umum" and kedudukan_id=1'));
         foreach ($tertentu as $data) {
             $data->bup = 58;
@@ -1596,6 +1604,18 @@ class PegawaiController extends Controller {
                 . 'INNER JOIN riwayat_pendidikan ON pegawai.id = riwayat_pendidikan.pegawai_id '
                 . 'INNER JOIN jurusan ON jurusan.id = riwayat_pendidikan.id_jurusan '
                 . 'ORDER BY jabatan_struktural.root,jabatan_struktural.lft')->query();
+    }
+
+    public function actionGetFungsional() {
+        $jabatan = '';
+        if (!empty($_POST['type'] && $_POST['id'])) {
+            $jabatan = Golongan::model()->golJabatan($_POST['type'], $_POST['id']);
+            if (empty($jabatan)) {
+                echo '-';
+            } else {
+                echo $jabatan;
+            }
+        }
     }
 
 }

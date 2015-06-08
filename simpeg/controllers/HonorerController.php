@@ -278,7 +278,7 @@ class HonorerController extends Controller {
     public function actionIndex() {
         $model = new Honorer('search');
         $model->unsetAttributes();  // clear any default values
-        $model->kode = array(20, 40);
+//        $model->kode = array(20, 40);
 
         if (isset($_GET['Honorer'])) {
             $model->attributes = $_GET['Honorer'];
@@ -322,7 +322,6 @@ class HonorerController extends Controller {
         $model = new Honorer;
         $model->attributes = $_GET['Honorer'];
         $data = $model->search(true);
-//        logs($model);
         Yii::app()->request->sendFile('Data Pegawai Honorer - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $data,
                         ), true)

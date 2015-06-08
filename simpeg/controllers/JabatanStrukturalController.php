@@ -119,7 +119,7 @@ class JabatanStrukturalController extends Controller {
                 $child = new JabatanStruktural;
                 $child->id = $val['id'];
                 $child->nama = $val['name'];
-                $model->jabatan = $val['jabatan'];
+                $child->jabatan = $val['jabatan'];
                 $child->unit_kerja_id = $val['unit_kerja_id'];
                 $child->eselon_id = $val['eselon_id'];
                 $child->parent_id = $parent;
