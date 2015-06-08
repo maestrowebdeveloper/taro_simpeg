@@ -244,7 +244,7 @@ class PermohonanPerpanjanganHonorerController extends Controller {
 
         $model = new PermohonanPerpanjanganHonorer('search');
         $model->unsetAttributes();  // clear any default values
-        $criteria = new CDbCriteria();
+//        $criteria = new CDbCriteria();
 
         if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
             foreach ($_POST['ceckbox'] as $data) {
@@ -257,8 +257,6 @@ class PermohonanPerpanjanganHonorerController extends Controller {
         if (isset($_GET['PermohonanPerpanjanganHonorer'])) {
             $model->attributes = $_GET['PermohonanPerpanjanganHonorer'];
 
-            if ($model->honorer_id == 0)
-                unset($model->honorer_id);
         }
 
         $this->render('index', array(
@@ -291,29 +289,17 @@ class PermohonanPerpanjanganHonorerController extends Controller {
 
     public function actionGenerateExcel() {
 
-        $noregister = $_GET['noregister'];
-        $tanggal = $_GET['tanggal'];
-        $honorer_id = $_GET['honorer_id'];
-        $tmt_mulai = $_GET['tmt_mulai'];
-        $tmt_selesai = $_GET['tmt_selesai'];
+        $model = new PermohonanPerpanjanganHonorer;
+        
+         $model->attributes = $_GET['PermohonanPerpanjanganHonorer'];
+//    
+        
+        $data = $model->search(true);
 
-        $criteria = new CDbCriteria;
-        if (!empty($noregister))
-            $criteria->compare('nomor_register', $noregister, true);
-        if (!empty($tanggal))
-            $criteria->compare('tanggal', $tanggal, true);
-        if (!empty($honorer_id))
-            $criteria->compare('honorer_id', $honorer_id);
-        if (!empty($tmt_mulai))
-            $criteria->compare('tmt_mulai', $tmt_mulai, true);
-        if (!empty($tmt_selesai))
-            $criteria->compare('tmt_selesai', $tmt_selesai, true);
-
-        $model = PermohonanPerpanjanganHonorer::model()->findAll($criteria);
 
 
         Yii::app()->request->sendFile('Data Permohonan Perpanjangan Honorer - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
+                    'model' => $data
                         ), true)
         );
     }

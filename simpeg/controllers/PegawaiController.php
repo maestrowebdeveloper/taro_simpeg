@@ -577,7 +577,7 @@ class PegawaiController extends Controller {
         $date = explode("-", $_POST['tmt_cpns']);
         $tmt = mktime(0, 0, 0, $date[1] + $bulan, $date[2], $date[0] + $tahun);
         $tmt_cpns = date("d-m-Y", $tmt);
-        if (isset($tmt_cpns) or !empty($tmt_cpns)) {
+        if (isset($tmt_cpns) or ! empty($tmt_cpns)) {
             $data = array();
             $data['bulan'] = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true));
             $data['tahun'] = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true));
@@ -1157,9 +1157,15 @@ class PegawaiController extends Controller {
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $jabFung = RiwayatJabatan::model()->findByAttributes(array('pegawai_id' => $id));
+        $pangkatGolongan = RiwayatPangkat::model()->findByAttributes(array('pegawai_id' => $id));
+        
+//        $jabatanFungsional = Golongan::model()->getJabatan();
+        
         $this->render('update', array(
             'model' => $model,
+            'jabFung' => $jabFung,
+            'pangkatGolongan' => $pangkatGolongan
         ));
     }
 
@@ -1601,6 +1607,18 @@ class PegawaiController extends Controller {
                 . 'INNER JOIN riwayat_pendidikan ON pegawai.id = riwayat_pendidikan.pegawai_id '
                 . 'INNER JOIN jurusan ON jurusan.id = riwayat_pendidikan.id_jurusan '
                 . 'ORDER BY jabatan_struktural.root,jabatan_struktural.lft')->query();
+    }
+
+    public function actionGetFungsional() {
+        $jabatan = '';
+        if (!empty($_POST['type'] && $_POST['id'])) {
+            $jabatan = Golongan::model()->golJabatan($_POST['type'], $_POST['id']);
+            if (empty($jabatan)) {
+                echo '-';
+            } else {
+                echo $jabatan;
+            }
+        }
     }
 
 }

@@ -31,7 +31,7 @@ if(!empty($edit)){
                 <tr>
                 <td>'.$value->penghargaan.'</td>
                 <td>'.$value->nomor_register.'</td>
-                <td>'.$value->tanggal_pemberian.'</td>
+                <td>'.landa()->date2Ind($value->tanggal_pemberian).'</td>
                 <td>'.$value->pejabat.'</td>
                 <td>'.$value->keterangan.'</td>      
                 '.$action.'               
