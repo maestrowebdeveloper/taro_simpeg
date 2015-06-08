@@ -1,18 +1,15 @@
 <?php
-
-if (isset($_GET['v'])) {
-    $this->setPageTitle('Data PNS | NIP : ' . $model->nip . ' | ' . $model->nama);
-    $this->breadcrumbs = array(
-        'Data PNS' => array('index'),
-        $model->id,
-    );
-} else {
-    $this->setPageTitle('Edit Data PNS | ID : ' . $model->id);
-    $this->breadcrumbs = array(
-        'Data PNS' => array('index'),
-        $model->id => array('view', 'id' => $model->id),
-        'Update',
-    );
+if (isset($_GET['v'])) {$this->setPageTitle('Data PNS | NIP : '. $model->nip . ' | ' . $model->nama);
+$this->breadcrumbs=array(
+	'Data PNS'=>array('index'),
+	$model->id,
+);
+}else{$this->setPageTitle('Edit Data PNS | '. $model->nama);
+$this->breadcrumbs=array(
+	'Data PNS'=>array('index'),
+	$model->nama=>array('view','id'=>$model->id),
+	'Update',
+);
 }
 $this->beginWidget('zii.widgets.CPortlet', array(
     'htmlOptions' => array(

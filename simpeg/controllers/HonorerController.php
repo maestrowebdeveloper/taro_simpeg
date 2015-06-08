@@ -56,17 +56,17 @@ class HonorerController extends Controller {
 //        $tahun = (!empty($_POST['tahun']) ? ($_POST['tahun']) : 0) * -1;
         $date1 = explode("-", $_POST['tmt_kontrak']);
         $tmt1 = mktime(0, 0, 0, $date1[1], $date1[2], $date1[0]);
-        
+
         $date2 = explode("-", $_POST['tmt_mulai_kontrak']);
         $tmt2 = mktime(0, 0, 0, $date2[1], $date2[2], $date2[0]);
-        
+
         $tmt_kontrak = date("d-m-Y", $tmt1);
         $tmt_mulai_kontrak = date("d-m-Y", $tmt2);
-        
-        if (isset($tmt_kontrak) or ! empty($tmt_kontrak)) {
+
+        if (isset($tmt_kontrak) or !empty($tmt_kontrak)) {
             $data = array();
-            $data['bulan'] = str_replace(" Bulan", "", KenaikanGaji::model()->masaKerja($tmt_kontrak,$tmt_mulai_kontrak, false, true));
-            $data['tahun'] = str_replace(" Tahun", "", KenaikanGaji::model()->masaKerja($tmt_kontrak,$tmt_mulai_kontrak, true));
+            $data['bulan'] = str_replace(" Bulan", "", KenaikanGaji::model()->masaKerja($tmt_kontrak, $tmt_mulai_kontrak, false, true));
+            $data['tahun'] = str_replace(" Tahun", "", KenaikanGaji::model()->masaKerja($tmt_kontrak, $tmt_mulai_kontrak, true));
             echo json_encode($data);
         }
     }
@@ -278,25 +278,12 @@ class HonorerController extends Controller {
     public function actionIndex() {
         $model = new Honorer('search');
         $model->unsetAttributes();  // clear any default values
-        $model->kode = array(20,40);
+        $model->kode = array(20, 40);
 
         if (isset($_GET['Honorer'])) {
             $model->attributes = $_GET['Honorer'];
-            if ($model->kode == 0)
-                unset($model->kode);
-            if ($model->tempat_lahir == 0)
-                unset($model->tempat_lahir);
-            if ($model->city_id == 0)
-                unset($model->city_id);
-            if ($model->unit_kerja_id == 0)
-                unset($model->unit_kerja_id);
-            if ($model->jabatan_struktural_id == 0)
-                unset($model->jabatan_struktural_id);
-            if ($model->jabatan_fu_id == 0)
-                unset($model->jabatan_fu_id);
-            if ($model->id_jurusan == 0)
-                unset($model->id_jurusan);
         }
+        
         if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
             Honorer::model()->deleteAll(array(
                 'condition' => 'id IN(' . implode(',', $_POST['ceckbox']) . ')'
@@ -332,47 +319,12 @@ class HonorerController extends Controller {
     }
 
     public function actionGenerateExcel() {
-
-        $jns_kelamin = $_GET['jns_kelamin'];
-        $nama = $_GET['nama'];
-//        $sts_pernikahan = $_GET['sts_pernikahan'];
-        $id_jurusan = $_GET['id_jurusan'];
-        $tahun_pendidikan = $_GET['tahun_pendidikan'];
-        $agama = $_GET['agama'];
-        $nomor_register = $_GET['nomor_register'];
-        $jabatan_struktural_id = $_GET['jabatan_struktural_id'];
-        $jabatan_fu_id = $_GET['jabatan_fu_id'];
-        $kode = $_GET['kode'];
-
-        $criteria = new CDbCriteria;
-        if (!empty($nama))
-            $criteria->compare('nama', $nama, true);
-        if (!empty($jns_kelamin))
-            $criteria->compare('jenis_kelamin', $jns_kelamin, true);
-//        if (!empty($sts_pernikahan))
-//            $criteria->compare('status_pernikahan', $sts_pernikahan, true);
-        if (!empty($id_jurusan))
-            $criteria->compare('id_jurusan', $id_jurusan, true);
-        if (!empty($tahun_pendidikan))
-            $criteria->compare('tahun_pendidikan', $tahun_pendidikan, true);
-        if (!empty($agama))
-            $criteria->compare('agama', $agama, true);
-        if (!empty($nomor_register))
-            $criteria->compare('nomor_register', $nomor_register, true);
-        if (!empty($jabatan_struktural_id))
-            $criteria->compare('jabatan_struktural_id', $jabatan_struktural_id);
-        if (!empty($jabatan_fu_id))
-            $criteria->compare('jabatan_fu_id', $jabatan_fu_id);
-        if (!empty($kode))
-            $criteria->compare('kode', $kode);
-        
-//        $criteria->addCondition('kode IN (20,40)');
-
-        $model = Honorer::model()->findAll($criteria);
-
-
+        $model = new Honorer;
+        $model->attributes = $_GET['Honorer'];
+        $data = $model->search(true);
+        logs($model);
         Yii::app()->request->sendFile('Data Pegawai Honorer - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
+                    'model' => $data,
                         ), true)
         );
     }

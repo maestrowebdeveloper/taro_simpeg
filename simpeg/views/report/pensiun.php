@@ -78,7 +78,7 @@ $this->breadcrumbs = array(
         </div>
 
         <div class="control-group">
-            <label class="control-label">Unit Kerja<span class="required">*</span></label>
+            <label class="control-label">Satuan Kerja<span class="required">*</span></label>
             <div class="controls">
                 <?php
                 $data = array('0' => '- Select All -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
@@ -144,7 +144,7 @@ if ($tampil == "1") {
     ?>
     <?php
     $criteria = new CDbCriteria();
-    $criteria->with = array('RiwayatJabatan');
+    $criteria->with = array('RiwayatJabatan','JabatanStruktural');
     $criteria->together = true;
     $criteria->addCondition('kedudukan_id="1"');
 
@@ -156,8 +156,8 @@ if ($tampil == "1") {
     if (!empty($_GET['bulan']))
         $criteria->addCondition('month(tmt_pensiun) = "' . substr("0" . $_GET['bulan'], -2, 2) . '"');
 
-    if (!empty($_GET['unit_kerja_id']))
-        $criteria->addCondition('unit_kerja_id = ' . $_GET['unit_kerja_id']);
+    if (!empty($_GET['satuan_kerja_id']))
+        $criteria->addCondition('JabatanStruktural.unit_kerja_id = ' . $_GET['satuan_kerja_id']);
 
     if (!empty($_GET['eselon_id'])) {
         $jbt_id = array();
@@ -172,17 +172,17 @@ if ($tampil == "1") {
     }
     //jabatan_ft
     if (isset($_GET['Pegawai']['jabatan_ft_id']) and ! empty($_GET['Pegawai']['jabatan_ft_id'])) {
-            $jabFt = JabatanFt::model()->findAll(array('condition' => 'type ="' . $_GET['Pegawai']['jabatan_ft_id'] . '"'));
-            $id = array();
-            if (empty($jabFt)) {
-                
-            } else {
-                foreach ($jabFt as $val) {
-                    $id[] = $val->id;
-                }
+        $jabFt = JabatanFt::model()->findAll(array('condition' => 'type ="' . $_GET['Pegawai']['jabatan_ft_id'] . '"'));
+        $id = array();
+        if (empty($jabFt)) {
+            
+        } else {
+            foreach ($jabFt as $val) {
+                $id[] = $val->id;
             }
-            $criteria->addCondition('RiwayatJabatan.jabatan_ft_id IN (' . implode(",", $id) . ')');
         }
+        $criteria->addCondition('RiwayatJabatan.jabatan_ft_id IN (' . implode(",", $id) . ')');
+    }
 
     $data = new CActiveDataProvider('Pegawai', array(
         'criteria' => $criteria,
@@ -191,11 +191,11 @@ if ($tampil == "1") {
 //$data = Pegawai::model()->with('RiwayatJabatan')->findAll(array('condition' => 't.id > 0 ' . $criteria));
     ?>
 
-<!--    <div style="text-align: right">
+    <!--    <div style="text-align: right">
 
-        <button class="print entypo-icon-printer button" onclick="printDiv('report')" type="button">&nbsp;&nbsp;Print Report</button>    
-        <a class="btn btn-info pull-right" href="<?php echo url("/suratMasuk/generateExcel"); ?>" target="_blank"><span class="icon16 icomoon-icon-file-excel  white"></span>Export to Excel</a>
-    </div>-->
+            <button class="print entypo-icon-printer button" onclick="printDiv('report')" type="button">&nbsp;&nbsp;Print Report</button>    
+            <a class="btn btn-info pull-right" href="<?php echo url("/suratMasuk/generateExcel"); ?>" target="_blank"><span class="icon16 icomoon-icon-file-excel  white"></span>Export to Excel</a>
+        </div>-->
     <div class="report" id="report" style="width: 100%">
         <h3 style="text-align:center">LAPORAN PENSIUN</h3><br>
         <h6  style="text-align:center">Tangga : <?php echo date('d F Y'); ?></h6>
