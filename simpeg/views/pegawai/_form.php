@@ -437,6 +437,11 @@
                                     <input class="span4" disabled value="<?php echo $model->unitKerjaJabatan; ?>"  id="riwayatBidangJabatan" placeHolder="" type="text">
                                 </div>
                             </div>
+                            <div class="control-group "><label class="control-label" for="Pegawai_bidang_id">Jabatan Fungsional</label>
+                                <div class="controls">
+                                    <input class="span4" disabled value="<?php echo $pangkatGolongan->golongan_id; ?>"  id="riwayatBidangJabatan" placeHolder="" type="text">
+                                </div>
+                            </div>
 
                             <?php
                             if (isset($model->perubahan_masa_kerja) and !empty($model->perubahan_masa_kerja)) {
