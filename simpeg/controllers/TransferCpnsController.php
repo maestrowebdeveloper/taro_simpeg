@@ -204,29 +204,18 @@ class TransferCpnsController extends Controller {
 
     public function actionGenerateExcel() {
 
-        $pegawai_id = $_GET['pegawai_id'];
-        $nomor_kesehatan = $_GET['nomor_kesehatan'];
-        $tanggal_kesehatan = $_GET['tanggal_kesehatan'];
-        $nomor_diklat = $_GET['nomor_diklat'];
-        $tanggal_diklat = $_GET['tanggal_diklat'];
+        
+        $model = new TransferCpns;
+        
+         $model->attributes = $_GET['TransferCpns'];
+//    
+        
+        $data = $model->search(true);
 
-        $criteria = new CDbCriteria;
-        if (!empty($pegawai_id))
-            $criteria->compare('pegawai_id', $pegawai_id);
-        if (!empty($nomor_kesehatan))
-            $criteria->compare('nomor_kesehatan', $nomor_kesehatan);
-        if (!empty($tanggal_kesehatan))
-            $criteria->compare('tanggal_kesehatan', $tanggal_kesehatan, true);
-        if (!empty($nomor_diklat))
-            $criteria->compare('nomor_diklat', $nomor_diklat);
-        if (!empty($tanggal_diklat))
-            $criteria->compare('tanggal_diklat', $tanggal_diklat, true);
-
-        $model = TransferCpns::model()->findAll($criteria);
 
 
         Yii::app()->request->sendFile('Data Transfer CPNS - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
+                    'model' => $data
                         ), true)
         );
     }

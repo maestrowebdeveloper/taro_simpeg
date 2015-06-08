@@ -122,13 +122,17 @@ $ft = ($model->tipe_jabatan == "fungsional_tertentu") ? "" : "none";
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'search white', 'label' => 'Pencarian')); ?>
 
     <?php
-    $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'icon', 'label' => 'Export Excel',
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'button',
+        'type' => 'primary',
+        'icon' => 'ok white',
+        'label' => 'Export ke Excel',
         'htmlOptions' => array(
-            'onclick' => 'excel()'
-    )));
+            'name' => 'export',
+            'onClick' => 'chgAction()',
+        )
+    ));
     ?>
-
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'button', 'icon' => 'icon-remove-sign white', 'label' => 'Reset', 'htmlOptions' => array('class' => 'btnreset btn-small'))); ?>
 </div>
 
 <?php $this->endWidget(); ?>
@@ -153,22 +157,10 @@ $ft = ($model->tipe_jabatan == "fungsional_tertentu") ? "" : "none";
 </script>
 
 <script type="text/javascript">
-    function excel() {
-        if (document.getElementById('PermohonanMutasi_new_tipe_jabatan_0').checked) {
-            var tipe_jabatan = document.getElementById('PermohonanMutasi_new_tipe_jabatan_0').value;
-        } else if (document.getElementById('PermohonanMutasi_new_tipe_jabatan_1').checked) {
-            var tipe_jabatan = document.getElementById('PermohonanMutasi_new_tipe_jabatan_1').value;
-        } else if (document.getElementById('PermohonanMutasi_new_tipe_jabatan_2').checked) {
-            var tipe_jabatan = document.getElementById('PermohonanMutasi_new_tipe_jabatan_2').value;
-        } else {
-            var tipe_jabatan = '';
+     function chgAction()
+    {
+        document.getElementById("search-permohonan-mutasi-form").action = "<?php echo Yii::app()->createUrl('permohonanMutasi/GenerateExcel'); ?>";
+        document.getElementById("search-permohonan-mutasi-form").submit();
 
-        }
-
-        var noregister = $('#PermohonanMutasi_nomor_register').val();
-        var pegawai = $('#PermohonanMutasi_pegawai_id').val();
-        var unit_kerja = $('#PermohonanMutasi_new_unit_kerja_id').val();
-       // alert(tipe_jabatan);
-        window.open("<?php echo url('permohonanMutasi/GenerateExcel')?>?unit_kerja_id="+unit_kerja+"&nomor_register="+noregister+"&pegawai="+pegawai+"&tipe_jabatan="+tipe_jabatan);
     }
     </script>

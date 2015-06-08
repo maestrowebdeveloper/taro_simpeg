@@ -362,16 +362,7 @@ class PermohonanMutasiController extends Controller {
 
         if (isset($_GET['PermohonanMutasi'])) {
             $model->attributes = $_GET['PermohonanMutasi'];
-            if ($model->new_unit_kerja_id == 0)
-                unset($model->new_unit_kerja_id);
-            if ($model->pegawai_id == 0)
-                unset($model->pegawai_id);
-            if ($model->new_jabatan_struktural_id == 0)
-                unset($model->new_jabatan_struktural_id);
-            if ($model->new_jabatan_ft_id == 0)
-                unset($model->new_jabatan_ft_id);
-            if ($model->new_jabatan_fu_id == 0)
-                unset($model->new_jabatan_fu_id);
+            
         }
 
         $this->render('index', array(
@@ -404,31 +395,19 @@ class PermohonanMutasiController extends Controller {
 
     public function actionGenerateExcel() {
 
-        $nomor_register = $_GET['nomor_register'];
-        $pegawai_id = $_GET['pegawai'];
-        $unit_kerja_id = $_GET['unit_kerja_id'];
-        $tipe_jabatan = $_GET['tipe_jabatan'];
-        //logs($pegawai_id);
-
-        $criteria = new CDbCriteria;
-        if (!empty($nomor_register))
-        $criteria->compare('nomor_register', $nomor_register, true);
-        if (!empty($pegawai_id))
-            $criteria->compare('pegawai_id', $pegawai_id);
+        $model = new PermohonanMutasi;
         
-        if (!empty($unit_kerja_id))
-            $criteria->compare('new_unit_kerja_id', $unit_kerja_id);
-        if (!empty($tipe_jabatan))
-            $criteria->compare('new_tipe_jabatan', $tipe_jabatan, true);
+        $model->attributes = $_GET['PermohonanMutasi'];
+//    
+        
+        $data = $model->search(true);
 
-        $model = PermohonanMutasi::model()->findAll($criteria);
-
-
-        Yii::app()->request->sendFile('Data Permohonan Mutasi '.date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
+        Yii::app()->request->sendFile('Data Permohonan Mutasi ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
+                    'model' => $data
                         ), true)
         );
     }
+
     public function actionGetJabatanStruktural() {
         $name = $_GET["q"];
         $list = array();

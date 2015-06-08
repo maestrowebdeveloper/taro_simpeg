@@ -7,14 +7,16 @@
  		<th width="80px">NOMOR KESEHATAN</th> 		 			 		 		 	 		
  		<th width="80px">TANGGAL KESEHATAN</th>   		 			 		 		 	
  		<th width="80px">NOMOR DIKLAT</th> 		 			 		 		 	
+ 		<th width="80px">TAHUN DIKLAT</th> 		 			 		 		 	
  		<th width="80px">STATUS TRANSFER</th>		 			 		 		 	 		
  	</tr>
 	<?php foreach($model as $row): ?>
 	<tr>
         <td><?php echo $row->namaPegawai; ?></td>
         <td><?php echo $row->nomor_kesehatan; ?></td>        
-        <td><?php echo $row->tgl; ?></td>      
+        <td><?php echo landa()->date2Ind($row->tgl); ?></td>      
         <td><?php echo $row->nomor_diklat; ?></td>       
+        <td><?php echo $row->tanggal_diklat; ?></td>       
         <td><?php echo $row->statusname; ?></td>       
         
        	</tr>

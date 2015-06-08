@@ -81,10 +81,22 @@ class PermohonanMutasi extends CActiveRecord {
      * @return CActiveDataProvider the data provider that can return the models
      * based on the search/filter conditions.
      */
-    public function search() {
+    public function search($export = null) {
 // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+         $criteria->order = 'id DESC';
+
+        if ($this->new_unit_kerja_id == 0)
+            unset($this->new_unit_kerja_id);
+        if ($this->pegawai_id == 0)
+            unset($this->pegawai_id);
+        if ($this->new_jabatan_struktural_id == 0)
+            unset($this->new_jabatan_struktural_id);
+        if ($this->new_jabatan_ft_id == 0)
+            unset($this->new_jabatan_ft_id);
+        if ($this->new_jabatan_fu_id == 0)
+            unset($this->new_jabatan_fu_id);
 
         $criteria->compare('id', $this->id);
         $criteria->compare('nomor_register', $this->nomor_register, true);
@@ -107,11 +119,14 @@ class PermohonanMutasi extends CActiveRecord {
         $criteria->compare('created', $this->created, true);
         $criteria->compare('created_user_id', $this->created_user_id);
         $criteria->compare('modified', $this->modified, true);
-
-        $data = new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'id DESC')
-        ));
+        if (empty($export)) {
+            $data = new CActiveDataProvider($this, array(
+                'criteria' => $criteria,
+                'sort' => array('defaultOrder' => 'id DESC')
+            ));
+        } else {
+            $data = PermohonanMutasi::model()->findAll($criteria);
+        }
 //app()->session['PermohonanMutasi_records'] = $this->findAll($criteria);
 
         return $data;
@@ -145,11 +160,13 @@ class PermohonanMutasi extends CActiveRecord {
     }
 
     public function getTglMutasi() {
-        return date('d-m-Y', strtotime($this->tanggal)) ;
+        return landa()->date2Ind($this->tanggal);
     }
+
     public function getTmtMutasi() {
-        return date('d-m-Y', strtotime($this->tmt));
+        return landa()->date2Ind($this->tmt);
     }
+
     public function getPegawai() {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
     }
@@ -182,6 +199,7 @@ class PermohonanMutasi extends CActiveRecord {
         }
         return $status;
     }
+
     public function getStatuExel() {
         if ($this->status == 2) {
             $status = 'Sudah';
@@ -190,7 +208,7 @@ class PermohonanMutasi extends CActiveRecord {
         }
         return $status;
     }
-    
+
     public function getStatusTempat() {
         if ($this->mutasi == "luar_daerah") {
             $status = '<span class="label label-info">Luar Daerah</span>';
@@ -199,6 +217,7 @@ class PermohonanMutasi extends CActiveRecord {
         }
         return $status;
     }
+
     public function getStatusTempatExl() {
         if ($this->mutasi == "luar_daerah") {
             $status = 'Luar Daerah';
@@ -207,7 +226,6 @@ class PermohonanMutasi extends CActiveRecord {
         }
         return $status;
     }
-    
 
     public function arrMutasi() {
         $agama = array('luar_daerah' => '1 | Luar Daerah', 'dalam_daerah' => '2 | Dalam Daerah');

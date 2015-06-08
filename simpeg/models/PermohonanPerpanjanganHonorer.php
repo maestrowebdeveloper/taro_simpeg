@@ -87,30 +87,36 @@ class PermohonanPerpanjanganHonorer extends CActiveRecord {
      * @return CActiveDataProvider the data provider that can return the models
      * based on the search/filter conditions.
      */
-    public function search() {
+    public function search($export = null) {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-
-        $criteria->compare('id', $this->id);
+        $criteria->order = 'tanggal DESC';
+        if ($this->honorer_id == 0)
+            unset($this->honorer_id);
+        
+//        $criteria->compare('id', $this->id);
         $criteria->compare('nomor_register', $this->nomor_register, true);
         $criteria->compare('tanggal', $this->tanggal, true);
         $criteria->compare('honorer_id', $this->honorer_id);
-        $criteria->compare('honor_saat_ini', $this->honor_saat_ini);
-        $criteria->compare('masa_kerja', $this->masa_kerja, true);
-        $criteria->compare('unit_kerja_id', $this->unit_kerja_id);
+//        $criteria->compare('honor_saat_ini', $this->honor_saat_ini);
+//        $criteria->compare('masa_kerja', $this->masa_kerja, true);
+//        $criteria->compare('unit_kerja_id', $this->unit_kerja_id);
         $criteria->compare('tmt_mulai', $this->tmt_mulai, true);
         $criteria->compare('tmt_selesai', $this->tmt_selesai, true);
         $criteria->compare('status', $this->status, true);
-        $criteria->compare('created', $this->created, true);
-        $criteria->compare('created_user_id', $this->created_user_id);
-        $criteria->compare('modified', $this->modified, true);
+//        $criteria->compare('created', $this->created, true);
+//        $criteria->compare('created_user_id', $this->created_user_id);
+//        $criteria->compare('modified', $this->modified, true);
 
-        $data = new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'tanggal DESC')
-        ));
-
+        if (empty($export)) {
+            $data = new CActiveDataProvider($this, array(
+                'criteria' => $criteria,
+                'sort' => array('defaultOrder' => 'tanggal DESC')
+            ));
+        } else {
+            $data = PermohonanPerpanjanganHonorer::model()->findAll($criteria);
+        }
         //app()->session['PermohonanPerpanjanganHonorer_records'] = $this->findAll($criteria); 
 
         return $data;
@@ -141,6 +147,7 @@ class PermohonanPerpanjanganHonorer extends CActiveRecord {
     public function getUnitKerja() {
         return (!empty($this->Honorer->JabatanStruktural->nama)) ? $this->Honorer->JabatanStruktural->nama : '-';
     }
+
     public function getSatuanKerja() {
         return (!empty($this->Honorer->JabatanStruktural->UnitKerja->nama)) ? $this->Honorer->JabatanStruktural->UnitKerja->nama : '-';
     }
@@ -156,20 +163,28 @@ class PermohonanPerpanjanganHonorer extends CActiveRecord {
     public function getTmtPengangkatan() {
         return (!empty($this->Honorer->tmt_kontrak)) ? $this->Honorer->tmt_kontrak : '-';
     }
+
     public function getTmtMulai() {
-        return (!empty($this->tmt_mulai)) ? date('d-m-Y', strtotime($this->tmt_mulai)) : '-';
+        return (!empty($this->tmt_mulai)) ? landa()->date2Ind($this->tmt_mulai) : '-';
     }
+
     public function getTgl() {
-        return (!empty($this->tanggal)) ? date('d-m-Y', strtotime($this->tanggal)) : '-';
+        return (!empty($this->tanggal)) ? landa()->date2Ind($this->tanggal) : '-';
     }
+
     public function getTmtSelesai() {
-        return (!empty($this->tmt_selesai)) ? date('d-m-Y', strtotime($this->tmt_selesai)) : '-';
+        return (!empty($this->tmt_selesai)) ? landa()->date2Ind($this->tmt_selesai) : '-';
     }
 
     public function getTtl() {
         return (!empty($this->Honorer->ttl)) ? $this->Honorer->ttl : '-';
     }
 
+    public function arrStatus() {
+        $agama = array('0' => 'Belum', '1' => 'Sudah');
+        return $agama;
+    }
+    
     public function getJenisKelamin() {
         return (!empty($this->Honorer->jenis_kelamin)) ? $this->Honorer->jenis_kelamin : '-';
     }
@@ -177,16 +192,27 @@ class PermohonanPerpanjanganHonorer extends CActiveRecord {
     public function getPendidikan() {
         return (!empty($this->Honorer->Jurusan->Name)) ? $this->Honorer->Jurusan->Name : '-';
     }
+
     public function getPendidikanTahun() {
         return (!empty($this->Honorer->tahun_pendidikan)) ? $this->Honorer->tahun_pendidikan : '-';
     }
-    
-    public function getStatusPerpanjang(){
-        $status='';
-       if ($this->status == 1) {
+
+    public function getStatusPerpanjang() {
+        $status = '';
+        if ($this->status == 1) {
             $status = '<span class="label label-info">Sudah</span>';
         } else {
             $status = '<span class="label label-warning">Belum</span>';
+        }
+        return $status;
+    }
+    
+    public function getStatusPerpanjangExcel(){
+        $status='';
+        if($this->status == 1){
+            $status = 'Sudah';
+        }else{
+            $status = 'Belum';
         }
         return $status;
     }

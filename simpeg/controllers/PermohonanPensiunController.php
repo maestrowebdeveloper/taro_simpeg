@@ -184,65 +184,6 @@ class PermohonanPensiunController extends Controller {
 
         if (isset($_GET['PermohonanPensiun'])) {
             $model->attributes = $_GET['PermohonanPensiun'];
-
-
-            if (!empty($model->id))
-                $criteria->addCondition('id = "' . $model->id . '"');
-
-
-            if (!empty($model->nomor_register))
-                $criteria->addCondition('nomor_register = "' . $model->nomor_register . '"');
-
-
-            if (!empty($model->tanggal))
-                $criteria->addCondition('tanggal = "' . $model->tanggal . '"');
-
-            if (!empty($model->status))
-                $criteria->addCondition('status = "' . $model->status . '"');
-
-
-            if (!empty($model->pegawai_id))
-                $criteria->compare('pegawai_id', $model->pegawai_id);
-
-
-            if (!empty($model->unit_kerja_id))
-                $criteria->addCondition('unit_kerja_id = "' . $model->unit_kerja_id . '"');
-
-
-            if (!empty($model->tipe_jabatan))
-                $criteria->addCondition('tipe_jabatan = "' . $model->tipe_jabatan . '"');
-
-
-            if (!empty($model->jabatan_struktural_id))
-                $criteria->addCondition('jabatan_struktural_id = "' . $model->jabatan_struktural_id . '"');
-
-
-            if (!empty($model->jabatan_fu_id))
-                $criteria->addCondition('jabatan_fu_id = "' . $model->jabatan_fu_id . '"');
-
-
-            if (!empty($model->jabatan_ft_id))
-                $criteria->addCondition('jabatan_ft_id = "' . $model->jabatan_ft_id . '"');
-
-
-            if (!empty($model->masa_kerja))
-                $criteria->addCondition('masa_kerja = "' . $model->masa_kerja . '"');
-
-
-            if (!empty($model->tmt))
-                $criteria->addCondition('tmt = "' . $model->tmt . '"');
-
-
-            if (!empty($model->created))
-                $criteria->addCondition('created = "' . $model->created . '"');
-
-
-            if (!empty($model->created_user_id))
-                $criteria->addCondition('created_user_id = "' . $model->created_user_id . '"');
-
-
-            if (!empty($model->modified))
-                $criteria->addCondition('modified = "' . $model->modified . '"');
         }
 
         $this->render('index', array(
@@ -275,30 +216,12 @@ class PermohonanPensiunController extends Controller {
 
     public function actionGenerateExcel() {
 
-        $noregister = $_GET['noregister'];
-        $status = $_GET['status'];
-        $tanggal = $_GET['tanggal'];
-        $pegawai_id = $_GET['pegawai_id'];
-        $tmt = $_GET['tmt'];
-
-        $criteria = new CDbCriteria;
-        if (!empty($noregister))
-            $criteria->compare('nomor_register', $noregister, true);
-        if (!empty($status))
-            $criteria->compare('status', $status, true);
-        if (!empty($tanggal))
-            $criteria->compare('tanggal', $tanggal, true);
-        if (!empty($pegawai_id))
-            $criteria->compare('pegawai_id', $pegawai_id);
-        if (!empty($tmt))
-            $criteria->compare('tmt', $tmt, true);
-
-
-        $model = PermohonanPensiun::model()->findAll($criteria);
-
+        $model = new PermohonanPensiun;
+        $model->attributes = $_GET['PermohonanPensiun'];
+        $data = $model->search(true);
 
         Yii::app()->request->sendFile('Data Permohonan Pensiun ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
+                    'model' => $data
                         ), true)
         );
     }

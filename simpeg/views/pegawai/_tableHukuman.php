@@ -33,9 +33,9 @@
                 <td>' . $value->hukuman . '</td>
                 <td>' . $value->tingkat_hukuman . '</td>
                 <td>' . $value->nomor_register . '</td>
-                <td>' . $value->tanggal_pemberian . '</td>
-                <td>' . $value->mulai_sk . '</td>
-                <td>' . $value->selesai_sk . '</td>
+                <td>' . landa()->date2Ind($value->tanggal_pemberian) . '</td>
+                <td>' . landa()->date2Ind($value->mulai_sk). '</td>
+                <td>' . landa()->date2Ind($value->selesai_sk) . '</td>
                 <td>' . $value->pejabat . '</td>
                 <td>' . $value->alasan . '</td>                
                 ' . $action . '                   
