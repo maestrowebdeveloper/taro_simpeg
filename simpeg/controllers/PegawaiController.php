@@ -768,6 +768,7 @@ class PegawaiController extends Controller {
                             $lahir = (isset($data->sheets[0]['cells'][$j][7])) ? $data->sheets[0]['cells'][$j][7] : '';
                             $tgl_lahir = date('Y-m-d', strtotime($lahir));
                             $pegawai->tanggal_lahir = $tgl_lahir;
+                            $pegawai->kedudukan_id=1;
                             $pegawai->jenis_kelamin = (isset($data->sheets[0]['cells'][$j][8])) ? $data->sheets[0]['cells'][$j][8] : '';
                             $pegawai->agama = (isset($data->sheets[0]['cells'][$j][9])) ? $data->sheets[0]['cells'][$j][9] : '';
                             $pegawai->status_pernikahan = (isset($data->sheets[0]['cells'][$j][10])) ? $data->sheets[0]['cells'][$j][10] : '';
@@ -791,7 +792,12 @@ class PegawaiController extends Controller {
                             $pegawai->tanggal_sk_pns = (isset($data->sheets[0]['cells'][$j][26])) ? $data->sheets[0]['cells'][$j][26] : '';
                             if ($pegawai->save()) {
                                 $pegawai_id[] = $pegawai->id;
+                                   $sukses++;
+                            } else {
+                                $gagal++;
                             }
+
+                            $total_pegawai++;
                             // save riwayat pangkat
                             foreach ($pegawai_id as $key => $value) {
                                 $modelPangkat->nomor_register = (isset($data->sheets[0]['cells'][$j][27])) ? $data->sheets[0]['cells'][$j][27] : '';
@@ -853,7 +859,7 @@ class PegawaiController extends Controller {
                             $model->nomor_register = (isset($data->sheets[0]['cells'][$j][2])) ? $data->sheets[0]['cells'][$j][2] : '';
                             $tcg = (isset($data->sheets[0]['cells'][$j][5])) ? $data->sheets[0]['cells'][$j][5] : '';
                             $tgl_cg = date('Y-m-d', strtotime($tcg));
-                            echo $tgl_cg;
+//                            echo $tgl_cg;
                             $model->tanggal_cg = $tgl_cg;
                             $model->pegawai_id = $cariPegawai->id;
                             $model->golongan_id = (isset($data->sheets[0]['cells'][$j][4])) ? $data->sheets[0]['cells'][$j][4] : '';
@@ -863,7 +869,7 @@ class PegawaiController extends Controller {
                             $model->no_sk = (isset($data->sheets[0]['cells'][$j][6])) ? $data->sheets[0]['cells'][$j][6] : '';
                             $sk = (isset($data->sheets[0]['cells'][$j][7])) ? $data->sheets[0]['cells'][$j][7] : '';
                             $tgl_sk = date('Y-m-d', strtotime($sk));
-                            $model->gl_sk = $tgl_sk;
+                            $model->tgl_sk = $tgl_sk;
                             if ($model->save()) {
                                 // update ke pegawai dan update gelar depan dan belakang
                                 Pegawai::model()->updateAll(array(
