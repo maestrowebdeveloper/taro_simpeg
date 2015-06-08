@@ -11,7 +11,7 @@ class SiteController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('error', 'login', 'logout', 'icons','search'),
+                'actions' => array('error', 'login', 'logout', 'icons','search','coba'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -23,7 +23,12 @@ class SiteController extends Controller {
             ),
         );
     }
-
+    
+    public  function actionCoba(){
+//        $model = Pegawai::model()->findAll();
+        $model = Pegawai::model()->findAll(array('with'=>array('Pangkat','Pangkat.Golongan')));
+        $this->render('coba', array('model'=>$model));
+    }
     /**
      * This is the default 'index' action that is invoked
      * when an action is not explicitly requested by users.

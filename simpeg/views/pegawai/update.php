@@ -4,10 +4,10 @@ $this->breadcrumbs=array(
 	'Data PNS'=>array('index'),
 	$model->id,
 );
-}else{$this->setPageTitle('Edit Data PNS | ID : '. $model->id);
+}else{$this->setPageTitle('Edit Data PNS | '. $model->nama);
 $this->breadcrumbs=array(
 	'Data PNS'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
+	$model->nama=>array('view','id'=>$model->id),
 	'Update',
 );
 }

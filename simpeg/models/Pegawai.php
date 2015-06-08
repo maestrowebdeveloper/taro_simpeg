@@ -645,23 +645,23 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getGolTmt() {
-        return $this->Gol . '<br> ' . date('d-m-Y', strtotime($this->tmt_golongan));
+        return $this->Gol . '<br> ' . landa()->date2Ind($this->tmt_golongan);
     }
 
     public function getEslonTmt() {
-        return $this->Esl . '<br> ' . $this->TmtEslon;
+        return $this->Esl . '<br> ' . landa()->date2Ind($this->TmtEslon);
     }
 
     public function getTtlLahir() {
-        return $this->tempat_lahir . '<br> ' . (date("d-m-Y", strtotime($this->tanggal_lahir)));
+        return $this->tempat_lahir . '<br> ' . landa()->date2Ind($this->tanggal_lahir);
     }
 
     public function getJabatanTmt() {
-        return $this->riwayatNamaJabatan . ' // ' . (date("d-m-Y", strtotime($this->riwayatTmtJabatan)));
+        return $this->riwayatNamaJabatan . '<br/>' . landa()->date2Ind($this->riwayatTmtJabatan);
     }
 
     public function getPendidikanThn() {
-        return ucwords(strtolower($this->pendidikanJurusan)) . ' // ' . $this->pendidikanTahun;
+        return ucwords(strtolower($this->pendidikanJurusan)) . '<br/>' . $this->pendidikanTahun;
     }
 
     public function getDiklatTerakhir() {
@@ -679,7 +679,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getDiklatThn() {
-        return $this->PelatihanTerakhir . ' // ' . $this->ThnPelatihanTerakhir;
+        return $this->PelatihanTerakhir . '<br/>' . $this->ThnPelatihanTerakhir;
     }
 
 ////
