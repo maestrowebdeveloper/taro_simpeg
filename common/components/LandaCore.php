@@ -557,8 +557,11 @@ class LandaCore extends CApplicationComponent {
 
     function date2Ind($str) {
         setlocale(LC_TIME, 'id_ID');
-        $date = strftime("%d %B %Y", strtotime($str));
-        return $date;
+        $date = strftime("%d %b %Y", strtotime($str));
+        if (strtotime($str) < 0)
+            return '-';
+        else
+            return $date;
     }
 
 }
