@@ -322,7 +322,7 @@ class HonorerController extends Controller {
         $model = new Honorer;
         $model->attributes = $_GET['Honorer'];
         $data = $model->search(true);
-        logs($model);
+//        logs($model);
         Yii::app()->request->sendFile('Data Pegawai Honorer - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $data,
                         ), true)

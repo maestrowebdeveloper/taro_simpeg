@@ -62,16 +62,16 @@ class PermohonanIjinBelajarController extends Controller {
                     $data->status = 1;
                     $data->save();
                     user()->setFlash('info', '<strong>Attention! </strong>Data is processed.');
-                $this->redirect(array('permohonanIjinBelajar/index'));
+                    $this->redirect(array('permohonanIjinBelajar/index'));
                 }
             } else {
                 PermohonanIjinBelajar::model()->deleteAll('id IN (' . implode(',', $_POST['ceckbox']) . ')');
                 user()->setFlash('danger', '<strong>Attention! </strong>Data is deleted.');
                 $this->redirect(array('permohonanIjinBelajar/index'));
             }
-        }else{
+        } else {
             user()->setFlash('warning', '<strong>Attention! </strong> Please Checked..');
-                $this->redirect(array('permohonanIjinBelajar/index'));
+            $this->redirect(array('permohonanIjinBelajar/index'));
         }
     }
 
@@ -150,8 +150,7 @@ class PermohonanIjinBelajarController extends Controller {
 // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -208,26 +207,11 @@ class PermohonanIjinBelajarController extends Controller {
 
     public function actionGenerateExcel() {
 
-        $jenjang_pendidikan = $_GET['jenjang_pendidikan'];
-        $nomor_register = $_GET['nomor_register'];
-        $tanggal = $_GET['tanggal'];
-        $pegawai_id = $_GET['pegawai_id'];
-        $jurusan = $_GET['jurusan'];
-        $nama_sekolah = $_GET['nama_sekolah'];
-
-        $criteria = new CDbCriteria;
-        $criteria->compare('jenjang_pendidikan', $jenjang_pendidikan, true);
-        $criteria->compare('pegawai_id', $pegawai_id);
-        $criteria->compare('nomor_register', $nomor_register, true);
-        $criteria->compare('tanggal', $tanggal, true);
-        $criteria->compare('jurusan', $jurusan, true);
-        $criteria->compare('nama_sekolah', $nama_sekolah, true);
-
-        $model = PermohonanIjinBelajar::model()->findAll($criteria);
-
-
+        $model = new PermohonanIjinBelajar;
+        $model->attributes = $_GET['PermohonanIjinBelajar'];
+        $data = $model->search(true);
         Yii::app()->request->sendFile('Data Permohonan Ijin Belajar -' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
+                    'model' => $data
                         ), true)
         );
     }
