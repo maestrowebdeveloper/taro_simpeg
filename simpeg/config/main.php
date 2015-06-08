@@ -76,7 +76,7 @@ return array(
                 ),
                 array(
                     'class' => 'CFileLogRoute',
-                    'levels' => 'error',
+                    'levels' => 'error, warning',
                 ),
             ),
         ),

@@ -121,7 +121,7 @@ class Pegawai extends CActiveRecord {
         $criteria = new CDbCriteria;
         $criteria->with = array('JabatanStruktural', 'JabatanStruktural.UnitKerja', 'City', 'JabatanFu', 'JabatanFt', 'Kedudukan', 'Pangkat', 'RiwayatJabatan', 'Pendidikan.Jurusan', 'RiwayatJabatan.Struktural', 'Pangkat.Golongan');
         $criteria->order = 'JabatanStruktural.id';
-        
+
         if (isset($_GET['jk']))
             $criteria->addCondition('jenis_kelamin = ""');
         if (isset($_GET['agama']))
@@ -236,9 +236,11 @@ class Pegawai extends CActiveRecord {
     }
 
 //// untuk rekap jabatan fungsional
-    public function searchJabFung() {
+    public function searchJabFung($export = null) {
         $criteria = new CDbCriteria();
-        $criteria->with = array('RiwayatJabatan', 'JabatanStruktural', 'JabatanFt');
+        $criteria->with = array('RiwayatJabatan', 'JabatanStruktural', 'JabatanFt', 'Pangkat.Golongan', 'JabatanFu', 'Pangkat', 'RiwayatJabatan.Struktural.UnitKerja');
+        $criteria->order = 't.jabatan_struktural_id';
+
         $criteria->addCondition('t.kedudukan_id=1');
         if (!empty($_GET['riwayat_jabatan_id'])) {
             $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_GET['riwayat_jabatan_id']);
@@ -260,10 +262,15 @@ class Pegawai extends CActiveRecord {
                 $criteria->addCondition('JabatanFt.type="teknis"');
             }
         }
-        $data = new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 't.jabatan_struktural_id')
-        ));
+
+        if (empty($export)) {
+            $data = new CActiveDataProvider($this, array(
+                'criteria' => $criteria,
+                'sort' => array('defaultOrder' => 't.jabatan_struktural_id')
+            ));
+        } else {
+            $data = Pegawai::model()->findAll($criteria);
+        }
 
         return $data;
     }
@@ -658,8 +665,8 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getDiklatThn() {
-//        return $this->PelatihanTerakhir . '<br/>' . $this->ThnPelatihanTerakhir;
-        return "-";
+        return $this->PelatihanTerakhir . '<br/>' . $this->ThnPelatihanTerakhir;
+//        return "-";
     }
 
 ////
