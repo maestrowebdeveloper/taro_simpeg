@@ -45,6 +45,7 @@ class ReportController extends Controller {
     }
 
     public function actionUrutKepangkatan() {
+        $this->layout = "mainWide";
         $model = new Pegawai('searchUrutKepangkatan');
         $model->unsetAttributes();
         if (isset($_GET['Pegawai'])) {
@@ -318,7 +319,7 @@ class ReportController extends Controller {
         }
         if (isset($_POST['export'])) {
             $criteria = new CDbCriteria();
-            $criteria->with = array('RiwayatJabatan');
+            $criteria->with = array('RiwayatJabatan','JabatanStruktural');
             $criteria->together = true;
             $criteria->addCondition('kedudukan_id="1"');
 
@@ -330,8 +331,8 @@ class ReportController extends Controller {
             if (!empty($_GET['bulan']))
                 $criteria->addCondition('month(tmt_pensiun) = "' . substr("0" . $_GET['bulan'], -2, 2) . '"');
 
-            if (!empty($_GET['unit_kerja_id']))
-                $criteria->addCondition('unit_kerja_id = ' . $_GET['unit_kerja_id']);
+            if (!empty($_GET['satuan_kerja_id']))
+                $criteria->addCondition('JabatanStruktural.unit_kerja_id = ' . $_GET['satuan_kerja_id']);
 
             if (!empty($_GET['eselon_id'])) {
                 $jbt_id = array();

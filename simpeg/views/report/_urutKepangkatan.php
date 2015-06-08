@@ -2,7 +2,6 @@
 //$criteria = '';
 //if (!empty($model->unit_kerja_id))
 //    $criteria .= 'unit_kerja_id='.$model->unit_kerja_id;
-
 //$data = Pegawai::model()->with('Golongan')->findAll();
 //app()->session['Pegawai_records'] = $data; 
 ?>
@@ -19,7 +18,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th style="width:10px">NO</th>
+                <th style="width:40px" colspan="2">NO</th>
                 <th class="span1">NAMA <br>NIP</th>
                 <th class="span1">TEMPAT <br>TGL LAHIR</th>			
                 <th class="span1">GOL <br> TMT</th>
@@ -34,10 +33,18 @@
         <tbody>
             <?php
             $no = 1;
+            $tempGol = "";
+            $noGol = 0;
             foreach ($model as $value) {
+                if ($value->gol != $tempGol)
+                    $noGol = 1;
+                else
+                    $noGol++;
+                
                 echo '	
 		<tr>
 			<td>' . $no . '</td>
+			<td>' . $noGol . '</td>
 			<td>' . $value->NamaNip . '</td>
 			<td>' . $value->TtlLahir . '</td>			
 			<td>' . $value->GolTmt . '</td>
@@ -50,6 +57,7 @@
 			
 		</tr>';
                 $no++;
+                $tempGol = $value->gol;
             }
             ?>
         </tbody>
