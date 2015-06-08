@@ -46,7 +46,7 @@ $arrPegawai = cmd('SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabata
             ?>
             <tr <?php echo $css?>>
                 <td><?php echo $maju.$arr['unitKerja'] ?></td>
-                <td><?php echo $arr['nip']?></td>
+                <td><?php echo $arr['nip'].'&nbsp;'?></td>
                 <td><?php echo $arr['nama'] ?></td>
                 <td><?php echo $arr['nama_golongan'].' - '.$arr['gol_keterangan'] ?></td>
                 <td><?php echo landa()->date2Ind($arr['tmt_pensiun'])   ?></td>
