@@ -67,19 +67,19 @@ return array(
             // use 'site/error' action to display errors
             'errorAction' => 'site/error',
         ),
-//        'log' => array(
-//            'class' => 'CLogRouter',
-//            'routes' => array(
-//                array(
-//                    'class' => 'common.extensions.yii-debug-toolbar.YiiDebugToolbarRoute',
-//                    'ipFilters' => array('127.0.0.1', '192.168.1.90'),
-//                ),
-//                array(
-//                    'class' => 'CFileLogRoute',
-//                    'levels' => 'error',
-//                ),
-//            ),
-//        ),
+        'log' => array(
+            'class' => 'CLogRouter',
+            'routes' => array(
+                array(
+                    'class' => 'common.extensions.yii-debug-toolbar.YiiDebugToolbarRoute',
+                    'ipFilters' => array('127.0.0.1', '192.168.1.90'),
+                ),
+                array(
+                    'class' => 'CFileLogRoute',
+                    'levels' => 'error',
+                ),
+            ),
+        ),
         'bootstrap' => array(
             'class' => 'common.extensions.bootstrap.components.Bootstrap',
             'responsiveCss' => true,
