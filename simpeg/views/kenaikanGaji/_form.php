@@ -19,21 +19,21 @@
         <div class="well">
             <div class="row-fluid">
                 <div class="control-group">
-                <label class="control-label">Satuan Kerja</label>
-                <div class="controls">
-                    <?php
-                    $data = array('0' => '- Satuan Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
-                    $this->widget(
-                            'bootstrap.widgets.TbSelect2', array(
-                        'name' => 'unit_kerja',
-                        'data' => $data,
-                        'value' => isset($_POST['unit_kerja']) ? $_POST['unit_kerja'] : '',
-                        'options' => array(
-                            'width' => '38%;margin:0px;text-align:left',
-                    )));
-                    ?>                 
+                    <label class="control-label">Satuan Kerja</label>
+                    <div class="controls">
+                        <?php
+                        $data = array('0' => '- Satuan Kerja -') + CHtml::listData(UnitKerja::model()->findAll(array('order' => 'id')), 'id', 'nama');
+                        $this->widget(
+                                'bootstrap.widgets.TbSelect2', array(
+                            'name' => 'unit_kerja',
+                            'data' => $data,
+                            'value' => isset($_POST['unit_kerja']) ? $_POST['unit_kerja'] : '',
+                            'options' => array(
+                                'width' => '38%;margin:0px;text-align:left',
+                        )));
+                        ?>                 
+                    </div>
                 </div>
-            </div>
                 <div class="control-group ">
                     <label class="control-label" for="Pegawai_jabatan_id">Bulan / Tahun</label>
                     <div class="controls">
@@ -71,31 +71,20 @@
             </div>
         </div>
 
-
-        <?php if (!isset($_GET['v']) and isset($_POST['bulan'])) { ?>        <div class="form-actions">
-                <?php
-//                $this->widget('bootstrap.widgets.TbButton', array(
-//                    'buttonType' => 'submit',
-//                    'type' => 'primary',
-//                    'icon' => 'ok white',
-//                    'label' => $model->isNewRecord ? 'Tambah' : 'Simpan',
-//                ));
-                ?>
-                <?php
-//                $this->widget('bootstrap.widgets.TbButton', array(
-//                    'buttonType' => 'reset',
-//                    'icon' => 'remove',
-//                    'label' => 'Reset',
-//                ));
-                ?>
-            </div>
-        <?php } ?>    </fieldset>
+        <div class="well">
+            Keterangan :
+            <ul>
+                <li><span class="label label-success">Hijau</span> : Di Update</li>
+                <li><span class="label">Abu-abu</span>: Belum di Update</li>
+            </ul>
+        </div>
+    </fieldset>
 
     <?php $this->endWidget(); ?>
 
 </div>
 <script>
-    $("#viewPegawai").click(function() {
+    $("#viewPegawai").click(function () {
         var bulan = $("#bulan").val();
         var tahun = $("#tahun").val();
         var unit_kerja = $("#unit_kerja").val();
@@ -103,14 +92,14 @@
             url: "<?php echo url('kenaikanGaji/getListPegawai'); ?>",
             data: "bulan=" + bulan + "&tahun=" + tahun + "&unit_kerja=" + unit_kerja,
             type: "post",
-            success: function(data) {
+            success: function (data) {
                 $("#listPegawai").html(data);
             }
         });
     });
     function excel() {
-        
-        
+
+
         if (document.getElementById('Honorer_jenis_kelamin_0').checked) {
             var jns_kelamin = document.getElementById('Honorer_jenis_kelamin_0').value;
         } else
@@ -131,12 +120,12 @@
 //        } else {
 //            var sts_pernikahan = '';
 //        }
-        
+
         var bulan = $("#bulan").val();
         var tahun = $("#tahun").val();
         var unit_kerja = $("#unit_kerja").val();
 //       alert('nama');
-        window.open("<?php echo url('kenaikanGaji/GenerateExcel') ?>?bulan="+bulan+"&tahun="+tahun+"&unit_kerja="+unit_kerja);
+        window.open("<?php echo url('kenaikanGaji/GenerateExcel') ?>?bulan=" + bulan + "&tahun=" + tahun + "&unit_kerja=" + unit_kerja);
 
     }
 </script>
