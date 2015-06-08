@@ -7,7 +7,7 @@ $this->breadcrumbs = array(
 ?>
 
 <script stype="text/javascript">
-    $('.search-form form').submit(function () {
+    $('.search-form form').submit(function() {
         $.fn.yiiGridView.update('results', {
             data: $(this).serialize()
         });
@@ -124,20 +124,25 @@ $this->breadcrumbs = array(
                     'header' => 'Golongan',
                     'value' => '$data->Pangkat->golongan',
 //            'htmlOptions' => array('style' => 'text-align:center'),
-        ),
-        array(
-            'name' => 'riwayat_jabatan',
-            'type' => 'raw',
-            'header'=>'Jabatan',
-            'value' => '$data->jabatan',
-//            'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 array(
-                    'name' => 'riwayat_pangkat_id',
+                    'name' => 'riwayat_jabatan_id',
                     'type' => 'raw',
-                    'value' => '$data->pangkat',
-//            'htmlOptions' => array('style' => 'text-align:center'),
+                    'header' => 'Unit Kerja',
+                   'value' => '(isset($data->RiwayatJabatan->JabatanStruktural->nama)) ? $data->RiwayatJabatan->JabatanStruktural->nama : "-"',
                 ),
+                array(
+                    'name' => 'riwayat_jabatan_id',
+                    'type' => 'raw',
+                    'header' => 'Jabatan',
+                    'value' => '$data->jabatan',
+                ),
+//                array(
+//                    'name' => 'riwayat_pangkat_id',
+//                    'type' => 'raw',
+//                    'value' => '$data->pangkat',
+//            'htmlOptions' => array('style' => 'text-align:center'),
+//                ),
                 array(
                     'name' => 'alamat',
                     'type' => 'raw',
