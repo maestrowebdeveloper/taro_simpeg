@@ -5,15 +5,6 @@ $this->breadcrumbs = array(
     'Rekapitulasi Data Eselon',
 );
 ?>
-
-<script stype="text/javascript">
-    $('.search-form form').submit(function () {
-        $.fn.yiiGridView.update('results', {
-            data: $(this).serialize()
-        });
-        return false;
-    });
-</script>
 <div class="search-form">
     <?php
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -24,10 +15,7 @@ $this->breadcrumbs = array(
     ));
     ?>
     <div class="well">
-
         <div class="row-fluid">
-
-
             <div class="control-group">
                 <label class="control-label">Satuan Kerja<span class="required">*</span></label>
                 <div class="controls">
@@ -63,14 +51,11 @@ $this->breadcrumbs = array(
                     ?>                 
                 </div>
             </div>
-
-
         </div>
         <div><?php if (!empty($_POST['Pegawai'])) { ?>
                 <a onclick="hide()" class="btn btn-small view" title="Remove Form" rel="tooltip"><i class=" icon-remove-circle"></i></a>
             <?php } ?>
         </div>
-
     </div>
     <div class="form-actions">
         <?php
@@ -105,65 +90,44 @@ $this->breadcrumbs = array(
             'type' => 'striped bordered condensed',
             'template' => '{summary}{pager}{items}{pager}',
             'columns' => array(
-//        'nama',
                 array(
                     'name' => 'nama',
                     'type' => 'raw',
                     'value' => '$data->namaGelar',
-//            'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 array(
                     'name' => 'nip',
                     'type' => 'raw',
                     'value' => '$data->nip',
-//            'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 array(
                     'name' => 'riwayat_pangkat_id',
                     'type' => 'raw',
                     'header' => 'Golongan',
                     'value' => '$data->Pangkat->golongan',
-//            'htmlOptions' => array('style' => 'text-align:center'),
         ),
         array(
             'name' => 'riwayat_jabatan',
             'type' => 'raw',
             'header'=>'Jabatan',
             'value' => '$data->jabatan',
-//            'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 array(
                     'name' => 'riwayat_pangkat_id',
                     'type' => 'raw',
                     'value' => '$data->pangkat',
-//            'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 array(
                     'name' => 'alamat',
                     'type' => 'raw',
                     'header' => 'Alamat',
                     'value' => '$data->alamat',
-//            'htmlOptions' => array('style' => 'text-align:center'),
                 ),
             ),
         ));
     }
     ?>
 </div>
-<script>
-    function printDiv(divName)
-    {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
-    }
-    function hide() {
-        $(".well").hide();
-        $(".form-horizontal").hide();
-    }
-</script>
 <style>
     .form-horizontal .control-group{
         margin-bottom: 5px !important;
