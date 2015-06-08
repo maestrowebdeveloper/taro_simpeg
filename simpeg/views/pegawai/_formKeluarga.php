@@ -25,7 +25,7 @@
         <div class="control-group ">
             <label class="control-label required" for="RiwayatKeluarga_nama">Nama <span class="required">*</span></label>
             <div class="controls">
-                <input class="span3" maxlength="100" value="<?php echo $model->nama; ?>" name="RiwayatKeluarga[nama]" id="RiwayatKeluarga_nama" type="text">
+                <input class="span3" maxlength="100" value="<?php echo $model->nama; ?>" name="RiwayatKeluarga[nama]"  id="RiwayatKeluarga_nama" type="text">
                 <a class="btn btn-info btn-cari">Cari Dari Daftar Pegawai</a>
             </div>
         </div>
@@ -123,6 +123,7 @@
                 },
             }
         }).on('change', function () {
+        
             $.ajax({
                 url: "<?php echo url('pegawai/getDetail') ?>",
                 type: "post",

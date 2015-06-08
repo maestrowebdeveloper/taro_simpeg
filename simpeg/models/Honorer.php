@@ -105,84 +105,31 @@ class Honorer extends CActiveRecord {
      * @return CActiveDataProvider the data provider that can return the models
      * based on the search/filter conditions.
      */
-    public function search() {
+    public function search($export = null) {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-
-        if (isset($_GET['today'])) {
-            $today = date('m/d');
-            $criteria->addCondition('date_format(tanggal_lahir,"%m/%d") = "' . $today . '"');
-        }
-
-        if (isset($_GET['week'])) {
-            $today = date('m/d');
-            $week = date('m/d', strtotime("+7 day", strtotime($today)));
-            $criteria->addCondition('date_format(tanggal_lahir,"%m/%d") between "' . $today . '" and "' . $week . '"');
-        }
-
-        if (isset($_GET['nextweek'])) {
-            $today = date('m/d');
-            $week = date('m/d', strtotime("+7 day", strtotime($today)));
-            $nextweek = date('m/d', strtotime("+7 day", strtotime($week)));
-            $criteria->addCondition('date_format(tanggal_lahir,"%m/%d") between "' . $week . '" and "' . $nextweek . '"');
-        }
-
-        if (isset($_GET['month'])) {
-            $today = date('m');
-            $criteria->addCondition('date_format(tanggal_lahir,"%m") = "' . $today . '"');
-        }
-
-        if (isset($_GET['nextmonth'])) {
-            $today = date('Y-m-d');
-            $nextmonth = date('m', strtotime("+1 month", strtotime($today)));
-            $criteria->addCondition('date_format(tanggal_lahir,"%m") = "' . $nextmonth . '"');
-        }
-//        if (!empty($this->kode)){
-//            $criteria->addCondition('kode IN (20,40)');
-//        }
-        
-        $criteria->compare('id', $this->id);
+//        $criteria->compare('id', $this->id);
         $criteria->compare('kode', $this->kode);
-        $criteria->compare('nomor_register', $this->nomor_register, true);
-        $criteria->compare('t.nama', $this->nama, true);
-        $criteria->compare('tempat_lahir', $this->tempat_lahir);
-        $criteria->compare('status_sk', $this->status_sk);
-        $criteria->compare('tanggal_lahir', $this->tanggal_lahir, true);
-        $criteria->compare('jenis_kelamin', $this->jenis_kelamin, true);
-        $criteria->compare('agama', $this->agama, true);
-        $criteria->compare('id_jurusan', $this->id_jurusan, true);
-        $criteria->compare('tahun_pendidikan', $this->tahun_pendidikan, true);
-        $criteria->compare('status_pernikahan', $this->status_pernikahan, true);
-        $criteria->compare('alamat', $this->alamat, true);
-        $criteria->compare('city_id', $this->city_id);
-        $criteria->compare('kode_pos', $this->kode_pos, true);
-        $criteria->compare('hp', $this->hp, true);
-        $criteria->compare('golongan_darah', $this->golongan_darah, true);
-        $criteria->compare('bpjs', $this->bpjs, true);
-        $criteria->compare('npwp', $this->npwp, true);
-        $criteria->compare('st_peg', $this->st_peg, true);
-        $criteria->compare('pengesahan', $this->pengesahan, true);
-        $criteria->compare('foto', $this->foto, true);
-//        $criteria->compare('unit_kerja_id', $this->unit_kerja_id);
-        $criteria->compare('tmt_kontrak', $this->tmt_kontrak, true);
-        $criteria->compare('jabatan_struktural_id', $this->jabatan_struktural_id);
-        $criteria->compare('jabatan_fu_id', $this->jabatan_fu_id);
-        $criteria->compare('tmt_jabatan', $this->tmt_jabatan, true);
-        $criteria->compare('tmt_akhir_kontrak', $this->tmt_akhir_kontrak, true);
-        $criteria->compare('tmt_mulai_kontrak', $this->tmt_mulai_kontrak, true);
-        $criteria->compare('gaji', $this->gaji);
-        $criteria->compare('created', $this->created, true);
-        $criteria->compare('created_user_id', $this->created_user_id);
-        $criteria->compare('modified', $this->modified, true);
-//        $criteria->addCondition('kode IN (20,40)');
+        $criteria->compare('jenis_kelamin', $this->jenis_kelamin);
+//        $criteria->compare('nomor_register', $this->nomor_register, true);
+//        $criteria->compare('nama', $this->nama, true);
+//        $criteria->compare('agama', $this->agama, true);
+//        $criteria->compare('id_jurusan', $this->id_jurusan, true);
+//        $criteria->compare('tahun_pendidikan', $this->tahun_pendidikan, true);
+//        $criteria->compare('hp', $this->hp, true);
+//        $criteria->compare('nomor_register', $this->nomor_register, true);
+//        $criteria->compare('jabatan_struktural_id', $this->jabatan_struktural_id);
+//        $criteria->compare('jabatan_fu_id', $this->jabatan_fu_id);
 
-        $data = new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'nama')
-        ));
-
-        //app()->session['Honorer_records'] = $this->findAll($criteria); 
+        if (empty($export)) {
+            $data = new CActiveDataProvider($this, array(
+                'criteria' => $criteria,
+                'sort' => array('defaultOrder' => 'nama')
+            ));
+        } else {
+            $data = Honorer::model()->findAll($criteria);
+        }
 
         return $data;
     }
@@ -236,7 +183,7 @@ class Honorer extends CActiveRecord {
         $tmt_mulai_kontrak = date("d-m-Y", $tmt2);
 
         if (isset($tmt_kontrak) or !empty($tmt_kontrak)) {
-            $tahun = str_replace(" Tahun", "", KenaikanGaji::model()->masaKerja($tmt_kontrak,$tmt_mulai_kontrak, true));
+            $tahun = str_replace(" Tahun", "", KenaikanGaji::model()->masaKerja($tmt_kontrak, $tmt_mulai_kontrak, true));
             return $tahun;
         }
     }
@@ -252,7 +199,7 @@ class Honorer extends CActiveRecord {
         $tmt_mulai_kontrak = date("d-m-Y", $tmt2);
 
         if (isset($tmt_kontrak) or !empty($tmt_kontrak)) {
-            $bulan = str_replace(" Bulan", "", KenaikanGaji::model()->masaKerja($tmt_kontrak,$tmt_mulai_kontrak, false, true));
+            $bulan = str_replace(" Bulan", "", KenaikanGaji::model()->masaKerja($tmt_kontrak, $tmt_mulai_kontrak, false, true));
             return $bulan;
         }
     }
@@ -529,6 +476,7 @@ class Honorer extends CActiveRecord {
     public function getTmtMulaiKontrak() {
         return landa()->date2Ind($this->tmt_mulai_kontrak);
     }
+
     public function getTglLahir() {
         return landa()->date2Ind($this->tanggal_lahir);
     }
@@ -539,7 +487,7 @@ class Honorer extends CActiveRecord {
 
     public function getImgUrl() {
 //        return param('pathImg') . 'honorer/' . $this->foto;
-         return(!empty($this->foto)) ?  param('pathImg') . 'honorer/' . $this->foto : param('pathImg') . '350x350-noimage.jpg';
+        return(!empty($this->foto)) ? param('pathImg') . 'honorer/' . $this->foto : param('pathImg') . '350x350-noimage.jpg';
     }
 
     public function getSmallFoto() {
