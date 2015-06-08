@@ -56,6 +56,7 @@ class RiwayatJabatan extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'Pegawai' => array(self::BELONGS_TO, 'Pegawai', 'pegawai_id'),
+            'Struktural' => array(self::BELONGS_TO, 'JabatanStruktural', 'jabatan_struktural_id'),
             'JabatanStruktural' => array(self::BELONGS_TO, 'JabatanStruktural', 'jabatan_struktural_id'),
             'JabatanFu' => array(self::BELONGS_TO, 'JabatanFu', 'jabatan_fu_id'),
             'JabatanFt' => array(self::BELONGS_TO, 'JabatanFt', 'jabatan_ft_id'),
@@ -159,7 +160,7 @@ class RiwayatJabatan extends CActiveRecord {
     public function getTipeJabatan() {
         if ($this->tipe_jabatan == "fungsional_tertentu") {
             return (!empty($this->JabatanFt->type)) ? $this->JabatanFt->type : '-';
-        }else{
+        } else {
             return str_replace("_", " ", $this->tipe_jabatan);
         }
     }
@@ -178,7 +179,7 @@ class RiwayatJabatan extends CActiveRecord {
 
     public function getJabatanStruktural() {
 //        if ($this->tipe_jabatan == "struktural") {
-            return (!empty($this->JabatanStruktural->nama)) ? $this->JabatanStruktural->nama : '-';
+        return (!empty($this->JabatanStruktural->nama)) ? $this->JabatanStruktural->nama : '-';
 //        } else {
 //            return '-';
 //        }
@@ -203,6 +204,7 @@ class RiwayatJabatan extends CActiveRecord {
     public function getTipe() {
         return ucwords(str_replace("_", " ", $this->tipe_jabatan));
     }
+
     public function arrType() {
         $type = array('Terampil' => 'Terampil', 'Ahli' => 'Ahli');
         return $type;
