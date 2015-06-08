@@ -78,7 +78,7 @@ class ReportController extends Controller {
                 $criteria2->compare('kedudukan_id', $model->kedudukan_id);
             if (!empty($model->tipe_jabatan))
                 $criteria2->compare('tipe_jabatan', $model->tipe_jabatan);
-            if (isset($_POST['jurusan']) and ! empty($_POST['jurusan'])) {
+            if (isset($_POST['jurusan']) and !empty($_POST['jurusan'])) {
                 $criteria2->compare('RiwayatPendidikan.jurusan', $_POST['jurusan'], true, 'OR');
                 $criteria2->compare('RiwayatPendidikan.id_jurusan', $_POST['id_jurusan'], true, 'OR');
             }
@@ -319,7 +319,7 @@ class ReportController extends Controller {
         }
         if (isset($_POST['export'])) {
             $criteria = new CDbCriteria();
-            $criteria->with = array('RiwayatJabatan','JabatanStruktural');
+            $criteria->with = array('RiwayatJabatan', 'JabatanStruktural');
             $criteria->together = true;
             $criteria->addCondition('kedudukan_id="1"');
 
@@ -346,7 +346,7 @@ class ReportController extends Controller {
                 }
             }
             //jabatan_ft
-            if (isset($_POST['Pegawai']['jabatan_ft_id']) and ! empty($_POST['Pegawai']['jabatan_ft_id'])) {
+            if (isset($_POST['Pegawai']['jabatan_ft_id']) and !empty($_POST['Pegawai']['jabatan_ft_id'])) {
                 $jabFt = JabatanFt::model()->findAll(array('condition' => 'type ="' . $_POST['Pegawai']['jabatan_ft_id'] . '"'));
                 $id = array();
                 if (empty($jabFt)) {
@@ -370,27 +370,11 @@ class ReportController extends Controller {
     }
 
     public function actionExcelKepangkatan() {
-        $tipe_jabatan = $_GET['tipe_jabatan'];
-
-        $criteria2 = new CDbCriteria();
-
-        $criteria2->together = true;
-        $criteria2->addCondition('t.kedudukan_id="1"');
-//        $criteria2->with = array('RiwayatPendidikan', 'RiwayatJabatan', 'Pangkat.Golongan');
-        $criteria2->with = array('JabatanFt', 'Pangkat.Golongan');
-
-        if (!empty($tipe_jabatan)) {
-            if ($tipe_jabatan == "guru") {
-                $criteria2->addCondition('JabatanFt.type = "guru"');
-            } else {
-                $criteria2->addCondition('JabatanFt.type != "guru" OR tipe_jabatan="struktural" OR tipe_jabatan="fungsional_umum" ');
-            }
-        }
-
-        $model = Pegawai::model()->findAll($criteria2);
-
+        $model = new Pegawai;
+        $model->tipe_jabatan = $_GET['tipe_jabatan'];
+        $data = $model->searchUrutKepangkatan(true);
         return Yii::app()->request->sendFile('Laporan Daftar Urutan Kepangkatan Pegawai.xls', $this->renderPartial('_urutKepangkatan', array(
-                            'model' => $model,
+                            'model' => $data,
                                 ), true)
         );
     }
@@ -424,7 +408,7 @@ class ReportController extends Controller {
             }
         }
         //jabatan_ft
-        if (isset($_GET['Pegawai']['jabatan_ft_id']) and ! empty($_GET['Pegawai']['jabatan_ft_id'])) {
+        if (isset($_GET['Pegawai']['jabatan_ft_id']) and !empty($_GET['Pegawai']['jabatan_ft_id'])) {
             $jabFt = JabatanFt::model()->findAll(array('condition' => 'type ="' . $_GET['Pegawai']['jabatan_ft_id'] . '"'));
             $id = array();
             if (empty($jabFt)) {
