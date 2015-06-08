@@ -6,7 +6,7 @@ $this->breadcrumbs = array(
 );
 ?>
 <script stype="text/javascript">
-    $('.search-form form').submit(function () {
+    $('.search-form form').submit(function() {
         $.fn.yiiGridView.update('results', {
             data: $(this).serialize()
         });
@@ -17,7 +17,7 @@ $this->breadcrumbs = array(
     <?php
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id' => 'search-pegawai-form',
-        'action' => Yii::app()->createUrl($this->route,array('cari' => 1)),
+        'action' => Yii::app()->createUrl($this->route, array('cari' => 1)),
         'method' => 'get',
         'type' => 'horizontal',
     ));
@@ -78,12 +78,13 @@ $this->breadcrumbs = array(
         ?>
         <?php
         $this->widget('bootstrap.widgets.TbButton', array(
-            'buttonType' => 'submit',
+            'buttonType' => 'button',
             'type' => 'primary',
             'icon' => 'ok white',
             'label' => 'Export ke Excel',
             'htmlOptions' => array(
-                'name' => 'export'
+                'name' => 'export',
+                'onClick' => 'chgAction()',
             )
         ));
         ?>
@@ -98,26 +99,22 @@ $this->breadcrumbs = array(
             'type' => 'striped bordered condensed',
             'template' => '{summary}{pager}{items}{pager}',
             'columns' => array(
-//        'nama',
                 array(
                     'name' => 'nama',
                     'header' => 'Nama',
                     'type' => 'raw',
                     'value' => '$data->namaGelar',
-//            'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 array(
                     'name' => 'nip',
                     'type' => 'raw',
                     'value' => '$data->nip',
-//            'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 array(
                     'name' => 'riwayat_pangkat_id',
                     'type' => 'raw',
                     'header' => 'Golongan',
                     'value' => '$data->Pangkat->golongan',
-//            'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 array(
                     'name' => 'riwayat_jabatan_id',
@@ -158,6 +155,12 @@ $this->breadcrumbs = array(
     function hide() {
         $(".well").hide();
         $(".form-horizontal").hide();
+    }
+    function chgAction()
+    {
+        document.getElementById("search-pegawai-form").action = "<?php echo Yii::app()->createUrl('pegawai/excelJabfung'); ?>";
+        document.getElementById("search-pegawai-form").submit();
+
     }
 </script>
 <style>

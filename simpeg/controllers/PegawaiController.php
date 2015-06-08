@@ -768,7 +768,7 @@ class PegawaiController extends Controller {
                             $lahir = (isset($data->sheets[0]['cells'][$j][7])) ? $data->sheets[0]['cells'][$j][7] : '';
                             $tgl_lahir = date('Y-m-d', strtotime($lahir));
                             $pegawai->tanggal_lahir = $tgl_lahir;
-                            $pegawai->kedudukan_id=1;
+                            $pegawai->kedudukan_id = 1;
                             $pegawai->jenis_kelamin = (isset($data->sheets[0]['cells'][$j][8])) ? $data->sheets[0]['cells'][$j][8] : '';
                             $pegawai->agama = (isset($data->sheets[0]['cells'][$j][9])) ? $data->sheets[0]['cells'][$j][9] : '';
                             $pegawai->status_pernikahan = (isset($data->sheets[0]['cells'][$j][10])) ? $data->sheets[0]['cells'][$j][10] : '';
@@ -792,7 +792,7 @@ class PegawaiController extends Controller {
                             $pegawai->tanggal_sk_pns = (isset($data->sheets[0]['cells'][$j][26])) ? $data->sheets[0]['cells'][$j][26] : '';
                             if ($pegawai->save()) {
                                 $pegawai_id[] = $pegawai->id;
-                                   $sukses++;
+                                $sukses++;
                             } else {
                                 $gagal++;
                             }
@@ -1266,16 +1266,19 @@ class PegawaiController extends Controller {
         if (isset($_POST['Pegawai'])) {
             $model->attributes = $_POST['Pegawai'];
         }
-        if (isset($_GET['export'])) {
-            Yii::app()->request->sendFile('Rekap Jabatan Fungsional - ' . date('YmdHi') . '.xls', $this->renderPartial('_rekapJabfung', array(
-                        'model' => $model,
-                            ), true)
-            );
-        }
+
         $this->cssJs();
         $this->render('rekapJabfung', array(
             'model' => $model,
         ));
+    }
+
+    public function actionExcelJabfung() {
+        $model = new Pegawai;
+        $data = $model->searchJabFung(true);
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('_rekapJabfung', array(
+                    'model' => $data,
+                        ), true));
     }
 
     public function actionRekapBatasPensiun() {
