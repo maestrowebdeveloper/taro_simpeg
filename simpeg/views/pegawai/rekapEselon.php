@@ -113,10 +113,22 @@ $this->breadcrumbs = array(
             'value' => '$data->jabatan',
                 ),
                 array(
-                    'name' => 'riwayat_pangkat_id',
+                    'name' => 'riwayat_jabatan_id',
                     'type' => 'raw',
                     'value' => '$data->pangkat',
                 ),
+                array(
+                    'name' => 'riwayat_jabatan_id',
+                    'type' => 'raw',
+                    'header' => 'Jabatan',
+                    'value' => '$data->jabatan',
+                ),
+//                array(
+//                    'name' => 'riwayat_pangkat_id',
+//                    'type' => 'raw',
+//                    'value' => '$data->pangkat',
+//            'htmlOptions' => array('style' => 'text-align:center'),
+//                ),
                 array(
                     'name' => 'alamat',
                     'type' => 'raw',

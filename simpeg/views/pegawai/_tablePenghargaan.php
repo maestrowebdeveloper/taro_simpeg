@@ -5,7 +5,7 @@ $th ='';
 if(!empty($edit)){
     $pegawai_id = (!empty($pegawai_id))?$pegawai_id:'';
     $pegawai_id = (!empty($_GET['id']))?$_GET['id']:$pegawai_id;
-   echo '<a class="btn blue addPenghargaan" pegawai="'.$pegawai_id.'" id=""><i class="minia-icon-file-add blue"></i>Tambah Riwayat Penghargaan</a>';
+   echo '<a class="btn blue addPenghargaan" pegawai="'.$pegawai_id.'" judulpenghargaan="Riwayat Penghargaan" id=""><i class="minia-icon-file-add blue"></i>Tambah Riwayat Penghargaan</a>';
    $th ='<th></th>';
 }
 ?>
@@ -46,6 +46,7 @@ if(!empty($edit)){
 
 <script>
 $(".editPenghargaan,.addPenghargaan").click(function(){
+    var judul = $(this).attr('judulpenghargaan');
             $.ajax({                  
                 url:"<?php echo url('pegawai/getPenghargaan');?>",
                 data:"id="+$(this).attr("id")+"&pegawai="+$(this).attr("pegawai"),
@@ -55,6 +56,7 @@ $(".editPenghargaan,.addPenghargaan").click(function(){
                 }
             });
             $("#modalForm").modal("show");
+            $("#judul").html(judul);
         }); 
         $(".deletePenghargaan").click(function(){
             $.ajax({                                  

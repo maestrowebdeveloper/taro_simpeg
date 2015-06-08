@@ -49,7 +49,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 ),
                     )
             );
-            $data = array('0' => '- Kedudukan -') + array('20' => 20, '40' => 40, '21' => 21, '22' => 22);
+            $data = array('0' => '- Kedudukan -') + array('20' => '20 : Aktif', '40' => '40 : Aktif', '21' => '21 : ', '22' => '22 : Pensiun');
             echo $form->select2Row($model, 'kode', array(
                 'asDropDownList' => true,
                 'data' => $data,
