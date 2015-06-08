@@ -12,12 +12,8 @@ if (isset($_GET['nextweek']))
 ?>
 
 
-<a class="btn btn-info pull-right" href="ulangTahunExcel" target="_blank"><span class="icon16 icomoon-icon-file-excel  white"></span>Export to Excel</a>
-    
-
-
 <h3 style="text-align:center"><?php echo $judul;?></h3>
-
+Pegawai
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'pegawai-grid',
 	'dataProvider'=>$model->search(),
@@ -72,8 +68,9 @@ if (isset($_GET['nextweek']))
 	),
 ));
 
+echo 'Honorer';
 $this->widget('bootstrap.widgets.TbGridView',array(
-  'id'=>'pegawai-grid',
+  'id'=>'honorer-grid',
   'dataProvider'=>$honorer->search(),
         'type'=>'striped bordered condensed',
         'template'=>'{items}{pager}{summary}', 
