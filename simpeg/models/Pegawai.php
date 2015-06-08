@@ -119,7 +119,7 @@ class Pegawai extends CActiveRecord {
 // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-        $criteria->with = array('JabatanStruktural','JabatanFu', 'JabatanFt', 'Kedudukan', 'Pangkat', 'RiwayatJabatan', 'Pendidikan.Jurusan', 'RiwayatJabatan', 'Pangkat.Golongan');
+        $criteria->with = array('JabatanStruktural','JabatanStruktural.UnitKerja','City', 'JabatanFu', 'JabatanFt', 'Kedudukan', 'Pangkat', 'RiwayatJabatan', 'Pendidikan.Jurusan', 'RiwayatJabatan.Struktural', 'Pangkat.Golongan');
 
         if (isset($_GET['jk']))
             $criteria->addCondition('jenis_kelamin = ""');
@@ -152,22 +152,19 @@ class Pegawai extends CActiveRecord {
             $criteria->addCondition("RiwayatJabatan.jabatan_struktural_id = " . $_GET['unit_kerja']);
         }
 
-        if (isset($_GET['satuan_kerja']) and !empty($_GET['satuan_kerja'])) {
-            $criteria->compare('RiwayatJabatan.JabatanStruktural', $_GET['satuan_kerja'], true);
-        }
 // satuan kerja
-//        if (isset($_GET['satuan_kerja']) and !empty($_GET['satuan_kerja'])) {
-//            $satuanKerja = JabatanStruktural::model()->findAll(array('condition' => 'unit_kerja_id = ' . $_GET['satuan_kerja']));
-//            $id = array();
-//            if (empty($satuanKerja)) {
-//                
-//            } else {
-//                foreach ($satuanKerja as $val) {
-//                    $id[] = $val->id;
-//                }
-//            }
-//            $criteria->addCondition('RiwayatJabatan.JabatanStruktural IN (' . implode(",", $id) . ')');
-//        }
+        if (isset($_GET['satuan_kerja']) and !empty($_GET['satuan_kerja'])) {
+            $satuanKerja = JabatanStruktural::model()->findAll(array('condition' => 'unit_kerja_id = ' . $_GET['satuan_kerja']));
+            $id = array();
+            if (empty($satuanKerja)) {
+                
+            } else {
+                foreach ($satuanKerja as $val) {
+                    $id[] = $val->id;
+                }
+            }
+            $criteria->addCondition('RiwayatJabatan.jabatan_struktural_id IN (' . implode(",", $id) . ')');
+        }
 // jabatan FT
         if (isset($_GET['Pegawai']['jabatan_ft_id']) and !empty($_GET['Pegawai']['jabatan_ft_id'])) {
             $jabFt = JabatanFt::model()->findAll(array('condition' => 'type ="' . $_GET['Pegawai']['jabatan_ft_id'] . '"'));
@@ -210,7 +207,7 @@ class Pegawai extends CActiveRecord {
         $criteria2 = new CDbCriteria();
         $criteria2->together = true;
         $criteria2->addCondition('t.kedudukan_id="1"');
-        $criteria2->with = array('JabatanFt', 'Pangkat.Golongan', 'RiwayatJabatan.JabatanStruktural.Eselon');
+        $criteria2->with = array('JabatanFt', 'Pangkat.Golongan', 'RiwayatJabatan.Struktural.Eselon');
 
         if (!empty($this->tipe_jabatan)) {
             if ($this->tipe_jabatan == "guru") {
@@ -355,13 +352,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function listPegawai() {
-//        if (!app()->session['listPegawai']) {
-//            $result = array();
-//            $users = $this->findAll(array('index' => 'id'));
-//            app()->session['listPegawai'] = $users;
-//        }
         $users = $this->findAll(array('index' => 'id'));
-//        return app()->session['listPegawai'];
         return $users;
     }
 
@@ -375,7 +366,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getBup() {
-        $eselon = isset($this->RiwayatJabatan->JabatanStruktural->Eselon->nama) ? $this->RiwayatJabatan->JabatanStruktural->Eselon->nama : "-";
+        $eselon = isset($this->RiwayatJabatan->Struktural->Eselon->nama) ? $this->RiwayatJabatan->Struktural->Eselon->nama : "-";
         $tingkatEselon = substr($eselon, 0, 2);
         $bup = '-';
         if (isset($this->RiwayatJabatan)) {
@@ -413,7 +404,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getSatuanKerja() {
-        return (!empty($this->RiwayatJabatan->JabatanStruktural->UnitKerja->nama) ? $this->RiwayatJabatan->JabatanStruktural->UnitKerja->nama : "-");
+        return (!empty($this->RiwayatJabatan->Struktural->UnitKerja->nama) ? $this->RiwayatJabatan->Struktural->UnitKerja->nama : "-");
     }
 
     public function getRiwayatTipeJabatan() {
@@ -473,7 +464,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getUnitKerja() {
-        return (!empty($this->RiwayatJabatan->JabatanStruktural->UnitKerja->nama)) ? $this->RiwayatJabatan->JabatanStruktural->UnitKerja->nama : '-';
+        return (!empty($this->RiwayatJabatan->Struktural->UnitKerja->nama)) ? $this->RiwayatJabatan->Struktural->UnitKerja->nama : '-';
     }
 
     public function getKedudukan() {
@@ -648,23 +639,23 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getGolTmt() {
-        return $this->Gol . '<br> ' . date('d-m-Y', strtotime($this->tmt_golongan));
+        return $this->Gol . '<br> ' . landa()->date2Ind($this->tmt_golongan);
     }
 
     public function getEslonTmt() {
-        return $this->Esl . '<br> ' . $this->TmtEslon;
+        return $this->Esl . '<br> ' . landa()->date2Ind($this->TmtEslon);
     }
 
     public function getTtlLahir() {
-        return $this->tempat_lahir . '<br> ' . (date("d-m-Y", strtotime($this->tanggal_lahir)));
+        return $this->tempat_lahir . '<br> ' . landa()->date2Ind($this->tanggal_lahir);
     }
 
     public function getJabatanTmt() {
-        return $this->riwayatNamaJabatan . ' // ' . (date("d-m-Y", strtotime($this->riwayatTmtJabatan)));
+        return $this->riwayatNamaJabatan . '<br/>' . landa()->date2Ind($this->riwayatTmtJabatan);
     }
 
     public function getPendidikanThn() {
-        return ucwords(strtolower($this->pendidikanJurusan)) . ' // ' . $this->pendidikanTahun;
+        return ucwords(strtolower($this->pendidikanJurusan)) . '<br/>' . $this->pendidikanTahun;
     }
 
     public function getDiklatTerakhir() {
@@ -682,7 +673,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getDiklatThn() {
-        return $this->PelatihanTerakhir . ' // ' . $this->ThnPelatihanTerakhir;
+        return $this->PelatihanTerakhir . '<br/>' . $this->ThnPelatihanTerakhir;
     }
 
 ////
@@ -1019,7 +1010,7 @@ class Pegawai extends CActiveRecord {
         $bup = 0;
 //        if (!empty($this->tipe_jabatan)) {
 //            if ($this->tipe_jabatan == "struktural") {
-//                $eselon = isset($this->RiwayatJabatan->JabatanStruktural->Eselon->nama) ? $this->RiwayatJabatan->JabatanStruktural->Eselon->nama : "-";
+//                $eselon = isset($this->RiwayatJabatan->Struktural->Eselon->nama) ? $this->RiwayatJabatan->Struktural->Eselon->nama : "-";
 //                $tingkatEselon = substr($eselon, 0, 2);
 //                if ($tingkatEselon == "II") {
 //                    $bup = 60;
