@@ -55,7 +55,7 @@
                 <td><?php echo "'".$row->nip_lama; ?></td> 
                 <td><?php echo $row->namaGelar; ?></td>
                 <td><?php echo $row->jenis_kelamin; ?></td>
-                <td><?php echo $row->ttl; ?></td>
+                <td><?php echo landa()->date2Ind($row->ttl); ?></td>
                 <td><?php echo $row->agama; ?></td>
                 <td> <?php echo $row->pendidikanTerakhir; ?></td>
                 <td> <?php echo $row->pendidikanJurusan; ?></td>
@@ -76,18 +76,18 @@
                 <td><?php echo $row->keterangan; ?></td>
                 <td><?php echo $row->UnitKerjaJabatan; ?></td>
                 <td><?php echo $row->SatuanKerja; ?></td>
-                <td><?php echo $row->tmt_cpns; ?></td>
-                <td><?php echo $row->tmt_pns; ?></td>
-                <td><?php echo $row->tmt_pensiun; ?></td>
+                <td><?php echo landa()->date2Ind($row->tmt_cpns); ?></td>
+                <td><?php echo landa()->date2Ind($row->tmt_pns); ?></td>
+                <td><?php echo landa()->date2Ind($row->tmt_pensiun); ?></td>
                 <td><?php echo $row->bup; ?></td>
                 <td><?php echo $row->golongan; ?></td>
-                <td><?php echo $row->tmtPangkat; ?></td>
+                <td><?php echo landa()->date2Ind($row->tmtPangkat); ?></td>
                 <td><?php echo $row->tipe; ?></td>
                 <td><?php echo $row->jabatan; ?></td>
-                <td><?php echo $row->tmtJabatan; ?></td>
+                <td><?php echo landa()->date2Ind($row->tmtJabatan); ?></td>
                 <td><?php // echo $gaji; ?></td>
                 <td><?php echo $row->masaKerja; ?></td>               
-                <td><?php echo $row->tmt_pensiun; ?></td>       		
+                <td><?php echo landa()->date2Ind($row->tmt_pensiun); ?></td>       		
                       		
             </tr>
         <?php endforeach; ?>

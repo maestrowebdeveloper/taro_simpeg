@@ -34,13 +34,13 @@ if(!empty($edit)){
             echo '
                 <tr>                
                 <td>'.$nama.'</td>
-                <td>'.$value->ttl.'</td>
+                <td>'.landa()->date2Ind($value->ttl).'</td>
                 <td>'.$value->pendidikan_terakhir.'</td>
                 <td>'.$value->pekerjaan.'</td>
                 <td>'.$value->nomor_karsu.'</td>
                 <td>'.$value->nomor_karsi.'</td>
                 <td>'.$value->no_akte_nikah.'</td>
-                <td>'.$value->tanggal_pernikahan.'</td>
+                <td>'.landa()->date2Ind($value->tanggal_pernikahan).'</td>
                 <td>'.$value->status.'</td>
                 '.$action.'
                 </tr>
@@ -74,7 +74,7 @@ if(!empty($edit)){
             echo '
                 <tr>                
                 <td>'.$nama.'</td>
-                <td>'.$value->ttl.'</td>
+                <td>'.landa()->date2Ind($value->ttl).'</td>
                 <td>'.$value->jenis_kelamin.'</td>
                 <td>'.$value->anak_ke.'</td>
                 <td>'.$value->status_anak.'</td>
