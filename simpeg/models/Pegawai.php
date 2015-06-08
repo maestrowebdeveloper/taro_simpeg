@@ -119,7 +119,7 @@ class Pegawai extends CActiveRecord {
 // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-        $criteria->with = array('Pangkat', 'RiwayatJabatan', 'JabatanStruktural');
+        $criteria->with = array('JabatanStruktural','JabatanFu', 'JabatanFt', 'Kedudukan', 'Pangkat', 'RiwayatJabatan', 'Pendidikan.Jurusan', 'RiwayatJabatan', 'Pangkat.Golongan');
 
         if (isset($_GET['jk']))
             $criteria->addCondition('jenis_kelamin = ""');
@@ -152,20 +152,23 @@ class Pegawai extends CActiveRecord {
             $criteria->addCondition("RiwayatJabatan.jabatan_struktural_id = " . $_GET['unit_kerja']);
         }
 
-// satuan kerja
         if (isset($_GET['satuan_kerja']) and !empty($_GET['satuan_kerja'])) {
-            $satuanKerja = JabatanStruktural::model()->findAll(array('condition' => 'unit_kerja_id = ' . $_GET['satuan_kerja']));
-            $id = array();
-            if (empty($satuanKerja)) {
-                
-            } else {
-                foreach ($satuanKerja as $val) {
-                    $id[] = $val->id;
-                }
-            }
-            $criteria->addCondition('RiwayatJabatan.jabatan_struktural_id IN (' . implode(",", $id) . ')');
+            $criteria->compare('RiwayatJabatan.JabatanStruktural', $_GET['satuan_kerja'], true);
         }
-// jabatan FFT
+// satuan kerja
+//        if (isset($_GET['satuan_kerja']) and !empty($_GET['satuan_kerja'])) {
+//            $satuanKerja = JabatanStruktural::model()->findAll(array('condition' => 'unit_kerja_id = ' . $_GET['satuan_kerja']));
+//            $id = array();
+//            if (empty($satuanKerja)) {
+//                
+//            } else {
+//                foreach ($satuanKerja as $val) {
+//                    $id[] = $val->id;
+//                }
+//            }
+//            $criteria->addCondition('RiwayatJabatan.JabatanStruktural IN (' . implode(",", $id) . ')');
+//        }
+// jabatan FT
         if (isset($_GET['Pegawai']['jabatan_ft_id']) and !empty($_GET['Pegawai']['jabatan_ft_id'])) {
             $jabFt = JabatanFt::model()->findAll(array('condition' => 'type ="' . $_GET['Pegawai']['jabatan_ft_id'] . '"'));
             $id = array();
@@ -183,30 +186,11 @@ class Pegawai extends CActiveRecord {
         $criteria->compare('t.nama', $this->nama, true);
         $criteria->compare('gelar_depan', $this->gelar_depan, true);
         $criteria->compare('gelar_belakang', $this->gelar_belakang, true);
-        $criteria->compare('tempat_lahir', $this->tempat_lahir);
-        $criteria->compare('tanggal_lahir', $this->tanggal_lahir, true);
         $criteria->compare('jenis_kelamin', $this->jenis_kelamin, true);
         $criteria->compare('agama', $this->agama, true);
-        $criteria->compare('tmt_keterangan_kedudukan', $this->tmt_keterangan_kedudukan, true);
-        $criteria->compare('Pangkat.golongan_id', isset($_POST['golongan_id']) ? $_POST['golongan_id'] : "", true);
         $criteria->compare('kedudukan_id', $this->kedudukan_id);
         $criteria->compare('status_pernikahan', $this->status_pernikahan, true);
-        $criteria->compare('alamat', $this->alamat, true);
-        $criteria->compare('city_id', $this->city_id);
-        $criteria->compare('kode_pos', $this->kode_pos, true);
         $criteria->compare('hp', $this->hp, true);
-        $criteria->compare('golongan_darah', $this->golongan_darah, true);
-        $criteria->compare('bpjs', $this->bpjs, true);
-        $criteria->compare('npwp', $this->npwp, true);
-        $criteria->compare('kpe', $this->kpe, true);
-        $criteria->compare('kpe', $this->karpeg, true);
-        $criteria->compare('kpe', $this->no_taspen, true);
-        $criteria->compare('foto', $this->foto, true);
-        $criteria->compare('tmt_cpns', $this->tmt_cpns, true);
-        $criteria->compare('tmt_pns', $this->tmt_pns, true);
-        $criteria->compare('t.riwayat_pangkat_id', $this->riwayat_pangkat_id);
-        $criteria->compare('t.tipe_jabatan', $this->tipe_jabatan, true);
-        $criteria->compare('t.jabatan_struktural_id', $this->jabatan_struktural_id);
         $criteria->compare('t.jabatan_fu_id', $this->jabatan_fu_id);
         $criteria->compare('t.tmt_pensiun', $this->tmt_pensiun, true);
 
@@ -216,7 +200,7 @@ class Pegawai extends CActiveRecord {
                 'sort' => array('defaultOrder' => 'JabatanStruktural.id')
             ));
         } else {
-            $data = Pegawai::model()->with('Pangkat', 'RiwayatJabatan', 'JabatanStruktural')->findAll($criteria);
+            $data = Pegawai::model()->findAll($criteria);
         }
 
         return $data;
