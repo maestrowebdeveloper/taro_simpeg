@@ -27,7 +27,7 @@ class Pegawai extends CActiveRecord {
             array('status_pernikahan', 'length', 'max' => 12),
             array('hp', 'length', 'max' => 25),
             array('golongan_darah', 'length', 'max' => 5),
-            array('foto', 'length', 'max' => 225),
+            array('foto, sttpl', 'length', 'max' => 225),
             array('tipe_jabatan', 'length', 'max' => 19),
             array('modified, ket_tmt_cpns', 'safe'),
             // The following rule is used by search().
@@ -88,6 +88,7 @@ class Pegawai extends CActiveRecord {
             'bpjs' => 'BPJS/ASKES/KIS',
             'npwp' => 'No. NPWP',
             'kpe' => 'KPE',
+            'sttpl' => 'No. STTPL',
             'karpeg' => 'Kartu Pegawai',
             'keterangan' => 'Keterangan',
             'no_taspen' => 'No. TASPEN',
