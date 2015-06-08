@@ -5,7 +5,7 @@ $th ='';
 if(!empty($edit)){
     $pegawai_id = (!empty($pegawai_id))?$pegawai_id:'';
     $pegawai_id = (!empty($_GET['id']))?$_GET['id']:$pegawai_id;
-   echo '<a class="btn blue addCuti" pegawai="'.$pegawai_id.'" id=""><i class="minia-icon-file-add blue"></i>Tambah Riwayat Cuti</a>';
+   echo '<a class="btn blue addCuti" pegawai="'.$pegawai_id.'" judulcuti="Riwayat Cuti" id=""><i class="minia-icon-file-add blue"></i>Tambah Riwayat Cuti</a>';
    $th ='<th></th>';
 }
 ?>
@@ -43,6 +43,7 @@ if(!empty($edit)){
 
 <script>
 $(".editCuti,.addCuti").click(function(){
+    var judul = $(this).attr('judulcuti');
             $.ajax({                  
                 url:"<?php echo url('pegawai/getCuti');?>",
                 data:"id="+$(this).attr("id")+"&pegawai="+$(this).attr("pegawai"),
@@ -52,6 +53,7 @@ $(".editCuti,.addCuti").click(function(){
                 }
             });
             $("#modalForm").modal("show");
+            $("#judul").html(judul);
         }); 
         $(".deleteCuti").click(function(){
             $.ajax({                                  
