@@ -1186,16 +1186,8 @@ class PegawaiController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        if (isset($_POST['export'])) {
-            $model->attributes = $_GET['Pegawai'];
-            $data = $model->search('export');
-            Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('rekapExcel', array(
-                        'model' => $data,
-                            ), true));
-        }
         $model = new Pegawai('search');
         $model->unsetAttributes();
-        $criteria = new CDbCriteria();
         $model->kedudukan_id = 1;
         if (isset($_GET['Pegawai'])) {
             $model->attributes = $_GET['Pegawai'];
@@ -1311,12 +1303,10 @@ class PegawaiController extends Controller {
     }
 
     public function actionRekapExcel() {
-
         $session = new CHttpSession;
         $session->open();
         $model = (isset($session['RekapExcel_records'])) ? $session['RekapExcel_records'] : array();
         $unit_kerja = (isset($session['RekapUnitKerjaExcel_records'])) ? $session['RekapUnitKerjaExcel_records'] : "-";
-
 
         Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('rekapExcel', array(
                     'model' => $model, 'unit_kerja' => $unit_kerja,
@@ -1348,11 +1338,12 @@ class PegawaiController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        
-        Yii::app()->request->sendFile('Data Pegawai -' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
-                        ), true)
-        );
+        $model = new Pegawai;
+        $model->attributes = $_GET['Pegawai'];
+        $data = $model->search(true);
+        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
+                    'model' => $data,
+                        ), true));
     }
 
     //-----------------------------------------------------------------------------------

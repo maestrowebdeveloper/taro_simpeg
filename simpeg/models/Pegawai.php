@@ -179,7 +179,6 @@ class Pegawai extends CActiveRecord {
             $criteria->addCondition('RiwayatJabatan.jabatan_ft_id IN (' . implode(",", $id) . ')');
         }
 
-        $criteria->compare('id', $this->id);
         $criteria->compare('nip', $this->nip, true);
         $criteria->compare('t.nama', $this->nama, true);
         $criteria->compare('gelar_depan', $this->gelar_depan, true);
@@ -206,26 +205,18 @@ class Pegawai extends CActiveRecord {
         $criteria->compare('tmt_cpns', $this->tmt_cpns, true);
         $criteria->compare('tmt_pns', $this->tmt_pns, true);
         $criteria->compare('t.riwayat_pangkat_id', $this->riwayat_pangkat_id);
-        if (isset($_POST['Pegawai'])) {
-            $criteria->compare('Pangkat.tmt_pangkat', $_POST['Pegawai']['tmt_golongan'], true);
-        }
         $criteria->compare('t.tipe_jabatan', $this->tipe_jabatan, true);
         $criteria->compare('t.jabatan_struktural_id', $this->jabatan_struktural_id);
         $criteria->compare('t.jabatan_fu_id', $this->jabatan_fu_id);
-        $criteria->compare('t.jabatan_ft_id', $this->jabatan_ft_id);
-        $criteria->compare('tmt_pensiun', $this->tmt_pensiun, true);
-        $criteria->compare('created', $this->created, true);
-        $criteria->compare('created_user_id', $this->created_user_id);
-        $criteria->compare('modified', $this->modified, true);
-        $criteria->compare('bup', $this->bup, true);
+        $criteria->compare('t.tmt_pensiun', $this->tmt_pensiun, true);
 
         if (empty($export)) {
             $data = new CActiveDataProvider($this, array(
                 'criteria' => $criteria,
                 'sort' => array('defaultOrder' => 'JabatanStruktural.id')
             ));
-        }else{
-            $data = Pegawai::model()->findAll($criteria);
+        } else {
+            $data = Pegawai::model()->with('Pangkat', 'RiwayatJabatan', 'JabatanStruktural')->findAll($criteria);
         }
 
         return $data;
@@ -328,7 +319,7 @@ class Pegawai extends CActiveRecord {
                 'sort' => array('defaultOrder' => 't.jabatan_struktural_id')
             ));
         } else {
-            $data = Pegawai::model()->findAll($criteria);
+            $data = Pegawai::model()->with('RiwayatJabatan', 'JabatanStruktural')->findAll($criteria);
         }
 
         return $data;

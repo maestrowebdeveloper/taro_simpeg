@@ -95,13 +95,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     ?>
     <?php
     $this->widget('bootstrap.widgets.TbButton', array(
-        'buttonType' => 'submit',
+        'buttonType' => 'button',
         'type' => 'primary',
         'icon' => 'ok white',
         'label' => 'Export ke Excel',
         'htmlOptions' => array(
             'name' => 'export',
-            'onclick' => 
+            'onClick' => 'chgAction()',
         )
     ));
     ?>
@@ -111,6 +111,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <?php $this->endWidget(); ?>
 
 <script type="text/javascript">
+    function chgAction()
+    {
+        document.getElementById("search-pegawai-form").action = "<?php echo Yii::app()->createUrl('pegawai/generateExcel'); ?>";
+        document.getElementById("search-pegawai-form").submit();
+
+    }
 
     jQuery(function($) {
         $(".btnreset").click(function() {
