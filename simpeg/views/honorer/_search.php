@@ -245,8 +245,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         var nomor_register = $('#Honorer_nomor_register').val();
         var jabatan_struktural_id = $('#Honorer_jabatan_struktural_id').val();
         var jabatan_fu_id = $('#Honorer_jabatan_fu_id').val();
+        var kode = $('#Honorer_kode').val();
 //       alert('nama');
-        window.open("<?php echo url('honorer/GenerateExcel') ?>?jns_kelamin="+jns_kelamin+"&nama="+nama+"&id_jurusan="+id_jurusan+"&tahun_pendidikan="+tahun_pendidikan+"&agama="+agama+"&nomor_register="+nomor_register+"&jabatan_struktural_id="+jabatan_struktural_id+"&jabatan_fu_id="+jabatan_fu_id);
+        window.open("<?php echo url('honorer/GenerateExcel') ?>?jns_kelamin="+jns_kelamin+"&nama="+nama+"&id_jurusan="+id_jurusan+"&tahun_pendidikan="+tahun_pendidikan+"&agama="+agama+"&nomor_register="+nomor_register+"&jabatan_struktural_id="+jabatan_struktural_id+"&jabatan_fu_id="+jabatan_fu_id+"&kode="+kode);
 
     }
 </script>

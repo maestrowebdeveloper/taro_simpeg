@@ -66,11 +66,23 @@ class KenaikanGajiController extends Controller {
     }
 
     public function actionGetListPegawai() {
-        if (!empty($_POST['bulan']) and !empty($_POST['tahun'])) {
-            $bulan = substr("0" . $_POST['bulan'], -2, 2);
-            
-            $query = Pegawai::model()->with('Pangkat')->findAll(array('condition' => 't.kedudukan_id = 1 and month(t.tmt_cpns) <= "' . $bulan . '" ', 'order' => 'Pangkat.golongan_id ASC'));
-            echo $this->renderPartial('/kenaikanGaji/_tableListPegawai', array('query' => $query, 'bulan' => $bulan, 'tahun' => $_POST['tahun']));
+        if (!empty($_POST['unit_kerja'])) {
+              if (!empty($_POST['bulan']) and !empty($_POST['tahun'])) {
+                $bulan = substr("0" . $_POST['bulan'], -2, 2);
+                logs($_POST);
+
+                $query = Pegawai::model()->with('Pangkat','JabatanStruktural')->findAll(array('condition' => 't.kedudukan_id = 1 and JabatanStruktural.unit_kerja_id = '.$_POST['unit_kerja'].' and month(t.tmt_cpns) <= "' . $bulan . '" ', 'order' => 'Pangkat.golongan_id ASC'));
+                echo $this->renderPartial('/kenaikanGaji/_tableListPegawai', array('query' => $query, 'bulan' => $bulan, 'tahun' => $_POST['tahun']));
+            }
+           
+        } else {
+            if (!empty($_POST['bulan']) and !empty($_POST['tahun'])) {
+                $bulan = substr("0" . $_POST['bulan'], -2, 2);
+                logs($_POST);
+
+                $query = Pegawai::model()->with('Pangkat')->findAll(array('condition' => 't.kedudukan_id = 1 and t.jabatan_struktural_id !=0 and month(t.tmt_cpns) <= "' . $bulan . '" ', 'order' => 'Pangkat.golongan_id ASC'));
+                echo $this->renderPartial('/kenaikanGaji/_tableListPegawai', array('query' => $query, 'bulan' => $bulan, 'tahun' => $_POST['tahun']));
+            }
         }
     }
 
@@ -86,8 +98,8 @@ class KenaikanGajiController extends Controller {
                 $valPegawai = Pegawai::model()->findByPk($_POST['pegawai_id'][$i]);
 
                 $tglKenaikan = date("Y-m-d", strtotime($_POST['tmt_mulai'][$i]));
-                
-                $delRiwayatgaji = RiwayatGaji::model()->deleteAll(array('condition' => 'pegawai_id='.$valPegawai->id.' and month(tmt_mulai)="'.$bulan.'" and year(tmt_mulai)="'.$_POST['tahun'].'"'));
+
+                $delRiwayatgaji = RiwayatGaji::model()->deleteAll(array('condition' => 'pegawai_id=' . $valPegawai->id . ' and month(tmt_mulai)="' . $bulan . '" and year(tmt_mulai)="' . $_POST['tahun'] . '"'));
                 $riwayatGaji = new RiwayatGaji;
                 $riwayatGaji->nomor_register = date("ymisd");
                 $riwayatGaji->pegawai_id = $valPegawai->id;
@@ -96,7 +108,7 @@ class KenaikanGajiController extends Controller {
                 $riwayatGaji->tmt_mulai = $_POST['tmt_mulai'][$i];
                 $riwayatGaji->save();
 
-                $delKgb = KenaikanGaji::model()->deleteAll(array('condition' => 'pegawai_id='.$valPegawai->id.' and month(tanggal)="'.$bulan.'" and year(tanggal)="'.$_POST['tahun'].'"'));
+                $delKgb = KenaikanGaji::model()->deleteAll(array('condition' => 'pegawai_id=' . $valPegawai->id . ' and month(tanggal)="' . $bulan . '" and year(tanggal)="' . $_POST['tahun'] . '"'));
                 $kgb = new KenaikanGaji;
                 $kgb->pegawai_id = $valPegawai->id;
                 $kgb->gaji_pokok_lama = $_POST['gaji_lama'][$i];
@@ -158,7 +170,8 @@ class KenaikanGajiController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        } else
+        }
+        else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -193,6 +206,45 @@ class KenaikanGajiController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+    
+    public function actionGenerateExcel(){
+        $tahun = $_GET['tahun'];
+        $bulan = $_GET['bulan'];
+        $unit_kerja = $_GET['unit_kerja'];
+        
+        $criteria = new CDbCriteria;
+        if (!empty($nama))
+            $criteria->compare('nama', $nama, true);
+        if (!empty($jns_kelamin))
+            $criteria->compare('jenis_kelamin', $jns_kelamin, true);
+//        if (!empty($sts_pernikahan))
+//            $criteria->compare('status_pernikahan', $sts_pernikahan, true);
+        if (!empty($id_jurusan))
+            $criteria->compare('id_jurusan', $id_jurusan, true);
+        if (!empty($tahun_pendidikan))
+            $criteria->compare('tahun_pendidikan', $tahun_pendidikan, true);
+        if (!empty($agama))
+            $criteria->compare('agama', $agama, true);
+        if (!empty($nomor_register))
+            $criteria->compare('nomor_register', $nomor_register, true);
+        if (!empty($jabatan_struktural_id))
+            $criteria->compare('jabatan_struktural_id', $jabatan_struktural_id);
+        if (!empty($jabatan_fu_id))
+            $criteria->compare('jabatan_fu_id', $jabatan_fu_id);
+        if (!empty($kode))
+            $criteria->compare('kode', $kode);
+        
+//        $criteria->addCondition('kode IN (20,40)');
+
+        $model = Honorer::model()->findAll($criteria);
+
+
+        Yii::app()->request->sendFile('Data Pegawai Honorer - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
+                    'model' => $model
+                        ), true)
+        );
+
     }
 
 }
