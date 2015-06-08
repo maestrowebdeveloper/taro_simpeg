@@ -36,7 +36,7 @@
             <?php 
             echo $form->textFieldRow($model,'nama',array('class'=>'span3','maxlength'=>255));
             echo $form->textFieldRow($model,'nomor_register',array('class'=>'span3','maxlength'=>255));
-            echo $form->textFieldRow($model,'nomor_sttpl',array('class'=>'span3','maxlength'=>255));
+//            echo $form->textFieldRow($model,'nomor_sttpl',array('class'=>'span3','maxlength'=>255));
             echo $form->textFieldRow($model,'tahun',array('class'=>'span3','maxlength'=>4));
 //            echo $form->dropDownListRow($model, 'tahun', landa()->yearly(), array('class' => 'span3')); 
             echo $form->textFieldRow($model,'lokasi',array('class'=>'span4','maxlength'=>100)); 
