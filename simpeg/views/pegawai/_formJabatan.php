@@ -170,10 +170,11 @@
             <div class="control-group ">
                 <label class="control-label" for="jabatan_fungsional_tertentu">Jabatan Fungsional</label>
                 <div class="controls">
-                    <?php
+                    <?php //
                     $model->jabatan_ft_id = ($model->isNewRecord == false) ? $model->jabatan_ft_id : 0;
                     $jabatan = Golongan::model()->golJabatan($model->type, $model->Pegawai->Pangkat->golongan_id);
-                    echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
+                    $namaJabfung = isset($jabatanFung->nama) ? $jabatanFung->nama : '-';
+                    echo CHtml::textField('jabatan_fungsional_tertentu', $jabatan, array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
                     ?>
                     <?php
 //                    logs($model->type);

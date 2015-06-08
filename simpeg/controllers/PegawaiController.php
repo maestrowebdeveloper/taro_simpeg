@@ -1614,9 +1614,9 @@ class PegawaiController extends Controller {
         if (!empty($_POST['type']) && !empty($_POST['id'])) {
             $jabatan = Golongan::model()->golJabatan($_POST['type'], $_POST['id']);
             if (empty($jabatan)) {
-                echo '-';
+                return '-';
             } else {
-                echo $jabatan;
+                return $jabatan;
             }
         }
     }
