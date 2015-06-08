@@ -88,6 +88,7 @@ class Pegawai extends CActiveRecord {
             'bpjs' => 'BPJS/ASKES/KIS',
             'npwp' => 'No. NPWP',
             'kpe' => 'KPE',
+            'sttpl' => 'No. STTPL',
             'karpeg' => 'Kartu Pegawai',
             'keterangan' => 'Keterangan',
             'no_taspen' => 'No. TASPEN',
