@@ -2,20 +2,12 @@
 $result='';
 $criteria = '';
 if (!empty($_POST['riwayat_jabatan_id'])) {
-//    $criteria .= ' and unit_kerja_id=' . $model->unit_kerja_id;
-//    $unitkerja = $model->unit_kerja_id;
-
-
     $unitKerja = (!empty($_POST['riwayat_jabatan_id'])) ? UnitKerja::model()->findByPk($_POST['riwayat_jabatan_id'])->nama : 'Semua Unit Kerja';
     
-
     if ($model->jabatan_fu_id == "agama") {
-//        $data = Pegawai::model()->findAll(array('condition' => 'id>0' . $criteria, 'group' => 'agama', 'select' => '*,count(id) as id'));
         $sAgama = Pegawai::model()->arrAgama();
 
-
         foreach ($sAgama as $key => $value) {
-//            $agama[$key] = intval($value);
             $agama[$key] = count(cmd('select * from pegawai 
 INNER JOIN riwayat_jabatan ON pegawai.riwayat_jabatan_id = riwayat_jabatan.id
 INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan_struktural.id
@@ -27,7 +19,6 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AN
     } elseif ($model->jabatan_fu_id == "jenis_kelamin") {
         $sjk = Pegawai::model()->arrJenisKelamin();
         foreach ($sjk as $key => $value) {
-//        $jk[$key] = intval($value);
             $jeniskel[$key] = count(cmd('select * from pegawai 
 INNER JOIN riwayat_jabatan ON pegawai.riwayat_jabatan_id = riwayat_jabatan.id
 INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan_struktural.id
@@ -50,7 +41,6 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AN
         }
 
         foreach ($sEselon as $key => $value) {
-//            $eselon[$key] = intval($value);
             $eselon[$key] = count(cmd('select * from pegawai 
 INNER JOIN riwayat_jabatan ON pegawai.riwayat_jabatan_id = riwayat_jabatan.id
 INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan_struktural.id
@@ -63,7 +53,6 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AN
       
 
         foreach ($sTertentu as $key => $value) {
-//            $tertentu[$key] = intval($value);
             $tertentu[$key] = count(cmd('select * from pegawai 
 INNER JOIN riwayat_jabatan ON pegawai.riwayat_jabatan_id = riwayat_jabatan.id
 INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan_struktural.id
@@ -83,7 +72,6 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AN
 
         $sPendidikan = Pegawai::model()->arrJenjangPendidikan();
         foreach ($sPendidikan as $key => $value) {
-//            $pendidikan[$key] = intval($value);
             $pendidikan[$key] = count(cmd('select * from pegawai 
 INNER JOIN riwayat_pendidikan ON pegawai.pendidikan_id = riwayat_pendidikan.id
 INNER JOIN jurusan ON riwayat_pendidikan.id_jurusan = jurusan.id
@@ -98,7 +86,6 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AN
         $sGolongan = CHtml::listData(Golongan::model()->findAll(), 'nama', 'nama');
 
         foreach ($sGolongan as $key => $value) {
-//            $golongan[$key] = intval($value);
             $golongan[$key] = count(cmd('select * from pegawai 
 INNER JOIN riwayat_jabatan ON pegawai.riwayat_jabatan_id = riwayat_jabatan.id
 INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan_struktural.id
@@ -111,6 +98,7 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AN
         $this->renderPartial('_rekapDetail', array('data' => $golongan,'arr'=>$sGolongan, 'unitKerja' => $unitKerja, 'header' => 'PANGKAT / GOLONGAN', 'berdasarkan' => $model->jabatan_fu_id));
     }
 } else {
+    
 //    =====================JIKA TIDAK MEMILIH SKPD===========================
     
     if ($model->jabatan_fu_id == "agama") {
@@ -118,7 +106,6 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $_POST['riwayat_jabatan_id'] . ' AN
         $unitKerja = UnitKerja::model()->findAll(array('order' => 'id'));
 
         $arrAgama = Pegawai::model()->arrAgama();
-//        $jabstruk = JabatanStruktural::model()->with('UnitKerja')->findAll(array('condition' => 'unit_kerja_id IN (' . implode(',', $idunit) . ')'));
 
         foreach ($unitKerja as $unit => $data) {
             foreach ($arrAgama as $key) {
@@ -133,8 +120,6 @@ WHERE jabatan_struktural.unit_kerja_id=' . $data->id . ' AND pegawai.kedudukan_i
                 
             }
         }
-
-
         
         $this->renderPartial('_rekapDetail', array('data' => $agama, 'arr' => $arrAgama, 'unitKerja' => $unitKerja, 'header' => 'AGAMA', 'berdasarkan' => 'all'));
     } elseif ($model->jabatan_fu_id == "jenis_kelamin") {
@@ -142,7 +127,6 @@ WHERE jabatan_struktural.unit_kerja_id=' . $data->id . ' AND pegawai.kedudukan_i
         $jk = Pegawai::model()->arrJenisKelamin();
         foreach ($unitKerja as $unit => $data) {
             foreach ($jk as $key => $value) {
-//        $jk[$key] = intval($value);
                 $result = cmd('select count(nip) as result from pegawai 
 INNER JOIN riwayat_jabatan ON pegawai.riwayat_jabatan_id = riwayat_jabatan.id
 INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan_struktural.id
@@ -154,7 +138,6 @@ WHERE jabatan_struktural.unit_kerja_id =' . $data->id . ' AND pegawai.kedudukan_
                 
             }
         }
-
         
         $this->renderPartial('_rekapDetail', array('data' => $jeniskel, 'arr' => $jk, 'unitKerja' => $unitKerja, 'header' => 'JENIS KELAMIN', 'berdasarkan' => 'all'));
     } elseif ($model->jabatan_fu_id == "tingkat_pendidikan") {
@@ -162,7 +145,6 @@ WHERE jabatan_struktural.unit_kerja_id =' . $data->id . ' AND pegawai.kedudukan_
         $sPendidikan = Pegawai::model()->arrJenjangPendidikan();
         foreach ($unitKerja as $unit => $data) {
             foreach ($sPendidikan as $key => $value) {
-//            $pendidikan[$key] = intval($value);
                 $result = cmd('select count(nip) as result from pegawai 
 INNER JOIN riwayat_pendidikan ON pegawai.pendidikan_id = riwayat_pendidikan.id
 INNER JOIN jurusan ON riwayat_pendidikan.id_jurusan = jurusan.id
@@ -176,7 +158,6 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $data->id . ' AND pegawai.kedudukan
                 
             }
         }
-
         
         $this->renderPartial('_rekapDetail', array('data' => $pendidikan, 'arr' => $sPendidikan, 'unitKerja' => $unitKerja, 'header' => 'TINGKAT PENDIDIKAN', 'berdasarkan' => 'all'));
     } elseif ($model->jabatan_fu_id == "golongan") {
@@ -184,7 +165,6 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $data->id . ' AND pegawai.kedudukan
         $sGolongan = CHtml::listData(Golongan::model()->findAll(), 'nama', 'nama');
         foreach ($unitKerja as $unit => $data) {
             foreach ($sGolongan as $key => $value) {
-//            $golongan[$key] = intval($value);
                 $result = cmd('SELECT count(nip) as result from pegawai 
 INNER JOIN riwayat_jabatan ON pegawai.riwayat_jabatan_id = riwayat_jabatan.id
 INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan_struktural.id
@@ -198,7 +178,6 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $data->id . ' AND pegawai.kedudukan
             }
         }
 
-        
         $this->renderPartial('_rekapDetail', array('data' => $golongan, 'arr' => $sGolongan, 'unitKerja' => $unitKerja, 'header' => 'PANGKAT / GOLONGAN', 'berdasarkan' => 'all'));
     } else {
         $unitKerja = UnitKerja::model()->findAll(array('order' => 'id'));
@@ -222,7 +201,6 @@ WHERE jabatan_struktural.unit_kerja_id = ' . $data->id . ' AND pegawai.kedudukan
        
         foreach ($unitKerja as $unit => $data) {
             foreach ($sTertentu as $key => $value) {
-//            $tertentu[$key] = intval($value);
                 $result2 = cmd('select count(nip) as result from pegawai 
 INNER JOIN riwayat_jabatan ON pegawai.riwayat_jabatan_id = riwayat_jabatan.id
 INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan_struktural.id
@@ -241,9 +219,7 @@ INNER JOIN riwayat_jabatan ON pegawai.riwayat_jabatan_id = riwayat_jabatan.id
 INNER JOIN jabatan_struktural ON riwayat_jabatan.jabatan_struktural_id = jabatan_struktural.id
 WHERE jabatan_struktural.unit_kerja_id = ' . $data->id . ' AND pegawai.kedudukan_id = 1 AND pegawai.tipe_jabatan="fungsional_umum"')->query());
         }
-
-
-        
+       
         $this->renderPartial('_rekapDetailJabatan', array('eselon' => $eselon, 'tertentu' => $tertentu, 'umum' => $umum,'arrEselon'=>$sEselon,'arrTertentu'=>$sTertentu, 'unitKerja' => $unitKerja, 'header' => 'PANGKAT / GOLONGAN', 'berdasarkan' => 'all'));
     }
 }

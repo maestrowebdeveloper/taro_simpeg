@@ -109,23 +109,23 @@ class Honorer extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-//        $criteria->compare('id', $this->id);
-        $criteria->compare('kode', $this->kode);
-        $criteria->compare('jenis_kelamin', $this->jenis_kelamin);
-//        $criteria->compare('nomor_register', $this->nomor_register, true);
-//        $criteria->compare('nama', $this->nama, true);
-//        $criteria->compare('agama', $this->agama, true);
-//        $criteria->compare('id_jurusan', $this->id_jurusan, true);
-//        $criteria->compare('tahun_pendidikan', $this->tahun_pendidikan, true);
-//        $criteria->compare('hp', $this->hp, true);
-//        $criteria->compare('nomor_register', $this->nomor_register, true);
-//        $criteria->compare('jabatan_struktural_id', $this->jabatan_struktural_id);
-//        $criteria->compare('jabatan_fu_id', $this->jabatan_fu_id);
+        $criteria->with = array('Jurusan', 'JabatanStruktural', 'JabatanFu', 'City');
+        $criteria->order = 't.nama ASC';
+
+        $criteria->compare('t.kode', $this->kode);
+        $criteria->compare('t.jenis_kelamin', $this->jenis_kelamin);
+        $criteria->compare('t.nama', $this->nama, true);
+        $criteria->compare('t.agama', $this->agama);
+        $criteria->compare('t.id_jurusan', $this->id_jurusan);
+        $criteria->compare('t.tahun_pendidikan', $this->tahun_pendidikan, true);
+        $criteria->compare('t.nomor_register', $this->nomor_register, true);
+        $criteria->compare('t.jabatan_struktural_id', $this->jabatan_struktural_id, true);
+        $criteria->compare('t.jabatan_fu_id', $this->jabatan_fu_id, true);
 
         if (empty($export)) {
             $data = new CActiveDataProvider($this, array(
                 'criteria' => $criteria,
-                'sort' => array('defaultOrder' => 'nama')
+                'sort' => array('defaultOrder' => 't.nama')
             ));
         } else {
             $data = Honorer::model()->findAll($criteria);
