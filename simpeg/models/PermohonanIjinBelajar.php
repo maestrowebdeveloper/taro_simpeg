@@ -178,7 +178,7 @@ class PermohonanIjinBelajar extends CActiveRecord {
     }
 
     public function getjurusanUniv() {
-        return (!empty($this->JurusanUniv->Name)) ? $this->JurusanUniv->Name : '-';
+        return (!empty($this->Jurusan->Name)) ? $this->Jurusan->Name : '-';
     }
 
     public function getUniv() {

@@ -14,8 +14,6 @@
  		<th width="80px">JURUSAN UNIVERSITAS</th> 		 			 		 		 	
  		<th width="80px">UNIVERSITAS</th> 		 			 		 		 	
  		<th width="80px">JENJANG PENDIDIKAN</th> 		 			 		 		 	
- 		<th width="80px">JURUSAN</th> 		 			 		 		 	
- 		<th width="80px">NAMA SEKOLAH</th> 		 			 		 		 	
  		<th width="80px">ALAMAT SEKOLAH</th> 		 			 		 		 	 		
  	</tr>
 	<?php foreach($model as $row): ?>
@@ -30,9 +28,7 @@
         <td><?php echo $row->jenjang_pendidikan; ?></td>        
         <td><?php echo $row->jurusanUniv; ?></td>        
         <td><?php echo $row->univ; ?></td>        
-        <td><?php echo $row->jenjang_pendidikan; ?></td>        
-        <td><?php echo $row->jurusan; ?></td>        
-        <td><?php echo $row->nama_sekolah; ?></td>        
+        <td><?php echo $row->jenjang_pendidikan; ?></td>      
         <td><?php echo $row->alamat; ?></td>        
        	</tr>
      <?php endforeach; ?>

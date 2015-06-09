@@ -170,6 +170,12 @@ class PermohonanMutasi extends CActiveRecord {
     public function getPegawai() {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
     }
+    public function getNipPegawai() {
+        return (!empty($this->Pegawai->nip)) ? $this->Pegawai->nip : '-';
+    }
+    public function getIjinPejabat() {
+        return (!empty($this->pejabat)) ? str_replace('_',' ',$this->pejabat) : '-';
+    }
 
     public function getUnitKerja() {
         return (!empty($this->UnitKerja->nama)) ? $this->UnitKerja->nama : '-';
