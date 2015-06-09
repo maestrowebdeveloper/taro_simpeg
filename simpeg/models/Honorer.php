@@ -111,15 +111,23 @@ class Honorer extends CActiveRecord {
         $criteria = new CDbCriteria;
         $criteria->with = array('Jurusan', 'JabatanStruktural', 'JabatanFu', 'City');
         $criteria->order = 't.nama ASC';
-
+        if(!empty($this->kode))
         $criteria->compare('t.kode', $this->kode);
+        if(!empty($this->jenis_kelamin))
         $criteria->compare('t.jenis_kelamin', $this->jenis_kelamin);
+        if(!empty($this->nama))
         $criteria->compare('t.nama', $this->nama, true);
+        if(!empty($this->agama))
         $criteria->compare('t.agama', $this->agama);
+        if(!empty($this->id_jurusan))
         $criteria->compare('t.id_jurusan', $this->id_jurusan);
+        if(!empty($this->tahun_pendidikan))
         $criteria->compare('t.tahun_pendidikan', $this->tahun_pendidikan, true);
+        if(!empty($this->nomor_register))
         $criteria->compare('t.nomor_register', $this->nomor_register, true);
+        if(!empty($this->jabatan_struktural_id))
         $criteria->compare('t.jabatan_struktural_id', $this->jabatan_struktural_id, true);
+        if(!empty($this->jabatan_fu_id))
         $criteria->compare('t.jabatan_fu_id', $this->jabatan_fu_id, true);
 
         if (empty($export)) {

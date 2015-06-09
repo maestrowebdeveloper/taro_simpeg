@@ -96,12 +96,12 @@ class SuratKeluar extends CActiveRecord {
 
 //        $criteria->compare('id', $this->id);
 ////        $criteria->compare('pengirim', $this->pengirim, true);
-//        $criteria->compare('penerima', $this->penerima, true);
-//        $criteria->compare('tanggal_kirim', $this->tanggal_kirim, true);
+        $criteria->compare('penerima', $this->penerima, true);
+        $criteria->compare('tanggal_kirim', $this->tanggal_kirim, true);
 ////        $criteria->compare('tanggal_terima', $this->tanggal_terima, true);
-//        $criteria->compare('sifat', $this->sifat, true);
-////        $criteria->compare('nomor_surat', $this->nomor_surat, true);
-////        $criteria->compare('perihal', $this->perihal, true);
+        $criteria->compare('sifat', $this->sifat, true);
+        $criteria->compare('nomor_surat', $this->nomor_surat, true);
+        $criteria->compare('perihal', $this->perihal, true);
 ////        $criteria->compare('isi', $this->isi, true);
 ////        $criteria->compare('file', $this->file, true);
 ////        $criteria->compare('created', $this->created, true);

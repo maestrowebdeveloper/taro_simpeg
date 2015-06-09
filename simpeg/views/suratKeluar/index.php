@@ -71,7 +71,7 @@ $this->endWidget();
  <br>
 
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
-	'id'=>'surat-masuk-grid',
+	'id'=>'surat-keluar-grid',
 	'dataProvider'=>$model->search(),
         'type'=>'striped bordered condensed',
         

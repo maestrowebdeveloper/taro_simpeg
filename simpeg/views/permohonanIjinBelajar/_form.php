@@ -1,152 +1,373 @@
-<p>
-<style type="text/css">table,td,th{padding:0px !important;margin:0px 0px 0px !important;}
-p{margin: 0px 0px 0px !important}
+<?php if (isset($_GET['v'])) { ?>
+    <div class="alert alert-info">
+        <label class="radio">
+            <input id="viewTab" value="PNS" checked="checked" name="view" type="radio">
+            <label for="viewTab">View Form</label></label>
+        <label class="radio"><input id="viewFull" name="view" type="radio">
+            <label for="viewFull">View Print Out</label></label>
+    </div>
+
+<?php } ?>
+
+<div class="form">
+    <?php
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id' => 'permohonan-ijin-belajar-form',
+        'enableAjaxValidation' => false,
+        'method' => 'post',
+        'type' => 'horizontal',
+        'htmlOptions' => array(
+            'enctype' => 'multipart/form-data'
+        )
+    ));
+    ?>
+    <fieldset>
+        <legend>
+            <p class="note">Fields dengan <span class="required">*</span> harus di isi.</p>
+        </legend>
+
+        <?php echo $form->errorSummary($model, 'Opps!!!', null, array('class' => 'alert alert-error span12')); ?>
+
+
+        <?php echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span5', 'maxlength' => 225)); ?>
+
+        <?php
+        echo $form->datepickerRow(
+                $model, 'tanggal_usul', array(
+            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+            'prepend' => '<i class="icon-calendar"></i>'
+                )
+        );
+
+        echo $form->datepickerRow(
+                $model, 'tanggal', array(
+            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+            'prepend' => '<i class="icon-calendar"></i>'
+                )
+        );
+//        if (isset($_GET['v'])) { 
+            echo $form->radioButtonListRow($model, 'status', PermohonanIjinBelajar::model()->ArrStatuspros());
+//        }
+        $idpegawai = isset($model->pegawai_id) ? $model->pegawai_id : 0;
+        $pegawaiName = isset($model->Pegawai->nama) ? $model->Pegawai->nama : '';
+        echo $form->select2Row($model, 'pegawai_id', array(
+            'asDropDownList' => false,
+//                    'data' => $data,
+//                    'value' => $model->Pegawai->nama,
+            'options' => array(
+                'placeholder' => t('choose', 'global'),
+                'allowClear' => true,
+                'width' => '400px',
+                'minimumInputLength' => '3',
+                'ajax' => array(
+                    'url' => Yii::app()->createUrl('pegawai/getListPegawai'),
+                    'dataType' => 'json',
+                    'data' => 'js:function(term, page) { 
+                                                        return {
+                                                            q: term 
+                                                        }; 
+                                                    }',
+                    'results' => 'js:function(data) { 
+                                                        return {
+                                                            results: data
+                                                            
+                                                        };
+                                                    }',
+                ),
+                'initSelection' => 'js:function(element, callback) 
+                            { 
+                               callback({id: ' . $idpegawai . ', text: "' . $pegawaiName . '" });
+                            
+                                  
+                            }',
+            ),
+                )
+        );
+        ?>
+        <?php
+        $unit_kerja = (!empty($model->Pegawai->unitKerja)) ? $model->Pegawai->unitKerja : '';
+        $jenis_kelamin = (!empty($model->Pegawai->jenis_kelamin)) ? $model->Pegawai->jenis_kelamin : '-';
+        $tempat_lahir = (!empty($model->Pegawai->tempatLahir)) ? $model->Pegawai->tempatLahir : '';
+        $tanggal_lahir = (!empty($model->Pegawai->tanggal_lahir)) ? $model->Pegawai->tanggal_lahir : '';
+        $pendidikan_terakhir = (!empty($model->Pegawai->pendidikanTerakhir)) ? $model->Pegawai->pendidikanTerakhir : '';
+        $alamat = (!empty($model->Pegawai->alamat)) ? $model->Pegawai->alamat : '';
+        ?>
+        <div class="control-group "><label  class="control-label">Unit Kerja</label><div class="controls">
+                <input disabled class="span4" maxlength="225" name="" value="<?php echo $unit_kerja; ?>" id="unit_kerja" type="text">
+            </div></div>
+        <div class="control-group "><label  class="control-label">Jenis Kelamin</label><div class="controls">
+                <input disabled class="span4" maxlength="225" name="" value="<?php echo $jenis_kelamin; ?>" id="jenis_kelamin" type="text">
+            </div></div>
+        <div class="control-group "><label  class="control-label">Tempat Lahir</label><div class="controls">
+                <input disabled class="span4" maxlength="225" name="" value="<?php echo $tempat_lahir; ?>" id="tempat_lahir" type="text">
+            </div></div>        
+        <div class="control-group "><label class="control-label" for="">Tanggal Lahir</label><div class="controls">
+                <div  class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span><input id="tanggal_lahir" value="<?php echo $tanggal_lahir; ?>" disabled type="text"></div>
+            </div></div>    
+        <div class="control-group "><label  class="control-label">Pendidikan Terakhir</label><div class="controls">
+                <input disabled class="span4" maxlength="225" name="" id="pendidikan_terakhir" value="<?php echo $pendidikan_terakhir; ?>" type="text">
+            </div></div>        
+        <div class="control-group "><label  class="control-label">Alamat</label><div class="controls">
+                <input disabled class="span6" maxlength="225" name="alamat" id="alamat" value="<?php echo $alamat; ?>" type="text">
+            </div></div>
+
+        <?php
+//        echo $form->radioButtonListRow($model, 'jenjang_pendidikan_asal', Pegawai::model()->ArrJenjangPendidikan());
+
+
+        echo $form->radioButtonListRow($model, 'jenjang_pendidikan', Pegawai::model()->ArrJenjangPendidikan());
+        ?>
+
+      <?php
+        $idjurusan = isset($model->id_jurusan) ? $model->id_jurusan : 0;
+        $jurusanName = isset($model->Jurusan->Name) ? $model->Jurusan->Name : '';
+        echo $form->select2Row($model, 'id_jurusan', array(
+            'asDropDownList' => false,
+//                    'data' => $data,
+//                    'value' => $model->Pegawai->nama,
+            'options' => array(
+                'placeholder' => t('choose', 'global'),
+                'allowClear' => true,
+                'width' => '400px',
+                'minimumInputLength' => '3',
+                'ajax' => array(
+                    'url' => Yii::app()->createUrl('pegawai/getJurusanTingkat'),
+                    'dataType' => 'json',
+                    'data' => 'js:function(term, page) { 
+                                                        return {
+                                                            q: term 
+                                                        }; 
+                                                    }',
+                    'results' => 'js:function(data) { 
+                                                        return {
+                                                            results: data
+                                                            
+                                                        };
+                                                    }',
+                ),
+                'initSelection' => 'js:function(element, callback) 
+                            { 
+                               callback({id: ' . $idjurusan . ', text: "' . $jurusanName . '" });
+                            
+                                  
+                            }',
+            ),
+                )
+        );
+    ?>
+        
+        <?php // echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span5', 'maxlength' => 225)); ?>
+      <?php
+//    if(isset($model->jenjang_pendidikan != 'SMA/SMK') && ($model->jenjang_pendidikan != 'SD') && ($model->jenjang_pendidikan != 'SMP'){
+    
+      ?>
+        <?php
+//        echo $form->textFieldRow($model, 'jurusan', array(
+//            'class' => 'span5',
+//            'maxlength' => 225,
+//        ));
+        // }
+        ?>
+
+        <?php // echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span5', 'maxlength' => 225)); ?>
+        <?php
+//    if(isset($model->jenjang_pendidikan != 'SMA/SMK') && ($model->jenjang_pendidikan != 'SD') && ($model->jenjang_pendidikan != 'SMP'){
+        ?>
+        <?php
+        echo' <div class="control-group "><label class="control-label">Universitas</label><div class="controls">';
+        $data = array('0' => '- Universitas -') + CHtml::listData(Universitas::model()->findAll(array('order' => 'name')), 'id', 'name');
+        $this->widget(
+                'bootstrap.widgets.TbSelect2', array(
+            'name' => 'PermohonanIjinBelajar[id_universitas]',
+            'data' => $data,
+            'value' => $model->id_universitas,
+            'options' => array(
+                'width' => '40%;margin:0px;text-align:left',
+        )));
+        echo "</div></div>";
+       
+//    }
+        ?>
+
+        <?php
+//        $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'PermohonanIjinBelajar[kota]', 'cityValue' => $model->kota, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
+
+//        $idkota = isset($model->kota) ? $model->kota : 0;
+//        $kotaName = isset($model->Kota->name) ? $model->Kota->Province->name.' - '.$model->Kota->name : '';
+//        echo $form->select2Row($model, 'kota', array(
+//            'asDropDownList' => false,
+////                    'data' => $data,
+////                    'value' => $model->Kota->name,
+//            'options' => array(
+//                'placeholder' => t('choose', 'global'),
+//                'allowClear' => true,
+//                'width' => '400px',
+//                'minimumInputLength' => '3',
+//                'ajax' => array(
+//                    'url' => Yii::app()->createUrl('city/getListKota'),
+//                    'dataType' => 'json',
+//                    'data' => 'js:function(term, page) { 
+//                                                        return {
+//                                                            q: term 
+//                                                        }; 
+//                                                    }',
+//                    'results' => 'js:function(data) { 
+//                                                        return {
+//                                                            results: data
+//                                                            
+//                                                        };
+//                                                    }',
+//                ),
+//                'initSelection' => 'js:function(element, callback) 
+//                            { 
+//                            callback({id: '.$idkota.', text: "'.$kotaName.'" });
+//                             
+//                                  callback(data);
+//                                  
+//                            }',
+//            ),
+//                )
+//        );
+        ?>
+
+        <?php echo $form->textAreaRow($model, 'alamat', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
+
+
+
+<?php if (!isset($_GET['v'])) { ?>        <div class="form-actions">
+            <?php
+            $this->widget('bootstrap.widgets.TbButton', array(
+                'buttonType' => 'submit',
+                'type' => 'primary',
+                'icon' => 'ok white',
+                'label' => $model->isNewRecord ? 'Tambah' : 'Simpan',
+            ));
+            ?>
+            <?php
+            $this->widget('bootstrap.widgets.TbButton', array(
+                'buttonType' => 'reset',
+                'icon' => 'remove',
+                'label' => 'Reset',
+            ));
+            ?>
+            </div>
+        <?php } ?>    </fieldset>
+
+        <?php $this->endWidget(); ?>
+
+</div>
+
+<?php if (isset($_GET['v'])) { ?>
+    <div class="surat" id="surat" style="display:none">
+        <?php
+        $siteConfig = SiteConfig::model()->listSiteConfig();
+        $content = $siteConfig->format_ijin_belajar;
+        $universitas = (isset($model->Univ->name)) ? $model->Univ->name :'-';
+        $content = str_replace('{no_usul}', $model->nomor_register, $content);
+        $content = str_replace('{nama}', $model->nama, $content);
+        $content = str_replace('{nip}', $model->nip, $content);
+        $content = str_replace('{pangkat}', $model->golongan, $content);
+        $content = str_replace('{unit_kerja}', $model->unit_kerja, $content);
+        $content = str_replace('{satuan_kerja}', $model->satuanKerja, $content);
+        $content = str_replace('{jabatan}', $model->jabatan, $content);
+        $content = str_replace('{jenjang_pendidikan}', $model->jenjang_pendidikan, $content);
+//        $content = str_replace('{jurusan}', $model->jurusan, $content);
+        $content = str_replace('{jurusan}', $model->Jurusan->Name, $content);
+        $content = str_replace('{nama_sekolah}', (isset($model->Univ->name)) ? $model->Univ->name : '-', $content);
+        
+        $content = str_replace('{kota_sekolah}', $model->kotaSekolah, $content);
+        $content = str_replace('{tanggal}', date('d F Y', strtotime($model->tanggal)), $content);
+        echo $content;
+        ?>
+    </div>
+    <?php } ?>
+
+<style type="text/css">
+    td{
+        vertical-align: top !important;
+    }
 </style>
-</p>
+<script type="text/javascript">
+    $("#PermohonanIjinBelajar_pegawai_id").on("change", function () {
+        //var name = $("#Registration_guest_user_id").val();
+        //  alert(name);
 
-<center><img alt="" src="http://simpegbkd.sampang/images/garuda.jpg" style="width: 67px; height: 78px;" /><br />
-<strong>BUPATI SAMPANG</strong><br />
-<br />
-<strong>KEPUTUSAN BUPATI SAMPANG</strong><br />
-<strong>NOMOR : 819/ &nbsp; &nbsp; /434.206 TAHUN 2015</strong><br />
-<strong>TENTANG</strong><br />
-<strong>PERPANJANGAN TENAGA HONORER DAERAH KABUPATEN SAMPANG</strong><br />
-<br />
-<strong>BUPATI SAMPANG</strong></center>
+        $.ajax({
+            url: "<?php echo url('pegawai/getDetail'); ?>",
+            type: "POST",
+            data: {id: $(this).val()},
+            success: function (data) {
 
-<center>&nbsp;</center>
+                obj = JSON.parse(data);
+                $("#unit_kerja").val(obj.unit_kerja);
+                $("#jenis_kelamin").val(obj.jenis_kelamin);
+                $("#tempat_lahir").val(obj.tempat_lahir);
+                $("#tanggal_lahir").val(obj.tanggal_lahir);
+                $("#pendidikan_terakhir").val(obj.pendidikan_terakhir);
+                $("#alamat").val(obj.alamat);
+            }
+        });
+    })
 
-<table border="0" cellpadding="1" cellspacing="1" style="width: 100%;">
-	<tbody>
-		<tr>
-			<td style="vertical-align: top;padding-top:0px">Menimbang</td>
-			<td style="width:5px; vertical-align: top;padding-top:0px;">:</td>
-			<td style="vertical-align:top;padding-top:0px">Bahwa untuk kepentingan dinas dipandang perlu untuk &nbsp;memperpanjang <strong>{status}</strong> a.n. <strong>{nama}</strong> yang diangkat dengan Keputusan <strong>{disahkan}</strong> Nomor : <strong>{nomor_pengangkatan}</strong> tanggal : &nbsp;<strong>{tmt_pengangkatan}&nbsp;</strong>TMT : <strong>{tanggal_pengangkatan}</strong>.</td>
-		</tr>
-		<tr>
-			<td style="vertical-align: top;padding-top:0px">Mengingat</td>
-			<td style="width:5px; vertical-align: top;padding-top:0px;">:</td>
-			<td style="vertical-align:top;padding-top:0px">1. Undang-Undang Nomor : 43 Tahun 1988 tentang Perubahan atas dasar Undang-Undang Nomor : 08 Tahun 1974 tentang Pokok-Pokok Kepegawaian;<br />
-			2. Undang-Undang 32 Tahun 2004 tentang Pemerindah Daerah sebagaimana telah diubah dengan Peraturan Pemerintah Pengganti Undang-Undang Nomor : 3 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Tahun 2005 tentang Perubahan Atas Undang-Undang 32 Tahun 2004 tentang Pemerintah Daerah;<br />
-			3. Peraturan Bupati Sampang Nomor : 6 Tahun 2011 tentang Pemberhentian, Sanksi, Pembayaran Honor dan Penilaian Pekerjaan Tenaga Honorer di Lingkungan &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Pemerintahan Kabupaten Sampang.</td>
-		</tr>
-		<tr>
-			<td colspan="3" style="text-align: center;;padding-top:0px"><br />
-			<strong>M E M U T U S K A N</strong><br />
-			&nbsp;</td>
-		</tr>
-		<tr>
-			<td style="vertical-align:top;padding-top:0px">Menetapkan&nbsp;</td>
-			<td style="width:5px;padding-top:0px">:</td>
-			<td style="vertical-align:top;padding-top:0px">Keputusan Bupati Sampang Tentang Perpanjangan Tenaga Honorer Daerah Kabupaten Sampang</td>
-		</tr>
-		<tr>
-			<td style="vertical-align:top;padding-top:0px">KESATU</td>
-			<td style="width:5px;vertical-align:top;padding-top:0px">:</td>
-			<td style="padding-top: 0px">Terhitung mulai tanggal <strong>{tmt_mulai}</strong> memperpanjang <strong>{status}</strong> tersebut di bawah ini :<br />
-			<table border="0" cellpadding="1" cellspacing="1" style="width: 100%;">
-				<tbody>
-					<tr>
-						<td style="width: 150px;padding-left:0px;padding:0px">Nama</td>
-						<td style="width: 5px;;padding:0px">:</td>
-						<td style="width: ;;padding:0px"><strong>{nama}</strong></td>
-					</tr>
-					<tr>
-						<td style="padding-left:0px;;padding:0px">Tempat/Tgl. Lahir</td>
-						<td style="width: 5px;;padding:0px">:</td>
-						<td style="width: ;;padding:0px"><strong>{ttl}</strong></td>
-					</tr>
-					<tr>
-						<td style="width: 150px;padding-left:0px;;padding:0px">Jenis Kelamin</td>
-						<td style="width: 5px;;padding:0px">:</td>
-						<td style="width: ;;padding:0px"><strong>{jenis_kelamin}</strong></td>
-					</tr>
-					<tr>
-						<td style=";padding-left:0px;padding:0px">Pendidikan // Tahun</td>
-						<td style="width: 5px;;padding:0px">:</td>
-						<td style="width: ;;padding:0px"><strong>{pendidikan} // {tahun}</strong></td>
-					</tr>
-					<tr>
-						<td style=";padding-left:0px;padding:0px">Masa Kerja</td>
-						<td style="width: 5px;;padding:0px">:</td>
-						<td style="width: ;;padding:0px"><strong>{masa_kerja}</strong></td>
-					</tr>
-					<tr>
-						<td style="padding-left:0px;;padding:0px">Besarnya Honor</td>
-						<td style="width: 5px;;padding:0px">:</td>
-						<td style="width: ;;padding:0px"><strong>{gaji}</strong></td>
-					</tr>
-					<tr>
-						<td style=";padding-left:0px;padding:0px">Unit Kerja</td>
-						<td style="width: 5px;;padding:0px">:</td>
-						<td style="padding:0px"><strong>{unit_kerja}</strong></td>
-					</tr>
-				</tbody>
-			</table>
-			</td>
-		</tr>
-		<tr>
-			<td style="vertical-align:top;padding-top:0px">KEDUA</td>
-			<td style="width:5px;padding-top:0px">:</td>
-			<td style="vertical-align:top;padding-top:0px">Keputusan ini berlaku mulai tanggal <strong>{tmt_mulai}</strong> sampai dengan tanggal <strong>{tmt_selesai}</strong></td>
-		</tr>
-		<tr>
-			<td style="vertical-align:top;padding-top:0px">KETIGA</td>
-			<td style="width:5px;padding-top:0px">:</td>
-			<td style="vertical-align:top;padding-top:0px">Keuangan akibat keputusan ini dibebankan pada Anggaran Pendapatan dan Belanja Daerah Kabupaten Sampang.</td>
-		</tr>
-		<tr>
-			<td style="vertical-align:top;padding-top:0px">KEEMPAT</td>
-			<td style="width:5px;vertical-align:top;padding-top:0px">:</td>
-			<td style="vertical-align:top;padding-top:0px">Apabila dikemudian hari ternyata ada kekeliruan dalam &nbsp;keputusan ini akan diadakan perubahan sebagai mana mestinya.</td>
-		</tr>
-	</tbody>
-</table>
+    $("#viewTab").click(function () {
+        $(".surat").hide();
+        $(".form").show();
+    });
 
-<table border="0" cellpadding="1" cellspacing="1" style="width: 100%;">
-	<tbody>
-		<tr>
-			<td style="width:30%">&nbsp;</td>
-			<td style="width:30%">&nbsp;</td>
-			<td style="width:30%">Ditetapkan di : Sampang<br />
-			Pada Tanggal : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2015</td>
-		</tr>
-		<tr>
-			<td style="width:30%">&nbsp;</td>
-			<td style="width:30%">&nbsp;</td>
-			<td style="width:30%"><strong>BUPATI SAMPANG</strong></td>
-		</tr>
-		<tr>
-			<td style="width:30%">&nbsp;</td>
-			<td style="width:30%">&nbsp;</td>
-			<td style="width:30%">&nbsp;</td>
-		</tr>
-		<tr>
-			<td style="width:30%">&nbsp;</td>
-			<td style="width:30%">&nbsp;</td>
-			<td style="width:30%">&nbsp;</td>
-		</tr>
-		<tr>
-			<td style="width:30%">&nbsp;</td>
-			<td style="width:30%">&nbsp;</td>
-			<td style="width:30%"><strong>H. A. FANNAN HASIB</strong></td>
-		</tr>
-		<tr>
-			<td style="width:30%">Tembusan :</td>
-			<td style="width:30%">&nbsp;</td>
-			<td style="width:30%">&nbsp;</td>
-		</tr>
-		<tr>
-			<td style="width:30%">
-			<p>1. Inspektur Kabupaten Sampang;<br />
-			2. Kepala {satuan_kerja} Kabupaten Sampang;<br />
-			3. Kepala Dinas Pendapatan, Pengelolaan Keuangan dan &nbsp; &nbsp; &nbsp; Aset Kabupaten Sampang<br />
-			4. Kepala {unit_kerja} {satuan_kerja} Kabupaten Sampang;</p>
+    $("#viewFull").click(function () {
+        $(".surat").show();
+        $(".form").hide();
+    });
 
-			<p>5. Yang Bersangkutan</p>
-			</td>
-			<td style="width:30%">&nbsp;</td>
-			<td style="width:30%">&nbsp;</td>
-		</tr>
-	</tbody>
-</table>
+
+
+    function printDiv(divName)
+    {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        $("#myTab a").click(function (e) {
+            e.preventDefault();
+            $(this).tab("show");
+        })
+        $("#viewTab").click(function () {
+            $(".surat").hide();
+            $(".form").show();
+        });
+
+        $("#viewFull").click(function () {
+            $(".surat").show();
+            $(".form").hide();
+        });
+
+
+    }
+       
+    <?php
+//    if ($model->jenjang_pendidikan == "SD") {
+//    echo '$("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
+//} else
+//    if ($model->jenjang_pendidikan == "SLTP"){
+//       echo ' $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
+//}else
+//    if ($model->jenjang_pendidikan == "SLTA/SMK"){
+//        echo'$("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none")
+//            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:");
+//            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:");';
+//    }else{
+//        echo'$("#PermohonanIjinBelajar_jurusan").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_nama_sekolah").parent().parent().attr("style", "display:none");
+//            $("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:");
+//            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:");';
+//    }
+?>
+</script>
