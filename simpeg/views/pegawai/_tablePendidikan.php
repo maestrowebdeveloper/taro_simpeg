@@ -30,11 +30,12 @@
 
                     if (isset($value->Jurusan->Name))
                         $jurusan = $value->Jurusan->Name;
-
+                    $displays = (!empty($edit) && ($value->id == $value->Pegawai->pendidikan_id)) ? 'style="display:none"' : 'style="display:"';
+//                    logs($displays);
                     $action = (!empty($edit)) ? '<td style="width: 85px;text-align:center">
                     <a class="btn btn-small update editPendidikan" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" title="Edit" rel="tooltip" ><i class="icon-pencil"></i></a> 
                     <a class="btn btn-small delete deletePendidikan" title="Hapus" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-trash"></i></a>
-                    <a class="btn btn-small pilih selectPendidikan" title="Pilih" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-ok"></i></a>
+                    <a class="btn btn-small pilih selectPendidikan" '.$displays.' title="Pilih" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-ok"></i></a>
                     </td>' : '';
                     echo '
                 <tr>

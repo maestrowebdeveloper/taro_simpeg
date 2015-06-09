@@ -120,6 +120,7 @@ class PegawaiController extends Controller {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $model = RiwayatPangkat::model()->findByPk($id);
         if (!empty($model)) {
+            Pegawai::model()->updateByPk($model->pegawai_id, array('riwayat_pangkat_id' =>$model->id));
             $data['id'] = $model->id;
             $data['nama_golongan'] = $model->golongan;
             $data['tmt_pangkat'] = $model->tmt_pangkat;
@@ -185,7 +186,7 @@ class PegawaiController extends Controller {
         $jabatan = '';
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $model = RiwayatJabatan::model()->findByPk($id);
-
+        Pegawai::model()->updateByPk($model->pegawai_id, array('riwayat_jabatan_id' =>$model->id));
         if ($model->tipe_jabatan == "struktural") {
             $pegawai = Pegawai::model()->findAll(array('condition' => 'jabatan_struktural_id=' . $model->jabatan_struktural_id . ' and kedudukan_id=1 and tipe_jabatan="struktural"'));
             $jabatan = isset($model->JabatanStruktural->jabatan) ? $model->JabatanStruktural->jabatan : "-";
@@ -236,6 +237,7 @@ class PegawaiController extends Controller {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $model = RiwayatGaji::model()->findByPk($id);
         if (!empty($model)) {
+            Pegawai::model()->updateByPk($model->pegawai_id, array('riwayat_gaji_id' =>$model->id));
             $data['id'] = $model->id;
             $data['gaji'] = landa()->rp($model->gaji);
             $data['tmt'] = $model->tmt_mulai;
@@ -460,6 +462,7 @@ class PegawaiController extends Controller {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $model = RiwayatPendidikan::model()->findByPk($id);
         if (!empty($model)) {
+            Pegawai::model()->updateByPk($model->pegawai_id, array('pendidikan_id' =>$model->id));
             $data['id'] = $model->id;
             $data['jenjang_pendidikan'] = $model->tingkatPendidikan;
             $data['tahun'] = $model->tahun;
