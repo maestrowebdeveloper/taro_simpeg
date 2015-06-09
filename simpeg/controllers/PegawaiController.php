@@ -899,7 +899,7 @@ class PegawaiController extends Controller {
                         }
                     }
 
-                    user()->setFlash('info', '<strong>Berhasil! </strong>Total Pegawai : ' . $total_pegawai . ', Berhasil : ' . $sukses . ', Gagal : ' . $gagal);
+                    user()->setFlash('info', '<strong>Berhasil! </strong>Total Riwayat Pangkat : ' . $total_pegawai . ', Berhasil : ' . $sukses . ', Gagal : ' . $gagal);
                 }
             }
         }

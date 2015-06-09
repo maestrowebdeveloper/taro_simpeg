@@ -12,8 +12,9 @@
     <table class="table table-bordered" id="tableJabatan">
         <thead>
         <th>No. Register</th>
-        <!--<th>Jabatan</th>-->
         <th>Unit Kerja</th>
+        <th>Jabatan</th>
+        
         <th>Tmt Jabatan</th>        
         <th>Eselon</th>     
         <th>Tmt Eselon</th>
@@ -50,7 +51,9 @@
                 echo '
                 <tr>
                 <td>' . $value->nomor_register . '</td>
+                    <td>' . $value->Struktural->nama . '</td>
                 <td>' . $jabatan . '</td>
+                
                 <td>' . $tmt_jabatan . '</td>
                 <td>' . $eselon . '</td>
                 <td>' . $tmt_eselon . '</td>                            
