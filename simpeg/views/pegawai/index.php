@@ -91,13 +91,13 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'header' => 'Foto',
             'type' => 'raw',
             'value' => '"$data->smallFoto"',
-            'htmlOptions' => array('style' => 'text-align: center; width:60px;')
+            'htmlOptions' => array('style' => 'text-align: left; width:60px;')
         ),
         array(
             'name' => 'nip',
             'header' => 'nip',
             'type' => 'raw',
-            'htmlOptions' => array('style' => 'text-align: center; width:140px;')
+            'htmlOptions' => array('style' => 'text-align: left; width:140px;')
         ),
         'nama',
         array(

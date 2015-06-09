@@ -5,8 +5,7 @@
         <tr>		
             <th width="80px">NIP</th>
             <th width="80px">NIP LAMA</th> 	                
-            <th width="80px">NAMA</th> 		
-
+            <th width="80px">NAMA</th> 	
             <th width="80px">JENIS KELAMIN</th> 		
             <th width="80px">TTL</th> 		
             <th width="80px">AGAMA</th> 		 		 		 	
@@ -80,7 +79,7 @@
                 <td><?php echo $row->tipe; ?></td>
                 <td><?php echo $row->jabatan; ?></td>
                 <td><?php echo landa()->date2Ind($row->tmtJabatan); ?></td>
-                <td><?php echo isset($row->RiwayatGaji->gaji) ? landa()->rp($row->RiwayatGaji->gaji) : "-"; ?></td>
+                <td><?php echo isset($row->Gaji->gaji) ? landa()->rp($row->Gaji->gaji) : "-"; ?></td>
                 <td><?php echo $row->masaKerja; ?></td>               
                 <td><?php echo landa()->date2Ind($row->tmt_pensiun); ?></td>       		
                       		
