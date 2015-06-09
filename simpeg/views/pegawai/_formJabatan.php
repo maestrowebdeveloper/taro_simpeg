@@ -319,22 +319,6 @@
     $("body").on("change", "#RiwayatJabatan_type", function () {
         jabatanFungsional();
     });
-//    function detailJabatan() {
-//        var postData = $("#jabatan-form").serialize();
-//        $.ajax({
-//            url: "<?php // echo url('pegawai/riwayatStatusJabatan'); ?>",
-//            data: postData,
-//            type: "post",
-//            success: function (data) {
-//                obj = JSON.parse(data);
-//                $("#Riwayateselon").val(obj.eselon);
-//                $("#Riwayatjabatanasli").val(obj.jabatan);
-//            }
-//        });
-//    }
-//    $("#RiwayatJabatan_jabatan_struktural_id").change(function () {
-//        detailJabatan();
-//    });
 
     $("#RiwayatJabatan_jabatan_ft_id").change(function () {
         $.ajax({
