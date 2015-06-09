@@ -556,6 +556,17 @@ class Pegawai extends CActiveRecord {
             return '-';
         }
     }
+    public function getJabatanId() {
+        if ($this->tipe_jabatan == "struktural") {
+            return (!empty($this->JabatanStruktural->id)) ? $this->JabatanStruktural->id : '';
+        } elseif ($this->tipe_jabatan == "fungsional_umum") {
+            return (!empty($this->JabatanFu->id)) ? $this->JabatanFu->id : '';
+        } elseif ($this->tipe_jabatan == "fungsional_tertentu") {
+            return (!empty($this->JabatanFt->id)) ? $this->JabatanFt->id : '';
+        } else {
+            return '-';
+        }
+    }
 
     public function getTmtJabatan() {
         return isset($this->RiwayatJabatan->tmt_mulai) ? $this->RiwayatJabatan->tmt_mulai : "-";

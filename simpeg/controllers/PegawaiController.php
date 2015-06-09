@@ -78,6 +78,7 @@ class PegawaiController extends Controller {
         $return['nip'] = $model->nip;
         $return['jenis_kelamin'] = (!empty($model->jenis_kelamin)) ? $model->jenis_kelamin : '-';
         $return['jabatan'] = $model->jabatan;
+        $return['jabatan_id'] = $model->jabatanId;
         $return['tipe_jabatan'] = $model->tipe;
         $return['unit_kerja'] = $model->unitKerja;
         $return['masa_kerja'] = $model->masaKerja;
