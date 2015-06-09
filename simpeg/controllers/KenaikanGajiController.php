@@ -91,7 +91,7 @@ class KenaikanGajiController extends Controller {
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['proses'])) {
+        if (isset($_POST['dibayar'])) {
 
 //            for ($i = 0; $i < count($_POST['dibayar']); $i++) {
 //                if (isset($_POST['dibayar'][$i])) {
