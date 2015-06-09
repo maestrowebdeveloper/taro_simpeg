@@ -56,9 +56,9 @@
                 <td>' . (isset($value->JabatanStruktural->nama) ? $value->JabatanStruktural->nama : "-") . '</td>
                 <td>' . $jabatan . '</td>
                 
-                <td>' . $tmt_jabatan . '</td>
+                <td>' . landa()->date2Ind($tmt_jabatan) . '</td>
                 <td>' . $eselon . '</td>
-                <td>' . $tmt_eselon . '</td>                            
+                <td>' . landa()->date2Ind($tmt_eselon) . '</td>                            
                 ' . $action . '
                 </tr>
             ';

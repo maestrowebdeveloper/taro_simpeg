@@ -29,9 +29,9 @@ if(!empty($edit)){
                 <tr>
                 <td>'.$value->jenis_cuti.'</td>
                 <td>'.$value->no_sk.'</td>
-                <td>'.landa()->fate2Ind($value->tanggal_sk).'</td>
+                <td>'.landa()->date2Ind($value->tanggal_sk).'</td>
                 <td>'.$value->pejabat.'</td>                
-                <td>'.landa()->fate2Ind($value->mulai_cuti).' - '.landa()->fate2Ind($value->selesai_cuti).'</td>                
+                <td>'.landa()->date2Ind($value->mulai_cuti).' - '.landa()->fate2Ind($value->selesai_cuti).'</td>                
                 '.$action.'                   
                 </tr>
             ';

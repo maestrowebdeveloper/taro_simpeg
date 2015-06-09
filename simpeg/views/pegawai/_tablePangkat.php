@@ -29,7 +29,7 @@
                 <tr>
                 <td>' . $value->golongan . '</td>
                 <td>' . $value->nomor_register . '</td>
-                <td>' . $value->tmt_pangkat . '</td>
+                <td>' . landa()->date2Ind($value->tmt_pangkat) . '</td>
                 ' . $action . '           
                 </tr>
             ';
