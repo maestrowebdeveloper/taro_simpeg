@@ -112,8 +112,41 @@ class Honorer extends CActiveRecord {
         $criteria->with = array('Jurusan', 'JabatanStruktural', 'JabatanFu', 'City');
         $criteria->order = 't.nama ASC';
 
-        $criteria->compare('t.kode', $this->kode);
-        $criteria->compare('t.jenis_kelamin', $this->jenis_kelamin);
+        if (isset($_GET['today'])) {
+            $today = date('m/d');
+            $criteria->addCondition('date_format(tanggal_lahir,"%m/%d") = "' . $today . '"');
+        }
+
+        if (isset($_GET['week'])) {
+            $today = date('m/d');
+            $week = date('m/d', strtotime("+7 day", strtotime($today)));
+            $criteria->addCondition('date_format(tanggal_lahir,"%m/%d") between "' . $today . '" and "' . $week . '"');
+        }
+
+        if (isset($_GET['nextweek'])) {
+            $today = date('m/d');
+            $week = date('m/d', strtotime("+7 day", strtotime($today)));
+            $nextweek = date('m/d', strtotime("+7 day", strtotime($week)));
+            $criteria->addCondition('date_format(tanggal_lahir,"%m/%d") between "' . $week . '" and "' . $nextweek . '"');
+        }
+
+        if (isset($_GET['month'])) {
+            $today = date('m');
+            $criteria->addCondition('date_format(tanggal_lahir,"%m") = "' . $today . '"');
+        }
+
+        if (isset($_GET['nextmonth'])) {
+            $today = date('Y-m-d');
+            $nextmonth = date('m', strtotime("+1 month", strtotime($today)));
+            $criteria->addCondition('date_format(tanggal_lahir,"%m") = "' . $nextmonth . '"');
+        }
+//        if (!empty($this->kode)){
+//            $criteria->addCondition('kode IN (20,40)');
+//        }
+        
+        $criteria->compare('id', $this->id);
+        $criteria->compare('kode', $this->kode);
+        $criteria->compare('nomor_register', $this->nomor_register, true);
         $criteria->compare('t.nama', $this->nama, true);
         $criteria->compare('t.agama', $this->agama);
         $criteria->compare('t.id_jurusan', $this->id_jurusan);
