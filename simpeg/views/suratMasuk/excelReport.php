@@ -8,6 +8,7 @@
  		<th width="80px">SIFAT</th> 		 			 		 		 	
  		<th width="80px">NOMOR SURAT</th> 		 			 		 		 	
  		<th width="80px">PERIHAL</th> 		 			 		 		 	
+ 		<th width="80px">DI TERUSKAN KE</th> 		 			 		 		 	
  		<th width="80px">ISI</th> 		 			 		 		 	
  	</tr>
 	<?php foreach($model as $row): ?>
@@ -17,6 +18,7 @@
         <td><?php echo $row->sifat; ?></td>        
         <td><?php echo $row->nomor_surat; ?></td>        
         <td><?php echo $row->perihal; ?></td>        
+        <td><?php echo $row->terusan; ?></td>        
         <td><?php echo $row->isi; ?></td>        
        	</tr>
      <?php endforeach; ?>
