@@ -58,6 +58,7 @@ class Pegawai extends CActiveRecord {
             'RiwayatPendidikan' => array(self::HAS_MANY, 'RiwayatPendidikan', 'pegawai_id'),
             'RiwayatKeluarga' => array(self::HAS_MANY, 'RiwayatKeluarga', 'pegawai_id'),
             'PermohonanMutasi' => array(self::HAS_MANY, 'PermohonanMutasi', 'pegawai_id'),
+            'Pelatihan' => array(self::HAS_MANY, 'RiwayatPelatihan', 'pegawai_id'),
             'UnitKerja' => array(self::BELONGS_TO, 'UnitKerja', 'id'),
         );
     }
@@ -184,13 +185,13 @@ class Pegawai extends CActiveRecord {
     public function searchUrutKepangkatan($export = null) {
         $criteria2 = new CDbCriteria();
         $criteria2->together = true;
-        $criteria2->with = array('JabatanFt', 'Pangkat.Golongan', 'JabatanStruktural.Eselon', 'RiwayatJabatan', 'Pendidikan.Jurusan');
+        $criteria2->with = array('JabatanFt', 'Pangkat.Golongan', 'RiwayatJabatan.JabatanStruktural.Eselon', 'RiwayatJabatan', 'Pendidikan.Jurusan', 'Pelatihan');
         $criteria2->order = "Golongan.nama DESC, Eselon.id ASC";
 
         $criteria2->addCondition('t.kedudukan_id="1"');
         if (!empty($this->tipe_jabatan)) {
             if ($this->tipe_jabatan == "guru") {
-                $criteria2->addCondition('JabatanFt.type = "guru"');
+                $criteria2->addCondition('JabatanFt.type = "guru" and t.tipe_jabatan != "Struktural"');
             } else {
                 $criteria2->addCondition('JabatanFt.type != "guru" OR t.tipe_jabatan="struktural" OR t.tipe_jabatan="fungsional_umum" ');
             }
@@ -618,7 +619,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getEsl() {
-        return (isset($this->JabatanStruktural->Eselon->nama)) ? $this->JabatanStruktural->Eselon->nama : "-";
+        return (isset($this->RiwayatJabatan->JabatanStruktural->Eselon->nama)) ? $this->RiwayatJabatan->JabatanStruktural->Eselon->nama : "-";
     }
 
     public function getTmtEslon() {
@@ -665,7 +666,11 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getDiklatThn() {
-        return $this->PelatihanTerakhir . '<br/>' . $this->ThnPelatihanTerakhir;
+        if(isset($this->Pelatihan->tahun)){
+        return $this->Pelatihan->nama . '<br/>' . $this->Pelatihan->tahun;
+        }else{
+            return '-';
+        }
 //        return "-";
     }
 

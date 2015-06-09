@@ -1,10 +1,3 @@
-<?php
-//$criteria = '';
-//if (!empty($model->unit_kerja_id))
-//    $criteria .= 'unit_kerja_id='.$model->unit_kerja_id;
-//$data = Pegawai::model()->with('Golongan')->findAll();
-//app()->session['Pegawai_records'] = $data; 
-?>
 <div class="report" id="report" style="width: 100%">
     <h3 style="text-align:center">LAPORAN PEGAWAI BERDASARKAN URUTAN KEPANGKATAN PEGAWAI</h3><br>
     <h6  style="text-align:center">Tanggal : <?php echo date('d F Y'); ?></h6>
@@ -43,7 +36,7 @@
 			<td>' . $value->TtlLahir . '</td>			
 			<td>' . $value->GolTmt . '</td>
 			<td>' . $value->EslonTmt . '</td>			
-			<td>' . $value->JabatanTmt . '</td>
+			<td>' . $value->jabatan . '</td>
 			<td>' . $value->MasaKerjaTahun . '</td>			
 			<td>' . $value->MasaKerjaBulan . '</td>
 			<td>' . $value->DiklatThn . '</td>
