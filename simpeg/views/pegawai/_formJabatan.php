@@ -174,7 +174,7 @@
                     $model->jabatan_ft_id = ($model->isNewRecord == false) ? $model->jabatan_ft_id : 0;
                     $jabatan = Golongan::model()->golJabatan($model->type, $model->Pegawai->Pangkat->golongan_id);
 //                    $namaJabfung = isset($jabatanFung->nama) ? $jabatanFung->nama : '-';
-                    echo CHtml::textField('jabatan_fungsional_tertentu', $jabatan, array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
+                    echo CHtml::textField('jabatan_fungsional_tertentu', $model->Pegawai->JabatanFt->nama.' '.$jabatan, array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
                     ?>
                     <?php
 //                    logs($model->type);
@@ -307,9 +307,11 @@
     function jabatanFungsional() {
         var type = $("#RiwayatJabatan_type").val();
         var id = $("#golongan_id").val();
+//        var id_jabatan = "<?php echo $model->pegawai_id; ?>";
+        var jabatan = $("#RiwayatJabatan_jabatan_ft_id").val();
         $.ajax({
             type: 'post',
-            data: {id: id, type: type},
+            data: {id: id, type: type,jabatan : jabatan},
             url: "<?= url('pegawai/getFungsional') ?>",
             success: function (data) {
                 $("#jabatan_fungsional_tertentu").val(data);
@@ -321,14 +323,7 @@
     });
 
     $("#RiwayatJabatan_jabatan_ft_id").change(function () {
-        $.ajax({
-            url: "<?php echo url('pegawai/fungsionalTertentu'); ?>",
-            data: {golongan_id: $("#golongan_id").val(), jabatan_ft_id: $(this).val()},
-            type: "POST",
-            success: function (data) {
-                $("#jabatan_fungsional_tertentu").val(data);
-            }
-        });
+        jabatanFungsional();
     });
     jQuery('#RiwayatJabatan_jabatan_struktural_id').select2({
         'allowClear': true,

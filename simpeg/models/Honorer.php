@@ -143,17 +143,28 @@ class Honorer extends CActiveRecord {
 //        if (!empty($this->kode)){
 //            $criteria->addCondition('kode IN (20,40)');
 //        }
-        
+
         $criteria->compare('id', $this->id);
-        $criteria->compare('kode', $this->kode);
+//        $criteria->compare('kode', $this->kode);
         $criteria->compare('nomor_register', $this->nomor_register, true);
-        $criteria->compare('t.nama', $this->nama, true);
-        $criteria->compare('t.agama', $this->agama);
-        $criteria->compare('t.id_jurusan', $this->id_jurusan);
-        $criteria->compare('t.tahun_pendidikan', $this->tahun_pendidikan, true);
-        $criteria->compare('t.nomor_register', $this->nomor_register, true);
-        $criteria->compare('t.jabatan_struktural_id', $this->jabatan_struktural_id, true);
-        $criteria->compare('t.jabatan_fu_id', $this->jabatan_fu_id, true);
+        if (!empty($this->kode))
+            $criteria->compare('t.kode', $this->kode);
+        if (!empty($this->jenis_kelamin))
+            $criteria->compare('t.jenis_kelamin', $this->jenis_kelamin);
+        if (!empty($this->nama))
+            $criteria->compare('t.nama', $this->nama, true);
+        if (!empty($this->agama))
+            $criteria->compare('t.agama', $this->agama);
+        if (!empty($this->id_jurusan))
+            $criteria->compare('t.id_jurusan', $this->id_jurusan);
+        if (!empty($this->tahun_pendidikan))
+            $criteria->compare('t.tahun_pendidikan', $this->tahun_pendidikan, true);
+        if (!empty($this->nomor_register))
+            $criteria->compare('t.nomor_register', $this->nomor_register, true);
+        if (!empty($this->jabatan_struktural_id))
+            $criteria->compare('t.jabatan_struktural_id', $this->jabatan_struktural_id, true);
+        if (!empty($this->jabatan_fu_id))
+            $criteria->compare('t.jabatan_fu_id', $this->jabatan_fu_id, true);
 
         if (empty($export)) {
             $data = new CActiveDataProvider($this, array(
@@ -215,7 +226,7 @@ class Honorer extends CActiveRecord {
         $tmt_kontrak = date("d-m-Y", $tmt1);
         $tmt_mulai_kontrak = date("d-m-Y", $tmt2);
 
-        if (isset($tmt_kontrak) or !empty($tmt_kontrak)) {
+        if (isset($tmt_kontrak) or ! empty($tmt_kontrak)) {
             $tahun = str_replace(" Tahun", "", KenaikanGaji::model()->masaKerja($tmt_kontrak, $tmt_mulai_kontrak, true));
             return $tahun;
         }
@@ -231,7 +242,7 @@ class Honorer extends CActiveRecord {
         $tmt_kontrak = date("d-m-Y", $tmt1);
         $tmt_mulai_kontrak = date("d-m-Y", $tmt2);
 
-        if (isset($tmt_kontrak) or !empty($tmt_kontrak)) {
+        if (isset($tmt_kontrak) or ! empty($tmt_kontrak)) {
             $bulan = str_replace(" Bulan", "", KenaikanGaji::model()->masaKerja($tmt_kontrak, $tmt_mulai_kontrak, false, true));
             return $bulan;
         }

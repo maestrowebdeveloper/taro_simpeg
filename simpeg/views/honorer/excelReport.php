@@ -42,7 +42,7 @@
                 <td><?php echo $row->golongan_darah; ?></td>
                 <td><?php echo $row->status_pernikahan; ?></td>
                 <td><?php echo $row->nomor_register."&nbsp;"; ?></td>
-                <td><?php echo $row->tanggal_register; ?></td>
+                <td><?php echo landa()->date2Ind($row->tanggal_register); ?></td>
                 <td><?php echo $row->unitKerja; ?></td>
                 <td><?php echo $row->st_peg; ?></td>
                 <td><?php echo $row->jabatan; ?></td>
