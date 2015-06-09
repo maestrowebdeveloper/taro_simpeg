@@ -78,6 +78,7 @@ class PegawaiController extends Controller {
         $return['nip'] = $model->nip;
         $return['jenis_kelamin'] = (!empty($model->jenis_kelamin)) ? $model->jenis_kelamin : '-';
         $return['jabatan'] = $model->jabatan;
+        $return['jabatan_id'] = $model->jabatanId;
         $return['tipe_jabatan'] = $model->tipe;
         $return['unit_kerja'] = $model->unitKerja;
         $return['masa_kerja'] = $model->masaKerja;
@@ -1348,7 +1349,7 @@ class PegawaiController extends Controller {
         $model = new Pegawai;
         $model->attributes = $_GET['Pegawai'];
         $data = $model->search(true);
-        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data PNS '.date('d-m-Y') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $data,
                         ), true));
     }

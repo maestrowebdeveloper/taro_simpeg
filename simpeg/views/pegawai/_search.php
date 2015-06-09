@@ -90,7 +90,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'buttonType' => 'submit',
         'type' => 'primary',
         'icon' => 'ok white',
-        'label' => 'View Rekapitulasi',
+        'label' => 'Pencarian',
     ));
     ?>
     <?php
@@ -105,8 +105,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         )
     ));
     ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'button', 'icon' => 'icon-remove-sign white', 'label' => 'Reset', 'htmlOptions' => array('class' => 'btnreset btn-small'))); ?>
-</div>
+    </div>
 
 <?php $this->endWidget(); ?>
 
