@@ -52,7 +52,7 @@
                 echo '
                 <tr>
                 <td>' . $value->nomor_register . '</td>
-                    <td>' . $value->Struktural->nama . '</td>
+                <td>' . (isset($value->JabatanStruktural->nama) ? $value->JabatanStruktural->nama : "-") . '</td>
                 <td>' . $jabatan . '</td>
                 
                 <td>' . $tmt_jabatan . '</td>
