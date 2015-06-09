@@ -123,6 +123,39 @@ class Pegawai extends CActiveRecord {
         $criteria->with = array('JabatanStruktural', 'JabatanStruktural.UnitKerja', 'City', 'JabatanFu', 'JabatanFt', 'Kedudukan', 'Pangkat', 'RiwayatJabatan', 'Pendidikan.Jurusan', 'RiwayatJabatan.Struktural', 'Pangkat.Golongan');
         $criteria->order = 'JabatanStruktural.id';
 
+        if (isset($_GET['today'])) {
+            $today = date('m/d');
+            $criteria->addCondition('date_format(tanggal_lahir,"%m/%d") = "' . $today . '"');
+        }
+
+        if (isset($_GET['week'])) {
+            $today = date('m/d');
+            $week = date('m/d', strtotime("+7 day", strtotime($today)));
+            $criteria->addCondition('date_format(tanggal_lahir,"%m/%d") between "' . $today . '" and "' . $week . '"');
+        }
+
+        if (isset($_GET['nextweek'])) {
+            $today = date('m/d');
+            $week = date('m/d', strtotime("+7 day", strtotime($today)));
+            $nextweek = date('m/d', strtotime("+7 day", strtotime($week)));
+            $criteria->addCondition('date_format(tanggal_lahir,"%m/%d") between "' . $week . '" and "' . $nextweek . '"');
+        }
+
+        if (isset($_GET['month'])) {
+            $today = date('m');
+            $criteria->addCondition('date_format(tanggal_lahir,"%m") = "' . $today . '"');
+        }
+
+        if (isset($_GET['nextmonth'])) {
+            $today = date('Y-m-d');
+            $nextmonth = date('m', strtotime("+1 month", strtotime($today)));
+            $criteria->addCondition('date_format(tanggal_lahir,"%m") = "' . $nextmonth . '"');
+        }
+
+        if (isset($_GET['lahir'])) {
+            $criteria->addCondition('tanggal_lahir = "0000-00-00"');
+            $criteria->addCondition('tanggal_lahir = ""');
+        }
         if (isset($_GET['jk']))
             $criteria->addCondition('jenis_kelamin = ""');
         if (isset($_GET['agama']))
