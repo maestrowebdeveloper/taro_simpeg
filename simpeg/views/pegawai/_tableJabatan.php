@@ -31,7 +31,7 @@
                     $action = '<td style="width: 85px;text-align:center">
                         <a class="btn btn-small update editJabatan" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" title="Edit" rel="tooltip" ><i class="icon-pencil"></i></a> 
                         <a class="btn btn-small delete deleteJabatan" title="Hapus" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-trash"></i></a>
-                        <a class="btn btn-small pilih selectJabatan" jabfungsional="'.$jabatanFungsional.'" style="display:'.$display.'" title="Pilih" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-ok"></i></a>
+                        <a class="btn btn-small pilih selectJabatan" jabfungsional="'.$pegawai->JabatanFt->nama.' '.$jabatanFungsional.'" style="display:'.$display.'" title="Pilih" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-ok"></i></a>
                         </td>';
 
                 $eselon = '-';
