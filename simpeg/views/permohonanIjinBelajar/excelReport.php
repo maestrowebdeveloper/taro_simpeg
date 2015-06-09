@@ -20,7 +20,7 @@
  	</tr>
 	<?php foreach($model as $row): ?>
 	<tr>
-        <td><?php echo $row->nomor_register; ?></td>
+        <td><?php echo $row->nomor_register."&nbsp;"; ?></td>
         <td><?php echo landa()->date2Ind($row->tanggal); ?></td>        
         <td><?php echo $row->nip."&nbsp;"; ?></td>        
         <td><?php echo $row->nama; ?></td>        

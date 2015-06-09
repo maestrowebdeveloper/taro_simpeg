@@ -136,6 +136,7 @@ class Pegawai extends CActiveRecord {
             $criteria->addCondition('t.jabatan_fu_id = ""');
             $criteria->addCondition('t.jabatan_ft_id = ""');
         }
+        
 
 //tambahan tindik jurusan
         if (isset($_GET['jurusan']) and !empty($_GET['jurusan'])) {
@@ -163,11 +164,13 @@ class Pegawai extends CActiveRecord {
         $criteria->compare('gelar_depan', $this->gelar_depan, true);
         $criteria->compare('gelar_belakang', $this->gelar_belakang, true);
         $criteria->compare('jenis_kelamin', $this->jenis_kelamin, true);
+       
         $criteria->compare('agama', $this->agama, true);
         $criteria->compare('kedudukan_id', $this->kedudukan_id);
         $criteria->compare('status_pernikahan', $this->status_pernikahan, true);
         $criteria->compare('hp', $this->hp, true);
         $criteria->compare('t.jabatan_fu_id', $this->jabatan_fu_id);
+        $criteria->compare('t.tipe_jabatan', $this->tipe_jabatan);
         $criteria->compare('t.tmt_pensiun', $this->tmt_pensiun, true);
 
         if (empty($export)) {
@@ -242,7 +245,7 @@ class Pegawai extends CActiveRecord {
         $criteria->with = array('RiwayatJabatan', 'JabatanStruktural', 'JabatanFt', 'Pangkat.Golongan', 'JabatanFu', 'Pangkat', 'RiwayatJabatan.Struktural.UnitKerja');
         $criteria->order = 't.jabatan_struktural_id';
 
-        $criteria->addCondition('t.kedudukan_id=1');
+        $criteria->addCondition('t.kedudukan_id="1"');
         if (!empty($_GET['riwayat_jabatan_id'])) {
             $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_GET['riwayat_jabatan_id']);
         }

@@ -239,24 +239,16 @@ class SuratMasukController extends Controller {
     }
 
     public function actionGenerateExcel() {
-        $pengirim = $_GET['pengirim'];
-        $SMtanggal = $_GET['SMtanggal'];
-        $sifat = $_GET['sifat'];
-        $noSurat = $_GET['noSurat'];
-        $perihal = $_GET['perihal'];
-
-        $criteria = new CDbCriteria;
-        $criteria->compare('pengirim', $pengirim, true);
-        $criteria->compare('tanggal_kirim', $SMtanggal, true);
-        $criteria->compare('sifat', $sifat, true);
-        $criteria->compare('nomor_surat', $noSurat, true);
-      $criteria->compare('perihal', $perihal, true);
+        $model = new SuratMasuk;
         
-            $model = SuratMasuk::model()->findAll($criteria);
+         $model->attributes = $_GET['SuratMasuk'];
+//    
+        
+        $data = $model->search(true);
 
 
         Yii::app()->request->sendFile('Surat Masuk -'.date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
+                    'model' => $data
                         ), true)
         );
     }

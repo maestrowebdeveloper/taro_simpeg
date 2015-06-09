@@ -247,7 +247,8 @@ class PegawaiController extends Controller {
     public function actionGetTableJabatan() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tmt_mulai DESC'));
-        echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $id));
+        $pangkatGolongan = RiwayatPangkat::model()->findByAttributes(array('pegawai_id' => $id));
+        echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan,'pangkatGolongan'=> $pangkatGolongan,'edit' => true, 'pegawai_id' => $id));
     }
 
     public function actionGetTableGaji() {
@@ -708,26 +709,26 @@ class PegawaiController extends Controller {
         ));
     }
 
-    public function actionUlangTahunExcel() {
-        $session = new CHttpSession;
-        $session->open();
-
-        if (isset($session['Pegawai_records'])) {
-            $model = $session['Pegawai_records'];
-        } else
-            $model = Pegawai::model()->findAll();
-
-        if (isset($session['Honorer_records'])) {
-            $honorer = $session['Honorer_records'];
-        } else
-            $honorer = Honorer::model()->findAll();
-
-        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelUlangTahun', array(
-                    'model' => $model,
-                    'honorer' => $honorer,
-                        ), true)
-        );
-    }
+//    public function actionUlangTahunExcel() {
+//        $session = new CHttpSession;
+//        $session->open();
+//
+//        if (isset($session['Pegawai_records'])) {
+//            $model = $session['Pegawai_records'];
+//        } else
+//            $model = Pegawai::model()->findAll();
+//
+//        if (isset($session['Honorer_records'])) {
+//            $honorer = $session['Honorer_records'];
+//        } else
+//            $honorer = Honorer::model()->findAll();
+//
+//        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelUlangTahun', array(
+//                    'model' => $model,
+//                    'honorer' => $honorer,
+//                        ), true)
+//        );
+//    }
 
     public function actionCheckError() {
         $model = new Pegawai('search');
@@ -1160,12 +1161,12 @@ class PegawaiController extends Controller {
         $jabFung = RiwayatJabatan::model()->findByAttributes(array('pegawai_id' => $id));
         $pangkatGolongan = RiwayatPangkat::model()->findByAttributes(array('pegawai_id' => $id));
         
-//        $jabatanFungsional = Golongan::model()->getJabatan();
-        
+        $jabatanFungsional = Golongan::model()->golJabatan($jabFung->type,$pangkatGolongan->golongan_id);
         $this->render('update', array(
             'model' => $model,
             'jabFung' => $jabFung,
-            'pangkatGolongan' => $pangkatGolongan
+            'pangkatGolongan' => $pangkatGolongan,
+            'jabatanFungsional' => $jabatanFungsional
         ));
     }
 
@@ -1610,9 +1611,12 @@ class PegawaiController extends Controller {
     }
 
     public function actionGetFungsional() {
-        $jabatan = '';
+//        $jabatan = '';
+//        logs($_POST['type']);
+//        logs($_POST['id']);
         if (!empty($_POST['type']) && !empty($_POST['id'])) {
             $jabatan = Golongan::model()->golJabatan($_POST['type'], $_POST['id']);
+//            logs($jabatan);
             if (empty($jabatan)) {
                 echo '-';
             } else {

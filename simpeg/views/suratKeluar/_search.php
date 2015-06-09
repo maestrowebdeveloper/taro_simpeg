@@ -26,13 +26,19 @@ echo $form->textFieldRow($model, 'perihal', array('class' => 'span4', 'maxlength
 
 <div class="form-actions">
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'search white', 'label' => 'Pencarian')); ?>
+
     <?php
-    $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'icon', 'label' => 'Export Excel',
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'button',
+        'type' => 'primary',
+        'icon' => 'ok white',
+        'label' => 'Export ke Excel',
         'htmlOptions' => array(
-            'onclick' => 'excel()'
-    )));
-    ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'button', 'icon' => 'icon-remove-sign white', 'label' => 'Reset', 'htmlOptions' => array('class' => 'btnreset btn-small'))); ?>
+            'name' => 'export',
+            'onClick' => 'chgAction()',
+        )
+    ));
+    ?>  
 </div>
 
 <?php $this->endWidget(); ?>
@@ -53,25 +59,12 @@ echo $form->textFieldRow($model, 'perihal', array('class' => 'span4', 'maxlength
         });
     })
     
-    function excel(){
-        if (document.getElementById('SuratKeluar_sifat_0').checked) {
-            var sifat = document.getElementById('SuratKeluar_sifat_0').value;
-        }
-        if (document.getElementById('SuratKeluar_sifat_1').checked) {
-            var sifat = document.getElementById('SuratKeluar_sifat_1').value;
-        }
-        if (document.getElementById('SuratKeluar_sifat_2').checked) {
-            var sifat = document.getElementById('SuratKeluar_sifat_2').value;
-        }else{
-            var sifat = '';
-        }
-        var SuratKeluar_penerima = $('#SuratKeluar_penerima').val();
-        var SuratKeluar_tanggal_kirim = $('#SuratKeluar_tanggal_kirim').val();
-        var SuratKeluar_nomor_surat = $('#SuratKeluar_nomor_surat').val();
-        var SuratKeluar_perihal = $('#SuratKeluar_perihal').val();
-        
-        
-        window.open("<?php echo url('suratKeluar/GenerateExcel') ?>?SuratKeluar_penerima="+SuratKeluar_penerima+"&SuratKeluar_tanggal_kirim="+SuratKeluar_tanggal_kirim+"&SuratKeluar_nomor_surat="+SuratKeluar_nomor_surat+"&SuratKeluar_perihal="+SuratKeluar_perihal+"&sifat="+sifat)
+     function chgAction()
+    {
+        document.getElementById("search-surat-keluar-form").action = "<?php echo Yii::app()->createUrl('suratKeluar/GenerateExcel'); ?>";
+        document.getElementById("search-surat-keluar-form").submit();
+
     }
 </script>
+
 
