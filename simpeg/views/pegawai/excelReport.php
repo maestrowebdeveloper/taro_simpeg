@@ -5,8 +5,7 @@
         <tr>		
             <th width="80px">NIP</th>
             <th width="80px">NIP LAMA</th> 	                
-            <th width="80px">NAMA</th> 		
-
+            <th width="80px">NAMA</th> 	
             <th width="80px">JENIS KELAMIN</th> 		
             <th width="80px">TTL</th> 		
             <th width="80px">AGAMA</th> 		 		 		 	
@@ -46,8 +45,8 @@
         <?php foreach ($model as $row):
             ?>
             <tr>
-                <td><?php echo "\'" . $row->nip; ?></td>
-                <td><?php echo "\'" . $row->nip_lama; ?></td> 
+                <td><?php echo  $row->nip."&nbsp;"; ?></td>
+                <td><?php echo  $row->nip_lama."&nbsp;"; ?></td> 
                 <td><?php echo $row->namaGelar; ?></td>
                 <td><?php echo $row->jenis_kelamin; ?></td>
                 <td><?php echo landa()->date2Ind($row->ttl); ?></td>
@@ -62,11 +61,11 @@
                 <td><?php echo $row->golongan_darah; ?></td>
                 <td><?php echo $row->status_pernikahan; ?></td>
                 <td><?php // echo $namaIssu;  ?></td>
-                <td><?php echo "'" . $row->npwp; ?></td>
-                <td><?php echo "'" . $row->bpjs; ?></td>
-                <td><?php echo "'" . $row->karpeg; ?></td>
-                <td><?php echo "'" . $row->kpe; ?></td>
-                <td><?php echo "'" . $row->no_taspen; ?></td>
+                <td><?php echo  $row->npwp."&nbsp;"; ?></td>
+                <td><?php echo  $row->bpjs."&nbsp;"; ?></td>
+                <td><?php echo  $row->karpeg."&nbsp;"; ?></td>
+                <td><?php echo  $row->kpe."&nbsp;"; ?></td>
+                <td><?php echo $row->no_taspen."&nbsp;"; ?></td>
                 <td><?php echo $row->kedudukan; ?></td>
                 <td><?php echo $row->keterangan; ?></td>
                 <td><?php echo $row->UnitKerjaJabatan; ?></td>
@@ -80,7 +79,7 @@
                 <td><?php echo $row->tipe; ?></td>
                 <td><?php echo $row->jabatan; ?></td>
                 <td><?php echo landa()->date2Ind($row->tmtJabatan); ?></td>
-                <td><?php // echo $gaji; ?></td>
+                <td><?php echo isset($row->Gaji->gaji) ? landa()->rp($row->Gaji->gaji) : "-"; ?></td>
                 <td><?php echo $row->masaKerja; ?></td>               
                 <td><?php echo landa()->date2Ind($row->tmt_pensiun); ?></td>       		
                       		

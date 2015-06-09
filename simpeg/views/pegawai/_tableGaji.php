@@ -33,8 +33,8 @@
                 <td>' . $value->nomor_register . '</td>                
                 <td>' . $value->dasar_perubahan . '</td>
                 <td>' . landa()->rp($value->gaji) . '</td>                
-                <td>' . $value->tmt_mulai . '</td>
-                <td>' . $value->tmt_selesai . '</td>
+                <td>' . landa()->date2Ind($value->tmt_mulai) . '</td>
+                <td>' . landa()->date2Ind($value->tmt_selesai) . '</td>
                 ' . $action . '
                 </tr>
             ';
