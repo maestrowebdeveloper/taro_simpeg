@@ -1348,7 +1348,7 @@ class PegawaiController extends Controller {
         $model = new Pegawai;
         $model->attributes = $_GET['Pegawai'];
         $data = $model->search(true);
-        Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data PNS '.date('d-m-Y') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $data,
                         ), true));
     }
