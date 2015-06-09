@@ -12,8 +12,9 @@
     <table class="table table-bordered" id="tableJabatan">
         <thead>
         <th>No. Register</th>
-        <!--<th>Jabatan</th>-->
         <th>Unit Kerja</th>
+        <th>Jabatan</th>
+        
         <th>Tmt Jabatan</th>        
         <th>Eselon</th>     
         <th>Tmt Eselon</th>
@@ -24,11 +25,13 @@
             foreach ($jabatan as $value) {
                 $pegawai = Pegawai::model()->findByPk($value->pegawai_id);
                 $display = ($pegawai->riwayat_jabatan_id == $value->id) ? 'none' : '';
+                $pangkatGolongan = RiwayatPangkat::model()->findByAttributes(array('pegawai_id' => $value->pegawai_id));
+                $jabatanFungsional = Golongan::model()->golJabatan($value->type,$pangkatGolongan->golongan_id);
                 if (!empty($edit))
                     $action = '<td style="width: 85px;text-align:center">
                         <a class="btn btn-small update editJabatan" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" title="Edit" rel="tooltip" ><i class="icon-pencil"></i></a> 
                         <a class="btn btn-small delete deleteJabatan" title="Hapus" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-trash"></i></a>
-                        <a class="btn btn-small pilih selectJabatan" style="display:'.$display.'" title="Pilih" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-ok"></i></a>
+                        <a class="btn btn-small pilih selectJabatan" jabfungsional="'.$jabatanFungsional.'" style="display:'.$display.'" title="Pilih" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-ok"></i></a>
                         </td>';
 
                 $eselon = '-';
@@ -50,7 +53,9 @@
                 echo '
                 <tr>
                 <td>' . $value->nomor_register . '</td>
+                <td>' . (isset($value->JabatanStruktural->nama) ? $value->JabatanStruktural->nama : "-") . '</td>
                 <td>' . $jabatan . '</td>
+                
                 <td>' . $tmt_jabatan . '</td>
                 <td>' . $eselon . '</td>
                 <td>' . $tmt_eselon . '</td>                            
@@ -92,6 +97,7 @@
         });
     });
     $(".selectJabatan").click(function() {
+        var jabfung = $(this).attr("jabfungsional");
         $.ajax({
             url: "<?php echo url('pegawai/selectJabatan'); ?>",
             data: "id=" + $(this).attr("id") + "&pegawai=" + $(this).attr("pegawai"),
@@ -107,6 +113,7 @@
                     $("#riwayatTmtJabatan").val(obj.tmt);
                     $("#riwayatBidangJabatan").val(obj.bidang);
                     $("#modalForm").modal("hide");
+                    $("#jabatan-fungsional").val(jabfung);
                     pensiun($("#Pegawai_tanggal_lahir").val(), obj.id);
                 }
             }

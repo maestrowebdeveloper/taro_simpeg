@@ -247,7 +247,7 @@ class PegawaiController extends Controller {
     public function actionGetTableJabatan() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tmt_mulai DESC'));
-        echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $id));
+        echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan,'edit' => true, 'pegawai_id' => $id));
     }
 
     public function actionGetTableGaji() {
@@ -899,7 +899,7 @@ class PegawaiController extends Controller {
                         }
                     }
 
-                    user()->setFlash('info', '<strong>Berhasil! </strong>Total Pegawai : ' . $total_pegawai . ', Berhasil : ' . $sukses . ', Gagal : ' . $gagal);
+                    user()->setFlash('info', '<strong>Berhasil! </strong>Total Riwayat Pangkat : ' . $total_pegawai . ', Berhasil : ' . $sukses . ', Gagal : ' . $gagal);
                 }
             }
         }
@@ -1160,12 +1160,12 @@ class PegawaiController extends Controller {
         $jabFung = RiwayatJabatan::model()->findByAttributes(array('pegawai_id' => $id));
         $pangkatGolongan = RiwayatPangkat::model()->findByAttributes(array('pegawai_id' => $id));
         
-//        $jabatanFungsional = Golongan::model()->getJabatan();
-        
+        $jabatanFungsional = Golongan::model()->golJabatan($jabFung->type,$pangkatGolongan->golongan_id);
         $this->render('update', array(
             'model' => $model,
             'jabFung' => $jabFung,
-            'pangkatGolongan' => $pangkatGolongan
+            'pangkatGolongan' => $pangkatGolongan,
+            'jabatanFungsional' => $jabatanFungsional
         ));
     }
 
@@ -1610,13 +1610,16 @@ class PegawaiController extends Controller {
     }
 
     public function actionGetFungsional() {
-        $jabatan = '';
+//        $jabatan = '';
+//        logs($_POST['type']);
+//        logs($_POST['id']);
         if (!empty($_POST['type']) && !empty($_POST['id'])) {
             $jabatan = Golongan::model()->golJabatan($_POST['type'], $_POST['id']);
+//            logs($jabatan);
             if (empty($jabatan)) {
-                return '-';
+                echo '-';
             } else {
-                return $jabatan;
+                echo $jabatan;
             }
         }
     }
