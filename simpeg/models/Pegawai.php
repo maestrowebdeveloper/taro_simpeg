@@ -58,6 +58,7 @@ class Pegawai extends CActiveRecord {
             'RiwayatPendidikan' => array(self::HAS_MANY, 'RiwayatPendidikan', 'pegawai_id'),
             'RiwayatKeluarga' => array(self::HAS_MANY, 'RiwayatKeluarga', 'pegawai_id'),
             'PermohonanMutasi' => array(self::HAS_MANY, 'PermohonanMutasi', 'pegawai_id'),
+            'Pelatihan' => array(self::HAS_MANY, 'RiwayatPelatihan', 'pegawai_id'),
             'UnitKerja' => array(self::BELONGS_TO, 'UnitKerja', 'id'),
         );
     }
@@ -122,6 +123,39 @@ class Pegawai extends CActiveRecord {
         $criteria->with = array('JabatanStruktural', 'JabatanStruktural.UnitKerja', 'City', 'JabatanFu', 'JabatanFt', 'Kedudukan', 'Pangkat', 'RiwayatJabatan', 'Pendidikan.Jurusan', 'RiwayatJabatan.Struktural', 'Pangkat.Golongan');
         $criteria->order = 'JabatanStruktural.id';
 
+        if (isset($_GET['today'])) {
+            $today = date('m/d');
+            $criteria->addCondition('date_format(tanggal_lahir,"%m/%d") = "' . $today . '"');
+        }
+
+        if (isset($_GET['week'])) {
+            $today = date('m/d');
+            $week = date('m/d', strtotime("+7 day", strtotime($today)));
+            $criteria->addCondition('date_format(tanggal_lahir,"%m/%d") between "' . $today . '" and "' . $week . '"');
+        }
+
+        if (isset($_GET['nextweek'])) {
+            $today = date('m/d');
+            $week = date('m/d', strtotime("+7 day", strtotime($today)));
+            $nextweek = date('m/d', strtotime("+7 day", strtotime($week)));
+            $criteria->addCondition('date_format(tanggal_lahir,"%m/%d") between "' . $week . '" and "' . $nextweek . '"');
+        }
+
+        if (isset($_GET['month'])) {
+            $today = date('m');
+            $criteria->addCondition('date_format(tanggal_lahir,"%m") = "' . $today . '"');
+        }
+
+        if (isset($_GET['nextmonth'])) {
+            $today = date('Y-m-d');
+            $nextmonth = date('m', strtotime("+1 month", strtotime($today)));
+            $criteria->addCondition('date_format(tanggal_lahir,"%m") = "' . $nextmonth . '"');
+        }
+
+        if (isset($_GET['lahir'])) {
+            $criteria->addCondition('tanggal_lahir = "0000-00-00"');
+            $criteria->addCondition('tanggal_lahir = ""');
+        }
         if (isset($_GET['jk']))
             $criteria->addCondition('jenis_kelamin = ""');
         if (isset($_GET['agama']))
@@ -187,13 +221,13 @@ class Pegawai extends CActiveRecord {
     public function searchUrutKepangkatan($export = null) {
         $criteria2 = new CDbCriteria();
         $criteria2->together = true;
-        $criteria2->with = array('JabatanFt', 'Pangkat.Golongan', 'JabatanStruktural.Eselon', 'RiwayatJabatan', 'Pendidikan.Jurusan');
+        $criteria2->with = array('JabatanFt', 'Pangkat.Golongan', 'RiwayatJabatan.JabatanStruktural.Eselon', 'RiwayatJabatan', 'Pendidikan.Jurusan', 'Pelatihan');
         $criteria2->order = "Golongan.nama DESC, Eselon.id ASC";
 
         $criteria2->addCondition('t.kedudukan_id="1"');
         if (!empty($this->tipe_jabatan)) {
             if ($this->tipe_jabatan == "guru") {
-                $criteria2->addCondition('JabatanFt.type = "guru"');
+                $criteria2->addCondition('JabatanFt.type = "guru" and t.tipe_jabatan != "Struktural"');
             } else {
                 $criteria2->addCondition('JabatanFt.type != "guru" OR t.tipe_jabatan="struktural" OR t.tipe_jabatan="fungsional_umum" ');
             }
@@ -621,7 +655,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getEsl() {
-        return (isset($this->JabatanStruktural->Eselon->nama)) ? $this->JabatanStruktural->Eselon->nama : "-";
+        return (isset($this->RiwayatJabatan->JabatanStruktural->Eselon->nama)) ? $this->RiwayatJabatan->JabatanStruktural->Eselon->nama : "-";
     }
 
     public function getTmtEslon() {
@@ -668,7 +702,11 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getDiklatThn() {
-        return $this->PelatihanTerakhir . '<br/>' . $this->ThnPelatihanTerakhir;
+        if(isset($this->Pelatihan->tahun)){
+        return $this->Pelatihan->nama . '<br/>' . $this->Pelatihan->tahun;
+        }else{
+            return '-';
+        }
 //        return "-";
     }
 
