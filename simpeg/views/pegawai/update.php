@@ -38,4 +38,4 @@ if (isset($_GET['v'])) {
 $this->endWidget();
 ?>
 
-<?php echo $this->renderPartial('_form', array('model' => $model, 'jabFung' => $jabFung, 'pangkatGolongan' => $pangkatGolongan)); ?>
+<?php echo $this->renderPartial('_form', array('model' => $model, 'jabFung' => $jabFung, 'pangkatGolongan' => $pangkatGolongan,'jabatanFungsional' => $jabatanFungsional)); ?>

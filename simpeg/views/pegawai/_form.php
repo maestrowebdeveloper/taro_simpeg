@@ -439,12 +439,12 @@
                             </div>
                             <div class="control-group "><label class="control-label" for="Pegawai_bidang_id">Jabatan Fungsional</label>
                                 <div class="controls">
-                                    <input class="span4" disabled value="<?php echo $pangkatGolongan->golongan_id; ?>"  id="riwayatBidangJabatan" placeHolder="" type="text">
+                                    <input class="span4" disabled value="<?php echo ($model->isNewRecord) ? '' : $jabatanFungsional; ?>"  id="jabatan-fungsional" placeHolder="" type="text">
                                 </div>
                             </div>
 
                             <?php
-                            if (isset($model->perubahan_masa_kerja) and !empty($model->perubahan_masa_kerja)) {
+                            if (isset($model->perubahan_masa_kerja) and ! empty($model->perubahan_masa_kerja)) {
                                 $perubahan = json_decode($model->perubahan_masa_kerja, false);
                             }
                             ?>
@@ -520,6 +520,8 @@
                     $pelatihan = RiwayatPelatihan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tahun DESC'));
                     $penghargaan = RiwayatPenghargaan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_pemberian DESC'));
                     $file = File::model()->findAll(array('condition' => 'pegawai_id=' . $model->id));
+                    $pangkatGolongan = RiwayatPangkat::model()->findByAttributes(array('pegawai_id' => $model->id));
+                    
 
                     if (!isset($_GET['v']))
                         $edit = true;
@@ -532,7 +534,7 @@
                             <?php echo $this->renderPartial('_tablePangkat', array('pangkat' => $pangkat, 'edit' => $edit)); ?>
                         </div>
                         <div class="tab-pane " id="jabatan">
-                            <?php echo $this->renderPartial('_tableJabatan', array('jabatan' => $jabatan, 'edit' => $edit)); ?>                
+                            <?php echo $this->renderPartial('_tableJabatan', array('jabatan' => $jabatan,'pangkatGolongan' => $pangkatGolongan, 'edit' => $edit)); ?>                
                         </div>
                         <div class="tab-pane " id="gaji">
                             <?php echo $this->renderPartial('_tableGaji', array('gaji' => $gaji, 'edit' => $edit)); ?>                
@@ -683,7 +685,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <?php echo $this->renderPartial('_tableJabatan', array('jabatan' => $jabatan)); ?> 
+                    <?php echo $this->renderPartial('_tableJabatan', array('jabatan' => $jabatan,'pangkatGolongan' => $pangkatGolongan)); ?> 
                 </td>
             </tr>
             <tr>
@@ -794,7 +796,7 @@ $this->beginWidget(
             url: "<?php echo url('pegawai/getMasaKerja') ?> ",
             type: "POST",
             data: {tmt_cpns: $("#Pegawai_tmt_cpns").val(), tahun: $("#kalkulasiTahun").val(), bulan: $("#kalkulasiBulan").val()},
-            success: function(data) {
+            success: function (data) {
                 obj = JSON.parse(data);
                 $("#masaKerjaTahun").val(obj.tahun);
                 $("#masaKerjaBulan").val(obj.bulan);
@@ -802,17 +804,17 @@ $this->beginWidget(
         });
     }
 
-    $("#viewTab").click(function() {
+    $("#viewTab").click(function () {
         $("#report").hide();
         $("#tabView").show();
     });
 
-    $("#viewFull").click(function() {
+    $("#viewFull").click(function () {
         $("#report").show();
         $("#tabView").hide();
     });
 
-    $("#Pegawai_nip").focusout(function() {
+    $("#Pegawai_nip").focusout(function () {
         var value = $(this).val();
         if (value.length < 18) {
             $(".nipError").show();
@@ -831,16 +833,16 @@ $this->beginWidget(
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
-        $("#myTab a").click(function(e) {
+        $("#myTab a").click(function (e) {
             e.preventDefault();
             $(this).tab("show");
         });
-        $("#viewTab").click(function() {
+        $("#viewTab").click(function () {
             $("#report").hide();
             $("#tabView").show();
         });
 
-        $("#viewFull").click(function() {
+        $("#viewFull").click(function () {
             $("#report").show();
             $("#tabView").hide();
         });
@@ -852,20 +854,20 @@ $this->beginWidget(
             url: "<?php echo url('pegawai/getPensiun') ?> ",
             type: "POST",
             data: {tanggal_lahir: tanggal, riwayatJabatan: jabatan},
-            success: function(data) {
+            success: function (data) {
                 $("#Pegawai_tmt_pensiun").val(data);
 //                alert(tanggal + " id " + jabatan);
 //                alert(data);
             }
         });
     }
-    $(".pilihPendidikan").click(function() {
-    var judul = $(this).attr('judulPendidikan');
+    $(".pilihPendidikan").click(function () {
+        var judul = $(this).attr('judulPendidikan');
         $.ajax({
             url: "<?php echo url('pegawai/getTablePendidikan'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function(data) {
+            success: function (data) {
                 $(".modal-body").html(data);
             }
         });
@@ -873,13 +875,13 @@ $this->beginWidget(
         $("#judul").html(judul);
     });
 
-    $(".pilihPangkat").click(function() {
-    var judul = $(this).attr('judulPangkat');
+    $(".pilihPangkat").click(function () {
+        var judul = $(this).attr('judulPangkat');
         $.ajax({
             url: "<?php echo url('pegawai/getTablePangkat'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function(data) {
+            success: function (data) {
                 $(".modal-body").html(data);
             }
         });
@@ -887,13 +889,13 @@ $this->beginWidget(
         $("#judul").html(judul);
     });
 
-    $(".pilihJabatan").click(function() {
+    $(".pilihJabatan").click(function () {
         var judul = $(this).attr('judulJabatan');
         $.ajax({
             url: "<?php echo url('pegawai/getTableJabatan'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function(data) {
+            success: function (data) {
                 $(".modal-body").html(data);
             }
         });
@@ -901,29 +903,29 @@ $this->beginWidget(
         $("#judul").html(judul);
 
     });
-    $(".hapusJabatan").click(function() {
+    $(".hapusJabatan").click(function () {
         $("#Pegawai_riwayat_jabatan_id").val(0);
         $("#riwayatTipeJabatan").val('-');
         $("#riwayatNamaJabatan").val('-');
         $("#riwayatTmtJabatan").val('-');
         $("#riwayatBidangJabatan").val('-');
     });
-    $(".pilihGaji").click(function() {
-         var judul = $(this).attr('judulGaji');
+    $(".pilihGaji").click(function () {
+        var judul = $(this).attr('judulGaji');
         $.ajax({
             url: "<?php echo url('pegawai/getTableGaji'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function(data) {
+            success: function (data) {
                 $(".modal-body").html(data);
             }
         });
         $("#modalForm").modal("show");
         $("#judul").html(judul);
     });
-    $(function() {
+    $(function () {
 
-        $('#Pegawai_kedudukan_id').change(function() {
+        $('#Pegawai_kedudukan_id').change(function () {
             if ($('#Pegawai_kedudukan_id').val() == '1') {
                 $("#Pegawai_keterangan").parent().parent().attr("style", "display:none");
                 $('#Pegawai_keterangan').attr("value", "");
@@ -935,7 +937,7 @@ $this->beginWidget(
             }
         });
     });
-    $("body").on("click", ".radio", function() {
+    $("body").on("click", ".radio", function () {
 
         var id = $(this).find("input").val();
         if (id == "Lainnya") {
