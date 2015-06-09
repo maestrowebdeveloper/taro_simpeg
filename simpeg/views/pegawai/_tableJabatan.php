@@ -25,6 +25,7 @@
             foreach ($jabatan as $value) {
                 $pegawai = Pegawai::model()->findByPk($value->pegawai_id);
                 $display = ($pegawai->riwayat_jabatan_id == $value->id) ? 'none' : '';
+                $pangkatGolongan = RiwayatPangkat::model()->findByAttributes(array('pegawai_id' => $value->pegawai_id));
                 $jabatanFungsional = Golongan::model()->golJabatan($value->type,$pangkatGolongan->golongan_id);
                 if (!empty($edit))
                     $action = '<td style="width: 85px;text-align:center">

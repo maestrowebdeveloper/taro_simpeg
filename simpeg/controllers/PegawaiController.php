@@ -247,8 +247,7 @@ class PegawaiController extends Controller {
     public function actionGetTableJabatan() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tmt_mulai DESC'));
-        $pangkatGolongan = RiwayatPangkat::model()->findByAttributes(array('pegawai_id' => $id));
-        echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan,'pangkatGolongan'=> $pangkatGolongan,'edit' => true, 'pegawai_id' => $id));
+        echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan,'edit' => true, 'pegawai_id' => $id));
     }
 
     public function actionGetTableGaji() {
