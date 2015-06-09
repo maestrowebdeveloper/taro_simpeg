@@ -11,9 +11,6 @@ if (isset($_GET['nextweek']))
     $judul = 'INFORMASI ULANG TAHUN PEGAWAI MINGGU DEPAN';
 ?>
 
-
-<a class="btn btn-info pull-right" href="ulangTahunExcel" target="_blank"><span class="icon16 icomoon-icon-file-excel  white"></span>Export to Excel</a>
-
 <h3 style="text-align:center"><?php echo $judul;?></h3>
 
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
