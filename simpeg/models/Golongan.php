@@ -145,7 +145,7 @@ class Golongan extends CActiveRecord {
                 45 => 'Ahli Utama',
             )
         );
-        echo (!empty($golongan[$type][$id])) ? $golongan[$type][$id] : '';
+        return (!empty($golongan[$type][$id])) ? $golongan[$type][$id] : '';
     }
 
 }
