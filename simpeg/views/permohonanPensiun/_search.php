@@ -65,13 +65,18 @@ echo $form->radioButtonListRow($model, 'status', PermohonanPensiun::model()->Arr
 ?>
 <div class="form-actions">
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'search white', 'label' => 'Pencarian')); ?>
-    <?php
-    $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'icon', 'label' => 'Export Excel',
+     <?php
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'button',
+        'type' => 'primary',
+        'icon' => 'ok white',
+        'label' => 'Export ke Excel',
         'htmlOptions' => array(
-            'onclick' => 'excel()'
-    )));
-    ?>   
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'button', 'icon' => 'icon-remove-sign white', 'label' => 'Reset', 'htmlOptions' => array('class' => 'btnreset btn-small'))); ?>
+            'name' => 'export',
+            'onClick' => 'chgAction()',
+        )
+    ));
+    ?>
 </div>
 
 <?php $this->endWidget(); ?>
@@ -92,21 +97,11 @@ echo $form->radioButtonListRow($model, 'status', PermohonanPensiun::model()->Arr
         });
     })
 
-    function excel() {
-        if (document.getElementById('PermohonanPensiun_status_0').checked) {
-            var status = document.getElementById('PermohonanPensiun_status_0').value;
-        }else
-        if (document.getElementById('PermohonanPensiun_status_1').checked) {
-            var status = document.getElementById('PermohonanPensiun_status_1').value;
-        }else{
-        
-        }
-        var noregister = $('#PermohonanPensiun_nomor_register').val();
-        var tanggal = $('#PermohonanPensiun_tanggal').val();
-        var pegawai_id = $('#PermohonanPensiun_pegawai_id').val();
-        var tmt = $('#PermohonanPensiun_tmt').val();
-        
-        window.open("<?php  echo url('permohonanPensiun/GenerateExcel')?>?noregister="+noregister+"&status="+status+"&tanggal="+tanggal+"&pegawai_id="+pegawai_id+"&tmt="+tmt);
+    function chgAction()
+    {
+        document.getElementById("search-permohonan-pensiun-form").action = "<?php echo Yii::app()->createUrl('permohonanPensiun/GenerateExcel'); ?>";
+        document.getElementById("search-permohonan-pensiun-form").submit();
+
     }
 </script>
 

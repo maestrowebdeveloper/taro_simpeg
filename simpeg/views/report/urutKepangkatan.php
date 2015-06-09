@@ -65,19 +65,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'template' => '{items}{pager}{summary}',
     'columns' => array(
-//        array(
-//            'name' => 'No',
-//            'type' => 'raw',
-//            'value' => '$data->id',
-//            'htmlOptions' => array('style' => 'text-align:center'),
-//        ),
-//        array(
-//            'name' => 'Gol',
-//            'type' => 'raw',
-//            'value' => '$data->gol',
-//            'htmlOptions' => array('style' => 'text-align:center'),
-//        ),
-//       'nama',
         array(
             'header' => 'Nama <br>Nip',
             'name' => 'nama',

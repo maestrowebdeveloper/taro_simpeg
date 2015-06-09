@@ -91,45 +91,45 @@ class KenaikanGajiController extends Controller {
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['proses'])) {
-            
+        if (isset($_POST['dibayar'])) {
+
 //            for ($i = 0; $i < count($_POST['dibayar']); $i++) {
 //                if (isset($_POST['dibayar'][$i])) {
             foreach ($_POST['dibayar'] as $key => $val) {
 //                if (!empty($_POST['dibayar'][$key])) {
-                    $bulan = substr("0" . $_POST['bulan'], -2, 2);
-                    $valPegawai = Pegawai::model()->findByPk($_POST['dibayar'][$key]);
+                $bulan = substr("0" . $_POST['bulan'], -2, 2);
+                $valPegawai = Pegawai::model()->findByPk($_POST['dibayar'][$key]);
 
-                    $tglKenaikan = date("Y-m-d", strtotime($_POST['tmt_mulai'][$key]));
+                $tglKenaikan = date("Y-m-d", strtotime($_POST['tmt_mulai'][$key]));
 
-                    $delRiwayatgaji = RiwayatGaji::model()->deleteAll(array('condition' => 'pegawai_id=' . $valPegawai->id . ' and month(tmt_mulai)="' . $bulan . '" and year(tmt_mulai)="' . $_POST['tahun'] . '"'));
-                    $riwayatGaji = new RiwayatGaji;
-                    $riwayatGaji->nomor_register = date("ymisd");
-                    $riwayatGaji->pegawai_id = $valPegawai->id;
-                    $riwayatGaji->gaji = $_POST['gaji_baru'][$key];
-                    $riwayatGaji->dasar_perubahan = "Kenaikan gaji berkala bulan " . $bulan . " tahun " . $_POST['tahun'];
-                    $riwayatGaji->tmt_mulai = $_POST['tmt_mulai'][$key];
-                    $riwayatGaji->save();
+                $delRiwayatgaji = RiwayatGaji::model()->deleteAll(array('condition' => 'pegawai_id=' . $valPegawai->id . ' and month(tmt_mulai)="' . $bulan . '" and year(tmt_mulai)="' . $_POST['tahun'] . '"'));
+                $riwayatGaji = new RiwayatGaji;
+                $riwayatGaji->nomor_register = date("ymisd");
+                $riwayatGaji->pegawai_id = $valPegawai->id;
+                $riwayatGaji->gaji = $_POST['gaji_baru'][$key];
+                $riwayatGaji->dasar_perubahan = "Kenaikan gaji berkala bulan " . $bulan . " tahun " . $_POST['tahun'];
+                $riwayatGaji->tmt_mulai = $_POST['tmt_mulai'][$key];
+                $riwayatGaji->save();
 
                 $delKgb = KenaikanGaji::model()->deleteAll(array('condition' => 'pegawai_id=' . $valPegawai->id . ' and month(tanggal)="' . $bulan . '" and year(tanggal)="' . $_POST['tahun'] . '"'));
                 $kgb = new KenaikanGaji;
                 $kgb->pegawai_id = $valPegawai->id;
-                $kgb->gaji_pokok_lama = $_POST['gaji_lama'][$i];
-                $kgb->gaji_pokok_baru = $_POST['gaji_baru'][$i];
-                $kgb->tmt_lama = $_POST['tmt_lama'][$i];
-                $kgb->tmt_baru = $_POST['tmt_mulai'][$i];
+                $kgb->gaji_pokok_lama = $_POST['gaji_lama'][$key];
+                $kgb->gaji_pokok_baru = $_POST['gaji_baru'][$key];
+                $kgb->tmt_lama = $_POST['tmt_lama'][$key];
+                $kgb->tmt_baru = $_POST['tmt_mulai'][$key];
                 $kgb->created = date("Y-m-d h:i:s");
                 $kgb->nomor_register = '';
                 $kgb->sifat = '';
                 $kgb->perihal = '';
                 $kgb->pejabat = '';
-                $kgb->tanggal = $_POST['tmt_mulai'][$i];
-                $kgb->no_sk_akhir = $_POST['no_sk_akhir'][$i];
-                $kgb->tanggal_sk_akhir = $_POST['tanggal_sk_akhir'][$i];
+                $kgb->tanggal = $_POST['tmt_mulai'][$key];
+                $kgb->no_sk_akhir = $_POST['no_sk_akhir'][$key];
+                $kgb->tanggal_sk_akhir = $_POST['tanggal_sk_akhir'][$key];
                 $kgb->save();
 
-                    $valPegawai->riwayat_gaji_id = $riwayatGaji->id;
-                    $valPegawai->save();
+                $valPegawai->riwayat_gaji_id = $riwayatGaji->id;
+                $valPegawai->save();
 //                }
             }
         }

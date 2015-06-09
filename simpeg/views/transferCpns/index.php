@@ -103,7 +103,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         'nomor_kesehatan',
         array(
             'name' => 'tanggal_kesehatan',
-            'value' => '$data->tgl',
+            'value' => 'landa()->date2Ind($data->tgl)',
         ),
 //        'tanggal_kesehatan',
 //        'pelatihan_id',
@@ -115,10 +115,9 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => '$data->statusname',
             'htmlOptions' => array('style' => 'text-align: left;')
         ),
-        /*
+        
           'tanggal_diklat',
-          'status',
-         */
+         /* 'status',*/
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
             'template' => $button,

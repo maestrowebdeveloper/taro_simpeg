@@ -37,7 +37,7 @@
         $fu = ($model->tipe_jabatan == "fungsional_umum") ? "" : "none";
         $ft = ($model->tipe_jabatan == "fungsional_tertentu") ? "" : "none";
         ?>
-        
+
         <div class="struktural" style="display:<?php echo $struktural; ?>"> 
 
             <div class="control-group "><label class="control-label" for="RiwayatJabatan_jabatan_struktural_id">Jabatan / Tanggal </label>
@@ -151,7 +151,7 @@
                     );
                     echo '&nbsp;&nbsp;';
                     ?>
-                    <input type="hidden" id="golongan_id" value="<?php echo $model->Pegawai->Pangkat->golongan_id?>">
+                    <input type="hidden" id="golongan_id" value="<?php echo $model->Pegawai->Pangkat->golongan_id ?>">
                     <div class="input-prepend">
                         <span class="add-on"><i class="icon-calendar"></i></span>
                         <?php
@@ -170,12 +170,14 @@
             <div class="control-group ">
                 <label class="control-label" for="jabatan_fungsional_tertentu">Jabatan Fungsional</label>
                 <div class="controls">
-                    <?php
+                    <?php //
                     $model->jabatan_ft_id = ($model->isNewRecord == false) ? $model->jabatan_ft_id : 0;
-                    $jabatanFung = JabatanFungsional::model()->find(array('condition' => 'jabatan_ft_id=' . $model->jabatan_ft_id));
-                    echo CHtml::textField('jabatan_fungsional_tertentu', isset($jabatanFung->nama) ? $jabatanFung->nama : '-', array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
-                    ?>   
+                    $jabatan = Golongan::model()->golJabatan($model->type, $model->Pegawai->Pangkat->golongan_id);
+//                    $namaJabfung = isset($jabatanFung->nama) ? $jabatanFung->nama : '-';
+                    echo CHtml::textField('jabatan_fungsional_tertentu', $jabatan, array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
+                    ?>
                     <?php
+//                    logs($model->type);
                     $data = array('0' => '- Ahli / Terampil -') + RiwayatJabatan::model()->arrType();
                     $this->widget(
                             'bootstrap.widgets.TbSelect2', array(
@@ -251,14 +253,14 @@
         $(".fungsional_umum").hide();
         $(".fungsional_tertentu").show();
     });
-    
-     $(".back").click(function() {
+
+    $(".back").click(function () {
         var judul = $(this).attr('judulJabatan');
         $.ajax({
             url: "<?php echo url('pegawai/getTableJabatan'); ?>",
             data: "id=<?php echo $model->pegawai_id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function(data) {
+            success: function (data) {
                 $(".modal-body").html(data);
             }
         });
@@ -266,13 +268,13 @@
         $("#judul").html(judul);
 
     });
-$(".back").click(function() {
+    $(".back").click(function () {
         var judul = $(this).attr('judulJabatan');
         $.ajax({
             url: "<?php echo url('pegawai/getTableJabatan'); ?>",
             data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
-            success: function(data) {
+            success: function (data) {
                 $(".modal-body").html(data);
             }
         });
@@ -300,6 +302,22 @@ $(".back").click(function() {
             },
         });
 
+    });
+
+    function jabatanFungsional() {
+        var type = $("#RiwayatJabatan_type").val();
+        var id = $("#golongan_id").val();
+        $.ajax({
+            type: 'post',
+            data: {id: id, type: type},
+            url: "<?= url('pegawai/getFungsional') ?>",
+            success: function (data) {
+                $("#jabatan_fungsional_tertentu").val(data);
+            }
+        });
+    }
+    $("body").on("change", "#RiwayatJabatan_type", function () {
+        jabatanFungsional();
     });
     function detailJabatan() {
         var postData = $("#jabatan-form").serialize();

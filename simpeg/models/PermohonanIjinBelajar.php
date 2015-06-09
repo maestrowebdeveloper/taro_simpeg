@@ -103,11 +103,11 @@ class PermohonanIjinBelajar extends CActiveRecord {
      * @return CActiveDataProvider the data provider that can return the models
      * based on the search/filter conditions.
      */
-    public function search() {
+    public function search($export = null) {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-
+        $criteria->order = 'tanggal DESC';
         $criteria->compare('id', $this->id);
         $criteria->compare('nomor_register', $this->nomor_register, true);
         $criteria->compare('tanggal', $this->tanggal, true);
@@ -126,10 +126,14 @@ class PermohonanIjinBelajar extends CActiveRecord {
         $criteria->compare('created_user_id', $this->created_user_id);
         $criteria->compare('modified', $this->modified, true);
 
-        $data = new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'tanggal DESC')
-        ));
+        if (empty($export)) {
+            $data = new CActiveDataProvider($this, array(
+                'criteria' => $criteria,
+                'sort' => array('defaultOrder' => 'tanggal DESC')
+            ));
+        } else {
+            $data = PermohonanIjinBelajar::model()->findAll($criteria);
+        }
 
         //app()->session['PermohonanIjinBelajar_records'] = $this->findAll($criteria);
 
@@ -158,18 +162,19 @@ class PermohonanIjinBelajar extends CActiveRecord {
     }
 
     public function getTglIjnBelajar() {
-        return (empty($this->tanggal) || strtotime($this->tanggal)<0) ? '-' : date('d-m-Y', strtotime($this->tanggal));
+        return (empty($this->tanggal) || strtotime($this->tanggal) < 0) ? '-' : landa()->date2Ind($this->tanggal);
     }
 
     public function getPegawai() {
         return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
     }
-    
-    public function getSatuanKerja(){
-        return (!empty($this->Pegawai->JabatanStruktural->UnitKerja->nama)) ? $this->Pegawai->JabatanStruktural->UnitKerja->nama : '-' ;
+
+    public function getSatuanKerja() {
+        return (!empty($this->Pegawai->JabatanStruktural->UnitKerja->nama)) ? $this->Pegawai->JabatanStruktural->UnitKerja->nama : '-';
     }
-    public function getJabatan(){
-        return (!empty($this->Pegawai->JabatanStruktural->nama)) ? $this->Pegawai->JabatanStruktural->nama : '-' ;
+
+    public function getJabatan() {
+        return (!empty($this->Pegawai->JabatanStruktural->nama)) ? $this->Pegawai->JabatanStruktural->nama : '-';
     }
 
     public function getjurusanUniv() {
@@ -183,17 +188,18 @@ class PermohonanIjinBelajar extends CActiveRecord {
     public function getKotaSekolah() {
         return (!empty($this->Kota->name)) ? $this->Kota->name : '-';
     }
+
     public function arrStatuspros() {
         $agama = array('0' => 'Proses', '1' => 'Selesai');
         return $agama;
     }
-    
-    public function getStat(){
-        $status='';
-        if($this->status == 1){
-             $status = '<span class="label label-info">Sudah</span>';
-        }else{
-             $status = '<span class="label label-warning">Belum</span>';
+
+    public function getStat() {
+        $status = '';
+        if ($this->status == 1) {
+            $status = '<span class="label label-info">Sudah</span>';
+        } else {
+            $status = '<span class="label label-warning">Belum</span>';
         }
         return $status;
     }
