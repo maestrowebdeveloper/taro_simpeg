@@ -669,12 +669,12 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getTmtEslon() {
-        return (isset($this->RiwayatJabatan->tmt_eselon)) ? date("d-m-Y", strtotime($this->RiwayatJabatan->tmt_eselon)) : "-";
+        return (isset($this->RiwayatJabatan->tmt_eselon)) ? landa()->date2Ind($this->RiwayatJabatan->tmt_eselon) : "-";
     }
 
 //===========================//
     public function getNamaNip() {
-        return $this->namaGelar . '<br> ' . $this->nip;
+        return $this->namaGelar . '<br> ' . $this->nip."&nbsp;";
     }
 
     public function getGolTmt() {
