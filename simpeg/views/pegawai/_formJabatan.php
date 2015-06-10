@@ -175,7 +175,7 @@
                     $jt='';
                     $model->jabatan_ft_id = ($model->isNewRecord == false) ? $model->jabatan_ft_id : 0;
                     $jabatan = Golongan::model()->golJabatan($model->type, $model->Pegawai->Pangkat->golongan_id);
-                    $data = array('0' => '- Ahli / Terampil -') + RiwayatJabatan::model()->arrType();
+                    $data = array('0' => '-Pilih-') + RiwayatJabatan::model()->arrType();
                     $this->widget(
                             'bootstrap.widgets.TbSelect2', array(
                         'name' => 'RiwayatJabatan[type]',
@@ -328,11 +328,12 @@
     function jabatanFungsional() {
         var type = $("#RiwayatJabatan_type").val();
         var id = $("#golongan_id").val();
+        var riwayatTipeJabatan = $("#riwayatTipeJabatan").val();
 //        var id_jabatan = "<?php echo $model->pegawai_id; ?>";
         var jabatan = $("#RiwayatJabatan_jabatan_ft_id").val();
         $.ajax({
             type: 'post',
-            data: {id: id, type: type, jabatan: jabatan},
+            data: {id: id, type: type, jabatan: jabatan, riwayatTipeJabatan:riwayatTipeJabatan},
             url: "<?= url('pegawai/getFungsional') ?>",
             success: function (data) {
                 $("#jabatan_fungsional_tertentu").val(data);
