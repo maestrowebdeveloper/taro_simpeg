@@ -127,7 +127,7 @@ $this->breadcrumbs = array(
                     'name' => 'riwayat_pangkat_id',
                     'header' => 'Jabatan Fungsional',
                     'type' => 'raw',
-                    'value' => '$data->pangkat',
+                    'value' => '$data->jabatanFUngsional',
                     'htmlOptions' => array('style' => 'text-align:center'),
                 ),
                 array(

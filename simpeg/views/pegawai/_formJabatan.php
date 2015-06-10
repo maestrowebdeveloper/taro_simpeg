@@ -172,6 +172,7 @@
                 <div class="controls">
                     <?php
                     //
+                    $jt='';
                     $model->jabatan_ft_id = ($model->isNewRecord == false) ? $model->jabatan_ft_id : 0;
                     $jabatan = Golongan::model()->golJabatan($model->type, $model->Pegawai->Pangkat->golongan_id);
                     $data = array('0' => '- Ahli / Terampil -') + RiwayatJabatan::model()->arrType();
@@ -184,7 +185,8 @@
                             'style' => 'width:25%;margin:0px;text-align:left',
                     )));
                     echo '&nbsp;';
-                    echo CHtml::textField('jabatan_fungsional_tertentu', $model->JabatanFt->nama . ' ' . $jabatan, array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
+                    $jt = isset($model->Pegawai->JabatanFt->nama) ? $model->Pegawai->JabatanFt->nama :'';
+                    echo CHtml::textField('jabatan_fungsional_tertentu', $jt . ' ' . $jabatan, array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
                     ?>
                 </div>
             </div>

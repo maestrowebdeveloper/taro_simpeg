@@ -559,6 +559,14 @@ class Pegawai extends CActiveRecord {
             return '-';
         }
     }
+    
+    public function getJabatanFungsional(){
+        $jab = Golongan::model()->golJabatan($this->RiwayatJabatan->type, $this->Pangkat->golongan_id);
+        $jt = isset($this->JabatanFt->nama) ? $this->JabatanFt->nama : '';
+        return $jt.' '.$jab;
+    }
+
+
     public function getJabatanId() {
         if ($this->tipe_jabatan == "struktural") {
             return (!empty($this->JabatanStruktural->id)) ? $this->JabatanStruktural->id : '';
