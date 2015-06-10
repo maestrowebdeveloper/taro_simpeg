@@ -10,7 +10,7 @@ $data = PermohonanPerpanjanganHonorer::model()->findAll(array('condition' => 'id
 
 <div class="report" id="report" style="width: 100%">
     <h3 style="text-align:center">LAPORAN DATA PERPANJANGAN PEGAWAI HONORER</h3><br>
-    <h6  style="text-align:center">Tangga : <?php echo date('d F Y'); ?></h6>
+    <h6  style="text-align:center">Tangga : <?php echo landa()->date2Ind(date('d F Y')); ?></h6>
     <hr>
     <table class="table table-bordered">
         <thead>
@@ -34,12 +34,12 @@ $data = PermohonanPerpanjanganHonorer::model()->findAll(array('condition' => 'id
 		<tr>
 			<td>' . $no . '</td>
 			<td>' . $value->nomor_register . '</td>
-			<td>' . $value->tanggal . '</td>						
+			<td>' . landa()->date2Ind($value->tanggal) . '</td>						
 			<td>' . $value->honorer . '</td>			
 			<td>' . $value->unitKerja . '</td>							
 			<td>' . landa()->rp($value->honor_saat_ini) . '</td>			
-			<td>' . $value->tmt_mulai . '</td>			
-			<td>' . $value->tmt_selesai . '</td>						
+			<td>' . landa()->date2Ind($value->tmt_mulai) . '</td>			
+			<td>' . landa()->date2Ind($value->tmt_selesai) . '</td>						
 			<td>' . $value->masa_kerja . '</td>						
 			
 		</tr>';

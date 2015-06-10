@@ -261,6 +261,7 @@ class Pegawai extends CActiveRecord {
     public function search2() {
         $criteria2 = new CDbCriteria();
         $criteria2->with = array('RiwayatPendidikan', 'RiwayatJabatan');
+        $criteria2->order = 'Golongan.nama DESC, Eselon.id ASC';
         $criteria2->together = true;
         if (!empty($this->riwayat_jabatan_id) && $this->riwayat_jabatan_id > 0)
             $criteria2->compare('riwayat_jabatan_id', $this->riwayat_jabatan_id);
@@ -459,7 +460,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getRiwayatTmtJabatan() {
-        return (!empty($this->RiwayatJabatan->tmt_mulai)) ? $this->RiwayatJabatan->tmt_mulai : '-';
+        return (!empty($this->RiwayatJabatan->tmt_mulai)) ? landa()->date2Ind($this->RiwayatJabatan->tmt_mulai) : '-';
     }
 
     public function getGajiPegawai() {
@@ -467,7 +468,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getTmtGaji() {
-        return (!empty($this->Gaji->tmt_mulai)) ? $this->Gaji->tmt_mulai : '-';
+        return (!empty($this->Gaji->tmt_mulai)) ? landa()->date2Ind($this->Gaji->tmt_mulai) : '-';
     }
 
     public function getPangkat() {
@@ -475,7 +476,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getTmtPangkat() {
-        return (!empty($this->Pangkat->tmt_pangkat)) ? $this->Pangkat->tmt_pangkat : '-';
+        return (!empty($this->Pangkat->tmt_pangkat)) ? landa()->date2Ind($this->Pangkat->tmt_pangkat) : '-';
     }
 
     public function getPendidikanTerakhir() {

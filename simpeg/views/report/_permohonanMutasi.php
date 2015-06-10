@@ -14,7 +14,7 @@ $data = PermohonanMutasi::model()->findAll(array('condition' => 'id > 0 '.$crite
 ?>
 <div class="report" id="report" style="width: 100%">
 <h3 style="text-align:center">LAPORAN DATA MUTASI PEGAWAI</h3><br>
-<h6  style="text-align:center">Tanggal : <?php echo date('d F Y');?></h6>
+<h6  style="text-align:center">Tanggal : <?php echo landa()->date2Ind(date('d F Y'));?></h6>
 <hr>
 <table class="table table-bordered">
 	<thead>
@@ -41,7 +41,7 @@ $data = PermohonanMutasi::model()->findAll(array('condition' => 'id > 0 '.$crite
 		<tr>
 			<td>'.$no.'</td>
 			<td>'.$value->nomor_register.'</td>
-			<td>'.$value->tanggal.'</td>						
+			<td>'.landa()->date2Ind($value->tanggal).'</td>						
 			<td>'.$value->pegawai.'</td>			
 			<td>'.$value->unit_kerja_lama.'</td>							
 			<td>'.$value->unitKerja.'</td>			
@@ -49,7 +49,7 @@ $data = PermohonanMutasi::model()->findAll(array('condition' => 'id > 0 '.$crite
 			<td>'.$value->tipeJabatan.'</td>						
 			<td>'.$value->jabatan_lama.'</td>						
 			<td>'.$value->jabatan.'</td>						
-			<td>'.$value->tmt.'</td>						
+			<td>'.landa()->date2Ind($value->tmt).'</td>						
 			
 		</tr>';
 	 $no++; }?>
