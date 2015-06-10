@@ -45,7 +45,7 @@ class Honorer extends CActiveRecord {
             'SatuanKerja' => array(self::BELONGS_TO, 'UnitKerja', 'unit_kerja_id'),
             'Jurusan' => array(self::BELONGS_TO, 'Jurusan', 'id_jurusan'),
             'JabatanStruktural' => array(self::BELONGS_TO, 'JabatanStruktural', 'jabatan_struktural_id'),
-            'JabatanFu' => array(self::BELONGS_TO, 'JabatanFu', 'jabatan_fu_id'),
+            'JabatanFt' => array(self::BELONGS_TO, 'JabatanFt', 'jabatan_fu_id'),
 //			'TempatLahir' => array(self::BELONGS_TO, 'City', 'tempat_lahir'),
             'City' => array(self::BELONGS_TO, 'City', 'city_id'),
         );
@@ -109,7 +109,7 @@ class Honorer extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-        $criteria->with = array('Jurusan', 'JabatanStruktural', 'JabatanFu', 'City');
+        $criteria->with = array('Jurusan', 'JabatanStruktural', 'JabatanFt', 'City');
         $criteria->order = 't.nama ASC';
 
         if (isset($_GET['today'])) {
@@ -506,7 +506,7 @@ class Honorer extends CActiveRecord {
     }
 
     public function getJabatan() {
-        return (!empty($this->JabatanFu->nama)) ? $this->JabatanFu->nama : '-';
+        return (!empty($this->JabatanFt->nama)) ? $this->JabatanFt->nama : '-';
     }
 
     public function getTmtJabatan() {

@@ -103,6 +103,13 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'htmlOptions' => array('style' => 'text-align: center; width:140px;')
         ),
         array(
+            'name' => 'jabatan_fu_id',
+            'header' => 'Jabatan',
+            'value' => '$data->jabatan',
+            'type' => 'raw',
+            'htmlOptions' => array('style' => 'text-align: center; width:140px;')
+        ),
+        array(
             'name' => 'jabatan_struktural_id',
             'value' => '$data->unitKerja',
             'type' => 'raw',
@@ -110,6 +117,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'name' => 'jabatan_struktural_id',
+            'header' => 'Satuan Kerja',
             'value' => '$data->satuanKerja',
             'type' => 'raw',
             'htmlOptions' => array('style' => 'text-align: center; width:140px;')

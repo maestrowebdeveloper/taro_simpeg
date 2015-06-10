@@ -23,8 +23,8 @@
         <tbody>
             <?php
             foreach ($jabatan as $value) {
-                $pegawai = Pegawai::model()->findByPk($value->pegawai_id);
-                $display = ($pegawai->riwayat_jabatan_id == $value->id) ? 'none' : '';
+//                $pegawai = Pegawai::model()->findByPk($value->pegawai_id);
+                $display = ($value->Pegawai->riwayat_jabatan_id == $value->id) ? 'none' : '';
                 $pangkatGolongan = RiwayatPangkat::model()->findByAttributes(array('pegawai_id' => $value->pegawai_id));
                 $jabatanFungsional = Golongan::model()->golJabatan($value->type,$pangkatGolongan->golongan_id);
                 if (!empty($edit))
