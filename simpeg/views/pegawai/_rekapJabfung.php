@@ -7,7 +7,7 @@
     <table class="table table-bordered" border="1">
         <thead>
             <tr>
-                <th style="width:10px">NO</th>
+                <th class="span1"F>NO</th>
                 <th class="span1">NAMA</th>
                 <th class="span1">NIP</th>
                 <th class="span1">GOL</th>					
@@ -23,8 +23,8 @@
                 echo '	
 		<tr>
 			<td>' . $no . '</td>
-			<td>' . $value->nama . '</td>
-			<td>' . $value->nip . '</td>			
+                        <td>' . $value->nip . '&nbsp;</td>
+			<td>' . $value->namaGelar . '</td>		
 			<td>' . $value->golongan . '</td>			
 			<td>' . $value->jabatanFu . '</td>			
 			<td>' . $value->pangkat . '</td>			

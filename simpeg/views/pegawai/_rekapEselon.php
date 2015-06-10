@@ -6,12 +6,12 @@
     <table class="table table-bordered" border="1">
         <thead>
             <tr>
-                <th style="width:20px">NO</th>
+                <th class="span1">NO</th>
                 <th class="span1">NIP</th>
                 <th class="span1">NAMA</th>
-                <th class="span1">GOLONGAN</th>					
-                <th class="span1">JABATAN</th>					
-                <th class="span1">UNIT KERJA</th>					
+                <th class="span1">GOLONGAN</th>	
+                <th class="span1">UNIT KERJA</th>
+                <th class="span1">JABATAN</th>										
                 <th class="span1">ALAMAT</th>					
             </tr>
         </thead>
@@ -27,7 +27,7 @@
                         <td>' . $value->nip."&nbsp;". '</td>	
 			<td>' . $value->namaGelar . '</td>		
 			<td>' . $value->Pangkat->golongan . '</td>			
-			<td>' . $value->jabatan . '</td>			
+			<td>' . $value->unitKerja . '</td>			
 			<td>' . $value->jabatan . '</td>			
 			<td>' . $value->alamat . '</td>			
 									
