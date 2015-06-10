@@ -187,7 +187,7 @@ class PegawaiController extends Controller {
         $jabatan = '';
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $model = RiwayatJabatan::model()->findByPk($id);
-        Pegawai::model()->updateByPk($model->pegawai_id, array('riwayat_jabatan_id' => $model->id));
+
         if ($model->tipe_jabatan == "struktural") {
             $pegawai = Pegawai::model()->findAll(array('condition' => 'jabatan_struktural_id=' . $model->jabatan_struktural_id . ' and kedudukan_id=1 and tipe_jabatan="struktural"'));
             $jabatan = isset($model->JabatanStruktural->jabatan) ? $model->JabatanStruktural->jabatan : "-";
@@ -200,7 +200,11 @@ class PegawaiController extends Controller {
                     $data['isi'] = 1;
                 }
             } else {
-
+                Pegawai::model()->updateByPk($model->pegawai_id, array(
+                    'riwayat_jabatan_id' => $model->id,
+                    'tipe_jabatan' => 'struktural',
+                    'jabatan_struktural_id' => $model->jabatan_struktural_id,
+                ));
                 $data['id'] = $model->id;
                 $data['tipe'] = $model->tipe;
                 $data['jabatan'] = $jabatan;
@@ -212,6 +216,12 @@ class PegawaiController extends Controller {
 //            logs($data);
             }
         } elseif ($model->tipe_jabatan == "fungsional_tertentu") {
+            Pegawai::model()->updateByPk($model->pegawai_id, array(
+                'riwayat_jabatan_id' => $model->id,
+                'tipe_jabatan' => 'fungsional_tertentu',
+                'jabatan_struktural_id' => $model->jabatan_struktural_id,
+                'jabatan_ft_id' => $model->jabatan_ft_id,
+            ));
             $jabatan = isset($model->JabatanFt->nama) ? $model->JabatanFt->nama : "-";
             $data['id'] = $model->id;
             $data['tipe'] = $model->tipe;
@@ -221,6 +231,12 @@ class PegawaiController extends Controller {
             $data['status'] = $model->statusjabatan;
             $data['isi'] = 0;
         } else {
+            Pegawai::model()->updateByPk($model->pegawai_id, array(
+                'riwayat_jabatan_id' => $model->id,
+                'tipe_jabatan' => 'fungsional_umum',
+                'jabatan_struktural_id' => $model->jabatan_struktural_id,
+                'jabatan_fu_id' => $model->jabatan_fu_id,
+            ));
             $jabatan = isset($model->JabatanFu->nama) ? $model->JabatanFu->nama : "-";
             $data['id'] = $model->id;
             $data['tipe'] = $model->tipe;
@@ -589,7 +605,7 @@ class PegawaiController extends Controller {
         $date = explode("-", $_POST['tmt_cpns']);
         $tmt = mktime(0, 0, 0, $date[1] + $bulan, $date[2], $date[0] + $tahun);
         $tmt_cpns = date("d-m-Y", $tmt);
-        if (isset($tmt_cpns) or ! empty($tmt_cpns)) {
+        if (isset($tmt_cpns) or !empty($tmt_cpns)) {
             $data = array();
             $data['bulan'] = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true));
             $data['tahun'] = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true));
@@ -926,7 +942,8 @@ class PegawaiController extends Controller {
 
         if (isset($session['Pegawai_records'])) {
             $model = $session['Pegawai_records'];
-        } else
+        }
+        else
             $model = Pegawai::model()->findAll();
 
         Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelCheckError', array(
@@ -1206,7 +1223,8 @@ class PegawaiController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        } else
+        }
+        else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -1383,7 +1401,8 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatPangkat_records'])) {
             $model = $session['RiwayatPangkat_records'];
-        } else
+        }
+        else
             $model = RiwayatPangkat::model()->findAll();
 
 
@@ -1411,7 +1430,8 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatJabatan_records'])) {
             $model = $session['RiwayatJabatan_records'];
-        } else
+        }
+        else
             $model = RiwayatJabatan::model()->findAll();
 
 
@@ -1466,7 +1486,8 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatGaji_records'])) {
             $model = $session['RiwayatGaji_records'];
-        } else
+        }
+        else
             $model = RiwayatGaji::model()->findAll();
 
 
@@ -1494,7 +1515,8 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatKeluarga_records'])) {
             $model = $session['RiwayatKeluarga_records'];
-        } else
+        }
+        else
             $model = RiwayatKeluarga::model()->findAll();
 
 
@@ -1522,7 +1544,8 @@ class PegawaiController extends Controller {
 
         if (isset($session['RiwayatPendidikan_records'])) {
             $model = $session['RiwayatPendidikan_records'];
-        } else
+        }
+        else
             $model = RiwayatPendidikan::model()->findAll();
 
 
