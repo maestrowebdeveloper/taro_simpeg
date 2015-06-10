@@ -184,7 +184,7 @@
                             'style' => 'width:25%;margin:0px;text-align:left',
                     )));
                     echo '&nbsp;';
-                    echo CHtml::textField('jabatan_fungsional_tertentu', $model->Pegawai->JabatanFt->nama . ' ' . $jabatan, array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
+                    echo CHtml::textField('jabatan_fungsional_tertentu', $model->JabatanFt->nama . ' ' . $jabatan, array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
                     ?>
                 </div>
             </div>
@@ -251,6 +251,23 @@
         $(".fungsional_umum").hide();
         $(".fungsional_tertentu").show();
     });
+    function detailJabatan() {
+        var postData = $("#jabatan-form").serialize();
+        $.ajax({
+            url: "<?php echo url('pegawai/riwayatStatusJabatan'); ?>",
+            data: postData,
+            type: "post",
+            success: function (data) {
+                obj = JSON.parse(data);
+                $("#Riwayateselon").val(obj.eselon);
+                $("#Riwayatjabatanasli").val(obj.jabatan);
+//                   alert("jabatan sudah di emban orang lain");
+//                }if(obj.status==1){
+//                    alert("jabatan sudah di emban orang lain");
+//                }
+            }
+        });
+    }
 
     $(".back").click(function () {
         var judul = $(this).attr('judulJabatan');
