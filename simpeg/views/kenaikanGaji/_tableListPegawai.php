@@ -43,7 +43,7 @@
                 $masakerjaPegawai = KenaikanGaji::model()->masaKerja(date("d-m-Y", strtotime($valPegawai->tmt_cpns)), $tanggalKenaikan, true, false);
 //                if (isset($kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai]) and $kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai] > 0) {
                 echo '<tr style="' . $warna . '">';
-                echo '<td><input type="checkbox" checked="true" '.$value.' name="dibayar[]" class="dibayar" value="' . $valPegawai->id . '"></td>';
+                echo '<td><input type="checkbox" checked="true" name="dibayar[]" class="dibayar" value="' . $valPegawai->id . '"></td>';
                 echo '<td>';
                 echo '<input type="hidden" name="tanggal_sk_akhir[]" value="' . (isset($valPegawai->Pangkat->tanggal_sk_akhir) ? $valPegawai->Gaji->tanggal_sk_akhir : "-") . '">';
                 echo '<input type="hidden" name="no_sk_akhir[]" value="' . (isset($valPegawai->Pangkat->no_sk_akhir) ? $valPegawai->Pangkat->no_sk_akhir : "-") . '">';
