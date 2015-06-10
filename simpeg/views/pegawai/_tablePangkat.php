@@ -19,17 +19,18 @@
         <tbody>
             <?php
             foreach ($pangkat as $value) {
+                $displays = (!empty($edit) && ($value->id == $value->Pegawai->riwayat_pangkat_id)) ? 'style="display:none"' : 'style="display:"';
                 if (!empty($edit))
                     $action = $action = (!empty($edit)) ? '<td style="width: 85px;text-align:center">
                         <a class="btn btn-small update editPangkat" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" title="Edit" rel="tooltip" ><i class="icon-pencil"></i></a> 
                         <a class="btn btn-small delete deletePangkat" title="Hapus" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-trash"></i></a>
-                        <a class="btn btn-small pilih selectPangkat" title="Pilih" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-ok"></i></a>
+                        <a class="btn btn-small pilih selectPangkat" '.$displays.' title="Pilih" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-ok"></i></a>
                         </td>' : '';
                 echo '
                 <tr>
                 <td>' . $value->golongan . '</td>
                 <td>' . $value->nomor_register . '</td>
-                <td>' . $value->tmt_pangkat . '</td>
+                <td>' . landa()->date2Ind($value->tmt_pangkat) . '</td>
                 ' . $action . '           
                 </tr>
             ';

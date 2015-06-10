@@ -92,7 +92,7 @@ class TransferCpns extends CActiveRecord {
         $criteria->compare('nomor_kesehatan', $this->nomor_kesehatan);
         $criteria->compare('tanggal_kesehatan', $this->tanggal_kesehatan, true);
         $criteria->compare('pelatihan_id', $this->pelatihan_id);
-        $criteria->compare('nomor_diklat', $this->nomor_diklat);
+        $criteria->compare('nomor_diklat', $this->nomor_diklat,true);
         $criteria->compare('tanggal_diklat', $this->tanggal_diklat, true);
         $criteria->compare('status', $this->status);
         if (empty($export)) {

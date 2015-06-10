@@ -104,7 +104,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <script type="text/javascript">
     function chgAction()
     {
-        document.getElementById("search-transfer-cpns-form").action = "<?php echo Yii::app()->createUrl('tansferCpns/GenerateExcel'); ?>";
+        document.getElementById("search-transfer-cpns-form").action = "<?php echo Yii::app()->createUrl('transferCpns/GenerateExcel'); ?>";
         document.getElementById("search-transfer-cpns-form").submit();
 
     }

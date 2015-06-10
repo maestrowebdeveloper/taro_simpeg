@@ -21,19 +21,20 @@
         <tbody>
             <?php
             foreach ($gaji as $value) {
+                $displays = (!empty($edit) && ($value->id == $value->Pegawai->riwayat_gaji_id)) ? 'style="display:none"' : 'style="display:"';
                 if (!empty($edit))
                     $action = $action = (!empty($edit)) ? '<td style="width: 85px;text-align:center">
                         <a class="btn btn-small update editGajiPokok" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" title="Edit" rel="tooltip" ><i class="icon-pencil"></i></a> 
                         <a class="btn btn-small delete deleteGajiPokok" title="Hapus" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-trash"></i></a>
-                        <a class="btn btn-small pilih selectGaji" title="Pilih" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-ok"></i></a>
+                        <a class="btn btn-small pilih selectGaji" '.$displays.' title="Pilih" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-ok"></i></a>
                         </td>' : '';
                 echo '
                 <tr>                
                 <td>' . $value->nomor_register . '</td>                
                 <td>' . $value->dasar_perubahan . '</td>
                 <td>' . landa()->rp($value->gaji) . '</td>                
-                <td>' . $value->tmt_mulai . '</td>
-                <td>' . $value->tmt_selesai . '</td>
+                <td>' . landa()->date2Ind($value->tmt_mulai) . '</td>
+                <td>' . landa()->date2Ind($value->tmt_selesai) . '</td>
                 ' . $action . '
                 </tr>
             ';
