@@ -188,6 +188,7 @@
                             );
                             echo $form->textAreaRow($model, 'alamat', array('rows' => 2, 'style' => 'width:50%', 'class' => 'span9'));
                             echo $form->textFieldRow($model, 'kode_pos', array('class' => 'span2', 'style' => 'max-width:500px;width:100px', 'maxlength' => 10));
+                             echo $form->textFieldRow($model, 'hp', array('class' => 'span6', 'maxlength' => 50));
                             ?>
                         </div>
                         <div class="span3" style="margin-left: -15px;">
@@ -231,6 +232,7 @@
                             echo $form->radioButtonListRow($model, 'agama', Pegawai::model()->ArrAgama());
                             echo $form->textFieldRow($model, 'ket_agama', array('class' => 'span5', 'maxlength' => 50));
                             echo $form->radioButtonListRow($model, 'status_pernikahan', Pegawai::model()->arrStatusPernikahan());
+                            echo $form->radioButtonListRow($model, 'golongan_darah', Pegawai::model()->arrGolonganDarah());
                             ?>
                             <fieldset>
                                 <legend>Status Kepegawaian</legend>
