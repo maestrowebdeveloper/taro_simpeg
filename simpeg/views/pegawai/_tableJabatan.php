@@ -23,15 +23,15 @@
         <tbody>
             <?php
             foreach ($jabatan as $value) {
-                $pegawai = Pegawai::model()->findByPk($value->pegawai_id);
-                $display = ($pegawai->riwayat_jabatan_id == $value->id) ? 'none' : '';
+//                $pegawai = Pegawai::model()->findByPk($value->pegawai_id);
+                $display = ($value->Pegawai->riwayat_jabatan_id == $value->id) ? 'none' : '';
                 $pangkatGolongan = RiwayatPangkat::model()->findByAttributes(array('pegawai_id' => $value->pegawai_id));
                 $jabatanFungsional = Golongan::model()->golJabatan($value->type,$pangkatGolongan->golongan_id);
                 if (!empty($edit))
                     $action = '<td style="width: 85px;text-align:center">
                         <a class="btn btn-small update editJabatan" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" title="Edit" rel="tooltip" ><i class="icon-pencil"></i></a> 
                         <a class="btn btn-small delete deleteJabatan" title="Hapus" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-trash"></i></a>
-                        <a class="btn btn-small pilih selectJabatan" jabfungsional="'.$pegawai->JabatanFt->nama.' '.$jabatanFungsional.'" style="display:'.$display.'" title="Pilih" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-ok"></i></a>
+                        <a class="btn btn-small pilih selectJabatan" jabfungsional="'.$value->JabatanFt->nama.' '.$jabatanFungsional.'" style="display:'.$display.'" title="Pilih" pegawai="' . $value->pegawai_id . '" id="' . $value->id . '" rel="tooltip" ><i class="icon-ok"></i></a>
                         </td>';
 
                 $eselon = '-';

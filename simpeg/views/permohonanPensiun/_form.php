@@ -62,7 +62,7 @@
 //        );
 
         $idpegawai = isset($model->pegawai_id) ? $model->pegawai_id : 0;
-        $pegawaiName = isset($model->Pegawai->nama) ? $model->Pegawai->nama : 0;
+        $pegawaiName = isset($model->Pegawai->nama) ? $model->Pegawai->nip.' - '.$model->Pegawai->namaGelar : 0;
         echo $form->select2Row($model, 'pegawai_id', array(
             'asDropDownList' => false,
 //                    'data' => $data,
@@ -99,14 +99,20 @@
         <div class="control-group ">
             <label class="control-label " for="PermohonanPensiun_unit_kerja_id">Unit Kerja</label>
             <div class="controls">
-                <input class="span5 " readonly="1" name="" id="unit_kerja_id" type="text" value="<?php echo $model->unit_kerja_id ?>">
+                <input class="span5 " readonly="1" name="" id="unit_kerja_id" type="text" value="<?php echo isset($model->Pegawai->unitKerja) ? $model->Pegawai->unitKerja : '' ?>">
             </div>
         </div>
         <?php // echo $form->textFieldRow($model, 'unit_kerja_id', array('class' => 'span5', 'readOnly' => true)); ?>
 
         <?php echo $form->textFieldRow($model, 'tipe_jabatan', array('class' => 'span5', 'maxlength' => 19, 'readOnly' => true)); ?>
-
-        <?php echo $form->textFieldRow($model, 'jabatan_struktural_id', array('class' => 'span5', 'readOnly' => true)); ?>
+        <div class="control-group ">
+            <label class="control-label" for="PermohonanPensiun_jabatan_struktural_id">Jabatan</label>
+            <div class="controls">
+                <input class="span5"  name="PermohonanPensiun[jabatan_struktural_id]" id="PermohonanPensiun_jabatan_struktural_id" type="hidden">
+                <input class="span5" readonly="1" id="jabatan" type="text" value="<?php echo isset($model->Pegawai->jabatan) ? $model->Pegawai->jabatan :'' ?>">
+            </div>
+        </div>
+        <?php // echo $form->textFieldRow($model, 'jabatan_struktural_id', array('class' => 'span5', 'readOnly' => true)); ?>
 
         <?php echo $form->textFieldRow($model, 'masa_kerja', array('class' => 'span5', 'maxlength' => 50, 'readOnly' => true)); ?>
 
@@ -187,7 +193,8 @@
                 obj = JSON.parse(data);
                 $("#unit_kerja_id").val(obj.unit_kerja);
                 $("#PermohonanPensiun_tipe_jabatan").val(obj.tipe_jabatan);
-                $("#PermohonanPensiun_jabatan_struktural_id").val(obj.jabatan);
+                $("#PermohonanPensiun_jabatan_struktural_id").val(obj.jabatan_id);
+                $("#jabatan").val(obj.jabatan);
                 $("#PermohonanPensiun_masa_kerja").val(obj.masa_kerja);
             }
         });

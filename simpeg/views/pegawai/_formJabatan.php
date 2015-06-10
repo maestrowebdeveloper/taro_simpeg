@@ -170,14 +170,10 @@
             <div class="control-group ">
                 <label class="control-label" for="jabatan_fungsional_tertentu">Jabatan Fungsional</label>
                 <div class="controls">
-                    <?php //
+                    <?php
+                    //
                     $model->jabatan_ft_id = ($model->isNewRecord == false) ? $model->jabatan_ft_id : 0;
                     $jabatan = Golongan::model()->golJabatan($model->type, $model->Pegawai->Pangkat->golongan_id);
-//                    $namaJabfung = isset($jabatanFung->nama) ? $jabatanFung->nama : '-';
-                    echo CHtml::textField('jabatan_fungsional_tertentu', $model->Pegawai->JabatanFt->nama.' '.$jabatan, array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
-                    ?>
-                    <?php
-//                    logs($model->type);
                     $data = array('0' => '- Ahli / Terampil -') + RiwayatJabatan::model()->arrType();
                     $this->widget(
                             'bootstrap.widgets.TbSelect2', array(
@@ -185,8 +181,10 @@
                         'data' => $data,
                         'value' => $model->type,
                         'options' => array(
-                            'width' => '25%;margin:0px;text-align:left',
+                            'style' => 'width:25%;margin:0px;text-align:left',
                     )));
+                    echo '&nbsp;';
+                    echo CHtml::textField('jabatan_fungsional_tertentu', $model->Pegawai->JabatanFt->nama . ' ' . $jabatan, array('id' => 'jabatan_fungsional_tertentu', 'class' => 'span4', 'readonly' => true));
                     ?>
                 </div>
             </div>
@@ -220,7 +218,7 @@
         </div>
     </fieldset>
 
-    <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>
 
 </div>
 
@@ -231,7 +229,7 @@
         jQuery('#RiwayatJabatan_jabatan_fu_id').select2({'width': '40%'});
         jQuery('#RiwayatJabatan_jabatan_ft_id').select2({'width': '40%'});
 //        jQuery('#RiwayatJabatan_bidang_id').select2({'width': '40%'});
-        jQuery('#RiwayatJabatan_type').select2({'width': '40%'});
+        jQuery('#RiwayatJabatan_type').select2({'width': '15%'});
 //        jQuery('#RiwayatJabatan_jabatan_struktural_fu_id').select2({'width': '40%'});
 //        jQuery('#RiwayatJabatan_jabatan_struktural_ft_id').select2({'width': '40%'});
     });
@@ -290,8 +288,12 @@
             type: "post",
             success: function (data) {
                 if (data != "") {
-                    $("#tableJabatan").replaceWith(data);
-                    $(".modal-body").html(data);
+                    obj = JSON.parse(data);
+//                    $("#tableJabatan").replaceWith(data);
+                    $(".modal-body").html(obj.render);
+                    if(obj.isChanged == true){
+                        $("#jabatan-fungsional").val(obj.JabFung);
+                    }
                     $("#modalForm").modal("show");
                 } else {
                     alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
@@ -311,7 +313,7 @@
         var jabatan = $("#RiwayatJabatan_jabatan_ft_id").val();
         $.ajax({
             type: 'post',
-            data: {id: id, type: type,jabatan : jabatan},
+            data: {id: id, type: type, jabatan: jabatan},
             url: "<?= url('pegawai/getFungsional') ?>",
             success: function (data) {
                 $("#jabatan_fungsional_tertentu").val(data);

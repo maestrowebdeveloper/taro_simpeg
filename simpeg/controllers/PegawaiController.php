@@ -78,6 +78,7 @@ class PegawaiController extends Controller {
         $return['nip'] = $model->nip;
         $return['jenis_kelamin'] = (!empty($model->jenis_kelamin)) ? $model->jenis_kelamin : '-';
         $return['jabatan'] = $model->jabatan;
+        $return['jabatan_id'] = $model->jabatanId;
         $return['tipe_jabatan'] = $model->tipe;
         $return['unit_kerja'] = $model->unitKerja;
         $return['masa_kerja'] = $model->masaKerja;
@@ -288,6 +289,7 @@ class PegawaiController extends Controller {
     }
 
     public function actionSaveJabatan() {
+        $isi = array();
         if (isset($_POST['RiwayatJabatan'])) {
             if (empty($_POST['RiwayatJabatan']['id']))
                 $model = new RiwayatJabatan;
@@ -319,7 +321,13 @@ class PegawaiController extends Controller {
             if ($model->save()) {
                 $pangkatGolongan = RiwayatPangkat::model()->findByAttributes(array('pegawai_id' => $model->pegawai_id));
                 $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tmt_mulai DESC'));
-                echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $model->pegawai_id,'pangkatGolongan' => $pangkatGolongan));
+                
+                $isi['render'] = $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $model->pegawai_id,'pangkatGolongan' => $pangkatGolongan),true);
+                $isi['isChanged'] = ($model->id == $model->Pegawai->riwayat_jabatan_id) ? true  : false;
+                $isi['JabFung'] = $_POST['jabatan_fungsional_tertentu'];
+                logs($model->id);
+                logs($model->Pegawai->riwayat_jabatan_id);
+                echo json_encode($isi);
             }
         }
     }
@@ -1620,7 +1628,7 @@ class PegawaiController extends Controller {
         if (!empty($_POST['type']) && !empty($_POST['id'])) {
             $jabatanGol = Golongan::model()->golJabatan($_POST['type'], $_POST['id']);
             $mJabatan = JabatanFt::model()->findByPk($_POST['jabatan']);
-            logs($jabatanGol);
+//            logs($jabatanGol);
             if (empty($jabatanGol) && empty($mJabatan)) {
                 echo '-';
             } else {
