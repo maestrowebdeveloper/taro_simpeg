@@ -27,7 +27,7 @@
 			<td>' . $value->namaGelar . '</td>		
 			<td>' . $value->golongan . '</td>			
 			<td>' . $value->jabatanFu . '</td>			
-			<td>' . $value->pangkat . '</td>			
+			<td>' . $value->jabatanFUngsional . '</td>			
 			<td>' . $value->unitKerja . '</td>				
 		</tr>';
                 $no++;
