@@ -121,7 +121,7 @@ class PegawaiController extends Controller {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $model = RiwayatPangkat::model()->findByPk($id);
         if (!empty($model)) {
-            Pegawai::model()->updateByPk($model->pegawai_id, array('riwayat_pangkat_id' =>$model->id));
+            Pegawai::model()->updateByPk($model->pegawai_id, array('riwayat_pangkat_id' => $model->id));
             $data['id'] = $model->id;
             $data['nama_golongan'] = $model->golongan;
             $data['tmt_pangkat'] = $model->tmt_pangkat;
@@ -187,7 +187,7 @@ class PegawaiController extends Controller {
         $jabatan = '';
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $model = RiwayatJabatan::model()->findByPk($id);
-        Pegawai::model()->updateByPk($model->pegawai_id, array('riwayat_jabatan_id' =>$model->id));
+        Pegawai::model()->updateByPk($model->pegawai_id, array('riwayat_jabatan_id' => $model->id));
         if ($model->tipe_jabatan == "struktural") {
             $pegawai = Pegawai::model()->findAll(array('condition' => 'jabatan_struktural_id=' . $model->jabatan_struktural_id . ' and kedudukan_id=1 and tipe_jabatan="struktural"'));
             $jabatan = isset($model->JabatanStruktural->jabatan) ? $model->JabatanStruktural->jabatan : "-";
@@ -238,7 +238,7 @@ class PegawaiController extends Controller {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $model = RiwayatGaji::model()->findByPk($id);
         if (!empty($model)) {
-            Pegawai::model()->updateByPk($model->pegawai_id, array('riwayat_gaji_id' =>$model->id));
+            Pegawai::model()->updateByPk($model->pegawai_id, array('riwayat_gaji_id' => $model->id));
             $data['id'] = $model->id;
             $data['gaji'] = landa()->rp($model->gaji);
             $data['tmt'] = $model->tmt_mulai;
@@ -250,7 +250,7 @@ class PegawaiController extends Controller {
     public function actionGetTableJabatan() {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $id, 'order' => 'tmt_mulai DESC'));
-        echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan,'edit' => true, 'pegawai_id' => $id));
+        echo $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $id));
     }
 
     public function actionGetTableGaji() {
@@ -321,9 +321,9 @@ class PegawaiController extends Controller {
             if ($model->save()) {
                 $pangkatGolongan = RiwayatPangkat::model()->findByAttributes(array('pegawai_id' => $model->pegawai_id));
                 $jabatan = RiwayatJabatan::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tmt_mulai DESC'));
-                
-                $isi['render'] = $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $model->pegawai_id,'pangkatGolongan' => $pangkatGolongan),true);
-                $isi['isChanged'] = ($model->id == $model->Pegawai->riwayat_jabatan_id) ? true  : false;
+
+                $isi['render'] = $this->renderPartial('/pegawai/_tableJabatan', array('jabatan' => $jabatan, 'edit' => true, 'pegawai_id' => $model->pegawai_id, 'pangkatGolongan' => $pangkatGolongan), true);
+                $isi['isChanged'] = ($model->id == $model->Pegawai->riwayat_jabatan_id) ? true : false;
                 $isi['JabFung'] = $_POST['jabatan_fungsional_tertentu'];
                 logs($model->id);
                 logs($model->Pegawai->riwayat_jabatan_id);
@@ -470,7 +470,7 @@ class PegawaiController extends Controller {
         $id = (!empty($_POST['id'])) ? $_POST['id'] : '';
         $model = RiwayatPendidikan::model()->findByPk($id);
         if (!empty($model)) {
-            Pegawai::model()->updateByPk($model->pegawai_id, array('pendidikan_id' =>$model->id));
+            Pegawai::model()->updateByPk($model->pegawai_id, array('pendidikan_id' => $model->id));
             $data['id'] = $model->id;
             $data['jenjang_pendidikan'] = $model->tingkatPendidikan;
             $data['tahun'] = $model->tahun;
@@ -1171,8 +1171,12 @@ class PegawaiController extends Controller {
         }
         $jabFung = RiwayatJabatan::model()->findByAttributes(array('pegawai_id' => $id));
         $pangkatGolongan = RiwayatPangkat::model()->findByAttributes(array('pegawai_id' => $id));
-        
-        $jabatanFungsional = Golongan::model()->golJabatan($jabFung->type,$pangkatGolongan->golongan_id);
+
+        if ($model->tipe_jabatan == "fungsional_tertentu")
+            $jabatanFungsional = Golongan::model()->golJabatan($jabFung->type, $pangkatGolongan->golongan_id);
+        else
+            $jabatanFungsional = '';
+
         $this->render('update', array(
             'model' => $model,
             'jabFung' => $jabFung,
@@ -1356,7 +1360,7 @@ class PegawaiController extends Controller {
         $model = new Pegawai;
         $model->attributes = $_GET['Pegawai'];
         $data = $model->search(true);
-        Yii::app()->request->sendFile('Data PNS '.date('d-m-Y') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Data PNS ' . date('d-m-Y') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $data,
                         ), true));
     }
@@ -1623,16 +1627,17 @@ class PegawaiController extends Controller {
 
     public function actionGetFungsional() {
 //        $jabatan = '';
-//        logs($_POST['type']);
-//        logs($_POST['id']);
-        if (!empty($_POST['type']) && !empty($_POST['id'])) {
-            $jabatanGol = Golongan::model()->golJabatan($_POST['type'], $_POST['id']);
-            $mJabatan = JabatanFt::model()->findByPk($_POST['jabatan']);
+        if ($_POST['riwayatTipeJabatan'] == 'Fungsional Tertentu') {
+            if (!empty($_POST['type']) && !empty($_POST['id'])) {
+                $jabatanGol = Golongan::model()->golJabatan($_POST['type'], $_POST['id']);
+                $mJabatan = JabatanFt::model()->findByPk($_POST['jabatan']);
 //            logs($jabatanGol);
-            if (empty($jabatanGol) && empty($mJabatan)) {
-                echo '-';
-            } else {
-                echo $mJabatan->nama.' '.$jabatanGol;
+                if (empty($jabatanGol) && empty($mJabatan)) {
+                    echo '-';
+                } else {
+                    if (!empty($jabatanGol))
+                        echo $mJabatan->nama . ' ' . $jabatanGol;
+                }
             }
         }
     }

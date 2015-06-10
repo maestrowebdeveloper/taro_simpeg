@@ -8,7 +8,7 @@ $data = PermohonanPensiun::model()->findAll(array('condition' => 'id > 0 ' . $cr
 ?>
 <div class="report" id="report" style="width: 100%">
     <h3 style="text-align:center">LAPORAN DATA PERMOHONAN PENSIUN PEGAWAI</h3><br>
-    <h6  style="text-align:center">Tanggal : <?php echo date('d F Y'); ?></h6>
+    <h6  style="text-align:center">Tanggal : <?php echo landa()->date2Ind(date('d F Y')); ?></h6>
     <hr>
     <table class="table table-bordered" border="1">
         <thead>
@@ -34,14 +34,14 @@ $data = PermohonanPensiun::model()->findAll(array('condition' => 'id > 0 ' . $cr
 		<tr>
 			<td>' . $no . '</td>
 			<td>' . $value->nomor_register . '</td>
-			<td>' . $value->tanggal . '</td>						
+			<td>' .landa()->date2Ind( $value->tanggal) . '</td>						
 			<td>' . $value->pegawai . '</td>			
 			<td>' . $value->Pegawai->golongan . '</td>							
 			<td>' . $value->Pegawai->unitKerja . '</td>			
 			<td>' . $value->Pegawai->tipe . '</td>			
 			<td>' . $value->Pegawai->jabatan . '</td>						
 			<td>' . $value->masa_kerja . '</td>						
-			<td>' . $value->tmt . '</td>									
+			<td>' . landa()->date2Ind($value->tmt) . '</td>									
 			
 		</tr>';
                 $no++;

@@ -7,7 +7,7 @@ $data = SuratMasuk::model()->findAll(array('condition' => 'id > 0 ' . $criteria)
 ?>
 <div class="report" id="report" style="width: 100%">
     <h3 style="text-align:center">LAPORAN DATA SURAT MASUK</h3><br>
-    <h6  style="text-align:center">Tangga : <?php echo date('d F Y'); ?></h6>
+    <h6  style="text-align:center">Tanggal : <?php echo landa()->date2Ind(date('d F Y')); ?></h6>
     <hr>
     <table class="table table-bordered" border="1">
         <thead>
@@ -27,7 +27,7 @@ $data = SuratMasuk::model()->findAll(array('condition' => 'id > 0 ' . $criteria)
                 echo '	
 		<tr>
 			<td>' . $no . '</td>
-			<td>' . $value->tanggal_terima . '</td>
+			<td>' . landa()->date2Ind($value->tanggal_terima) . '</td>
 			<td>' . $value->pengirim . '</td>			
 			<td>' . $value->sifat . '</td>
 			<td>' . $value->nomor_surat . '</td>			

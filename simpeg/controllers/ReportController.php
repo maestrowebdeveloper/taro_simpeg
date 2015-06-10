@@ -48,6 +48,7 @@ class ReportController extends Controller {
         $this->layout = "mainWide";
         $model = new Pegawai('searchUrutKepangkatan');
         $model->unsetAttributes();
+        $model->tipe_jabatan = 'guru';
         if (isset($_GET['Pegawai'])) {
             $model->attributes = $_GET['Pegawai'];
         }

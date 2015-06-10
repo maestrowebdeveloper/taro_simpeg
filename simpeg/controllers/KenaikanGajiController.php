@@ -90,16 +90,27 @@ class KenaikanGajiController extends Controller {
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
+        if (isset($_POST['pegawai_id'])) {
+            
+            $bulan = substr("0" . $_POST['bulan'], -2, 2);
+            RiwayatGaji::model()->deleteAll(array(
+                'with' => array(),
+                'condition' => 'pegawai_id IN (' . implode(',',$_POST['pegawai_id']). ') and month(tmt_mulai)="' . $bulan . '" and year(tmt_mulai)="' . $_POST['tahun'] . '"'
+            ));
+            RiwayatGaji::model()->deleteAll(array(
+                'with' => array(),
+                'condition' => 'pegawai_id IN (' . implode(',',$_POST['pegawai_id']). ') and month(tmt_mulai)="' . $bulan . '" and year(tmt_mulai)="' . $_POST['tahun'] . '"'
+            ));
+            
+//            $delKgb = KenaikanGaji::model()->deleteAll(array('condition' => 'pegawai_id=' . $valPegawai->id . ' and month(tanggal)="' . $bulan . '" and year(tanggal)="' . $_POST['tahun'] . '"'));
+        }
 
         if (isset($_POST['dibayar'])) {
 
             foreach ($_POST['dibayar'] as $key => $val) {
                 $bulan = substr("0" . $_POST['bulan'], -2, 2);
                 $valPegawai = Pegawai::model()->findByPk($_POST['dibayar'][$key]);
-
                 $tglKenaikan = date("Y-m-d", strtotime($_POST['tmt_mulai'][$key]));
-
-                $delRiwayatgaji = RiwayatGaji::model()->deleteAll(array('condition' => 'pegawai_id=' . $valPegawai->id . ' and month(tmt_mulai)="' . $bulan . '" and year(tmt_mulai)="' . $_POST['tahun'] . '"'));
                 $riwayatGaji = new RiwayatGaji;
                 $riwayatGaji->nomor_register = date("ymisd");
                 $riwayatGaji->pegawai_id = $valPegawai->id;
@@ -108,7 +119,6 @@ class KenaikanGajiController extends Controller {
                 $riwayatGaji->tmt_mulai = $_POST['tmt_mulai'][$key];
                 $riwayatGaji->save();
 
-                $delKgb = KenaikanGaji::model()->deleteAll(array('condition' => 'pegawai_id=' . $valPegawai->id . ' and month(tanggal)="' . $bulan . '" and year(tanggal)="' . $_POST['tahun'] . '"'));
                 $kgb = new KenaikanGaji;
                 $kgb->pegawai_id = $valPegawai->id;
                 $kgb->gaji_pokok_lama = $_POST['gaji_lama'][$key];
