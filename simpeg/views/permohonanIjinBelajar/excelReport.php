@@ -3,18 +3,17 @@
 <?php if ($model !== null):?>
 <table border="1">
 	<tr>		
- 		<th width="80px">NOMOR REGISTER</th> 		
- 		<th width="80px">TANGGAL</th> 		 			 		 		 	
+ 		<th width="80px">NOMOR USUL</th> 		
+ 		<th width="80px">TANGGAL USUL</th> 		 			 		 		 	
  		<th width="80px">NIP</th> 		 			 		 		 	
  		<th width="80px">NAMA PEGAWAI</th> 		 			 		 		 	
  		<th width="80px">GOLONGAN</th> 		 			 		 		 	
  		<th width="80px">JABATAN</th> 		 			 		 		 	
  		<th width="80px">UNIT KERJA</th> 		 			 		 		 	
- 		<th width="80px">JENJANG PENDIDIKAN</th> 		 			 		 		 	
+ 		<th width="80px">SATUAN KERJA</th> 		 			 		 		 	
  		<th width="80px">JURUSAN UNIVERSITAS</th> 		 			 		 		 	
  		<th width="80px">UNIVERSITAS</th> 		 			 		 		 	
- 		<th width="80px">JENJANG PENDIDIKAN</th> 		 			 		 		 	
- 		<th width="80px">ALAMAT SEKOLAH</th> 		 			 		 		 	 		
+ 		<th width="80px">JENJANG PENDIDIKAN</th>		 			 		 		 	 		
  	</tr>
 	<?php foreach($model as $row): ?>
 	<tr>
@@ -24,12 +23,11 @@
         <td><?php echo $row->nama; ?></td>        
         <td><?php echo $row->golongan; ?></td>        
         <td><?php echo $row->jabatan; ?></td>        
-        <td><?php echo $row->unit_kerja; ?></td>        
-        <td><?php echo $row->jenjang_pendidikan; ?></td>        
+        <td><?php echo $row->unit_kerja; ?></td>       
+        <td><?php echo $row->satuanKerja; ?></td>       
         <td><?php echo $row->jurusanUniv; ?></td>        
         <td><?php echo $row->univ; ?></td>        
         <td><?php echo $row->jenjang_pendidikan; ?></td>      
-        <td><?php echo $row->alamat; ?></td>        
        	</tr>
      <?php endforeach; ?>
 </table>
