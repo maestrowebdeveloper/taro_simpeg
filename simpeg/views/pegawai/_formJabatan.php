@@ -288,8 +288,12 @@
             type: "post",
             success: function (data) {
                 if (data != "") {
-                    $("#tableJabatan").replaceWith(data);
-                    $(".modal-body").html(data);
+                    obj = JSON.parse(data);
+//                    $("#tableJabatan").replaceWith(data);
+                    $(".modal-body").html(obj.render);
+                    if(obj.isChanged == true){
+                        $("#jabatan-fungsional").val(obj.JabFung);
+                    }
                     $("#modalForm").modal("show");
                 } else {
                     alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
