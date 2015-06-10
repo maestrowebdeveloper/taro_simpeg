@@ -13,7 +13,7 @@
  	</tr>
 	<?php foreach($model as $row): ?>
 	<tr>
-        <td><?php echo "'".$row->Pegawai->nip; ?></td>
+        <td><?php echo $row->Pegawai->nip."&nbsp;"; ?></td>
         <td><?php echo $row->pegawai ?></td>
         <td><?php echo $row->tipe; ?></td>
         <td><?php echo $row->jabatanStruktural; ?></td>
