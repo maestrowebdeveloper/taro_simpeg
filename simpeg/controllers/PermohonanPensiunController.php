@@ -147,7 +147,7 @@ class PermohonanPensiunController extends Controller {
 
                     //update kedudukan id
                     Pegawai::model()->updateAll(array(
-                        'kedudukan_id' => 14, 'tmt_pensiun' => $a->tmt), 'id=' . $a->pegawai_id);
+                        'kedudukan_id' => 99, 'tmt_pensiun' => $a->tmt), 'id=' . $a->pegawai_id);
                     $a->status = 'sudah';
                     $a->save();
                 }
