@@ -13,11 +13,9 @@
         <thead>
         <th>No. Register</th>
         <th>Unit Kerja</th>
+        <th>Tipe Jabatan</th>
         <th>Jabatan</th>
-        
         <th>Tmt Jabatan</th>        
-        <th>Eselon</th>     
-        <th>Tmt Eselon</th>
         <?php echo $th; ?>
         </thead>
         <tbody>
@@ -51,16 +49,15 @@
                     $jabatan = (isset($value->JabatanFt->nama)) ? $value->JabatanFt->nama : '';
                     $tmt_jabatan = $value->tmt_mulai;
                 }
-
+                $warna = (!empty($display)) ? 'info' : '';
                 echo '
-                <tr>
+                <tr class="'.$warna.'">
                 <td>' . $value->nomor_register . '</td>
                 <td>' . (isset($value->JabatanStruktural->nama) ? $value->JabatanStruktural->nama : "-") . '</td>
+                <td>' . $value->tipe_jabatan . '</td>
                 <td>' . $jabatan . '</td>
                 
-                <td>' . landa()->date2Ind($tmt_jabatan) . '</td>
-                <td>' . $eselon . '</td>
-                <td>' . landa()->date2Ind($tmt_eselon) . '</td>                            
+                <td>' . landa()->date2Ind($tmt_jabatan) . '</td>                   
                 ' . $action . '
                 </tr>
             ';
