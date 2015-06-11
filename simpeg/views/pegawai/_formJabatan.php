@@ -276,20 +276,7 @@
         });
     }
 
-    $(".back").click(function () {
-        var judul = $(this).attr('judulJabatan');
-        $.ajax({
-            url: "<?php echo url('pegawai/getTableJabatan'); ?>",
-            data: "id=<?php echo $model->pegawai_id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
-            type: "post",
-            success: function (data) {
-                $(".modal-body").html(data);
-            }
-        });
-        $("#modalForm").modal("show");
-        $("#judul").html(judul);
-
-    });
+   
     $(".back").click(function () {
         var judul = $(this).attr('judulJabatan');
         $.ajax({
