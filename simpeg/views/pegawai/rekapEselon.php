@@ -107,6 +107,12 @@ $this->breadcrumbs = array(
                     'value' => '$data->Pangkat->golongan',
                 ),
                 array(
+                    'name' => 'riwayat_pangkat_id',
+                    'type' => 'raw',
+                    'header' => 'Eselon',
+                    'value' => '$data->JabatanStruktural->Eselon->nama',
+                ),
+                array(
                     'name' => 'riwayat_jabatan_id',
                     'type' => 'raw',
                     'header' => 'Unit Kerja',

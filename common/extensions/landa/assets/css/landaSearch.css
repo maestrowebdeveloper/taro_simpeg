@@ -16,15 +16,15 @@
     padding: 5px;
     border-bottom: #ccc solid 1px;
 }
-#searchresults a:hover { background-color:#ffffff ; color:#ffffff; }
+#searchresults a:hover { background-color:#ffffff ; color:#000000; }
 #searchresults a img { float: left;width: 20%;margin-right: 10px;}
 #searchresults a span.searchheading { display:block; font-weight:bold;color:#191919; }
-#searchresults a:hover span.searchheading { color:#ffffff; }
+#searchresults a span.searchheading:hover { color:#000000; }
 #searchresults a span { color:#555555; }
 #searchresults a:hover span { color:#000; }
 #searchresults span.seperator { float:right; padding-right:15px; margin-right:5px;
                                 background-image:url(../img/shortcuts_arrow.gif); background-repeat:no-repeat; background-position:right; }
-#searchresults span.seperator a { background-color:transparent; display:block; margin:5px; height:auto; color:#ffffff; }
+#searchresults span.seperator a { background-color:transparent; display:block; margin:5px; height:auto; color:#000000; }
 
 #inputString{margin-bottom:0}
 
