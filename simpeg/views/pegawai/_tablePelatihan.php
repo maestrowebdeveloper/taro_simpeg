@@ -14,7 +14,7 @@
         <th>Pelatihan</th>
         <th>Diklat</th>
         <th>Nomor Register</th>
-        <th>Nomor STTPL</th>
+        <!--<th>Nomor STTPL</th>-->
         <th>Tahun</th>
         <th>Lokasi</th>
         <th>Penyelenggara</th>    
@@ -32,7 +32,6 @@
                 <td>' . $value->pelatihan . '</td>
                 <td>' . $value->nama . '</td>
                 <td>' . $value->nomor_register . '</td>
-                <td>' . $value->nomor_sttpl . '</td>
                 <td>' . $value->tahun . '</td>
                 <td>' . $value->lokasi . '</td>
                 <td>' . $value->penyelenggara . '</td>

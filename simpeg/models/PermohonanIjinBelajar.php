@@ -37,7 +37,7 @@ class PermohonanIjinBelajar extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('nomor_register, tanggal, pegawai_id, jenjang_pendidikan,id_jurusan,  tanggal_usul', 'required'),
+//            array('nomor_register, tanggal, pegawai_id, jenjang_pendidikan,id_jurusan,  tanggal_usul', 'required'),
             array('nip,status, golongan,tanggal, tanggal_usul, nama,jabatan, unit_kerja, id_jurusan, id_universitas, kota, alamat, nama_sekolah, created, created_user_id, modified', 'safe'),
             array('pegawai_id, kota, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register, nip, jabatan, unit_kerja, nama_sekolah', 'length', 'max' => 225),

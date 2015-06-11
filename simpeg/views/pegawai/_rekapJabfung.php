@@ -26,7 +26,7 @@
                         <td>' . $value->nip . '&nbsp;</td>
 			<td>' . $value->namaGelar . '</td>		
 			<td>' . $value->golongan . '</td>			
-			<td>' . $value->jabatanFu . '</td>			
+			<td>' . $value->jabatan . '</td>			
 			<td>' . $value->jabatanFUngsional . '</td>			
 			<td>' . $value->unitKerja . '</td>				
 		</tr>';
