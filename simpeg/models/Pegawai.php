@@ -686,6 +686,7 @@ class Pegawai extends CActiveRecord {
     public function getGol() {
         return (isset($this->Pangkat->Golongan->nama)) ? $this->Pangkat->Golongan->nama : "-";
     }
+    
 
     public function getNamaJabatan() {
         return (isset($this->JabatanStruktural->jabatan)) ? $this->JabatanStruktural->jabatan : "-";
