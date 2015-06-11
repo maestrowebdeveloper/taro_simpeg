@@ -27,21 +27,27 @@
             $tanggalKenaikan = "01-" . $bulan . "-" . $_POST['tahun'];
             $gajiBaru = Gaji::model()->findByPk(1);
             $kenaikanGaji = json_decode($gajiBaru->gaji, true);
+            
+            //mencari pegawai yg sudah kenaikan berkala pada tanggal tersebut
+            $arrKenaikan = array();
+            $model = KenaikanGaji::model()->findAll(array('index'=>'pegawai_id','condition'=>'month(tanggal)='.$bulan.' AND year(tanggal)='.$_POST['tahun']));
+            foreach($model as $val){
+                $arrKenaikan[] = $val->pegawai_id;
+            }
+            
+//            logs($arrKenaikan);
+            
             foreach ($query as $valPegawai) {
-                $gaji = RiwayatGaji::model()->find(array(
-                    'condition' => 'pegawai_id=' . $valPegawai->id,
-                    'order' => 'id DESC'
-                ));
-                if (date('Y-m-d', strtotime($gaji->tmt_mulai)) >= date('Y-m-d', strtotime($tanggalKenaikan))) {
+                if (in_array($valPegawai->id, $arrKenaikan)) {
                     $checked = 'checked="checked"';
                     $warna = 'background-color:green;color:white';
                 } else {
                     $checked = '';
                     $warna = 'background-color:#DCDCDC;color:black';
                 }
-//                $warna = (date('Y-m-d', strtotime($gaji->tmt_mulai)) >= date('Y-m-d', strtotime($tanggalKenaikan))) ? 'background-color:green;color:white' : 'background-color:#DCDCDC;color:black';
+
                 $masakerjaPegawai = KenaikanGaji::model()->masaKerja(date("d-m-Y", strtotime($valPegawai->tmt_cpns)), $tanggalKenaikan, true, false);
-//                if (isset($kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai]) and $kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai] > 0) {
+
                 echo '<tr style="' . $warna . '">';
                 echo '<td><input type="checkbox" '.$checked.' name="dibayar[]" class="dibayar" value="' . $valPegawai->id . '"></td>';
                 echo '<td>';

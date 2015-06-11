@@ -441,9 +441,7 @@
                             </div>
                             <div class="control-group "><label class="control-label" for="Pegawai_bidang_id">Jabatan Fungsional</label>
                                 <div class="controls">
-                                    <input class="span4" disabled value="<?php 
-                                    $jt = isset($model->JabatanFt->nama) ? $model->JabatanFt->nama : '';
-                                    echo ($model->isNewRecord) ? '' : $jt.' '.$jabatanFungsional; ?>"  id="jabatan-fungsional" placeHolder="" type="text">
+                                    <input class="span4" disabled value="<?php echo $model->jabatanFungsional ?>" id="jabatan-fungsional" placeHolder="" type="text">
                                 </div>
                             </div>
 
