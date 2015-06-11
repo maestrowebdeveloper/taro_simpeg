@@ -1,7 +1,7 @@
 
 	<div class="report" id="report" style="width: 100%; margin-top: 25px;">
 	<h3 style="text-align:center">LAPORAN REKAPITULASI PEGAWAI BERDASARKAN <?php echo $header;?></h3><br>
-	<h6  style="text-align:center">Tangga : <?php echo date('d F Y');?></h6>
+	<h6  style="text-align:center">Tangga : <?php echo landa()->date2Ind(date('d F Y'));?></h6>
 	<hr>
 	<table class="table table-bordered">
 		<thead>

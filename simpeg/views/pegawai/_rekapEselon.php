@@ -1,6 +1,6 @@
 <div class="report" id="report" style="width: 100%">
     <h3 style="text-align:center">REKAPITULASI DATA ESELON</h3>
-    <h6  style="text-align:center">Tanggal : <?php echo date('d F Y'); ?></h6>
+    <h6  style="text-align:center">Tanggal : <?php echo landa()->date2Ind(date('d F Y')); ?></h6>
     <hr>
 
     <table class="table table-bordered" border="1">
@@ -10,6 +10,7 @@
                 <th class="span1">NIP</th>
                 <th class="span1">NAMA</th>
                 <th class="span1">GOLONGAN</th>	
+                <th class="span1">ESELON</th>	
                 <th class="span1">UNIT KERJA</th>
                 <th class="span1">JABATAN</th>										
                 <th class="span1">ALAMAT</th>					
@@ -27,6 +28,7 @@
                         <td>' . $value->nip."&nbsp;". '</td>	
 			<td>' . $value->namaGelar . '</td>		
 			<td>' . $value->Pangkat->golongan . '</td>			
+			<td>' . $value->JabatanStruktural->Eselon->nama . '</td>			
 			<td>' . $value->unitKerja . '</td>			
 			<td>' . $value->jabatan . '</td>			
 			<td>' . $value->alamat . '</td>			
