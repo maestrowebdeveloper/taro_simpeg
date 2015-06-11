@@ -90,56 +90,7 @@ class KenaikanGajiController extends Controller {
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-        if (isset($_POST['pegawai_id'])) {
-            
-            $bulan = substr("0" . $_POST['bulan'], -2, 2);
-            RiwayatGaji::model()->deleteAll(array(
-                'with' => array(),
-                'condition' => 'pegawai_id IN (' . implode(',',$_POST['pegawai_id']). ') and month(tmt_mulai)="' . $bulan . '" and year(tmt_mulai)="' . $_POST['tahun'] . '"'
-            ));
-            RiwayatGaji::model()->deleteAll(array(
-                'with' => array(),
-                'condition' => 'pegawai_id IN (' . implode(',',$_POST['pegawai_id']). ') and month(tmt_mulai)="' . $bulan . '" and year(tmt_mulai)="' . $_POST['tahun'] . '"'
-            ));
-            
-//            $delKgb = KenaikanGaji::model()->deleteAll(array('condition' => 'pegawai_id=' . $valPegawai->id . ' and month(tanggal)="' . $bulan . '" and year(tanggal)="' . $_POST['tahun'] . '"'));
-        }
-
-        if (isset($_POST['dibayar'])) {
-
-            foreach ($_POST['dibayar'] as $key => $val) {
-                $bulan = substr("0" . $_POST['bulan'], -2, 2);
-                $valPegawai = Pegawai::model()->findByPk($_POST['dibayar'][$key]);
-                $tglKenaikan = date("Y-m-d", strtotime($_POST['tmt_mulai'][$key]));
-                $riwayatGaji = new RiwayatGaji;
-                $riwayatGaji->nomor_register = date("ymisd");
-                $riwayatGaji->pegawai_id = $valPegawai->id;
-                $riwayatGaji->gaji = $_POST['gaji_baru'][$key];
-                $riwayatGaji->dasar_perubahan = "Kenaikan gaji berkala bulan " . $bulan . " tahun " . $_POST['tahun'];
-                $riwayatGaji->tmt_mulai = $_POST['tmt_mulai'][$key];
-                $riwayatGaji->save();
-
-                $kgb = new KenaikanGaji;
-                $kgb->pegawai_id = $valPegawai->id;
-                $kgb->gaji_pokok_lama = $_POST['gaji_lama'][$key];
-                $kgb->gaji_pokok_baru = $_POST['gaji_baru'][$key];
-                $kgb->tmt_lama = $_POST['tmt_lama'][$key];
-                $kgb->tmt_baru = $_POST['tmt_mulai'][$key];
-                $kgb->created = date("Y-m-d h:i:s");
-                $kgb->nomor_register = '';
-                $kgb->sifat = '';
-                $kgb->perihal = '';
-                $kgb->pejabat = '';
-                $kgb->tanggal = $_POST['tmt_mulai'][$key];
-                $kgb->no_sk_akhir = $_POST['no_sk_akhir'][$key];
-                $kgb->tanggal_sk_akhir = $_POST['tanggal_sk_akhir'][$key];
-                $kgb->save();
-
-                $valPegawai->riwayat_gaji_id = $riwayatGaji->id;
-                $valPegawai->save();
-//                }
-            }
-        }
+        
 
         $this->render('create', array(
             'model' => $model,
@@ -190,6 +141,54 @@ class KenaikanGajiController extends Controller {
      */
     public function actionIndex() {
         $model = new KenaikanGaji;
+        
+        if (isset($_POST['pegawai_id'])) {
+            $bulan = substr("0" . $_POST['bulan'], -2, 2);
+            RiwayatGaji::model()->deleteAll(array(
+                'with' => array(),
+                'condition' => 'pegawai_id IN (' . implode(',',$_POST['pegawai_id']). ') and month(tmt_mulai)="' . $bulan . '" and year(tmt_mulai)="' . $_POST['tahun'] . '"'
+            ));
+            KenaikanGaji::model()->deleteAll(array(
+                'with' => array(),
+                'condition' => 'pegawai_id IN (' . implode(',',$_POST['pegawai_id']). ') and month(tanggal)="' . $bulan . '" and year(tanggal)="' . $_POST['tahun'] . '"'
+            ));
+        }
+
+        if (isset($_POST['dibayar'])) {
+            foreach ($_POST['dibayar'] as $key => $val) {
+                $bulan = substr("0" . $_POST['bulan'], -2, 2);
+                $valPegawai = Pegawai::model()->findByPk($_POST['dibayar'][$key]);
+                $tglKenaikan = date("Y-m-d", strtotime($_POST['tmt_mulai'][$key]));
+                $riwayatGaji = new RiwayatGaji;
+                $riwayatGaji->nomor_register = date("ymisd");
+                $riwayatGaji->pegawai_id = $valPegawai->id;
+                $riwayatGaji->gaji = $_POST['gaji_baru'][$key];
+                $riwayatGaji->dasar_perubahan = "Kenaikan gaji berkala bulan " . $bulan . " tahun " . $_POST['tahun'];
+                $riwayatGaji->tmt_mulai = $_POST['tmt_mulai'][$key];
+                $riwayatGaji->save();
+
+                $kgb = new KenaikanGaji;
+                $kgb->pegawai_id = $valPegawai->id;
+                $kgb->gaji_pokok_lama = $_POST['gaji_lama'][$key];
+                $kgb->gaji_pokok_baru = $_POST['gaji_baru'][$key];
+                $kgb->tmt_lama = $_POST['tmt_lama'][$key];
+                $kgb->tmt_baru = $_POST['tmt_mulai'][$key];
+                $kgb->created = date("Y-m-d h:i:s");
+                $kgb->nomor_register = '';
+                $kgb->sifat = '';
+                $kgb->perihal = '';
+                $kgb->pejabat = '';
+                $kgb->tanggal = $_POST['tmt_mulai'][$key];
+                $kgb->no_sk_akhir = $_POST['no_sk_akhir'][$key];
+                $kgb->tanggal_sk_akhir = $_POST['tanggal_sk_akhir'][$key];
+                $kgb->save();
+
+                $valPegawai->riwayat_gaji_id = $riwayatGaji->id;
+                $valPegawai->save();
+//                }
+            }
+        }
+        
         $this->render('index', array(
             'model' => $model,
         ));

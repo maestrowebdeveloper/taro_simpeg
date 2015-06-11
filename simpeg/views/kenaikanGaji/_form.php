@@ -70,18 +70,14 @@
                 <div id="listPegawai">
                     <?php
                     if (isset($_POST['dibayar'])) {
-                        if (!empty($_POST['unit_kerja'])) {
-                            if (!empty($_POST['bulan']) and ! empty($_POST['tahun'])) {
-                                $bulan = substr("0" . $_POST['bulan'], -2, 2);
-                                $query = Pegawai::model()->with('Pangkat', 'JabatanStruktural')->findAll(array('condition' => 't.kedudukan_id = 1 and JabatanStruktural.unit_kerja_id = ' . $_POST['unit_kerja'] . ' and month(t.tmt_cpns) <= "' . $bulan . '" ', 'order' => 'Pangkat.golongan_id ASC'));
-                                $this->renderPartial('/kenaikanGaji/_tableListPegawai', array('query' => $query, 'bulan' => $bulan, 'tahun' => $_POST['tahun']));
-                            }
-                        } else {
-                            if (!empty($_POST['bulan']) and ! empty($_POST['tahun'])) {
-                                $bulan = substr("0" . $_POST['bulan'], -2, 2);
-                                $query = Pegawai::model()->with('Pangkat')->findAll(array('condition' => 't.kedudukan_id = 1 and t.jabatan_struktural_id !=0 and month(t.tmt_cpns) <= "' . $bulan . '" ', 'order' => 'Pangkat.golongan_id ASC'));
-                                $this->renderPartial('/kenaikanGaji/_tableListPegawai', array('query' => $query, 'bulan' => $bulan, 'tahun' => $_POST['tahun']));
-                            }
+                        $unit = '';
+                        if (!empty($_POST['unit_kerja']))
+                            $unit = ' AND JabatanStruktural.unit_kerja_id = ' . $_POST['unit_kerja'];
+
+                        if (!empty($_POST['bulan']) and ! empty($_POST['tahun'])) {
+                            $bulan = substr("0" . $_POST['bulan'], -2, 2);
+                            $query = Pegawai::model()->with('Pangkat', 'JabatanStruktural')->findAll(array('condition' => 't.kedudukan_id = 1' . $unit, 'order' => 'Pangkat.golongan_id ASC'));
+                            $this->renderPartial('/kenaikanGaji/_tableListPegawai', array('query' => $query, 'bulan' => $bulan, 'tahun' => $_POST['tahun']));
                         }
                     }
                     ?>

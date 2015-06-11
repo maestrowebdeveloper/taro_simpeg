@@ -235,6 +235,11 @@
 //        jQuery('#RiwayatJabatan_jabatan_struktural_fu_id').select2({'width': '40%'});
 //        jQuery('#RiwayatJabatan_jabatan_struktural_ft_id').select2({'width': '40%'});
     });
+    
+    $("#RiwayatJabatan_jabatan_struktural_id").change(function (event) {
+        detailJabatan();
+    });
+    
     $("#RiwayatJabatan_tipe_jabatan_0").click(function (event) {
         detailJabatan();
         $(".struktural").show();
