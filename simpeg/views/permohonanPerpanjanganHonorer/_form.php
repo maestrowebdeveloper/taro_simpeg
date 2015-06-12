@@ -38,56 +38,29 @@
             <?php echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span10', 'maxlength' => 225)); ?>
 
             <?php
+            $tanggal = isset($model->tanggal) ? date('d-m-Y', strtotime($model->tanggal)) : '';
+            $mulai = isset($model->tmt_mulai) ? date('d-m-Y', strtotime($model->tmt_mulai)) : '';
+            $akhir = isset($model->tmt_selesai) ? date('d-m-Y', strtotime($model->tmt_selesai)) : '';
             echo $form->datepickerRow(
                     $model, 'tanggal', array(
-                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                'value' => str_replace("0000-00-00", "", $tanggal),
+                'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
                 'prepend' => '<i class="icon-calendar"></i>'
                     )
             );
 
-//        $data = array('0' => '- Pegawai Honorer -') + CHtml::listData(Honorer::model()->listHonorer(), 'id', 'nama');
-//        echo $form->select2Row($model, 'honorer_id', array(
-//            'asDropDownList' => true,
-//            'data' => $data,
-//            'events' => array('change' => 'js: function() {
-//                        $.ajax({
-//                           url : "' . url('permohonanPerpanjanganHonorer/getNilai') . '",
-//                           type : "POST",
-//                           data :  { id:  $(this).val()},
-//                           success : function(data){                             
-//                            obj = JSON.parse(data);                                                    
-//                            $(".riwayatNilai").html(obj.table);
-//                            $("#unit_kerja").val(obj.unit_kerja);                            
-//                            $("#jenis_kelamin").val(obj.jenis_kelamin);
-//                            $("#tempat_lahir").val(obj.tempat_lahir);
-//                            $("#tanggal_lahir").val(obj.tanggal_lahir);
-//                            $("#pendidikan_terakhir").val(obj.pendidikan_terakhir);
-//                            $("#alamat").val(obj.alamat);
-//                            $(".riwayatNilai").show();
-//                        }
-//                    });
-//                }'),
-//            'options' => array(
-//                "allowClear" => false,
-//                'width' => '80%',
-//            ))
-//        );
-
-            
-            ?>
-            <?php
-//            echo $form->textFieldRow($model, 'honor_saat_ini', array('class' => 'span10 angka', 'prepend' => 'Rp'));
-
             echo $form->datepickerRow(
                     $model, 'tmt_mulai', array(
-                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                'value' => str_replace("0000-00-00", "", $mulai),
+                'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
                 'prepend' => '<i class="icon-calendar"></i>'
                     )
             );
 
             echo $form->datepickerRow(
                     $model, 'tmt_selesai', array(
-                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                'value' => str_replace("0000-00-00", "", $akhir),
+                'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
                 'prepend' => '<i class="icon-calendar"></i>'
                     )
             );
@@ -128,11 +101,11 @@
                 ),
                     )
             );
-            
+
             $unit_kerja = (!empty($model->Honorer->unitKerja)) ? $model->Honorer->unitKerja : '';
             $jenis_kelamin = (!empty($model->Honorer->jenis_kelamin)) ? $model->Honorer->jenis_kelamin : '';
             $tempat_lahir = (!empty($model->Honorer->tempat_lahir)) ? $model->Honorer->tempat_lahir : '';
-            $tanggal_lahir = (!empty($model->Honorer->tanggal_lahir)) ? $model->Honorer->tanggal_lahir : '';
+            $tanggal_lahir = (!empty($model->Honorer->tanggal_lahir)) ? date('d-m-Y', strtotime($model->Honorer->tanggal_lahir)) : '';
             $pendidikan_terakhir = (!empty($model->Honorer->pendidikan)) ? $model->Honorer->pendidikan : '';
             $alamat = (!empty($model->Honorer->alamat)) ? $model->Honorer->alamat : '';
             ?>
@@ -253,7 +226,7 @@
         $content = str_replace('{jenis_kelamin}', $model->jenisKelamin, $content);
         $content = str_replace('{pendidikan}', $model->pendidikan, $content);
         $content = str_replace('{tahun}', $model->pendidikanTahun, $content);
-        $content = str_replace('{masa_kerja}', $model->Honorer->masaKerjaTahun.' Tahun '.$model->Honorer->masaKerjaBulan.' Bulan' , $content);
+        $content = str_replace('{masa_kerja}', $model->Honorer->masaKerjaTahun . ' Tahun ' . $model->Honorer->masaKerjaBulan . ' Bulan', $content);
         $content = str_replace('{gaji}', landa()->rp($model->honor_saat_ini), $content);
         $content = str_replace('{ttl}', $model->ttl, $content);
         $content = str_replace('{tmt_mulai}', landa()->date2Ind($model->tmt_mulai), $content);
@@ -285,13 +258,13 @@
 
                 obj = JSON.parse(data);
                 $(".riwayatNilai").html(obj.table);
-                            $("#unit_kerja").val(obj.unit_kerja);                            
-                            $("#jenis_kelamin").val(obj.jenis_kelamin);
-                            $("#tempat_lahir").val(obj.tempat_lahir);
-                            $("#tanggal_lahir").val(obj.tanggal_lahir);
-                            $("#pendidikan_terakhir").val(obj.pendidikan_terakhir);
-                            $("#alamat").val(obj.alamat);
-                            $(".riwayatNilai").show();
+                $("#unit_kerja").val(obj.unit_kerja);
+                $("#jenis_kelamin").val(obj.jenis_kelamin);
+                $("#tempat_lahir").val(obj.tempat_lahir);
+                $("#tanggal_lahir").val(obj.tanggal_lahir);
+                $("#pendidikan_terakhir").val(obj.pendidikan_terakhir);
+                $("#alamat").val(obj.alamat);
+                $(".riwayatNilai").show();
             }
         });
     })

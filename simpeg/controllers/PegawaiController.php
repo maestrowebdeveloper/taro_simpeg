@@ -1068,24 +1068,26 @@ class PegawaiController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Pegawai'])) {
-
+            
             $model->attributes = $_POST['Pegawai'];
             $model->tmt_cpns = $_POST['Pegawai']['tmt_cpns'];
             $model->nip_lama = $_POST['Pegawai']['nip_lama'];
             $perubahan['tahun'] = $_POST['kalkulasiTahun'];
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
-            $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
+            $model->tanggal_lahir = date('Y-m-d', strtotime($_POST['Pegawai']['tanggal_lahir']));
             $model->city_id = $_POST['Pegawai']['city_id'];
             $model->karpeg = $_POST['Pegawai']['karpeg'];
             $model->no_taspen = $_POST['Pegawai']['no_taspen'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
             $model->no_sk_cpns = $_POST['Pegawai']['no_sk_cpns'];
             $model->no_sk_pns = $_POST['Pegawai']['no_sk_pns'];
-            $model->tanggal_sk_cpns = $_POST['Pegawai']['tanggal_sk_cpns'];
-            $model->tanggal_sk_pns = $_POST['Pegawai']['tanggal_sk_pns'];
+            $model->tmt_cpns = date('Y-m-d', strtotime($_POST['Pegawai']['tmt_cpns']));
+            $model->tmt_pns = date('Y-m-d', strtotime($_POST['Pegawai']['tmt_pns']));
+            $model->tanggal_sk_cpns = date('Y-m-d', strtotime($_POST['Pegawai']['tanggal_sk_cpns']));
+            $model->tanggal_sk_pns = date('Y-m-d', strtotime($_POST['Pegawai']['tanggal_sk_pns']));
             $model->riwayat_gaji_id = $_POST['Pegawai']['riwayat_gaji_id'];
-            $model->tmt_keterangan_kedudukan = $_POST['Pegawai']['tmt_keterangan_kedudukan'];
+            $model->tmt_keterangan_kedudukan = date('Y-m-d', strtotime($_POST['Pegawai']['tmt_keterangan_kedudukan']));
             $model->ket_tmt_cpns = $_POST['Pegawai']['ket_tmt_cpns'];
 
             $riwayat = RiwayatJabatan::model()->findByPk($_POST['Pegawai']['riwayat_jabatan_id']);
@@ -1152,24 +1154,25 @@ class PegawaiController extends Controller {
 //                    $jabatan = "";
 //                }
 //            }
-
             $model->attributes = $_POST['Pegawai'];
             $perubahan['tahun'] = $_POST['kalkulasiTahun'];
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
             $model->nip_lama = $_POST['Pegawai']['nip_lama'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
-            $model->tanggal_lahir = $_POST['Pegawai']['tanggal_lahir'];
+            $model->tanggal_lahir = date('Y-m-d', strtotime($_POST['Pegawai']['tanggal_lahir']));
             $model->city_id = $_POST['Pegawai']['city_id'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
             $model->karpeg = $_POST['Pegawai']['karpeg'];
             $model->riwayat_jabatan_id = $_POST['Pegawai']['riwayat_jabatan_id'];
             $model->no_sk_cpns = $_POST['Pegawai']['no_sk_cpns'];
             $model->no_sk_pns = $_POST['Pegawai']['no_sk_pns'];
-            $model->tanggal_sk_cpns = $_POST['Pegawai']['tanggal_sk_cpns'];
-            $model->tanggal_sk_pns = $_POST['Pegawai']['tanggal_sk_pns'];
+            $model->tmt_cpns = date('Y-m-d', strtotime($_POST['Pegawai']['tmt_cpns']));
+            $model->tmt_pns = date('Y-m-d', strtotime($_POST['Pegawai']['tmt_pns']));
+            $model->tanggal_sk_cpns = date('Y-m-d', strtotime($_POST['Pegawai']['tanggal_sk_cpns']));
+            $model->tanggal_sk_pns = date('Y-m-d', strtotime($_POST['Pegawai']['tanggal_sk_pns']));
             $model->riwayat_gaji_id = $_POST['Pegawai']['riwayat_gaji_id'];
             $model->ket_tmt_cpns = $_POST['Pegawai']['ket_tmt_cpns'];
-            $model->tmt_keterangan_kedudukan = $_POST['Pegawai']['tmt_keterangan_kedudukan'];
+            $model->tmt_keterangan_kedudukan = date('Y-m-d', strtotime($_POST['Pegawai']['tmt_keterangan_kedudukan']));
 
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {

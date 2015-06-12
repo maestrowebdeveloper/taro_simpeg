@@ -141,10 +141,10 @@
                                 ),
                                     )
                             );
-
+                            
                             echo $form->datepickerRow(
-                                    $model, 'tanggal_lahir', array('value' => str_replace("0000-00-00", "", $model->tanggal_lahir),
-                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                    $model, 'tanggal_lahir', array('value' => str_replace("0000-00-00", "", date('d-m-Y', strtotime($model->tanggal_lahir))),
+                                'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
                                 'events' => array('changeDate' => 'js:function(){
                                                                 pensiun($(this).val(), $("#Pegawai_riwayat_jabatan_id").val());
                                                          }'),
@@ -280,8 +280,8 @@
                                         $this->widget(
                                                 'bootstrap.widgets.TbDatePicker', array(
                                             'name' => 'Pegawai[tmt_keterangan_kedudukan]',
-                                            'value' => str_replace("0000-00-00", "", $model->tmt_keterangan_kedudukan),
-                                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                            'value' => str_replace("0000-00-00", "", date('d-m-Y', strtotime($model->tmt_keterangan_kedudukan))),
+                                            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
 //                                            'events' => array('changeDate' => 'js:function(){
 //                                                                getMasaKerja();
 //                                                         }'),
@@ -313,8 +313,8 @@
                                         $this->widget(
                                                 'bootstrap.widgets.TbDatePicker', array(
                                             'name' => 'Pegawai[tmt_cpns]',
-                                            'value' => str_replace("0000-00-00", "", $model->tmt_cpns),
-                                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                            'value' => str_replace("0000-00-00", "", date('d-m-Y', strtotime($model->tmt_cpns))),
+                                            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
                                             'events' => array('changeDate' => 'js:function(){
                                                                 getMasaKerja();
                                                          }'),
@@ -338,8 +338,8 @@
                                         $this->widget(
                                                 'bootstrap.widgets.TbDatePicker', array(
                                             'name' => 'Pegawai[tanggal_sk_cpns]',
-                                            'value' => str_replace("0000-00-00", "", $model->tanggal_sk_cpns),
-                                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                            'value' => str_replace("0000-00-00", "", date('d-m-Y', strtotime($model->tanggal_sk_cpns))),
+                                            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
 //                                            'events' => array('changeDate' => 'js:function(){
 //                                                                getMasaKerja();
 //                                                         }'),
@@ -356,8 +356,8 @@
                             </div>
                             <?php
                             echo $form->datepickerRow(
-                                    $model, 'tmt_pns', array('value' => str_replace("0000-00-00", "", $model->tmt_pns),
-                                'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                    $model, 'tmt_pns', array('value' => str_replace("0000-00-00", "", date('d-m-Y', strtotime($model->tmt_pns))),
+                                'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
                                 'prepend' => '<i class="icon-calendar"></i>',
                                     )
                             );
@@ -372,8 +372,8 @@
                                         $this->widget(
                                                 'bootstrap.widgets.TbDatePicker', array(
                                             'name' => 'Pegawai[tanggal_sk_pns]',
-                                            'value' => str_replace("0000-00-00", "", $model->tanggal_sk_pns),
-                                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                                            'value' => str_replace("0000-00-00", "", date('d-m-Y', strtotime($model->tanggal_sk_pns))),
+                                            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
 //                                            'events' => array('changeDate' => 'js:function(){
 //                                                                getMasaKerja();
 //                                                         }'),
@@ -390,7 +390,7 @@
                             </div>
                             <?php
                             echo $form->textfieldRow(
-                                    $model, 'tmt_pensiun', array('value' => str_replace("0000-00-00", "", $model->tmt_pensiun), 'readonly' => true,
+                                    $model, 'tmt_pensiun', array('value' => str_replace("0000-00-00", "", date('d-m-Y', strtotime($model->tmt_pensiun))), 'readonly' => true,
                                 'prepend' => '<i class="icon-calendar"></i>',
                                     )
                             );

@@ -167,6 +167,11 @@ class HonorerController extends Controller {
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
             $model->tempat_lahir = $_POST['Honorer']['tempat_lahir'];
+            $model->tanggal_lahir = date('Y-m-d', strtotime($_POST['Honorer']['tanggal_lahir']));
+            $model->tanggal_register = date('Y-m-d', strtotime($_POST['Honorer']['tanggal_register']));
+            $model->tmt_kontrak = date('Y-m-d', strtotime($_POST['Honorer']['tmt_kontrak']));
+            $model->tmt_mulai_kontrak = date('Y-m-d', strtotime($_POST['Honorer']['tmt_mulai_kontrak']));
+            $model->tmt_akhir_kontrak = date('Y-m-d', strtotime($_POST['Honorer']['tmt_akhir_kontrak']));
             $model->gelar_depan = $_POST['Honorer']['gelar_depan'];
             $model->gelar_belakang = $_POST['Honorer']['gelar_belakang'];
 
@@ -208,9 +213,11 @@ class HonorerController extends Controller {
             $model->city_id = $_POST['Honorer']['city_id'];
 //            $model->kota = $_POST['id'];
             $model->tempat_lahir = $_POST['Honorer']['tempat_lahir'];
-//            $perubahan['tahun'] = $_POST['kalkulasiTahun'];
-//            $perubahan['bulan'] = $_POST['kalkulasiBulan'];
-//            $model->perubahan_masa_kerja = json_encode($perubahan);
+            $model->tanggal_lahir = date('Y-m-d', strtotime($_POST['Honorer']['tanggal_lahir']));
+            $model->tanggal_register = date('Y-m-d', strtotime($_POST['Honorer']['tanggal_register']));
+            $model->tmt_kontrak = date('Y-m-d', strtotime($_POST['Honorer']['tmt_kontrak']));
+            $model->tmt_mulai_kontrak = date('Y-m-d', strtotime($_POST['Honorer']['tmt_mulai_kontrak']));
+            $model->tmt_akhir_kontrak = date('Y-m-d', strtotime($_POST['Honorer']['tmt_akhir_kontrak']));
             $file = CUploadedFile::getInstance($model, 'foto');
             if (is_object($file)) {
                 $model->foto = Yii::app()->landa->urlParsing($model->nama) . '.' . $file->extensionName;
@@ -268,7 +275,8 @@ class HonorerController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        } else
+        }
+        else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -283,7 +291,7 @@ class HonorerController extends Controller {
         if (isset($_GET['Honorer'])) {
             $model->attributes = $_GET['Honorer'];
         }
-        
+
         if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
             Honorer::model()->deleteAll(array(
                 'condition' => 'id IN(' . implode(',', $_POST['ceckbox']) . ')'

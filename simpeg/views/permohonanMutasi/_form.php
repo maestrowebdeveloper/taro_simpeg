@@ -84,6 +84,7 @@
         <?php echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span3', 'maxlength' => 100)); ?>
         <?php // echo $form->textFieldRow($model, 'pejabat', array('class' => 'span3', 'maxlength' => 100)); ?>
         <?php
+        $tanggal = isset($model->tanggal) ? date('d-m-Y', strtotime($model->tanggal)) :'';
         $data = array('0' => '- Pejabat -') + array('bupati_sampang' => 'Bupati Sampang', 'wakil_bupati_sampang' => 'Wakil Bupati Sampang', 'sekretaris_daerah_kab._sampang' => 'Sekeretaris Daerah Kab. Sampang', 'gubernur_jawa_timur' => 'Gubernur Jawa timur');
         echo $form->select2Row($model, 'pejabat', array(
             'asDropDownList' => true,
@@ -96,7 +97,8 @@
 
         echo $form->datepickerRow(
                 $model, 'tanggal', array(
-            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                    'value' => str_replace("0000-00-00", "", $tanggal),
+            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
             'prepend' => '<i class="icon-calendar"></i>'
                 )
         );

@@ -125,8 +125,8 @@ class PermohonanIjinBelajarController extends Controller {
             $model->unit_kerja = $pegawai->unitKerja;
             $model->golongan = $pegawai->golongan;
 //            $model->pegawai_id = $_POST['id'];
-//            $model->tanggal = date('Y-d-m', strtotime($_POST['PermohonanIjinBelajar']['tanggal']));
-//            $model->tanggal_usul = date('Y-d-m', strtotime($_POST['PermohonanIjinBelajar']['tanggal_usul']));
+            $model->tanggal = date('Y-d-m', strtotime($_POST['PermohonanIjinBelajar']['tanggal']));
+            $model->tanggal_usul = date('Y-d-m', strtotime($_POST['PermohonanIjinBelajar']['tanggal_usul']));
 
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));

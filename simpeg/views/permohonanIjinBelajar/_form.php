@@ -32,22 +32,26 @@
         <?php echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span5', 'maxlength' => 225)); ?>
 
         <?php
+       $tanggalUsul = isset($model->tanggal_usul) ? date('d-m-Y', strtotime($model->tanggal_usul)) :'';
+       $tanggal = isset($model->tanggal) ? date('d-m-Y', strtotime($model->tanggal)) :'';
+        
         echo $form->datepickerRow(
                 $model, 'tanggal_usul', array(
-            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+            'value' => str_replace("0000-00-00", "",$tanggalUsul),
+            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
             'prepend' => '<i class="icon-calendar"></i>'
                 )
         );
-
         echo $form->datepickerRow(
                 $model, 'tanggal', array(
-            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+            'value' => str_replace("0000-00-00", "",$tanggal),
+            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
             'prepend' => '<i class="icon-calendar"></i>'
                 )
         );
-//        if (isset($_GET['v'])) { 
+        if (isset($_GET['v']) || $model->isNewRecord == false) { 
             echo $form->radioButtonListRow($model, 'status', PermohonanIjinBelajar::model()->ArrStatuspros());
-//        }
+        }
         $idpegawai = isset($model->pegawai_id) ? $model->pegawai_id : 0;
         $pegawaiName = isset($model->Pegawai->nama) ? $model->Pegawai->nama : '';
         echo $form->select2Row($model, 'pegawai_id', array(

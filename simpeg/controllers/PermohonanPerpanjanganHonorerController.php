@@ -95,7 +95,7 @@ class PermohonanPerpanjanganHonorerController extends Controller {
         $return['unit_kerja'] = $model->unitKerja;
         $return['masa_kerja'] = $model->masaKerja;
         $return['tempat_lahir'] = $model->tempat_lahir;
-        $return['tanggal_lahir'] = $model->tanggal_lahir;
+        $return['tanggal_lahir'] = date('d-m-Y', strtotime($model->tanggal_lahir));
         $return['kota'] = $model->kota;
         $return['alamat'] = $model->alamat;
         $return['pendidikan_terakhir'] = $model->pendidikan;
@@ -182,6 +182,9 @@ class PermohonanPerpanjanganHonorerController extends Controller {
 
         if (isset($_POST['PermohonanPerpanjanganHonorer'])) {
             $model->attributes = $_POST['PermohonanPerpanjanganHonorer'];
+            $model->tanggal =date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tanggal']));
+            $model->tmt_mulai =date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tmt_mulai']));
+            $model->tmt_selesai =date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tmt_selesai']));
 //            $honorer = Honorer::model()->findByPk($model->honorer_id);
 //            $model->unit_kerja_id = $honorer->unit_kerja_id;
 //            $model->masa_kerja = $honorer->masaKerja;
@@ -207,6 +210,9 @@ class PermohonanPerpanjanganHonorerController extends Controller {
 
         if (isset($_POST['PermohonanPerpanjanganHonorer'])) {
             $model->attributes = $_POST['PermohonanPerpanjanganHonorer'];
+             $model->tanggal =date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tanggal']));
+            $model->tmt_mulai =date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tmt_mulai']));
+            $model->tmt_selesai =date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tmt_selesai']));
 //            $honorer = Honorer::model()->findByPk($model->honorer_id);
 //            $model->unit_kerja_id = $honorer->unit_kerja_id;
 //            $model->masa_kerja = $honorer->masaKerja;

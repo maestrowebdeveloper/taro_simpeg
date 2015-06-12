@@ -67,6 +67,7 @@ class SuratKeluarController extends Controller {
             $model->attributes = $_POST['SuratKeluar'];
             $model->terusan = $_POST['SuratKeluar']['terusan'];
             $model->no_agenda = $_POST['SuratKeluar']['no_agenda'];
+            $model->tanggal_kirim =date('Y-m-d', strtotime($_POST['SuratMasuk']['tanggal_kirim']));
             if ($_POST['SuratKeluar']['sifat'] == 'rahasia') {
                 $model->nomor_surat = 'X' . $_POST['SuratKeluar']['nomor_surat'];
             }
@@ -104,6 +105,7 @@ class SuratKeluarController extends Controller {
             $model->attributes = $_POST['SuratKeluar'];
             $model->terusan = $_POST['SuratKeluar']['terusan'];
             $model->no_agenda = $_POST['SuratKeluar']['no_agenda'];
+            $model->tanggal_kirim =date('Y-m-d', strtotime($_POST['SuratMasuk']['tanggal_kirim']));
             if ($_POST['SuratKeluar']['sifat'] == 'rahasia') {
                 $model->nomor_surat = 'X' . $_POST['SuratKeluar']['nomor_surat'];
             }

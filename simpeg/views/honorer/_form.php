@@ -185,8 +185,8 @@ if ($model->isNewRecord == true) {
                                 ?>
                             </div>
                         </div>
-                          <?php
-                                    $data = array('0' => '- Kedudukan -') + array('20' => 20, '40' => 40, '21' => 21, '22' => 22);
+                        <?php
+                        $data = array('0' => '- Kedudukan -') + array('20' => 20, '40' => 40, '21' => 21, '22' => 22);
                         echo $form->select2Row($model, 'kode', array(
                             'asDropDownList' => true,
                             'data' => $data,
@@ -195,7 +195,7 @@ if ($model->isNewRecord == true) {
                                 'width' => '40%',
                             ))
                         );
-                                ?>
+                        ?>
                         <?php
                         echo $form->radioButtonListRow($model, 'jenis_kelamin', Pegawai::model()->ArrJenisKelamin());
                         $kotaName = isset($model->tempat_lahir) ? $model->tempat_lahir : '';
@@ -233,10 +233,11 @@ if ($model->isNewRecord == true) {
                             ),
                                 )
                         );
-
+                        $tanggalLahir = isset($model->tanggal_lahir) ? date('d-m-Y', strtotime($model->tanggal_lahir)) :'';
                         echo $form->datepickerRow(
                                 $model, 'tanggal_lahir', array(
-                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                            'value' => str_replace("0000-00-00", "", $tanggalLahir),
+                            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
                             'prepend' => '<i class="icon-calendar"></i>'
                                 )
                         );
@@ -330,16 +331,20 @@ if ($model->isNewRecord == true) {
                 <div class="form-row row-fluid">
                     <div class="span9" style="margin-left: 0px;">        
                         <?php
+                        $tanggalRegister = isset($model->tanggal_register) ? date('d-m-Y', strtotime($model->tanggal_register)) :'';
+                        $tanggalKontrak = isset($model->tmt_kontrak) ? date('d-m-Y', strtotime($model->tmt_kontrak)) :'';
                         echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span4', 'style' => 'max-width:500px;width:300px'));
                         echo $form->datepickerRow(
                                 $model, 'tanggal_register', array(
-                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                            'value' => str_replace("0000-00-00", "", $tanggalRegister),
+                            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
                             'prepend' => '<i class="icon-calendar"></i>'
                                 )
                         );
                         echo $form->datepickerRow(
                                 $model, 'tmt_kontrak', array(
-                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                            'value' => str_replace("0000-00-00", "", $tanggalKontrak),
+                            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
                             'prepend' => '<i class="icon-calendar"></i>',
                             'events' => array('changeDate' => 'js:function(){
                                                                 getMasaKerja();
@@ -388,12 +393,14 @@ if ($model->isNewRecord == true) {
                         ?>
 
 
-                        <?php echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp','style'=>'width:300px')); ?>
+                        <?php echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp', 'style' => 'width:300px')); ?>
                         <?php
-                        
+                        $tanggalmulaiKontrak = isset($model->tmt_mulai_kontrak) ? date('d-m-Y', strtotime($model->tmt_mulai_kontrak)) :'';
+                        $tanggalakhirKontrak = isset($model->tmt_akhir_kontrak) ? date('d-m-Y', strtotime($model->tmt_akhir_kontrak)) :'';
                         echo $form->datepickerRow(
                                 $model, 'tmt_mulai_kontrak', array(
-                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                            'value' => str_replace("0000-00-00", "", $tanggalmulaiKontrak),
+                            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
                             'prepend' => '<i class="icon-calendar"></i>',
                             'events' => array('changeDate' => 'js:function(){
                                                                 getMasaKerja();
@@ -402,7 +409,8 @@ if ($model->isNewRecord == true) {
                         );
                         echo $form->datepickerRow(
                                 $model, 'tmt_akhir_kontrak', array(
-                            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+                            'value' => str_replace("0000-00-00", "", $tanggalakhirKontrak),
+                            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
                             'prepend' => '<i class="icon-calendar"></i>'
                                 )
                         );
@@ -433,18 +441,18 @@ if ($model->isNewRecord == true) {
                                                 <label class="control-label" for="perubahanMasaKerja">Penambahan / Pengurangan Masa Kerja</label>
                                                 <div class="controls">
                                                     <div class="input-append" style="margin-right: 5px;">
-                        <?php // echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();'));  ?>
+                        <?php // echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();'));   ?>
                                                         <span class="add-on">
                                                             Tahun
                                                         </span>
                                                     </div>
                                                     <div class="input-append">
-                        <?php // echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();'));  ?>    
+                        <?php // echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();'));   ?>    
                                                         <span class="add-on">
                                                             Bulan
                                                         </span>
                                                     </div>
-                                                    <input type="hidden" name="Pegawai[id]" value="<?php // echo isset($model->id) ? $model->id : '';   ?>">
+                                                    <input type="hidden" name="Pegawai[id]" value="<?php // echo isset($model->id) ? $model->id : '';    ?>">
                                                     <br><br>
                                                     Gunakan tanda (<b>-</b>) untuk mengurangi tahun maupun bulan
                                                 </div>

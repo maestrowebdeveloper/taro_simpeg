@@ -19,11 +19,14 @@
         <?php 
 
         echo $form->textFieldRow($model,'penerima',array('class'=>'span4','maxlength'=>225)); 
+        $tanggal = isset($model->tanggal_kirim) ? date('d-m-Y', strtotime($model->tanggal_kirim)) :'';
+        
         echo $form->datepickerRow(
-               $model, 'tanggal_kirim', array(
-           'options' => array('language' => 'id','format'=>'yyyy-mm-dd'),
-           'prepend' => '<i class="icon-calendar"></i>'
-               )
+                $model, 'tanggal_kirim', array(
+            'value' => str_replace("0000-00-00", "",$tanggal),
+            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
+            'prepend' => '<i class="icon-calendar"></i>'
+                )
         );
 
         echo $form->radioButtonListRow($model, 'sifat', SuratMasuk::model()->ArrSifat());
