@@ -157,7 +157,7 @@ if (isset($_POST['nip'])) {
         $pendidikan = RiwayatPendidikan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tahun DESC'));
         $hukuman = RiwayatHukuman::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_pemberian DESC'));
         $cuti = RiwayatCuti::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal_sk DESC'));
-        $pelatihan = RiwayatPelatihan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tanggal DESC'));
+        $pelatihan = RiwayatPelatihan::model()->findAll(array('condition' => 'pegawai_id=' . $model->id, 'order' => 'tahun DESC'));
         ?>
 
         <div class="row-fluid">
@@ -172,7 +172,7 @@ if (isset($_POST['nip'])) {
                     <li class=""><a href="#jabatan">Riwayat Jabatan</a></li>
                     <li class=""><a href="#keluarga">Riwayat Keluarga</a></li>
                     <li class=""><a href="#pendidikan">Riwayat Pendidikan</a></li>
-                    <li class=""><a href="#diklat">Riwayat Diklat</a></li>
+                    <li class=""><a href="#diklat">Riwayat Diklat dan Pelatihan</a></li>
                     <li class=""><a href="#cuti">Riwayat Cuti</a></li>
                 </ul>
                 <div class="tab-content">
@@ -379,6 +379,7 @@ if (isset($_POST['nip'])) {
                         <table class="table table-bordered">
                             <thead>
                             <th>Pelatihan</th>
+                            <th>Diklat</th>
                             <th>Nomor Register</th>
                             <th>Nomor STTPL</th>
                             <th>Tanggal</th>
@@ -397,9 +398,10 @@ if (isset($_POST['nip'])) {
                                     echo '
                 <tr>
                 <td>' . $value->pelatihan . '</td>
+                <td>' . $value->nama     . '</td>
                 <td>' . $value->nomor_register . '</td>
                 <td>' . $value->nomor_sttpl . '</td>
-                <td>' . $value->tanggal . '</td>
+                <td>' . $value->tahun . '</td>
                 <td>' . $value->lokasi . '</td>
                 <td>' . $value->penyelenggara . '</td>
                 

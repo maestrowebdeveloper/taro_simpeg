@@ -174,6 +174,7 @@ class Pegawai extends CActiveRecord {
 //tambahan tindik jurusan
         if (isset($_GET['jurusan']) and ! empty($_GET['jurusan'])) {
             $pegawai = RiwayatPendidikan::model()->with('Jurusan')->findAll(array('condition' => 'Jurusan.Name like "%' . $_GET['jurusan'] . '%"'));
+            
             $id = array();
             foreach ($pegawai as $val) {
                 $id[] = $val->id;
@@ -187,7 +188,7 @@ class Pegawai extends CActiveRecord {
 
 // satuan kerja
         if (isset($_GET['satuan_kerja']) and ! empty($_GET['satuan_kerja'])) {
-            $criteria->compare("JabatanStruktural.UnitKerja", $id);
+            $criteria->compare("JabatanStruktural.unit_kerja_id", $_GET['satuan_kerja']);
         }
 
 // jabatan FT
