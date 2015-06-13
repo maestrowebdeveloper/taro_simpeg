@@ -63,7 +63,7 @@
                 echo '<td>' . (isset($valPegawai->nama) ? $valPegawai->nama : "-") . '</td>';
                 echo '<td>' . (isset($valPegawai->JabatanStruktural->nama) ? $valPegawai->JabatanStruktural->nama : "-") . '</td>';
                 echo '<td>' . (isset($valPegawai->Pangkat->Golongan->nama) ? $valPegawai->Pangkat->Golongan->nama : "-" ) . '</td>';
-                echo '<td>' . (isset($valPegawai->tmt_cpns) ? $valPegawai->tmt_cpns : "-" ) . '</td>';
+                echo '<td>' . (isset($valPegawai->tmt_cpns) ? landa()->date2Ind($valPegawai->tmt_cpns) : "-" ) . '</td>';
                 echo '<td>' . $valPegawai->masaKerjaTahun . " Tahun " . $valPegawai->masaKerjaBulan . " Bulan" . '</td>';
                 echo '<td>' . (landa()->rp(isset($valPegawai->Gaji->gaji) ? $valPegawai->Gaji->gaji : 0)) . '</td>';
                 echo '<td>' . (landa()->rp(isset($kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai]) ? $kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai] : 0)) . '</td>';
