@@ -65,6 +65,7 @@ class JurusanController extends Controller {
 
         if (isset($_POST['Jurusan'])) {
             $model->attributes = $_POST['Jurusan'];
+            $model->Name = $_POST['Jurusan']['tingkat'].' '.$_POST['Jurusan']['Name'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }

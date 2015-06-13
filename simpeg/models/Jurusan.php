@@ -28,6 +28,7 @@ class Jurusan extends CActiveRecord
 		return array(
 			array('id_universitas', 'numerical', 'integerOnly'=>true),
 			array('Name', 'length', 'max'=>255),
+                     array('tingkat', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, id_universitas, Name,tingkat', 'safe', 'on'=>'search'),

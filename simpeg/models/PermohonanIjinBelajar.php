@@ -45,7 +45,7 @@ class PermohonanIjinBelajar extends CActiveRecord {
             array('jenjang_pendidikan', 'length', 'max' => 9),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, nomor_register, tanggal,tanggal_usul, pegawai_id, nip, golongan,status, jabatan, unit_kerja, jenjang_pendidikan, id_jurusan, nama_sekolah, kota, alamat, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, nomor_register,nama, tanggal,tanggal_usul, pegawai_id, nip, golongan,status, jabatan, unit_kerja, jenjang_pendidikan, id_jurusan, nama_sekolah, kota, alamat, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -107,9 +107,16 @@ class PermohonanIjinBelajar extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+        
+        if (!empty($this->tanggal) && !empty($this->created)){
+            $criteria->condition = 'tanggal between "' . $this->tanggal. '" and "' . $this->created . '"';
+            logs($this->created);
+        }
+        
         $criteria->order = 'tanggal DESC';
         $criteria->compare('id', $this->id);
         $criteria->compare('nomor_register', $this->nomor_register, true);
+        $criteria->compare('nama', $this->nomor_register, true);
         $criteria->compare('tanggal', $this->tanggal, true);
         $criteria->compare('pegawai_id', $this->pegawai_id);
         $criteria->compare('status', $this->status);
@@ -131,6 +138,7 @@ class PermohonanIjinBelajar extends CActiveRecord {
                 'criteria' => $criteria,
                 'sort' => array('defaultOrder' => 'tanggal DESC')
             ));
+            
         } else {
             $data = PermohonanIjinBelajar::model()->findAll($criteria);
         }

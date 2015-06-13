@@ -336,4 +336,16 @@ class HonorerController extends Controller {
         );
     }
 
+    public function actionPindahStatus() {
+        $model = Honorer::model()->findAll();
+        foreach ($model as $data) {
+            if ($data->kode == 20) {
+                Honorer::model()->updateAll(array(
+                    'kode' => 40,), 'id=' . $data->ids);
+            }elseif($data->kode == 12){
+                
+            }
+        }
+    }
+
 }
