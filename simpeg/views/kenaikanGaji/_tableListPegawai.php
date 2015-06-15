@@ -27,16 +27,16 @@
             $tanggalKenaikan = "01-" . $bulan . "-" . $_POST['tahun'];
             $gajiBaru = Gaji::model()->findByPk(1);
             $kenaikanGaji = json_decode($gajiBaru->gaji, true);
-            
+
             //mencari pegawai yg sudah kenaikan berkala pada tanggal tersebut
             $arrKenaikan = array();
-            $model = KenaikanGaji::model()->findAll(array('index'=>'pegawai_id','condition'=>'month(tanggal)='.$bulan.' AND year(tanggal)='.$_POST['tahun']));
-            foreach($model as $val){
+            $model = KenaikanGaji::model()->findAll(array('index' => 'pegawai_id', 'condition' => 'month(tanggal)=' . $bulan . ' AND year(tanggal)=' . $_POST['tahun']));
+            foreach ($model as $val) {
                 $arrKenaikan[] = $val->pegawai_id;
             }
-            
+
 //            logs($arrKenaikan);
-            
+
             foreach ($query as $valPegawai) {
                 if (in_array($valPegawai->id, $arrKenaikan)) {
                     $checked = 'checked="checked"';
@@ -47,9 +47,13 @@
                 }
 
                 $masakerjaPegawai = KenaikanGaji::model()->masaKerja(date("d-m-Y", strtotime($valPegawai->tmt_cpns)), $tanggalKenaikan, true, false);
-
+                $gajiBaru = (landa()->rp(isset($kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai]) ? $kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai] : 0));
                 echo '<tr style="' . $warna . '">';
-                echo '<td><input type="checkbox" '.$checked.' name="dibayar[]" class="dibayar" value="' . $valPegawai->id . '"></td>';
+                if ($gajiBaru == 'Rp. 0') {
+                    echo '<td>&nbsp;</td>';
+                } else {
+                    echo '<td><input type="checkbox" ' . $checked . ' name="dibayar[]" class="dibayar" value="' . $valPegawai->id . '"></td>';
+                }
                 echo '<td>';
                 echo '<input type="hidden" name="tanggal_sk_akhir[]" value="' . (isset($valPegawai->Pangkat->tanggal_sk_akhir) ? $valPegawai->Gaji->tanggal_sk_akhir : "-") . '">';
                 echo '<input type="hidden" name="no_sk_akhir[]" value="' . (isset($valPegawai->Pangkat->no_sk_akhir) ? $valPegawai->Pangkat->no_sk_akhir : "-") . '">';
@@ -66,7 +70,7 @@
                 echo '<td>' . (isset($valPegawai->tmt_cpns) ? landa()->date2Ind($valPegawai->tmt_cpns) : "-" ) . '</td>';
                 echo '<td>' . $valPegawai->masaKerjaTahun . " Tahun " . $valPegawai->masaKerjaBulan . " Bulan" . '</td>';
                 echo '<td>' . (landa()->rp(isset($valPegawai->Gaji->gaji) ? $valPegawai->Gaji->gaji : 0)) . '</td>';
-                echo '<td>' . (landa()->rp(isset($kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai]) ? $kenaikanGaji[$valPegawai->Pangkat->golongan_id][$masakerjaPegawai] : 0)) . '</td>';
+                echo '<td>' . $gajiBaru . '</td>';
                 echo '</tr>';
 //                }
             }
