@@ -721,27 +721,27 @@ class Pegawai extends CActiveRecord {
 
 //===========================//
     public function getNamaNip() {
-        return $this->namaGelar . '<br> ' . $this->nip . "&nbsp;";
+        return $this->namaGelar . ' // ' . $this->nip . "&nbsp;";
     }
 
     public function getGolTmt() {
-        return $this->Gol . '<br> ' . landa()->date2Ind($this->tmt_golongan);
+        return $this->Gol . ' // ' . landa()->date2Ind($this->tmt_golongan);
     }
 
     public function getEslonTmt() {
-        return $this->Esl . '<br> ' . landa()->date2Ind($this->TmtEslon);
+        return $this->Esl . ' // ' . landa()->date2Ind($this->TmtEslon);
     }
 
     public function getTtlLahir() {
-        return $this->tempat_lahir . '<br> ' . landa()->date2Ind($this->tanggal_lahir);
+        return $this->tempat_lahir . ' // ' . landa()->date2Ind($this->tanggal_lahir);
     }
 
     public function getJabatanTmt() {
-        return $this->riwayatNamaJabatan . '<br/>' . landa()->date2Ind($this->riwayatTmtJabatan);
+        return $this->riwayatNamaJabatan . ' // ' . landa()->date2Ind($this->riwayatTmtJabatan);
     }
 
     public function getPendidikanThn() {
-        return ucwords(strtolower($this->pendidikanJurusan)) . '<br/>' . $this->pendidikanTahun;
+        return ucwords(strtolower($this->pendidikanJurusan)) . ' // ' . $this->pendidikanTahun;
     }
 
     public function getDiklatTerakhir() {
