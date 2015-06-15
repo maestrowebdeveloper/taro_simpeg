@@ -172,9 +172,9 @@ class Pegawai extends CActiveRecord {
 
 
 //tambahan tindik jurusan
-        if (isset($_GET['jurusan']) and ! empty($_GET['jurusan'])) {
+        if (isset($_GET['jurusan']) and !empty($_GET['jurusan'])) {
             $pegawai = RiwayatPendidikan::model()->with('Jurusan')->findAll(array('condition' => 'Jurusan.Name like "%' . $_GET['jurusan'] . '%"'));
-            
+
             $id = array();
             foreach ($pegawai as $val) {
                 $id[] = $val->id;
@@ -182,17 +182,17 @@ class Pegawai extends CActiveRecord {
             $criteria->addInCondition("t.id", $id);
         }
 
-        if (isset($_GET['unit_kerja']) and ! empty($_GET['unit_kerja'])) {
+        if (isset($_GET['unit_kerja']) and !empty($_GET['unit_kerja'])) {
             $criteria->compare('JabatanStruktural.id', $this->jabatan_ft_id);
         }
 
 // satuan kerja
-        if (isset($_GET['satuan_kerja']) and ! empty($_GET['satuan_kerja'])) {
+        if (isset($_GET['satuan_kerja']) and !empty($_GET['satuan_kerja'])) {
             $criteria->compare("JabatanStruktural.unit_kerja_id", $_GET['satuan_kerja']);
         }
 
 // jabatan FT
-        if (isset($_GET['Pegawai']['jabatan_ft_id']) and ! empty($_GET['Pegawai']['jabatan_ft_id'])) {
+        if (isset($_GET['Pegawai']['jabatan_ft_id']) and !empty($_GET['Pegawai']['jabatan_ft_id'])) {
             $criteria->addCondition('t.tipe_jabatan = "fungsional_tertentu" and JabatanFt.type = "' . $this->jabatan_ft_id . '"');
         }
         if (!empty($this->nip))
@@ -272,7 +272,7 @@ class Pegawai extends CActiveRecord {
             $criteria2->compare('kedudukan_id', $this->kedudukan_id);
         if (!empty($this->tipe_jabatan))
             $criteria2->compare('tipe_jabatan', $this->tipe_jabatan);
-        if (isset($_POST['jurusan']) and ! empty($_POST['jurusan'])) {
+        if (isset($_POST['jurusan']) and !empty($_POST['jurusan'])) {
             $criteria2->compare('RiwayatPendidikan.id_jurusan', $_POST['id_jurusan']);
         }
         $criteria2->addCondition('t.id = RiwayatPendidikan.pegawai_id');
@@ -610,58 +610,77 @@ class Pegawai extends CActiveRecord {
         return landa()->usia(date('d-m-Y', strtotime($this->tanggal_lahir)));
     }
 
+    // masa kerja
+    public function masaKerjaUntil($dob, $today, $hanyaTahun = false, $hanyaBulan = false) {
+        $dob_a = explode("-", $dob);
+        $today_a = explode("-", $today);
+        $dob_d = $dob_a[0];
+        $dob_m = $dob_a[1];
+        $dob_y = $dob_a[2];
+        $today_d = $today_a[0];
+        $today_m = $today_a[1];
+        $today_y = $today_a[2];
+
+        $startDate = gregoriantojd((int) $dob_m, (int) $dob_d, (int) $dob_y);
+        $todayDate = gregoriantojd((int) $today_m, (int) $today_d, (int) $today_y);
+
+        $lama = $todayDate - $startDate;
+
+        $tahun = $lama / 365; //menghitung usia tahun
+
+        $sisa = $lama % 365; //sisa pembagian dari tahun untuk menghitung bulan
+
+        $bulan = $sisa / 30; //menghitung usia bulan
+
+        $hari = $sisa % 30; //menghitung sisa hari
+
+        if ($hanyaTahun == true) {
+            return floor($tahun);
+        } elseif ($hanyaBulan == true) {
+            return floor($bulan);
+        }
+    }
+
     public function getMasaKerja() {
+        if (isset($this->perubahan_masa_kerja) and !empty($this->perubahan_masa_kerja)) {
+            $perubahan = json_decode($this->perubahan_masa_kerja, false);
+        }
+
+        $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun * -1 : 0;
+        $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan * -1 : 0;
+        if ($this->tmt_cpns != NULL and $this->tmt_cpns != "0000-00-00") {
+            $date = explode("-", $this->tmt_cpns);
+            $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0] + $perubahanTahun);
+            $tmt_cpns = date("Y-m-d", $tmt);
+        } else {
+            $tmt_cpns = date("Y-m-d");
+        }
+
         if (empty($this->tmt_cpns)) {
-            return '';
+            return '-';
         } else
-            return landa()->usia(date('d-m-Y', strtotime($this->tmt_cpns)));
+            return landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, false);
     }
 
     public function getMasaKerjaTahun() {
-        if (isset($this->perubahan_masa_kerja) and ! empty($this->perubahan_masa_kerja)) {
-            $perubahan = json_decode($this->perubahan_masa_kerja, false);
-        }
-
-        $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun * -1 : 0;
-        $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan * -1 : 0;
-        if ($this->tmt_cpns != NULL and $this->tmt_cpns != "0000-00-00") {
-            $date = explode("-", $this->tmt_cpns);
-            $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0] + $perubahanTahun);
-            $tmt_cpns = date("Y-m-d", $tmt);
+        if ($this->masaKerja == '-') {
+            return '0';
         } else {
-            $tmt_cpns = date("Y-m-d");
+            $tahun = explode(" ", $this->masaKerja);
+            return $tahun[0];
         }
-
-        if (empty($this->tmt_cpns)) {
-            $tahun = '';
-        } else
-            $tahun = str_replace(" Tahun", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), true));
-
-        return $tahun;
     }
 
     public function getMasaKerjaBulan() {
-        if (isset($this->perubahan_masa_kerja) and ! empty($this->perubahan_masa_kerja)) {
-            $perubahan = json_decode($this->perubahan_masa_kerja, false);
-        }
-        $perubahanTahun = isset($perubahan->tahun) ? $perubahan->tahun * -1 : 0;
-        $perubahanBulan = isset($perubahan->bulan) ? $perubahan->bulan * -1 : 0;
-
-        if ($this->tmt_cpns != NULL and $this->tmt_cpns != "0000-00-00") {
-            $date = explode("-", $this->tmt_cpns);
-            $tmt = mktime(0, 0, 0, $date[1] + $perubahanBulan, $date[2], $date[0] + $perubahanTahun);
-            $tmt_cpns = date("Y-m-d", $tmt);
+        if ($this->masaKerja == '-') {
+            return '0';
         } else {
-            $tmt_cpns = date("Y-m-d");
+            $bulan = explode(" ", $this->masaKerja);
+            return $bulan[2];
         }
-
-        if (empty($this->tmt_cpns)) {
-            $bulan = '';
-        } else
-            $bulan = str_replace(" Bulan", "", landa()->usia(date('d-m-Y', strtotime($tmt_cpns)), false, true));
-
-        return $bulan;
     }
+
+    //end masa kerja
 
     public function getTtl() {
         return ucwords(strtolower($this->tempatLahir)) . ', ' . landa()->date2Ind($this->tanggal_lahir);
@@ -687,7 +706,6 @@ class Pegawai extends CActiveRecord {
     public function getGol() {
         return (isset($this->Pangkat->Golongan->nama)) ? $this->Pangkat->Golongan->nama : "-";
     }
-    
 
     public function getNamaJabatan() {
         return (isset($this->JabatanStruktural->jabatan)) ? $this->JabatanStruktural->jabatan : "-";
