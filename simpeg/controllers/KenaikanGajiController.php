@@ -157,7 +157,7 @@ class KenaikanGajiController extends Controller {
             ));
         }
         if (isset($_POST['dibayar'])) {
-            logs($_POST['dibayar']);
+//            logs($_POST['dibayar']);
             foreach ($_POST['dibayar'] as $key => $val) {
                 $bulan = substr("0" . $_POST['bulan'], -2, 2);
                 $valPegawai = Pegawai::model()->findByPk($_POST['dibayar'][$key]);

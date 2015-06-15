@@ -83,5 +83,5 @@
     </tbody>
 </table>
 <div class="form-actions">
-    <input type="submit" name="proses" value="Proses" class="btn btn-primary">
+    <input type="submit" name="proses" value="Proses" class="btn btn-primary" onclick="save()">
 </div>

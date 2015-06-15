@@ -2,6 +2,7 @@
     <?php
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id' => 'kenaikan-gaji-form',
+        'action' => Yii::app()->createUrl($this->route),
         'enableAjaxValidation' => false,
         'method' => 'post',
         'type' => 'horizontal',
@@ -76,7 +77,9 @@
 
                         if (!empty($_POST['bulan']) and !empty($_POST['tahun'])) {
                             $bulan = substr("0" . $_POST['bulan'], -2, 2);
-                            $query = Pegawai::model()->with('Pangkat', 'JabatanStruktural')->findAll(array('condition' => 't.kedudukan_id = 1' . $unit, 'order' => 'Pangkat.golongan_id ASC'));
+                            $model = new KenaikanGaji;
+                            $query = $model->search();
+//                            $query = Pegawai::model()->with('Pangkat', 'JabatanStruktural')->findAll(array('condition' => 't.kedudukan_id = 1' . $unit, 'order' => 'Pangkat.golongan_id ASC'));
                             $this->renderPartial('/kenaikanGaji/_tableListPegawai', array('query' => $query, 'bulan' => $bulan, 'tahun' => $_POST['tahun']));
                         }
                     }
@@ -114,6 +117,12 @@
     function chgAction()
     {
         document.getElementById("kenaikan-gaji-form").action = "<?php echo Yii::app()->createUrl('kenaikanGaji/exportExcel'); ?>";
+        document.getElementById("kenaikan-gaji-form").submit();
+
+    }
+    function save()
+    {
+        document.getElementById("kenaikan-gaji-form").action = "<?php echo Yii::app()->createUrl($this->route); ?>";
         document.getElementById("kenaikan-gaji-form").submit();
 
     }
