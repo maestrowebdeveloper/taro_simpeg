@@ -286,7 +286,7 @@ class HonorerController extends Controller {
     public function actionIndex() {
         $model = new Honorer('search');
         $model->unsetAttributes();  // clear any default values
-        $model->kode = array(20, 40);
+        $model->kode = 40;
 
         if (isset($_GET['Honorer'])) {
             $model->attributes = $_GET['Honorer'];
@@ -339,11 +339,9 @@ class HonorerController extends Controller {
     public function actionPindahStatus() {
         $model = Honorer::model()->findAll();
         foreach ($model as $data) {
-            if ($data->kode == 20) {
+            if ($data->kode != 40) {
                 Honorer::model()->updateAll(array(
-                    'kode' => 40,), 'id=' . $data->ids);
-            }elseif($data->kode == 12){
-                
+                    'kode' => 20,), 'id=' . $data->id);
             }
         }
     }
