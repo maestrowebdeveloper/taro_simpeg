@@ -34,7 +34,7 @@ class JabatanFt extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('nama', 'required'),
-            array('keterangan, status,created, created_user_id', 'safe'),
+            array('keterangan,type, status,created, created_user_id', 'safe'),
             array('created_user_id', 'numerical', 'integerOnly' => true),
             array('nama', 'length', 'max' => 255),
             array('modified', 'safe'),

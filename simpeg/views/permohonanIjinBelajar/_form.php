@@ -30,26 +30,31 @@
 
 
         <?php echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span5', 'maxlength' => 225)); ?>
-
+        <div class="control-group ">
+            <label class="control-label" for="PermohonanIjinBelajar_no_usul">Nomor Usul</label>
+            <div class="controls">
+                <input class="span5" maxlength="225" name="PermohonanIjinBelajar[no_usul]" id="PermohonanIjinBelajar_nomor_register" type="text" value="<?php echo isset($model->no_usul) ? $model->no_usul : '890/    /434.206 / 2015' ?>">
+            </div>
+        </div>
         <?php
-       $tanggalUsul = isset($model->tanggal_usul) ? date('d-m-Y', strtotime($model->tanggal_usul)) :'';
-       $tanggal = isset($model->tanggal) ? date('d-m-Y', strtotime($model->tanggal)) :'';
-        
+        $tanggalUsul = isset($model->tanggal_usul) ? date('d-m-Y', strtotime($model->tanggal_usul)) : '';
+        $tanggal = isset($model->tanggal) ? date('d-m-Y', strtotime($model->tanggal)) : '';
+
         echo $form->datepickerRow(
                 $model, 'tanggal_usul', array(
-            'value' => str_replace("0000-00-00", "",$tanggalUsul),
+            'value' => str_replace("0000-00-00", "", $tanggalUsul),
             'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
             'prepend' => '<i class="icon-calendar"></i>'
                 )
         );
         echo $form->datepickerRow(
                 $model, 'tanggal', array(
-            'value' => str_replace("0000-00-00", "",$tanggal),
+            'value' => str_replace("0000-00-00", "", $tanggal),
             'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
             'prepend' => '<i class="icon-calendar"></i>'
                 )
         );
-        if (isset($_GET['v']) || $model->isNewRecord == false) { 
+        if (isset($_GET['v']) || $model->isNewRecord == false) {
             echo $form->radioButtonListRow($model, 'status', PermohonanIjinBelajar::model()->ArrStatuspros());
         }
         $idpegawai = isset($model->pegawai_id) ? $model->pegawai_id : 0;
@@ -122,7 +127,7 @@
         echo $form->radioButtonListRow($model, 'jenjang_pendidikan', Pegawai::model()->ArrJenjangPendidikan());
         ?>
 
-      <?php
+        <?php
         $idjurusan = isset($model->id_jurusan) ? $model->id_jurusan : 0;
         $jurusanName = isset($model->Jurusan->Name) ? $model->Jurusan->Name : '';
         echo $form->select2Row($model, 'id_jurusan', array(
@@ -158,13 +163,12 @@
             ),
                 )
         );
-    ?>
-        
+        ?>
+
         <?php // echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span5', 'maxlength' => 225)); ?>
-      <?php
+        <?php
 //    if(isset($model->jenjang_pendidikan != 'SMA/SMK') && ($model->jenjang_pendidikan != 'SD') && ($model->jenjang_pendidikan != 'SMP'){
-    
-      ?>
+        ?>
         <?php
 //        echo $form->textFieldRow($model, 'jurusan', array(
 //            'class' => 'span5',
@@ -173,7 +177,7 @@
         // }
         ?>
 
-        <?php // echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span5', 'maxlength' => 225)); ?>
+        <?php // echo $form->textFieldRow($model, 'nama_sekolah', array('class' => 'span5', 'maxlength' => 225));  ?>
         <?php
 //    if(isset($model->jenjang_pendidikan != 'SMA/SMK') && ($model->jenjang_pendidikan != 'SD') && ($model->jenjang_pendidikan != 'SMP'){
         ?>
@@ -189,13 +193,12 @@
                 'width' => '40%;margin:0px;text-align:left',
         )));
         echo "</div></div>";
-       
+
 //    }
         ?>
 
         <?php
 //        $this->widget('common.extensions.landa.widgets.LandaProvinceCity', array('name' => 'PermohonanIjinBelajar[kota]', 'cityValue' => $model->kota, 'disabled' => false, 'width' => '40%', 'label' => 'Kota'));
-
 //        $idkota = isset($model->kota) ? $model->kota : 0;
 //        $kotaName = isset($model->Kota->name) ? $model->Kota->Province->name.' - '.$model->Kota->name : '';
 //        echo $form->select2Row($model, 'kota', array(
@@ -263,26 +266,26 @@
 
 <?php if (isset($_GET['v'])) { ?>
     <div class="surat" id="surat" style="display:none">
-        <?php
-        $siteConfig = SiteConfig::model()->listSiteConfig();
-        $content = $siteConfig->format_ijin_belajar;
-        $universitas = (isset($model->Univ->name)) ? $model->Univ->name :'-';
-        $content = str_replace('{no_usul}', $model->nomor_register, $content);
-        $content = str_replace('{nama}', $model->nama, $content);
-        $content = str_replace('{nip}', $model->nip, $content);
-        $content = str_replace('{pangkat}', $model->golongan, $content);
-        $content = str_replace('{unit_kerja}', $model->unit_kerja, $content);
-        $content = str_replace('{satuan_kerja}', $model->satuanKerja, $content);
-        $content = str_replace('{jabatan}', $model->jabatan, $content);
-        $content = str_replace('{jenjang_pendidikan}', $model->jenjang_pendidikan, $content);
+    <?php
+    $siteConfig = SiteConfig::model()->listSiteConfig();
+    $content = $siteConfig->format_ijin_belajar;
+    $universitas = (isset($model->Univ->name)) ? $model->Univ->name : '-';
+    $content = str_replace('{no_usul}', $model->no_usul, $content);
+    $content = str_replace('{nama}', $model->nama, $content);
+    $content = str_replace('{nip}', $model->nip, $content);
+    $content = str_replace('{pangkat}', $model->golongan, $content);
+    $content = str_replace('{unit_kerja}', $model->unit_kerja, $content);
+    $content = str_replace('{satuan_kerja}', $model->satuanKerja, $content);
+    $content = str_replace('{jabatan}', $model->jabatan, $content);
+    $content = str_replace('{jenjang_pendidikan}', $model->jenjang_pendidikan, $content);
 //        $content = str_replace('{jurusan}', $model->jurusan, $content);
-        $content = str_replace('{jurusan}', $model->Jurusan->Name, $content);
-        $content = str_replace('{nama_sekolah}', (isset($model->Univ->name)) ? $model->Univ->name : '-', $content);
-        
-        $content = str_replace('{kota_sekolah}', $model->kotaSekolah, $content);
-        $content = str_replace('{tanggal}', date('d F Y', strtotime($model->tanggal)), $content);
-        echo $content;
-        ?>
+    $content = str_replace('{jurusan}', $model->Jurusan->Name, $content);
+    $content = str_replace('{nama_sekolah}', (isset($model->Univ->name)) ? $model->Univ->name : '-', $content);
+
+    $content = str_replace('{kota_sekolah}', $model->kotaSekolah, $content);
+    $content = str_replace('{tanggal}', date('d F Y', strtotime($model->tanggal)), $content);
+    echo $content;
+    ?>
     </div>
     <?php } ?>
 
@@ -292,7 +295,7 @@
     }
 </style>
 <script type="text/javascript">
-    $("#PermohonanIjinBelajar_pegawai_id").on("change", function () {
+    $("#PermohonanIjinBelajar_pegawai_id").on("change", function() {
         //var name = $("#Registration_guest_user_id").val();
         //  alert(name);
 
@@ -300,7 +303,7 @@
             url: "<?php echo url('pegawai/getDetail'); ?>",
             type: "POST",
             data: {id: $(this).val()},
-            success: function (data) {
+            success: function(data) {
 
                 obj = JSON.parse(data);
                 $("#unit_kerja").val(obj.unit_kerja);
@@ -313,12 +316,12 @@
         });
     })
 
-    $("#viewTab").click(function () {
+    $("#viewTab").click(function() {
         $(".surat").hide();
         $(".form").show();
     });
 
-    $("#viewFull").click(function () {
+    $("#viewFull").click(function() {
         $(".surat").show();
         $(".form").hide();
     });
@@ -332,24 +335,24 @@
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
-        $("#myTab a").click(function (e) {
+        $("#myTab a").click(function(e) {
             e.preventDefault();
             $(this).tab("show");
         })
-        $("#viewTab").click(function () {
+        $("#viewTab").click(function() {
             $(".surat").hide();
             $(".form").show();
         });
 
-        $("#viewFull").click(function () {
+        $("#viewFull").click(function() {
             $(".surat").show();
             $(".form").hide();
         });
 
 
     }
-       
-    <?php
+
+<?php
 //    if ($model->jenjang_pendidikan == "SD") {
 //    echo '$("#PermohonanIjinBelajar_id_universitas").parent().parent().attr("style", "display:none");
 //            $("#PermohonanIjinBelajar_id_jurusan").parent().parent().attr("style", "display:none");
