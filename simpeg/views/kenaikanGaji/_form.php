@@ -64,7 +64,7 @@
                             ?> 
                         </select> &nbsp;&nbsp;&nbsp;&nbsp;
                         <button class="btn btn-primary" id="viewPegawai" type="button" name="yt0" onclick="return validat()"><i class="icon-ok icon-white"></i> View Pegawai</button>
-                        <button class="btn btn-primary export" id="export" type="button" name="yt0" onclick=""><i class="icon-ok icon-print"></i> Export</button>
+                        <button class="btn btn-primary export" id="export" type="button" name="yt0" onclick="chgAction()"><i class="icon-ok icon-print"></i> Export</button>
                     </div>
                 </div>
                 <div id="listPegawai">
@@ -74,7 +74,7 @@
                         if (!empty($_POST['unit_kerja']))
                             $unit = ' AND JabatanStruktural.unit_kerja_id = ' . $_POST['unit_kerja'];
 
-                        if (!empty($_POST['bulan']) and ! empty($_POST['tahun'])) {
+                        if (!empty($_POST['bulan']) and !empty($_POST['tahun'])) {
                             $bulan = substr("0" . $_POST['bulan'], -2, 2);
                             $query = Pegawai::model()->with('Pangkat', 'JabatanStruktural')->findAll(array('condition' => 't.kedudukan_id = 1' . $unit, 'order' => 'Pangkat.golongan_id ASC'));
                             $this->renderPartial('/kenaikanGaji/_tableListPegawai', array('query' => $query, 'bulan' => $bulan, 'tahun' => $_POST['tahun']));
@@ -98,7 +98,7 @@
 
 </div>
 <script>
-    $("#viewPegawai").click(function () {
+    $("#viewPegawai").click(function() {
         var bulan = $("#bulan").val();
         var tahun = $("#tahun").val();
         var unit_kerja = $("#unit_kerja").val();
@@ -106,40 +106,15 @@
             url: "<?php echo url('kenaikanGaji/getListPegawai'); ?>",
             data: "bulan=" + bulan + "&tahun=" + tahun + "&unit_kerja=" + unit_kerja,
             type: "post",
-            success: function (data) {
+            success: function(data) {
                 $("#listPegawai").html(data);
             }
         });
     });
-    function excel() {
-
-
-        if (document.getElementById('Honorer_jenis_kelamin_0').checked) {
-            var jns_kelamin = document.getElementById('Honorer_jenis_kelamin_0').value;
-        } else
-        if (document.getElementById('Honorer_jenis_kelamin_1').checked) {
-            var jns_kelamin = document.getElementById('Honorer_jenis_kelamin_1').value;
-        } else {
-            var jns_kelamin = '';
-        }
-//        
-//        if (document.getElementById('Honorer_status_pernikahan_0').checked) {
-//            var sts_pernikahan = document.getElementById('Honorer_status_pernikahan_0').value;
-//        } else
-//        if (document.getElementById('Honorer_status_pernikahan_1').checked) {
-//            var sts_pernikahan = document.getElementById('Honorer_status_pernikahan_1').value;
-//        } else
-//        if (document.getElementById('Honorer_status_pernikahan_2').checked) {
-//            var sts_pernikahan = document.getElementById('Honorer_status_pernikahan_2').value;
-//        } else {
-//            var sts_pernikahan = '';
-//        }
-
-        var bulan = $("#bulan").val();
-        var tahun = $("#tahun").val();
-        var unit_kerja = $("#unit_kerja").val();
-//       alert('nama');
-        window.open("<?php echo url('kenaikanGaji/GenerateExcel') ?>?bulan=" + bulan + "&tahun=" + tahun + "&unit_kerja=" + unit_kerja);
+    function chgAction()
+    {
+        document.getElementById("kenaikan-gaji-form").action = "<?php echo Yii::app()->createUrl('kenaikanGaji/exportExcel'); ?>";
+        document.getElementById("kenaikan-gaji-form").submit();
 
     }
 </script>

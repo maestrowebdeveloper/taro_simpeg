@@ -120,23 +120,19 @@ class KenaikanGaji extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+        $criteria->with = array('Pangkat', 'JabatanStruktural', 'Gaji');
+        $criteria->order = 'Pangkat.golongan_id ASC';
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('pegawai_id', $this->pegawai_id);
-        $criteria->compare('nomor_register', $this->nomor_register, true);
-        $criteria->compare('sifat', $this->sifat, true);
-        $criteria->compare('perihal', $this->perihal, true);
-        $criteria->compare('gaji_pokok_lama', $this->gaji_pokok_lama);
-        $criteria->compare('gaji_pokok_baru', $this->gaji_pokok_baru);
-        $criteria->compare('pejabat', $this->pejabat, true);
-        $criteria->compare('tanggal', $this->tanggal, true);
-        $criteria->compare('created', $this->created, true);
-        $criteria->compare('created_user_id', $this->created_user_id);
+        $criteria->compare('t.kedudukan_id', 1);
+        if (!empty($_POST['unit_kerja'])) {
+            $criteria->compare('JabatanStruktural.unit_kerja_id', $_POST['unit_kerja']);
+        }
+        if (!empty($_POST['bulan'])) {
+            $bulan = substr("0" . $_POST['bulan'], -2, 2);
+            $criteria->addCondition('month(t.tmt_cpns) <= "' . $bulan . '"');
+        }
 
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'id DESC')
-        ));
+        return Pegawai::model()->findAll($criteria);
     }
 
     /**
