@@ -26,7 +26,7 @@
         } else {
 //            $bulan = substr("0" . $_POST['bulan'], -2, 2);
 //            $jumHari = cal_days_in_month(CAL_GREGORIAN, $bulan, $_POST['tahun']);
-            $tanggalKenaikan = "31-" . $bulan . "-" . $tahun;
+            $tanggalKenaikan = "1-" . $bulan . "-" . $tahun;
             $gajiBaru = Gaji::model()->findByPk(1);
             $kenaikanGaji = json_decode($gajiBaru->gaji, true);
 
