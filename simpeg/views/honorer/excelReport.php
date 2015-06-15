@@ -4,8 +4,7 @@
     <table border="1">
         <tr>		 			
             <th width="80px">NAMA</th> 		
-            <th width="80px">GELAR DEPAN</th> 		
-            <th width="80px">GELAR BELAKANG</th> 		
+            <th width="80px">STATUS</th> 			
             <th width="80px">JENIS KELAMIN</th> 		
             <th width="80px">TTL</th> 		
             <th width="80px">AGAMA</th> 		 		 		 	
@@ -34,9 +33,8 @@
         </tr>
         <?php foreach ($model as $row): ?>
             <tr>        
-                <td><?php echo $row->nama; ?></td>
-                <td><?php echo $row->gelar_depan; ?></td>
-                <td><?php echo $row->gelar_belakang; ?></td>
+                <td><?php echo $row->namaGelar; ?></td>
+                <td><?php echo $row->statusHonorer; ?></td>
                 <td><?php echo $row->jenis_kelamin; ?></td>
                 <td><?php echo $row->ttl; ?></td>
                 <td><?php echo $row->agama; ?></td>

@@ -3,7 +3,8 @@
 <?php if ($model !== null):?>
 <table border="1">
 	<tr>		
- 		<th width="80px">NOMOR USUL</th> 		
+ 		<th width="80px">NOMOR REGISTER</th> 		
+ 		<th width="80px">NO USUL</th> 		
  		<th width="80px">TANGGAL USUL</th> 		 			 		 		 	
  		<th width="80px">NIP</th> 		 			 		 		 	
  		<th width="80px">NAMA PEGAWAI</th> 		 			 		 		 	
@@ -18,6 +19,7 @@
 	<?php foreach($model as $row): ?>
 	<tr>
         <td><?php echo $row->nomor_register."&nbsp;"; ?></td>
+        <td><?php echo $row->no_usul; ?></td>
         <td><?php echo landa()->date2Ind($row->tanggal); ?></td>        
         <td><?php echo $row->nip."&nbsp;"; ?></td>        
         <td><?php echo $row->nama; ?></td>        

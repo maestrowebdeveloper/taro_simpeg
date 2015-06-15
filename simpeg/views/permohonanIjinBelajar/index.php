@@ -101,6 +101,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => '$data->stat',
         ),
         'nomor_register',
+        'no_usul',
         array(
             'name' => 'nama',
             'value' => '$data->nama',
@@ -120,6 +121,10 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array(
             'name' => 'jenjang_pendidikan',
             'value' => '$data->jenjang_pendidikan',
+        ),
+        array(
+            'name' => 'tanggal_usul',
+            'value' => '$data->tglUsul',
         ),
         array(
             'name' => 'tanggal',

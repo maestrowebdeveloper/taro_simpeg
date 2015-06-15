@@ -38,14 +38,14 @@ class PermohonanIjinBelajar extends CActiveRecord {
         // will receive user inputs.
         return array(
 //            array('nomor_register, tanggal, pegawai_id, jenjang_pendidikan,id_jurusan,  tanggal_usul', 'required'),
-            array('nip,status, golongan,tanggal, tanggal_usul, nama,jabatan, unit_kerja, id_jurusan, id_universitas, kota, alamat, nama_sekolah, created, created_user_id, modified', 'safe'),
+            array('nip,status, golongan,tanggal, no_usul ,tanggal_usul, nama,jabatan, unit_kerja, id_jurusan, id_universitas, kota, alamat, nama_sekolah, created, created_user_id, modified', 'safe'),
             array('pegawai_id, kota, created_user_id', 'numerical', 'integerOnly' => true),
             array('nomor_register, nip, jabatan, unit_kerja, nama_sekolah', 'length', 'max' => 225),
             array('golongan', 'length', 'max' => 100),
             array('jenjang_pendidikan', 'length', 'max' => 9),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, nomor_register,nama, tanggal,tanggal_usul, pegawai_id, nip, golongan,status, jabatan, unit_kerja, jenjang_pendidikan, id_jurusan, nama_sekolah, kota, alamat, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id, nomor_register, no_usul,nama, tanggal,tanggal_usul, pegawai_id, nip, golongan,status, jabatan, unit_kerja, jenjang_pendidikan, id_jurusan, nama_sekolah, kota, alamat, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -70,7 +70,8 @@ class PermohonanIjinBelajar extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'nomor_register' => 'Nomor Usul',
+            'nomor_register' => 'Nomor Register',
+            'no_usul' => 'Nomor Usul',
             'tanggal' => 'Tanggal Input',
             'pegawai_id' => 'Pegawai',
             'status' => 'Status',
@@ -108,14 +109,15 @@ class PermohonanIjinBelajar extends CActiveRecord {
 
         $criteria = new CDbCriteria;
         
-        if (!empty($this->tanggal) && !empty($this->created)){
-            $criteria->condition = 'tanggal between "' . $this->tanggal. '" and "' . $this->created . '"';
-            logs($this->created);
+        if (isset($_GET['PermohonanIjinBelajar']['tanggal_usul']) && isset($_GET['PermohonanIjinBelajar']['created'])){
+            $criteria->addBetweenCondition('tanggal', $_GET['PermohonanIjinBelajar']['tanggal_usul'], $_GET['PermohonanIjinBelajar']['created'], 'AND');
+            
         }
         
         $criteria->order = 'tanggal DESC';
         $criteria->compare('id', $this->id);
         $criteria->compare('nomor_register', $this->nomor_register, true);
+        $criteria->compare('no_usul', $this->no_usul, true);
         $criteria->compare('nama', $this->nomor_register, true);
         $criteria->compare('tanggal', $this->tanggal, true);
         $criteria->compare('pegawai_id', $this->pegawai_id);
@@ -171,6 +173,9 @@ class PermohonanIjinBelajar extends CActiveRecord {
 
     public function getTglIjnBelajar() {
         return (empty($this->tanggal) || strtotime($this->tanggal) < 0) ? '-' : landa()->date2Ind($this->tanggal);
+    }
+    public function getTglUsul() {
+        return (empty($this->tanggal_usul) || strtotime($this->tanggal_usul) < 0) ? '-' : landa()->date2Ind($this->tanggal_usul);
     }
 
     public function getPegawai() {
