@@ -125,11 +125,11 @@ class Golongan extends CActiveRecord {
         $golongan = array(
             'Terampil' => array(
                 21 => 'Pelaksana Pemula',
-                22 => 'Pelaksana',
-                23 => 'Pelaksana',
-                24 => 'Pelaksana',
-                31 => 'Pelaksana Lanjutan',
-                32 => 'Pelaksana Lanjutan',
+                22 => 'Pelaksana Terampil',
+                23 => 'Pelaksana Terampil',
+                24 => 'Pelaksana Terampil',
+                31 => 'Pelaksana Mahir',
+                32 => 'Pelaksana Mahir',
                 33 => 'Penyelia',
                 34 => 'Penyelia',
             ),
