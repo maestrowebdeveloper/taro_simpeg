@@ -487,7 +487,7 @@ class PegawaiController extends Controller {
     public function actionGetJurusanTingkat() {
         $name = $_GET["q"];
         $data = array();
-        $pegawai = Jurusan::model()->findAll(array('condition' => 'Name like "%' . $name . '%"', 'limit' => 15));
+        $pegawai = Jurusan::model()->findAll(array('condition' => 'Name like "%' . $name . '%"'));
         if (empty($pegawai)) {
             $data[] = array('id' => '0', 'text' => 'Tidak Ada Nama Yang Cocok');
         } else {
