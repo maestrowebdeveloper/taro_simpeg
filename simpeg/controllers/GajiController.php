@@ -67,22 +67,17 @@ class GajiController extends Controller {
 
 
         if (isset($_POST['Gaji'])) {
-            $cek = Gaji::model()->findAll(array('condition' => 'tahun=' . $_POST['Gaji']['tahun']));
-            if (empty($cek)) {
-                $gaji = array();
-                $model->attributes = $_POST['Gaji'];
-                for ($i = 0; $i < 34; $i++) {
-                    $golongan = Golongan::model()->findAll();
-                    foreach ($golongan as $val) {
-                        $gaji[$val->id][$i] = $_POST['gaji'][$val->id][$i];
-                    }
+            $gaji = array();
+            $model->attributes = $_POST['Gaji'];
+            for ($i = 0; $i < 34; $i++) {
+                $golongan = Golongan::model()->findAll();
+                foreach ($golongan as $val) {
+                    $gaji[$val->id][$i] = $_POST['gaji'][$val->id][$i];
                 }
-                $model->gaji = json_encode($gaji);
-                if ($model->save()) {
-                    $this->redirect(array('view', 'id' => $model->id));
-                }
-            } else {
-                Yii::app()->user->setFlash('error', "Data gaji dengan tahun " . $_POST['Gaji']['tahun'] . " sudah ada");
+            }
+            $model->gaji = json_encode($gaji);
+            if ($model->save()) {
+                $this->redirect(array('view', 'id' => $model->id));
             }
         }
 
@@ -103,23 +98,18 @@ class GajiController extends Controller {
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Gaji'])) {
-            $cek = Gaji::model()->findAll(array('condition' => 'tahun=' . $_POST['Gaji']['tahun'] . ' and id != ' . $id));
-            if (empty($cek)) {
-                $gaji = array();
-                $model->attributes = $_POST['Gaji'];
-                for ($i = 0; $i < 34; $i++) {
-                    $golongan = Golongan::model()->findAll();
-                    foreach ($golongan as $val) {
-                        $gaji[$val->id][$i] = $_POST['gaji'][$val->id][$i];
-                    }
+        if (isset($_POST['gaji'])) {
+            $gaji = array();
+//            $model->attributes = $_POST['gaji'];
+            for ($i = 0; $i < 34; $i++) {
+                $golongan = Golongan::model()->findAll();
+                foreach ($golongan as $val) {
+                    $gaji[$val->id][$i] = $_POST['gaji'][$val->id][$i];
                 }
-                $model->gaji = json_encode($gaji);
-                if ($model->save()) {
-                    $this->redirect(array('view', 'id' => $model->id));
-                }
-            } else {
-                Yii::app()->user->setFlash('error', "Data gaji dengan tahun " . $_POST['Gaji']['tahun'] . " sudah ada");
+            }
+            $model->gaji = json_encode($gaji);
+            if ($model->save()) {
+                $this->redirect(array('view', 'id' => $model->id));
             }
         }
 
