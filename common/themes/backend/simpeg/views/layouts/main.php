@@ -78,8 +78,8 @@
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown">
                                         <?php
-                                        $img = user()->avatar_img;
-                                        echo '<img src="' . $img['small'] . '" alt="" class="image" /> ';
+                                        $user = User::model()->findByPk(user()->id);
+                                        echo '<img src="' . $user->imgUrl . '" alt="" class="image" /> ';
                                         ?>
                                         <span class="txt"><?php echo Yii::app()->user->getState('name'); ?></span>
                                         <b class="caret"></b>

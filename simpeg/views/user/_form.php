@@ -1,3 +1,8 @@
+<style>
+    .box{
+        min-height: initial !important;
+    }
+</style>
 <div class="form">
     <?php
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -21,7 +26,7 @@
         <?php echo $form->errorSummary($model, 'Opps!!!', null, array('class' => 'alert alert-error span12')); ?>
         <div class="clearfix"></div>
 
-        <div class="box">
+        <div class="box" >
             <div class="title">
                 <h4>
                     <?php
@@ -149,7 +154,7 @@
                                         )
                                         . '</div>';
                             }
-                            echo '<img src="' . $img['small'] . '" alt="" class="image img-polaroid" id="my_image"  /><br><br> ';
+                            echo '<img src="' . $model->imgUrl . '" alt="" class="image img-polaroid" id="my_image"  /><br><br> ';
                             echo $cc;
                             ?>
                             <div style="margin-left: -90px;"> <?php echo $form->fileFieldRow($model, 'avatar_img', array('class' => '')); ?></div>
