@@ -687,7 +687,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getNamaGelar() {
-        $depan = (empty($this->gelar_depan) || $this->gelar_depan == "NULL" ) ? '' : $this->gelar_depan . '. ';
+        $depan = (!empty($this->gelar_depan) || $this->gelar_depan == "NULL" ) ? '' : $this->gelar_depan . '. ';
         $belakang = (empty($this->gelar_belakang) || $this->gelar_belakang == "NULL" ) ? '' : ', ' . $this->gelar_belakang . '. ';
 //        $belakang = (empty($this->gelar_belakang)) ? ', ' . $this->gelar_belakang : '';
         return $depan . $this->nama . $belakang;
@@ -725,7 +725,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getGolTmt() {
-        return $this->Gol . ' // ' . landa()->date2Ind($this->tmt_golongan);
+        return $this->Gol . ' // ' . landa()->date2Ind($this->Pangkat->tmt_pangkat);
     }
 
     public function getEslonTmt() {
