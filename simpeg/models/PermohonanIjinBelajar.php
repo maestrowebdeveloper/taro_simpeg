@@ -110,10 +110,12 @@ class PermohonanIjinBelajar extends CActiveRecord {
         $criteria = new CDbCriteria;
         
         if (isset($_GET['PermohonanIjinBelajar']['tanggal_usul']) && isset($_GET['PermohonanIjinBelajar']['created'])){
-            $criteria->addBetweenCondition('tanggal', $_GET['PermohonanIjinBelajar']['tanggal_usul'], $_GET['PermohonanIjinBelajar']['created'], 'AND');
+            $awal = $_GET['PermohonanIjinBelajar']['tanggal_usul'];
+            $akhir = $_GET['PermohonanIjinBelajar']['created'];
+            $criteria->addBetweenCondition('tanggal', $awal, $akhir);
             
         }
-        
+        logs($_GET);
         $criteria->order = 'tanggal DESC';
         $criteria->compare('id', $this->id);
         $criteria->compare('nomor_register', $this->nomor_register, true);

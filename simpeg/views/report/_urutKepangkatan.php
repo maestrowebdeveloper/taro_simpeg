@@ -6,15 +6,17 @@
         <thead>
             <tr>
                 <th style="width:40px" colspan="2">NO</th>
-                <th class="span1">NAMA <br>NIP</th>
-                <th class="span1">TEMPAT <br>TGL LAHIR</th>			
-                <th class="span1">GOL <br> TMT</th>
-                <th class="span1">Esl <br> TMT</th>			
-                <th class="span1">JABATAN <br> TMT</th>
+                <th class="span1">NAMA // NIP</th>
+                <th class="span1">AGAMA</th>
+                <th class="span1">TEMPAT // TGL LAHIR</th>			
+                <th class="span1">GOL // TMT</th>
+                <th class="span1">Esl // TMT</th>			
+                <th class="span1">JABATAN // TMT</th>
+                <th class="span1">USIA</th>
                 <th class="span1">MK TAHUN</th>						
                 <th class="span1">MK bULAN</th>
-                <th class="span1">DIKLAT <br> TAHUN</th>
-                <th class="span1">PENDIDIKAN <br> TAHUN</th>
+                <th class="span1">DIKLAT // TAHUN</th>
+                <th class="span1">PENDIDIKAN // TAHUN</th>
             </tr>
         </thead>
         <tbody>
@@ -33,10 +35,12 @@
 			<td>' . $no . '</td>
 			<td>' . $noGol . '</td>
 			<td>' . $value->NamaNip . '</td>
+			<td>' . $value->agama . '</td>
 			<td>' . $value->TtlLahir . '</td>			
 			<td>' . $value->GolTmt . '</td>
 			<td>' . $value->EslonTmt . '</td>			
 			<td>' . $value->jabatan . '</td>
+			<td>' . $value->usia . '</td>
 			<td>' . $value->MasaKerjaTahun . '</td>			
 			<td>' . $value->MasaKerjaBulan . '</td>
 			<td>' . $value->DiklatThn . '</td>
