@@ -143,7 +143,8 @@ class SuratMasuk extends CActiveRecord {
             'bidang mutasi' => 'Bidang Mutasi',
             'bidang pembinaan dan kesejahteraan pegawai' => 'Bidang Pembinaan dan Kesejahteraan Pegawai',
             'bidang pengembangan karier' => 'Bidang Pengembangan Karier',
-            'bidang pendidikan dan pelatihan' => 'Bidang Pendidikan dan pelatihan'
+            'bidang pendidikan dan pelatihan' => 'Bidang Pendidikan dan pelatihan',
+            'sekretariat' => 'Sekretariat'
         );
         return $agama;
     }

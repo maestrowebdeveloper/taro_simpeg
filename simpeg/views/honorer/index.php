@@ -141,7 +141,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 //        'tmt_akhir_kontrak',	
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
-            'template' => '{view} {update} {delete}',
+            'template' => $button,
             'buttons' => array(
                 'view' => array(
                     'label' => 'Lihat',

@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = Yii::app()->name . ' - Login';
+$this->pageTitle = 'Login :: SIMPEG Pemerintah Kabupaten Sampang';
 ?>
 
 <style>

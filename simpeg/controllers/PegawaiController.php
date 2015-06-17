@@ -1068,7 +1068,7 @@ class PegawaiController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Pegawai'])) {
-            
+
             $model->attributes = $_POST['Pegawai'];
             $model->tmt_cpns = $_POST['Pegawai']['tmt_cpns'];
             $model->nip_lama = $_POST['Pegawai']['nip_lama'];
@@ -1697,12 +1697,12 @@ class PegawaiController extends Controller {
                 $total_pegawai = $gagal = $sukses = 0;
                 for ($j = 2; $j <= $data->sheets[0]['numRows']; $j++) {
                     if (!empty($data->sheets[0]['cells'][$j][1])) {
-                       
+
                         $model = new PermohonanIjinBelajar;
                         // cari pegawai
                         $nip = (isset($data->sheets[0]['cells'][$j][1])) ? $data->sheets[0]['cells'][$j][1] : '';
                         $cariPegawai = Pegawai::model()->find(array('condition' => 'nip=' . $nip));
-                        
+
                         $model->nomor_register = (isset($data->sheets[0]['cells'][$j][2])) ? $data->sheets[0]['cells'][$j][2] : '';
                         $model->no_usul = (isset($data->sheets[0]['cells'][$j][3])) ? $data->sheets[0]['cells'][$j][3] : '';
                         $tcg = (isset($data->sheets[0]['cells'][$j][4])) ? $data->sheets[0]['cells'][$j][4] : '';
@@ -1716,45 +1716,68 @@ class PegawaiController extends Controller {
                         $model->status = (isset($data->sheets[0]['cells'][$j][8])) ? $data->sheets[0]['cells'][$j][8] : '';
                         // jenjang penddikan
                         $jen = (isset($data->sheets[0]['cells'][$j][5])) ? $data->sheets[0]['cells'][$j][5] : '';
-                        if($jen  == 1){
+                        if ($jen == 1) {
                             $jenjang = 'SLTP';
-                        }elseif($jen == 2){
+                        } elseif ($jen == 2) {
                             $jenjang = 'SLTA/SMK';
-                        }elseif($jen == 3){
+                        } elseif ($jen == 3) {
                             $jenjang = 'D-II';
-                        }elseif($jen == 4){
+                        } elseif ($jen == 4) {
                             $jenjang = 'D-III';
-                        }elseif($jen == 5){
+                        } elseif ($jen == 5) {
                             $jenjang = 'D-IV';
-                        }elseif($jen == 6){
+                        } elseif ($jen == 6) {
                             $jenjang = 'S-1';
-                        }else{
+                        } else {
                             $jenjang = 'S-2';
                         }
                         $model->jenjang_pendidikan = $jenjang;
-                        
+
                         $model->pegawai_id = isset($cariPegawai->id) ? $cariPegawai->id : '';
                         $model->nama = isset($cariPegawai->nama) ? $cariPegawai->nama : '';
                         $model->nip = isset($cariPegawai->nip) ? $cariPegawai->nip : '';
                         $model->jabatan = isset($cariPegawai->jabatan) ? $cariPegawai->jabatan : '';
                         $model->unit_kerja = isset($cariPegawai->unitKerja) ? $cariPegawai->unitKerja : '';
                         $model->golongan = isset($cariPegawai->Pangkat->golongan) ? $cariPegawai->Pangkat->golongan : '';
-                        
-                       $model->save();
-                            // update ke pegawai dan update gelar depan dan belakang
-                            
-                        
 
-
+                        $model->save();
+                        // update ke pegawai dan update gelar depan dan belakang
                     }
                 }
 
                 user()->setFlash('info', '<strong>Berhasil! </strong>Total Riwayat Pangkat : ' . $total_pegawai . ', Berhasil : ' . $sukses . ', Gagal : ' . $gagal);
             }
         }
-         $this->render('importIjin', array(
+        $this->render('importIjin', array(
             'model' => $model,
         ));
+    }
+
+    public function actionMigrasiGaji() {
+        $valPegawai = Pegawai::model()->findAll(array('condition' => 'kedudukan_id=1'));
+        $gajiBaru = Gaji::model()->findByPk(1);
+        $kenaikanGaji = json_decode($gajiBaru->gaji, true);
+        foreach ($valPegawai as $data) {
+            $masakerjaTahun = Pegawai::model()->masaKerjaUntil(date("d-m-Y", strtotime($data->tmt_cpns)), "1-06-2015", true, false);
+            $masakerjaBulan = Pegawai::model()->masaKerjaUntil(date("d-m-Y", strtotime($data->tmt_cpns)), "1-06-2015", false, true);
+
+            $gajiBaru = (isset($kenaikanGaji[$data->Pangkat->golongan_id][$masakerjaTahun]) ? $kenaikanGaji[$data->Pangkat->golongan_id][$masakerjaTahun] : $data->Gaji->gaji);
+            
+
+            // save riwayat gaji
+            $riwayatGaji = new RiwayatGaji;
+            $riwayatGaji->nomor_register = date("ymisd");
+            $riwayatGaji->pegawai_id = $data->id;
+            $riwayatGaji->gaji = $gajiBaru;
+            $riwayatGaji->dasar_perubahan = "Kenaikan gaji berkala bulan Juni tahun 2015";
+            $riwayatGaji->tmt_mulai = '2015-06-01';
+            $riwayatGaji->save();
+//            if($riwayatGaji->save()){
+                $data->riwayat_gaji_id = $riwayatGaji->id;
+                $data->save();
+//            }
+        }
+        echo 'sukses';
     }
 
 }

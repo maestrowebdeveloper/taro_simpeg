@@ -332,6 +332,7 @@ class Pegawai extends CActiveRecord {
         $criteria = new CDbCriteria();
         $criteria->with = array('RiwayatJabatan', 'JabatanStruktural.Eselon', 'Pangkat', 'JabatanStruktural', 'JabatanFt', 'JabatanFu');
         $criteria->addCondition('kedudukan_id="1"');
+        $criteria->addCondition('t.tipe_jabatan="struktural"');
         $criteria->order = "t.jabatan_struktural_id";
         if (!empty($_GET['riwayat_jabatan_id'])) {
             $criteria->addCondition('JabatanStruktural.unit_kerja_id=' . $_GET['riwayat_jabatan_id']);
@@ -687,8 +688,8 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getNamaGelar() {
-        $depan = (!empty($this->gelar_depan) || $this->gelar_depan == "NULL" ) ? '' : $this->gelar_depan . '. ';
-        $belakang = (empty($this->gelar_belakang) || $this->gelar_belakang == "NULL" ) ? '' : ', ' . $this->gelar_belakang . '. ';
+        $depan = (!empty($this->gelar_depan) || $this->gelar_depan == "NULL"  || $this->gelar_depan == 0) ? '' : $this->gelar_depan . '. ';
+        $belakang = (empty($this->gelar_belakang) || $this->gelar_belakang == "NULL" || $this->gelar_belakang == 0 ) ? '' : ', ' . $this->gelar_belakang . '. ';
 //        $belakang = (empty($this->gelar_belakang)) ? ', ' . $this->gelar_belakang : '';
         return $depan . $this->nama . $belakang;
     }
