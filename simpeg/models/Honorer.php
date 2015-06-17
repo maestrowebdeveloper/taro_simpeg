@@ -568,5 +568,15 @@ class Honorer extends CActiveRecord {
         $belakang = !empty($this->gelar_belakang) ? ', ' . $this->gelar_belakang : '';
         return $depan . $this->nama . $belakang;
     }
+    
+    public function getStatusHonorer(){
+        $status = '';
+        if($this->kode == 40){
+            $status = 'Aktif';
+        }else{
+            $status = 'Non-aktif';
+        }
+        return $status;
+    }
 
 }

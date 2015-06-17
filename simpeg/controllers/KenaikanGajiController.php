@@ -8,7 +8,7 @@ class KenaikanGajiController extends Controller {
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = 'main';
+    public $layout = 'mainWide';
 
     /**
      * @return array action filters
@@ -58,7 +58,7 @@ class KenaikanGajiController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionGetPegawai() {
-        if (!empty($_POST['bulan']) and ! empty($_POST['tahun'])) {
+        if (!empty($_POST['bulan']) and !empty($_POST['tahun'])) {
             $bulan = substr("0" . $_POST['bulan'], -2, 2);
             $query = KenaikanGaji::model()->findAll(array('condition' => 'month(tmt_baru) = "' . $bulan . '" and year(tmt_baru) = "' . $_POST['tahun'] . '"'));
             echo $this->renderPartial('/kenaikanGaji/_tablePegawai', array('query' => $query, 'bulan' => $bulan, 'tahun' => $_POST['tahun']));
@@ -66,22 +66,25 @@ class KenaikanGajiController extends Controller {
     }
 
     public function actionGetListPegawai() {
-        if (!empty($_POST['unit_kerja'])) {
-            if (!empty($_POST['bulan']) and ! empty($_POST['tahun'])) {
-                $bulan = substr("0" . $_POST['bulan'], -2, 2);
-//                logs($_POST);
+        if (!empty($_POST['bulan']) and !empty($_POST['tahun'])) {
+            $bulan = substr("0" . $_POST['bulan'], -2, 2);
+            $model = new KenaikanGaji;
+            $query = $model->search();
+            echo $this->renderPartial('/kenaikanGaji/_tableListPegawai', array('query' => $query, 'bulan' => $bulan, 'tahun' => $_POST['tahun']));
+        }
+    }
 
-                $query = Pegawai::model()->with('Pangkat', 'JabatanStruktural')->findAll(array('condition' => 't.kedudukan_id = 1 and JabatanStruktural.unit_kerja_id = ' . $_POST['unit_kerja'] . ' and month(t.tmt_cpns) <= "' . $bulan . '" ', 'order' => 'Pangkat.golongan_id ASC'));
-                echo $this->renderPartial('/kenaikanGaji/_tableListPegawai', array('query' => $query, 'bulan' => $bulan, 'tahun' => $_POST['tahun']));
-            }
-        } else {
-            if (!empty($_POST['bulan']) and ! empty($_POST['tahun'])) {
-                $bulan = substr("0" . $_POST['bulan'], -2, 2);
-//                logs($_POST);
-
-                $query = Pegawai::model()->with('Pangkat')->findAll(array('condition' => 't.kedudukan_id = 1 and t.jabatan_struktural_id !=0 and month(t.tmt_cpns) <= "' . $bulan . '" ', 'order' => 'Pangkat.golongan_id ASC'));
-                echo $this->renderPartial('/kenaikanGaji/_tableListPegawai', array('query' => $query, 'bulan' => $bulan, 'tahun' => $_POST['tahun']));
-            }
+    public function actionExportExcel() {
+        if (!empty($_POST['bulan']) and !empty($_POST['tahun'])) {
+            $bulan = substr("0" . $_POST['bulan'], -2, 2);
+            $model = new KenaikanGaji;
+            $query = $model->search();
+            Yii::app()->request->sendFile('Data Kenaikan Gaji Bulan '.$bulan.' Tahun '.$_POST['tahun'].'.xls', $this->renderPartial('excelReport', array(
+                        'query' => $query,
+                        'tahun' => $_POST['tahun'],
+                        'bulan' => $bulan,
+                            ), true)
+            );
         }
     }
 
@@ -90,7 +93,7 @@ class KenaikanGajiController extends Controller {
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-        
+
 
         $this->render('create', array(
             'model' => $model,
@@ -141,46 +144,47 @@ class KenaikanGajiController extends Controller {
      */
     public function actionIndex() {
         $model = new KenaikanGaji;
-        
+
         if (isset($_POST['pegawai_id'])) {
             $bulan = substr("0" . $_POST['bulan'], -2, 2);
             RiwayatGaji::model()->deleteAll(array(
                 'with' => array(),
-                'condition' => 'pegawai_id IN (' . implode(',',$_POST['pegawai_id']). ') and month(tmt_mulai)="' . $bulan . '" and year(tmt_mulai)="' . $_POST['tahun'] . '"'
+                'condition' => 'pegawai_id IN (' . implode(',', $_POST['pegawai_id']) . ') and month(tmt_mulai)="' . $bulan . '" and year(tmt_mulai)="' . $_POST['tahun'] . '"'
             ));
             KenaikanGaji::model()->deleteAll(array(
                 'with' => array(),
-                'condition' => 'pegawai_id IN (' . implode(',',$_POST['pegawai_id']). ') and month(tanggal)="' . $bulan . '" and year(tanggal)="' . $_POST['tahun'] . '"'
+                'condition' => 'pegawai_id IN (' . implode(',', $_POST['pegawai_id']) . ') and month(tanggal)="' . $bulan . '" and year(tanggal)="' . $_POST['tahun'] . '"'
             ));
         }
-
         if (isset($_POST['dibayar'])) {
+//            logs($_POST['dibayar']);
             foreach ($_POST['dibayar'] as $key => $val) {
                 $bulan = substr("0" . $_POST['bulan'], -2, 2);
                 $valPegawai = Pegawai::model()->findByPk($_POST['dibayar'][$key]);
-                $tglKenaikan = date("Y-m-d", strtotime($_POST['tmt_mulai'][$key]));
+                $tglKenaikan = date("Y-m-d", strtotime($_POST['tmt_mulai'][$val]));
+
                 $riwayatGaji = new RiwayatGaji;
                 $riwayatGaji->nomor_register = date("ymisd");
                 $riwayatGaji->pegawai_id = $valPegawai->id;
-                $riwayatGaji->gaji = $_POST['gaji_baru'][$key];
+                $riwayatGaji->gaji = $_POST['gaji_baru'][$val];
                 $riwayatGaji->dasar_perubahan = "Kenaikan gaji berkala bulan " . $bulan . " tahun " . $_POST['tahun'];
-                $riwayatGaji->tmt_mulai = $_POST['tmt_mulai'][$key];
+                $riwayatGaji->tmt_mulai = $_POST['tmt_mulai'][$val];
                 $riwayatGaji->save();
 
                 $kgb = new KenaikanGaji;
                 $kgb->pegawai_id = $valPegawai->id;
-                $kgb->gaji_pokok_lama = $_POST['gaji_lama'][$key];
-                $kgb->gaji_pokok_baru = $_POST['gaji_baru'][$key];
-                $kgb->tmt_lama = $_POST['tmt_lama'][$key];
-                $kgb->tmt_baru = $_POST['tmt_mulai'][$key];
+                $kgb->gaji_pokok_lama = $_POST['gaji_lama'][$val];
+                $kgb->gaji_pokok_baru = $_POST['gaji_baru'][$val];
+                $kgb->tmt_lama = $_POST['tmt_lama'][$val];
+                $kgb->tmt_baru = $_POST['tmt_mulai'][$val];
                 $kgb->created = date("Y-m-d h:i:s");
                 $kgb->nomor_register = '';
                 $kgb->sifat = '';
                 $kgb->perihal = '';
                 $kgb->pejabat = '';
-                $kgb->tanggal = $_POST['tmt_mulai'][$key];
-                $kgb->no_sk_akhir = $_POST['no_sk_akhir'][$key];
-                $kgb->tanggal_sk_akhir = $_POST['tanggal_sk_akhir'][$key];
+                $kgb->tanggal = $_POST['tmt_mulai'][$val];
+                $kgb->no_sk_akhir = $_POST['no_sk_akhir'][$val];
+                $kgb->tanggal_sk_akhir = $_POST['tanggal_sk_akhir'][$val];
                 $kgb->save();
 
                 $valPegawai->riwayat_gaji_id = $riwayatGaji->id;
@@ -188,7 +192,7 @@ class KenaikanGajiController extends Controller {
 //                }
             }
         }
-        
+
         $this->render('index', array(
             'model' => $model,
         ));
@@ -215,44 +219,6 @@ class KenaikanGajiController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
-    }
-
-    public function actionGenerateExcel() {
-        $tahun = $_GET['tahun'];
-        $bulan = $_GET['bulan'];
-        $unit_kerja = $_GET['unit_kerja'];
-
-        $criteria = new CDbCriteria;
-        if (!empty($nama))
-            $criteria->compare('nama', $nama, true);
-        if (!empty($jns_kelamin))
-            $criteria->compare('jenis_kelamin', $jns_kelamin, true);
-//        if (!empty($sts_pernikahan))
-//            $criteria->compare('status_pernikahan', $sts_pernikahan, true);
-        if (!empty($id_jurusan))
-            $criteria->compare('id_jurusan', $id_jurusan, true);
-        if (!empty($tahun_pendidikan))
-            $criteria->compare('tahun_pendidikan', $tahun_pendidikan, true);
-        if (!empty($agama))
-            $criteria->compare('agama', $agama, true);
-        if (!empty($nomor_register))
-            $criteria->compare('nomor_register', $nomor_register, true);
-        if (!empty($jabatan_struktural_id))
-            $criteria->compare('jabatan_struktural_id', $jabatan_struktural_id);
-        if (!empty($jabatan_fu_id))
-            $criteria->compare('jabatan_fu_id', $jabatan_fu_id);
-        if (!empty($kode))
-            $criteria->compare('kode', $kode);
-
-//        $criteria->addCondition('kode IN (20,40)');
-
-        $model = Honorer::model()->findAll($criteria);
-
-
-        Yii::app()->request->sendFile('Data Pegawai Honorer - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
-                    'model' => $model
-                        ), true)
-        );
     }
 
 }

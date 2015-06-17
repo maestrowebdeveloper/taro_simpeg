@@ -243,11 +243,12 @@ class UserController extends Controller {
                 $model->password = $tempPass;
             }
 
+           
             $file = CUploadedFile::getInstance($model, 'avatar_img');
             if (is_object($file)) {
                 $model->avatar_img = Yii::app()->landa->urlParsing($model->name) . '.' . $file->extensionName;
                 $file->saveAs('images/avatar/' . $model->avatar_img);
-                Yii::app()->landa->createImg('avatar/', $model->avatar_img, $model->id);
+//                Yii::app()->landa->createImg('avatar/', $model->avatar_img, $model->id);
             }
 
             if ($model->save()) {

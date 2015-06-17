@@ -72,6 +72,12 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => '$data->NamaNip',
             'htmlOptions' => array('style' => 'text-align:left'),
         ),
+          array(
+            'name' => 'Agama',
+            'type' => 'raw',
+            'value' => '$data->agama',
+            'htmlOptions' => array('style' => 'text-align:center'),
+        ),
         array(
             'header' => 'Tempat <br>Tgl Lahir',
             'name' => 'tanggal_lahir',
@@ -100,6 +106,12 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'type' => 'raw',
             'value' => '$data->JabatanTmt',
             'htmlOptions' => array('style' => 'text-align:left'),
+        ),
+          array(
+            'name' => 'Usia',
+            'type' => 'raw',
+            'value' => '$data->usia',
+            'htmlOptions' => array('style' => 'text-align:center'),
         ),
         array(
             'name' => 'MK Thn',

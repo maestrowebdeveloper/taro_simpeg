@@ -61,6 +61,7 @@
 
         <?php
         echo $form->textFieldRow($model, 'jns_masalah', array('class' => 'span3', 'maxlength' => 100));
+        echo $form->textFieldRow($model, 'akte_cerai', array('class' => 'span3', 'maxlength' => 100));
         echo $form->textFieldRow($model, 'no_sk', array('class' => 'span3', 'maxlength' => 100));
         echo $form->datepickerRow(
                 $model, 'tanggal_sk', array(
@@ -188,6 +189,7 @@
 
         if (id == "cerai") {
             $("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:");
+            $("#RiwayatKeluarga_akte_cerai").parent().parent().attr("style", "display:");
             $("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:");
             $("#RiwayatKeluarga_tanggal_sk").parent().parent().parent().attr("style", "display:");
         } else if (id == "aktif") {

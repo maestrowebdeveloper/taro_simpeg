@@ -1,4 +1,4 @@
-<?php
+i<?php
 
 /**
  * This is the model class for table "{{m_user}}".
@@ -335,9 +335,11 @@ class User extends CActiveRecord {
         return createUrl('download/' . $this->Download->id);
     }
 
-    public function getImgUrl() {
-        return landa()->urlImg('avatar/', $this->avatar_img, $this->id);
+  public function getImgUrl() {
+
+        return(!empty($this->avatar_img)) ? param('pathImg') . 'avatar/' . $this->avatar_img : param('pathImg') . '350x350-noimage.jpg';
     }
+
 
     public function getUrl() {
 
@@ -349,7 +351,7 @@ class User extends CActiveRecord {
     }
 
     public function getMediumImage() {
-        return '<img src="' . $this->imgUrl['medium'] . '" class="img-polaroid"/><br>';
+        return '<img src="' . $this->imgUrl . '" class="img-polaroid" style="width:350px;height:350px"/><br>';
     }
 
     public function getTagBiodata() {

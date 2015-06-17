@@ -1704,12 +1704,13 @@ class PegawaiController extends Controller {
                         $cariPegawai = Pegawai::model()->find(array('condition' => 'nip=' . $nip));
                         
                         $model->nomor_register = (isset($data->sheets[0]['cells'][$j][2])) ? $data->sheets[0]['cells'][$j][2] : '';
+                        $model->no_usul = (isset($data->sheets[0]['cells'][$j][3])) ? $data->sheets[0]['cells'][$j][3] : '';
                         $tcg = (isset($data->sheets[0]['cells'][$j][4])) ? $data->sheets[0]['cells'][$j][4] : '';
                         $tgl_cg = date('Y-m-d', strtotime($tcg));
-                        $model->tanggal = $tgl_cg;
+                        $model->tanggal_usul = $tgl_cg;
                         $tsg = (isset($data->sheets[0]['cells'][$j][10])) ? $data->sheets[0]['cells'][$j][10] : '';
                         $tgl_usl = date('Y-m-d', strtotime($tsg));
-                        $model->tanggal_usul = $tgl_usl;
+                        $model->tanggal = $tgl_usl;
                         $model->id_universitas = (isset($data->sheets[0]['cells'][$j][7])) ? $data->sheets[0]['cells'][$j][7] : '';
                         $model->id_jurusan = (isset($data->sheets[0]['cells'][$j][6])) ? $data->sheets[0]['cells'][$j][6] : '';
                         $model->status = (isset($data->sheets[0]['cells'][$j][8])) ? $data->sheets[0]['cells'][$j][8] : '';
