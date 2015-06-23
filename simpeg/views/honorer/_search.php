@@ -9,7 +9,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <div class="row-fluid">
     <div class="span6">
         <?php
-        echo $form->textFieldRow($model, 'nama', array('class' => 'span4', 'maxlength' => 100));
+        echo $form->textFieldRow($model, 'no_reg', array('class' => 'span5', 'maxlength' => 100));
+        echo $form->textFieldRow($model, 'nama', array('class' => 'span5', 'maxlength' => 100));
 
         $idpendidikan = isset($model->Jurusan->id) ? $model->Jurusan->id : 0;
         $pendidikan = isset($model->Jurusan->Name) ? $model->Jurusan->Name : '';
@@ -65,6 +66,11 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         echo $form->radioButtonListRow($model, 'jenis_kelamin', Pegawai::model()->ArrJenisKelamin());
         echo $form->dropDownListRow($model, 'agama', Pegawai::model()->ArrAgama(), array('empty' => '- Agama -'));
         ?>
+        <div class="control-group ">
+            <label class="control-label required" for="Honorer_nama">Tahun Lahir </label>
+            <div class="controls"><input class="span4 angka" maxlength="100" name="Honorer[gaji]" id="Honorer_nama" type="text">
+            </div>
+        </div>
     </div>
     <div class="span6">
         <?php
@@ -107,7 +113,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     ));
     ?>
 
-    
+
 </div>
 
 <?php $this->endWidget(); ?>

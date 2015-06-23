@@ -25,7 +25,7 @@
         <td><?php echo $row->nama; ?></td>        
         <td><?php echo $row->golongan; ?></td>        
         <td><?php echo $row->jabatan; ?></td>        
-        <td><?php echo $row->unit_kerja; ?></td>       
+        <td><?php echo $row->unitKerja; ?></td>       
         <td><?php echo $row->satuanKerja; ?></td>       
         <td><?php echo $row->jurusanUniv; ?></td>        
         <td><?php echo $row->univ; ?></td>        

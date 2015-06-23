@@ -314,20 +314,25 @@ class ReportController extends Controller {
 
     public function actionPensiun() {
         $model = new Pegawai();
-        if (isset($_POST['Pegawai'])) {
-            $model->attributes = $_POST['Pegawai'];
+        if (isset($_GET['Pegawai'])) {
+            $model->attributes = $_GET['Pegawai'];
             $model->id = '1';
         }
-        if (isset($_POST['export'])) {
+        if (isset($_GET['export'])) {
             $criteria = new CDbCriteria();
             $criteria->with = array('RiwayatJabatan', 'JabatanStruktural');
             $criteria->together = true;
             $criteria->addCondition('kedudukan_id="1"');
 
-            if (!empty($_GET['tahun']) && !empty($_GET['bup'])) {
+            if (!empty($_GET['tahun'])) {
                 $tgl_lahir = $_GET['tahun'];
-                $criteria->addCondition('date_format(tmt_pensiun,"%y") = "' . date("y", strtotime($tgl_lahir)) . '"');
+                $criteria->addCondition('date_format(t.tmt_pensiun,"%y") = "' . date("y", strtotime($tgl_lahir)) . '"');
+                $criteria->addCondition('t.bup <> 0');
             }
+
+            if (!empty($_GET['bup']))
+                $criteria->addCondition('t.bup = "' . $_GET['bup'] . '"');
+
 
             if (!empty($_GET['bulan']))
                 $criteria->addCondition('month(tmt_pensiun) = "' . substr("0" . $_GET['bulan'], -2, 2) . '"');
@@ -386,10 +391,15 @@ class ReportController extends Controller {
         $criteria->together = true;
         $criteria->addCondition('kedudukan_id="1"');
 
-        if (!empty($_GET['tahun']) && !empty($_GET['bup'])) {
+        if (!empty($_GET['tahun'])) {
             $tgl_lahir = $_GET['tahun'];
-            $criteria->addCondition('date_format(tmt_pensiun,"%y") = "' . date("y", strtotime($tgl_lahir)) . '"');
+            $criteria->addCondition('date_format(t.tmt_pensiun,"%y") = "' . date("y", strtotime($tgl_lahir)) . '"');
+            $criteria->addCondition('t.bup <> 0');
         }
+
+        if (!empty($_GET['bup']))
+            $criteria->addCondition('t.bup = "' . $_GET['bup'] . '"');
+
 
         if (!empty($_GET['bulan']))
             $criteria->addCondition('month(tmt_pensiun) = "' . substr("0" . $_GET['bulan'], -2, 2) . '"');

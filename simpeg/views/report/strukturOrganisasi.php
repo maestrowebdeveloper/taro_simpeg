@@ -18,6 +18,7 @@ $arrPegawai = cmd('SELECT pegawai.*,jabatan_struktural.nama as unitKerja, jabata
         . 'LEFT JOIN golongan ON golongan.id = riwayat_pangkat.golongan_id '
         . 'LEFT JOIN riwayat_pendidikan ON pegawai.pendidikan_id = riwayat_pendidikan.id '
         . 'LEFT JOIN jurusan ON jurusan.id = riwayat_pendidikan.id_jurusan '
+        . 'WHERE jabatan_struktural.eselon_id <> 0 '
         . 'ORDER BY jabatan_struktural.root,jabatan_struktural.lft')->query();
 ?>
 <br>

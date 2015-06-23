@@ -33,21 +33,37 @@
         <thead>
             <tr>
                 <th style="width:10px">NO</th>
-                <th class="span1">NAMA</th>
-                <th class="span1">NIP</th>
-                <th class="span1">Status</th>					
+                <th class="span1">BUP</th>
+                <th class="span1">PPROYEKSI PENSIUN</th>
+                <th class="span1">STATUS</th>					
+                <th class="span1">NIP</th>					
+                <th class="span1">NAMA</th>					
+                <th class="span1">KEDUDUKAN</th>					
+                <th class="span1">GOLONGAN</th>					
+                <th class="span1">JABATAN</th>					
+                <th class="span1">ESELON</th>					
+                <th class="span1">UNIT KERJA</th>					
             </tr>
         </thead>
         <tbody>
             <?php
             $no = 1;
             foreach ($model as $value) {
+                 $status='';
+                $status=(date('Y-m-d') < $value->tmt_pensiun) ? "Aktif" : "Pensiun";
                 echo '	
 		<tr>
 			<td>' . $no . '</td>
-			<td>' . $value->nama . '</td>
-			<td>' . $value->nip . '</td>			
+			<td>' . $value->bup . '</td>
+			<td>' . landa()->date2Ind($value->tmt_pensiun) . '</td>
+			<td>' . $status . '</td>
+			<td>' . $value->nip.'&nbsp' . '</td>			
+			<td>' . $value->nama. '</td>			
 			<td>' . $value->Kedudukan->nama . '</td>			
+			<td>' . $value->golongan . '</td>			
+			<td>' . $value->jabatan . '</td>			
+			<td>' . $value->eselon . '</td>			
+			<td>' . $value->unitKerja . '</td>			
 									
 		</tr>';
                 $no++;

@@ -21,6 +21,7 @@
             <th width="80px">NO SK PERTAMA</th> 		 		 		 	
             <th width="80px">TANGGAL SK PERTAMA</th> 		 		 		 	
             <th width="80px">UNIT KERJA</th> 		 		 		 	
+            <th width="80px">SATUAN KERJA</th> 		 		 		 	
             <th width="80px">STATUS</th> 	 		 		 	
             <th width="80px">DI SAHKAN OLEH</th> 	 		 		 	
             <th width="80px">JABATAN</th> 	 		 		 	
@@ -51,6 +52,7 @@
                 <td><?php echo $row->nomor_register."&nbsp;"; ?></td>
                 <td><?php echo landa()->date2Ind($row->tanggal_register); ?></td>
                 <td><?php echo $row->unitKerja; ?></td>
+                <td><?php echo $row->satuanKerja; ?></td>
                 <td><?php echo $row->st_peg; ?></td>
                 <td><?php echo $row->pengesahan; ?></td>
                 <td><?php echo $row->jabatan; ?></td>

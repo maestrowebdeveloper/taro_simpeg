@@ -66,7 +66,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     )
         ));
 ?>
-
+<button type="submit" name="print" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-info pull-right"><span class="icon16  cut-icon-printer-2 white"></span> Print Checked</button>    
 <button type="submit" name="delete" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-danger pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Delete Checked</button>    
 <br>
 <br>
@@ -87,6 +87,12 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                 'name' => 'ceckbox[]',
                 'value' => '$data->id',
             ),
+        ),
+        array(
+            'name' => 'no_reg',
+            'header' => 'No Reg.',
+            'type' => 'raw',
+            'value' => '"$data->no_reg"',
         ),
         array(
             'name' => 'foto',

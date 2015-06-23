@@ -34,7 +34,7 @@ if(!empty($edit)){
             echo '
                 <tr>                
                 <td>'.$nama.'</td>
-                <td>'.landa()->date2Ind($value->ttl).'</td>
+                <td>'.landa()->date2Ind($value->tanggal_lahir).'</td>
                 <td>'.$value->pendidikan_terakhir.'</td>
                 <td>'.$value->pekerjaan.'</td>
                 <td>'.$value->nomor_karsu.'</td>
@@ -74,7 +74,7 @@ if(!empty($edit)){
             echo '
                 <tr>                
                 <td>'.$nama.'</td>
-                <td>'.landa()->date2Ind($value->ttl).'</td>
+                <td>'.landa()->date2Ind($value->tanggal_lahir).'</td>
                 <td>'.$value->jenis_kelamin.'</td>
                 <td>'.$value->anak_ke.'</td>
                 <td>'.$value->status_anak.'</td>

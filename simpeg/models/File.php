@@ -33,7 +33,7 @@ class File extends CActiveRecord
 			array('created, modified', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pegawai_id, nama, created, modified', 'safe', 'on'=>'search'),
+			array('id, pegawai_id, nama,type, created, modified', 'safe', 'on'=>'search'),
 		);
 	}
 

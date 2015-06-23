@@ -62,7 +62,7 @@ $this->breadcrumbs = array(
             <label class="control-label" for="bup">BUP</label>
             <div class="controls">
                 <select name='bup'>
-                    <option value=1> ---Select---</option>
+                    <option value=0> ---Select---</option>
                     <option value="58" <?php
                     if (isset($_GET['bup']) and $_GET['bup'] == "58") {
                         echo 'selected="selected"';
@@ -146,15 +146,19 @@ if ($tampil == "1") {
     $criteria = new CDbCriteria();
     $criteria->with = array('RiwayatJabatan','JabatanStruktural');
     $criteria->together = true;
-    $criteria->addCondition('kedudukan_id="1"');
+    $criteria->addCondition('t.kedudukan_id="1"');
 
-    if (!empty($_GET['tahun']) && !empty($_GET['bup'])) {
+    if (!empty($_GET['tahun'])) {
         $tgl_lahir = $_GET['tahun'];
-        $criteria->addCondition('date_format(tmt_pensiun,"%y") = "' . date("y", strtotime($tgl_lahir)) . '"');
+        $criteria->addCondition('date_format(t.tmt_pensiun,"%y") = "' . date("y", strtotime($tgl_lahir)) . '"');
+        $criteria->addCondition('t.bup <> 0');
     }
-
+    
+    if (!empty($_GET['bup']))
+        $criteria->addCondition('t.bup = "' . $_GET['bup'] . '"');
+    
     if (!empty($_GET['bulan']))
-        $criteria->addCondition('month(tmt_pensiun) = "' . substr("0" . $_GET['bulan'], -2, 2) . '"');
+        $criteria->addCondition('month(t.tmt_pensiun) = "' . substr("0" . $_GET['bulan'], -2, 2) . '"');
 
     if (!empty($_GET['satuan_kerja_id']))
         $criteria->addCondition('JabatanStruktural.unit_kerja_id = ' . $_GET['satuan_kerja_id']);

@@ -49,7 +49,7 @@ $this->endWidget();
 	$display = (landa()->checkAccess("suratMasuk","d")==0)?'none':'';
 	$button = "";
     if (landa()->checkAccess("suratMasuk", 'r')) 
-        $button .= '{view} ';    
+        $button .= '{view} {download} ';    
     if (landa()->checkAccess("suratMasuk", 'u')) 
         $button .= '{update} ';    
     if (landa()->checkAccess("suratMasuk", 'd')) 
@@ -101,7 +101,7 @@ $this->endWidget();
         ), 			
        array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
-			'template' => '{view} {download} {update} {delete}',
+			'template' => $button,
 			'buttons' => array(
 			      'view' => array(
 					'label'=> 'Lihat',

@@ -185,6 +185,7 @@
             $("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:none");
             $("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:none");
             $("#RiwayatKeluarga_tanggal_sk").parent().parent().parent().attr("style", "display:none");
+            $("#RiwayatKeluarga_akte_cerai").parent().parent().attr("style", "display:none");
         }
 
         if (id == "cerai") {

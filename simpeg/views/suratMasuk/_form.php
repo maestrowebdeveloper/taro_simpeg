@@ -132,7 +132,7 @@
         $content = str_replace('{no_agenda}', $model->no_agenda, $content);
         $content = str_replace('{no_surat}', $model->nomor_surat, $content);
         $content = str_replace('{perihal}', $model->perihal, $content);
-        $content = str_replace('{terusan}', $model->terusan, $content);
+        $content = str_replace('{terusan}', ucwords($model->terusan), $content);
         echo $content;
         ?>
     </div>

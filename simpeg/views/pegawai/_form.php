@@ -40,9 +40,8 @@
                
                 if (landa()->checkAccess("pegawai", 'd') == 0){
                     $display = 'readonly="readonly"';
-                    $sDisplay = "'readOnly' => true";
+                    $sDisplay = "'readonly' => true";
                 }
-                echo landa()->checkAccess("pegawai", 'd');
                 if ($model->isNewRecord == false) {
                     if (!isset($_GET['v'])) {
                         echo '                                           
@@ -84,10 +83,16 @@
                                     <span class="red nipError" style="display:none">NIP Baru kurang dari 18 digit.</span> 
                                     <input class="span4" style="max-width:500px;width:200px" maxlength="18" placeholder="NIP Lama" value="<?php echo $model->nip_lama; ?>" name="Pegawai[nip_lama]" <?php echo $display ?> id="Pegawai_nip_lama" type="text">
                                 </div>
-                            </div>                        
+                            </div>
+                           <div class="control-group ">
+                               <label class="control-label required" for="Pegawai_nama">Nama <span class="required">*</span></label>
+                               <div class="controls">
+                                   <input class="span5" maxlength="100"  name="Pegawai[nama]" id="Pegawai_nama" type="text" <?php echo $display ?> value="<?php echo $model->nama; ?>">
+                               </div>
+                           </div>
                             <?php
                             //echo $form->textFieldRow($model,'nip',array('class'=>'span4 angka','style'=>'max-width:500px;width:300px','maxlength'=>18));                                     
-                            echo $form->textFieldRow($model, 'nama', array('class' => 'span5', 'maxlength' => 100, $sDisplay));
+//                            echo $form->textFieldRow($model, 'nama', array('class' => 'span5', 'maxlength' => 100, $sDisplay));
                             echo $form->hiddenField($model, 'pendidikan_id', array('class' => 'span5', 'maxlength' => 100));
                             ?>                    
                             <div class="control-group "><label class="control-label" for="Pegawai_pendidikan_terakhir">Pendidikan</label>
@@ -120,7 +125,9 @@
                             $kotaName = isset($model->tempat_lahir) ? $model->tempat_lahir : '';
                             echo $form->select2Row($model, 'tempat_lahir', array(
                                 'asDropDownList' => false,
+                                'readonly' =>(landa()->checkAccess("pegawai", 'd') == 0) ? true :'',
                                 'options' => array(
+                                    
                                     'placeholder' => t('choose', 'global'),
                                     'allowClear' => true,
                                     'readOnly' => $display,
@@ -152,7 +159,9 @@
                             );
 
                             echo $form->datepickerRow(
-                                    $model, 'tanggal_lahir', array($sDisplay, 'value' => str_replace("0000-00-00", "", date('d-m-Y', strtotime($model->tanggal_lahir))),
+                                    $model, 'tanggal_lahir', array(
+                                        'value' => str_replace("0000-00-00", "", date('d-m-Y', strtotime($model->tanggal_lahir))),
+                                        'disabled' =>(landa()->checkAccess("pegawai", 'd') == 0) ? true :'',
                                 'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
                                 'events' => array('changeDate' => 'js:function(){
                                                                 pensiun($(this).val(), $("#Pegawai_riwayat_jabatan_id").val());

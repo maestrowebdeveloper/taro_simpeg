@@ -116,7 +116,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'name' => 'jabatan',
-            'value' => '$data->jabatan',
+            'value' => '$data->jabatanPegawai',
         ),
         array(
             'name' => 'jenjang_pendidikan',
@@ -132,7 +132,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
-            'template' => '{view} {update} {delete}',
+            'template' => $button,
             'buttons' => array(
                 'view' => array(
                     'label' => 'Lihat',

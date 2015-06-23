@@ -107,6 +107,7 @@ if ($model->isNewRecord == true) {
             <?php
             if ($model->isNewRecord != TRUE) {
                 echo '<li ><a href="#nilaiSkp">Nilai SKP</a></li>';
+                echo '<li ><a href="#file">File</a></li>';
             }
             ?>
         </ul>
@@ -117,6 +118,7 @@ if ($model->isNewRecord == true) {
                 <div class="form-row row-fluid">
                     <div class="span9" style="margin-left: 0px;">                                                
                         <?php
+                        echo $form->textFieldRow($model, 'no_reg', array('class' => 'span5', 'maxlength' => 100));
                         echo $form->textFieldRow($model, 'nama', array('class' => 'span5', 'maxlength' => 100));
                         ?> 
                         <div class="control-group "><label class="control-label" for="Pegawai_gelar_depan">Gelar</label>
@@ -233,7 +235,7 @@ if ($model->isNewRecord == true) {
                             ),
                                 )
                         );
-                        $tanggalLahir = isset($model->tanggal_lahir) ? date('d-m-Y', strtotime($model->tanggal_lahir)) :'';
+                        $tanggalLahir = isset($model->tanggal_lahir) ? date('d-m-Y', strtotime($model->tanggal_lahir)) : '';
                         echo $form->datepickerRow(
                                 $model, 'tanggal_lahir', array(
                             'value' => str_replace("0000-00-00", "", $tanggalLahir),
@@ -331,8 +333,8 @@ if ($model->isNewRecord == true) {
                 <div class="form-row row-fluid">
                     <div class="span9" style="margin-left: 0px;">        
                         <?php
-                        $tanggalRegister = isset($model->tanggal_register) ? date('d-m-Y', strtotime($model->tanggal_register)) :'';
-                        $tanggalKontrak = isset($model->tmt_kontrak) ? date('d-m-Y', strtotime($model->tmt_kontrak)) :'';
+                        $tanggalRegister = isset($model->tanggal_register) ? date('d-m-Y', strtotime($model->tanggal_register)) : '';
+                        $tanggalKontrak = isset($model->tmt_kontrak) ? date('d-m-Y', strtotime($model->tmt_kontrak)) : '';
                         echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span4', 'style' => 'max-width:500px;width:300px'));
                         echo $form->datepickerRow(
                                 $model, 'tanggal_register', array(
@@ -395,8 +397,8 @@ if ($model->isNewRecord == true) {
 
                         <?php echo $form->textFieldRow($model, 'gaji', array('class' => 'span5 angka', 'prepend' => 'Rp', 'style' => 'width:300px')); ?>
                         <?php
-                        $tanggalmulaiKontrak = isset($model->tmt_mulai_kontrak) ? date('d-m-Y', strtotime($model->tmt_mulai_kontrak)) :'';
-                        $tanggalakhirKontrak = isset($model->tmt_akhir_kontrak) ? date('d-m-Y', strtotime($model->tmt_akhir_kontrak)) :'';
+                        $tanggalmulaiKontrak = isset($model->tmt_mulai_kontrak) ? date('d-m-Y', strtotime($model->tmt_mulai_kontrak)) : '';
+                        $tanggalakhirKontrak = isset($model->tmt_akhir_kontrak) ? date('d-m-Y', strtotime($model->tmt_akhir_kontrak)) : '';
                         echo $form->datepickerRow(
                                 $model, 'tmt_mulai_kontrak', array(
                             'value' => str_replace("0000-00-00", "", $tanggalmulaiKontrak),
@@ -452,7 +454,7 @@ if ($model->isNewRecord == true) {
                                                             Bulan
                                                         </span>
                                                     </div>
-                                                    <input type="hidden" name="Pegawai[id]" value="<?php // echo isset($model->id) ? $model->id : '';    ?>">
+                                                    <input type="hidden" name="Pegawai[id]" value="<?php // echo isset($model->id) ? $model->id : '';      ?>">
                                                     <br><br>
                                                     Gunakan tanda (<b>-</b>) untuk mengurangi tahun maupun bulan
                                                 </div>
@@ -463,6 +465,21 @@ if ($model->isNewRecord == true) {
             <div class="tab-pane" id="nilaiSkp">
                 <?php
                 echo $this->renderPartial('_tableNilai', array('nilai' => $nilai, 'edit' => $edit));
+                ?>
+            </div>
+            <?php
+            $file = File::model()->findAll(array('condition' => 'pegawai_id=' . $model->id));
+             if (!isset($_GET['v']))
+                        $edit = true;
+                    else
+                        $edit = false;
+            ?>
+            <div class="tab-pane" id="file">
+
+                <?php
+                if (!isset($_GET['v']))
+                    echo $this->renderPartial('_formUploadFile', array('model' => $model, 'file' => $file, 'edit' => $edit));
+                echo $this->renderPartial('_tableFile', array('model' => $model, 'file' => $file, 'edit' => $edit))
                 ?>
             </div>
         </div>

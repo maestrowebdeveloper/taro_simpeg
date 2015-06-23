@@ -261,6 +261,30 @@ class HonorerController extends Controller {
         echo CJSON::encode($source);
     }
 
+    public function actionUpload() {
+
+        $id = $_GET['id'];
+        Yii::import("common.extensions.EAjaxUpload.qqFileUploader");
+
+        $folder = 'images/file/honorer/' . $id . '/'; // folder for uploaded files             
+        if (!file_exists($folder)) {
+            mkdir($folder, 0777);
+        }
+        $allowedExtensions = array("jpg", "jpeg", "gif", "png", "gif", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "pdf", "zip", "rar"); //array("jpg","jpeg","gif","exe","mov" and etc...
+        $sizeLimit = 7 * 1024 * 1024;
+
+        $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+        $result = $uploader->handleUpload($folder);
+        $return = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+
+        $model = new File;
+        $model->pegawai_id = $_GET['id'];
+        $model->nama = ($result['filename']);
+        $model->type = 'honorer';
+        $model->save();
+        echo $return; // it's array
+    }
+
     /**
      * Deletes a particular mode
      * l.
@@ -291,11 +315,20 @@ class HonorerController extends Controller {
         if (isset($_GET['Honorer'])) {
             $model->attributes = $_GET['Honorer'];
         }
-
-        if (isset($_POST['delete']) && isset($_POST['ceckbox'])) {
-            Honorer::model()->deleteAll(array(
-                'condition' => 'id IN(' . implode(',', $_POST['ceckbox']) . ')'
-            ));
+        if (isset($_POST['ceckbox'])) {
+            if (isset($_POST['delete'])) {
+                Honorer::model()->deleteAll(array(
+                    'condition' => 'id IN(' . implode(',', $_POST['ceckbox']) . ')'
+                ));
+            } else {
+                $data = $data = Honorer::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ')'));
+                ;
+                ;
+                Yii::app()->request->sendFile('Data Pegawai Honorer - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
+                            'model' => $data,
+                                ), true)
+                );
+            }
         }
 
         $this->render('index', array(

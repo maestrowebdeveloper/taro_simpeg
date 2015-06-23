@@ -143,15 +143,14 @@ class PermohonanPerpanjanganHonorerController extends Controller {
                         $perubahan = array();
                         $perubahan['bulan'] = str_replace(" Bulan", "", KenaikanGaji::model()->masaKerja($tmt_kontrak, $tmt_mulai_kontrak, false, true));
                         $perubahan['tahun'] = str_replace(" Tahun", "", KenaikanGaji::model()->masaKerja($tmt_kontrak, $tmt_mulai_kontrak, true));
-                        if($perubahan['tahun'] > 10 || $perubahan['bulan'] > 1){
+                        if ($perubahan['tahun'] > 10 || $perubahan['bulan'] > 1) {
                             $honorer->gaji = 750000;
                             $data->honor_saat_ini = 750000;
-                        }else{
+                        } else {
                             $honorer->gaji = 725000;
                             $data->honor_saat_ini = 725000;
                         }
                         $honorer->perubahan_masa_kerja = json_encode($perubahan);
-                       
                     }
 //                    logs($perubahan['tahun']);
                     $honorer->save();
@@ -163,10 +162,19 @@ class PermohonanPerpanjanganHonorerController extends Controller {
                 }
                 user()->setFlash('confirm', 'Data succes.');
                 $this->redirect(array('permohonanPerpanjanganHonorer/index'));
-            } else {
+            } elseif (isset($_POST['delete'])) {
                 PermohonanPerpanjanganHonorer::model()->deleteAll('id IN (' . implode(',', $_POST['ceckbox']) . ')');
                 user()->setFlash('danger', '<strong>Attention! </strong>Data is deleted.');
                 $this->redirect(array('permohonanPerpanjanganHonorer/index'));
+            } else {
+                $data =  PermohonanPerpanjanganHonorer::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ')'));;
+
+
+
+                Yii::app()->request->sendFile('Data Permohonan Perpanjangan Honorer - ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
+                            'model' => $data
+                                ), true)
+                );
             }
         } else {
             user()->setFlash('danger', 'Data not selected.');
@@ -182,12 +190,12 @@ class PermohonanPerpanjanganHonorerController extends Controller {
 
         if (isset($_POST['PermohonanPerpanjanganHonorer'])) {
             $model->attributes = $_POST['PermohonanPerpanjanganHonorer'];
-            $model->tanggal =date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tanggal']));
-            $model->tmt_mulai =date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tmt_mulai']));
-            $model->tmt_selesai =date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tmt_selesai']));
-//            $honorer = Honorer::model()->findByPk($model->honorer_id);
-//            $model->unit_kerja_id = $honorer->unit_kerja_id;
-//            $model->masa_kerja = $honorer->masaKerja;
+            $model->tanggal = date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tanggal']));
+            $model->tmt_mulai = date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tmt_mulai']));
+            $model->tmt_selesai = date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tmt_selesai']));
+            // input no reg honorer
+            Honorer::model()->updateAll(array(
+                                    'no_reg' => $_POST['PermohonanPerpanjanganHonorer']['nomor_register']), 'id=' . $_POST['PermohonanPerpanjanganHonorer']['honorer_id']);
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }
@@ -210,12 +218,13 @@ class PermohonanPerpanjanganHonorerController extends Controller {
 
         if (isset($_POST['PermohonanPerpanjanganHonorer'])) {
             $model->attributes = $_POST['PermohonanPerpanjanganHonorer'];
-             $model->tanggal =date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tanggal']));
-            $model->tmt_mulai =date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tmt_mulai']));
-            $model->tmt_selesai =date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tmt_selesai']));
-//            $honorer = Honorer::model()->findByPk($model->honorer_id);
-//            $model->unit_kerja_id = $honorer->unit_kerja_id;
-//            $model->masa_kerja = $honorer->masaKerja;
+            $model->tanggal = date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tanggal']));
+            $model->tmt_mulai = date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tmt_mulai']));
+            $model->tmt_selesai = date('Y-m-d', strtotime($_POST['PermohonanPerpanjanganHonorer']['tmt_selesai']));
+              // input no reg honorer
+            Honorer::model()->updateAll(array(
+                                    'no_reg' => $_POST['PermohonanPerpanjanganHonorer']['nomor_register']), 'id=' . $_POST['PermohonanPerpanjanganHonorer']['honorer_id']);
+           
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }
@@ -262,7 +271,6 @@ class PermohonanPerpanjanganHonorerController extends Controller {
 
         if (isset($_GET['PermohonanPerpanjanganHonorer'])) {
             $model->attributes = $_GET['PermohonanPerpanjanganHonorer'];
-
         }
 
         $this->render('index', array(
@@ -296,10 +304,10 @@ class PermohonanPerpanjanganHonorerController extends Controller {
     public function actionGenerateExcel() {
 
         $model = new PermohonanPerpanjanganHonorer;
-        
-         $model->attributes = $_GET['PermohonanPerpanjanganHonorer'];
+
+        $model->attributes = $_GET['PermohonanPerpanjanganHonorer'];
 //    
-        
+
         $data = $model->search(true);
 
 
@@ -308,6 +316,14 @@ class PermohonanPerpanjanganHonorerController extends Controller {
                     'model' => $data
                         ), true)
         );
+    }
+    
+    public function actionMigrasiNoreg(){
+        $model = PermohonanPerpanjanganHonorer::model()->findAll();
+        foreach($model as $data){
+            Honorer::model()->updateAll(array(
+                                    'no_reg' => $data->nomor_register), 'id=' . $data->honorer_id);
+        }
     }
 
 }

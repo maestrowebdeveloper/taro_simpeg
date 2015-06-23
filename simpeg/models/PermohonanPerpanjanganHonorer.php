@@ -141,9 +141,12 @@ class PermohonanPerpanjanganHonorer extends CActiveRecord {
     }
 
     public function getHonorer() {
-        return (!empty($this->Honorer->nama)) ? $this->Honorer->nama : '-';
+        return (!empty($this->Honorer->namaGelar)) ? $this->Honorer->namaGelar : '-';
     }
 
+    public function getJabatan() {
+        return (!empty($this->Honorer->jabatan)) ? $this->Honorer->jabatan : '-';
+    }
     public function getUnitKerja() {
         return (!empty($this->Honorer->JabatanStruktural->nama)) ? $this->Honorer->JabatanStruktural->nama : '-';
     }

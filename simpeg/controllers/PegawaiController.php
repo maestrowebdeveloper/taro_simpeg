@@ -22,6 +22,22 @@ class PegawaiController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // c
+                'actions' => array('savePangkat'),
+                'expression' => 'app()->controller->isValidAccess("pegawai","c")'
+            ),
+            array('allow', // c
+                'actions' => array('saveJabatan'),
+                'expression' => 'app()->controller->isValidAccess("pegawai","c")'
+            ),
+            array('allow', // c
+                'actions' => array('savePendidikan'),
+                'expression' => 'app()->controller->isValidAccess("pegawai","c")'
+            ),
+            array('allow', // c
+                'actions' => array('saveCuti'),
+                'expression' => 'app()->controller->isValidAccess("pegawai","c")'
+            ),
+            array('allow', // c
                 'actions' => array('create'),
                 'expression' => 'app()->controller->isValidAccess("pegawai","c")'
             ),
@@ -80,7 +96,8 @@ class PegawaiController extends Controller {
         $return['jabatan'] = $model->jabatan;
         $return['jabatan_id'] = $model->jabatanId;
         $return['tipe_jabatan'] = $model->tipe;
-        $return['unit_kerja'] = $model->unitKerja;
+        $return['unit_kerja'] = $model->unitKerjaJabatan;
+        $return['satuan_kerja'] = $model->JabatanStruktural->UnitKerja->nama;
         $return['masa_kerja'] = $model->masaKerja;
         $return['tempat_lahir'] = $model->tempat_lahir;
         $return['tanggal_lahir'] = $model->tanggal_lahir;
@@ -92,7 +109,7 @@ class PegawaiController extends Controller {
     public function actionGetListPegawai() {
         $name = $_GET["q"];
         $list = array();
-        $data = Pegawai::model()->findAll(array('condition' => 'nama like "%' . $name . '%" and kedudukan_id="1"', 'limit' => '10'));
+        $data = Pegawai::model()->findAll(array('condition' => '(nama like "%' . $name . '%" or nip like "%'.$name.'%") and kedudukan_id="1"', 'limit' => '10'));
         if (empty($data)) {
             $list[] = array("id" => "0", "text" => "No Results Found..");
         } else {
@@ -732,6 +749,7 @@ class PegawaiController extends Controller {
         $model = new File;
         $model->pegawai_id = $_GET['id'];
         $model->nama = ($result['filename']);
+        $model->type = 'pns';
         $model->save();
         echo $return; // it's array
     }
@@ -1154,12 +1172,15 @@ class PegawaiController extends Controller {
 //                    $jabatan = "";
 //                }
 //            }
+           
+            
             $model->attributes = $_POST['Pegawai'];
+            logs($model->tanggal_lahir);
             $perubahan['tahun'] = $_POST['kalkulasiTahun'];
             $perubahan['bulan'] = $_POST['kalkulasiBulan'];
             $model->nip_lama = $_POST['Pegawai']['nip_lama'];
             $model->perubahan_masa_kerja = json_encode($perubahan);
-            $model->tanggal_lahir = date('Y-m-d', strtotime($_POST['Pegawai']['tanggal_lahir']));
+            $model->tanggal_lahir = date('Y-m-d', strtotime($model->tanggal_lahir));
             $model->city_id = $_POST['Pegawai']['city_id'];
             $model->tempat_lahir = $_POST['Pegawai']['tempat_lahir'];
             $model->karpeg = $_POST['Pegawai']['karpeg'];
@@ -1617,17 +1638,16 @@ class PegawaiController extends Controller {
 
     public function actionMigrasibup() {
         // change bup struktural
-        $struktural = Pegawai::model()->with('JabatanStruktural.Eselon')->findAll(array('condition' => 'JabatanStruktural.eselon_id = Eselon.id and t.tipe_jabatan="struktural" and kedudukan_id=1'));
-        foreach ($struktural as $data) {
-            $tingkatEselon = substr($data->JabatanStruktural->Eselon->nama, 0, 2);
-            if ($tingkatEselon == 'II') {
-                $data->bup = 60;
-                $data->save();
-            } elseif ($tingkatEselon == 'III' or $tingkatEselon == 'IV' or $tingkatEselon == 'V') {
-                $data->bup = 58;
-                $data->save();
-            }
-        }
+//        $struktural = Pegawai::model()->with('JabatanStruktural.Eselon')->findAll(array('condition' => 'JabatanStruktural.eselon_id = Eselon.id and t.tipe_jabatan="struktural" and kedudukan_id=1'));
+//        foreach ($struktural as $data) {
+//            
+//            if ($data->JabatanStruktural->Eselon->id == 22 || $data->JabatanStruktural->Eselon->id == 21) {
+////                echo $data->nama.' - '.$data->JabatanStruktural->Eselon->nama.'<br>';
+//                
+//                $data->bup = 60;
+//                $data->save();
+//            }
+//        }
 
         // change bup tertentu
         $tertentu = Pegawai::model()->findAll(array('condition' => 'tipe_jabatan="fungsional_tertentu" and kedudukan_id=1'));
@@ -1637,13 +1657,13 @@ class PegawaiController extends Controller {
             $data->bup = 60;
             $data->save();
         }
-
-        // change bup fungsioanal
-        $tertentu = Pegawai::model()->with('JabatanFu')->findAll(array('condition' => 't.tipe_jabatan="fungsional_umum" and kedudukan_id=1'));
-        foreach ($tertentu as $data) {
-            $data->bup = 58;
-            $data->save();
-        }
+//
+//        // change bup fungsioanal
+//        $tertentu = Pegawai::model()->with('JabatanFu')->findAll(array('condition' => 't.tipe_jabatan="fungsional_umum" and kedudukan_id=1'));
+//        foreach ($tertentu as $data) {
+//            $data->bup = 58;
+//            $data->save();
+//        }
         echo 'sukses';
     }
 
@@ -1754,27 +1774,30 @@ class PegawaiController extends Controller {
     }
 
     public function actionMigrasiGaji() {
-        $valPegawai = Pegawai::model()->findAll(array('condition' => 'kedudukan_id=1'));
+        $valPegawai = Pegawai::model()->findAll(array('condition' => 'kedudukan_id=1 and tipe_jabatan="fungsional_umum"'));
         $gajiBaru = Gaji::model()->findByPk(1);
         $kenaikanGaji = json_decode($gajiBaru->gaji, true);
+        $sMasakerja='';
         foreach ($valPegawai as $data) {
             $masakerjaTahun = Pegawai::model()->masaKerjaUntil(date("d-m-Y", strtotime($data->tmt_cpns)), "1-06-2015", true, false);
             $masakerjaBulan = Pegawai::model()->masaKerjaUntil(date("d-m-Y", strtotime($data->tmt_cpns)), "1-06-2015", false, true);
-
-            $gajiBaru = (isset($kenaikanGaji[$data->Pangkat->golongan_id][$masakerjaTahun]) ? $kenaikanGaji[$data->Pangkat->golongan_id][$masakerjaTahun] : $data->Gaji->gaji);
-            
+            $sMasakerja = ($kenaikanGaji[$data->Pangkat->golongan_id][$masakerjaTahun] == 0) ? $masakerjaTahun - 1 : $masakerjaTahun;
+            $sMasakerja2 = ($kenaikanGaji[$data->Pangkat->golongan_id][$sMasakerja] == 0) ? $sMasakerja - 1 : $sMasakerja;
+            echo $sMasakerja;
+            $gajiBaru = (isset($kenaikanGaji[$data->Pangkat->golongan_id][$sMasakerja2]) ? $kenaikanGaji[$data->Pangkat->golongan_id][$sMasakerja2] : $data->Gaji->gaji);
+            echo $data->id.$data->nama.$data->Pangkat->golongan .' - '. $masakerjaTahun.'<br>';
 
             // save riwayat gaji
-            $riwayatGaji = new RiwayatGaji;
-            $riwayatGaji->nomor_register = date("ymisd");
-            $riwayatGaji->pegawai_id = $data->id;
-            $riwayatGaji->gaji = $gajiBaru;
-            $riwayatGaji->dasar_perubahan = "Kenaikan gaji berkala bulan Juni tahun 2015";
-            $riwayatGaji->tmt_mulai = '2015-06-01';
-            $riwayatGaji->save();
-//            if($riwayatGaji->save()){
-                $data->riwayat_gaji_id = $riwayatGaji->id;
-                $data->save();
+//            $riwayatGaji = new RiwayatGaji;
+//            $riwayatGaji->nomor_register = date("ymisd");
+//            $riwayatGaji->pegawai_id = $data->id;
+//            $riwayatGaji->gaji = $gajiBaru;
+//            $riwayatGaji->dasar_perubahan = "Kenaikan gaji berkala bulan Juni tahun 2015";
+//            $riwayatGaji->tmt_mulai = '2015-06-01';
+//            $riwayatGaji->save();
+////            if($riwayatGaji->save()){
+//                $data->riwayat_gaji_id = $riwayatGaji->id;
+//                $data->save();
 //            }
         }
         echo 'sukses';

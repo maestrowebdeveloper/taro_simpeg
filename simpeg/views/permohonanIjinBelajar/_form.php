@@ -94,7 +94,8 @@
         );
         ?>
         <?php
-        $unit_kerja = (!empty($model->Pegawai->unitKerja)) ? $model->Pegawai->unitKerja : '';
+        $unit_kerja = (!empty($model->unitKerja)) ? $model->unitKerja : '';
+        $satuan_kerja = (!empty($model->satuanKerja)) ? $model->satuanKerja : '';
         $jenis_kelamin = (!empty($model->Pegawai->jenis_kelamin)) ? $model->Pegawai->jenis_kelamin : '-';
         $tempat_lahir = (!empty($model->Pegawai->tempatLahir)) ? $model->Pegawai->tempatLahir : '';
         $tanggal_lahir = (!empty($model->Pegawai->tanggal_lahir)) ? $model->Pegawai->tanggal_lahir : '';
@@ -103,6 +104,9 @@
         ?>
         <div class="control-group "><label  class="control-label">Unit Kerja</label><div class="controls">
                 <input disabled class="span4" maxlength="225" name="" value="<?php echo $unit_kerja; ?>" id="unit_kerja" type="text">
+            </div></div>
+        <div class="control-group "><label  class="control-label">Satuan Kerja</label><div class="controls">
+                <input disabled class="span4" maxlength="225" name="" value="<?php echo $satuan_kerja; ?>" id="satuan_kerja" type="text">
             </div></div>
         <div class="control-group "><label  class="control-label">Jenis Kelamin</label><div class="controls">
                 <input disabled class="span4" maxlength="225" name="" value="<?php echo $jenis_kelamin; ?>" id="jenis_kelamin" type="text">
@@ -307,6 +311,7 @@
 
                 obj = JSON.parse(data);
                 $("#unit_kerja").val(obj.unit_kerja);
+                $("#satuan_kerja").val(obj.satuan_kerja);
                 $("#jenis_kelamin").val(obj.jenis_kelamin);
                 $("#tempat_lahir").val(obj.tempat_lahir);
                 $("#tanggal_lahir").val(obj.tanggal_lahir);

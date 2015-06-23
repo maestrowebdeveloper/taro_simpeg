@@ -109,19 +109,20 @@ class PermohonanIjinBelajar extends CActiveRecord {
 
         $criteria = new CDbCriteria;
         
-        if (isset($_GET['PermohonanIjinBelajar']['tanggal_usul']) && isset($_GET['PermohonanIjinBelajar']['created'])){
+        if (!empty($_GET['PermohonanIjinBelajar']['tanggal_usul']) && !empty($_GET['PermohonanIjinBelajar']['created'])){
             $awal = $_GET['PermohonanIjinBelajar']['tanggal_usul'];
             $akhir = $_GET['PermohonanIjinBelajar']['created'];
-            $criteria->addBetweenCondition('tanggal', $awal, $akhir);
+//            $criteria->addCondition = "tanggal  >= '$awal' and tanggal <= '$akhir'";
+            $criteria->addCondition('tanggal between "' . $awal . '" and "' . $akhir . '"');
+            
             
         }
-        logs($_GET);
         $criteria->order = 'tanggal DESC';
         $criteria->compare('id', $this->id);
         $criteria->compare('nomor_register', $this->nomor_register, true);
         $criteria->compare('no_usul', $this->no_usul, true);
         $criteria->compare('nama', $this->nomor_register, true);
-        $criteria->compare('tanggal', $this->tanggal, true);
+//        $criteria->compare('tanggal', $this->tanggal, true);
         $criteria->compare('pegawai_id', $this->pegawai_id);
         $criteria->compare('status', $this->status);
         $criteria->compare('nip', $this->nip, true);
@@ -133,9 +134,6 @@ class PermohonanIjinBelajar extends CActiveRecord {
         $criteria->compare('nama_sekolah', $this->nama_sekolah, true);
         $criteria->compare('kota', $this->kota);
         $criteria->compare('alamat', $this->alamat, true);
-        $criteria->compare('created', $this->created, true);
-        $criteria->compare('created_user_id', $this->created_user_id);
-        $criteria->compare('modified', $this->modified, true);
 
         if (empty($export)) {
             $data = new CActiveDataProvider($this, array(
@@ -187,9 +185,12 @@ class PermohonanIjinBelajar extends CActiveRecord {
     public function getSatuanKerja() {
         return (!empty($this->Pegawai->JabatanStruktural->UnitKerja->nama)) ? $this->Pegawai->JabatanStruktural->UnitKerja->nama : '-';
     }
+    public function getUnitKerja() {
+        return (!empty($this->Pegawai->unitKerjaJabatan)) ? $this->Pegawai->unitKerjaJabatan : '-';
+    }
 
-    public function getJabatan() {
-        return (!empty($this->Pegawai->JabatanStruktural->nama)) ? $this->Pegawai->JabatanStruktural->nama : '-';
+    public function getJabatanPegawai() {
+        return (!empty($this->Pegawai->jabatan)) ? $this->Pegawai->jabatan : '-';
     }
 
     public function getjurusanUniv() {

@@ -73,6 +73,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         ));
 ?>
 
+<button type="submit" name="print" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-info pull-right"><span class="icon16  cut-icon-printer-2 white"></span> Print Checked</button>    
 <button type="submit" name="delete" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-danger pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Delete Checked</button>    
 <button type="submit" name="perpanjang" value="dd" style="margin-left: 10px;display:<?php echo $display; ?>" class="btn btn-warning pull-right"><span class="icon16 brocco-icon-trashcan white"></span> Perpanjang Checked</button>    
 <br>
@@ -124,7 +125,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
-            'template' => '{view} {update} {delete}',
+            'template' => $button,
             'buttons' => array(
                 'view' => array(
                     'label' => 'Lihat',
