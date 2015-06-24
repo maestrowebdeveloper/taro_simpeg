@@ -66,7 +66,9 @@ class SuratMasukController extends Controller {
         if (isset($_POST['SuratMasuk'])) {
             $model->attributes = $_POST['SuratMasuk'];
             $model->terusan = $_POST['SuratMasuk']['terusan'];
+            $model->no_reg = $_POST['SuratMasuk']['no_reg'];
             $model->tanggal_terima =date('Y-m-d', strtotime($_POST['SuratMasuk']['tanggal_terima']));
+            $model->tanggal =date('Y-m-d', strtotime($_POST['SuratMasuk']['tanggal']));
             if($_POST['SuratMasuk']['sifat'] == 'rahasia'){
                 $model->nomor_surat = 'X'.$_POST['SuratMasuk']['nomor_surat'];
             }
@@ -104,7 +106,9 @@ class SuratMasukController extends Controller {
         if (isset($_POST['SuratMasuk'])) {
             $model->attributes = $_POST['SuratMasuk'];
             $model->terusan = $_POST['SuratMasuk']['terusan'];
+            $model->no_reg = $_POST['SuratMasuk']['no_reg'];
             $model->tanggal_terima =date('Y-m-d', strtotime($_POST['SuratMasuk']['tanggal_terima']));
+            $model->tanggal =date('Y-m-d', strtotime($_POST['SuratMasuk']['tanggal']));
             $file = CUploadedFile::getInstance($model, 'file');
             if (is_object($file)) {
                 $model->file = Yii::app()->landa->urlParsing($model->pengirim) . '-' . $model->tanggal_terima . '-' . $file->name;

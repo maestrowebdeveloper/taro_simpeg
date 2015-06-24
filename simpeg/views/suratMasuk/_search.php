@@ -8,6 +8,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 ?>
 
 <?php
+echo $form->textFieldRow($model, 'no_reg', array('class' => 'span4', 'maxlength' => 225));
 echo $form->textFieldRow($model, 'pengirim', array('class' => 'span4', 'maxlength' => 225));
 echo $form->datepickerRow(
         $model, 'tanggal_terima', array(

@@ -103,6 +103,10 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         'nomor_register',
         'no_usul',
         array(
+            'name' => 'nip',
+            'value' => '$data->nip',
+        ),
+        array(
             'name' => 'nama',
             'value' => '$data->nama',
         ),

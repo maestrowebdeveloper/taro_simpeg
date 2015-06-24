@@ -109,7 +109,7 @@ class PegawaiController extends Controller {
     public function actionGetListPegawai() {
         $name = $_GET["q"];
         $list = array();
-        $data = Pegawai::model()->findAll(array('condition' => '(nama like "%' . $name . '%" or nip like "%'.$name.'%") and kedudukan_id="1"', 'limit' => '10'));
+        $data = Pegawai::model()->findAll(array('condition' => '(nama like "%' . $name . '%" or nip like "%' . $name . '%") and kedudukan_id="1"', 'limit' => '10'));
         if (empty($data)) {
             $list[] = array("id" => "0", "text" => "No Results Found..");
         } else {
@@ -982,14 +982,27 @@ class PegawaiController extends Controller {
     }
 
     public function actionCheckErrorExcel() {
-        $session = new CHttpSession;
-        $session->open();
-
-        if (isset($session['Pegawai_records'])) {
-            $model = $session['Pegawai_records'];
+//        $session = new CHttpSession;
+//        $session->open();
+        $criteria = new CDbCriteria;
+        if (isset($_GET['lahir'])) {
+            $criteria->addCondition('tanggal_lahir = "0000-00-00"');
+            $criteria->addCondition('tanggal_lahir = ""');
         }
-        else
-            $model = Pegawai::model()->findAll();
+        if (isset($_GET['jk']))
+            $criteria->addCondition('jenis_kelamin = ""');
+        if (isset($_GET['agama']))
+            $criteria->addCondition('agama = ""');
+        if (isset($_GET['pangkat']))
+            $criteria->addCondition('t.riwayat_pangkat_id = ""');
+        if (isset($_GET['pendidikan']))
+            $criteria->addCondition('pendidikan_id = ""');
+        if (isset($_GET['jabatan'])) {
+            $criteria->addCondition('t.jabatan_struktural_id = ""');
+            $criteria->addCondition('t.jabatan_fu_id = ""');
+            $criteria->addCondition('t.jabatan_ft_id = ""');
+        }
+        $model = Pegawai::model()->findAll($criteria);
 
         Yii::app()->request->sendFile(date('YmdHi') . '.xls', $this->renderPartial('excelCheckError', array(
                     'model' => $model,
@@ -1172,8 +1185,8 @@ class PegawaiController extends Controller {
 //                    $jabatan = "";
 //                }
 //            }
-           
-            
+
+
             $model->attributes = $_POST['Pegawai'];
             logs($model->tanggal_lahir);
             $perubahan['tahun'] = $_POST['kalkulasiTahun'];
@@ -1648,7 +1661,6 @@ class PegawaiController extends Controller {
 //                $data->save();
 //            }
 //        }
-
         // change bup tertentu
         $tertentu = Pegawai::model()->findAll(array('condition' => 'tipe_jabatan="fungsional_tertentu" and kedudukan_id=1'));
         foreach ($tertentu as $data) {
@@ -1777,7 +1789,7 @@ class PegawaiController extends Controller {
         $valPegawai = Pegawai::model()->findAll(array('condition' => 'kedudukan_id=1 and tipe_jabatan="fungsional_umum"'));
         $gajiBaru = Gaji::model()->findByPk(1);
         $kenaikanGaji = json_decode($gajiBaru->gaji, true);
-        $sMasakerja='';
+        $sMasakerja = '';
         foreach ($valPegawai as $data) {
             $masakerjaTahun = Pegawai::model()->masaKerjaUntil(date("d-m-Y", strtotime($data->tmt_cpns)), "1-06-2015", true, false);
             $masakerjaBulan = Pegawai::model()->masaKerjaUntil(date("d-m-Y", strtotime($data->tmt_cpns)), "1-06-2015", false, true);
@@ -1785,7 +1797,7 @@ class PegawaiController extends Controller {
             $sMasakerja2 = ($kenaikanGaji[$data->Pangkat->golongan_id][$sMasakerja] == 0) ? $sMasakerja - 1 : $sMasakerja;
             echo $sMasakerja;
             $gajiBaru = (isset($kenaikanGaji[$data->Pangkat->golongan_id][$sMasakerja2]) ? $kenaikanGaji[$data->Pangkat->golongan_id][$sMasakerja2] : $data->Gaji->gaji);
-            echo $data->id.$data->nama.$data->Pangkat->golongan .' - '. $masakerjaTahun.'<br>';
+            echo $data->id . $data->nama . $data->Pangkat->golongan . ' - ' . $masakerjaTahun . '<br>';
 
             // save riwayat gaji
 //            $riwayatGaji = new RiwayatGaji;

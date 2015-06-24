@@ -58,7 +58,7 @@
             echo $form->radioButtonListRow($model, 'status', PermohonanIjinBelajar::model()->ArrStatuspros());
         }
         $idpegawai = isset($model->pegawai_id) ? $model->pegawai_id : 0;
-        $pegawaiName = isset($model->Pegawai->nama) ? $model->Pegawai->nama : '';
+        $pegawaiName = isset($model->Pegawai->nama) ? $model->Pegawai->nip.' - '.$model->Pegawai->nama : '';
         echo $form->select2Row($model, 'pegawai_id', array(
             'asDropDownList' => false,
 //                    'data' => $data,

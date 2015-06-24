@@ -172,7 +172,7 @@ class Pegawai extends CActiveRecord {
 
 
 //tambahan tindik jurusan
-        if (isset($_GET['jurusan']) and !empty($_GET['jurusan'])) {
+        if (!empty($_GET['jurusan']) and !empty($_GET['jurusan'])) {
             $pegawai = RiwayatPendidikan::model()->with('Jurusan')->findAll(array('condition' => 'Jurusan.Name like "%' . $_GET['jurusan'] . '%"'));
 
             $id = array();
@@ -182,7 +182,7 @@ class Pegawai extends CActiveRecord {
             $criteria->addInCondition("t.id", $id);
         }
 
-        if (isset($_GET['unit_kerja']) and !empty($_GET['unit_kerja'])) {
+        if (!empty($_GET['unit_kerja']) and !empty($_GET['unit_kerja'])) {
             $criteria->compare('JabatanStruktural.id', $this->jabatan_ft_id);
         }
 
@@ -192,9 +192,14 @@ class Pegawai extends CActiveRecord {
         }
 
 // jabatan FT
-        if (isset($_GET['Pegawai']['jabatan_ft_id']) and !empty($_GET['Pegawai']['jabatan_ft_id'])) {
+        if (!empty($_GET['Pegawai']['jabatan_ft_id']) and !empty($_GET['Pegawai']['jabatan_ft_id'])) {
             $criteria->addCondition('t.tipe_jabatan = "fungsional_tertentu" and JabatanFt.type = "' . $this->jabatan_ft_id . '"');
         }
+        if (!empty($_GET['unit_kerja'])) {
+            $criteria->addCondition('t.jabatan_struktural_id = "' . $_GET['unit_kerja']. '"');
+            
+        }
+        logs($_GET);
         if (!empty($this->nip))
             $criteria->compare('nip', $this->nip, true);
         if (!empty($this->nama))

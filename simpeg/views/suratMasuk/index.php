@@ -87,6 +87,7 @@ $this->endWidget();
                     'value' => '$data->id',
                 ),
             ),
+		'no_reg',		
 		'pengirim',		
 		array(
             'name' => 'sifat',

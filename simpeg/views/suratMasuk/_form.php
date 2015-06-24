@@ -30,10 +30,19 @@
 
         <?php
         $tanggal = isset($model->tanggal_terima) ? date('d-m-Y', strtotime($model->tanggal_terima)) :'';
+        $tanggal2 = isset($model->tanggal) ? date('d-m-Y', strtotime($model->tanggal)) :'';
+        echo $form->textFieldRow($model, 'no_reg', array('class' => 'span4', 'maxlength' => 225));
         echo $form->textFieldRow($model, 'pengirim', array('class' => 'span4', 'maxlength' => 225));
         echo $form->datepickerRow(
                 $model, 'tanggal_terima', array(
             'value' => str_replace("0000-00-00", "",$tanggal),
+            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
+            'prepend' => '<i class="icon-calendar"></i>'
+                )
+        );
+        echo $form->datepickerRow(
+                $model, 'tanggal', array(
+            'value' => str_replace("0000-00-00", "",$tanggal2),
             'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
             'prepend' => '<i class="icon-calendar"></i>'
                 )
@@ -127,7 +136,7 @@
         $content = $siteConfig->format_surat_masuk;
 
         $content = str_replace('{pengirim}', $model->pengirim, $content);
-        $content = str_replace('{ttl_terima}', date('d F Y', strtotime($model->tanggal_terima)), $content);
+        $content = str_replace('{ttl_terima}', date('d F Y', strtotime($model->tanggal)), $content);
         $content = str_replace('{tanggal}', date('d F Y', strtotime($model->created)), $content);
         $content = str_replace('{no_agenda}', $model->no_agenda, $content);
         $content = str_replace('{no_surat}', $model->nomor_surat, $content);

@@ -27,9 +27,10 @@ $data = JabatanStruktural::model()->findAll(array('condition' => $criteria, 'ord
                     $eselon = isset($value->Eselon->nama) ? $value->Eselon->nama : "-";
                     $tingkatEselon = substr($eselon, 0, 2);
                     $bup = '0 Tahun';
-                    if ($tingkatEselon == "II") {
+                    if ($value->eselon_id == 21 or $value->eselon_id == 22) {
                         $bup = '60 Tahun';
-                    } else if ($tingkatEselon == "III" or $tingkatEselon == "IV" or $tingkatEselon == "V") {
+                    } else if ($value->eselon_id == 31 or $value->eselon_id == 31 or $value->eselon_id == 41
+                            or $value->eselon_id == 42 or $value->eselon_id == 51 or $value->eselon_id == 52) {
                         $bup = '58 Tahun';
                     }
                     echo '	

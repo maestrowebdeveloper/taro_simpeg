@@ -23,7 +23,7 @@ class SuratMasuk extends CActiveRecord {
             array('sifat', 'length', 'max' => 7),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id,terusan, no_agenda, pengirim, penerima, tanggal_kirim, tanggal_terima, sifat, nomor_surat, perihal, isi, file, created, created_user_id, modified', 'safe', 'on' => 'search'),
+            array('id,terusan, no_reg, tanggal, no_agenda, pengirim, penerima, tanggal_kirim, tanggal_terima, sifat, nomor_surat, perihal, isi, file, created, created_user_id, modified', 'safe', 'on' => 'search'),
         );
     }
 
@@ -46,7 +46,9 @@ class SuratMasuk extends CActiveRecord {
             'pengirim' => 'Pengirim',
             'penerima' => 'Penerima',
             'tanggal_kirim' => 'Tanggal ',
-            'tanggal_terima' => 'Tanggal ',
+            'tanggal_terima' => 'Tanggal',
+            'tanggal' => 'Tanggal Terima',
+            'no_reg' => 'Nomor Register',
             'sifat' => 'Sifat',
             'nomor_surat' => 'Nomor Surat',
             'perihal' => 'Perihal',
@@ -80,6 +82,8 @@ class SuratMasuk extends CActiveRecord {
         $criteria->compare('id', $this->id);
         $criteria->compare('pengirim', $this->pengirim, true);
         $criteria->compare('penerima', $this->penerima, true);
+        $criteria->compare('no_reg', $this->no_reg, true);
+        $criteria->compare('tanggal', $this->tanggal, true);
 //        $criteria->compare('tanggal_kirim', $this->tanggal_kirim, true);
         $criteria->compare('tanggal_terima', $this->tanggal_terima, true);
         $criteria->compare('sifat', $this->sifat, true);
