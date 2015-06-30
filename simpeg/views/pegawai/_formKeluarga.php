@@ -174,13 +174,15 @@
     $("body").on("click", ".radio", function () {
         var id = $(this).find("input").val();
         if (id == "istri") {
-            $("#RiwayatKeluarga_nomor_karsu").parent().parent().attr("style", "display:");
-            $("#RiwayatKeluarga_tanggal_pernikahan").parent().parent().attr("style", "display:");
-            $("#RiwayatKeluarga_nomor_karsi").parent().parent().attr("style", "display:none");
-        } else if (id == "suami") {
             $("#RiwayatKeluarga_nomor_karsu").parent().parent().attr("style", "display:none");
-            $("#RiwayatKeluarga_nomor_karsi").parent().parent().attr("style", "display:");
             $("#RiwayatKeluarga_tanggal_pernikahan").parent().parent().attr("style", "display:");
+            $("#RiwayatKeluarga_nomor_karsi").parent().parent().attr("style", "display:");
+            $("#RiwayatKeluarga_akte_cerai").parent().parent().attr("style", "display:none");
+        } else if (id == "suami") {
+            $("#RiwayatKeluarga_nomor_karsu").parent().parent().attr("style", "display:");
+            $("#RiwayatKeluarga_nomor_karsi").parent().parent().attr("style", "display:none");
+            $("#RiwayatKeluarga_tanggal_pernikahan").parent().parent().attr("style", "display:");
+            $("#RiwayatKeluarga_akte_cerai").parent().parent().attr("style", "display:none");
         } else if (id == "anak") {
             $("#RiwayatKeluarga_jns_masalah").parent().parent().attr("style", "display:none");
             $("#RiwayatKeluarga_no_sk").parent().parent().attr("style", "display:none");

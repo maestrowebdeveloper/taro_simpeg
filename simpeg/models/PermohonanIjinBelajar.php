@@ -108,14 +108,12 @@ class PermohonanIjinBelajar extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-        
-        if (!empty($_GET['PermohonanIjinBelajar']['tanggal_usul']) && !empty($_GET['PermohonanIjinBelajar']['created'])){
+
+        if (!empty($_GET['PermohonanIjinBelajar']['tanggal_usul']) && !empty($_GET['PermohonanIjinBelajar']['created'])) {
             $awal = $_GET['PermohonanIjinBelajar']['tanggal_usul'];
             $akhir = $_GET['PermohonanIjinBelajar']['created'];
 //            $criteria->addCondition = "tanggal  >= '$awal' and tanggal <= '$akhir'";
             $criteria->addCondition('tanggal between "' . $awal . '" and "' . $akhir . '"');
-            
-            
         }
         $criteria->order = 'tanggal DESC';
         $criteria->compare('id', $this->id);
@@ -140,7 +138,6 @@ class PermohonanIjinBelajar extends CActiveRecord {
                 'criteria' => $criteria,
                 'sort' => array('defaultOrder' => 'tanggal DESC')
             ));
-            
         } else {
             $data = PermohonanIjinBelajar::model()->findAll($criteria);
         }
@@ -174,17 +171,28 @@ class PermohonanIjinBelajar extends CActiveRecord {
     public function getTglIjnBelajar() {
         return (empty($this->tanggal) || strtotime($this->tanggal) < 0) ? '-' : landa()->date2Ind($this->tanggal);
     }
+
     public function getTglUsul() {
         return (empty($this->tanggal_usul) || strtotime($this->tanggal_usul) < 0) ? '-' : landa()->date2Ind($this->tanggal_usul);
     }
 
     public function getPegawai() {
-        return (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
+        if(!empty($this->Pegawai->nama)){
+            $depan = (!empty($this->Pegawai->gelar_depan) || $this->Pegawai->gelar_depan == "NULL" || $this->Pegawai->gelar_depan == "0") ? '' : $this->Pegawai->gelar_depan . '. ';
+        $belakang = (empty($this->Pegawai->gelar_belakang) || $this->Pegawai->gelar_belakang == "NULL" || $this->Pegawai->gelar_belakang == "0" ) ? '' : ', ' . $this->Pegawai->gelar_belakang . '. ';
+        $nama = (!empty($this->Pegawai->nama)) ? $this->Pegawai->nama : '-';
+       
+        return $depan.strtoupper($nama).$belakang;
+        }else{
+            return $this->nama;
+        }
+        
     }
 
     public function getSatuanKerja() {
         return (!empty($this->Pegawai->JabatanStruktural->UnitKerja->nama)) ? $this->Pegawai->JabatanStruktural->UnitKerja->nama : '-';
     }
+
     public function getUnitKerja() {
         return (!empty($this->Pegawai->unitKerjaJabatan)) ? $this->Pegawai->unitKerjaJabatan : '-';
     }

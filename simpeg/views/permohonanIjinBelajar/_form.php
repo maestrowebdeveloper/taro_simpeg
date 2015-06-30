@@ -275,7 +275,7 @@
     $content = $siteConfig->format_ijin_belajar;
     $universitas = (isset($model->Univ->name)) ? $model->Univ->name : '-';
     $content = str_replace('{no_usul}', $model->no_usul, $content);
-    $content = str_replace('{nama}', $model->nama, $content);
+    $content = str_replace('{nama}', $model->pegawai, $content);
     $content = str_replace('{nip}', $model->nip, $content);
     $content = str_replace('{pangkat}', $model->golongan, $content);
     $content = str_replace('{unit_kerja}', $model->unit_kerja, $content);

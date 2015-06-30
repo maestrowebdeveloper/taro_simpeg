@@ -93,6 +93,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'header' => 'No Reg.',
             'type' => 'raw',
             'value' => '"$data->no_reg"',
+            'htmlOptions' => array('style' => 'text-align: center; width:30px;')
         ),
         array(
             'name' => 'foto',

@@ -143,16 +143,16 @@ class PermohonanPerpanjanganHonorerController extends Controller {
                         $perubahan = array();
                         $perubahan['bulan'] = str_replace(" Bulan", "", KenaikanGaji::model()->masaKerja($tmt_kontrak, $tmt_mulai_kontrak, false, true));
                         $perubahan['tahun'] = str_replace(" Tahun", "", KenaikanGaji::model()->masaKerja($tmt_kontrak, $tmt_mulai_kontrak, true));
-                        if ($perubahan['tahun'] > 10 || $perubahan['bulan'] > 1) {
-                            $honorer->gaji = 750000;
-                            $data->honor_saat_ini = 750000;
-                        } else {
+                        if ($perubahan['tahun'] < 10 || $perubahan['bulan'] < 1) {
                             $honorer->gaji = 725000;
                             $data->honor_saat_ini = 725000;
+                        } else {
+                            $honorer->gaji = 750000;
+                            $data->honor_saat_ini = 750000;
                         }
                         $honorer->perubahan_masa_kerja = json_encode($perubahan);
                     }
-//                    logs($perubahan['tahun']);
+                    echo $perubahan['tahun'];
                     $honorer->save();
 
 

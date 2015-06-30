@@ -35,11 +35,12 @@
         echo $form->radioButtonListRow($model, 'tingkat_hukuman', RiwayatHukuman::model()->arrTingkatHukuman());
 
         echo $form->textFieldRow($model, 'nomor_register', array('class' => 'span3', 'maxlength' => 255));
-        
 
+        $tanggal= (isset($model->tanggal_pemberian)) ? date('d-m-Y', strtotime($model->tanggal_pemberian)) : date('d-m-Y');
         echo $form->datepickerRow(
                 $model, 'tanggal_pemberian', array(
-            'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
+            'value' => str_replace("0000-00-00", "", $tanggal),
+            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
             'prepend' => '<i class="icon-calendar"></i>'
                 )
         );
@@ -47,28 +48,28 @@
         <div class="control-group "><label class="control-label" for="">Masa Berlaku SK</label>
             <div class="controls">
                 <?php
-                $mulai_sk='';
-                $selesai_sk='';
-                if(isset($model->mulai_sk)){
-                    $mulai_sk=date('Y-m-d',strtotime($model->mulai_sk));
+                $mulai_sk = '';
+                $selesai_sk = '';
+                if (isset($model->mulai_sk)) {
+                    $mulai_sk = date('d-m-Y', strtotime($model->mulai_sk));
                 }
-                if(isset($model->selesai_sk)){
-                    $selesai_sk=date('Y-m-d',strtotime($model->selesai_sk));
+                if (isset($model->selesai_sk)) {
+                    $selesai_sk = date('d-m-Y', strtotime($model->selesai_sk));
                 }
                 ?>
                 <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
-                    <input value="<?php echo $mulai_sk;?>" type="text"  name="RiwayatHukuman[mulai_sk]" id="RiwayatHukuman_mulai_sk">
+                    <input value="<?php echo $mulai_sk; ?>" type="text"  name="RiwayatHukuman[mulai_sk]" id="RiwayatHukuman_mulai_sk">
                 </div>
                 S/D
                 <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span>
-               <input value="<?php echo $selesai_sk;?>" type="text"  name="RiwayatHukuman[selesai_sk]" id="RiwayatHukuman_selesai_sk">
+                    <input value="<?php echo $selesai_sk; ?>" type="text"  name="RiwayatHukuman[selesai_sk]" id="RiwayatHukuman_selesai_sk">
                 </div>
 
             </div>
         </div>
         <?php
         echo $form->textFieldRow($model, 'pejabat', array('class' => 'span3', 'maxlength' => 255));
-        
+
         echo $form->textAreaRow($model, 'alasan', array('rows' => 4, 'cols' => 50, 'class' => 'span6'));
         ?>
 
@@ -78,25 +79,25 @@
         </div>
     </fieldset>
 
-<?php $this->endWidget(); ?>
+    <?php $this->endWidget(); ?>
 
 </div>
 
 
 <script>
-    jQuery(function ($) {
-        jQuery('#RiwayatHukuman_tanggal_pemberian').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
-        jQuery('#RiwayatHukuman_mulai_sk').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
-        jQuery('#RiwayatHukuman_selesai_sk').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
+    jQuery(function($) {
+        jQuery('#RiwayatHukuman_tanggal_pemberian').datepicker({'language': 'id', 'format': 'dd-mm-yyyy', 'weekStart': 0});
+        jQuery('#RiwayatHukuman_mulai_sk').datepicker({'language': 'id', 'format': 'dd-mm-yyyy', 'weekStart': 0});
+        jQuery('#RiwayatHukuman_selesai_sk').datepicker({'language': 'id', 'format': 'dd-mm-yyyy', 'weekStart': 0});
         jQuery('#RiwayatHukuman_hukuman_id').select2({'width': '50%'});
     });
-    $(".saveHukuman").click(function () {
+    $(".saveHukuman").click(function() {
         var postData = $("#hukuman-detail-form").serialize();
         $.ajax({
             url: "<?php echo url('pegawai/saveHukuman'); ?>",
             data: postData,
             type: "post",
-            success: function (data) {
+            success: function(data) {
                 if (data != "") {
                     $("#tableHukuman").replaceWith(data);
                     $("#modalForm").modal("hide");
@@ -104,7 +105,7 @@
                     alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
             },
         });

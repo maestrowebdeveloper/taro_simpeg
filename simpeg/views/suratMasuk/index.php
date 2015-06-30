@@ -95,6 +95,7 @@ $this->endWidget();
         ), 		
 		'nomor_surat',
 		'perihal',
+		'isi',
 		
 		array(
             'name' => 'tanggal_terima',

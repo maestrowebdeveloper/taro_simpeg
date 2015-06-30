@@ -722,6 +722,10 @@ class PegawaiController extends Controller {
                 $model = RiwayatHukuman::model()->findByPk($_POST['RiwayatHukuman']['id']);
 
             $model->attributes = $_POST['RiwayatHukuman'];
+            $model->tanggal_pemberian =  date('Y-m-d', strtotime($_POST['RiwayatHukuman']['tanggal_pemberian']));
+            $model->mulai_sk =  date('Y-m-d', strtotime($_POST['RiwayatHukuman']['mulai_sk']));
+            $model->selesai_sk =  date('Y-m-d', strtotime($_POST['RiwayatHukuman']['selesai_sk']));
+            $model->pejabat =  $_POST['RiwayatHukuman']['pejabat'];
 
             if ($model->save()) {
                 $hukuman = RiwayatHukuman::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tanggal_pemberian DESC'));

@@ -131,7 +131,10 @@ class RiwayatPangkat extends CActiveRecord {
     }
 
     public function getGolongan() {
-        return (!empty($this->Golongan->nama)) ? $this->Golongan->nama . ' - ' . $this->Golongan->keterangan : '-';
+        return (isset($this->Golongan->nama) && isset($this->Golongan->keterangan)) ? $this->Golongan->nama . ' - ' . $this->Golongan->keterangan : '-';
+    }
+    public function getTmtGolongan() {
+        return (!empty($this->tmt_pangkat) ) ? landa()->date2Ind($this->tmt_pangkat) : '-';
     }
 
     public function getPegawai() {

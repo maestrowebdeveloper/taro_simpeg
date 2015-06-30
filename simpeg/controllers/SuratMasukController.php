@@ -22,7 +22,7 @@ class SuratMasukController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // c
-                'actions' => array( 'create'),
+                'actions' => array('create'),
                 'expression' => 'app()->controller->isValidAccess("suratMasuk","c")'
             ),
             array('allow', // r
@@ -30,11 +30,11 @@ class SuratMasukController extends Controller {
                 'expression' => 'app()->controller->isValidAccess("suratMasuk","r")'
             ),
             array('allow', // u
-                'actions' => array( 'update'),
+                'actions' => array('update'),
                 'expression' => 'app()->controller->isValidAccess("suratMasuk","u")'
             ),
             array('allow', // d
-                'actions' => array( 'delete'),
+                'actions' => array('delete'),
                 'expression' => 'app()->controller->isValidAccess("suratMasuk","d")'
             )
         );
@@ -67,10 +67,10 @@ class SuratMasukController extends Controller {
             $model->attributes = $_POST['SuratMasuk'];
             $model->terusan = $_POST['SuratMasuk']['terusan'];
             $model->no_reg = $_POST['SuratMasuk']['no_reg'];
-            $model->tanggal_terima =date('Y-m-d', strtotime($_POST['SuratMasuk']['tanggal_terima']));
-            $model->tanggal =date('Y-m-d', strtotime($_POST['SuratMasuk']['tanggal']));
-            if($_POST['SuratMasuk']['sifat'] == 'rahasia'){
-                $model->nomor_surat = 'X'.$_POST['SuratMasuk']['nomor_surat'];
+            $model->tanggal_terima = date('Y-m-d', strtotime($_POST['SuratMasuk']['tanggal_terima']));
+            $model->tanggal = date('Y-m-d', strtotime($_POST['SuratMasuk']['tanggal']));
+            if ($_POST['SuratMasuk']['sifat'] == 'rahasia') {
+                $model->nomor_surat = 'X' . $_POST['SuratMasuk']['nomor_surat'];
             }
             $file = CUploadedFile::getInstance($model, 'file');
             if (is_object($file)) {
@@ -79,7 +79,7 @@ class SuratMasukController extends Controller {
                 unset($model->file);
             }
             if ($model->save()) {
-                SuratMasuk::model()->updateAll(array('no_agenda'=>$model->id),'id='.$model->id);
+                SuratMasuk::model()->updateAll(array('no_agenda' => $model->id), 'id=' . $model->id);
                 if (is_object($file)) {
                     $file->saveAs('images/surat_masuk/' . $model->file);
                 }
@@ -107,8 +107,8 @@ class SuratMasukController extends Controller {
             $model->attributes = $_POST['SuratMasuk'];
             $model->terusan = $_POST['SuratMasuk']['terusan'];
             $model->no_reg = $_POST['SuratMasuk']['no_reg'];
-            $model->tanggal_terima =date('Y-m-d', strtotime($_POST['SuratMasuk']['tanggal_terima']));
-            $model->tanggal =date('Y-m-d', strtotime($_POST['SuratMasuk']['tanggal']));
+            $model->tanggal_terima = date('Y-m-d', strtotime($_POST['SuratMasuk']['tanggal_terima']));
+            $model->tanggal = date('Y-m-d', strtotime($_POST['SuratMasuk']['tanggal']));
             $file = CUploadedFile::getInstance($model, 'file');
             if (is_object($file)) {
                 $model->file = Yii::app()->landa->urlParsing($model->pengirim) . '-' . $model->tanggal_terima . '-' . $file->name;
@@ -246,14 +246,14 @@ class SuratMasukController extends Controller {
 
     public function actionGenerateExcel() {
         $model = new SuratMasuk;
-        
-         $model->attributes = $_GET['SuratMasuk'];
+
+        $model->attributes = $_GET['SuratMasuk'];
 //    
-        
+
         $data = $model->search(true);
+//        logs($_GET);
 
-
-        Yii::app()->request->sendFile('Surat Masuk -'.date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
+        Yii::app()->request->sendFile('Surat Masuk -' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(
                     'model' => $data
                         ), true)
         );

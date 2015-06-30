@@ -595,6 +595,9 @@ class Pegawai extends CActiveRecord {
     public function getTmtJabatan() {
         return isset($this->RiwayatJabatan->tmt_mulai) ? $this->RiwayatJabatan->tmt_mulai : "-";
     }
+    public function getTmtGolongan() {
+        return isset($this->Pangkat->tmt_pangkat) ? landa()->date2Ind($this->Pangkat->tmt_pangkat) : "-";
+    }
 
     public function getImgUrl() {
 
@@ -694,8 +697,8 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getNamaGelar() {
-        $depan = (!empty($this->gelar_depan) || $this->gelar_depan == "NULL"  || $this->gelar_depan == 0) ? '' : $this->gelar_depan . '. ';
-        $belakang = (empty($this->gelar_belakang) || $this->gelar_belakang == "NULL" || $this->gelar_belakang == 0 ) ? '' : ', ' . $this->gelar_belakang . '. ';
+        $depan = (!empty($this->gelar_depan) || $this->gelar_depan == "NULL"  || $this->gelar_depan =="0") ? '' : $this->gelar_depan . '. ';
+        $belakang = (empty($this->gelar_belakang) || $this->gelar_belakang == "NULL" || $this->gelar_belakang == "0" ) ? '' : ', ' . $this->gelar_belakang . '. ';
 //        $belakang = (empty($this->gelar_belakang)) ? ', ' . $this->gelar_belakang : '';
         return $depan . $this->nama . $belakang;
     }
@@ -736,7 +739,8 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getEslonTmt() {
-        return $this->Esl . ' // ' . landa()->date2Ind($this->TmtEslon);
+        $tanggal = (empty($this->RiwayatJabatan->tmt_eselon)) ? '-' : landa()->date2Ind($this->RiwayatJabatan->tmt_eselon); 
+        return $this->Esl . ' // ' . $tanggal;
     }
 
     public function getTtlLahir() {
@@ -744,7 +748,8 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getJabatanTmt() {
-        return $this->riwayatNamaJabatan . ' // ' . landa()->date2Ind($this->riwayatTmtJabatan);
+        $tanggal = (empty($this->RiwayatJabatan->tmt_mulai)) ? '-' : landa()->date2Ind($this->RiwayatJabatan->tmt_mulai);
+        return $this->riwayatNamaJabatan . ' // ' .$tanggal;
     }
 
     public function getPendidikanThn() {

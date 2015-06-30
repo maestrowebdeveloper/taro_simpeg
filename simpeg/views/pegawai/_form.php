@@ -36,9 +36,9 @@
                 <!-- <li ><a href="#pangkatJabatan">Pangkat & Jabatan</a></li> -->
                 <?php
                 $display = '';
-                $sDisplay='';
-               
-                if (landa()->checkAccess("pegawai", 'd') == 0){
+                $sDisplay = '';
+
+                if (landa()->checkAccess("pegawai", 'd') == 0) {
                     $display = 'readonly="readonly"';
                     $sDisplay = "'readonly' => true";
                 }
@@ -84,12 +84,12 @@
                                     <input class="span4" style="max-width:500px;width:200px" maxlength="18" placeholder="NIP Lama" value="<?php echo $model->nip_lama; ?>" name="Pegawai[nip_lama]" <?php echo $display ?> id="Pegawai_nip_lama" type="text">
                                 </div>
                             </div>
-                           <div class="control-group ">
-                               <label class="control-label required" for="Pegawai_nama">Nama <span class="required">*</span></label>
-                               <div class="controls">
-                                   <input class="span5" maxlength="100"  name="Pegawai[nama]" id="Pegawai_nama" type="text" <?php echo $display ?> value="<?php echo $model->nama; ?>">
-                               </div>
-                           </div>
+                            <div class="control-group ">
+                                <label class="control-label required" for="Pegawai_nama">Nama <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="span5" maxlength="100"  name="Pegawai[nama]" id="Pegawai_nama" type="text" <?php echo $display ?> value="<?php echo $model->nama; ?>">
+                                </div>
+                            </div>
                             <?php
                             //echo $form->textFieldRow($model,'nip',array('class'=>'span4 angka','style'=>'max-width:500px;width:300px','maxlength'=>18));                                     
 //                            echo $form->textFieldRow($model, 'nama', array('class' => 'span5', 'maxlength' => 100, $sDisplay));
@@ -125,9 +125,8 @@
                             $kotaName = isset($model->tempat_lahir) ? $model->tempat_lahir : '';
                             echo $form->select2Row($model, 'tempat_lahir', array(
                                 'asDropDownList' => false,
-                                'readonly' =>(landa()->checkAccess("pegawai", 'd') == 0) ? true :'',
+                                'readonly' => (landa()->checkAccess("pegawai", 'd') == 0) ? true : '',
                                 'options' => array(
-                                    
                                     'placeholder' => t('choose', 'global'),
                                     'allowClear' => true,
                                     'readOnly' => $display,
@@ -160,8 +159,8 @@
 
                             echo $form->datepickerRow(
                                     $model, 'tanggal_lahir', array(
-                                        'value' => str_replace("0000-00-00", "", date('d-m-Y', strtotime($model->tanggal_lahir))),
-                                        'disabled' =>(landa()->checkAccess("pegawai", 'd') == 0) ? true :'',
+                                'value' => str_replace("0000-00-00", "", date('d-m-Y', strtotime($model->tanggal_lahir))),
+                                'disabled' => (landa()->checkAccess("pegawai", 'd') == 0) ? true : '',
                                 'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
                                 'events' => array('changeDate' => 'js:function(){
                                                                 pensiun($(this).val(), $("#Pegawai_riwayat_jabatan_id").val());
@@ -681,7 +680,7 @@
                             <tr><td>Unit Kerja</td><td>:</td><td><?php echo $model->unitKerja; ?></td></tr>
                             <tr><td>TMT CPNS</td><td>:</td><td><?php echo landa()->date2Ind($model->tmt_cpns); ?></td></tr>
                             <tr><td>TMT PNS</td><td>:</td><td><?php echo landa()->date2Ind($model->tmt_pns); ?></td></tr>
-                            <tr><td>Pangkat / Golru</td><td>:</td><td><?php echo isset($model->Pangkat->golongan) ? $model->Pangkat->golongan : "-" . ' TMT : ' . landa()->date2Ind($model->Pangkat->tmt_golongan); ?></td></tr>
+                            <tr><td>Pangkat / Golru</td><td>:</td><td><?php echo isset($model->Pangkat->golongan) ? $model->Pangkat->golongan : "-" . ' TMT : ' . $model->tmtGolongan; ?></td></tr>
                             <tr><td>Tipe Jabatan</td><td>:</td><td><?php echo ucwords(str_replace("_", " ", $model->tipe_jabatan)); ?></td></tr>
                             <tr><td>Jabatan</td><td>:</td><td><?php echo $model->jabatan . ', TMT :  ' . $model->tmtJabatan; ?></td></tr>
                             <tr><td>Masa Kerja</td><td>:</td><td><?php echo $model->masaKerja; ?></td></tr>

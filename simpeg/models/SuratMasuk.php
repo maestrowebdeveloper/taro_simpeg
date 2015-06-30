@@ -17,7 +17,7 @@ class SuratMasuk extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('pengirim, sifat, tanggal_terima,nomor_surat, perihal', 'required'),
-            array('tanggal_terima,isi,tanggal_kirim,tembusan, file, created, created_user_id, modified', 'safe'),
+            array('tanggal_terima,isi,tanggal_kirim,tembusan, file, created, created_user_id, modified, no_reg', 'safe'),
             array('created_user_id,no_agenda', 'numerical', 'integerOnly' => true),
             array('pengirim, penerima, nomor_surat, perihal, file', 'length', 'max' => 225),
             array('sifat', 'length', 'max' => 7),
@@ -80,8 +80,10 @@ class SuratMasuk extends CActiveRecord {
         $criteria->order = 'id DESC';
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('pengirim', $this->pengirim, true);
-        $criteria->compare('penerima', $this->penerima, true);
+        if (!empty($this->pengirim))
+            $criteria->compare('pengirim', $this->pengirim, true);
+        if (!empty($this->penerima))
+            $criteria->compare('penerima', $this->penerima, true);
         $criteria->compare('no_reg', $this->no_reg, true);
         $criteria->compare('tanggal', $this->tanggal, true);
 //        $criteria->compare('tanggal_kirim', $this->tanggal_kirim, true);

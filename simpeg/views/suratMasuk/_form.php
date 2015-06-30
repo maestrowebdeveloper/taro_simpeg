@@ -142,6 +142,7 @@
         $content = str_replace('{no_surat}', $model->nomor_surat, $content);
         $content = str_replace('{perihal}', $model->perihal, $content);
         $content = str_replace('{terusan}', ucwords($model->terusan), $content);
+        $content = str_replace('{isi}', ucwords($model->isi), $content);
         echo $content;
         ?>
     </div>
