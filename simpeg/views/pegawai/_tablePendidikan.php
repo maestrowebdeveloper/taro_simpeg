@@ -26,7 +26,7 @@
                     if (isset($value->Universitas->name))
                         $sekolah = $value->Universitas->name;
                     else
-                        $sekolah = "-";
+                        $sekolah = $value->nama_sekolah;
 
                     if (isset($value->Jurusan->Name))
                         $jurusan = $value->Jurusan->Name;
