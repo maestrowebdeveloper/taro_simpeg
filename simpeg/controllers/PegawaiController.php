@@ -336,16 +336,16 @@ class PegawaiController extends Controller {
             $model->jabatan_ft_id = (isset($_POST['RiwayatJabatan']['jabatan_ft_id'])) ? $_POST['RiwayatJabatan']['jabatan_ft_id'] : '';
             $model->type = (isset($_POST['RiwayatJabatan']['type'])) ? $_POST['RiwayatJabatan']['type'] : '';
             if ($model->tipe_jabatan == "struktural") {
-                $model->tmt_mulai = $_POST['tmt_mulai_struktural'];
+                $model->tmt_jabatan = $_POST['tmt_jabatan_eselon'];
                 $model->no_sk_struktural = $_POST['RiwayatJabatan']['no_sk_struktural'];
                 $model->tanggal_sk_struktural = $_POST['tanggal_sk_struktural'];
                 $model->jabatan_struktural_id = (isset($_POST['RiwayatJabatan']['jabatan_struktural_id'])) ? $_POST['RiwayatJabatan']['jabatan_struktural_id'] : '';
             } else if ($model->tipe_jabatan == "fungsional_umum") {
-                $model->tmt_mulai = $_POST['tmt_mulai_fu'];
+                $model->tmt_jabatan = $_POST['tmt_jabatan_fu'];
                 $model->jabatan_fu_id = $_POST['RiwayatJabatan']['jabatan_fu_id'];
                 $model->jabatan_struktural_id = (isset($_POST['RiwayatJabatan']['jabatan_struktural_id'])) ? $_POST['RiwayatJabatan']['jabatan_struktural_id'] : '';
             } else if ($model->tipe_jabatan == "fungsional_tertentu") {
-                $model->tmt_mulai = $_POST['tmt_mulai_ft'];
+                $model->tmt_jabatan = $_POST['tmt_jabatan_ft'];
                 $model->no_sk_struktural = $_POST['RiwayatJabatan']['no_sk_ft'];
                 $model->tanggal_sk_ft = $_POST['tanggal_sk_ft'];
                 $model->jabatan_ft_id = $_POST['RiwayatJabatan']['jabatan_ft_id'];

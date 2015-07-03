@@ -48,8 +48,8 @@
                         <?php
                         $this->widget(
                                 'bootstrap.widgets.TbDatePicker', array(
-                            'name' => 'tmt_mulai_struktural',
-                            'value' => $model->tmt_mulai,
+                            'name' => 'tmt_jabatan_eselon',
+                            'value' => $model->tmt_jabatan,
                             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                 )
                         );
@@ -121,8 +121,8 @@
                         <?php
                         $this->widget(
                                 'bootstrap.widgets.TbDatePicker', array(
-                            'name' => 'tmt_mulai_fu',
-                            'value' => str_replace("0000-00-00", "", $model->tmt_mulai),
+                            'name' => 'tmt_jabatan_fu',
+                            'value' => str_replace("0000-00-00", "", $model->tmt_jabatan),
                             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                 )
                         );
@@ -157,8 +157,8 @@
                         <?php
                         $this->widget(
                                 'bootstrap.widgets.TbDatePicker', array(
-                            'name' => 'tmt_mulai_ft',
-                            'value' => str_replace("0000-00-00", "", $model->tmt_mulai),
+                            'name' => 'tmt_jabatan_ft',
+                            'value' => str_replace("0000-00-00", "", $model->tmt_jabatan),
                             'options' => array('language' => 'id', 'format' => 'yyyy-mm-dd'),
                                 )
                         );
@@ -226,7 +226,7 @@
 
 <script>
     jQuery(function ($) {
-        jQuery('#RiwayatJabatan_tmt_mulai, #RiwayatJabatan_tmt_eselon, #tmt_mulai_ft, #tmt_mulai_fu, #tmt_mulai_struktural,#tanggal_sk_struktural,#tanggal_sk_ft').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
+        jQuery('#RiwayatJabatan_tmt_mulai, #RiwayatJabatan_tmt_eselon, #tmt_jabatan_eselon,#tmt_jabatan_ft, #tmt_jabatan_fu, #tmt_mulai_struktural,#tanggal_sk_struktural,#tanggal_sk_ft').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
 //        jQuery('#RiwayatJabatan_jabatan_struktural_id').select2({'width': '40%'});
         jQuery('#RiwayatJabatan_jabatan_fu_id').select2({'width': '40%'});
         jQuery('#RiwayatJabatan_jabatan_ft_id').select2({'width': '40%'});

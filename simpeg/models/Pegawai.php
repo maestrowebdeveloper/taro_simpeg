@@ -748,7 +748,7 @@ class Pegawai extends CActiveRecord {
     }
 
     public function getJabatanTmt() {
-        $tanggal = (empty($this->RiwayatJabatan->tmt_mulai)) ? '-' : landa()->date2Ind($this->RiwayatJabatan->tmt_mulai);
+        $tanggal = (empty($this->RiwayatJabatan->tmt_jabatan)) ? '-' : landa()->date2Ind($this->RiwayatJabatan->tmt_jabatan);
         return $this->riwayatNamaJabatan . ' // ' .$tanggal;
     }
 
