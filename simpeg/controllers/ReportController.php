@@ -379,6 +379,7 @@ class ReportController extends Controller {
         $model = new Pegawai;
         $model->tipe_jabatan = $_GET['tipe_jabatan'];
         $data = $model->searchUrutKepangkatan(true);
+         $this->render('_urutKepangkatan', array('model' => $data));
         return Yii::app()->request->sendFile('Laporan Daftar Urutan Kepangkatan Pegawai.xls', $this->renderPartial('_urutKepangkatan', array(
                             'model' => $data,
                                 ), true)

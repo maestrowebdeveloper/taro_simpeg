@@ -87,6 +87,7 @@ $this->endWidget();
                     'value' => '$data->id',
                 ),
             ),
+		'no_agenda',		
 		'penerima',		
 		array(
             'name' => 'sifat',

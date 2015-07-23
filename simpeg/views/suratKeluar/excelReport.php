@@ -3,6 +3,7 @@
 <?php if ($model !== null):?>
 <table border="1">
 	<tr>		
+ 		<th width="80px">NO AGENDA</th> 		
  		<th width="80px">PENERIMA</th> 		
  		<th width="80px">TANGGAL KIRIM</th> 		 			 		 		 	
  		<th width="80px">SIFAT</th> 		 			 		 		 	
@@ -14,6 +15,7 @@
  	</tr>
 	<?php foreach($model as $row): ?>
 	<tr>
+        <td><?php echo $row->no_agenda; ?></td>
         <td><?php echo $row->penerima; ?></td>
         <td><?php echo landa()->date2Ind($row->tanggal_kirim); ?></td>        
         <td><?php echo $row->sifat; ?></td>        

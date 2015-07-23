@@ -39,7 +39,7 @@
 			<td>' . $value->TtlLahir . '</td>			
 			<td>' . $value->GolTmt . '</td>
 			<td>' . $value->EslonTmt . '</td>			
-			<td>' . $value->jabatan . '</td>
+			<td>' . $value->JabatanTmt . '</td>
 			<td>' . $value->usia . '</td>
 			<td>' . $value->MasaKerjaTahun . '</td>			
 			<td>' . $value->MasaKerjaBulan . '</td>

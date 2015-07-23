@@ -92,27 +92,23 @@ class SuratKeluar extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-        $criteria->order = 'id DESC';
+//        $criteria->order = 'no_agenda DESC';
 
 //        $criteria->compare('id', $this->id);
-////        $criteria->compare('pengirim', $this->pengirim, true);
+        $criteria->compare('no_agenda', $this->no_agenda, true);
         $criteria->compare('penerima', $this->penerima, true);
         $criteria->compare('tanggal_kirim', $this->tanggal_kirim, true);
 ////        $criteria->compare('tanggal_terima', $this->tanggal_terima, true);
         $criteria->compare('sifat', $this->sifat, true);
         $criteria->compare('nomor_surat', $this->nomor_surat, true);
         $criteria->compare('perihal', $this->perihal, true);
-////        $criteria->compare('isi', $this->isi, true);
-////        $criteria->compare('file', $this->file, true);
-////        $criteria->compare('created', $this->created, true);
-////        $criteria->compare('created_user_id', $this->created_user_id);
-////        $criteria->compare('modified', $this->modified, true);
         if (empty($export)) {
             $data = new CActiveDataProvider($this, array(
                 'criteria' => $criteria,
-                'sort' => array('defaultOrder' => 'id DESC')
+                'sort' => array('defaultOrder' => 'no_agenda DESC')
             ));
         } else {
+            $criteria->order = 'no_agenda ASC';
             $data = SuratKeluar::model()->findAll($criteria);
         }
         //app()->session['SuratKeluar_records'] = $this->findAll($criteria); 

@@ -3,6 +3,7 @@
 <?php if ($model !== null):?>
 <table border="1">
 	<tr>		
+ 		<th width="80px">NO REGISTER</th> 		
  		<th width="80px">PENGIRIM</th> 		
  		<th width="80px">TANGGAL TERIMA</th> 		 			 		 		 	
  		<th width="80px">SIFAT</th> 		 			 		 		 	
@@ -13,6 +14,7 @@
  	</tr>
 	<?php foreach($model as $row): ?>
 	<tr>
+        <td><?php echo $row->no_reg; ?></td>
         <td><?php echo $row->pengirim; ?></td>
         <td><?php echo landa()->date2Ind($row->tanggal_terima); ?></td>        
         <td><?php echo $row->sifat; ?></td>        
