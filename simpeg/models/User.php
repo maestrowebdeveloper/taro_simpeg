@@ -1,4 +1,4 @@
-i<?php
+<?php
 
 /**
  * This is the model class for table "{{m_user}}".
@@ -343,15 +343,15 @@ class User extends CActiveRecord {
 
     public function getUrl() {
 
-        return url('user/' . $this->id);
+        return url('avatar/' . $this->id);
     }
 
     public function getTagImg() {
-        return '<img src="' . $this->imgUrl['small'] . '" class="img-polaroid"/><br>';
+        return '<img src="' . $this->imgUrl . '" class="img-polaroid"/><br>';
     }
 
     public function getMediumImage() {
-        return '<img src="' . $this->imgUrl . '" class="img-polaroid" style="width:350px;height:350px"/><br>';
+        return '<img src="' . $this->imgUrl . '" class="img-polaroid" style="width:150px;height:150px"/><br>';
     }
 
     public function getTagBiodata() {
@@ -359,7 +359,7 @@ class User extends CActiveRecord {
 		$city = (isset($this->City->name)) ? ucwords($this->City->name) : '';
         return '<div class="row-fluid">
                     <div class="span3" style="text-align:left">
-                        <b>Identity Number</b>
+                        <b>NIP</b>
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">

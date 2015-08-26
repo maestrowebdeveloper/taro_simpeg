@@ -112,74 +112,57 @@ class Auth extends CActiveRecord {
         }
 
         return array(
-            array('label' => '<span class="icon16 icomoon-icon-screen"></span>Dashboard', 'url' => array('/dashboard')),
-            array('visible' => landa()->checkAccess('user', 'r'), 'label' => '<span class="icon16 eco-users"></span>User', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
-                    array('visible' => landa()->checkAccess('groupUser', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Group User', 'url' => url('landa/roles/user'), 'auth_id' => 'groupUser'),
-                    array('visible' => landa()->checkAccess('user', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>User', 'url' => url('/user'), 'auth_id' => 'user'),
+            array('label' => 'Dashboard', 'url' => array('/dashboard')),
+            array('visible' => landa()->checkAccess('SiteConfig', 'r') || landa()->checkAccess('Roles', 'r') || landa()->checkAccess('User', 'r'), 'label' => 'Settings', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
+                    array('visible' => landa()->checkAccess('SiteConfig', 'r'), 'auth_id' => 'SiteConfig', 'label' => 'Site config', 'url' => array('/siteConfig/update/1')),
+                    array('visible' => landa()->checkAccess('groupUser', 'r'), 'auth_id' => 'groupUser', 'label' => 'Access', 'url' => array('/roles')),
+                    array('visible' => landa()->checkAccess('user', 'r'), 'auth_id' => 'user', 'label' => 'User', 'url' => url('/user')),
                 )),
-            array('visible' => landa()->checkAccess('golongan', 'r'), 'label' => '<span class="icon16  eco-archive-2 "></span>Data Master', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
-//                    array('visible' => landa()->checkAccess('golongan', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Pangkat / Golru', 'url' => url('/golongan'), 'auth_id' => 'golongan'),
-                    array('visible' => landa()->checkAccess('unitKerja', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Satuan Kerja', 'url' => url('/unitKerja'), 'auth_id' => 'unitKerja'),
-                    array('visible' => landa()->checkAccess('jabatanStruktural', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Unit Kerja', 'url' => url('/jabatanStruktural'), 'auth_id' => 'jabatanStruktural'),
-                    array('visible' => landa()->checkAccess('jabatanFu', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Jab. Fung. Umum', 'url' => url('/jabatanFu'), 'auth_id' => 'jabatanFu'),
-                    array('visible' => landa()->checkAccess('jabatanFt', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Jab. Fung. Tertentu', 'url' => url('/jabatanFt'), 'auth_id' => 'jabatanFt'),
-                    array('visible' => landa()->checkAccess('jabatanFungsional', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Jabatan Fungsional', 'url' => url('/jabatanFungsional'), 'auth_id' => 'jabatanFungsional'),
-                    array('visible' => landa()->checkAccess('penghargaan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Penghargaan', 'url' => url('/penghargaan'), 'auth_id' => 'penghargaan'),
-                    array('visible' => landa()->checkAccess('pelatihan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Pelatihan', 'url' => url('/pelatihan'), 'auth_id' => 'pelatihan'),
-                    array('visible' => landa()->checkAccess('hukuman', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Hukuman', 'url' => url('/hukuman'), 'auth_id' => 'hukuman'),
-                    array('visible' => landa()->checkAccess('jurusan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Jurusan', 'url' => url('/jurusan'), 'auth_id' => 'jurusan'),
-                    array('visible' => landa()->checkAccess('universitas', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Kampus/Universitas', 'url' => url('/universitas'), 'auth_id' => 'universitas'),
-                    array('visible' => landa()->checkAccess('Gaji', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Gaji', 'url' => url('/gaji'), 'auth_id' => 'gaji'),
+            array('visible' => landa()->checkAccess('golongan', 'r'), 'label' => 'Data Master', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
+                    array('visible' => landa()->checkAccess('unitKerja', 'r'), 'label' => 'Satuan Kerja', 'url' => url('/unitKerja'), 'auth_id' => 'unitKerja'),
+                    array('visible' => landa()->checkAccess('jabatanStruktural', 'r'), 'label' => 'Unit Kerja', 'url' => url('/jabatanStruktural'), 'auth_id' => 'jabatanStruktural'),
+                    array('visible' => landa()->checkAccess('jabatanFu', 'r'), 'label' => 'Jab. Fung. Umum', 'url' => url('/jabatanFu'), 'auth_id' => 'jabatanFu'),
+                    array('visible' => landa()->checkAccess('jabatanFt', 'r'), 'label' => 'Jab. Fung. Tertentu', 'url' => url('/jabatanFt'), 'auth_id' => 'jabatanFt'),
+                    array('visible' => landa()->checkAccess('jabatanFungsional', 'r'), 'label' => 'Jabatan Fungsional', 'url' => url('/jabatanFungsional'), 'auth_id' => 'jabatanFungsional'),
+                    array('visible' => landa()->checkAccess('penghargaan', 'r'), 'label' => 'Penghargaan', 'url' => url('/penghargaan'), 'auth_id' => 'penghargaan'),
+                    array('visible' => landa()->checkAccess('pelatihan', 'r'), 'label' => 'Pelatihan', 'url' => url('/pelatihan'), 'auth_id' => 'pelatihan'),
+                    array('visible' => landa()->checkAccess('hukuman', 'r'), 'label' => 'Hukuman', 'url' => url('/hukuman'), 'auth_id' => 'hukuman'),
+                    array('visible' => landa()->checkAccess('jurusan', 'r'), 'label' => 'Jurusan', 'url' => url('/jurusan'), 'auth_id' => 'jurusan'),
+                    array('visible' => landa()->checkAccess('universitas', 'r'), 'label' => 'Kampus/Universitas', 'url' => url('/universitas'), 'auth_id' => 'universitas'),
+                    array('visible' => landa()->checkAccess('Gaji', 'r'), 'label' => 'Gaji', 'url' => url('/gaji'), 'auth_id' => 'gaji'),
                 )),
-            array('visible' => landa()->checkAccess('pegawai', 'r'), 'label' => '<span class="icon16  icomoon-icon-user-3 "></span>Data PNS', 'url' => url('/pegawai'), 'auth_id' => 'pegawai'),
-            array('visible' => landa()->checkAccess('honorer', 'r'), 'label' => '<span class="icon16  wpzoom-user-2"></span>Data Honorer', 'url' => url('/honorer'), 'auth_id' => 'honorer'),
-            array('visible' => landa()->checkAccess('suratMasuk', 'r'), 'label' => '<span class="icon16  eco-mail "></span>Arsip Surat', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
-                    array('visible' => landa()->checkAccess('suratMasuk', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Surat Masuk', 'url' => url('/suratMasuk'), 'auth_id' => 'suratMasuk'),
-                    array('visible' => landa()->checkAccess('suratKeluar', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Surat Keluar', 'url' => url('/suratKeluar'), 'auth_id' => 'suratKeluar')
+            array('visible' => landa()->checkAccess('pegawai', 'r'), 'label' => 'Data PNS', 'url' => url('/pegawai'), 'auth_id' => 'pegawai'),
+            array('visible' => landa()->checkAccess('honorer', 'r'), 'label' => 'Data Honorer', 'url' => url('/honorer'), 'auth_id' => 'honorer'),
+            array('visible' => landa()->checkAccess('suratMasuk', 'r'), 'label' => 'Arsip Surat', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
+                    array('visible' => landa()->checkAccess('suratMasuk', 'r'), 'label' => 'Surat Masuk', 'url' => url('/suratMasuk'), 'auth_id' => 'suratMasuk'),
+                    array('visible' => landa()->checkAccess('suratKeluar', 'r'), 'label' => 'Surat Keluar', 'url' => url('/suratKeluar'), 'auth_id' => 'suratKeluar')
                 )),
-            array('visible' => landa()->checkAccess('permohonanIjinBelajar', 'r'), 'label' => '<span class="icon16  eco-contract "></span>Permohonan', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
-                    array('visible' => landa()->checkAccess('permohonanIjinBelajar', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Ijin Belajar', 'url' => url('/permohonanIjinBelajar'), 'auth_id' => 'permohonanIjinBelajar'),
-                    array('visible' => landa()->checkAccess('permohonanMutasi', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Permohonan Mutasi', 'url' => url('/permohonanMutasi'), 'auth_id' => 'permohonanMutasi'),
-                    array('visible' => landa()->checkAccess('permohonanPensiun', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Permohonan Pensiun', 'url' => url('/permohonanPensiun'), 'auth_id' => 'permohonanPensiun'),
-                    array('visible' => landa()->checkAccess('permohonanPerpanjanganHonorer', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Perpanjang Honorer', 'url' => url('/permohonanPerpanjanganHonorer'), 'auth_id' => 'permohonanPerpanjanganHonorer'),
+            array('visible' => landa()->checkAccess('permohonanIjinBelajar', 'r'), 'label' => 'Permohonan', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
+                    array('visible' => landa()->checkAccess('permohonanIjinBelajar', 'r'), 'label' => 'Ijin Belajar', 'url' => url('/permohonanIjinBelajar'), 'auth_id' => 'permohonanIjinBelajar'),
+                    array('visible' => landa()->checkAccess('permohonanMutasi', 'r'), 'label' => 'Permohonan Mutasi', 'url' => url('/permohonanMutasi'), 'auth_id' => 'permohonanMutasi'),
+                    array('visible' => landa()->checkAccess('permohonanPensiun', 'r'), 'label' => 'Permohonan Pensiun', 'url' => url('/permohonanPensiun'), 'auth_id' => 'permohonanPensiun'),
+                    array('visible' => landa()->checkAccess('permohonanPerpanjanganHonorer', 'r'), 'label' => 'Perpanjang Honorer', 'url' => url('/permohonanPerpanjanganHonorer'), 'auth_id' => 'permohonanPerpanjanganHonorer'),
                 )),
-            array('visible' => landa()->checkAccess('kenaikanGaji', 'r'), 'label' => '<span class="icon16  eco-article "></span>Kenaikan Gaji Berkala', 'url' => url('/kenaikanGaji'), 'auth_id' => 'kenaikanGaji'),
-            array('visible' => landa()->checkAccess('transferCpns', 'r'), 'label' => '<span class="icon16  eco-article "></span>Transfer CPNS', 'url' => url('/transferCpns'), 'auth_id' => 'transferCpns'),
-            array('visible' => landa()->checkAccess('rekapPegawai', 'r'), 'label' => '<span class="icon16  eco-article "></span>Rekapitulasi', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
-                    array('visible' => landa()->checkAccess('rekapPegawai', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Rekap Data', 'url' => url('/pegawai/rekap'), 'auth_id' => 'rekapPegawai'),
-                    array('visible' => landa()->checkAccess('rekapEselon', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Rekap Data Eselon', 'url' => url('/pegawai/rekapEselon'), 'auth_id' => 'rekapEselon'),
-                    array('visible' => landa()->checkAccess('rekapJabfung', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Rekap Data Jab. Fung.', 'url' => url('/pegawai/rekapJabfung'), 'auth_id' => 'rekapJabfung'),
-                    array('visible' => landa()->checkAccess('rekapBatasPensiun', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Rekap Batas Pensiun.', 'url' => url('/pegawai/rekapBatasPensiun'), 'auth_id' => 'rekapBatasPensiun'),
+            array('visible' => landa()->checkAccess('kenaikanGaji', 'r'), 'label' => 'Kenaikan Gaji Berkala', 'url' => url('/kenaikanGaji'), 'auth_id' => 'kenaikanGaji'),
+            array('visible' => landa()->checkAccess('transferCpns', 'r'), 'label' => 'Transfer CPNS', 'url' => url('/transferCpns'), 'auth_id' => 'transferCpns'),
+            array('visible' => landa()->checkAccess('rekapPegawai', 'r'), 'label' => 'Rekapitulasi', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
+                    array('visible' => landa()->checkAccess('rekapPegawai', 'r'), 'label' => 'Rekap Data', 'url' => url('/pegawai/rekap'), 'auth_id' => 'rekapPegawai'),
+                    array('visible' => landa()->checkAccess('rekapEselon', 'r'), 'label' => 'Rekap Data Eselon', 'url' => url('/pegawai/rekapEselon'), 'auth_id' => 'rekapEselon'),
+                    array('visible' => landa()->checkAccess('rekapJabfung', 'r'), 'label' => 'Rekap Data Jab. Fung.', 'url' => url('/pegawai/rekapJabfung'), 'auth_id' => 'rekapJabfung'),
+                    array('visible' => landa()->checkAccess('rekapBatasPensiun', 'r'), 'label' => 'Rekap Batas Pensiun.', 'url' => url('/pegawai/rekapBatasPensiun'), 'auth_id' => 'rekapBatasPensiun'),
                 )),
-            array('visible' => landa()->checkAccess('laporanUrutanKepangkatan', 'r'), 'label' => '<span class="icon16  cut-icon-printer-2 "></span>Laporan Pegawai', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
-                    array('visible' => landa()->checkAccess('laporanStrukturOrganisasi', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Stuktur Organisasi', 'url' => url('/report/strukturOrganisasi'), 'auth_id' => 'laporanStrukturOrganisasi'),
-                    array('visible' => landa()->checkAccess('laporanUrutanKepangkatan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Urutan Kepangkatan', 'url' => url('/report/urutKepangkatan/'), 'auth_id' => 'laporanUrutanKepangkatan'),
-//                    array('visible' => landa()->checkAccess('laporanPegawai', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Pegawai Negeri Sipil', 'url' => url('/report/pegawai/'), 'auth_id' => 'laporanPegawai'),
-//                    array('visible' => landa()->checkAccess('laporanHonorer', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Pegawai Honorer', 'url' => url('/report/honorer/'), 'auth_id' => 'laporanHonorer'),
-//                    array('visible' => landa()->checkAccess('laporanUnitPermohonanPensiun', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Permohonan Pensiun', 'url' => url('/report/permohonanPensiun/'), 'auth_id' => 'laporanUnitPermohonanPensiun'),
-//                    array('visible' => landa()->checkAccess('laporanPermohonanMutasi', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Permohonan Mutasi', 'url' => url('/report/permohonanMutasi/'), 'auth_id' => 'laporanPermohonanMutasi'),
-//                    array('visible' => landa()->checkAccess('laporanIjinBelajar', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Ijin Belajar', 'url' => url('/report/ijinBelajar/'), 'auth_id' => 'laporanIjinBelajar'),
-//                    array('visible' => landa()->checkAccess('laporanPerpanjanganHonorer', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Perpanjangan Honorer', 'url' => url('/report/perpanjanganHonorer/'), 'auth_id' => 'laporanPerpanjanganHonorer'),
-                    array('visible' => landa()->checkAccess('laporanMengikutiPelatihan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Mengikuti Pelatihan', 'url' => url('/report/mengikutiPelatihan/'), 'auth_id' => 'laporanMengikutiPelatihan'),
-                    array('visible' => landa()->checkAccess('laporanPenghargaanPegawai', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Penghargaan Pegawai', 'url' => url('/report/penerimaPenghargaan/'), 'auth_id' => 'laporanPenghargaanPegawai'),
-                    array('visible' => landa()->checkAccess('laporanHukumanPegawai', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Penerima Hukuman', 'url' => url('/report/penerimaHukuman'), 'auth_id' => 'laporanHukumanPegawai'),
-//                    array('visible' => landa()->checkAccess('laporanSuratMasuk', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Surat Masuk', 'url' => url('/report/suratMasuk'), 'auth_id' => 'laporanSuratMasuk'),
-//                    array('visible' => landa()->checkAccess('laporanSuratKeluar', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Surat Keluar', 'url' => url('/report/suratKeluar'), 'auth_id' => 'laporanSuratKeluar'),
-                    array('visible' => landa()->checkAccess('laporanPensiun', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Laporan Pensiun', 'url' => url('/report/pensiun'), 'auth_id' => 'laporanPensiun'),
+            array('visible' => landa()->checkAccess('laporanUrutanKepangkatan', 'r'), 'label' => 'Laporan Pegawai', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
+                    array('visible' => landa()->checkAccess('laporanStrukturOrganisasi', 'r'), 'label' => 'Stuktur Organisasi', 'url' => url('/report/strukturOrganisasi'), 'auth_id' => 'laporanStrukturOrganisasi'),
+                    array('visible' => landa()->checkAccess('laporanUrutanKepangkatan', 'r'), 'label' => 'Urutan Kepangkatan', 'url' => url('/report/urutKepangkatan/'), 'auth_id' => 'laporanUrutanKepangkatan'),
+                    array('visible' => landa()->checkAccess('laporanMengikutiPelatihan', 'r'), 'label' => 'Mengikuti Pelatihan', 'url' => url('/report/mengikutiPelatihan/'), 'auth_id' => 'laporanMengikutiPelatihan'),
+                    array('visible' => landa()->checkAccess('laporanPenghargaanPegawai', 'r'), 'label' => 'Penghargaan Pegawai', 'url' => url('/report/penerimaPenghargaan/'), 'auth_id' => 'laporanPenghargaanPegawai'),
+                    array('visible' => landa()->checkAccess('laporanHukumanPegawai', 'r'), 'label' => 'Penerima Hukuman', 'url' => url('/report/penerimaHukuman'), 'auth_id' => 'laporanHukumanPegawai'),
+                    array('visible' => landa()->checkAccess('laporanPensiun', 'r'), 'label' => 'Laporan Pensiun', 'url' => url('/report/pensiun'), 'auth_id' => 'laporanPensiun'),
                 )),
-            
-//            array('visible' => landa()->checkAccess('cariGolongan', 'r'), 'label' => '<span class="icon16  eco-search "></span>Pencarian Data', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
-//                    array('visible' => landa()->checkAccess('cariGolongan', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Pangkat / Golru', 'url' => url('/pegawai/cariRiwayatPangkat'), 'auth_id' => 'cariGolongan'),
-//                    array('visible' => landa()->checkAccess('cariJabatan', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Jabatan', 'url' => url('/pegawai/cariRiwayatJabatan'), 'auth_id' => 'cariJabatan'),
-//                    array('visible' => landa()->checkAccess('cariGajiPokok', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Gaji', 'url' => url('/pegawai/cariRiwayatGaji'), 'auth_id' => 'cariGajiPokok'),
-//                    array('visible' => landa()->checkAccess('cariKeluarga', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Keluarga', 'url' => url('/pegawai/cariRiwayatKeluarga'), 'auth_id' => 'cariKeluarga'),
-//                    array('visible' => landa()->checkAccess('cariPendidikan', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Pendidikan', 'url' => url('/pegawai/cariRiwayatPendidikan'), 'auth_id' => 'cariPendidikan'),
-//                )),
-            
-            array('visible' => landa()->checkAccess('infoUlangTahun', 'r'), 'label' => '<span class="icon16  eco-cog "></span>Tools', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
-                    array('visible' => landa()->checkAccess('infoUlangTahun', 'r'), 'label' => '<span class="icon16 icomoon-icon-arrow-right"></span>Info Ulang Tahun', 'url' => url('/pegawai/ulangTahun'), 'auth_id' => 'infoUlangTahun'),
-                    array('visible' => landa()->checkAccess('checkError', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Cek Kelengkapan Data', 'url' => url('/pegawai/checkError'), 'auth_id' => 'checkError'),
-                    array('visible' => landa()->checkAccess('importData', 'r'), 'label' => '<span class="icon16  icomoon-icon-arrow-right"></span>Import Data Pegawai', 'url' => url('/pegawai/importData'), 'auth_id' => 'importData'),
+            array('visible' => landa()->checkAccess('infoUlangTahun', 'r'), 'label' => 'Tools', 'url' => array('#'), 'submenuOptions' => array('class' => 'sub'), 'items' => array(
+                    array('visible' => landa()->checkAccess('infoUlangTahun', 'r'), 'label' => 'Info Ulang Tahun', 'url' => url('/pegawai/ulangTahun'), 'auth_id' => 'infoUlangTahun'),
+                    array('visible' => landa()->checkAccess('checkError', 'r'), 'label' => 'Cek Kelengkapan Data', 'url' => url('/pegawai/checkError'), 'auth_id' => 'checkError'),
+                    array('visible' => landa()->checkAccess('importData', 'r'), 'label' => 'Import Data Pegawai', 'url' => url('/pegawai/importData'), 'auth_id' => 'importData'),
                 )),
             
         );
