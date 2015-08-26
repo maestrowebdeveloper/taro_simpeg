@@ -443,7 +443,7 @@ class PegawaiController extends Controller {
             $data[] = array('id' => '0', 'text' => 'Tidak Ada Nama Yang Cocok');
         } else {
             foreach ($pegawai as $val) {
-                $data[] = array('id' => $val->id, 'text' =>$val->nip .' - '. $val->nama);
+                $data[] = array('id' => $val->id, 'text' => $val->nip . ' - ' . $val->nama);
             }
         }
         echo json_encode($data);
@@ -722,10 +722,10 @@ class PegawaiController extends Controller {
                 $model = RiwayatHukuman::model()->findByPk($_POST['RiwayatHukuman']['id']);
 
             $model->attributes = $_POST['RiwayatHukuman'];
-            $model->tanggal_pemberian =  date('Y-m-d', strtotime($_POST['RiwayatHukuman']['tanggal_pemberian']));
-            $model->mulai_sk =  date('Y-m-d', strtotime($_POST['RiwayatHukuman']['mulai_sk']));
-            $model->selesai_sk =  date('Y-m-d', strtotime($_POST['RiwayatHukuman']['selesai_sk']));
-            $model->pejabat =  $_POST['RiwayatHukuman']['pejabat'];
+            $model->tanggal_pemberian = date('Y-m-d', strtotime($_POST['RiwayatHukuman']['tanggal_pemberian']));
+            $model->mulai_sk = date('Y-m-d', strtotime($_POST['RiwayatHukuman']['mulai_sk']));
+            $model->selesai_sk = date('Y-m-d', strtotime($_POST['RiwayatHukuman']['selesai_sk']));
+            $model->pejabat = $_POST['RiwayatHukuman']['pejabat'];
 
             if ($model->save()) {
                 $hukuman = RiwayatHukuman::model()->findAll(array('condition' => 'pegawai_id=' . $model->pegawai_id, 'order' => 'tanggal_pemberian DESC'));
@@ -1790,30 +1790,35 @@ class PegawaiController extends Controller {
     }
 
     public function actionMigrasiGaji() {
-        $valPegawai = Pegawai::model()->findAll(array('condition' => 'kedudukan_id=1 and tipe_jabatan="fungsional_umum"'));
+        $valPegawai = Pegawai::model()->findAll(array('condition' => 'kedudukan_id=1 and tipe_jabatan="fungsional_tertentu"'));
         $gajiBaru = Gaji::model()->findByPk(1);
         $kenaikanGaji = json_decode($gajiBaru->gaji, true);
         $sMasakerja = '';
         foreach ($valPegawai as $data) {
             $masakerjaTahun = Pegawai::model()->masaKerjaUntil(date("d-m-Y", strtotime($data->tmt_cpns)), "1-06-2015", true, false);
             $masakerjaBulan = Pegawai::model()->masaKerjaUntil(date("d-m-Y", strtotime($data->tmt_cpns)), "1-06-2015", false, true);
-            $sMasakerja = ($kenaikanGaji[$data->Pangkat->golongan_id][$masakerjaTahun] == 0) ? $masakerjaTahun - 1 : $masakerjaTahun;
-            $sMasakerja2 = ($kenaikanGaji[$data->Pangkat->golongan_id][$sMasakerja] == 0) ? $sMasakerja - 1 : $sMasakerja;
-            echo $sMasakerja;
-            $gajiBaru = (isset($kenaikanGaji[$data->Pangkat->golongan_id][$sMasakerja2]) ? $kenaikanGaji[$data->Pangkat->golongan_id][$sMasakerja2] : $data->Gaji->gaji);
-            echo $data->id . $data->nama . $data->Pangkat->golongan . ' - ' . $masakerjaTahun . '<br>';
-
+            $cek = (isset($kenaikanGaji[$data->Pangkat->golongan_id][$masakerjaTahun]) ? $kenaikanGaji[$data->Pangkat->golongan_id][$masakerjaTahun] : '0');
+            $sMasakerja = ($cek == 0) ? $masakerjaTahun - 1 : $masakerjaTahun;
+//            $sMasakerja2 = (empty($kenaikanGaji[$data->Pangkat->golongan_id][$sMasakerja] )) ? $sMasakerja - 1 : $sMasakerja;
+           
+            if($sMasakerja >= 34){
+                $gajibaru = $data->Gaji->gaji;
+            }else{
+                $gajiBaru =  $kenaikanGaji[$data->Pangkat->golongan_id][$sMasakerja];
+            }
+            
+//            echo $data->id . $data->nama . $data->Pangkat->golongan . ' - ' . $masakerjaTahun . '<br>';
             // save riwayat gaji
-//            $riwayatGaji = new RiwayatGaji;
-//            $riwayatGaji->nomor_register = date("ymisd");
-//            $riwayatGaji->pegawai_id = $data->id;
-//            $riwayatGaji->gaji = $gajiBaru;
-//            $riwayatGaji->dasar_perubahan = "Kenaikan gaji berkala bulan Juni tahun 2015";
-//            $riwayatGaji->tmt_mulai = '2015-06-01';
-//            $riwayatGaji->save();
-////            if($riwayatGaji->save()){
-//                $data->riwayat_gaji_id = $riwayatGaji->id;
-//                $data->save();
+            $riwayatGaji = new RiwayatGaji;
+            $riwayatGaji->nomor_register = date("ymisd");
+            $riwayatGaji->pegawai_id = $data->id;
+            $riwayatGaji->gaji = $gajiBaru;
+            $riwayatGaji->dasar_perubahan = "Kenaikan gaji berkala bulan Juni tahun 2015";
+            $riwayatGaji->tmt_mulai = '2015-06-01';
+            $riwayatGaji->save();
+//            if($riwayatGaji->save()){
+                $data->riwayat_gaji_id = $riwayatGaji->id;
+                $data->save();
 //            }
         }
         echo 'sukses';

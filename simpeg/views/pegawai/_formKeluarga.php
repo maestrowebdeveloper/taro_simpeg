@@ -44,6 +44,16 @@
         $display = ($model->hubungan == 'anak' || empty($model->hubungan)) ? 'none' : '';
         $anak = ($model->hubungan == 'anak') ? '' : 'none';
         ?>
+        <div class="anak" style="display:<?php echo $anak; ?>">
+            <div class="control-group ">
+                <label class="control-label" for="">Nama Ibu</label>
+                <div class="controls">
+                    <?php
+                    echo $form->dropDownList($model, 'ibu', CHtml::listData(RiwayatKeluarga::model()->findAll(array('condition' => 'hubungan="istri" and pegawai_id="' . $model->pegawai_id . '"')), 'id', 'nama'));
+                    ?>
+                </div></div>
+
+        </div>
         <div class="suami_istri" style="display:<?php echo $display; ?>">
             <?php
             echo $form->textFieldRow($model, 'nomor_karsu', array('class' => 'span3', 'maxlength' => 100));
@@ -91,7 +101,7 @@
 
         <div class="form-actions">
             <a class="btn btn-primary saveKeluarga"><i class="icon-ok icon-white"></i> Simpan</a>
-           <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
         </div>
     </fieldset>
 
@@ -100,7 +110,7 @@
 </div>
 
 <script>
-    jQuery(function ($) {
+    jQuery(function($) {
         jQuery('#RiwayatKeluarga_tanggal_pernikahan').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
         jQuery('#RiwayatKeluarga_tanggal_lahir').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
         jQuery('#RiwayatKeluarga_tanggal_sk').datepicker({'language': 'id', 'format': 'yyyy-mm-dd', 'weekStart': 0});
@@ -112,24 +122,24 @@
             'ajax': {
                 'url': '<?php echo Yii::app()->createUrl('pegawai/getKeluargaPegawai'); ?>',
                 'dataType': 'json',
-                'data': function (term, page) {
+                'data': function(term, page) {
                     return {
                         q: term
                     };
                 },
-                'results': function (data) {
+                'results': function(data) {
                     return {
                         results: data
                     };
                 },
             }
-        }).on('change', function () {
-        
+        }).on('change', function() {
+
             $.ajax({
                 url: "<?php echo url('pegawai/getDetail') ?>",
                 type: "post",
                 data: {id: $(this).val()},
-                success: function (data) {
+                success: function(data) {
                     obj = JSON.parse(data);
                     $("#RiwayatKeluarga_nama").val(obj.nama);
                     $("#RiwayatKeluarga_tanggal_lahir").val(obj.tanggal_lahir);
@@ -138,26 +148,26 @@
             });
         });
     });
-    $("#RiwayatKeluarga_hubungan_0,#RiwayatKeluarga_hubungan_1").click(function (event) {
+    $("#RiwayatKeluarga_hubungan_0,#RiwayatKeluarga_hubungan_1").click(function(event) {
         $(".suami_istri").show();
         $(".anak").hide();
         $("#RiwayatKeluarga_nomor_karsi").val("");
         $("#RiwayatKeluarga_nomor_karsu").val("");
     });
-    $("#RiwayatKeluarga_hubungan_2").click(function (event) {
+    $("#RiwayatKeluarga_hubungan_2").click(function(event) {
         $(".suami_istri").hide();
         $(".anak").show();
     });
-    $('.btn-cari').click(function () {
+    $('.btn-cari').click(function() {
         $('.cari').toggle();
     });
-    $(".saveKeluarga").click(function () {
+    $(".saveKeluarga").click(function() {
         var postData = $("#keluarga-form").serialize();
         $.ajax({
             url: "<?php echo url('pegawai/saveKeluarga'); ?>",
             data: postData,
             type: "post",
-            success: function (data) {
+            success: function(data) {
                 if (data != "") {
                     $("#tableKeluarga").replaceWith(data);
                     $("#modalForm").modal("hide");
@@ -165,13 +175,13 @@
                     alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert("Terjadi Kesalahan Input Data. Silahkan Dicek Kembali!");
             },
         });
     });</script>
 <script>
-    $("body").on("click", ".radio", function () {
+    $("body").on("click", ".radio", function() {
         var id = $(this).find("input").val();
         if (id == "istri") {
             $("#RiwayatKeluarga_nomor_karsu").parent().parent().attr("style", "display:none");

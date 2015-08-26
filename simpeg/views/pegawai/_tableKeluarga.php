@@ -54,6 +54,7 @@ if(!empty($edit)){
 <table class="table table-bordered">
     <thead>      
         <th>Anak</th>
+        <th>Nama Ibu</th>
         <th>TTL</th>
         <th>Jenis Kelamin</th>
         <th>Anak Ke</th>
@@ -71,9 +72,17 @@ if(!empty($edit)){
                         <a class="btn btn-small delete deleteKeluarga" title="Hapus" pegawai="'.$value->pegawai_id.'" id="'.$value->id.'" rel="tooltip" ><i class="icon-trash"></i></a>
                         </td>':''; 
             $nama = ($value->keluarga_pegawai_id!=0)?'<a href="'.url("pegawai/".$value->keluarga_pegawai_id).'">' .$value->nama.'</a>':$value->nama;     
+            $namaibu = '';
+            if(!empty($value->ibu) && $value->ibu != 0){
+                $ibu = RiwayatKeluarga::model()->findByPk($value->ibu);
+                $namaibu = $ibu->nama;
+            }else{
+                $namaibu = '-';
+            }
             echo '
                 <tr>                
                 <td>'.$nama.'</td>
+                <td>'.$namaibu.'</td>
                 <td>'.landa()->date2Ind($value->tanggal_lahir).'</td>
                 <td>'.$value->jenis_kelamin.'</td>
                 <td>'.$value->anak_ke.'</td>

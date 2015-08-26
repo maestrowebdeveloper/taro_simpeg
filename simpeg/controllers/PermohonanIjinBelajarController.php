@@ -57,13 +57,14 @@ class PermohonanIjinBelajarController extends Controller {
         if (isset($_POST['ceckbox'])) {
             $id = $_POST['ceckbox'];
             if (isset($_POST['proses'])) {
-                $model = PermohonanIjinBelajar::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ') and status=0'));
+                $model = PermohonanIjinBelajar::model()->findAll(array('condition' => 'id IN (' . implode(',', $_POST['ceckbox']) . ') and status="0"'));
                 foreach ($model as $data) {
                     $data->status = 1;
                     $data->save();
-                    user()->setFlash('info', '<strong>Attention! </strong>Data is processed.');
-                    $this->redirect(array('permohonanIjinBelajar/index'));
+                    
                 }
+                user()->setFlash('info', '<strong>Attention! </strong>Data is processed.');
+                    $this->redirect(array('permohonanIjinBelajar/index'));
             } else {
                 PermohonanIjinBelajar::model()->deleteAll('id IN (' . implode(',', $_POST['ceckbox']) . ')');
                 user()->setFlash('danger', '<strong>Attention! </strong>Data is deleted.');
