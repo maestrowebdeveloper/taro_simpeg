@@ -5,17 +5,13 @@ Yii::setPathOfAlias('common', $root . DIRECTORY_SEPARATOR . 'common');
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Sistem Informasi Pegawai',
-    'language' => 'en',
+    'theme' => 'themes',
     'preload' => array('log', 'bootstrap'),
     'import' => array(
         'application.models.*',
-        'common.models.*',
         'common.components.*',
         'common.extensions.*',
         'common.extensions.image.helpers.*',
-    ),
-    'aliases' => array(
-        'xupload' => 'common.extensions.xupload'
     ),
     'modules' => array(
         'landa',
@@ -44,9 +40,6 @@ return array(
         ),
         'landa' => array(
             'class' => 'LandaCore',
-        ),
-        'messages' => array(
-            'basePath' => $root . 'common/messages/',
         ),
         'user' => array(
             'loginUrl' => array('/site/login'),
@@ -93,8 +86,7 @@ return array(
             'params' => array('directory' => '/opt/local/bin'),
         ),
         'themeManager' => array(
-            'basePath' => $root . 'common/themes/backend/',
-            'baseUrl' => $themesUrl . 'backend/', //this is the important part, setup a subdomain just for your common dir
+            'basePath' => $root . 'common/',
         ),
         'cache' => array(
             //'class'=>'system.caching.CMemCache',

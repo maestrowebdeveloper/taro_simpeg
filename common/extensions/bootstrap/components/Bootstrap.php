@@ -285,7 +285,7 @@ class Bootstrap extends CApplicationComponent
 	public function registerTooltipAndPopover()
 	{
 		$this->registerPopover();
-		$this->registerTooltip();
+//		$this->registerTooltip();
 	}
 
 	/**

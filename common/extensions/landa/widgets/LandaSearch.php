@@ -16,9 +16,9 @@ class LandaSearch extends CWidget {
         $this->registerScript();
         echo '<div id="searchform" class="row-fluid">
             <div class="input-append">
-		<input type="text" placeholder="Pencarian pegawai" id="inputString" onkeyup="lookup(this.value);" 
+		<input type="text" placeholder="Enter Search keywords..." id="inputString" onkeyup="lookup(this.value);" 
                     class="' . $this->class . ' span12" />
-                <button class="btn btn-primary" type="button">&nbsp;<i class="icon-search"></i></button>
+                <button class="btn search" type="button"><i class="icon-search"></i></button>
             </div>
                 <div class="clearfix"></div>
 		<div id="suggestions"></div>
@@ -52,7 +52,8 @@ class LandaSearch extends CWidget {
             ', CClientScript::POS_BEGIN);
         landa()->registerAssetScript('landaSearch.js');
         landa()->registerAssetCss('landaSearch.css');
-
+//        $assetUrl = app()->assetManager->publish(Yii::getPathOfAlias('ext.landa.assets'));
+//        cs()->registerCssFile($assetUrl . '/css/landaSearch.css');
     }
 
 }

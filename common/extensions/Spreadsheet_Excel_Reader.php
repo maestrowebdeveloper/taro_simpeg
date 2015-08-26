@@ -76,7 +76,7 @@ function GetInt4d($data, $pos) {
 // http://uk.php.net/manual/en/function.getdate.php
 function gmgetdate($ts = null){
 	$k = array('seconds','minutes','hours','mday','wday','mon','year','yday','weekday','month',0);
-	return(array_comb($k,explode(":",gmdate('s:i:G:j:w:n:Y:z:l:F:U',is_null($ts)?time():$ts))));
+	return(array_comb($k,split(":",gmdate('s:i:G:j:w:n:Y:z:l:F:U',is_null($ts)?time():$ts))));
 	} 
 
 // Added for PHP4 compatibility
@@ -841,7 +841,7 @@ class Spreadsheet_Excel_Reader {
 
 		// Custom pattern can be POSITIVE;NEGATIVE;ZERO
 		// The "text" option as 4th parameter is not handled
-		$parts = explode(";",$format);
+		$parts = split(";",$format);
 		$pattern = $parts[0];
 		// Negative pattern
 		if (count($parts)>2 && $num==0) {
@@ -913,9 +913,7 @@ class Spreadsheet_Excel_Reader {
 	 * Some basic initialisation
 	 */
 	function Spreadsheet_Excel_Reader($file='',$store_extended_info=true,$outputEncoding='') {
-		//$this->_ole =& new OLERead();
-		$t = new OLERead();
-		$this->_ole =& $t;
+		$this->_ole =& new OLERead();
 		$this->setUTFEncoder('iconv');
 		if ($outputEncoding != '') { 
 			$this->setOutputEncoding($outputEncoding);
@@ -1717,7 +1715,7 @@ class Spreadsheet_Excel_Reader {
 		$result = $string;
 		if ($this->_defaultEncoding){
 			switch ($this->_encoderFunction){
-				case 'iconv' :	$result = @iconv('UTF-16LE', $this->_defaultEncoding, $string);
+				case 'iconv' :	 $result = iconv('UTF-16LE', $this->_defaultEncoding, $string);
 								break;
 				case 'mb_convert_encoding' :	 $result = mb_convert_encoding($string, $this->_defaultEncoding, 'UTF-16LE' );
 								break;
@@ -1725,21 +1723,6 @@ class Spreadsheet_Excel_Reader {
 		}
 		return $result;
 	}
-        function ConvertToUTF8($text){
-
-    $encoding = mb_detect_encoding($text, mb_detect_order(), false);
-
-    if($encoding == "UTF-8")
-    {
-        $text = mb_convert_encoding($text, 'UTF-8', 'UTF-8');    
-    }
-
-
-    $out = iconv(mb_detect_encoding($text, mb_detect_order(), false), "UTF-8//IGNORE", $text);
-
-
-    return $out;
-}
 
 	function _GetInt4d($data, $pos) {
 		$value = ord($data[$pos]) | (ord($data[$pos+1]) << 8) | (ord($data[$pos+2]) << 16) | (ord($data[$pos+3]) << 24);

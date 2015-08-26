@@ -43,11 +43,11 @@ foreach ($grafik as $key => $val) {
         <div class="row-fluid">
             <div class="shortcuts">
                 <ul>
-                    <li><a style="width:100px" href="<?php echo url('pegawai/rekap') ?>" title="Rekap Data"><span class="icon24 brocco-icon-calendar "></span><h6>Rekap Data</h6></a></li>
-                    <li><a style="width:100px" href="<?php echo url('pegawai/rekapEselon') ?>" title="Rekap Eselon"><span class="icon24 icomoon-icon-calendar "></span><h6>Rekap Eselon</h6></a></li>
-                    <li><a style="width:100px" href="<?php echo url('pegawai/rekapJabfung') ?>" title="Rekap Fungs"><span class="icon24 iconic-icon-calendar-alt-stroke"></span><h6>Rekap Fungs</h6></a></li>
-                    <li><a style="width:100px" href="<?php echo url('report/urutKepangkatan') ?>" title="DUK"><span class="icon24 silk-icon-calendar "></span><h6>DUK</h6></a></li>
-                    <li><a style="width:100px" href="<?php echo url('report/pensiun') ?>" title="Pensiun"><span class="icon24 minia-icon-calendar  "></span><h6>Pensiun</h6></a></li>
+                    <li><a style="width:100px" href="<?php echo url('pegawai/rekap') ?>" title="Rekap Data"><h6>Rekap Data</h6></a></li>
+                    <li><a style="width:100px" href="<?php echo url('pegawai/rekapEselon') ?>" title="Rekap Eselon"><h6>Rekap Eselon</h6></a></li>
+                    <li><a style="width:100px" href="<?php echo url('pegawai/rekapJabfung') ?>" title="Rekap Fungs"><h6>Rekap Fungs</h6></a></li>
+                    <li><a style="width:100px" href="<?php echo url('report/urutKepangkatan') ?>" title="DUK"><h6>DUK</h6></a></li>
+                    <li><a style="width:100px" href="<?php echo url('report/pensiun') ?>" title="Pensiun"><h6>Pensiun</h6></a></li>
                 </ul>
             </div>
             <div class="box gradient">
@@ -103,12 +103,12 @@ foreach ($grafik as $key => $val) {
             <div class="box">
                 <div class="title">
                     <h4>
-                        <span class="icon16 brocco-icon-grid"></span>
+                        <span class="icon16 icon-download-alt"></span>
                         <span>Manual Book</span>
                     </h4>
                 </div>
                 <div class="content">
-                    <a href="simpeg-v1.pdf" target="_blank"><span class="icon32 cut-icon-download blue" style="float: left;padding: 12px 0px"></span></a>Buku panduan mengoperasikan Sistem Kepegawaian, web base version.
+                    <a href="simpeg-v1.pdf" target="_blank"><span class="icon32 icon-download-alt blue" style="float: left;padding: 5px 10px"></span></a>Buku panduan mengoperasikan Sistem Kepegawaian, web base version.
                 </div>
             </div>
             <div class="todo">

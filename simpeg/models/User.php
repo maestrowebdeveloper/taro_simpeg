@@ -359,7 +359,7 @@ class User extends CActiveRecord {
 		$city = (isset($this->City->name)) ? ucwords($this->City->name) : '';
         return '<div class="row-fluid">
                     <div class="span3" style="text-align:left">
-                        <b>Identity Number</b>
+                        <b>NIP</b>
                     </div>
                     <div class="span1">:</div>
                     <div class="span8" style="text-align:left">
