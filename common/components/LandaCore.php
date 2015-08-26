@@ -561,7 +561,7 @@ class LandaCore extends CApplicationComponent {
         if ($str == '0000-00-00')
             return '-';
         else
-            return $date;
+            return $date . "&nbsp;";
     }
 
 }

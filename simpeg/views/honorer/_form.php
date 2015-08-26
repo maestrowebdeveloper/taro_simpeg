@@ -426,13 +426,25 @@ if ($model->isNewRecord == true) {
                             <label class="control-label" for="masaKerja">Masa Kerja</label>
                             <div class="controls">
                                 <div class="input-append span2" style="margin-right: 5px;">
-                                    <?php echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerjaTahun', 'class' => 'span8', 'disabled' => true)); ?>    
+                                    <?php
+                                    if (isset($model->perubahan_masa_kerja) and !empty($model->perubahan_masa_kerja)) {
+                                        echo CHtml::textField('masaKerja', $model->masaKerjaTahun, array('id' => 'masaKerjaTahun', 'class' => 'span8', 'disabled' => true));
+                                    }else{
+                                        echo CHtml::textField('masaKerja', 0, array('id' => 'masaKerjaTahun', 'class' => 'span8', 'disabled' => true));
+                                    }
+                                    ?>    
                                     <span class="add-on">
                                         Tahun
                                     </span>
                                 </div>
                                 <div class="input-append span2" style="margin-right: 5px;">
-                                    <?php echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerjaBulan', 'class' => 'span8  ', 'disabled' => true)); ?>    
+                                    <?php 
+                                    if (isset($model->perubahan_masa_kerja) and !empty($model->perubahan_masa_kerja)) {
+                                    echo CHtml::textField('masaKerja', $model->masaKerjaBulan, array('id' => 'masaKerjaBulan', 'class' => 'span8  ', 'disabled' => true)); 
+                                    }else{
+                                       echo CHtml::textField('masaKerja', 0, array('id' => 'masaKerjaBulan', 'class' => 'span8  ', 'disabled' => true));  
+                                    }
+                                    ?>    
                                     <span class="add-on">
                                         Bulan
                                     </span>
@@ -443,18 +455,18 @@ if ($model->isNewRecord == true) {
                                                 <label class="control-label" for="perubahanMasaKerja">Penambahan / Pengurangan Masa Kerja</label>
                                                 <div class="controls">
                                                     <div class="input-append" style="margin-right: 5px;">
-                        <?php // echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();'));   ?>
+                        <?php echo CHtml::textField('kalkulasiTahun', isset($perubahan->tahun) ? $perubahan->tahun : 0, array('id' => 'kalkulasiTahun', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();')); ?>
                                                         <span class="add-on">
                                                             Tahun
                                                         </span>
                                                     </div>
                                                     <div class="input-append">
-                        <?php // echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();'));   ?>    
+                        <?php echo CHtml::textField('kalkulasiBulan', isset($perubahan->bulan) ? $perubahan->bulan : 0, array('id' => 'kalkulasiBulan', 'class' => 'span1', 'onkeyup' => 'getMasaKerja();')); ?>    
                                                         <span class="add-on">
                                                             Bulan
                                                         </span>
                                                     </div>
-                                                    <input type="hidden" name="Pegawai[id]" value="<?php // echo isset($model->id) ? $model->id : '';      ?>">
+                                                    <input type="hidden" name="Pegawai[id]" value="<?php // echo isset($model->id) ? $model->id : '';         ?>">
                                                     <br><br>
                                                     Gunakan tanda (<b>-</b>) untuk mengurangi tahun maupun bulan
                                                 </div>
@@ -468,17 +480,23 @@ if ($model->isNewRecord == true) {
                 ?>
             </div>
             <?php
-            $file = File::model()->findAll(array('condition' => 'pegawai_id=' . $model->id));
-             if (!isset($_GET['v']))
-                        $edit = true;
-                    else
-                        $edit = false;
+            if (!empty($model->id)) {
+                $file = File::model()->findAll(array('condition' => 'pegawai_id=' . $model->id));
+            } else {
+                $file = File::model()->findAll(array('condition' => ''));
+            }
+            if (!isset($_GET['v']))
+                $edit = true;
+            else
+                $edit = false;
             ?>
             <div class="tab-pane" id="file">
 
                 <?php
-                if (!isset($_GET['v']))
+                if (!isset($_GET['v'])) {
+
                     echo $this->renderPartial('_formUploadFile', array('model' => $model, 'file' => $file, 'edit' => $edit));
+                }
                 echo $this->renderPartial('_tableFile', array('model' => $model, 'file' => $file, 'edit' => $edit))
                 ?>
             </div>

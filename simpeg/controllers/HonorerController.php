@@ -163,9 +163,9 @@ class HonorerController extends Controller {
             $model->attributes = $_POST['Honorer'];
             $model->city_id = $_POST['Honorer']['city_id'];
 //            $model->kota = $_POST['id'];
-            $perubahan['tahun'] = $_POST['kalkulasiTahun'];
-            $perubahan['bulan'] = $_POST['kalkulasiBulan'];
-            $model->perubahan_masa_kerja = json_encode($perubahan);
+//            $perubahan['tahun'] = $_POST['kalkulasiTahun'];
+//            $perubahan['bulan'] = $_POST['kalkulasiBulan'];
+//            $model->perubahan_masa_kerja = json_encode($perubahan);
             $model->tempat_lahir = $_POST['Honorer']['tempat_lahir'];
             $model->tanggal_lahir = date('Y-m-d', strtotime($_POST['Honorer']['tanggal_lahir']));
             $model->tanggal_register = date('Y-m-d', strtotime($_POST['Honorer']['tanggal_register']));
