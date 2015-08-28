@@ -196,6 +196,9 @@ class PermohonanIjinBelajar extends CActiveRecord {
     public function getUnitKerja() {
         return (!empty($this->Pegawai->unitKerjaJabatan)) ? $this->Pegawai->unitKerjaJabatan : '-';
     }
+    public function getGolru() {
+        return (!empty($this->Pegawai->Pangkat->golongan)) ? $this->Pegawai->Pangkat->golongan : '-';
+    }
 
     public function getJabatanPegawai() {
         return (!empty($this->Pegawai->jabatan)) ? $this->Pegawai->jabatan : '-';

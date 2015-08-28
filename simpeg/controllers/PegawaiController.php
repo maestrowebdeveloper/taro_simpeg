@@ -97,6 +97,7 @@ class PegawaiController extends Controller {
         $return['jabatan_id'] = $model->jabatanId;
         $return['tipe_jabatan'] = $model->tipe;
         $return['unit_kerja'] = $model->unitKerjaJabatan;
+        $return['golru'] = $model->Pangkat->golongan;
         $return['satuan_kerja'] = $model->JabatanStruktural->UnitKerja->nama;
         $return['masa_kerja'] = $model->masaKerja;
         $return['tempat_lahir'] = $model->tempat_lahir;

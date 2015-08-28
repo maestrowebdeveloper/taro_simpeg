@@ -94,6 +94,7 @@
         );
         ?>
         <?php
+        $golru = (!empty($model->golru)) ? $model->golru : '';
         $unit_kerja = (!empty($model->unitKerja)) ? $model->unitKerja : '';
         $satuan_kerja = (!empty($model->satuanKerja)) ? $model->satuanKerja : '';
         $jenis_kelamin = (!empty($model->Pegawai->jenis_kelamin)) ? $model->Pegawai->jenis_kelamin : '-';
@@ -102,6 +103,9 @@
         $pendidikan_terakhir = (!empty($model->Pegawai->pendidikanTerakhir)) ? $model->Pegawai->pendidikanTerakhir : '';
         $alamat = (!empty($model->Pegawai->alamat)) ? $model->Pegawai->alamat : '';
         ?>
+        <div class="control-group "><label  class="control-label">Pangkat/Golru</label><div class="controls">
+                <input disabled class="span4" maxlength="225" name="" value="<?php echo $golru; ?>" id="golru" type="text">
+            </div></div>
         <div class="control-group "><label  class="control-label">Unit Kerja</label><div class="controls">
                 <input disabled class="span4" maxlength="225" name="" value="<?php echo $unit_kerja; ?>" id="unit_kerja" type="text">
             </div></div>
@@ -303,6 +307,7 @@
             success: function(data) {
 
                 obj = JSON.parse(data);
+                $("#golru").val(obj.golru);
                 $("#unit_kerja").val(obj.unit_kerja);
                 $("#satuan_kerja").val(obj.satuan_kerja);
                 $("#jenis_kelamin").val(obj.jenis_kelamin);
