@@ -48,7 +48,7 @@
                 <td><?php echo $row->nip_lama . "&nbsp;"; ?></td> 
                 <td><?php echo $row->namaGelar; ?></td>
                 <td><?php echo $row->golongan; ?></td>
-                <td><?php echo landa()->date2Ind($row->tmtPangkat); ?></td>
+                <td><?php echo $row->tmtPangkat; ?></td>
                 <td><?php echo $row->masaKerja; ?></td>
                 <td><?php echo isset($row->Gaji->gaji) ? landa()->rp($row->Gaji->gaji) : "-"; ?></td>
                 <td><?php echo $row->ttl; ?></td>
