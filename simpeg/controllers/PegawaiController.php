@@ -1207,6 +1207,7 @@ class PegawaiController extends Controller {
             $model->no_sk_pns = $_POST['Pegawai']['no_sk_pns'];
             $model->tmt_cpns = date('Y-m-d', strtotime($_POST['Pegawai']['tmt_cpns']));
             $model->tmt_pns = date('Y-m-d', strtotime($_POST['Pegawai']['tmt_pns']));
+            $model->tmt_pensiun = date('Y-m-d', strtotime($_POST['Pegawai']['tmt_pensiun']));
             $model->tanggal_sk_cpns = date('Y-m-d', strtotime($_POST['Pegawai']['tanggal_sk_cpns']));
             $model->tanggal_sk_pns = date('Y-m-d', strtotime($_POST['Pegawai']['tanggal_sk_pns']));
             $model->riwayat_gaji_id = $_POST['Pegawai']['riwayat_gaji_id'];

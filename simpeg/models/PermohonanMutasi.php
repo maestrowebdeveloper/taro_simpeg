@@ -185,12 +185,12 @@ class PermohonanMutasi extends CActiveRecord {
         return ucwords(str_replace("_", " ", $this->new_tipe_jabatan));
     }
 
-    public function getJabatan() {
+    public function getJabatanbr() {
         if ($this->new_tipe_jabatan == "struktural") {
             return (!empty($this->JabatanStruktural->nama)) ? $this->JabatanStruktural->nama : '-';
-        } elseif ($this->tipe_jabatan == "fungsional_umum") {
+        } elseif ($this->new_tipe_jabatan == "fungsional_umum") {
             return (!empty($this->JabatanFu->nama)) ? $this->JabatanFu->nama : '-';
-        } elseif ($this->tipe_jabatan == "fungsional_tertentu") {
+        } elseif ($this->new_tipe_jabatan == "fungsional_tertentu") {
             return (!empty($this->JabatanFt->nama)) ? $this->JabatanFt->nama : '-';
         } else {
             return '-';

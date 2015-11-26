@@ -117,6 +117,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         'nomor_register',
 //        'tanggal',
         array(
+            'type'=>'raw',
             'name' => 'tanggal',
             'value' => '$data->tglMutasi',
         ),
@@ -135,9 +136,10 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array(
             'name' => 'new_jabatan_struktural_id',
             'header' => 'Jabatan Baru',
-            'value' => '$data->jabatan',
+            'value' => '$data->jabatanbr',
         ),
         array(
+             'type'=>'raw',
             'name' => 'tmt',
             'value' => '$data->tmtMutasi',
         ),

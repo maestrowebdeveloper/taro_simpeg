@@ -199,10 +199,14 @@
             <div class="control-group "><label class="control-label" for="eselon">Jabatan</label>
                 <div class="controls">
                     <?php
-                    echo CHtml::textField('jabatan', isset($model->JabatanStruktural->jabatan) ? $model->JabatanStruktural->jabatan : '-', array('id' => 'jabatan', 'class' => 'span5', 'readonly' => true));
+                    echo CHtml::textField('jabatan', $model->jabatanbr, array('id' => 'jabatan', 'class' => 'span5', 'readonly' => true));
                     ?>
                 </div>
             </div>
+            <?php
+//            echo $model->JabatanFt->nama;
+            if($model->new_tipe_jabatan == 'struktural'){
+            ?>
             <div class="control-group "><label class="control-label" for="eselon">Eselon</label>
                 <div class="controls">
                     <?php
@@ -210,6 +214,10 @@
                     ?>
                 </div>
             </div>
+            <?php
+                
+            }
+            ?>
         </div>
         <div class="fungsional_umum" style="display:<?php echo $fu; ?>">                                 
             <?php
@@ -279,7 +287,7 @@
         $content = str_replace('{tipe_jabatan_lama}', $model->tipe_jabatan_lama, $content);
         $content = str_replace('{tipe_jabatan_baru}', $model->tipeJabatan, $content);
         $content = str_replace('{jabatan_lama}', $model->jabatan_lama, $content);
-        $content = str_replace('{jabatan_baru}', $model->jabatan, $content);
+        $content = str_replace('{jabatan_baru}', $model->jabatanbr, $content);
         $content = str_replace('{tmt}', date('d F Y', strtotime($model->tmt)), $content);
         echo $content;
         ?>

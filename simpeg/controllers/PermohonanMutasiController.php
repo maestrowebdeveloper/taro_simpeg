@@ -120,6 +120,7 @@ class PermohonanMutasiController extends Controller {
             $model->mutasi = $_POST['PermohonanMutasi']['mutasi'];
             $model->pejabat = $_POST['PermohonanMutasi']['pejabat'];
             $model->new_jabatan_struktural_id = $_POST['PermohonanMutasi']['new_jabatan_struktural_id'];
+            $model->tanggal = date('Y-m-d', strtotime($_POST['PermohonanMutasi']['tanggal']));
             if ($model->save()) {
 //                $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
 //                if ($pegawai->jabatan_struktural_id != 0) {
@@ -165,6 +166,7 @@ class PermohonanMutasiController extends Controller {
             $model->attributes = $_POST['PermohonanMutasi'];
             $model->mutasi = $_POST['PermohonanMutasi']['mutasi'];
             $model->pejabat = $_POST['PermohonanMutasi']['pejabat'];
+            $model->tanggal = date('Y-m-d', strtotime($_POST['PermohonanMutasi']['tanggal']));
             if ($model->save()) {
 //                $pegawai = Pegawai::model()->findByPk($model->pegawai_id);
 //                if ($pegawai->jabatan_struktural_id != 0) {
@@ -211,7 +213,8 @@ class PermohonanMutasiController extends Controller {
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        } else
+        }
+        else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -237,6 +240,17 @@ class PermohonanMutasiController extends Controller {
                         'tmt_jabatan_fu' => $a->tmt,
                         'tmt_jabatan_ft' => $a->tmt,
                             ), 'id=' . $a->pegawai_id);
+                    
+                    // tambah riwayat jabatan
+                    $riw = new RiwayatJabatan;
+                    $riw->pegawai_id = $a->pegawai_id;
+                    $riw->tipe_jabatan = $a->new_tipe_jabatan;
+                    $riw->jabatan_struktural_id = $a->new_jabatan_struktural_id;
+                    $riw->jabatan_fu_id = $a->new_jabatan_fu_id;
+                    $riw->jabatan_ft_id = $a->new_jabatan_ft_id;
+                    $riw->tmt_jabatan = $a->tmt;
+                    $riw->save();
+                     
 
                     // mengkosongi status di table jabatan sturkturall
                     $pegawai = Pegawai::model()->findByPk($a->pegawai_id);
@@ -362,7 +376,6 @@ class PermohonanMutasiController extends Controller {
 
         if (isset($_GET['PermohonanMutasi'])) {
             $model->attributes = $_GET['PermohonanMutasi'];
-            
         }
 
         $this->render('index', array(
@@ -396,10 +409,10 @@ class PermohonanMutasiController extends Controller {
     public function actionGenerateExcel() {
 
         $model = new PermohonanMutasi;
-        
+
         $model->attributes = $_GET['PermohonanMutasi'];
 //    
-        
+
         $data = $model->search(true);
 
         Yii::app()->request->sendFile('Data Permohonan Mutasi ' . date('YmdHi') . '.xls', $this->renderPartial('excelReport', array(

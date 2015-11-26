@@ -405,12 +405,36 @@
 
                                 </div>
                             </div>
+                            <div class="control-group " id="pensiun_aktif"> 
+                                <label class="control-label" for="Pegawai_tmt_cpns">TMT Pensiun</label>
+                                <div class="controls">
+
+                                    <div class="input-prepend" style="margin-right: 40px;">
+                                        <span class="add-on"><i class="icon-calendar"></i></span>
+                                        <?php
+                                       $this->widget(
+                                                'bootstrap.widgets.TbDatePicker', array(
+                                            'name' => 'Pegawai[tmt_pensiun]',
+//                                                    'disable'=>true,
+                                            'value' =>  date('d-m-Y', strtotime($model->tmt_pensiun)),
+                                            'options' => array('language' => 'id', 'format' => 'dd-mm-yyyy'),
+//                                            'events' => array('changeDate' => 'js:function(){
+//                                                                getMasaKerja();
+//                                                         }'),
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                    
+
+                                </div>
+                            </div>
                             <?php
-                            echo $form->textfieldRow(
-                                    $model, 'tmt_pensiun', array('value' => str_replace("0000-00-00", "", date('d-m-Y', strtotime($model->tmt_pensiun))), 'readonly' => true,
-                                'prepend' => '<i class="icon-calendar"></i>',
-                                    )
-                            );
+//                            echo $form->textfieldRow(
+//                                    $model, 'tmt_pensiun', array('value' => str_replace("0000-00-00", "", date('d-m-Y', strtotime($model->tmt_pensiun))), 'readonly' => true,
+//                                'prepend' => '<i class="icon-calendar"></i>',
+//                                    )
+//                            );
                             ?>
                             <div class="control-group "><label class="control-label" for="Pegawai_golongan_id">Pangkat/Golru</label>
                                 <div class="controls">
@@ -940,10 +964,12 @@ $this->beginWidget(
         $('#Pegawai_kedudukan_id').change(function() {
             if ($('#Pegawai_kedudukan_id').val() == '1') {
                 $("#Pegawai_keterangan").parent().parent().attr("style", "display:none");
+                $("#Pegawai_tmt_pensiun").attr('disabled', 'disabled');
                 $('#Pegawai_keterangan').attr("value", "");
                 $("#Pegawai_tmt_keterangan_kedudukan").parent().parent().parent().attr("style", "display:none");
                 $('#Pegawai_tmt_keterangan_kedudukan').attr("value", "");
             } else {
+                 $("#Pegawai_tmt_pensiun").removeAttr('disabled');
                 $("#Pegawai_keterangan").parent().parent().attr("style", "display:");
                 $("#Pegawai_tmt_keterangan_kedudukan").parent().parent().parent().attr("style", "display:");
             }
@@ -981,8 +1007,10 @@ if ($model->agama == "Lainnya") {
 
 //
 if ($model->kedudukan_id == "1") {
+    echo ' $("#Pegawai_tmt_pensiun").attr("disabled", "disabled");';
     echo ' $("#Pegawai_keterangan").parent().parent().attr("style", "display:none");';
 } else {
+    echo ' $("#Pegawai_tmt_pensiun").removeAttr("disabled");';
     echo ' $("#Pegawai_keterangan").parent().parent().attr("style", "display:");';
 }
 ?>
