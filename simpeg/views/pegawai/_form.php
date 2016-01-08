@@ -460,7 +460,7 @@
                                     <input class="span4" disabled value="<?php echo $model->riwayatTipeJabatan; ?>"  id="riwayatTipeJabatan" placeHolder="" type="text">                                    
                                     <?php if (!isset($_GET['v']) && $model->isNewRecord == false) { ?>
                                         <a class="btn blue pilihJabatan" pegawai="<?php echo $model->id; ?>;" judulJabatan="Riwayat Jabatan" id="pilihJabatan"><i class="wpzoom-search blue"></i> Riwayat Jabatan</a>
-                                        <a class="btn blue hapusJabatan" pegawai="<?php echo $model->id; ?>;" id="hapusJabatan" title="hapus jabatan"><i class="brocco-icon-cancel blue"></i></a>
+                                        <a class="btn blue hapusJabatan" pegawai="<?php echo $model->id; ?>;" id="hapusJabatan" title="hapus jabatan">Hapus Jabatan</a>
                                     <?php } ?>
                                 </div>
                             </div>

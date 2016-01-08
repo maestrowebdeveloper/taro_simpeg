@@ -322,6 +322,7 @@ class ReportController extends Controller {
             $criteria = new CDbCriteria();
             $criteria->with = array('RiwayatJabatan', 'JabatanStruktural');
             $criteria->together = true;
+            $criteria->order = 'month(tmt_pensiun)';
             $criteria->addCondition('kedudukan_id="1"');
 
             if (!empty($_GET['tahun'])) {

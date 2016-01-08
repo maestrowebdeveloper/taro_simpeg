@@ -190,7 +190,7 @@ if ($tampil == "1") {
 
     $data = new CActiveDataProvider('Pegawai', array(
         'criteria' => $criteria,
-        'sort' => false,
+        'sort' => array('defaultOrder' => 'month(tmt_pensiun)')
     ));
 //$data = Pegawai::model()->with('RiwayatJabatan')->findAll(array('condition' => 't.id > 0 ' . $criteria));
     ?>

@@ -216,7 +216,7 @@
 
         <div class="form-actions">
             <a class="btn btn-primary saveJabatan"><i class="icon-ok icon-white"></i> Simpan</a>
-            <button class="btn back "id="yw10" type="reset" ><i class="icon-remove"></i> Back</button>
+            <button class="btn back"id="yw10" type="reset" ><i class="icon-remove"></i> Back</button>
         </div>
     </fieldset>
 
@@ -281,7 +281,7 @@
         var judul = $(this).attr('judulJabatan');
         $.ajax({
             url: "<?php echo url('pegawai/getTableJabatan'); ?>",
-            data: "id=<?php echo $model->id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
+            data: "id=<?php echo $model->pegawai_id; ?>" + "&pegawai=" + $(this).attr("pegawai"),
             type: "post",
             success: function (data) {
                 $(".modal-body").html(data);

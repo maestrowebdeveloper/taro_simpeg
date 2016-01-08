@@ -46,7 +46,7 @@ $this->breadcrumbs = array(
                 <label class="control-label" for="Pegawai_jabatan_id">Berdasarkan</label>
                 <div class="controls">
                     <?php
-                    $data = array('0' => '- Berdasarkan -') + Pegawai::model()->arrRekapitulasiJabfung();
+                    $data = Pegawai::model()->arrRekapitulasiJabfung();
                     $this->widget(
                             'bootstrap.widgets.TbSelect2', array(
                         'name' => 'type',

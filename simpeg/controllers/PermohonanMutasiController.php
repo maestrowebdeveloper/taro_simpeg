@@ -240,7 +240,7 @@ class PermohonanMutasiController extends Controller {
                         'tmt_jabatan_fu' => $a->tmt,
                         'tmt_jabatan_ft' => $a->tmt,
                             ), 'id=' . $a->pegawai_id);
-                    
+
                     // tambah riwayat jabatan
                     $riw = new RiwayatJabatan;
                     $riw->pegawai_id = $a->pegawai_id;
@@ -249,8 +249,20 @@ class PermohonanMutasiController extends Controller {
                     $riw->jabatan_fu_id = $a->new_jabatan_fu_id;
                     $riw->jabatan_ft_id = $a->new_jabatan_ft_id;
                     $riw->tmt_jabatan = $a->tmt;
-                    $riw->save();
-                     
+                    if ($a->new_tipe_jabatan == "struktural") {
+                        $riw->no_sk_struktural = $a->nomor_register;
+                        $riw->tanggal_sk_struktural = $a->tanggal;
+                    } elseif (($a->new_tipe_jabatan == "fungsional_tertentu")) {
+                        $riw->no_sk_ft = $a->nomor_register;
+                        $riw->tanggal_sk_ft = $a->tanggal;
+                    }
+                    if($riw->save()){
+                        Pegawai::model()->updateAll(array(
+                        'riwayat_jabatan_id' => $riw->id,
+                            ), 'id=' . $a->pegawai_id);
+                    }
+                    
+
 
                     // mengkosongi status di table jabatan sturkturall
                     $pegawai = Pegawai::model()->findByPk($a->pegawai_id);
@@ -264,9 +276,14 @@ class PermohonanMutasiController extends Controller {
                 user()->setFlash('info', 'Data is update now.');
                 $this->redirect(array('permohonanMutasi/index'));
             } else {
-                PermohonanMutasi::model()->deleteAll('id IN (' . implode(',', $_POST['ceckbox']) . ')');
-                user()->setFlash('danger', '<strong>Attention! </strong>Data is deleted.');
-                $this->redirect(array('permohonanMutasi/index'));
+                if (isset($_POST['otoritasluar']) || isset($_POST['otoritasdalam'])) {
+                    user()->setFlash('info', 'Lakukan tanpa mencentang.');
+                    $this->redirect(array('permohonanMutasi/index'));
+                } else {
+                    PermohonanMutasi::model()->deleteAll('id IN (' . implode(',', $_POST['ceckbox']) . ')');
+                    user()->setFlash('danger', '<strong>Attention! </strong>Data is deleted.');
+                    $this->redirect(array('permohonanMutasi/index'));
+                }
             }
         } else {
             if (isset($_POST['otoritasluar'])) {
@@ -283,6 +300,27 @@ class PermohonanMutasiController extends Controller {
                         'jabatan_ft_id' => $data->new_jabatan_ft_id,
                         'unit_kerja_id' => $data->new_unit_kerja_id,
                             ), 'id=' . $data->pegawai_id);
+
+                    // tambah riwayat jabatan
+                    $riw = new RiwayatJabatan;
+                    $riw->pegawai_id = $data->pegawai_id;
+                    $riw->tipe_jabatan = $data->new_tipe_jabatan;
+                    $riw->jabatan_struktural_id = $data->new_jabatan_struktural_id;
+                    $riw->jabatan_fu_id = $data->new_jabatan_fu_id;
+                    $riw->jabatan_ft_id = $data->new_jabatan_ft_id;
+                    $riw->tmt_jabatan = $data->tmt;
+                    if ($data->new_tipe_jabatan == "struktural") {
+                        $riw->no_sk_struktural = $data->nomor_register;
+                        $riw->tanggal_sk_struktural = $data->tanggal;
+                    } elseif (($data->new_tipe_jabatan == "fungsional_tertentu")) {
+                        $riw->no_sk_ft = $data->nomor_register;
+                        $riw->tanggal_sk_ft = $data->tanggal;
+                    }
+                   if($riw->save()){
+                        Pegawai::model()->updateAll(array(
+                        'riwayat_jabatan_id' => $riw->id,
+                            ), 'id=' . $data->pegawai_id);
+                    }
 
                     // mengkosongi status di table jabatan sturkturall
                     $pegawai = Pegawai::model()->findByPk($data->pegawai_id);
@@ -314,6 +352,27 @@ class PermohonanMutasiController extends Controller {
                         'jabatan_ft_id' => $data->new_jabatan_ft_id,
                         'unit_kerja_id' => $data->new_unit_kerja_id,
                             ), 'id=' . $data->pegawai_id);
+
+                    // tambah riwayat jabatan
+                    $riw = new RiwayatJabatan;
+                    $riw->pegawai_id = $data->pegawai_id;
+                    $riw->tipe_jabatan = $data->new_tipe_jabatan;
+                    $riw->jabatan_struktural_id = $data->new_jabatan_struktural_id;
+                    $riw->jabatan_fu_id = $data->new_jabatan_fu_id;
+                    $riw->jabatan_ft_id = $data->new_jabatan_ft_id;
+                    $riw->tmt_jabatan = $data->tmt;
+                     if ($data->new_tipe_jabatan == "struktural") {
+                        $riw->no_sk_struktural = $data->nomor_register;
+                        $riw->tanggal_sk_struktural = $data->tanggal;
+                    } elseif (($data->new_tipe_jabatan == "fungsional_tertentu")) {
+                        $riw->no_sk_ft = $data->nomor_register;
+                        $riw->tanggal_sk_ft = $data->tanggal;
+                    }
+                    if($riw->save()){
+                        Pegawai::model()->updateAll(array(
+                        'riwayat_jabatan_id' => $riw->id,
+                            ), 'id=' . $data->pegawai_id);
+                    }
 
                     // mengkosongi status di table jabatan sturkturall
                     $pegawai = Pegawai::model()->findByPk($data->pegawai_id);
